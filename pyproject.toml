@@ -1,0 +1,23 @@
+[project]
+name = "space_hulk_game"
+version = "0.1.0"
+description = "space_hulk_game using crewAI"
+authors = [{ name = "Your Name", email = "you@example.com" }]
+requires-python = ">=3.10,<3.13"
+dependencies = [
+    "crewai[tools]>=0.102.0,<1.0.0"
+]
+
+[project.scripts]
+space_hulk_game = "space_hulk_game.main:run"
+run_crew = "space_hulk_game.main:run"
+train = "space_hulk_game.main:train"
+replay = "space_hulk_game.main:replay"
+test = "space_hulk_game.main:test"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.crewai]
+type = "crew"
