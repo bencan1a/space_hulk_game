@@ -1,246 +1,107 @@
-# Decision Log
+# Architectural Decision Log
 
-This document records key architectural and design decisions made during the development of the Space Hulk Game project, including the context, alternatives considered, and rationale.
+This document records key architectural and design decisions made during the Space Hulk Game project, including the alternatives considered and the rationale behind each choice.
 
-## Architectural Decisions
+## Decision Records
 
-### [AD-001] Multi-Agent Architecture using crewAI Framework
+### 3/2/2025 - Phase-Based Implementation Approach
 
-**Date**: 3/2/2025
+**Context**: The Space Hulk Game system requires several architectural improvements to enhance the quality of generated content and system robustness.
 
-**Context**: 
-Need to develop a text adventure game that requires multiple specialized skills including game design, creative writing, software architecture, implementation, and quality assurance.
-
-**Decision**: 
-Implement a multi-agent architecture using the crewAI framework, with six specialized agents handling different aspects of game development.
+**Decision**: Adopt a phased implementation approach starting with foundational improvements (Syntax & Bug Fixes) before proceeding to more complex architectural changes.
 
 **Alternatives Considered**:
-1. Single AI agent approach: One agent handling all aspects of game development
-2. Human-AI collaboration: Human designers working with AI for implementation
-3. Template-based approach: Using pre-defined game templates that are customized
+1. Implement all changes at once
+2. Focus only on the hierarchical process flow
+3. Prioritize planning capabilities over other improvements
 
-**Rationale**:
-- The crewAI framework provides built-in support for agent collaboration
-- Multiple specialized agents can focus on their areas of expertise, leading to better quality in each aspect
-- Sequential processing ensures that each step builds upon previous work
-- The approach mirrors real-world game development teams with specialized roles
+**Rationale**: A phased approach allows for incremental improvements and testing, reducing the risk of introducing complex bugs. Starting with foundational improvements ensures the system is stable and robust before adding more advanced features.
 
-**Consequences**:
-- Positive: Better specialization and focus on each aspect of development
-- Positive: Clear separation of concerns between agents
-- Negative: Increased complexity in agent coordination
-- Negative: Potential information loss between agent handoffs
+**Implications**:
+- Positive: Reduced risk, better testing, more maintainable codebase
+- Negative: Longer time to full implementation, features depend on earlier phases
 
----
+### 3/2/2025 - Error Handling Approach
 
-### [AD-002] Sequential Process Flow
+**Context**: The system needs robust error handling to prevent cascading failures when one component encounters an issue.
 
-**Date**: 3/2/2025
-
-**Context**: 
-Need to determine how the different agents should interact and in what order tasks should be executed.
-
-**Decision**: 
-Implement a sequential process flow where tasks are executed in a predefined order: design → story → architecture → implementation → review → evaluation.
+**Decision**: Implement a task-specific error handling mechanism with fallback defaults for critical components.
 
 **Alternatives Considered**:
-1. Parallel execution: Multiple agents working simultaneously
-2. Iterative approach: Cycles of design, implementation, and review
-3. Event-driven: Agents responding to triggers rather than following a fixed sequence
+1. Global error handler for all tasks
+2. Simple try/except blocks without recovery mechanisms
+3. Abort-on-error strategy
 
-**Rationale**:
-- Sequential flow ensures that design decisions are made before implementation begins
-- Each agent receives completed work from the previous agent, providing clear inputs
-- Simpler to implement and reason about than parallel or event-driven approaches
-- Reflects a traditional waterfall development process which works well for games with well-defined requirements
+**Rationale**: Task-specific error handling provides more contextually appropriate recovery options, allowing the system to continue functioning even when individual components fail. This approach is especially important for a creative content generation system where partial results are better than no results.
 
-**Consequences**:
-- Positive: Clear dependencies and workflow
-- Positive: Easier to track progress and identify bottlenecks
-- Negative: Less flexibility for iterative improvements
-- Negative: Later agents may struggle with decisions made earlier in the process
+**Implications**:
+- Positive: Better resilience, contextually appropriate recovery
+- Negative: More complex implementation, need for default content for recovery
 
----
+### 3/2/2025 - Implementation of Recovery Mechanisms
 
-### [AD-003] YAML Configuration for Agents and Tasks
+**Context**: When errors occur during task execution, the system needs a way to continue functioning with reasonable default content.
 
-**Date**: 3/2/2025
-
-**Context**: 
-Need a flexible way to define agent characteristics and task parameters.
-
-**Decision**: 
-Use YAML configuration files to define agent roles, goals, backstories, and task descriptions.
+**Decision**: Implement task-specific recovery mechanisms that provide sensible default content for each type of task.
 
 **Alternatives Considered**:
-1. Hardcoded configuration in Python
-2. JSON configuration files
-3. Database-driven configuration
+1. Generic placeholder content for all tasks
+2. Skip failed tasks and continue with subsequent tasks
+3. Retry failed tasks with different parameters
 
-**Rationale**:
-- YAML provides a human-readable format that is easy to edit
-- Separation of configuration from code improves maintainability
-- The crewAI framework has built-in support for YAML configuration
-- Allows for easy modification of agent parameters without changing code
+**Rationale**: Task-specific recovery mechanisms ensure that subsequent tasks have appropriate input data, maintaining the coherence of the generated content. This approach maximizes the chance of producing usable output even when errors occur.
 
-**Consequences**:
-- Positive: Improved readability and maintainability
-- Positive: Easy to experiment with different agent configurations
-- Negative: Additional files to manage
-- Negative: Runtime errors possible if YAML syntax is incorrect
+**Implications**:
+- Positive: More coherent output in error scenarios, better user experience
+- Negative: Requires maintaining default content for each task type
 
----
+### 3/2/2025 - Output Processing Enhancement
 
-### [AD-004] Token-Efficient CrewAI API Reference
+**Context**: The output from the crew's tasks needs additional post-processing to provide metadata and handle any errors that may have occurred.
 
-**Date**: 3/2/2025
-
-**Context**: 
-Need a comprehensive reference for the CrewAI framework components that is optimized for AI assistant use to enhance expertise while minimizing context usage.
-
-**Decision**: 
-Create a token-efficient CrewAI API reference document that focuses on essential information about agents, tasks, tools, flows, knowledge, processes, LLMs, memory, and planning.
+**Decision**: Enhance the process_output method to add metadata, handle errors gracefully, and provide warnings when recovery mechanisms have been applied.
 
 **Alternatives Considered**:
-1. Relying solely on the official online documentation
-2. Creating detailed but lengthy documentation with extensive explanations
-3. Minimal documentation with just basic definitions
-4. Interactive API documentation system
+1. Simple output without metadata
+2. External post-processing system
+3. Separate error reporting system
 
-**Rationale**:
-- Token-efficient documentation allows AI assistants to access more information within context limits
-- Structured, consistent formatting across components makes patterns easier to recognize
-- Focus on syntax, parameters, and relationships provides essential information for implementation
-- Inclusion of minimal but representative examples helps demonstrate usage patterns
+**Rationale**: Adding metadata and error handling in the process_output method provides a consolidated place for final output processing, making it easier to maintain and extend. This approach also ensures that users are informed when recovery mechanisms have been applied.
 
-**Consequences**:
-- Positive: Enhanced AI assistant capability to make informed decisions about CrewAI implementation
-- Positive: Consistent structure makes information easy to locate and process
-- Positive: Provides a single source of truth for CrewAI components and their relationships
-- Negative: Less explanatory content than full documentation
-- Negative: Requires maintenance to stay current with CrewAI framework updates
+**Implications**:
+- Positive: Better reporting, more transparent error handling, improved maintainability
+- Negative: Slightly more complex output structure
 
----
+### 3/2/2025 - Removal of Task-Specific Validation
 
-### [AD-005] Code Migration from Development to Production Files
+**Context**: The initial implementation relied on non-existent hooks (`before_task` and `after_task`) that are not available in the current version of crewAI.
 
-**Date**: 3/2/2025
-
-**Context**: 
-The project was using preliminary versions of agent, task, and crew files alongside newer, improved versions with a "2" suffix.
-
-**Decision**: 
-Update the main codebase by replacing the original files with the improved versions while eliminating the "2" suffix from filenames.
+**Decision**: Remove task-specific validation methods entirely rather than trying to implement alternatives.
 
 **Alternatives Considered**:
-1. Continue using separate files with the suffix for development
-2. Create a new version with a different suffix (e.g., "3")
-3. Maintain both versions for backward compatibility
+1. Create custom decorators to replace the missing ones
+2. Move validation logic to available hooks (`before_kickoff` and `after_kickoff`)
+3. Embed validation directly in task methods
 
-**Rationale**:
-- Consolidating to a single version simplifies maintenance
-- Removing the suffix creates a cleaner codebase organization
-- The improved versions provide better agent specialization for text adventure creation
-- The new implementation includes hooks for pre-processing inputs and post-processing outputs
-- Updated config files provide more detailed workflow for text adventure development
+**Rationale**: Deterministic validation of AI-generated outputs is not appropriate since these outputs are inherently non-deterministic. Additionally, attempting to implement missing hooks would add unnecessary complexity. Simplifying the code by removing these validation methods creates a cleaner, more maintainable implementation.
 
-**Consequences**:
-- Positive: Cleaner code organization without temporary naming conventions
-- Positive: More specialized agent roles for text adventure creation
-- Positive: Enhanced task workflow with clear dependencies
-- Negative: Potential backward compatibility issues if any code relied on the previous agent/task structure
-- Negative: Need to update any existing import statements that referenced the original files
+**Implications**:
+- Positive: Simpler code, better compatibility with the official crewAI API, reduced maintenance burden
+- Negative: Less strict validation of inputs and outputs (mitigated by the inherent flexibility of LLM systems)
 
----
+### 3/2/2025 - Testing Strategy Update
 
-### [AD-006] Enhanced System Architecture with Hierarchical Process and Specialized Outputs
+**Context**: The original test suite included tests for validation methods that have been removed.
 
-**Date**: 3/2/2025
-
-**Context**: 
-The current sequential workflow limits the system's ability to produce high-quality, iteratively refined content. Different types of game content (narrative maps, scene descriptions, mechanics) would benefit from specialized output formats.
-
-**Decision**: 
-Enhance the system architecture to implement hierarchical process flow with a Game Director Agent, enable planning capabilities, standardize output formats for different content types, and add iterative refinement through feedback loops.
+**Decision**: Update the testing strategy to focus on structural elements rather than deterministic content validation.
 
 **Alternatives Considered**:
-1. Maintain sequential workflow but add feedback loops within tasks
-2. Implement parallel processing for independent components
-3. Replace with a completely different architecture not based on CrewAI
-4. Keep uniform output format but enhance post-processing
+1. Remove tests entirely
+2. Create complex mocks to maintain the original test approach
+3. Use integration tests instead of unit tests
 
-**Rationale**:
-- Hierarchical flow enables better coordination through a Game Director Agent
-- Planning capabilities allow agents to create execution strategies before starting work
-- Specialized output formats (JSON for narrative maps, Markdown for PRD) optimize representation for different content types
-- Iterative refinement through feedback loops improves quality through multiple revisions
-- Error handling prevents cascading failures in the content generation process
+**Rationale**: Focusing tests on structural elements (input preparation, error handling, output processing) rather than deterministic content validation provides better test reliability while still verifying core functionality. This approach acknowledges the non-deterministic nature of AI-generated outputs.
 
-**Consequences**:
-- Positive: Higher quality output through coordination and iteration
-- Positive: Better structured content with specialized formats
-- Positive: Improved resilience through error handling
-- Positive: More cohesive game design from central coordination
-- Negative: Increased implementation complexity
-- Negative: Potential performance impact from multiple iterations
-- Negative: Need for additional validation mechanisms for different output formats
-
----
-
-## Game Design Decisions
-
-### [GD-001] Text Adventure Format
-
-**Date**: 3/2/2025
-
-**Context**: 
-Need to determine the game format and interaction style for the Space Hulk game.
-
-**Decision**: 
-Implement a text adventure format with command-based interaction (e.g., "GO EAST," "OPEN HATCH").
-
-**Alternatives Considered**:
-1. Graphical adventure game
-2. Menu-driven adventure game
-3. Visual novel format
-
-**Rationale**:
-- Text adventures are well-suited to AI generation capabilities
-- Command-based interaction provides players with agency and exploration options
-- Focus on narrative and atmosphere aligns with the Warhammer 40K setting
-- Implementation complexity is manageable
-
-**Consequences**:
-- Positive: Greater focus on story and writing
-- Positive: More accessible for non-programmers to understand
-- Negative: Limited visual appeal
-- Negative: May have less mass-market appeal than graphical games
-
----
-
-### [GD-002] Branching Narrative with Multiple Endings
-
-**Date**: 3/2/2025
-
-**Context**: 
-Need to determine how player choices affect the game's story.
-
-**Decision**: 
-Implement a branching narrative with multiple endings based on moral choices made during gameplay.
-
-**Alternatives Considered**:
-1. Linear narrative with predetermined ending
-2. Sandbox approach with emergent storytelling
-3. Procedurally generated encounters with stat-based resolution
-
-**Rationale**:
-- Branching narrative provides player agency and replayability
-- Multiple endings align with the moral themes of the Warhammer 40K universe
-- Clear consequences for player choices make decisions meaningful
-- Manageable complexity compared to fully emergent or procedural approaches
-
-**Consequences**:
-- Positive: Increased player engagement through meaningful choices
-- Positive: Replayability value with different narrative paths
-- Negative: Increased complexity in story design
-- Negative: Potential for story branches to go unexplored by players
+**Implications**:
+- Positive: More reliable tests, better focus on core functionality, less maintenance overhead
+- Negative: Less comprehensive testing of edge cases (mitigated by the robust error handling system)
