@@ -4,9 +4,10 @@ import os
 import yaml
 import logging
 
-from crewai import Agent, Crew, Task, Process
+from crewai import Agent, Crew, Task, Process, LLM
 from crewai.project import CrewBase, agent, task, crew, before_kickoff, after_kickoff
-
+from crewai.memory import ShortTermMemory
+from mem0 import MemoryClient
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -26,9 +27,39 @@ class SpaceHulkGame:
     
     def __init__(self):
         """
-        Initialize the SpaceHulkGame crew by loading YAML configuration files.
+        Initialize the SpaceHulkGame crew by loading YAML configuration files
+        and setting up shared memory.
         """
         logger.info("Initializing SpaceHulkGame crew")
+        
+        # Initialize Mem0 memory client for context retention across agents
+        logger.info("Initializing Mem0 memory client")
+        
+        # Create a memory client
+        client = MemoryClient()
+        
+        # Add initial context
+        messages = [
+            {"role": "system", "content": "Space Hulk Game development context for all agents."}
+        ]
+        #client.add(messages, user_id="space_hulk_user",output_format="v1.1")
+        
+        # Setup memory configuration for the crew
+        self.memory_config = {
+            "provider": "mem0",
+            "config": {
+                "user_id": "space_hulk_user"  # User identifier for mem0
+            }
+        }
+        # Will be used in the crew configuration
+        self.shared_memory = None
+        
+        # Define the LLM configuration for Ollama
+        logger.info("Initializing Ollama LLM configuration")
+        self.llm = LLM(
+            model="ollama/qwen2.5",
+            base_url="http://localhost:11434"
+        )
         
         # Determine the base directory for relative paths
         base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -249,6 +280,24 @@ class SpaceHulkGame:
     # ---------------------------------
     # Agents
     # ---------------------------------
+    
+    @agent
+    def NarrativeDirectorAgent(self) -> Agent:
+        """
+        Returns the NarrativeDirectorAgent definition from agents.yaml.
+        
+        This agent ensures narrative cohesion across all game elements and
+        coordinates the narrative-driven development process.
+        
+        Note: The method name must match the agent name in the YAML file for CrewAI to properly
+        map between tasks and agents.
+        """
+        logger.info(f"Creating NarrativeDirectorAgent with config: {self.agents_config.get('NarrativeDirectorAgent')}")
+        return Agent(
+            config=self.agents_config["NarrativeDirectorAgent"],
+            llm=self.llm,  # Use the Ollama LLM configuration
+            verbose=True
+        )
 
     @agent
     def PlotMasterAgent(self) -> Agent:
@@ -261,6 +310,7 @@ class SpaceHulkGame:
         logger.info(f"Creating PlotMasterAgent with config: {self.agents_config.get('PlotMasterAgent')}")
         return Agent(
             config=self.agents_config["PlotMasterAgent"],
+            llm=self.llm,  # Use the Ollama LLM configuration
             verbose=True
         )
 
@@ -275,6 +325,7 @@ class SpaceHulkGame:
         logger.info(f"Creating NarrativeArchitectAgent with config: {self.agents_config.get('NarrativeArchitectAgent')}")
         return Agent(
             config=self.agents_config["NarrativeArchitectAgent"],
+            llm=self.llm,  # Use the Ollama LLM configuration
             verbose=True
         )
 
@@ -289,6 +340,7 @@ class SpaceHulkGame:
         logger.info(f"Creating PuzzleSmithAgent with config: {self.agents_config.get('PuzzleSmithAgent')}")
         return Agent(
             config=self.agents_config["PuzzleSmithAgent"],
+            llm=self.llm,  # Use the Ollama LLM configuration
             verbose=True
         )
 
@@ -303,6 +355,7 @@ class SpaceHulkGame:
         logger.info(f"Creating CreativeScribeAgent with config: {self.agents_config.get('CreativeScribeAgent')}")
         return Agent(
             config=self.agents_config["CreativeScribeAgent"],
+            llm=self.llm,  # Use the Ollama LLM configuration
             verbose=True
         )
 
@@ -317,6 +370,7 @@ class SpaceHulkGame:
         logger.info(f"Creating MechanicsGuruAgent with config: {self.agents_config.get('MechanicsGuruAgent')}")
         return Agent(
             config=self.agents_config["MechanicsGuruAgent"],
+            llm=self.llm,  # Use the Ollama LLM configuration
             verbose=True
         )
 
@@ -388,6 +442,102 @@ class SpaceHulkGame:
         return Task(
             config=self.tasks_config["CreateGameMechanicsPRD"]
         )
+        
+    @task
+    def EvaluateNarrativeFoundation(self) -> Task:
+        """
+        The EvaluateNarrativeFoundation task from tasks.yaml.
+        
+        This task evaluates the narrative foundation to ensure it provides sufficient depth
+        and direction for subsequent development. It's a critical quality gate.
+        
+        Note: The method name must match the task name in the YAML file for CrewAI to properly
+        map between tasks.
+        """
+        logger.info(f"Creating EvaluateNarrativeFoundation task with config: {self.tasks_config.get('EvaluateNarrativeFoundation')}")
+        return Task(
+            config=self.tasks_config["EvaluateNarrativeFoundation"]
+        )
+        
+    @task
+    def EvaluateNarrativeStructure(self) -> Task:
+        """
+        The EvaluateNarrativeStructure task from tasks.yaml.
+        
+        This task evaluates the narrative structure to ensure it properly develops
+        the approved foundation into an implementable blueprint.
+        
+        Note: The method name must match the task name in the YAML file for CrewAI to properly
+        map between tasks.
+        """
+        logger.info(f"Creating EvaluateNarrativeStructure task with config: {self.tasks_config.get('EvaluateNarrativeStructure')}")
+        return Task(
+            config=self.tasks_config["EvaluateNarrativeStructure"]
+        )
+        
+    @task
+    def NarrativeIntegrationCheckPuzzles(self) -> Task:
+        """
+        The NarrativeIntegrationCheckPuzzles task from tasks.yaml.
+        
+        This task evaluates how well the puzzles, artifacts, monsters, and NPCs integrate
+        with the established narrative.
+        
+        Note: The method name must match the task name in the YAML file for CrewAI to properly
+        map between tasks.
+        """
+        logger.info(f"Creating NarrativeIntegrationCheckPuzzles task with config: {self.tasks_config.get('NarrativeIntegrationCheckPuzzles')}")
+        return Task(
+            config=self.tasks_config["NarrativeIntegrationCheckPuzzles"]
+        )
+        
+    @task
+    def NarrativeIntegrationCheckScenes(self) -> Task:
+        """
+        The NarrativeIntegrationCheckScenes task from tasks.yaml.
+        
+        This task evaluates how well the scene descriptions and dialogue reflect and
+        advance the established narrative.
+        
+        Note: The method name must match the task name in the YAML file for CrewAI to properly
+        map between tasks.
+        """
+        logger.info(f"Creating NarrativeIntegrationCheckScenes task with config: {self.tasks_config.get('NarrativeIntegrationCheckScenes')}")
+        return Task(
+            config=self.tasks_config["NarrativeIntegrationCheckScenes"]
+        )
+        
+    @task
+    def NarrativeIntegrationCheckMechanics(self) -> Task:
+        """
+        The NarrativeIntegrationCheckMechanics task from tasks.yaml.
+        
+        This task evaluates how well the game mechanics support and enhance
+        the established narrative.
+        
+        Note: The method name must match the task name in the YAML file for CrewAI to properly
+        map between tasks.
+        """
+        logger.info(f"Creating NarrativeIntegrationCheckMechanics task with config: {self.tasks_config.get('NarrativeIntegrationCheckMechanics')}")
+        return Task(
+            config=self.tasks_config["NarrativeIntegrationCheckMechanics"]
+        )
+        
+    @task
+    def FinalNarrativeIntegration(self) -> Task:
+        """
+        The FinalNarrativeIntegration task from tasks.yaml.
+        
+        This task performs a comprehensive review of all game elements to ensure they
+        form a cohesive, narrative-driven whole.
+        
+        Note: The method name must match the task name in the YAML file for CrewAI to properly
+        map between tasks.
+        """
+        logger.info(f"Creating FinalNarrativeIntegration task with config: {self.tasks_config.get('FinalNarrativeIntegration')}")
+        return Task(
+            config=self.tasks_config["FinalNarrativeIntegration"]
+        )
 
     # ---------------------------------
     # Crew Definition
@@ -396,12 +546,22 @@ class SpaceHulkGame:
     @crew
     def crew(self) -> Crew:
         """
-        Returns an instance of the Crew, referencing all agents and tasks.
-        You can specify the process flow (sequential, parallel, etc.).
+        Returns an instance of the Crew with a hierarchical process flow.
+        The Narrative Director Agent manages the narrative-driven development process.
         """
+        # Create the manager agent separately
+        manager = self.NarrativeDirectorAgent()
+        
+        # Get all agents excluding the NarrativeDirectorAgent
+        regular_agents = [agent for agent in self.agents if not isinstance(agent, type(manager))]
+        
         return Crew(
-            agents=self.agents,    # collected automatically by @agent decorators
+            agents=regular_agents,  # Include all agents except the manager
             tasks=self.tasks,      # collected automatically by @task decorators
-            process=Process.sequential,
+            process=Process.hierarchical,  # Use hierarchical process as intended in the plan
+            manager_agent=manager,  # Specify NarrativeDirectorAgent as manager
+            #memory=True,  # Enable memory
+            #memory_config=self.memory_config,  # Use mem0 configuration
+            #planning=True,  # Enable planning capabilities
             verbose=True
         )

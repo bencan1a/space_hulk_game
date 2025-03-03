@@ -1,72 +1,197 @@
+# Initial narrative foundation - must be completed and approved first
 GenerateOverarchingPlot:
-  name: "Generate Overarching Plot"
+  name: "Generate Comprehensive Narrative Foundation"
   description: >
-    Create a high-level storyline with multiple endings and branching paths
-    based on the initial game prompt.
+    Create a comprehensive narrative foundation for the Space Hulk game. This foundation must be 
+    detailed enough to guide all subsequent development, establishing the setting, key plot points, 
+    themes, tone, and central conflicts. This narrative foundation is the critical first step that 
+    all other development will build upon.
   expected_output: >
-    A plot_outline detailing the overarching story, key branches, and possible endings.
+    A detailed narrative foundation document that clearly defines the game's setting, core 
+    narrative themes, major plot points, key characters, central conflicts, and narrative 
+    tone. This document must be comprehensive enough to serve as the guiding framework for 
+    all subsequent development work.
   agent: "PlotMasterAgent"
   output_file: "plot_outline.yaml"
-  # No context needed because it doesn't depend on any prior tasks.
 
-CreateNarrativeMap:
-  name: "Create Narrative Map"
+EvaluateNarrativeFoundation:
+  name: "Evaluate Narrative Foundation"
   description: >
-    Transform the plot outline into a structured map of scenes, detailing how
-    each scene connects, the branching paths, and any special requirements to progress.
+    Thoroughly evaluate the narrative foundation to ensure it provides sufficient depth, clarity,
+    and direction for all subsequent development. This is a critical quality gate - subsequent 
+    work cannot proceed until a strong narrative foundation is established.
   expected_output: >
-    A narrative_tree that shows scenes, transitions, puzzle/door locks, and
-    the items or conditions required to unlock them.
+    A comprehensive evaluation of the narrative foundation with specific feedback for improvement.
+    Include explicit approval or revision requests. Only when approved can development proceed
+    to the next phase.
+  agent: "NarrativeDirectorAgent"
+  context:
+    - "GenerateOverarchingPlot"
+  dependencies:
+    - "GenerateOverarchingPlot"
+
+# Narrative structure - can only proceed after foundation approval
+CreateNarrativeMap:
+  name: "Develop Detailed Narrative Structure"
+  description: >
+    Based on the approved narrative foundation, develop a detailed narrative map that defines
+    all critical paths, character arcs, decision points, and narrative progression. This
+    structure will direct all subsequent content creation by specialists.
+  expected_output: >
+    A comprehensive narrative structure that clearly defines all scenes, connections, character 
+    moments, key decision points, and narrative progression in a structured format that can
+    guide specialized development work.
   agent: "NarrativeArchitectAgent"
   context:
     - "GenerateOverarchingPlot"
-  output_file: "narrative_map.yaml"
+    # Removed EvaluateNarrativeFoundation from context to avoid "context dependency on a future task" error
   dependencies:
-    - "GenerateOverarchingPlot"
+    - "EvaluateNarrativeFoundation"  # Keeping execution dependency to maintain correct task order
+  output_file: "narrative_map.yaml"
 
-DesignArtifactsAndPuzzles:
-  name: "Design Artifacts, Puzzles, Monsters, and NPCs"
+EvaluateNarrativeStructure:
+  name: "Evaluate Narrative Structure"
   description: >
-    Based on the narrative map, create a comprehensive list of interactive elements
-    (artifacts, puzzles, monsters, NPCs), detailing mechanics and how they tie into
-    the story progression.
+    Thoroughly evaluate the narrative structure to ensure it adequately develops the approved 
+    foundation into an implementable blueprint for all specialized development. This is a 
+    critical quality gate - specialist work cannot fully proceed until the narrative structure 
+    is approved.
   expected_output: >
-    A puzzle_design document with puzzle mechanics, prerequisites, required artifacts,
-    monster and NPC roles, and how each is embedded in the game world.
+    A detailed evaluation of the narrative structure with specific feedback. Include explicit
+    approval or revision requests. Only when approved can specialist development fully proceed.
+  agent: "NarrativeDirectorAgent"
+  context:
+    - "CreateNarrativeMap"
+    - "GenerateOverarchingPlot"
+  dependencies:
+    - "CreateNarrativeMap"
+
+# Specialized tasks - can only begin meaningful work after narrative structure approval
+DesignArtifactsAndPuzzles:
+  name: "Create Narrative-Integrated Puzzles and Artifacts"
+  description: >
+    Based on the approved narrative structure, design puzzles, artifacts, monsters, and NPCs
+    that directly serve and enhance the established narrative. Each element must have clear 
+    connections to the narrative themes, advance the story in meaningful ways, and maintain
+    thematic consistency.
+  expected_output: >
+    A collection of puzzle, artifact, monster, and NPC designs that are tightly integrated
+    with the narrative. Each design must include explicit explanations of how it connects to
+    and advances the established narrative.
   agent: "PuzzleSmithAgent"
   context:
     - "CreateNarrativeMap"
-  output_file: "puzzle_design.yaml"
+    - "GenerateOverarchingPlot"
+    # Removed EvaluateNarrativeStructure from context to avoid "context dependency on a future task" error
   dependencies:
+    - "EvaluateNarrativeStructure"  # Keeping execution dependency to maintain correct task order
+  output_file: "puzzle_design.yaml"
+
+NarrativeIntegrationCheckPuzzles:
+  name: "Narrative Integration Check: Puzzles"
+  description: >
+    Evaluate how well the puzzles, artifacts, monsters, and NPCs integrate with and
+    advance the established narrative. Ensure each element serves the narrative purpose
+    defined in the structure and maintains thematic consistency.
+  expected_output: >
+    A detailed assessment of narrative integration for each puzzle element with specific
+    feedback for improving narrative cohesion where needed.
+  agent: "NarrativeDirectorAgent"
+  context:
+    - "DesignArtifactsAndPuzzles"
     - "CreateNarrativeMap"
+  dependencies:
+    - "DesignArtifactsAndPuzzles"
 
 WriteSceneDescriptionsAndDialogue:
-  name: "Write Scene Descriptions and Dialogue"
+  name: "Write Narrative-Driven Scene Descriptions"
   description: >
-    Provide immersive, detailed text for each scene, along with any relevant
-    dialogue lines for NPCs or other interactive elements, ensuring consistency
-    with puzzles and artifacts.
+    Based on the approved narrative structure, write scene descriptions and dialogue
+    that bring the narrative to life. Each scene must accurately reflect its place in
+    the narrative structure, advance the story appropriately, and maintain consistent
+    tone and themes.
   expected_output: >
-    A scene_texts compilation that includes descriptive prose for each location,
-    dialogues, and narrative cues for in-game events.
+    A collection of scene descriptions and dialogue that effectively translate the
+    narrative structure into vivid, engaging content. Each scene must explicitly
+    connect to its place in the narrative structure.
   agent: "CreativeScribeAgent"
   context:
-    - "DesignArtifactsAndPuzzles"
-  output_file: "scene_texts.yaml"
+    - "CreateNarrativeMap"
+    - "GenerateOverarchingPlot"
+    # Removed EvaluateNarrativeStructure from context to avoid "context dependency on a future task" error
   dependencies:
-    - "DesignArtifactsAndPuzzles"
+    - "EvaluateNarrativeStructure"  # Keeping execution dependency to maintain correct task order
+  output_file: "scene_texts.yaml"
 
-CreateGameMechanicsPRD:
-  name: "Create Game Mechanics PRD"
+NarrativeIntegrationCheckScenes:
+  name: "Narrative Integration Check: Scenes"
   description: >
-    Draft a product requirements document specifying how the mechanics, stats,
-    combat, and other systems will function in the final game.
+    Evaluate how well the scene descriptions and dialogue reflect and advance the
+    established narrative. Ensure the writing effectively communicates the narrative
+    moments defined in the structure and maintains consistent tone and themes.
   expected_output: >
-    A prd_document outlining all core mechanics, skill progression, combat rules,
-    and any relevant implementation details.
-  agent: "MechanicsGuruAgent"
+    A detailed assessment of narrative integration for each scene with specific
+    feedback for improving narrative effectiveness where needed.
+  agent: "NarrativeDirectorAgent"
   context:
     - "WriteSceneDescriptionsAndDialogue"
-  output_file: "prd_document.yaml"
+    - "CreateNarrativeMap"
   dependencies:
     - "WriteSceneDescriptionsAndDialogue"
+
+CreateGameMechanicsPRD:
+  name: "Design Narrative-Supporting Mechanics"
+  description: >
+    Based on the approved narrative structure, design game mechanics that directly
+    support and enhance the narrative experience. Each mechanic must have a clear
+    narrative purpose, enabling player engagement with the story in meaningful ways.
+  expected_output: >
+    A comprehensive game mechanics design document where each mechanic explicitly
+    connects to and supports narrative elements. Include explanations of how
+    each mechanic serves the narrative purpose.
+  agent: "MechanicsGuruAgent"
+  context:
+    - "CreateNarrativeMap"
+    - "GenerateOverarchingPlot"
+    # Removed EvaluateNarrativeStructure from context to avoid "context dependency on a future task" error
+  dependencies:
+    - "EvaluateNarrativeStructure"  # Keeping execution dependency to maintain correct task order
+  output_file: "prd_document.yaml"
+
+NarrativeIntegrationCheckMechanics:
+  name: "Narrative Integration Check: Mechanics"
+  description: >
+    Evaluate how well the game mechanics support and enhance the established narrative.
+    Ensure each mechanic serves a clear narrative purpose and enables meaningful
+    player engagement with the story elements.
+  expected_output: >
+    A detailed assessment of narrative integration for each game mechanic with specific
+    feedback for improving narrative alignment where needed.
+  agent: "NarrativeDirectorAgent"
+  context:
+    - "CreateGameMechanicsPRD"
+    - "CreateNarrativeMap"
+  dependencies:
+    - "CreateGameMechanicsPRD"
+
+# Final integration checkpoint
+FinalNarrativeIntegration:
+  name: "Final Narrative Integration"
+  description: >
+    Perform a comprehensive review of all game elements together to ensure they form
+    a cohesive, narrative-driven whole. Identify any inconsistencies across elements
+    and ensure the complete experience maintains narrative integrity throughout the
+    player journey.
+  expected_output: >
+    A final integration report that confirms narrative cohesion across all elements.
+    Include any adjustments needed to ensure the complete game experience delivers
+    a consistent, engaging narrative journey.
+  agent: "NarrativeDirectorAgent"
+  context:
+    - "NarrativeIntegrationCheckPuzzles"
+    - "NarrativeIntegrationCheckScenes"
+    - "NarrativeIntegrationCheckMechanics"
+  dependencies:
+    - "NarrativeIntegrationCheckPuzzles"
+    - "NarrativeIntegrationCheckScenes"
+    - "NarrativeIntegrationCheckMechanics"

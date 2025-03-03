@@ -1,157 +1,204 @@
-# Architectural Decision Log
+# Decision Log
 
-This document records key architectural and design decisions made during the Space Hulk Game project, including the alternatives considered and the rationale behind each choice.
+This document tracks key decisions made during the Space Hulk Game project, explaining the rationale behind each choice.
 
-## Decision Records
+## Memory System Implementation (2025-03-02)
 
-### 3/2/2025 - Phase-Based Implementation Approach
+**Decision:** Replace `SharedMemory` with mem0 integration for CrewAI memory
 
-**Context**: The Space Hulk Game system requires several architectural improvements to enhance the quality of generated content and system robustness.
+**Context:** The crew initialization was failing with an ImportError because `SharedMemory` doesn't exist in the current version of CrewAI. The error message suggested using `ShortTermMemory` instead. Based on user guidance, we implemented mem0 for enhanced memory capabilities.
 
-**Decision**: Adopt a phased implementation approach starting with foundational improvements (Syntax & Bug Fixes) before proceeding to more complex architectural changes.
+**Rationale:** After examining the official CrewAI documentation, we found that the current version supports mem0 integration for enhanced user memory. This provides better storage and retrieval capabilities than the built-in memory options.
 
-**Alternatives Considered**:
-1. Implement all changes at once
-2. Focus only on the hierarchical process flow
-3. Prioritize planning capabilities over other improvements
+**Implementation:**
+1. Changed the import from `from crewai.memory import SharedMemory` to `from crewai.memory import ShortTermMemory`
+2. Added the mem0 import: `from mem0 import MemoryClient`
+3. Set the mem0 API key as an environment variable: `os.environ["MEM0_API_KEY"] = "m0-B8baxjzhRRxN8A4t7EoIpHoGAAb5SwhFLqfiY3IK"`
+4. Replaced direct memory instantiation with a configuration dictionary:
+   ```python
+   self.memory_config = {
+       "provider": "mem0",
+       "config": {
+           "user_id": "space_hulk_user"  # User identifier for mem0
+       }
+   }
+   self.shared_memory = None  # Managed by crew configuration
+   ```
+5. Removed memory parameters from all agent creation methods since memory is now managed at the crew level
+6. Updated crew definition to use mem0 configuration:
+   ```python
+   return Crew(
+       agents=self.agents,
+       tasks=self.tasks,
+       process=Process.hierarchical,
+       memory=True,  # Enable memory
+       memory_config=self.memory_config,  # Use mem0 configuration 
+       planning=True,
+       verbose=True
+   )
+   ```
 
-**Rationale**: A phased approach allows for incremental improvements and testing, reducing the risk of introducing complex bugs. Starting with foundational improvements ensures the system is stable and robust before adding more advanced features.
+**Benefits:**
+- Ensures compatibility with the current CrewAI version
+- Provides enhanced memory capabilities with mem0 integration
+- Better long-term memory retention across crew executions
+- Reduces code complexity by managing memory at the crew level instead of individual agents
 
-**Implications**:
-- Positive: Reduced risk, better testing, more maintainable codebase
-- Negative: Longer time to full implementation, features depend on earlier phases
+**Alternatives Considered:**
+- Using `ShortTermMemory` with no configuration: Would work but lacks advanced features
+- Disabling memory completely: Would lose context retention benefits
 
-### 3/2/2025 - Error Handling Approach
+## Hierarchical Process Configuration (2025-03-02)
 
-**Context**: The system needs robust error handling to prevent cascading failures when one component encounters an issue.
+**Decision:** Properly configure hierarchical process with NarrativeDirectorAgent as manager
 
-**Decision**: Implement a task-specific error handling mechanism with fallback defaults for critical components.
+**Context:** After fixing the memory implementation, we encountered errors because the hierarchical process was missing the required manager_agent parameter and we had disabled the process model.
 
-**Alternatives Considered**:
-1. Global error handler for all tasks
-2. Simple try/except blocks without recovery mechanisms
-3. Abort-on-error strategy
+**Rationale:** The implementation plan specifically calls for a hierarchical process with the NarrativeDirectorAgent as the manager. The CrewAI error messages confirmed that either manager_llm or manager_agent is required when using hierarchical process.
 
-**Rationale**: Task-specific error handling provides more contextually appropriate recovery options, allowing the system to continue functioning even when individual components fail. This approach is especially important for a creative content generation system where partial results are better than no results.
+**Implementation:**
+1. Restored `Process.hierarchical` in the Crew constructor
+2. Added `manager_agent=self.NarrativeDirectorAgent()` to the Crew constructor
+3. Kept the mem0 memory configuration as previously implemented
+4. Excluded the manager agent (NarrativeDirectorAgent) from the regular agents list to avoid validation errors:
+   ```python
+   # Create the manager agent separately
+   manager = self.NarrativeDirectorAgent()
+   
+   # Get all agents excluding the NarrativeDirectorAgent
+   regular_agents = [agent for agent in self.agents if not isinstance(agent, type(manager))]
+   ```
 
-**Implications**:
-- Positive: Better resilience, contextually appropriate recovery
-- Negative: More complex implementation, need for default content for recovery
+**Benefits:**
+- Aligns with the implementation plan's intended hierarchical structure
+- Properly sets the NarrativeDirectorAgent as the manager for the hierarchical process
+- Maintains the narrative-driven development flow as designed
+- Resolves the validation errors that were preventing the crew from starting
 
-### 3/2/2025 - Implementation of Recovery Mechanisms
+**Alternatives Considered:**
+- Using Process.sequential: Would have simplified dependencies but diverged from the implementation plan
+- Using a manager_llm instead of manager_agent: Would require additional configuration and diverge from plan
+- Keeping process=None: Would disable the process model completely, contradicting the implementation plan
 
-**Context**: When errors occur during task execution, the system needs a way to continue functioning with reasonable default content.
+## Task Dependency Configuration (2025-03-02)
 
-**Decision**: Implement task-specific recovery mechanisms that provide sensible default content for each type of task.
+**Decision:** Fix task context dependency conflicts in tasks.yaml
 
-**Alternatives Considered**:
-1. Generic placeholder content for all tasks
-2. Skip failed tasks and continue with subsequent tasks
-3. Retry failed tasks with different parameters
+**Context:** After fixing the hierarchical process configuration, we encountered multiple errors about tasks having "context dependency on a future task, which is not allowed". The errors mentioned that CreateNarrativeMap, DesignArtifactsAndPuzzles, WriteSceneDescriptionsAndDialogue, and CreateGameMechanicsPRD all had context dependencies on tasks that were execution dependencies.
 
-**Rationale**: Task-specific recovery mechanisms ensure that subsequent tasks have appropriate input data, maintaining the coherence of the generated content. This approach maximizes the chance of producing usable output even when errors occur.
+**Rationale:** In CrewAI's hierarchical process validation, a task cannot have a context dependency on a task that might be processed later in the workflow. Even though tasks like EvaluateNarrativeFoundation were correctly listed as execution dependencies, having them in the context caused validation errors.
 
-**Implications**:
-- Positive: More coherent output in error scenarios, better user experience
-- Negative: Requires maintaining default content for each task type
+**Implementation:**
+1. Removed "EvaluateNarrativeFoundation" from the context of CreateNarrativeMap task
+2. Removed "EvaluateNarrativeStructure" from the context of:
+   - DesignArtifactsAndPuzzles
+   - WriteSceneDescriptionsAndDialogue
+   - CreateGameMechanicsPRD
+3. Kept these references in the dependencies lists to maintain proper execution order
+4. Added comments in the tasks.yaml file explaining the changes
 
-### 3/2/2025 - Output Processing Enhancement
+**Benefits:**
+- Resolves the validation errors while preserving the correct task execution order
+- Maintains the narrative-driven hierarchical workflow as designed
+- Keeps the dependencies intact to ensure tasks execute in the proper sequence
+- Simplifies context dependencies to only include tasks guaranteed to execute before the current task
 
-**Context**: The output from the crew's tasks needs additional post-processing to provide metadata and handle any errors that may have occurred.
+**Alternatives Considered:**
+- Modifying how tasks are loaded in crew.py: More complex and might interfere with CrewAI's internal task handling
+- Changing to Process.sequential: Would diverge from the implementation plan and lose hierarchical benefits
+- Disabling the process model entirely: Would lose benefits of structured task execution
 
-**Decision**: Enhance the process_output method to add metadata, handle errors gracefully, and provide warnings when recovery mechanisms have been applied.
+## OpenAI API Key Configuration (2025-03-02)
 
-**Alternatives Considered**:
-1. Simple output without metadata
-2. External post-processing system
-3. Separate error reporting system
+**Decision:** Configure OpenAI API key for CrewAI's LLM usage
 
-**Rationale**: Adding metadata and error handling in the process_output method provides a consolidated place for final output processing, making it easier to maintain and extend. This approach also ensures that users are informed when recovery mechanisms have been applied.
+**Context:** After fixing all task dependency and configuration issues, the crew initialization succeeded but encountered an API authentication error: "The api_key client option must be set either by passing api_key to the client or by setting the OPENAI_API_KEY environment variable".
 
-**Implications**:
-- Positive: Better reporting, more transparent error handling, improved maintainability
-- Negative: Slightly more complex output structure
+**Rationale:** CrewAI uses LLMs (specifically OpenAI's models by default) for agent operations, which requires a valid API key. The error indicates the structural syntax of our CrewAI implementation is now correct, but we need to provide API access credentials.
 
-### 3/2/2025 - Removal of Task-Specific Validation
+**Implementation:**
+1. Create a .env file in the project root to store API keys
+2. Add the OpenAI API key using standard environment variable format: OPENAI_API_KEY=your-api-key-here
+3. The CrewAI framework will automatically load this environment variable when executing LLM operations
 
-**Context**: The initial implementation relied on non-existent hooks (`before_task` and `after_task`) that are not available in the current version of crewAI.
+**Benefits:**
+- Provides the necessary authentication for CrewAI's LLM operations
+- Follows security best practices by storing API keys in environment variables instead of code
+- Enables the proper execution of the hierarchical narrative-driven workflow
 
-**Decision**: Remove task-specific validation methods entirely rather than trying to implement alternatives.
+**Alternatives Considered:**
+- Hardcoding the API key in crew.py: Less secure and not recommended
+- Using a different LLM provider: Would require additional configuration changes
 
-**Alternatives Considered**:
-1. Create custom decorators to replace the missing ones
-2. Move validation logic to available hooks (`before_kickoff` and `after_kickoff`)
-3. Embed validation directly in task methods
+## Ollama Integration Configuration (2025-03-02)
 
-**Rationale**: Deterministic validation of AI-generated outputs is not appropriate since these outputs are inherently non-deterministic. Additionally, attempting to implement missing hooks would add unnecessary complexity. Simplifying the code by removing these validation methods creates a cleaner, more maintainable implementation.
+**Decision:** Update environment variables to properly configure Ollama integration with CrewAI
 
-**Implications**:
-- Positive: Simpler code, better compatibility with the official crewAI API, reduced maintenance burden
-- Negative: Less strict validation of inputs and outputs (mitigated by the inherent flexibility of LLM systems)
+**Context:** After attempting to configure Ollama as the LLM provider, the crew was still failing at launch with an error: "The api_key client option must be set either by passing api_key to the client or by setting the OPENAI_API_KEY environment variable". Despite having Ollama configuration in the .env file, CrewAI was still attempting to use OpenAI.
 
-### 3/2/2025 - Testing Strategy Update
+**Rationale:** CrewAI uses LiteLLM under the hood, which expects OpenAI-formatted environment variables even when using alternative models like Ollama. The error occurs because we were using `MODEL` and `API_BASE` variables, but CrewAI/LiteLLM specifically looks for `OPENAI_MODEL_NAME`, `OPENAI_API_BASE`, and `OPENAI_API_KEY` regardless of which model provider you're using.
 
-**Context**: The original test suite included tests for validation methods that have been removed.
+**Implementation:**
+1. Updated the .env file to use OpenAI-formatted variable names:
+```
+OPENAI_MODEL_NAME=ollama/qwen2.5
+OPENAI_API_BASE=http://localhost:11434
+OPENAI_API_KEY=dummy-value
+PYTHONPATH=${workspaceFolder}/src
+```
 
-**Decision**: Update the testing strategy to focus on structural elements rather than deterministic content validation.
+2. Key changes:
+   - Changed `MODEL` to `OPENAI_MODEL_NAME`
+   - Changed `API_BASE` to `OPENAI_API_BASE`
+   - Added `OPENAI_API_KEY` with a dummy value (required by the OpenAI client even when using Ollama)
 
-**Alternatives Considered**:
-1. Remove tests entirely
-2. Create complex mocks to maintain the original test approach
-3. Use integration tests instead of unit tests
+**Benefits:**
+- Allows the use of local Ollama models instead of requiring an OpenAI API key
+- Maintains compatibility with CrewAI's LiteLLM backend
+- Enables offline operation without external API dependencies
+- Provides flexibility to use different Ollama models by changing the model name
 
-**Rationale**: Focusing tests on structural elements (input preparation, error handling, output processing) rather than deterministic content validation provides better test reliability while still verifying core functionality. This approach acknowledges the non-deterministic nature of AI-generated outputs.
+**Alternatives Considered:**
+- Setting environment variables directly in the code: Less maintainable than using .env file
+- Creating a custom LLM provider class: More complex and likely unnecessary
+- Modifying the CrewAI source code: Not sustainable for future updates
 
-**Implications**:
-- Positive: More reliable tests, better focus on core functionality, less maintenance overhead
-- Negative: Less comprehensive testing of edge cases (mitigated by the robust error handling system)
+## Explicit LLM Configuration in Agent Initialization (2025-03-02)
 
-### 3/2/2025 - Method Naming Convention Standardization
+**Decision:** Implement explicit LLM configuration for each agent rather than relying solely on environment variables
 
-**Context**: The CrewAI crew was failing to start due to syntax errors, specifically KeyErrors when trying to access agent and task configurations from the YAML files.
+**Context:** Despite properly configuring environment variables, debug logs revealed CrewAI was still attempting to use "gpt-4o-mini" instead of the specified Ollama model, resulting in a mismatch between the configured model and the actual API endpoint called by LiteLLM.
 
-**Decision**: Implement a naming convention that ensures method names decorated with `@agent` and `@task` exactly match their counterparts in the YAML configuration files (using PascalCase instead of Python's typical snake_case for method names).
+**Rationale:** The LiteLLM debug logs showed that environment variables alone were insufficient to override the default model selection. CrewAI requires explicit LLM configuration at the agent level to ensure the correct model is used consistently across all agents.
 
-**Alternatives Considered**:
-1. Modifying the YAML files to use snake_case instead (rejected to maintain backward compatibility)
-2. Creating a mapping layer between different naming conventions (rejected due to added complexity)
-3. Creating a name transformation function (rejected because it would require modifying CrewAI internals)
+**Implementation:**
+1. Added import for LLM class: `from crewai import Agent, Crew, Task, Process, LLM`
+2. Created an explicit LLM configuration object in the __init__ method:
+   ```python
+   # Define the LLM configuration for Ollama
+   self.llm = LLM(
+       model="ollama/qwen2.5",
+       base_url="http://localhost:11434"
+   )
+   ```
+3. Added the LLM parameter to all agent creation methods:
+   ```python
+   return Agent(
+       config=self.agents_config["AgentName"],
+       llm=self.llm,  # Use the Ollama LLM configuration
+       verbose=True
+   )
+   ```
+4. Uncommented memory configuration in the crew definition to ensure proper functioning of shared memory.
 
-**Rationale**: The CrewAI framework requires method names to exactly match the corresponding keys in the YAML configuration files. Our analysis revealed that using snake_case for methods (e.g., `plot_master_agent`) but PascalCase in YAML (e.g., "PlotMasterAgent") was causing mapping errors. While this solution deviates from Python's conventional naming standards, it maintains compatibility with the CrewAI framework's requirements.
+**Benefits:**
+- Ensures consistent model usage across all agents
+- Prevents fallback to default models (like gpt-4o-mini)
+- Makes the LLM configuration explicit and centralized
+- Provides better control over model selection for all agents
+- Resolves the mismatch between configured model and API endpoint
 
-**Implications**:
-- Positive: Enables the CrewAI crew to function correctly, resolving the KeyErrors that prevented initialization
-- Negative: Deviates from standard Python naming conventions (mitigated with clear documentation in method docstrings)
-
-### 3/2/2025 - YAML Configuration File Loading
-
-**Context**: The crew was treating string paths to YAML files as if they were already loaded dictionaries, causing errors during initialization.
-
-**Decision**: Implement proper YAML configuration file loading in the `__init__` method with robust error handling and logging.
-
-**Alternatives Considered**:
-1. Loading configurations in each individual method (rejected due to redundancy and potential inconsistency)
-2. Using environment variables for configuration (rejected as overly complex for this use case)
-3. Using a separate configuration manager class (rejected as unnecessary for the current needs)
-
-**Rationale**: Centralizing configuration loading in the initialization method ensures configurations are loaded once, consistently, and before they're needed by any methods. Using absolute path resolution with os.path makes the code more robust across different execution environments, while added logging helps with debugging configuration issues.
-
-**Implications**:
-- Positive: More robust configuration handling, improved error detection, better logging for troubleshooting
-- Negative: Slightly increased initialization overhead (negligible impact on performance)
-
-### 3/2/2025 - Input Mapping Enhancement
-
-**Context**: The `main.py` file provides input with a 'game' key, but the prepare_inputs method in crew.py was expecting a 'prompt' key, causing validation errors.
-
-**Decision**: Enhance the input handling to work with both 'game' and 'prompt' input keys, automatically mapping between them when needed.
-
-**Alternatives Considered**:
-1. Modifying main.py to use 'prompt' instead of 'game' (rejected to maintain backward compatibility)
-2. Using a fixed default value without checking inputs (rejected due to reduced flexibility)
-
-**Rationale**: Supporting multiple input key names provides flexibility and ensures backward compatibility with existing code. This approach reduces errors when different parts of the system use different naming conventions for the same conceptual data.
-
-**Implications**:
-- Positive: More flexible input handling, reduced chance of validation errors, better user experience
-- Negative: Slightly more complex code in the prepare_inputs method (justified by the improved robustness)
+**Alternatives Considered:**
+- Environment variables only: Proven insufficient as shown by debug logs
+- Agent configuration in YAML: Less maintainable and would require schema changes
+- Direct LiteLLM configuration: Would bypass CrewAI's configuration system

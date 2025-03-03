@@ -2,6 +2,7 @@
 import sys
 import warnings
 import yaml
+import litellm
 
 from space_hulk_game.crew import SpaceHulkGame
 
@@ -18,6 +19,7 @@ def getTopic():
     return examples['example4_space_hulk']
 
 def run():
+    #litellm._turn_on_debug()
     print("## Welcome to the Space Hulk Game Crew")
     print('-------------------------------')
 
