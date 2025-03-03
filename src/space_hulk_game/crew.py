@@ -1,7 +1,16 @@
 # crew.py
 import datetime
+import os
+import yaml
+import logging
+
 from crewai import Agent, Crew, Task, Process
 from crewai.project import CrewBase, agent, task, crew, before_kickoff, after_kickoff
+
+
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 
 @CrewBase
@@ -12,8 +21,39 @@ class SpaceHulkGame:
     """
 
     # Paths to the YAML configuration files
-    agents_config = "config/agents.yaml"
-    tasks_config = "config/tasks.yaml"
+    agents_config_path = "config/agents.yaml"
+    tasks_config_path = "config/tasks.yaml"
+    
+    def __init__(self):
+        """
+        Initialize the SpaceHulkGame crew by loading YAML configuration files.
+        """
+        logger.info("Initializing SpaceHulkGame crew")
+        
+        # Determine the base directory for relative paths
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        
+        # Load agents configuration
+        agents_path = os.path.join(base_dir, self.agents_config_path)
+        logger.info(f"Loading agents config from: {agents_path}")
+        try:
+            with open(agents_path, 'r') as file:
+                self.agents_config = yaml.safe_load(file)
+            logger.info(f"Loaded agents: {list(self.agents_config.keys())}")
+        except Exception as e:
+            logger.error(f"Error loading agents config: {str(e)}")
+            raise
+            
+        # Load tasks configuration
+        tasks_path = os.path.join(base_dir, self.tasks_config_path)
+        logger.info(f"Loading tasks config from: {tasks_path}")
+        try:
+            with open(tasks_path, 'r') as file:
+                self.tasks_config = yaml.safe_load(file)
+            logger.info(f"Loaded tasks: {list(self.tasks_config.keys())}")
+        except Exception as e:
+            logger.error(f"Error loading tasks config: {str(e)}")
+            raise
 
     @before_kickoff
     def prepare_inputs(self, inputs):
@@ -22,22 +62,29 @@ class SpaceHulkGame:
         Ensures required fields are present and adds additional data.
         """
         try:
+            logger.info(f"Preparing inputs: {inputs}")
+            
+            # Handle the case where input is provided as 'game' instead of 'prompt'
+            if "game" in inputs and "prompt" not in inputs:
+                logger.info("Converting 'game' input to 'prompt'")
+                inputs["prompt"] = inputs["game"]
+            
             # Validate required inputs
             if "prompt" not in inputs:
-                raise ValueError("Input must contain a 'prompt' key")
+                logger.warning("No 'prompt' or 'game' key found in inputs")
+                raise ValueError("Input must contain a 'prompt' or 'game' key")
                 
             # Process inputs
-            inputs["additional_data"] = "Some extra information for the first task."
+            inputs["additional_data"] = "Space Hulk game context for all agents."
+            logger.info(f"Prepared inputs: {inputs}")
             return inputs
         except Exception as e:
             # Log error and provide recovery mechanism
-            print(f"Error in prepare_inputs: {str(e)}")
+            logger.error(f"Error in prepare_inputs: {str(e)}")
             # Set default values if possible
             inputs["prompt"] = inputs.get("prompt", "Default space hulk exploration scenario")
+            logger.info(f"Using default inputs: {inputs}")
             return inputs
-            # Validation methods have been removed as they relied on non-existent decorators
-            # and deterministic validation of AI outputs is not needed
-            return output_data
 
     def handle_task_failure(self, task, exception):
         """
@@ -204,50 +251,70 @@ class SpaceHulkGame:
     # ---------------------------------
 
     @agent
-    def plot_master_agent(self) -> Agent:
+    def PlotMasterAgent(self) -> Agent:
         """
         Returns the PlotMasterAgent definition from agents.yaml.
+        
+        Note: The method name must match the agent name in the YAML file for CrewAI to properly
+        map between tasks and agents.
         """
+        logger.info(f"Creating PlotMasterAgent with config: {self.agents_config.get('PlotMasterAgent')}")
         return Agent(
             config=self.agents_config["PlotMasterAgent"],
             verbose=True
         )
 
     @agent
-    def narrative_architect_agent(self) -> Agent:
+    def NarrativeArchitectAgent(self) -> Agent:
         """
         Returns the NarrativeArchitectAgent definition from agents.yaml.
+        
+        Note: The method name must match the agent name in the YAML file for CrewAI to properly
+        map between tasks and agents.
         """
+        logger.info(f"Creating NarrativeArchitectAgent with config: {self.agents_config.get('NarrativeArchitectAgent')}")
         return Agent(
             config=self.agents_config["NarrativeArchitectAgent"],
             verbose=True
         )
 
     @agent
-    def puzzle_smith_agent(self) -> Agent:
+    def PuzzleSmithAgent(self) -> Agent:
         """
         Returns the PuzzleSmithAgent definition from agents.yaml.
+        
+        Note: The method name must match the agent name in the YAML file for CrewAI to properly
+        map between tasks and agents.
         """
+        logger.info(f"Creating PuzzleSmithAgent with config: {self.agents_config.get('PuzzleSmithAgent')}")
         return Agent(
             config=self.agents_config["PuzzleSmithAgent"],
             verbose=True
         )
 
     @agent
-    def creative_scribe_agent(self) -> Agent:
+    def CreativeScribeAgent(self) -> Agent:
         """
         Returns the CreativeScribeAgent definition from agents.yaml.
+        
+        Note: The method name must match the agent name in the YAML file for CrewAI to properly
+        map between tasks and agents.
         """
+        logger.info(f"Creating CreativeScribeAgent with config: {self.agents_config.get('CreativeScribeAgent')}")
         return Agent(
             config=self.agents_config["CreativeScribeAgent"],
             verbose=True
         )
 
     @agent
-    def mechanics_guru_agent(self) -> Agent:
+    def MechanicsGuruAgent(self) -> Agent:
         """
         Returns the MechanicsGuruAgent definition from agents.yaml.
+        
+        Note: The method name must match the agent name in the YAML file for CrewAI to properly
+        map between tasks and agents.
         """
+        logger.info(f"Creating MechanicsGuruAgent with config: {self.agents_config.get('MechanicsGuruAgent')}")
         return Agent(
             config=self.agents_config["MechanicsGuruAgent"],
             verbose=True
@@ -258,46 +325,66 @@ class SpaceHulkGame:
     # ---------------------------------
 
     @task
-    def generate_overarching_plot(self) -> Task:
+    def GenerateOverarchingPlot(self) -> Task:
         """
         The GenerateOverarchingPlot task from tasks.yaml.
+        
+        Note: The method name must match the task name in the YAML file for CrewAI to properly
+        map between tasks.
         """
+        logger.info(f"Creating GenerateOverarchingPlot task with config: {self.tasks_config.get('GenerateOverarchingPlot')}")
         return Task(
             config=self.tasks_config["GenerateOverarchingPlot"]
         )
 
     @task
-    def create_narrative_map(self) -> Task:
+    def CreateNarrativeMap(self) -> Task:
         """
         The CreateNarrativeMap task from tasks.yaml.
+        
+        Note: The method name must match the task name in the YAML file for CrewAI to properly
+        map between tasks.
         """
+        logger.info(f"Creating CreateNarrativeMap task with config: {self.tasks_config.get('CreateNarrativeMap')}")
         return Task(
             config=self.tasks_config["CreateNarrativeMap"]
         )
 
     @task
-    def design_artifacts_and_puzzles(self) -> Task:
+    def DesignArtifactsAndPuzzles(self) -> Task:
         """
         The DesignArtifactsAndPuzzles task from tasks.yaml.
+        
+        Note: The method name must match the task name in the YAML file for CrewAI to properly
+        map between tasks.
         """
+        logger.info(f"Creating DesignArtifactsAndPuzzles task with config: {self.tasks_config.get('DesignArtifactsAndPuzzles')}")
         return Task(
             config=self.tasks_config["DesignArtifactsAndPuzzles"]
         )
 
     @task
-    def write_scene_descriptions_and_dialogue(self) -> Task:
+    def WriteSceneDescriptionsAndDialogue(self) -> Task:
         """
         The WriteSceneDescriptionsAndDialogue task from tasks.yaml.
+        
+        Note: The method name must match the task name in the YAML file for CrewAI to properly
+        map between tasks.
         """
+        logger.info(f"Creating WriteSceneDescriptionsAndDialogue task with config: {self.tasks_config.get('WriteSceneDescriptionsAndDialogue')}")
         return Task(
             config=self.tasks_config["WriteSceneDescriptionsAndDialogue"]
         )
 
     @task
-    def create_game_mechanics_prd(self) -> Task:
+    def CreateGameMechanicsPRD(self) -> Task:
         """
         The CreateGameMechanicsPRD task from tasks.yaml.
+        
+        Note: The method name must match the task name in the YAML file for CrewAI to properly
+        map between tasks.
         """
+        logger.info(f"Creating CreateGameMechanicsPRD task with config: {self.tasks_config.get('CreateGameMechanicsPRD')}")
         return Task(
             config=self.tasks_config["CreateGameMechanicsPRD"]
         )

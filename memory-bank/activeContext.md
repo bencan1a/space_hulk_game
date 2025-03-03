@@ -2,7 +2,7 @@
 
 ## Current Focus
 
-The current focus is completing Phase 1 of the Space Hulk Game system improvements: Syntax & Bug Fixes. We've successfully removed the validation approach that relied on non-existent decorators and updated the test suite to use mocks.
+The current focus is completing Phase 1 of the Space Hulk Game system improvements: Syntax & Bug Fixes. We've successfully fixed all syntax errors and issues preventing the CrewAI crew from starting. The crew is now able to successfully initialize and begin producing output.
 
 ## Active Initiatives
 
@@ -17,9 +17,10 @@ The current focus is completing Phase 1 of the Space Hulk Game system improvemen
 **Objectives**:
 - ✅ Identify cause of test failures
 - ✅ Remove validation methods and non-existent decorators
-- ✅ Fix import statements 
+- ✅ Fix import statements
 - ✅ Update tests to use mocks instead of actual SpaceHulkGame
 - ✅ Complete Phase 1 implementation
+- ✅ Fix syntax errors preventing CrewAI crew from starting
 
 ## Key Insights
 
@@ -35,6 +36,10 @@ The current focus is completing Phase 1 of the Space Hulk Game system improvemen
   - `@crew`: Denotes the method that returns the Crew object.
   - `@before_kickoff`: (Optional) Marks a method to be executed before the crew starts.
   - `@after_kickoff`: (Optional) Marks a method to be executed after the crew finishes.
+- **Critical CrewAI naming requirement**: Method names decorated with `@agent` or `@task` must **exactly match** the corresponding names in the YAML configuration files. Using snake_case for methods but PascalCase in YAML causes mapping errors.
+- Proper YAML configuration loading is essential for CrewAI to function correctly:
+  - YAML files need to be loaded explicitly, not just referenced as strings
+  - Relative paths should be resolved using absolute path calculations
 
 ## Implementation Results
 
@@ -42,6 +47,13 @@ The current focus is completing Phase 1 of the Space Hulk Game system improvemen
 - **Code Simplification**: Removed validation methods that relied on non-existent hooks
 - **Test Approach**: Created a mock-based test approach that verifies core functionality without initializing the actual SpaceHulkGame class
 - **Successful Testing**: All tests now pass successfully
+- **CrewAI Syntax Fixes**:
+  - Added proper YAML file loading in the `__init__` method
+  - Renamed agent methods to match their YAML configuration counterparts (switched from snake_case to PascalCase)
+  - Renamed task methods to match their YAML configuration counterparts (switched from snake_case to PascalCase)
+  - Added logging to track execution flow and aid in debugging
+  - Fixed input handling to work with both 'game' and 'prompt' input keys
+  - Removed unreachable code causing potential confusion
 
 ## Immediate Next Steps
 

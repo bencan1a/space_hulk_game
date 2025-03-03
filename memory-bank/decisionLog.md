@@ -105,3 +105,53 @@ This document records key architectural and design decisions made during the Spa
 **Implications**:
 - Positive: More reliable tests, better focus on core functionality, less maintenance overhead
 - Negative: Less comprehensive testing of edge cases (mitigated by the robust error handling system)
+
+### 3/2/2025 - Method Naming Convention Standardization
+
+**Context**: The CrewAI crew was failing to start due to syntax errors, specifically KeyErrors when trying to access agent and task configurations from the YAML files.
+
+**Decision**: Implement a naming convention that ensures method names decorated with `@agent` and `@task` exactly match their counterparts in the YAML configuration files (using PascalCase instead of Python's typical snake_case for method names).
+
+**Alternatives Considered**:
+1. Modifying the YAML files to use snake_case instead (rejected to maintain backward compatibility)
+2. Creating a mapping layer between different naming conventions (rejected due to added complexity)
+3. Creating a name transformation function (rejected because it would require modifying CrewAI internals)
+
+**Rationale**: The CrewAI framework requires method names to exactly match the corresponding keys in the YAML configuration files. Our analysis revealed that using snake_case for methods (e.g., `plot_master_agent`) but PascalCase in YAML (e.g., "PlotMasterAgent") was causing mapping errors. While this solution deviates from Python's conventional naming standards, it maintains compatibility with the CrewAI framework's requirements.
+
+**Implications**:
+- Positive: Enables the CrewAI crew to function correctly, resolving the KeyErrors that prevented initialization
+- Negative: Deviates from standard Python naming conventions (mitigated with clear documentation in method docstrings)
+
+### 3/2/2025 - YAML Configuration File Loading
+
+**Context**: The crew was treating string paths to YAML files as if they were already loaded dictionaries, causing errors during initialization.
+
+**Decision**: Implement proper YAML configuration file loading in the `__init__` method with robust error handling and logging.
+
+**Alternatives Considered**:
+1. Loading configurations in each individual method (rejected due to redundancy and potential inconsistency)
+2. Using environment variables for configuration (rejected as overly complex for this use case)
+3. Using a separate configuration manager class (rejected as unnecessary for the current needs)
+
+**Rationale**: Centralizing configuration loading in the initialization method ensures configurations are loaded once, consistently, and before they're needed by any methods. Using absolute path resolution with os.path makes the code more robust across different execution environments, while added logging helps with debugging configuration issues.
+
+**Implications**:
+- Positive: More robust configuration handling, improved error detection, better logging for troubleshooting
+- Negative: Slightly increased initialization overhead (negligible impact on performance)
+
+### 3/2/2025 - Input Mapping Enhancement
+
+**Context**: The `main.py` file provides input with a 'game' key, but the prepare_inputs method in crew.py was expecting a 'prompt' key, causing validation errors.
+
+**Decision**: Enhance the input handling to work with both 'game' and 'prompt' input keys, automatically mapping between them when needed.
+
+**Alternatives Considered**:
+1. Modifying main.py to use 'prompt' instead of 'game' (rejected to maintain backward compatibility)
+2. Using a fixed default value without checking inputs (rejected due to reduced flexibility)
+
+**Rationale**: Supporting multiple input key names provides flexibility and ensures backward compatibility with existing code. This approach reduces errors when different parts of the system use different naming conventions for the same conceptual data.
+
+**Implications**:
+- Positive: More flexible input handling, reduced chance of validation errors, better user experience
+- Negative: Slightly more complex code in the prepare_inputs method (justified by the improved robustness)

@@ -1,0 +1,98 @@
+### PRD Document: Cryptic Clues in Paintings Game
+
+#### 1. Introduction
+This Product Requirements Document (PRD) outlines the core mechanics, skill progression, combat rules, and implementation details for the game "Cryptic Clues in Paintings." This document serves as a comprehensive guide for developers to ensure consistency and feasibility in implementing the described systems.
+
+---
+
+#### 2. Core Mechanics
+
+##### 2.1 Skill Progression
+- **Skill Tree**: Players can develop their skills through experience points (XP) earned from completing quests and side missions.
+    - **Example**: "Artisan" skill tree, which allows players to improve their ability to uncover hidden messages in paintings.
+
+##### 2.2 Combat Rules
+- **Combat System**: Simple turn-based combat with a focus on strategic positioning and timing of actions.
+    - **Action Points (AP)**: Players have a set number of AP per round, used for various actions such as attacking, moving, or using skills.
+    - **Damage Calculation**: Damage is calculated based on the difference in attack power and defense of the combatants.
+
+##### 2.3 Environmental Interactions
+- **Interactive Elements**: The environment can be interacted with to reveal hidden messages, clues, and items.
+    - **Environmental Clues**: Ancient graffiti, paintings, books, and other artifacts provide hints about the plot and guide players through the story.
+
+---
+
+#### 3. Detailed Scenarios
+
+##### 3.1 Branch A: Cryptic Clues in Paintings (Branch B1)
+- **Objective**: Uncover hidden messages within paintings.
+    - **Action Sequence**:
+        1. Players locate a painting that appears to have been tampered with.
+        2. Upon close inspection, the player uncovers a hidden message or symbol.
+        3. The message leads to an old library containing additional artifacts and clues about the artist's life.
+
+##### 3.2 Branch B2: Piece Together Missing Pieces
+- **Objective**: Piece together diary entries from the artist’s life.
+    - **Action Sequence**:
+        1. Players discover a secret room in an old house, where they find fragmented diary pages.
+        2. By connecting the dots between fragments, players uncover crucial information about the artist and their history.
+
+##### 3.3 Branch C: Decode Secret Society Symbols
+- **Objective**: Decode intercepted messages from secret society members.
+    - **Action Sequence**:
+        1. Players intercept a message sent by a member of a secret society.
+        2. By decoding the message, players discover information about upcoming plans and locations.
+
+##### 3.4 Branch D: Solve Riddles on Map
+- **Objective**: Solve riddles scattered throughout Havenport.
+    - **Action Sequence**:
+        1. Players encounter a series of cryptic riddles around the city.
+        2. Solving each riddle provides clues that lead to hidden chests containing valuable items.
+
+##### 3.5 Branch E: Gather Intelligence Without Detection
+- **Objective**: Gather intelligence from various sources while avoiding detection by infiltrators.
+    - **Action Sequence**:
+        1. Players must interact with NPCs and gather information discreetly.
+        2. Avoiding detection is key; if discovered, the player's progress may be hindered.
+
+---
+
+#### 4. Side Quests
+
+##### 4.1 Hidden Artifacts
+- **Objective**: Explore a secret room in an old house for additional clues about the artist’s life.
+    - **Action Sequence**:
+        1. Players receive a tip from the Town Elder, leading them to a hidden room.
+        2. Inside, players find artifacts and documents that provide valuable backstory.
+
+---
+
+#### 5. Character Backgrounds
+
+##### 5.1 Town Elder
+- **Role**: The artist's former apprentice, who provides valuable backstory and hints throughout the game.
+    - **Interaction**:
+        1. Players can visit the Town Elder for quests and advice.
+        2. Dialogue options allow for deeper interaction and branching narratives.
+
+---
+
+#### 6. Implementation Details
+
+##### 6.1 Dialogue System
+- **Dynamic Dialogue Options**: NPCs have dynamic dialogue based on player choices, leading to different outcomes.
+    - **Example**: Players can choose to be aggressive or passive when interacting with an NPC, affecting the conversation's direction.
+
+##### 6.2 Quest Branching
+- **Branching Quests**: Quests and side missions can branch based on player actions, leading to multiple endings.
+    - **Example**: Completing a quest in one way may unlock different paths for future quests, influencing the final outcome of the game.
+
+---
+
+#### 7. Conclusion
+
+These enhancements add depth and complexity to the game, providing engaging interactions and a rich narrative experience. This PRD serves as a guide for developers to ensure that all systems are implemented consistently and effectively.
+
+---
+
+**Note**: Further details or specific implementation advice can be requested if needed.
