@@ -18,43 +18,64 @@ Thank you for your interest in contributing to the Space Hulk Game project! This
 ### Prerequisites
 
 - Python >= 3.10, < 3.13
-- UV package manager
 - Git
-- OpenAI API key (for running the crew)
+- (Optional) Ollama for local LLM support
+- (Optional) OpenAI API key for using OpenAI models
 
 ### Installation
 
-1. Clone the repository:
+**Option 1: Automated Setup (Recommended)**
+
+Use the automated setup script that installs all dependencies:
+
 ```bash
+# Clone the repository
 git clone https://github.com/bencan1a/space_hulk_game.git
 cd space_hulk_game
+
+# Run setup script
+./setup.sh              # Linux/macOS
+.\setup.ps1             # Windows
+
+# For development environment
+./setup.sh --dev        # Linux/macOS
+.\setup.ps1 -Dev        # Windows
 ```
 
-2. Install UV package manager (if not already installed):
-```bash
-pip install uv
-```
+**Option 2: Manual Installation**
 
-3. Install dependencies:
-```bash
-crewai install
-```
+See the detailed [SETUP.md](SETUP.md) guide for manual installation steps.
 
-4. Create a `.env` file and add your OpenAI API key:
-```bash
-OPENAI_API_KEY=your_key_here
-```
+**Quick manual setup:**
+
+1. Install UV package manager:
+   ```bash
+   pip install uv
+   ```
+
+2. Install dependencies:
+   ```bash
+   uv pip install -e ".[dev]"
+   ```
+
+3. Configure environment:
+   - Create `.env` file (see SETUP.md or run setup script)
+   - Add API keys if using OpenAI or Mem0
 
 ### Running the Project
 
 ```bash
+# If using Ollama, start it first
+ollama serve  # In a separate terminal
+
+# Run the game
 crewai run
 ```
 
 ### Running Tests
 
 ```bash
-python -m unittest discover -s tests
+python -m unittest discover -s tests -v
 ```
 
 ## Project Structure

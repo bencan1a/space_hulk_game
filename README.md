@@ -14,40 +14,116 @@ This project uses five specialized AI agents working together to create a comple
 
 ## Installation
 
-Ensure you have Python >=3.10 <3.13 installed on your system. This project uses [UV](https://docs.astral.sh/uv/) for dependency management and package handling, offering a seamless setup and execution experience.
+### Quick Start
 
-First, if you haven't already, install uv:
+**Automated Setup (Recommended)**
 
+We provide automated setup scripts that handle all dependencies including Ollama and Python packages.
+
+**Linux/macOS:**
 ```bash
-pip install uv
+git clone https://github.com/bencan1a/space_hulk_game.git
+cd space_hulk_game
+./setup.sh
 ```
 
-Next, navigate to your project directory and install the dependencies:
-
-(Optional) Lock the dependencies and install them by using the CLI command:
-```bash
-crewai install
+**Windows:**
+```powershell
+git clone https://github.com/bencan1a/space_hulk_game.git
+cd space_hulk_game
+.\setup.ps1
 ```
+
+**What gets installed:**
+- ✓ UV package manager (fast Python package installer)
+- ✓ Ollama (local LLM runtime)
+- ✓ Qwen2.5 model for Ollama
+- ✓ All Python dependencies (crewAI, mem0, PyYAML, litellm, etc.)
+- ✓ Environment configuration (.env file)
+
+For detailed setup instructions, troubleshooting, and manual installation, see **[SETUP.md](SETUP.md)**.
+
+### Manual Installation
+
+If you prefer manual installation:
+
+1. **Install Python 3.10-3.12** from [python.org](https://www.python.org/downloads/)
+
+2. **Install UV package manager:**
+   ```bash
+   curl -LsSf https://astral.sh/uv/install.sh | sh  # Linux/macOS
+   # OR
+   pip install uv
+   ```
+
+3. **Install dependencies:**
+   ```bash
+   uv pip install -e .
+   ```
+
+4. **Install Ollama (optional):**
+   - Download from [ollama.com](https://ollama.com/download)
+   - Pull model: `ollama pull qwen2.5`
+
+5. **Configure environment:**
+   - Copy `.env.example` to `.env` (or run setup script to create)
+   - Edit `.env` to add API keys if using OpenAI
+
 ### Customizing
 
-**Add your `OPENAI_API_KEY` into the `.env` file**
+**Configuration Files:**
 
-- Modify `src/space_hulk_game/config/agents.yaml` to define your agents
-- Modify `src/space_hulk_game/config/tasks.yaml` to define your tasks
-- Modify `src/space_hulk_game/crew.py` to add your own logic, tools and specific args
-- Modify `src/space_hulk_game/main.py` to add custom inputs for your agents and tasks
+- `src/space_hulk_game/config/agents.yaml` - Define your AI agents
+- `src/space_hulk_game/config/tasks.yaml` - Define agent tasks
+- `src/space_hulk_game/crew.py` - Add custom logic and tools
+- `src/space_hulk_game/main.py` - Modify entry point and inputs
+- `.env` - Configure API keys and model selection
+
+**Environment Variables:**
+
+The `.env` file controls LLM and memory configuration:
+
+```bash
+# Use Ollama (local, free)
+OPENAI_MODEL_NAME=ollama/qwen2.5
+OLLAMA_BASE_URL=http://localhost:11434
+
+# OR use OpenAI (requires API key)
+# OPENAI_API_KEY=sk-your-key-here
+# OPENAI_MODEL_NAME=gpt-4
+
+# Optional: Mem0 for cloud-based memory
+# MEM0_API_KEY=your-mem0-key-here
+```
 
 ## Running the Project
 
-To kickstart your crew of AI agents and begin task execution, run this from the root folder of your project:
+### Prerequisites
 
+**If using Ollama (local LLM):**
 ```bash
-$ crewai run
+# Start Ollama service (if not already running)
+ollama serve
 ```
 
-This command initializes the space_hulk_game Crew, assembling the agents and assigning them tasks as defined in your configuration.
+**If using OpenAI:**
+- Ensure your `OPENAI_API_KEY` is set in `.env`
 
-This example, unmodified, will run the create a `report.md` file with the output of a research on LLMs in the root folder.
+### Run the Game
+
+To start the crew of AI agents and begin game generation:
+
+```bash
+crewai run
+```
+
+Or use the Python entry point:
+
+```bash
+python -m space_hulk_game.main
+```
+
+This command initializes the Space Hulk Game crew, assembling the five specialized agents (Plot Master, Narrative Architect, Puzzle Smith, Creative Scribe, and Mechanics Guru) and executing their tasks sequentially to generate a complete text-based adventure game.
 
 ## Understanding Your Crew
 
