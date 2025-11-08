@@ -15,7 +15,7 @@ GitHub Copilot agents are specialized AI assistants configured with project-spec
 
 ### 1. Main Project Assistant
 
-**File**: `.github/copilot/agent.yml`
+**File**: `.github/agents/space-hulk-game-assistant.md`
 
 **Purpose**: Provides general project guidance and helps navigate the codebase.
 
@@ -40,7 +40,7 @@ GitHub Copilot agents are specialized AI assistants configured with project-spec
 
 ### 2. Python Development Specialist
 
-**File**: `.github/copilot/python-agent.yml`
+**File**: `.github/agents/python-developer.md`
 
 **Purpose**: Expert in Python development best practices for this project.
 
@@ -66,7 +66,7 @@ GitHub Copilot agents are specialized AI assistants configured with project-spec
 
 ### 3. CrewAI Framework Expert
 
-**File**: `.github/copilot/crewai-agent.yml`
+**File**: `.github/agents/crewai-specialist.md`
 
 **Purpose**: Specialist in CrewAI framework patterns and multi-agent AI systems.
 
@@ -94,7 +94,7 @@ GitHub Copilot agents are specialized AI assistants configured with project-spec
 
 ### 4. Game Mechanics Specialist
 
-**File**: `.github/copilot/game-mechanics-agent.yml`
+**File**: `.github/agents/game-mechanics-specialist.md`
 
 **Purpose**: Expert in text-based adventure game design and narrative systems.
 
@@ -121,7 +121,7 @@ GitHub Copilot agents are specialized AI assistants configured with project-spec
 
 ### 5. YAML Configuration Expert
 
-**File**: `.github/copilot/yaml-agent.yml`
+**File**: `.github/agents/yaml-expert.md`
 
 **Purpose**: Specialist in YAML syntax, structure, and validation.
 
@@ -148,7 +148,7 @@ GitHub Copilot agents are specialized AI assistants configured with project-spec
 
 ### 6. Testing Specialist
 
-**File**: `.github/copilot/testing-agent.yml`
+**File**: `.github/agents/testing-specialist.md`
 
 **Purpose**: Expert in testing strategies, unittest framework, and test organization.
 
@@ -242,7 +242,7 @@ Get suggestions relevant to your specific task and file.
 
 ## Customizing Agents
 
-The agent configuration files are located in `.github/copilot/` and can be customized to better fit your needs:
+The agent configuration files are located in `.github/agents/` and can be customized to better fit your needs:
 
 1. **Add new patterns**: Include project-specific patterns you use frequently
 2. **Update knowledge**: Add new frameworks or tools as the project evolves
@@ -262,10 +262,11 @@ As the project evolves, update the agent files to reflect:
 
 ### Validating Agents
 
-Ensure agent YAML files are valid:
+Agents are markdown files with YAML frontmatter. You can validate the YAML frontmatter:
 
 ```bash
-python3 -c "import yaml; yaml.safe_load(open('.github/copilot/agent.yml'))"
+# Extract and validate YAML frontmatter from an agent file
+python3 -c "import yaml; import re; content = open('.github/agents/space-hulk-game-assistant.md').read(); yaml_match = re.match(r'^---\n(.*?)\n---', content, re.DOTALL); yaml.safe_load(yaml_match.group(1)) if yaml_match else None"
 ```
 
 ### Testing Agent Effectiveness

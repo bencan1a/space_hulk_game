@@ -57,12 +57,12 @@ The space_hulk_game Crew is composed of multiple AI agents, each with unique rol
 
 This project includes specialized GitHub Copilot agent configurations to enhance development productivity. These agents provide context-aware assistance for different aspects of the project:
 
-- **Main Project Assistant** (`.github/copilot/agent.yml`): General project guidance and navigation
-- **Python Development Specialist** (`.github/copilot/python-agent.yml`): Python best practices and code quality
-- **CrewAI Framework Expert** (`.github/copilot/crewai-agent.yml`): CrewAI patterns and agent/task configuration
-- **Game Mechanics Specialist** (`.github/copilot/game-mechanics-agent.yml`): Game design and narrative systems
-- **YAML Configuration Expert** (`.github/copilot/yaml-agent.yml`): YAML file structure and validation
-- **Testing Specialist** (`.github/copilot/testing-agent.yml`): Testing patterns and coverage
+- **Main Project Assistant** (`.github/agents/space-hulk-game-assistant.md`): General project guidance and navigation
+- **Python Development Specialist** (`.github/agents/python-developer.md`): Python best practices and code quality
+- **CrewAI Framework Expert** (`.github/agents/crewai-specialist.md`): CrewAI patterns and agent/task configuration
+- **Game Mechanics Specialist** (`.github/agents/game-mechanics-specialist.md`): Game design and narrative systems
+- **YAML Configuration Expert** (`.github/agents/yaml-expert.md`): YAML file structure and validation
+- **Testing Specialist** (`.github/agents/testing-specialist.md`): Testing patterns and coverage
 
 When using GitHub Copilot, these agents automatically provide context-aware suggestions based on the file you're editing and the task you're performing.
 

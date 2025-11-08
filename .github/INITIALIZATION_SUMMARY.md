@@ -10,20 +10,20 @@ This project has been successfully initialized with GitHub Copilot agent configu
 
 ## What Was Added
 
-### 1. GitHub Copilot Agent Configurations (`.github/copilot/`)
+### 1. GitHub Copilot Agent Configurations (`.github/agents/`)
 
 Six specialized agent configurations were created, each focusing on a specific aspect of the project:
 
 | Agent | File | Purpose | Lines of Config |
 |-------|------|---------|-----------------|
-| Main Project Assistant | `agent.yml` | General project guidance and navigation | 85 |
-| Python Development Specialist | `python-agent.yml` | Python best practices and patterns | 95 |
-| CrewAI Framework Expert | `crewai-agent.yml` | CrewAI agents, tasks, and workflows | 195 |
-| Game Mechanics Specialist | `game-mechanics-agent.yml` | Game design and narrative systems | 225 |
-| YAML Configuration Expert | `yaml-agent.yml` | YAML syntax and structure | 265 |
-| Testing Specialist | `testing-agent.yml` | Testing patterns and coverage | 315 |
+| Main Project Assistant | `space-hulk-game-assistant.md` | General project guidance and navigation | ~120 |
+| Python Development Specialist | `python-developer.md` | Python best practices and patterns | ~200 |
+| CrewAI Framework Expert | `crewai-specialist.md` | CrewAI agents, tasks, and workflows | ~300 |
+| Game Mechanics Specialist | `game-mechanics-specialist.md` | Game design and narrative systems | ~310 |
+| YAML Configuration Expert | `yaml-expert.md` | YAML syntax and structure | ~300 |
+| Testing Specialist | `testing-specialist.md` | Testing patterns and coverage | ~520 |
 
-**Total**: 1,180 lines of specialized AI assistant configuration
+**Total**: ~1,750 lines of specialized AI assistant configuration
 
 ### 2. Documentation Files
 
