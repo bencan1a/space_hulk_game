@@ -38,7 +38,8 @@ For detailed instructions, see the [Setup Guide](docs/SETUP.md).
 ```
 space_hulk_game/
 ├── docs/              # Product documentation
-├── project-plans/     # Development plans and agent working files
+├── game-config/       # Game design configuration and examples for AI agents
+├── project-plans/     # Development plans and architectural docs
 ├── src/               # Source code
 ├── tests/             # Test suite
 ├── tmp/               # Temporary debug scripts and reports (gitignored)
