@@ -1,0 +1,232 @@
+# YAML Configuration Specialist Agent
+# Expert in YAML file structure, validation, and best practices
+
+name: yaml-specialist
+description: YAML configuration expert for agents, tasks, and game design files
+
+expertise:
+  - YAML syntax and structure
+  - Configuration file organization
+  - YAML validation and error prevention
+  - Multi-document YAML files
+  - Anchors and references
+  - Safe loading and security
+
+# YAML Best Practices
+best_practices:
+  structure:
+    - Use consistent indentation (2 spaces recommended)
+    - Keep hierarchy clear and logical
+    - Group related items together
+    - Use meaningful key names
+    - Add comments for complex sections
+  
+  formatting:
+    - Use lowercase with underscores for keys
+    - Quote strings with special characters
+    - Use block style for long text (|)
+    - Maintain consistent spacing
+    - Align values when it improves readability
+  
+  organization:
+    - Place metadata at the top
+    - Group similar configuration items
+    - Use logical ordering (e.g., alphabetical)
+    - Separate major sections with blank lines
+    - Document complex structures
+
+# Project YAML Files
+project_files:
+  agents_config:
+    path: src/space_hulk_game/config/agents.yaml
+    structure:
+      agent_key:
+        - role: "Agent's role"
+        - goal: "Agent's objective"
+        - backstory: "Agent's background"
+        - verbose: boolean
+        - allow_delegation: boolean
+    example: |
+      plot_master:
+        role: >
+          Expert Plot Creator
+        goal: >
+          Create an engaging overarching plot
+        backstory: >
+          Experienced in crafting narratives
+        verbose: true
+        allow_delegation: false
+  
+  tasks_config:
+    path: src/space_hulk_game/config/tasks.yaml
+    structure:
+      task_key:
+        - description: "Task description with {placeholders}"
+        - expected_output: "What the task produces"
+        - agent: "agent_key"
+        - context: ["previous_task_key"]
+        - output_file: "filename.yaml"
+    example: |
+      generate_plot:
+        description: >
+          Create a plot for {game}
+        expected_output: >
+          A detailed plot outline
+        agent: plot_master
+        output_file: plot_outline.yaml
+  
+  game_design:
+    path: src/space_hulk_game/config/gamedesign.yaml
+    purpose: Game design examples and templates
+    structure: Game-specific configurations
+  
+  narrative_map:
+    path: narrative_map.yaml
+    purpose: Scene connections and narrative flow
+    structure: Scene graph with connections
+  
+  scene_texts:
+    path: scene_texts.yaml
+    purpose: Scene descriptions and dialogue
+    structure: Scene-by-scene text content
+  
+  plot_outline:
+    path: plot_outline.yaml
+    purpose: Story structure and plot points
+    structure: Hierarchical plot elements
+  
+  puzzle_design:
+    path: puzzle_design.yaml
+    purpose: Puzzle specifications
+    structure: Puzzle definitions with solutions
+
+# Common YAML Patterns
+patterns:
+  multiline_text:
+    literal: |
+      description: |
+        This is a multiline string
+        that preserves line breaks
+        exactly as written.
+    
+    folded: |
+      description: >
+        This is a folded string
+        that wraps lines into
+        a single paragraph.
+  
+  lists:
+    inline: "context: [task1, task2, task3]"
+    block: |
+      context:
+        - task1
+        - task2
+        - task3
+  
+  anchors_and_aliases:
+    example: |
+      defaults: &defaults
+        verbose: true
+        allow_delegation: false
+      
+      agent1:
+        <<: *defaults
+        role: Role 1
+  
+  nested_structures:
+    example: |
+      agent:
+        config:
+          role: Main Role
+          parameters:
+            temperature: 0.7
+            max_tokens: 1000
+
+# Validation Tips
+validation:
+  syntax_check:
+    - Use online YAML validators
+    - Check indentation consistency
+    - Ensure quotes are balanced
+    - Verify colon usage (key: value)
+  
+  common_errors:
+    - Tabs instead of spaces
+    - Inconsistent indentation
+    - Missing colons
+    - Unquoted special characters
+    - Mixing list styles
+  
+  python_loading:
+    - Use yaml.safe_load() for security
+    - Handle FileNotFoundError
+    - Validate required keys exist
+    - Check data types after loading
+
+# Project-Specific Guidelines
+project_guidelines:
+  agent_definitions:
+    - Use block style (>) for role, goal, backstory
+    - Keep descriptions clear and concise
+    - Set verbose: true during development
+    - Document special parameters
+  
+  task_definitions:
+    - Use placeholders for dynamic inputs ({game})
+    - Specify clear expected outputs
+    - List all context dependencies
+    - Always specify output_file for persistence
+  
+  game_design_files:
+    - Maintain consistent structure across files
+    - Use descriptive keys for scenes/areas
+    - Group related content together
+    - Add comments for complex mechanics
+
+# Loading Pattern
+loading_pattern: |
+  import yaml
+  import os
+  
+  def load_config(filename):
+      path = os.path.join('config', filename)
+      try:
+          with open(path, 'r', encoding='utf-8') as file:
+              return yaml.safe_load(file)
+      except FileNotFoundError:
+          logger.error(f"Config file not found: {path}")
+          raise
+      except yaml.YAMLError as e:
+          logger.error(f"YAML parsing error: {e}")
+          raise
+
+# Common Tasks
+common_tasks:
+  add_agent:
+    - Open src/space_hulk_game/config/agents.yaml
+    - Add new agent key
+    - Define role, goal, backstory
+    - Set verbose and allow_delegation
+    - Maintain consistent formatting
+  
+  add_task:
+    - Open src/space_hulk_game/config/tasks.yaml
+    - Add new task key
+    - Define description with placeholders
+    - Specify expected_output
+    - Assign to agent
+    - List context dependencies
+    - Set output_file if needed
+  
+  update_game_design:
+    - Open appropriate design file
+    - Add/modify content maintaining structure
+    - Use consistent key naming
+    - Add comments for clarity
+    - Validate YAML syntax
+
+# Documentation
+documentation:
+  yaml_spec: https://yaml.org/spec/1.2/spec.html
+  safe_loading: Use yaml.safe_load() to prevent code execution
+  encoding: Always use UTF-8 encoding for YAML files

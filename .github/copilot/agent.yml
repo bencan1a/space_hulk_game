@@ -1,0 +1,76 @@
+# GitHub Copilot Agent Configuration for Space Hulk Game
+# This configuration helps Copilot understand the project structure and provide better assistance
+
+name: space-hulk-game-assistant
+description: AI assistant for the Space Hulk text-based adventure game built with CrewAI framework
+
+# Project context
+context:
+  - Project is a text-based adventure game set in the Warhammer 40K universe
+  - Built using Python and the CrewAI framework for multi-agent AI collaboration
+  - Uses YAML configuration files for agent and task definitions
+  - Follows a sequential workflow with specialized AI agents
+
+# Key files and directories
+structure:
+  source_code: src/space_hulk_game/
+  tests: tests/
+  config: src/space_hulk_game/config/
+  documentation: memory-bank/
+  game_design: 
+    - prd_document.yaml
+    - narrative_map.yaml
+    - scene_texts.yaml
+    - plot_outline.yaml
+    - puzzle_design.yaml
+
+# Development patterns
+patterns:
+  - Configuration-driven design using YAML files
+  - Decorator pattern for agent and task definitions (@agent, @task)
+  - Sequential processing workflow
+  - Lifecycle hooks (before_kickoff, after_kickoff)
+  - Separation of concerns with specialized agents
+
+# Technology stack
+technologies:
+  language: Python
+  python_version: ">=3.10,<3.13"
+  framework: crewAI
+  dependencies:
+    - crewai[tools]
+    - mem0
+    - litellm
+  package_manager: uv
+  
+# Code style preferences
+style:
+  - Follow PEP 8 Python style guidelines
+  - Use type hints where appropriate
+  - Maintain YAML structure consistency in config files
+  - Keep agent and task definitions clear and focused
+  - Use descriptive variable names
+  - Add logging for important operations
+
+# Testing approach
+testing:
+  framework: unittest
+  location: tests/
+  command: python -m unittest discover -s tests
+  coverage:
+    - Input validation
+    - Error handling
+    - Output processing
+
+# Common tasks
+tasks:
+  run: crewai run
+  test: python -m unittest discover -s tests
+  install: crewai install
+
+# Important notes
+notes:
+  - All agents and tasks are defined in YAML files under src/space_hulk_game/config/
+  - The Memory Bank (memory-bank/) contains project context and API references
+  - The project uses Ollama for local LLM integration
+  - Mem0 is used for memory management across agents

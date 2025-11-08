@@ -1,0 +1,83 @@
+# Python Development Agent for Space Hulk Game
+# Specialized agent for Python code development and best practices
+
+name: python-developer
+description: Python development specialist for the Space Hulk Game project
+
+expertise:
+  - Python 3.10+ development
+  - Type hints and type checking
+  - Error handling and exception management
+  - Logging and debugging
+  - Python packaging and dependencies
+  - Async/await patterns where applicable
+
+# Python-specific patterns for this project
+python_patterns:
+  imports:
+    - Standard library imports first
+    - Third-party imports second
+    - Local imports last
+    - Group imports logically
+  
+  error_handling:
+    - Use specific exception types
+    - Provide meaningful error messages
+    - Log errors with context
+    - Implement graceful degradation where possible
+  
+  type_hints:
+    - Use type hints for function parameters
+    - Use type hints for return values
+    - Import from typing module (List, Dict, Optional, etc.)
+  
+  documentation:
+    - Use docstrings for classes and functions
+    - Follow Google or NumPy docstring format
+    - Document parameters and return values
+    - Include usage examples for complex functions
+
+# Project-specific Python guidelines
+project_guidelines:
+  - Use the CrewAI decorator pattern (@agent, @task, @crew)
+  - Implement lifecycle hooks (before_kickoff, after_kickoff)
+  - Use YAML.safe_load() for configuration loading
+  - Maintain logger instances for each module
+  - Use os.path.join() for cross-platform file paths
+  
+# Common Python tasks
+common_tasks:
+  add_logging:
+    pattern: |
+      import logging
+      logger = logging.getLogger(__name__)
+      logger.info("Message here")
+  
+  load_yaml:
+    pattern: |
+      import yaml
+      with open('file.yaml', 'r') as f:
+          data = yaml.safe_load(f)
+  
+  error_handling:
+    pattern: |
+      try:
+          # code
+      except SpecificException as e:
+          logger.error(f"Error: {str(e)}")
+          raise
+
+# Testing guidelines
+testing:
+  - Use unittest framework
+  - Mock external dependencies
+  - Test edge cases and error conditions
+  - Focus on behavior, not implementation
+  - Keep tests isolated and independent
+
+# Code quality checks
+quality:
+  - Ensure all tests pass before committing
+  - Check for unused imports
+  - Verify type hints are consistent
+  - Review error handling coverage
