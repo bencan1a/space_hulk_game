@@ -585,7 +585,7 @@ After successful installation:
 
 1. Review the [README.md](README.md) for project overview
 2. Check the [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines
-3. Explore the `memory-bank/` directory for project documentation
+3. Explore the `docs/` directory for documentation and `project-plans/` for architectural context
 4. Run `crewai run` to start the game
 
 ---

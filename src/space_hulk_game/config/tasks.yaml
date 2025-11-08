@@ -62,7 +62,7 @@ GenerateOverarchingPlot:
     tone. This document must be comprehensive enough to serve as the guiding framework for 
     all subsequent development work.
   agent: "PlotMasterAgent"
-  output_file: "plot_outline.yaml"
+  output_file: "game-config/plot_outline.yaml"
 
 EvaluateNarrativeFoundation:
   name: "Evaluate Narrative Foundation"
@@ -97,7 +97,7 @@ CreateNarrativeMap:
     # Removed EvaluateNarrativeFoundation from context to avoid "context dependency on a future task" error
   dependencies:
     - "EvaluateNarrativeFoundation"  # Keeping execution dependency to maintain correct task order
-  output_file: "narrative_map.yaml"
+  output_file: "game-config/narrative_map.yaml"
 
 EvaluateNarrativeStructure:
   name: "Evaluate Narrative Structure"
@@ -135,7 +135,7 @@ DesignArtifactsAndPuzzles:
     # Removed EvaluateNarrativeStructure from context to avoid "context dependency on a future task" error
   dependencies:
     - "EvaluateNarrativeStructure"  # Keeping execution dependency to maintain correct task order
-  output_file: "puzzle_design.yaml"
+  output_file: "game-config/puzzle_design.yaml"
 
 NarrativeIntegrationCheckPuzzles:
   name: "Narrative Integration Check: Puzzles"
@@ -170,8 +170,8 @@ WriteSceneDescriptionsAndDialogue:
     - "GenerateOverarchingPlot"
     # Removed EvaluateNarrativeStructure from context to avoid "context dependency on a future task" error
   dependencies:
-    - "EvaluateNarrativeStructure"  # Keeping execution dependency to maintain correct task order
-  output_file: "scene_texts.yaml"
+    - "EvaluateNarrativeFoundation"  # Keeping execution dependency to maintain correct task order
+  output_file: "game-config/scene_texts.yaml"
 
 NarrativeIntegrationCheckScenes:
   name: "Narrative Integration Check: Scenes"
@@ -206,7 +206,7 @@ CreateGameMechanicsPRD:
     # Removed EvaluateNarrativeStructure from context to avoid "context dependency on a future task" error
   dependencies:
     - "EvaluateNarrativeStructure"  # Keeping execution dependency to maintain correct task order
-  output_file: "prd_document.yaml"
+  output_file: "game-config/prd_document.yaml"
 
 NarrativeIntegrationCheckMechanics:
   name: "Narrative Integration Check: Mechanics"

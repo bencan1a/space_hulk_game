@@ -285,9 +285,9 @@ def my_task(self) -> Task:
 
 ## Documentation References
 
-- **Memory Bank**: `memory-bank/crewai-api-reference.md` - Comprehensive CrewAI reference
+- **CrewAI Reference**: `docs/crewai-api-reference.md` - Comprehensive CrewAI reference
 - **Official Docs**: https://docs.crewai.com
-- **Product Context**: `memory-bank/productContext.md`
+- **Product Context**: `project-plans/productContext.md`
 
 ## How I Can Help
 

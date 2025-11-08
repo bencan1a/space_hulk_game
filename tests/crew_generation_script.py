@@ -18,7 +18,7 @@ from datetime import datetime
 from pathlib import Path
 
 # Add src to path
-sys.path.insert(0, str(Path(__file__).parent / "src"))
+sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 from space_hulk_game.crew import SpaceHulkGame
 
