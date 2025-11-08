@@ -1,11 +1,33 @@
 [project]
 name = "space_hulk_game"
 version = "0.1.0"
-description = "space_hulk_game using crewAI"
+description = "A text-based adventure game set in the Warhammer 40K universe using crewAI multi-agent framework"
 authors = [{ name = "Your Name", email = "you@example.com" }]
+readme = "README.md"
 requires-python = ">=3.10,<3.13"
+license = { text = "MIT" }
+keywords = ["crewai", "warhammer-40k", "text-adventure", "ai-agents", "game"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
 dependencies = [
-    "crewai[tools]>=0.102.0,<1.0.0"
+    "crewai[tools]>=0.102.0,<1.0.0",
+    "mem0ai>=0.1.0",
+    "pyyaml>=6.0",
+    "litellm>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "flake8>=6.0.0",
+    "mypy>=1.0.0",
 ]
 
 [project.scripts]
