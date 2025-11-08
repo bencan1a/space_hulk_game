@@ -24,8 +24,9 @@ This is a text-based adventure game set in the Warhammer 40K universe, built usi
 - **Run Command**: `python -m unittest discover -s tests`
 
 ### Documentation
-- **Memory Bank**: `memory-bank/` - Project context and API references
-- **Game Design**: Root level YAML files (prd_document.yaml, narrative_map.yaml, scene_texts.yaml, plot_outline.yaml, puzzle_design.yaml)
+- **Product Docs**: `docs/` - User-facing documentation (README, SETUP, guides)
+- **Development Plans**: `project-plans/` - Architecture docs, implementation plans, agent outputs
+- **Temporary Files**: `tmp/` - Debug scripts and reports (gitignored)
 
 ## Development Patterns
 
@@ -63,9 +64,12 @@ When helping you write code, I follow:
 ## Important Notes
 
 - All CrewAI agents and tasks are defined in YAML files under `src/space_hulk_game/config/`
-- The Memory Bank (`memory-bank/`) contains comprehensive project context and CrewAI API references
+- Product documentation is in the `docs/` folder
+- Development plans and agent outputs are in `project-plans/`
+- Temporary files should go in `tmp/` (not committed to git)
 - The project uses Ollama for local LLM integration at `http://localhost:11434`
 - Mem0 is used for memory management across agents
+- Agent output files (*.yaml) in `project-plans/` are gitignored and regenerated
 
 ## How I Can Help
 

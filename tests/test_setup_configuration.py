@@ -50,8 +50,8 @@ class TestSetupConfiguration(unittest.TestCase):
     
     def test_setup_md_exists(self):
         """Test that SETUP.md documentation exists."""
-        setup_md = self.project_root / "SETUP.md"
-        self.assertTrue(setup_md.exists(), "SETUP.md should exist")
+        setup_md = self.project_root / "docs" / "SETUP.md"
+        self.assertTrue(setup_md.exists(), "docs/SETUP.md should exist")
     
     def test_pyproject_toml_has_dependencies(self):
         """Test that pyproject.toml contains required dependencies."""
@@ -123,11 +123,18 @@ class TestSetupConfiguration(unittest.TestCase):
     
     def test_documentation_files_exist(self):
         """Test that all documentation files exist."""
-        docs = ["README.md", "CONTRIBUTING.md", "SETUP.md"]
+        # Root level should have a README pointing to docs/
+        root_readme = self.project_root / "README.md"
+        self.assertTrue(root_readme.exists(), "README.md should exist at root")
         
+        # Main documentation should be in docs/
+        docs_dir = self.project_root / "docs"
+        self.assertTrue(docs_dir.exists(), "docs/ directory should exist")
+        
+        docs = ["README.md", "CONTRIBUTING.md", "SETUP.md"]
         for doc in docs:
-            doc_path = self.project_root / doc
-            self.assertTrue(doc_path.exists(), f"{doc} should exist")
+            doc_path = docs_dir / doc
+            self.assertTrue(doc_path.exists(), f"docs/{doc} should exist")
     
     def test_gitignore_excludes_env(self):
         """Test that .gitignore excludes .env files."""

@@ -102,17 +102,21 @@ space_hulk_game/
 ├── tests/                    # Test files
 │   ├── test_space_hulk_game.py
 │   └── README.md
-├── memory-bank/              # Project documentation and context
-│   ├── productContext.md     # Project overview
+├── docs/                     # Product documentation
+│   ├── README.md             # Main project documentation
+│   ├── SETUP.md              # Setup instructions
+│   ├── CONTRIBUTING.md       # This file
+│   ├── AGENTS.md             # Agent documentation
+│   └── crewai-api-reference.md  # CrewAI framework reference
+├── project-plans/            # Development plans and agent outputs
+│   ├── productContext.md     # Project architecture overview
 │   ├── activeContext.md      # Current development focus
 │   ├── progress.md           # Development history
 │   ├── decisionLog.md        # Design decisions
-│   └── crewai-api-reference.md  # CrewAI framework reference
-├── narrative_map.yaml        # Scene structure
-├── scene_texts.yaml          # Scene descriptions
-├── plot_outline.yaml         # Story outline
-├── puzzle_design.yaml        # Puzzle specifications
-├── prd_document.yaml         # Product requirements
+│   ├── *.yaml                # Agent-generated outputs (gitignored)
+│   └── README.md             # Folder documentation
+├── tmp/                      # Temporary files (gitignored)
+│   └── README.md             # Usage guidelines
 └── pyproject.toml            # Project configuration
 
 ```
@@ -299,15 +303,27 @@ class TestMyFeature(unittest.TestCase):
 
 ## Documentation
 
-### Memory Bank
+### Project Documentation Structure
 
-The `memory-bank/` directory contains project documentation:
+The project uses a clear documentation structure:
 
-- **productContext.md**: Project overview and architecture
-- **activeContext.md**: Current development focus
-- **progress.md**: Development history
-- **decisionLog.md**: Design decisions and rationale
+**docs/** - User-facing product documentation:
+- **README.md**: Main project documentation
+- **SETUP.md**: Installation and setup instructions
+- **CONTRIBUTING.md**: Development guidelines (this file)
+- **AGENTS.md**: AI agent system documentation
 - **crewai-api-reference.md**: CrewAI framework reference
+
+**project-plans/** - Development plans and architectural context:
+- **productContext.md**: Project architecture overview
+- **activeContext.md**: Current development focus
+- **progress.md**: Development history and timeline
+- **decisionLog.md**: Design decisions and rationale
+- **\*.yaml**: Agent-generated outputs (gitignored, regenerated each run)
+
+**tmp/** - Temporary files (gitignored):
+- Debug scripts, analysis reports, and working files
+- Not committed to version control
 
 ### Updating Documentation
 
@@ -359,8 +375,9 @@ Brief description of changes
 
 ## Questions or Issues?
 
-- Check the Memory Bank documentation in `memory-bank/`
-- Review the CrewAI API reference: `memory-bank/crewai-api-reference.md`
+- Check project documentation in `docs/`
+- Review development plans in `project-plans/`
+- Review the CrewAI API reference: `docs/crewai-api-reference.md`
 - Ask GitHub Copilot using the specialized agents
 - Open an issue on GitHub
 - Contact the maintainers

@@ -57,3 +57,6 @@ run_log.txt
 # OS files
 Thumbs.db
 
+# Project-specific
+tmp/
+project-plans/*.yaml

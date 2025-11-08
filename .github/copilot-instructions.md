@@ -28,10 +28,20 @@ space_hulk_game/
 │   ├── main.py              # Entry point
 │   └── tools/               # Custom tools
 ├── tests/                   # Test suite
-├── memory-bank/             # Project documentation and context
-├── .github/agents/          # GitHub Copilot custom agents
-└── *.yaml                   # Game output files
+├── docs/                    # Product documentation
+├── project-plans/           # Development plans and agent working files
+├── tmp/                     # Temporary debug scripts (gitignored)
+└── .github/agents/          # GitHub Copilot custom agents
 ```
+
+### Folder Organization
+
+- **docs/**: All user-facing documentation (README, SETUP, guides)
+- **project-plans/**: Development plans, architectural docs, agent output files (*.yaml)
+- **tmp/**: Temporary files, debug scripts, and reports (not committed to git)
+- **src/**: Source code for the game
+- **tests/**: Unit tests and test infrastructure
+- **.github/agents/**: Custom GitHub Copilot agents
 
 ## Coding Standards
 
@@ -133,10 +143,13 @@ crewai install
 ## Important Notes
 
 1. **All agents and tasks** are defined in YAML files under `src/space_hulk_game/config/`
-2. The **Memory Bank** (`memory-bank/`) contains comprehensive project context and CrewAI API references
-3. The project uses **Ollama** for local LLM integration at `http://localhost:11434`
-4. **Mem0** is used for memory management across agents
-5. Method names in `crew.py` **must match** the keys in YAML config files (case-sensitive)
+2. **Product documentation** is in the `docs/` folder
+3. **Development plans** and agent outputs are in `project-plans/`
+4. **Temporary files** should go in `tmp/` (not committed to git)
+5. The project uses **Ollama** for local LLM integration at `http://localhost:11434`
+6. **Mem0** is used for memory management across agents
+7. Method names in `crew.py` **must match** the keys in YAML config files (case-sensitive)
+8. **Agent output files** (*.yaml) in `project-plans/` are gitignored as they are regenerated
 
 ## When Suggesting Code
 
@@ -172,7 +185,7 @@ When working on game content:
 
 ## Helpful Resources
 
-- **CONTRIBUTING.md**: Detailed development guidelines
-- **AGENTS.md**: Comprehensive agent documentation
-- **memory-bank/**: Project context and references
-- **memory-bank/crewai-api-reference.md**: CrewAI framework reference
+- **docs/CONTRIBUTING.md**: Detailed development guidelines
+- **docs/AGENTS.md**: Comprehensive agent documentation
+- **docs/crewai-api-reference.md**: CrewAI framework reference
+- **project-plans/**: Development plans and architectural context
