@@ -12,12 +12,12 @@ This is a quick reference guide for using the GitHub Copilot agents in the Space
 
 | Agent | File | Use When |
 |-------|------|----------|
-| **Project Assistant** | `agent.yml` | General project questions, navigation |
-| **Python Specialist** | `python-agent.yml` | Writing Python code, imports, error handling |
-| **CrewAI Expert** | `crewai-agent.yml` | Working with agents, tasks, workflows |
-| **Game Mechanics** | `game-mechanics-agent.yml` | Designing game features, narratives, puzzles |
-| **YAML Expert** | `yaml-agent.yml` | Editing YAML configs, validation |
-| **Testing Specialist** | `testing-agent.yml` | Writing tests, mocking, coverage |
+| **Project Assistant** | `space-hulk-game-assistant.md` | General project questions, navigation |
+| **Python Specialist** | `python-developer.md` | Writing Python code, imports, error handling |
+| **CrewAI Expert** | `crewai-specialist.md` | Working with agents, tasks, workflows |
+| **Game Mechanics** | `game-mechanics-specialist.md` | Designing game features, narratives, puzzles |
+| **YAML Expert** | `yaml-expert.md` | Editing YAML configs, validation |
+| **Testing Specialist** | `testing-specialist.md` | Writing tests, mocking, coverage |
 
 ## 💡 Common Use Cases
 
@@ -61,7 +61,7 @@ This is a quick reference guide for using the GitHub Copilot agents in the Space
 - **Use descriptive function/variable names** to help agents understand context
 - **Review suggestions** before accepting
 - **Leverage multiple agents** for complex tasks
-- **Consult agent files** (`.github/copilot/*.yml`) for capabilities
+- **Consult agent files** (`.github/agents/*.md`) for capabilities
 
 ### ❌ DON'T
 
@@ -137,13 +137,13 @@ python3 -c "import yaml; yaml.safe_load(open('file.yaml'))"
 ### Suggestions aren't helpful?
 1. Be more specific in your comments
 2. Check you're in the right file type
-3. Consult the relevant agent YAML file
+3. Consult the relevant agent markdown file in `.github/agents/`
 4. Review CONTRIBUTING.md for patterns
 
 ### Agent knowledge seems outdated?
-1. Update the agent YAML files in `.github/copilot/`
+1. Update the agent markdown files in `.github/agents/`
 2. Add new patterns and examples
-3. Validate YAML syntax
+3. Validate markdown and YAML frontmatter syntax
 4. Restart your IDE
 
 ### Need more help?
