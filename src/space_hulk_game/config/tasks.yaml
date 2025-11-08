@@ -1,3 +1,53 @@
+# Space Hulk Game - Task Definitions
+#
+# This file defines the tasks executed by the CrewAI agents to generate a complete game.
+#
+# ## Task Execution Flow
+#
+# ### Sequential Mode (Default)
+# Tasks execute in the order they are defined and instantiated in crew.py:
+# 1. GenerateOverarchingPlot -> 2. CreateNarrativeMap -> 3. DesignArtifactsAndPuzzles
+# 4. WriteSceneDescriptionsAndDialogue -> 5. CreateGameMechanicsPRD
+# Plus evaluation tasks: EvaluateNarrativeFoundation, EvaluateNarrativeStructure,
+# NarrativeIntegrationCheckPuzzles, NarrativeIntegrationCheckScenes,
+# NarrativeIntegrationCheckMechanics, FinalNarrativeIntegration
+#
+# ### Hierarchical Mode (Advanced)
+# The NarrativeDirectorAgent manages task delegation and ensures quality.
+# Tasks are delegated based on dependencies and agent specialization.
+#
+# ## Task Configuration Best Practices
+#
+# ### Context vs Dependencies
+# - **context**: Provides information from previous tasks (read-only access to outputs)
+# - **dependencies**: Enforces execution order (task X must complete before task Y)
+#
+# ### Avoiding Deadlocks
+# - Keep dependency chains simple and linear where possible
+# - Avoid circular dependencies (A depends on B, B depends on A)
+# - In hierarchical mode, evaluation tasks should not create complex dependency webs
+#
+# ### Task Structure
+# Each task includes:
+# - name: Human-readable task name
+# - description: Clear instructions for the agent
+# - expected_output: Specific format and content requirements
+# - agent: Agent responsible for executing the task
+# - context: Previous task outputs to reference (optional)
+# - dependencies: Tasks that must complete first (optional)
+# - output_file: File to save task output (optional)
+#
+# ## Simplified Task Flow for Phase 0 Testing
+#
+# For initial validation (per REVISED_RESTART_PLAN.md), test with just the 5 core tasks:
+# 1. GenerateOverarchingPlot
+# 2. CreateNarrativeMap  
+# 3. DesignArtifactsAndPuzzles
+# 4. WriteSceneDescriptionsAndDialogue
+# 5. CreateGameMechanicsPRD
+#
+# Then incrementally add evaluation tasks one at a time to identify hanging points.
+
 # Initial narrative foundation - must be completed and approved first
 GenerateOverarchingPlot:
   name: "Generate Comprehensive Narrative Foundation"

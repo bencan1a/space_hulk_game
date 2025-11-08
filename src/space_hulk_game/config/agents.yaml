@@ -1,3 +1,50 @@
+# Space Hulk Game - Agent Definitions
+#
+# This file defines the specialized AI agents that collaborate to create game content.
+#
+# ## Agent Architecture
+#
+# ### Sequential Mode (Default)
+# All 6 agents work as peers, each completing their assigned tasks in order:
+# - NarrativeDirectorAgent: Evaluates and ensures narrative cohesion
+# - PlotMasterAgent: Creates overarching plot structure
+# - NarrativeArchitectAgent: Maps plot into detailed scenes
+# - PuzzleSmithAgent: Designs puzzles, artifacts, and challenges
+# - CreativeScribeAgent: Writes descriptions and dialogue
+# - MechanicsGuruAgent: Defines game mechanics and systems
+#
+# ### Hierarchical Mode (Advanced)
+# NarrativeDirectorAgent acts as manager, coordinating the 5 specialist agents:
+# - Manager: NarrativeDirectorAgent (evaluates quality, requests revisions)
+# - Workers: PlotMaster, NarrativeArchitect, PuzzleSmith, CreativeScribe, MechanicsGuru
+#
+# ## Agent Configuration Best Practices
+#
+# ### Key Parameters
+# - role: Agent's job title/role (e.g., "Lead Plot Designer")
+# - goal: What the agent aims to achieve
+# - backstory: Context about the agent's expertise and experience
+# - allow_delegation: Enable task delegation (typically True for manager, False for workers)
+# - verbose: Enable detailed logging (True for debugging)
+#
+# ### LLM Assignment
+# All agents use the same LLM (Ollama/qwen2.5) configured in crew.py.
+# In advanced configurations, the manager could use a more capable model.
+#
+# ### Tool Assignment
+# Currently no custom tools are assigned. Future enhancements could add:
+# - File validation tools for checking YAML structure
+# - Web search for lore accuracy
+# - Code generation tools for game mechanics
+#
+# ## Design Philosophy
+#
+# Each agent is specialized but collaborates toward a cohesive whole:
+# 1. Narrative-first approach (plot drives all other elements)
+# 2. Clear separation of concerns (each agent has distinct responsibility)
+# 3. Iterative refinement (evaluation tasks ensure quality)
+# 4. Thematic consistency (all elements align with established narrative)
+
 NarrativeDirectorAgent:
   role: "Narrative Director"
   goal: "Ensure narrative cohesion and thematic consistency across all game elements through a structured development process driven by strong narrative foundations."
