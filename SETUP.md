@@ -233,6 +233,8 @@ The `.env` file controls various aspects of the application. Here are the key co
 
 ### LLM Configuration
 
+The project supports multiple LLM providers through [litellm](https://docs.litellm.ai/docs/providers). Configure your preferred provider in the `.env` file:
+
 **Option 1: Use Ollama (Local, Free)**
 
 ```bash
@@ -240,12 +242,127 @@ OLLAMA_BASE_URL=http://localhost:11434
 OPENAI_MODEL_NAME=ollama/qwen2.5
 ```
 
+Best for: Privacy, offline work, no API costs. Requires local installation.
+
 **Option 2: Use OpenAI API**
 
 ```bash
 OPENAI_API_KEY=sk-your-api-key-here
 OPENAI_MODEL_NAME=gpt-4
+# or
+OPENAI_MODEL_NAME=gpt-3.5-turbo  # Cheaper alternative
 ```
+
+Get your API key from: [platform.openai.com/api-keys](https://platform.openai.com/api-keys)
+
+**Option 3: Use Anthropic Claude**
+
+```bash
+ANTHROPIC_API_KEY=sk-ant-your-key-here
+OPENAI_MODEL_NAME=claude-3-5-sonnet-20241022
+```
+
+Available models:
+- `claude-3-5-sonnet-20241022` - Recommended, most capable
+- `claude-3-opus-20240229` - Most powerful, higher cost
+- `claude-3-sonnet-20240229` - Balanced performance and cost
+- `claude-3-haiku-20240307` - Fastest and cheapest
+
+Get your API key from: [console.anthropic.com](https://console.anthropic.com/)
+
+**Option 4: Use OpenRouter (Access to Multiple Providers)**
+
+```bash
+OPENROUTER_API_KEY=sk-or-v1-your-key-here
+OPENAI_MODEL_NAME=openrouter/anthropic/claude-3.5-sonnet
+# or
+OPENAI_MODEL_NAME=openrouter/openai/gpt-4-turbo
+# or
+OPENAI_MODEL_NAME=openrouter/meta-llama/llama-3.1-70b-instruct
+```
+
+OpenRouter provides unified access to models from Anthropic, OpenAI, Meta, Google, and more. See all available models at: [openrouter.ai/models](https://openrouter.ai/models)
+
+Get your API key from: [openrouter.ai/keys](https://openrouter.ai/keys)
+
+**Option 5: Use Azure OpenAI (Enterprise)**
+
+```bash
+AZURE_API_KEY=your-azure-key-here
+AZURE_API_BASE=https://your-resource.openai.azure.com/
+AZURE_API_VERSION=2024-02-15-preview
+OPENAI_MODEL_NAME=azure/your-deployment-name
+```
+
+**Other Supported Providers:**
+
+Litellm supports many other providers including:
+- Cohere
+- Hugging Face
+- Replicate
+- Vertex AI (Google)
+- Bedrock (AWS)
+- And more
+
+See the full list at: [docs.litellm.ai/docs/providers](https://docs.litellm.ai/docs/providers)
+
+### Using Environment Secrets (CI/CD and Test Environments)
+
+For automated testing, CI/CD pipelines, or containerized deployments, you can set API keys as environment variables instead of using a `.env` file. The application will automatically use environment variables if they're set.
+
+**GitHub Actions Example:**
+
+```yaml
+name: Test with LLM
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run tests
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_MODEL_NAME: claude-3-5-sonnet-20241022
+        run: |
+          ./setup.sh
+          python -m unittest discover -s tests
+```
+
+**Docker/Docker Compose Example:**
+
+```bash
+# Docker run
+docker run -e ANTHROPIC_API_KEY=$ANTHROPIC_API_KEY \
+           -e OPENAI_MODEL_NAME=claude-3-5-sonnet-20241022 \
+           space-hulk-game
+
+# Docker Compose
+# docker-compose.yml
+services:
+  app:
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - OPENAI_MODEL_NAME=claude-3-5-sonnet-20241022
+```
+
+**Setting Secrets in GitHub:**
+
+1. Go to your repository → Settings → Secrets and variables → Actions
+2. Click "New repository secret"
+3. Add secrets like:
+   - `OPENAI_API_KEY`
+   - `ANTHROPIC_API_KEY`
+   - `OPENROUTER_API_KEY`
+   - `MEM0_API_KEY`
+
+**Environment Variable Priority:**
+
+The application checks for configuration in this order:
+1. Environment variables (highest priority)
+2. `.env` file in the project root
+3. Default values (for optional settings)
 
 ### Memory Configuration
 

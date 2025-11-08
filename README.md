@@ -92,8 +92,27 @@ OLLAMA_BASE_URL=http://localhost:11434
 # OPENAI_API_KEY=sk-your-key-here
 # OPENAI_MODEL_NAME=gpt-4
 
+# OR use Anthropic Claude (requires API key)
+# ANTHROPIC_API_KEY=sk-ant-your-key-here
+# OPENAI_MODEL_NAME=claude-3-5-sonnet-20241022
+
+# OR use OpenRouter (access to multiple providers)
+# OPENROUTER_API_KEY=sk-or-v1-your-key-here
+# OPENAI_MODEL_NAME=openrouter/anthropic/claude-3.5-sonnet
+
 # Optional: Mem0 for cloud-based memory
 # MEM0_API_KEY=your-mem0-key-here
+```
+
+**For CI/CD and Test Environments:**
+
+Set API keys as environment secrets in your CI platform (GitHub Actions, Docker, etc.) instead of using `.env` files. The application will use environment variables directly if set:
+
+```yaml
+# GitHub Actions example
+env:
+  ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+  OPENAI_MODEL_NAME: claude-3-5-sonnet-20241022
 ```
 
 ## Running the Project
@@ -106,8 +125,13 @@ OLLAMA_BASE_URL=http://localhost:11434
 ollama serve
 ```
 
-**If using OpenAI:**
-- Ensure your `OPENAI_API_KEY` is set in `.env`
+**If using cloud LLM providers:**
+- **OpenAI**: Set `OPENAI_API_KEY` in `.env`
+- **Anthropic Claude**: Set `ANTHROPIC_API_KEY` in `.env`
+- **OpenRouter**: Set `OPENROUTER_API_KEY` in `.env` (provides access to multiple models)
+- **Azure OpenAI**: Set `AZURE_API_KEY`, `AZURE_API_BASE`, and `AZURE_API_VERSION` in `.env`
+
+All providers are supported via [litellm](https://docs.litellm.ai/docs/providers).
 
 ### Run the Game
 
