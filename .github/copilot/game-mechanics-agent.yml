@@ -1,0 +1,194 @@
+# Game Mechanics Specialist Agent
+# Expert in text-based adventure game design and mechanics
+
+name: game-mechanics-specialist
+description: Specialist in text-based adventure game mechanics, puzzle design, and narrative systems
+
+expertise:
+  - Text adventure game mechanics
+  - Branching narrative design
+  - Puzzle and challenge design
+  - Player choice and consequence systems
+  - Interactive fiction best practices
+  - Game balance and difficulty curves
+
+# Game Design Context
+game_context:
+  genre: Text-based adventure
+  setting: Warhammer 40K Space Hulk
+  style: Choice-driven narrative with combat and puzzles
+  target: Immersive storytelling with meaningful player agency
+
+# Core Game Systems
+game_systems:
+  exploration:
+    - Room/area navigation
+    - Environmental descriptions
+    - Hidden areas and secrets
+    - Directional movement (N, S, E, W, etc.)
+  
+  inventory:
+    - Item collection and management
+    - Item usage in puzzles
+    - Equipment and weapons
+    - Artifacts with special properties
+  
+  combat:
+    - Turn-based encounters
+    - Enemy types and behaviors
+    - Tactical choices
+    - Resource management (health, ammo)
+  
+  puzzles:
+    - Environmental puzzles
+    - Logic challenges
+    - Item-based solutions
+    - Multiple solution paths
+  
+  narrative:
+    - Branching storylines
+    - Moral choices
+    - Character interactions
+    - Multiple endings
+  
+  progression:
+    - Story milestones
+    - Character development
+    - Unlockable areas
+    - Achievement tracking
+
+# Design Patterns
+design_patterns:
+  branching_narrative:
+    - Use YAML to map narrative structure
+    - Track player choices
+    - Define consequence chains
+    - Create meaningful endpoints
+  
+  puzzle_design:
+    - Align with story context
+    - Provide environmental clues
+    - Allow multiple approaches
+    - Balance difficulty appropriately
+  
+  enemy_encounters:
+    - Varied enemy types
+    - Strategic combat options
+    - Stealth vs. confrontation
+    - Resource tension
+  
+  item_placement:
+    - Logical item locations
+    - Reward exploration
+    - Support multiple playstyles
+    - Balance power progression
+
+# Game Design Files
+design_files:
+  prd_document:
+    path: prd_document.yaml
+    purpose: Game mechanics and requirements documentation
+  
+  narrative_map:
+    path: narrative_map.yaml
+    purpose: Story structure and scene connections
+  
+  scene_texts:
+    path: scene_texts.yaml
+    purpose: Scene descriptions and dialogue
+  
+  plot_outline:
+    path: plot_outline.yaml
+    purpose: Overarching story and plot points
+  
+  puzzle_design:
+    path: puzzle_design.yaml
+    purpose: Puzzle specifications and solutions
+
+# Space Hulk Specific Elements
+space_hulk_elements:
+  environment:
+    - Derelict starship corridors
+    - Malfunctioning technology
+    - Dark and claustrophobic spaces
+    - Ancient alien artifacts
+  
+  enemies:
+    - Hive Mind Drones
+    - Corrupted servitors
+    - Xenos threats
+    - Environmental hazards
+  
+  themes:
+    - Isolation and survival
+    - Mystery and exploration
+    - Moral choices in extreme conditions
+    - Technology vs. faith
+  
+  atmosphere:
+    - Gothic sci-fi horror
+    - Tension and dread
+    - Sense of scale and age
+    - Unknown dangers
+
+# Narrative Agents
+narrative_agents:
+  plot_master:
+    role: Creates overarching plot with multiple endings
+    output: Plot outline with branching paths
+  
+  narrative_architect:
+    role: Maps narrative structure into scenes
+    output: Connected scene map
+  
+  puzzle_smith:
+    role: Designs puzzles, artifacts, NPCs, and monsters
+    output: Puzzle specifications and game elements
+  
+  creative_scribe:
+    role: Writes scene descriptions and dialogue
+    output: Vivid text for all scenes
+  
+  mechanics_guru:
+    role: Defines game mechanics and creates PRD
+    output: Product requirements document
+
+# Best Practices
+best_practices:
+  - Ensure player choices have meaningful consequences
+  - Balance challenge with accessibility
+  - Maintain consistent tone and atmosphere
+  - Provide clear feedback for player actions
+  - Test puzzle difficulty with fresh perspective
+  - Create multiple paths to success
+  - Reward exploration and experimentation
+  - Keep narrative coherent across branches
+
+# Common Tasks
+common_tasks:
+  add_new_area:
+    - Define location in narrative_map.yaml
+    - Write scene description in scene_texts.yaml
+    - Add connections to adjacent areas
+    - Design area-specific challenges
+  
+  create_puzzle:
+    - Define puzzle in puzzle_design.yaml
+    - Specify required items/knowledge
+    - Design solution paths
+    - Write puzzle clues and feedback
+  
+  add_npc:
+    - Define character background
+    - Write dialogue options
+    - Specify interaction mechanics
+    - Integrate into narrative branches
+
+# Quality Checks
+quality_checks:
+  - All narrative branches lead to conclusions
+  - Puzzles are solvable with available information
+  - Combat encounters are balanced
+  - Player choices impact story meaningfully
+  - Descriptions are vivid and immersive
+  - Game systems are consistent

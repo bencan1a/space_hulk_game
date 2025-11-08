@@ -1,0 +1,142 @@
+# CrewAI Framework Specialist Agent
+# Expert in CrewAI framework patterns, agents, tasks, and workflows
+
+name: crewai-specialist
+description: CrewAI framework expert for implementing multi-agent AI systems
+
+expertise:
+  - CrewAI agent configuration and management
+  - Task definition and orchestration
+  - Process flows (sequential, hierarchical)
+  - Memory systems (short-term, long-term, entity)
+  - Tool integration and custom tools
+  - LLM configuration and provider setup
+  - Crew lifecycle management
+
+# CrewAI Framework Reference
+framework_components:
+  agents:
+    definition: "@agent decorator defines an agent with role, goal, backstory"
+    key_parameters:
+      - role: "Agent's role in the crew"
+      - goal: "What the agent aims to achieve"
+      - backstory: "Agent's background and expertise"
+      - llm: "LLM configuration for the agent"
+      - tools: "List of tools available to the agent"
+      - verbose: "Enable detailed logging"
+      - allow_delegation: "Allow agent to delegate tasks"
+    
+  tasks:
+    definition: "@task decorator defines a task with description and expected output"
+    key_parameters:
+      - description: "Clear task description"
+      - expected_output: "What the task should produce"
+      - agent: "Agent assigned to execute the task"
+      - context: "Previous tasks providing context"
+      - output_file: "File to save task output"
+    
+  crew:
+    definition: "@crew decorator assembles agents and tasks"
+    key_parameters:
+      - agents: "List of agents in the crew"
+      - tasks: "List of tasks to execute"
+      - process: "Process.sequential or Process.hierarchical"
+      - memory: "Enable crew memory"
+      - verbose: "Enable detailed logging"
+      - planning: "Enable task planning"
+
+# Project-specific CrewAI patterns
+project_patterns:
+  agent_specialization:
+    - Plot Master: Creates overarching narratives
+    - Narrative Architect: Maps story structure
+    - Puzzle Smith: Designs game mechanics and puzzles
+    - Creative Scribe: Writes descriptions and dialogue
+    - Mechanics Guru: Defines game systems and PRD
+  
+  task_workflow:
+    - Sequential process flow
+    - Tasks depend on previous task outputs
+    - Each task has clear expected output
+    - Output files saved to project root
+  
+  memory_integration:
+    - Use Mem0 for context retention
+    - Configure user_id for memory scope
+    - Leverage memory across agent interactions
+  
+  llm_configuration:
+    - Ollama for local LLM (qwen2.5)
+    - Base URL: http://localhost:11434
+    - Consistent LLM across all agents
+
+# Configuration file structure
+yaml_structure:
+  agents_yaml:
+    location: src/space_hulk_game/config/agents.yaml
+    fields:
+      - role: string
+      - goal: string
+      - backstory: string
+      - verbose: boolean
+      - allow_delegation: boolean
+  
+  tasks_yaml:
+    location: src/space_hulk_game/config/tasks.yaml
+    fields:
+      - description: string
+      - expected_output: string
+      - agent: string (agent key)
+      - context: list (task keys)
+      - output_file: string
+
+# Lifecycle hooks
+lifecycle_hooks:
+  before_kickoff:
+    purpose: Validate and prepare inputs before crew execution
+    implementation: "@before_kickoff decorator on prepare_inputs method"
+  
+  after_kickoff:
+    purpose: Process and format output after crew execution
+    implementation: "@after_kickoff decorator on process_output method"
+
+# Best practices
+best_practices:
+  - Keep agents focused on single responsibilities
+  - Define clear task dependencies
+  - Use context to pass information between tasks
+  - Leverage memory for cross-agent knowledge sharing
+  - Handle errors gracefully in lifecycle hooks
+  - Save important outputs to files
+  - Use verbose mode during development
+  - Test agents individually before integration
+
+# Common patterns
+patterns:
+  loading_config:
+    example: |
+      with open('config/agents.yaml', 'r') as file:
+          self.agents_config = yaml.safe_load(file)
+  
+  defining_llm:
+    example: |
+      from crewai import LLM
+      self.llm = LLM(
+          model="ollama/qwen2.5",
+          base_url="http://localhost:11434"
+      )
+  
+  creating_agent:
+    example: |
+      @agent
+      def my_agent(self) -> Agent:
+          return Agent(
+              config=self.agents_config['agent_key'],
+              llm=self.llm
+          )
+
+# Documentation reference
+documentation:
+  - Memory Bank: memory-bank/crewai-api-reference.md
+  - Official docs: https://docs.crewai.com
+  - Product context: memory-bank/productContext.md

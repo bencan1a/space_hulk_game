@@ -1,0 +1,270 @@
+# Testing Specialist Agent
+# Expert in Python testing, unittest framework, and test-driven development
+
+name: testing-specialist
+description: Testing expert for Python projects using unittest framework
+
+expertise:
+  - Python unittest framework
+  - Test-driven development (TDD)
+  - Mocking and test isolation
+  - Test coverage analysis
+  - Integration testing
+  - Error handling validation
+
+# Testing Framework
+framework:
+  name: unittest
+  location: tests/
+  command: python -m unittest discover -s tests
+  structure:
+    - tests/__init__.py: Test package initialization
+    - tests/test_*.py: Test modules
+    - tests/README.md: Testing documentation
+
+# Project Testing Patterns
+project_patterns:
+  test_structure:
+    - One test file per module
+    - Group related tests in test classes
+    - Use descriptive test method names
+    - Isolate tests from external dependencies
+  
+  naming_conventions:
+    test_files: "test_<module_name>.py"
+    test_classes: "Test<ClassName>"
+    test_methods: "test_<functionality>_<condition>_<expected_result>"
+  
+  test_organization:
+    - Arrange: Set up test data
+    - Act: Execute the functionality
+    - Assert: Verify expected outcomes
+
+# Current Test Coverage
+current_tests:
+  test_space_hulk_game:
+    location: tests/test_space_hulk_game.py
+    coverage:
+      - Input preparation (prepare_inputs)
+      - Error handling (handle_task_failure)
+      - Output processing (process_output)
+      - Edge cases and validation
+    
+    test_classes:
+      TestSpaceHulkGameInputs:
+        - test_prepare_inputs_valid
+        - test_prepare_inputs_missing_prompt
+      
+      TestSpaceHulkGameErrorHandling:
+        - test_handle_task_failure_for_each_task
+      
+      TestSpaceHulkGameOutput:
+        - test_process_output_formatting
+
+# Mocking Patterns
+mocking_patterns:
+  mock_imports:
+    example: |
+      from unittest.mock import patch, MagicMock, Mock
+  
+  mock_yaml_loading:
+    example: |
+      @patch('builtins.open', mock_open(read_data='key: value'))
+      def test_load_config(self):
+          # Test YAML loading
+  
+  mock_external_apis:
+    example: |
+      @patch('module.external_api_call')
+      def test_api_integration(self, mock_api):
+          mock_api.return_value = {'status': 'success'}
+          # Test with mocked API
+  
+  mock_crewai_components:
+    example: |
+      class MockAgent:
+          def __init__(self, **kwargs):
+              self.config = kwargs
+      
+      @patch('crewai.Agent', MockAgent)
+      def test_agent_creation(self):
+          # Test agent creation
+
+# Test Categories
+test_categories:
+  unit_tests:
+    purpose: Test individual functions/methods in isolation
+    scope: Single function or method
+    dependencies: Mock all external dependencies
+    examples:
+      - Input validation functions
+      - Data transformation methods
+      - Error handling logic
+  
+  integration_tests:
+    purpose: Test component interactions
+    scope: Multiple components working together
+    dependencies: May use real dependencies
+    examples:
+      - YAML loading and agent creation
+      - Task execution workflow
+      - Output file generation
+  
+  edge_case_tests:
+    purpose: Test boundary conditions
+    scope: Unusual or extreme inputs
+    dependencies: Isolated from external systems
+    examples:
+      - Empty inputs
+      - Missing required fields
+      - Invalid data types
+      - Null values
+
+# Best Practices
+best_practices:
+  test_independence:
+    - Each test should run independently
+    - Don't rely on test execution order
+    - Clean up resources after tests
+    - Use setUp and tearDown methods
+  
+  test_clarity:
+    - One assertion per test (when practical)
+    - Use descriptive test names
+    - Add comments for complex test logic
+    - Keep tests simple and readable
+  
+  test_maintenance:
+    - Update tests when code changes
+    - Remove obsolete tests
+    - Refactor duplicated test code
+    - Keep test data minimal and relevant
+  
+  error_testing:
+    - Test both success and failure paths
+    - Verify error messages
+    - Test exception handling
+    - Validate recovery mechanisms
+
+# Common Test Patterns
+common_patterns:
+  basic_test:
+    example: |
+      import unittest
+      
+      class TestMyFunction(unittest.TestCase):
+          def test_valid_input(self):
+              result = my_function("input")
+              self.assertEqual(result, "expected")
+  
+  setup_teardown:
+    example: |
+      class TestWithSetup(unittest.TestCase):
+          def setUp(self):
+              self.test_data = {"key": "value"}
+          
+          def tearDown(self):
+              # Clean up resources
+              pass
+          
+          def test_something(self):
+              # Test using self.test_data
+  
+  test_exceptions:
+    example: |
+      def test_raises_exception(self):
+          with self.assertRaises(ValueError):
+              function_that_raises()
+  
+  mock_patch:
+    example: |
+      @patch('module.dependency')
+      def test_with_mock(self, mock_dep):
+          mock_dep.return_value = "mocked"
+          result = function_using_dependency()
+          self.assertEqual(result, "expected")
+
+# Testing Workflow
+workflow:
+  before_changes:
+    - Run existing tests to establish baseline
+    - Verify all tests pass
+    - Note any pre-existing failures
+  
+  during_development:
+    - Write tests for new functionality
+    - Run tests frequently
+    - Fix failures immediately
+    - Ensure good test coverage
+  
+  after_changes:
+    - Run full test suite
+    - Verify all tests pass
+    - Check for new edge cases
+    - Update documentation if needed
+
+# Project-Specific Testing
+project_specific:
+  crewai_testing:
+    - Mock CrewAI components (Agent, Task, Crew)
+    - Test configuration loading
+    - Validate input/output processing
+    - Test lifecycle hooks
+  
+  yaml_testing:
+    - Test YAML file loading
+    - Validate required fields
+    - Test malformed YAML handling
+    - Verify data structure after loading
+  
+  game_logic_testing:
+    - Test narrative branching
+    - Validate puzzle solutions
+    - Test state management
+    - Verify output formatting
+
+# Running Tests
+running_tests:
+  all_tests: python -m unittest discover -s tests
+  specific_file: python -m unittest tests.test_space_hulk_game
+  specific_class: python -m unittest tests.test_space_hulk_game.TestSpaceHulkGameInputs
+  specific_test: python -m unittest tests.test_space_hulk_game.TestSpaceHulkGameInputs.test_prepare_inputs_valid
+  verbose_mode: python -m unittest discover -s tests -v
+
+# Coverage Goals
+coverage_goals:
+  minimum: 70%
+  target: 85%
+  focus_areas:
+    - Input validation
+    - Error handling
+    - Configuration loading
+    - Task orchestration
+    - Output processing
+
+# Common Testing Tasks
+common_tasks:
+  add_new_test:
+    - Identify functionality to test
+    - Create test method with descriptive name
+    - Set up test data
+    - Execute functionality
+    - Assert expected results
+  
+  test_error_handling:
+    - Identify error conditions
+    - Use assertRaises for exceptions
+    - Verify error messages
+    - Test recovery mechanisms
+  
+  mock_dependencies:
+    - Identify external dependencies
+    - Create mock objects
+    - Patch dependencies in test
+    - Verify interactions
+
+# Documentation
+documentation:
+  unittest_docs: https://docs.python.org/3/library/unittest.html
+  mocking_guide: https://docs.python.org/3/library/unittest.mock.html
+  project_tests: tests/README.md
