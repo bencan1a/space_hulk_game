@@ -53,6 +53,19 @@ This example, unmodified, will run the create a `report.md` file with the output
 
 The space_hulk_game Crew is composed of multiple AI agents, each with unique roles, goals, and tools. These agents collaborate on a series of tasks, defined in `config/tasks.yaml`, leveraging their collective skills to achieve complex objectives. The `config/agents.yaml` file outlines the capabilities and configurations of each agent in your crew.
 
+## Current Status: Debugging Phase
+
+⚠️ **Important:** This project is currently in a debugging phase to validate that the multi-agent crew works reliably before adding additional features.
+
+**Known Issue:** The hierarchical process mode has been experiencing hangs where agents become unresponsive. We are currently testing and validating the crew configuration.
+
+**Testing Approach:**
+1. Test sequential mode first (simpler, more reliable)
+2. Debug hierarchical mode to identify coordination issues  
+3. Once working reliably, proceed with planned enhancements
+
+See `REVISED_RESTART_PLAN.md` for details on the debugging approach and `test_crew_generation.py` for validation testing.
+
 ## GitHub Copilot Agents
 
 This project includes specialized GitHub Copilot agent configurations to enhance development productivity. These agents provide context-aware assistance for different aspects of the project:
