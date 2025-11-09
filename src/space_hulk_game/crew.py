@@ -254,7 +254,7 @@ class SpaceHulkGame:
             # Define template detection keywords
             template_keywords = {
                 "space_horror": ["horror", "scary", "terrifying", "dread", "fear", "nightmare", "corruption"],
-                "mystery_investigation": ["mystery", "investigation", "detective", "clue", "solve", "evidence", "discover"],
+                "mystery_investigation": ["mystery", "investigation", "investigate", "detective", "clue", "solve", "evidence", "discover"],
                 "survival_escape": ["survival", "escape", "desperate", "resource", "trapped", "flee", "running"],
                 "combat_focused": ["combat", "battle", "tactical", "squad", "fight", "warrior", "assault"]
             }
