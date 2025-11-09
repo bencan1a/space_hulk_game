@@ -178,6 +178,7 @@ class SpaceHulkGame:
         - Explicit validation with clear error messages
         - Graceful fallback to defaults when appropriate
         - Logging for debugging and monitoring
+        - Template loading based on prompt hints (Chunk 3.4)
         """
         try:
             logger.info(f"Preparing inputs: {inputs}")
@@ -193,6 +194,12 @@ class SpaceHulkGame:
                 # Use default instead of raising error to allow testing
                 inputs["prompt"] = "A mysterious derelict space hulk drifts in the void, its corridors dark and silent."
                 logger.info(f"Using default prompt: {inputs['prompt']}")
+            
+            # Load planning template if template hint detected in prompt (Chunk 3.4)
+            template_context = self._load_planning_template(inputs.get("prompt", ""))
+            if template_context:
+                inputs["planning_template"] = template_context
+                logger.info(f"Loaded planning template: {template_context.get('template_name', 'unknown')}")
             
             # Add context for all agents
             inputs["additional_data"] = "Space Hulk game context for all agents."
@@ -218,6 +225,76 @@ class SpaceHulkGame:
             }
             logger.warning(f"Recovering with default inputs: {default_inputs}")
             return default_inputs
+
+    def _load_planning_template(self, prompt: str) -> dict:
+        """
+        Load a planning template based on keywords detected in the prompt.
+        
+        This method implements Chunk 3.4 functionality by:
+        1. Detecting template hints in the user's prompt
+        2. Loading the corresponding YAML template file
+        3. Returning template content as context for agents
+        
+        Template Detection Keywords:
+        - "horror", "scary", "terrifying" → space_horror.yaml
+        - "mystery", "investigation", "detective", "clue" → mystery_investigation.yaml
+        - "survival", "escape", "desperate", "resource" → survival_escape.yaml
+        - "combat", "battle", "tactical", "squad" → combat_focused.yaml
+        
+        Args:
+            prompt: User's input prompt text
+            
+        Returns:
+            Dictionary containing template content, or empty dict if no template found
+        """
+        try:
+            # Convert prompt to lowercase for case-insensitive matching
+            prompt_lower = prompt.lower()
+            
+            # Define template detection keywords
+            template_keywords = {
+                "space_horror": ["horror", "scary", "terrifying", "dread", "fear", "nightmare", "corruption"],
+                "mystery_investigation": ["mystery", "investigation", "detective", "clue", "solve", "evidence", "discover"],
+                "survival_escape": ["survival", "escape", "desperate", "resource", "trapped", "flee", "running"],
+                "combat_focused": ["combat", "battle", "tactical", "squad", "fight", "warrior", "assault"]
+            }
+            
+            # Check for template keywords in prompt
+            detected_template = None
+            for template_name, keywords in template_keywords.items():
+                if any(keyword in prompt_lower for keyword in keywords):
+                    detected_template = template_name
+                    logger.info(f"Detected template hint: {template_name} (matched keywords)")
+                    break
+            
+            # If no template detected, return empty dict
+            if not detected_template:
+                logger.debug("No planning template hint detected in prompt")
+                return {}
+            
+            # Construct template file path
+            # Templates are in planning_templates/ at project root
+            project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+            template_path = os.path.join(project_root, "planning_templates", f"{detected_template}.yaml")
+            
+            # Check if template file exists
+            if not os.path.exists(template_path):
+                logger.warning(f"Template file not found: {template_path}")
+                return {}
+            
+            # Load template YAML file
+            with open(template_path, 'r', encoding='utf-8') as f:
+                template_content = yaml.safe_load(f)
+            
+            logger.info(f"Successfully loaded planning template: {detected_template}")
+            logger.debug(f"Template path: {template_path}")
+            
+            return template_content
+            
+        except Exception as e:
+            # Don't fail the entire process if template loading fails
+            logger.warning(f"Error loading planning template: {str(e)}", exc_info=True)
+            return {}
 
     def handle_task_failure(self, task, exception):
         """
