@@ -1,0 +1,155 @@
+name: Run CrewAI Agents
+
+on:
+  # Manual trigger only - no automatic triggers
+  workflow_dispatch:
+    inputs:
+      game_scenario:
+        description: 'Game scenario to use (optional - defaults to example4_space_hulk)'
+        required: false
+        type: string
+        default: 'example4_space_hulk'
+
+jobs:
+  run-agents:
+    name: Execute CrewAI Agent Crew
+    runs-on: ubuntu-latest
+    
+    # Explicitly set minimal permissions for security
+    permissions:
+      contents: read
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install UV package manager
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+      
+      - name: Install dependencies
+        run: |
+          uv pip install --system -e .
+      
+      - name: Configure environment variables
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          MEM0_API_KEY: ${{ secrets.MEM0_API_KEY }}
+          OPENAI_MODEL_NAME: ${{ vars.OPENAI_MODEL_NAME || 'openrouter/anthropic/claude-3.5-sonnet' }}
+        run: |
+          # Create .env file with configuration
+          cat > .env << EOF
+          # LLM Configuration - OpenRouter
+          OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+          OPENAI_MODEL_NAME=${OPENAI_MODEL_NAME}
+          
+          # Memory Configuration - Mem0
+          MEM0_API_KEY=${MEM0_API_KEY}
+          
+          # Application Configuration
+          LOG_LEVEL=INFO
+          CREWAI_VERBOSE=true
+          CREWAI_MEMORY=true
+          EOF
+          
+          echo "✅ Environment configured"
+          echo "📋 Configuration summary:"
+          echo "  - LLM: OpenRouter"
+          echo "  - Model: ${OPENAI_MODEL_NAME}"
+          echo "  - Memory: Mem0"
+          echo "  - Verbose: enabled"
+      
+      - name: Verify game-config directory
+        run: |
+          echo "📁 Current game-config contents:"
+          ls -la game-config/
+      
+      - name: Run CrewAI agents
+        id: run_crew
+        run: |
+          echo "🚀 Starting CrewAI agent execution..."
+          echo "📅 Run timestamp: $(date -Iseconds)"
+          
+          # Run the crew and capture output
+          crewai run 2>&1 | tee crew_run_output.log
+          
+          echo "✅ CrewAI execution completed"
+          echo "run_timestamp=$(date +%Y%m%d_%H%M%S)" >> $GITHUB_OUTPUT
+        continue-on-error: false
+      
+      - name: Display generated outputs
+        if: always()
+        run: |
+          echo "📊 Generated outputs in game-config/:"
+          ls -lh game-config/
+          echo ""
+          echo "📄 File sizes:"
+          du -sh game-config/*
+      
+      - name: Upload game-config artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: game-config-${{ steps.run_crew.outputs.run_timestamp }}
+          path: |
+            game-config/*.yaml
+            game-config/*.yml
+            game-config/README.md
+          retention-days: 90
+          if-no-files-found: warn
+      
+      - name: Upload execution logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: execution-logs-${{ steps.run_crew.outputs.run_timestamp }}
+          path: |
+            crew_run_output.log
+            run_log.txt
+          retention-days: 30
+          if-no-files-found: ignore
+      
+      - name: Create execution summary
+        if: always()
+        run: |
+          cat > execution_summary.md << 'EOF'
+          # CrewAI Agent Execution Summary
+          
+          **Timestamp**: $(date -Iseconds)
+          **Workflow Run**: ${{ github.run_number }}
+          **Triggered by**: ${{ github.actor }}
+          
+          ## Configuration
+          - **LLM Provider**: OpenRouter
+          - **Model**: Claude 3.5 Sonnet
+          - **Memory**: Mem0
+          - **Scenario**: ${{ inputs.game_scenario || 'example4_space_hulk' }}
+          
+          ## Generated Outputs
+          
+          EOF
+          
+          echo "\`\`\`" >> execution_summary.md
+          ls -lh game-config/ >> execution_summary.md
+          echo "\`\`\`" >> execution_summary.md
+          
+          echo "" >> execution_summary.md
+          echo "## Artifacts" >> execution_summary.md
+          echo "- 📦 Game configuration files: \`game-config-${{ steps.run_crew.outputs.run_timestamp }}\`" >> execution_summary.md
+          echo "- 📋 Execution logs: \`execution-logs-${{ steps.run_crew.outputs.run_timestamp }}\`" >> execution_summary.md
+          
+          cat execution_summary.md
+      
+      - name: Upload execution summary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: execution-summary-${{ steps.run_crew.outputs.run_timestamp }}
+          path: execution_summary.md
+          retention-days: 90
