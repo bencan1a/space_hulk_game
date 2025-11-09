@@ -573,107 +573,107 @@ class SpaceHulkGame:
             config=self.tasks_config["CreateGameMechanicsPRD"]
         )
         
-    # COMMENTED OUT FOR CHUNK 0.1 TESTING (5 core tasks only)
-    # @task
-    # def EvaluateNarrativeFoundation(self) -> Task:
-    #     """
-    #     The EvaluateNarrativeFoundation task from tasks.yaml.
-    #     
-    #     This task evaluates the narrative foundation to ensure it provides sufficient depth
-    #     and direction for subsequent development. It's a critical quality gate.
-    #     
-    #     Note: The method name must match the task name in the YAML file for CrewAI to properly
-    #     map between tasks.
-    #     """
-    #     logger.info(f"Creating EvaluateNarrativeFoundation task with config: {self.tasks_config.get('EvaluateNarrativeFoundation')}")
-    #     return Task(  # type: ignore[call-arg]
-    #         config=self.tasks_config["EvaluateNarrativeFoundation"]
-    #     )
+    # Restored for Chunk 0.2 testing (all 11 tasks)
+    @task
+    def EvaluateNarrativeFoundation(self) -> Task:
+        """
+        The EvaluateNarrativeFoundation task from tasks.yaml.
         
-    # COMMENTED OUT FOR CHUNK 0.1 TESTING (5 core tasks only)
-    # @task
-    # def EvaluateNarrativeStructure(self) -> Task:
-    #     """
-    #     The EvaluateNarrativeStructure task from tasks.yaml.
-    #     
-    #     This task evaluates the narrative structure to ensure it properly develops
-    #     the approved foundation into an implementable blueprint.
-    #     
-    #     Note: The method name must match the task name in the YAML file for CrewAI to properly
-    #     map between tasks.
-    #     """
-    #     logger.info(f"Creating EvaluateNarrativeStructure task with config: {self.tasks_config.get('EvaluateNarrativeStructure')}")
-    #     return Task(  # type: ignore[call-arg]
-    #         config=self.tasks_config["EvaluateNarrativeStructure"]
-    #     )
+        This task evaluates the narrative foundation to ensure it provides sufficient depth
+        and direction for subsequent development. It's a critical quality gate.
         
-    # COMMENTED OUT FOR CHUNK 0.1 TESTING (5 core tasks only)
-    # @task
-    # def NarrativeIntegrationCheckPuzzles(self) -> Task:
-    #     """
-    #     The NarrativeIntegrationCheckPuzzles task from tasks.yaml.
-    #     
-    #     This task evaluates how well the puzzles, artifacts, monsters, and NPCs integrate
-    #     with the established narrative.
-    #     
-    #     Note: The method name must match the task name in the YAML file for CrewAI to properly
-    #     map between tasks.
-    #     """
-    #     logger.info(f"Creating NarrativeIntegrationCheckPuzzles task with config: {self.tasks_config.get('NarrativeIntegrationCheckPuzzles')}")
-    #     return Task(  # type: ignore[call-arg]
-    #         config=self.tasks_config["NarrativeIntegrationCheckPuzzles"]
-    #     )
+        Note: The method name must match the task name in the YAML file for CrewAI to properly
+        map between tasks.
+        """
+        logger.info(f"Creating EvaluateNarrativeFoundation task with config: {self.tasks_config.get('EvaluateNarrativeFoundation')}")
+        return Task(  # type: ignore[call-arg]
+            config=self.tasks_config["EvaluateNarrativeFoundation"]
+        )
         
-    # COMMENTED OUT FOR CHUNK 0.1 TESTING (5 core tasks only)
-    # @task
-    # def NarrativeIntegrationCheckScenes(self) -> Task:
-    #     """
-    #     The NarrativeIntegrationCheckScenes task from tasks.yaml.
-    #     
-    #     This task evaluates how well the scene descriptions and dialogue reflect and
-    #     advance the established narrative.
-    #     
-    #     Note: The method name must match the task name in the YAML file for CrewAI to properly
-    #     map between tasks.
-    #     """
-    #     logger.info(f"Creating NarrativeIntegrationCheckScenes task with config: {self.tasks_config.get('NarrativeIntegrationCheckScenes')}")
-    #     return Task(  # type: ignore[call-arg]
-    #         config=self.tasks_config["NarrativeIntegrationCheckScenes"]
-    #     )
+    # Restored for Chunk 0.2 testing (all 11 tasks)
+    @task
+    def EvaluateNarrativeStructure(self) -> Task:
+        """
+        The EvaluateNarrativeStructure task from tasks.yaml.
         
-    # COMMENTED OUT FOR CHUNK 0.1 TESTING (5 core tasks only)
-    # @task
-    # def NarrativeIntegrationCheckMechanics(self) -> Task:
-    #     """
-    #     The NarrativeIntegrationCheckMechanics task from tasks.yaml.
-    #     
-    #     This task evaluates how well the game mechanics support and enhance
-    #     the established narrative.
-    #     
-    #     Note: The method name must match the task name in the YAML file for CrewAI to properly
-    #     map between tasks.
-    #     """
-    #     logger.info(f"Creating NarrativeIntegrationCheckMechanics task with config: {self.tasks_config.get('NarrativeIntegrationCheckMechanics')}")
-    #     return Task(  # type: ignore[call-arg]
-    #         config=self.tasks_config["NarrativeIntegrationCheckMechanics"]
-    #     )
+        This task evaluates the narrative structure to ensure it properly develops
+        the approved foundation into an implementable blueprint.
         
-    # COMMENTED OUT FOR CHUNK 0.1 TESTING (5 core tasks only)
-    # @task
-    # def FinalNarrativeIntegration(self) -> Task:
-    #     """
-    #     The FinalNarrativeIntegration task from tasks.yaml.
-    #     
-    #     This task performs a comprehensive review of all game elements to ensure they
-    #     form a cohesive, narrative-driven whole.
-    #     
-    #     Note: The method name must match the task name in the YAML file for CrewAI to properly
-    #     map between tasks.
-    #     """
-    #     logger.info(f"Creating FinalNarrativeIntegration task with config: {self.tasks_config.get('FinalNarrativeIntegration')}")
-    #     return Task(  # type: ignore[call-arg]
-    #         config=self.tasks_config["FinalNarrativeIntegration"]
-    #     )
+        Note: The method name must match the task name in the YAML file for CrewAI to properly
+        map between tasks.
+        """
+        logger.info(f"Creating EvaluateNarrativeStructure task with config: {self.tasks_config.get('EvaluateNarrativeStructure')}")
+        return Task(  # type: ignore[call-arg]
+            config=self.tasks_config["EvaluateNarrativeStructure"]
+        )
+        
+    # Restored for Chunk 0.2 testing (all 11 tasks)
+    @task
+    def NarrativeIntegrationCheckPuzzles(self) -> Task:
+        """
+        The NarrativeIntegrationCheckPuzzles task from tasks.yaml.
+        
+        This task evaluates how well the puzzles, artifacts, monsters, and NPCs integrate
+        with the established narrative.
+        
+        Note: The method name must match the task name in the YAML file for CrewAI to properly
+        map between tasks.
+        """
+        logger.info(f"Creating NarrativeIntegrationCheckPuzzles task with config: {self.tasks_config.get('NarrativeIntegrationCheckPuzzles')}")
+        return Task(  # type: ignore[call-arg]
+            config=self.tasks_config["NarrativeIntegrationCheckPuzzles"]
+        )
+        
+    # Restored for Chunk 0.2 testing (all 11 tasks)
+    @task
+    def NarrativeIntegrationCheckScenes(self) -> Task:
+        """
+        The NarrativeIntegrationCheckScenes task from tasks.yaml.
+        
+        This task evaluates how well the scene descriptions and dialogue reflect and
+        advance the established narrative.
+        
+        Note: The method name must match the task name in the YAML file for CrewAI to properly
+        map between tasks.
+        """
+        logger.info(f"Creating NarrativeIntegrationCheckScenes task with config: {self.tasks_config.get('NarrativeIntegrationCheckScenes')}")
+        return Task(  # type: ignore[call-arg]
+            config=self.tasks_config["NarrativeIntegrationCheckScenes"]
+        )
+        
+    # Restored for Chunk 0.2 testing (all 11 tasks)
+    @task
+    def NarrativeIntegrationCheckMechanics(self) -> Task:
+        """
+        The NarrativeIntegrationCheckMechanics task from tasks.yaml.
+        
+        This task evaluates how well the game mechanics support and enhance
+        the established narrative.
+        
+        Note: The method name must match the task name in the YAML file for CrewAI to properly
+        map between tasks.
+        """
+        logger.info(f"Creating NarrativeIntegrationCheckMechanics task with config: {self.tasks_config.get('NarrativeIntegrationCheckMechanics')}")
+        return Task(  # type: ignore[call-arg]
+            config=self.tasks_config["NarrativeIntegrationCheckMechanics"]
+        )
+        
+    # Restored for Chunk 0.2 testing (all 11 tasks)
+    @task
+    def FinalNarrativeIntegration(self) -> Task:
+        """
+        The FinalNarrativeIntegration task from tasks.yaml.
+        
+        This task performs a comprehensive review of all game elements to ensure they
+        form a cohesive, narrative-driven whole.
+        
+        Note: The method name must match the task name in the YAML file for CrewAI to properly
+        map between tasks.
+        """
+        logger.info(f"Creating FinalNarrativeIntegration task with config: {self.tasks_config.get('FinalNarrativeIntegration')}")
+        return Task(  # type: ignore[call-arg]
+            config=self.tasks_config["FinalNarrativeIntegration"]
+        )
 
     # ---------------------------------
     # Crew Definition
