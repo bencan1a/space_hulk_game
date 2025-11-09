@@ -203,6 +203,37 @@ plot:
         self.assertFalse(result.passed)
         self.assertIn('error', result.details)
     
+    def test_evaluate_yaml_with_colon_in_value(self):
+        """Test evaluating YAML with unquoted colons in values (common LLM output)."""
+        plot_yaml = """title: Space Hulk: Derelict of the Damned
+setting: 
+  location: A derelict Space Hulk
+  time: Unknown
+themes: 
+  - Horror
+  - Action
+plot:
+  prologue: 
+    - Opening scene
+  act1:
+    - Branching Path 1: A) Split team B) Stay together
+  act2:
+    - Branching Path 2: A) Trust allies B) Go alone
+endings:
+  - name: Victory
+    type: victory
+  - name: Defeat
+    type: defeat
+"""
+        
+        # Should successfully parse after automatic fix
+        result = self.evaluator.evaluate(plot_yaml)
+        
+        self.assertIsInstance(result, QualityScore)
+        self.assertGreater(result.score, 0.0)  # Should not be 0 (parse error)
+        self.assertTrue(result.details.get('has_title'))
+        self.assertEqual(result.details.get('branching_paths_count'), 2)
+    
     def test_generate_detailed_feedback(self):
         """Test generating detailed feedback."""
         plot_yaml = """
