@@ -1,4 +1,3 @@
-```yml
 narrative_map:
   start_scene: "infiltration"
 
@@ -139,4 +138,3 @@ narrative_map:
           description: "KReddit's true intentions are revealed, and he is shown to be a ruthless and cunning opponent."
         - stage: "Climax"
           description: "KReddit engages in combat with Arcturus, determined to stop him from interfering with his plans."
-```

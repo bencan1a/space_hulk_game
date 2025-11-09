@@ -334,6 +334,57 @@ class SpaceHulkGame:
         # Default fallback
         return {"error": error_message, "recovered": False}
     
+    def clean_yaml_output_files(self):
+        """
+        Post-process YAML output files to remove markdown code fences.
+        
+        The LLM sometimes wraps YAML content in markdown code blocks (```yml ... ```),
+        which makes the files unparseable. This method strips those fences.
+        """
+        output_files = [
+            "game-config/plot_outline.yaml",
+            "game-config/narrative_map.yaml",
+            "game-config/puzzle_design.yaml",
+            "game-config/scene_texts.yaml",
+            "game-config/prd_document.yaml"
+        ]
+        
+        cleaned_count = 0
+        for filepath in output_files:
+            try:
+                if not os.path.exists(filepath):
+                    logger.warning(f"Output file not found: {filepath}")
+                    continue
+                
+                with open(filepath, 'r', encoding='utf-8') as f:
+                    content = f.read()
+                
+                # Check if file has code fences
+                if content.startswith('```') or '```yml' in content or '```yaml' in content:
+                    logger.info(f"Cleaning code fences from {filepath}")
+                    
+                    # Remove markdown code fence markers
+                    # Handle various formats: ```yml, ```yaml, ```
+                    cleaned = content.replace('```yml\n', '').replace('```yaml\n', '').replace('```\n', '')
+                    cleaned = cleaned.replace('\n```', '').replace('```', '')
+                    
+                    # Write cleaned content back
+                    with open(filepath, 'w', encoding='utf-8') as f:
+                        f.write(cleaned)
+                    
+                    cleaned_count += 1
+                    logger.info(f"✅ Cleaned {filepath}")
+                else:
+                    logger.debug(f"No code fences found in {filepath}")
+                    
+            except Exception as e:
+                logger.error(f"Error cleaning {filepath}: {str(e)}")
+        
+        if cleaned_count > 0:
+            logger.info(f"Cleaned {cleaned_count} YAML file(s) by removing code fences")
+        
+        return cleaned_count
+    
     @after_kickoff
     def process_output(self, output):
         """
@@ -344,9 +395,18 @@ class SpaceHulkGame:
         - Comprehensive metadata for debugging and tracking
         - Graceful error handling to preserve output
         - Clear status indicators for quality assessment
+        - Post-processing to clean YAML output files
         """
         try:
             logger.info("Processing crew output...")
+            
+            # Clean YAML output files first
+            try:
+                cleaned_files = self.clean_yaml_output_files()
+                logger.info(f"Post-processed {cleaned_files} YAML files")
+            except Exception as e:
+                logger.error(f"Error cleaning YAML files: {str(e)}")
+                # Continue processing even if cleaning fails
             
             # Get crew configuration safely
             try:

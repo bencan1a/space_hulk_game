@@ -1,4 +1,3 @@
-```yml
 puzzle_design:
   puzzles:
     - id: "tyranid_hive_map"
@@ -107,5 +106,4 @@ puzzle_design:
       dialogue_themes:
         - "twisted motivations"
         - " menacing threats"
-```
 Note: The puzzle designs, artifacts, monsters, and NPCs are all tightly integrated with the narrative and advance the story in meaningful ways. Each element has a clear connection to the narrative themes and maintains thematic consistency.
