@@ -25,6 +25,14 @@ from .puzzle_evaluator import PuzzleEvaluator
 from .scene_evaluator import SceneEvaluator
 from .mechanics_evaluator import MechanicsEvaluator
 
+# Retry logic with quality feedback
+from .retry import (
+    TaskWithQualityCheck,
+    TaskType,
+    execute_with_quality_check,
+    create_quality_config
+)
+
 # Configure logging for the quality metrics module
 logger = logging.getLogger(__name__)
 
@@ -44,4 +52,9 @@ __all__ = [
     'PuzzleEvaluator',
     'SceneEvaluator',
     'MechanicsEvaluator',
+    # Retry logic
+    'TaskWithQualityCheck',
+    'TaskType',
+    'execute_with_quality_check',
+    'create_quality_config',
 ]

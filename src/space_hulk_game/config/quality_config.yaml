@@ -1,0 +1,135 @@
+# Quality Configuration for Space Hulk Game
+#
+# This file defines quality thresholds and retry behavior for task execution
+# with quality checking enabled.
+#
+# ## Configuration Structure
+#
+# Each task type has the following configuration:
+# - enabled: Whether quality checking is enabled for this task type
+# - pass_threshold: Minimum quality score (0.0-10.0) required to pass
+# - max_retries: Maximum number of retry attempts for failed quality checks
+#
+# ## Environment Variable Overrides
+#
+# All settings can be overridden via environment variables:
+# - QUALITY_CHECK_ENABLED: Enable/disable all quality checks (true/false)
+# - QUALITY_PLOT_THRESHOLD: Override plot pass threshold (float)
+# - QUALITY_NARRATIVE_THRESHOLD: Override narrative pass threshold (float)
+# - QUALITY_PUZZLE_THRESHOLD: Override puzzle pass threshold (float)
+# - QUALITY_SCENE_THRESHOLD: Override scene pass threshold (float)
+# - QUALITY_MECHANICS_THRESHOLD: Override mechanics pass threshold (float)
+# - QUALITY_MAX_RETRIES: Override max retries for all tasks (int)
+#
+# ## Usage Examples
+#
+# Enable quality checks with default settings:
+#   export QUALITY_CHECK_ENABLED=true
+#
+# Set stricter plot threshold:
+#   export QUALITY_PLOT_THRESHOLD=8.0
+#
+# Disable retries (fail-fast mode):
+#   export QUALITY_MAX_RETRIES=1
+
+# Global quality check settings
+global:
+  # Enable/disable quality checking system-wide
+  # Set to false to disable all quality checks and run tasks without evaluation
+  enabled: false  # Default: disabled (can enable via environment variable)
+  
+  # Logging level for quality system (DEBUG, INFO, WARNING, ERROR)
+  log_level: INFO
+  
+  # Whether to log detailed quality scores and feedback
+  verbose_logging: true
+
+# Task-specific quality thresholds
+# Each task type maps to a specific evaluator and has its own threshold
+thresholds:
+  # Plot outline generation (PlotEvaluator)
+  plot:
+    enabled: true
+    pass_threshold: 6.0  # Minimum score to pass (0.0-10.0)
+    max_retries: 3       # Maximum retry attempts
+    description: "Plot outline with clear setting, branching paths, and endings"
+  
+  # Narrative map creation (NarrativeMapEvaluator)
+  narrative:
+    enabled: true
+    pass_threshold: 6.0
+    max_retries: 3
+    description: "Narrative map with connected scenes and no orphans"
+  
+  # Puzzle and artifact design (PuzzleEvaluator)
+  puzzle:
+    enabled: true
+    pass_threshold: 6.0
+    max_retries: 3
+    description: "Puzzles with clear solutions and narrative integration"
+  
+  # Scene text and dialogue (SceneEvaluator)
+  scene:
+    enabled: true
+    pass_threshold: 6.0
+    max_retries: 3
+    description: "Scene descriptions with vivid details and consistent tone"
+  
+  # Game mechanics and PRD (MechanicsEvaluator)
+  mechanics:
+    enabled: true
+    pass_threshold: 6.0
+    max_retries: 3
+    description: "Game mechanics with complete systems and clear rules"
+
+# Retry behavior configuration
+retry:
+  # Base delay between retries (in seconds)
+  # Can be used for future implementation of exponential backoff
+  base_delay: 0
+  
+  # Whether to provide detailed feedback on retries
+  # When true, feedback history is passed to subsequent attempts
+  provide_feedback: true
+  
+  # Whether to fail fast if a task cannot be evaluated
+  # When true, evaluation errors cause immediate failure
+  # When false, evaluation errors are logged but task continues
+  fail_on_evaluation_error: false
+
+# Quality score thresholds for different quality levels
+quality_levels:
+  excellent:
+    min_score: 9.0
+    description: "Excellent quality - exceeds expectations"
+  
+  good:
+    min_score: 7.0
+    description: "Good quality - meets all requirements well"
+  
+  acceptable:
+    min_score: 6.0
+    description: "Acceptable quality - meets minimum requirements"
+  
+  poor:
+    min_score: 4.0
+    description: "Poor quality - significant issues present"
+  
+  failing:
+    min_score: 0.0
+    description: "Failing quality - does not meet requirements"
+
+# Metrics to track for monitoring
+monitoring:
+  # Track average quality scores by task type
+  track_scores: true
+  
+  # Track retry counts by task type
+  track_retries: true
+  
+  # Track evaluation errors
+  track_errors: true
+  
+  # Log quality metrics to file
+  log_to_file: false
+  metrics_file: "tmp/quality_metrics.jsonl"
