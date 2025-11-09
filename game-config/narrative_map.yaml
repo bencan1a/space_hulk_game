@@ -1,109 +1,142 @@
-**Narrative Map for Space Hulk**
+```yml
+narrative_map:
+  start_scene: "infiltration"
 
-**Scene 1: The Discovery of the Space Hulk**
+  scenes:
+    infiltration:
+      name: "Infiltration"
+      description: "The players infiltrate the Space Hulk 'Omnissiah's Fury', navigating through deadly zero-gravity environments, disorienting corridors, and avoiding deadly Tyranid creatures to reach their first objective: establishing a safe operating base within the derelict vessel."
+      connections:
+        - target: "establish_base"
+          condition: "Reach the base location without being detected"
+          description: "Players successfully infiltrate the Space Hulk and establish a safe operating base."
+        - target: "encounter_tyranids"
+          condition: "Encounter Tyranid creatures during infiltration"
+          description: "Players are detected by Tyranid creatures and must fight for survival."
 
-* Location: Imperial Navy Vessel, Bridge
-* Characters: Brother-Captain Arcturus, Inquisitor Adara
-* Connections:
-	+ Branch to Scene 2: The Initial Boarding Action
-	+ Branch to Scene 10: The Revelation of the Hulk's Secret (through Inquisitor Adara's subplot)
-* Narrative Progression: The game opens with the discovery of the Space Hulk, drifting through the void, and the realization that it is on a collision course with Molech.
-* Character Moments: Brother-Captain Arcturus is introduced as the leader of the Deathwatch team, and Inquisitor Adara is introduced as a mysterious and powerful figure with her own motivations.
+    establish_base:
+      name: "Establish Base"
+      description: "Players secure the base and gather resources, preparing for the next stage of their mission."
+      connections:
+        - target: "hub_search"
+          condition: "Gather enough resources to proceed"
+          description: "Players have gathered sufficient resources to proceed with their mission."
+        - target: "encounter_tyranids"
+          condition: "Tyranid creatures discover the base"
+          description: "Players must defend their base against a Tyranid attack."
 
-**Scene 2: The Initial Boarding Action**
+    encounter_tyranids:
+      name: "Encounter Tyranids"
+      description: "Players engage in combat with Tyranid creatures, fighting for survival."
+      connections:
+        - target: "hub_search"
+          condition: "Defeat the Tyranid creatures"
+          description: "Players successfully defeat the Tyranid creatures and can proceed with their mission."
+        - target: "death"
+          condition: "Fail to defeat the Tyranid creatures"
+          description: "Players are killed by the Tyranid creatures, ending their mission."
 
-* Location: Space Hulk, Entry Bay
-* Characters: Brother-Captain Arcturus, Space Marine Team
-* Connections:
-	+ Branch to Scene 3: The First Battle
-	+ Branch to Scene 5: The Search for Tech-Priest Elwes
-* Narrative Progression: The players, as a team of Space Marines, are sent to board the Space Hulk and assess the situation. They will encounter the first signs of alien life and the beginnings of the corruption that has infested the vessel.
-* Character Moments: The Space Marine Team is introduced, and their skills and abilities are showcased in the first battle against the alien creatures.
+    hub_search:
+      name: "Search for the Hub Chamber"
+      description: "Players scour the Space Hulk for clues to locate the Hub Chamber, the central control room that houses the core systems controlling the vessel's course."
+      connections:
+        - target: "ultima_od_smanship"
+          condition: "Find the Hub Chamber"
+          description: "Players successfully locate the Hub Chamber and prepare for the final battle."
+        - target: "encounter_tyranids"
+          condition: "Encounter Tyranid creatures during search"
+          description: "Players must fight for survival against Tyranid creatures while searching for the Hub Chamber."
 
-**Scene 3: The First Battle**
+    ultima_od_smanship:
+      name: "To Denounce the Unknown"
+      description: "Players face off against the Tyranid Hive Tyrant in the Space Hulk's command center, determining the fate of humanity and of the ship."
+      connections:
+        - target: "bbb55fe5_escape"
+          condition: "Defeat the Tyranid Hive Tyrant"
+          description: "Players successfully defeat the Tyranid Hive Tyrant and can escape the Space Hulk."
+        - target: "death"
+          condition: "Fail to defeat the Tyranid Hive Tyrant"
+          description: "Players are killed by the Tyranid Hive Tyrant, ending their mission."
 
-* Location: Space Hulk, Corridors
-* Characters: Brother-Captain Arcturus, Space Marine Team
-* Connections:
-	+ Branch to Scene 4: The Aftermath
-	+ Branch to Scene 6: The Discovery of the Genestealer Nest
-* Narrative Progression: The players will face their first battle against the alien creatures that infest the Space Hulk, and will be forced to use their skills and abilities to survive.
-* Character Moments: The Space Marine Team's bond and camaraderie are showcased in the aftermath of the battle.
+    bbb55fe5_escape:
+      name: "Escape from Space Hulk"
+      description: "Players make a desperate bid to escape the derelict ship as its systems collapse around them, seeking safe passage out of the maelstrom before the 'Omnissiah's Fury' meets its final, devastating demise."
+      connections:
+        - target: "end"
+          condition: "Escape the Space Hulk"
+          description: "Players successfully escape the Space Hulk, completing their mission."
 
-**Scene 4: The Aftermath**
+    death:
+      name: "Death"
+      description: "Players are killed, ending their mission."
+      connections: []
 
-* Location: Space Hulk, Corridors
-* Characters: Brother-Captain Arcturus, Space Marine Team
-* Connections:
-	+ Branch to Scene 5: The Search for Tech-Priest Elwes
-	+ Branch to Scene 7: The Confrontation with the Enemy
-* Narrative Progression: The players will assess the aftermath of the battle, and will be forced to make decisions about how to proceed with the mission.
-* Character Moments: The Space Marine Team's thoughts and feelings about the mission are explored in this scene.
+    end:
+      name: "End"
+      description: "Players complete their mission, escaping the Space Hulk."
+      connections: []
 
-**Scene 5: The Search for Tech-Priest Elwes**
+  character_moments:
+    Brother-Captain Arcturus:
+      - moment: "Discovers the true extent of the Tyranid infestation"
+        description: "Arcturus realizes the gravity of the situation and the danger that the Tyranids pose to humanity."
+      - moment: "Confronts the Tyranid Hive Tyrant"
+        description: "Arcturus faces off against the Tyranid Hive Tyrant, determined to stop its evil plans."
 
-* Location: Space Hulk, Engineering Bay
-* Characters: Brother-Captain Arcturus, Tech-Priest Elwes
-* Connections:
-	+ Branch to Scene 6: The Discovery of the Genestealer Nest
-	+ Branch to Scene 8: The Revelation of the Hulk's Secret
-* Narrative Progression: The players will search for Tech-Priest Elwes, and will discover the beginnings of the corruption that has infested the vessel.
-* Character Moments: Tech-Priest Elwes is introduced, and his instability and brilliance are showcased.
+    Tech-Priest Elwes:
+      - moment: "Helps Arcturus repair the ship's systems"
+        description: "Elwes uses his technical expertise to help Arcturus repair the ship's systems and progress through the mission."
+      - moment: "Betrays Arcturus"
+        description: "Elwes reveals his true intentions and betrays Arcturus, forcing the player to make a difficult decision."
 
-**Scene 6: The Discovery of the Genestealer Nest**
+    Inquisitor KReddit:
+      - moment: "Reveals his true intentions"
+        description: "KReddit reveals his plan to harness the power of the Tyranids to further his own goals, shocking Arcturus and the player."
+      - moment: "Fights Arcturus"
+        description: "KReddit engages in combat with Arcturus, determined to stop him from interfering with his plans."
 
-* Location: Space Hulk, Ventilation Shafts
-* Characters: Brother-Captain Arcturus, Space Marine Team
-* Connections:
-	+ Branch to Scene 7: The Confrontation with the Enemy
-	+ Branch to Scene 9: The Moral Dilemma
-* Narrative Progression: The players will discover the Genestealer Nest, and will be forced to make decisions about how to proceed with the mission.
-* Character Moments: The Space Marine Team's fear and revulsion of the Genestealers are showcased.
+  decision_points:
+    - id: "choose_to_fight"
+      prompt: "Do you choose to fight the Tyranid creatures or try to sneak past them?"
+      options:
+        - choice: "Fight"
+          outcome: "Players engage in combat with the Tyranid creatures, fighting for survival."
+        - choice: "Sneak past"
+          outcome: "Players attempt to sneak past the Tyranid creatures, avoiding combat."
 
-**Scene 7: The Confrontation with the Enemy**
+    - id: "choose_to_trust_elwes"
+      prompt: "Do you choose to trust Elwes or not?"
+      options:
+        - choice: "Trust"
+          outcome: "Players trust Elwes, who helps them progress through the mission."
+        - choice: "Don't trust"
+          outcome: "Players do not trust Elwes, who reveals his true intentions and betrays them."
 
-* Location: Space Hulk, Engine Room
-* Characters: Brother-Captain Arcturus, The Devourer
-* Connections:
-	+ Branch to Scene 8: The Revelation of the Hulk's Secret
-	+ Branch to Scene 9: The Moral Dilemma
-* Narrative Progression: The players will face off against the mastermind behind the Space Hulk's corruption, and will be forced to make decisions about how to proceed with the mission.
-* Character Moments: The Devourer is introduced, and its power and malevolence are showcased.
+  character_arcs:
+    - character: "Brother-Captain Arcturus"
+      arc_stages:
+        - stage: "Beginning"
+          description: "Arcturus is introduced as a confident and experienced Space Marine captain."
+        - stage: "Development"
+          description: "Arcturus faces challenges and setbacks, forcing him to adapt and grow as a character."
+        - stage: "Climax"
+          description: "Arcturus confronts the Tyranid Hive Tyrant, determined to stop its evil plans."
 
-**Scene 8: The Revelation of the Hulk's Secret**
+    - character: "Tech-Priest Elwes"
+      arc_stages:
+        - stage: "Beginning"
+          description: "Elwes is introduced as a helpful and genial Tech-Priest."
+        - stage: "Development"
+          description: "Elwes's true intentions are revealed, and he betrays Arcturus."
+        - stage: "Climax"
+          description: "Elwes's betrayal is revealed, and he must face the consequences of his actions."
 
-* Location: Space Hulk, Bridge
-* Characters: Brother-Captain Arcturus, Inquisitor Adara
-* Connections:
-	+ Branch to Scene 9: The Moral Dilemma
-	+ Branch to Scene 10: The Final Confrontation
-* Narrative Progression: The players will uncover the dark secrets of the Space Hulk's past, including the source of its corruption and the true nature of the threat it poses.
-* Character Moments: Inquisitor Adara's motivations and backstory are explored in this scene.
-
-**Scene 9: The Moral Dilemma**
-
-* Location: Space Hulk, Bridge
-* Characters: Brother-Captain Arcturus, Space Marine Team
-* Connections:
-	+ Branch to Scene 10: The Final Confrontation
-	+ Branch to Scene 11: The Aftermath
-* Narrative Progression: The players will be forced to choose between saving the planet Molech or sacrificing it to destroy the Space Hulk, a decision that will have far-reaching consequences for the Imperium.
-* Character Moments: The Space Marine Team's thoughts and feelings about the mission are explored in this scene.
-
-**Scene 10: The Final Confrontation**
-
-* Location: Space Hulk, Engine Room
-* Characters: Brother-Captain Arcturus, The Devourer
-* Connections:
-	+ Branch to Scene 11: The Aftermath
-* Narrative Progression: The players will face off against The Devourer in a final confrontation, and will be forced to use their skills and abilities to defeat it.
-* Character Moments: The Space Marine Team's bond and camaraderie are showcased in the final confrontation.
-
-**Scene 11: The Aftermath**
-
-* Location: Space Hulk, Bridge
-* Characters: Brother-Captain Arcturus, Space Marine Team
-* Narrative Progression: The players will assess the aftermath of the final confrontation, and will be forced to deal with the consequences of their decisions.
-* Character Moments: The Space Marine Team's thoughts and feelings about the mission are explored in this final scene.
-
-This narrative map provides a comprehensive structure for the game, including all critical paths, character arcs, decision points, and narrative progression. It can be used to guide specialized development work and ensure a cohesive and engaging story.
+    - character: "Inquisitor KReddit"
+      arc_stages:
+        - stage: "Beginning"
+          description: "KReddit is introduced as a mysterious and powerful figure."
+        - stage: "Development"
+          description: "KReddit's true intentions are revealed, and he is shown to be a ruthless and cunning opponent."
+        - stage: "Climax"
+          description: "KReddit engages in combat with Arcturus, determined to stop him from interfering with his plans."
+```

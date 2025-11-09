@@ -1,71 +1,111 @@
-**Puzzle Design:**
+```yml
+puzzle_design:
+  puzzles:
+    - id: "tyranid_hive_map"
+      name: "Decoding the Tyranid Hive Map"
+      description: "Players discover a damaged Tyranid hive map that needs to be repaired and decoded to reveal the location of the Hub Chamber."
+      location: "establish_base"
+      narrative_purpose: "This puzzle advances the story by providing the players with crucial information about the Space Hulk's layout and the location of the Hub Chamber, which is necessary to progress through the mission."
+      solution:
+        type: "pattern recognition"
+        steps:
+          - "Repair the damaged map using Elwes's technical expertise."
+          - "Analyze the map's symbols to identify patterns and connections."
+          - "Use the patterns to unlock the map's secrets and reveal the location of the Hub Chamber."
+      difficulty: "medium"
 
-1. **Scene 2: The Initial Boarding Action**
-	* Puzzle: "Breach and Clear"
-		+ Players must navigate through the cramped corridors of the Space Hulk, avoiding deadly traps and alien creatures to reach the bridge.
-		+ To progress, players must solve a series of environmental puzzles, such as bypassing electrical traps and unlocking sealed doors.
-	* Connection to Narrative: The puzzle reflects the players' initial boarding action, where they must navigate through the treacherous environment of the Space Hulk to reach the bridge.
-2. **Scene 5: The Search for Tech-Priest Elwes**
-	* Puzzle: "System Lockdown"
-		+ Players must hack into the Space Hulk's systems to unlock the door to the Engineering Bay, where Tech-Priest Elwes is located.
-		+ The puzzle requires players to decode a series of encrypted messages to gain access to the door's control panel.
-	* Connection to Narrative: The puzzle reflects the players' search for Tech-Priest Elwes, who is crucial to understanding the Space Hulk's secrets.
-3. **Scene 8: The Revelation of the Hulk's Secret**
-	* Puzzle: "Cryptic Logs"
-		+ Players must decode a series of cryptic logs left behind by the Space Hulk's crew to uncover the dark secrets of the vessel's past.
-		+ The puzzle requires players to analyze patterns and connections between the logs to reveal the truth.
-	* Connection to Narrative: The puzzle reflects the players' discovery of the Space Hulk's secrets, which is crucial to understanding the true nature of the threat.
+    - id: "hacking_tyranid_console"
+      name: "Hacking the Tyranid Console"
+      description: "Players encounter a Tyranid console that needs to be hacked to access crucial information about the Space Hulk's systems and the Tyranid Hive Mind's plans."
+      location: "hub_search"
+      narrative_purpose: "This puzzle provides the players with valuable information about the Tyranid Hive Mind's plans and the Space Hulk's systems, which is necessary to progress through the mission and make informed decisions."
+      solution:
+        type: "sequence-based"
+        steps:
+          - "Analyze the console's symbols and patterns to identify the correct sequence."
+          - "Enter the correct sequence to unlock the console and access the information."
+      difficulty: "hard"
 
-**Artifact Design:**
+    - id: "kreddit_encryption"
+      name: "Decoding KReddit's Encryption"
+      description: "Players discover an encrypted message from Inquisitor KReddit that needs to be decoded to reveal his true intentions and plans."
+      location: "ultima_od_smanship"
+      narrative_purpose: "This puzzle advances the story by revealing KReddit's true intentions and plans, which is necessary to understand the motivations behind the events of the game."
+      solution:
+        type: "cryptography"
+        steps:
+          - "Analyze the encrypted message to identify patterns and connections."
+          - "Use cryptography techniques to decode the message and reveal KReddit's plans."
+      difficulty: "hard"
 
-1. **Scene 3: The First Battle**
-	* Artifact: "Power Fist"
-		+ A powerful melee weapon that allows players to take down Genestealers with ease.
-		+ The artifact is discovered in the aftermath of the first battle, symbolizing the players' growing strength and ability to take on the alien threat.
-	* Connection to Narrative: The artifact reflects the players' growth and increased combat effectiveness, which is crucial to surviving the Space Hulk.
-2. **Scene 6: The Discovery of the Genestealer Nest**
-	* Artifact: "Genestealer Hive Map"
-		+ A map that reveals the location of the Genestealer Nest, allowing players to plan their next move.
-		+ The artifact is discovered in the ventilation shafts, symbolizing the players' increasing understanding of the Space Hulk's layout and the alien threat.
-	* Connection to Narrative: The artifact reflects the players' growing understanding of the Space Hulk's secrets and the alien threat.
-3. **Scene 9: The Moral Dilemma**
-	* Artifact: "Dataslate"
-		+ A device that contains crucial information about the Space Hulk's systems and the consequences of the players' choices.
-		+ The artifact is discovered in the bridge, symbolizing the players' access to crucial information that will inform their decision.
-	* Connection to Narrative: The artifact reflects the players' growing understanding of the Space Hulk's secrets and the consequences of their choices.
+  artifacts:
+    - id: "tyranid_hive_map"
+      name: "Tyranid Hive Map"
+      description: "A damaged map that reveals the location of the Hub Chamber and provides insight into the Tyranid Hive Mind's plans."
+      location: "establish_base"
+      narrative_significance: "This artifact provides crucial information about the Space Hulk's layout and the location of the Hub Chamber, which is necessary to progress through the mission."
+      properties:
+        - "map": "damaged"
 
-**Monster Design:**
+    - id: "elwes_tech_journal"
+      name: "Elwes's Tech Journal"
+      description: "A journal containing Elwes's notes and sketches about the Space Hulk's systems and the Tyranid technology."
+      location: "establish_base"
+      narrative_significance: "This artifact provides insight into Elwes's thoughts and plans, and offers clues about the Space Hulk's systems and the Tyranid technology."
+      properties:
+        - "notes": " cryptic"
+        - "sketches": "technical"
 
-1. **Scene 3: The First Battle**
-	* Monster: "Genestealer"
-		+ A fast and agile alien creature that attacks in swarms.
-		+ The monster is introduced in the first battle, symbolizing the players' initial encounter with the alien threat.
-	* Connection to Narrative: The monster reflects the players' initial encounter with the alien threat, which sets the tone for the rest of the game.
-2. **Scene 6: The Discovery of the Genestealer Nest**
-	* Monster: "Genestealer Hive Tyrant"
-		+ A powerful and massive alien creature that serves as the leader of the Genestealer Nest.
-		+ The monster is introduced in the ventilation shafts, symbolizing the players' growing understanding of the alien threat and its hierarchy.
-	* Connection to Narrative: The monster reflects the players' growing understanding of the alien threat and its hierarchy, which is crucial to surviving the Space Hulk.
-3. **Scene 10: The Final Confrontation**
-	* Monster: "The Devourer"
-		+ A massive and powerful alien entity that serves as the mastermind behind the Space Hulk's corruption.
-		+ The monster is introduced in the final confrontation, symbolizing the players' ultimate battle against the alien threat.
-	* Connection to Narrative: The monster reflects the players' ultimate battle against the alien threat, which is crucial to the fate of the Imperium.
+    - id: "kreddit_log"
+      name: "KReddit's Log"
+      description: "A log containing KReddit's thoughts and plans about the Tyranid Hive Mind and the Space Hulk."
+      location: "ultima_od_smanship"
+      narrative_significance: "This artifact reveals KReddit's true intentions and plans, and provides insight into his motivations and actions."
+      properties:
+        - "entries": " cryptic"
 
-**NPC Design:**
+  monsters:
+    - id: "tyranid_warrior"
+      name: "Tyranid Warrior"
+      description: "A deadly and aggressive Tyranid creature that serves as a loyal warrior to the Tyranid Hive Mind."
+      locations:
+        - "infiltration"
+        - "encounter_tyranids"
+      narrative_role: "This monster serves as a formidable opponent to the players, and its presence advances the story by providing a sense of danger and urgency."
+      abilities:
+        - "aggressive behavior"
+        - "enhanced strength"
 
-1. **Scene 1: The Discovery of the Space Hulk**
-	* NPC: "Inquisitor Adara"
-		+ A mysterious and powerful Inquisitor who has been tracking the Space Hulk.
-		+ The NPC is introduced in the discovery of the Space Hulk, symbolizing the players' initial encounter with the Inquisitor and her motivations.
-	* Connection to Narrative: The NPC reflects the players' initial encounter with the Inquisitor and her motivations, which is crucial to understanding the narrative.
-2. **Scene 5: The Search for Tech-Priest Elwes**
-	* NPC: "Tech-Priest Elwes"
-		+ A brilliant but unstable Tech-Priest who has been tasked with hacking into the Space Hulk's systems.
-		+ The NPC is introduced in the Engineering Bay, symbolizing the players' search for the Tech-Priest and his expertise.
-	* Connection to Narrative: The NPC reflects the players' search for the Tech-Priest and his expertise, which is crucial to understanding the Space Hulk's secrets.
-3. **Scene 8: The Revelation of the Hulk's Secret**
-	* NPC: "Brother-Captain Arcturus"
-		+ The leader of the Deathwatch team, who has been guiding the players throughout the mission.
-		+ The NPC is introduced in the bridge, symbolizing the players' growing understanding of the Space Hulk's secrets and the true nature of the threat.
-	* Connection to Narrative: The NPC reflects the players' growing understanding of the Space Hulk's secrets and the true nature of the threat, which is crucial to the fate of the Imperium.
+    - id: "tyranid_hive_tyrant"
+      name: "Tyranid Hive Tyrant"
+      description: "A massive and powerful Tyranid creature that serves as the ultimate goal of the mission."
+      locations:
+        - "ultima_od_smanship"
+      narrative_role: "This monster serves as the final boss of the game, and its presence advances the story by providing a sense of climax and resolution."
+      abilities:
+        - "regeneration"
+        - "enhanced strength"
+
+  npcs:
+    - id: "elwes"
+      name: "Tech-Priest Elwes"
+      role: "Supporting Non-Player Character"
+      description: "A genial Tech-Priest with a passion for machinery and innovation, Elwes assists Arcturus on his perilous journey through the derelict ship."
+      locations:
+        - "establish_base"
+        - "hub_search"
+      dialogue_themes:
+        - "technical expertise"
+        - "support and assistance"
+
+    - id: "kreddit"
+      name: "Inquisitor KReddit"
+      role: "Antagonist"
+      description: "A former Space Marine turned renegade, KReddit formed an unholy alliance with the Tyranid Hive Mind."
+      locations:
+        - "ultima_od_smanship"
+      dialogue_themes:
+        - "twisted motivations"
+        - " menacing threats"
+```
+Note: The puzzle designs, artifacts, monsters, and NPCs are all tightly integrated with the narrative and advance the story in meaningful ways. Each element has a clear connection to the narrative themes and maintains thematic consistency.

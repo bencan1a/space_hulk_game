@@ -1,63 +1,53 @@
-**
+```yml
+prd_document:
+  game_title: "Space Hulk: Void of Darkness"
 
-**Game Mechanics Design Document: Space Hulk**
+  game_systems:
+    movement:
+      description: "Players move through the Space Hulk, navigating zero-gravity environments and disorienting corridors."
+      commands: ["move", "jump", "use_gravity_boots"]
+      narrative_purpose: "Players must navigate the treacherous terrain of the Space Hulk to reach their objectives, while avoiding deadly Tyranid creatures."
 
-**Mechanic 1: Exploration**
+    inventory:
+      description: "Players manage their inventory of equipment, ammo, and health packs."
+      capacity: 10
+      commands: ["take", "drop", "use"]
+      narrative_purpose: "Players must scavenge for resources and manage their inventory to survive the harsh environment of the Space Hulk."
 
-* **Narrative Purpose:** To allow players to explore the vast, eerie environments of the Space Hulk, uncovering its secrets and piecing together the mystery of its corruption.
-* **Gameplay Description:** Players will navigate through the Space Hulk's corridors, rooms, and debris-filled areas, interacting with objects, terminals, and other elements to gather information and resources.
-* **Narrative Connection:** Exploration will reveal the Space Hulk's dark history, exposing players to signs of alien infestation, human experimentation, and the beginnings of the corruption that threatens the Imperium.
-* **Core Mechanics:**
-	+ Navigation: Players will use a combination of movement and interaction mechanics to explore the Space Hulk.
-	+ Scanning: Players will use a scanner to gather information about objects, terminals, and other elements, unlocking new areas and revealing hidden secrets.
-	+ Resource Gathering: Players will collect resources, such as ammunition and health packs, to aid in their survival.
+    combat:
+      description: "Players engage in turn-based combat with Tyranid creatures, using a variety of abilities and equipment."
+      mechanics:
+        - name: "reserve_action"
+          rules: "Players can reserve an action to be taken on their next turn, allowing for strategic planning and anticipation of enemy movements."
+        - name: "aimed_shot"
+          rules: "Players can take an aimed shot at a specific enemy, increasing the chance to hit and deal damage."
+      narrative_purpose: "Combat is a key part of the player's experience, as they must fight to survive against hordes of deadly Tyranid creatures."
 
-**Mechanic 2: Combat**
+    interaction:
+      description: "Players interact with the environment and NPCs, gathering information and resources."
+      commands: ["examine", "talk", "use"]
+      narrative_purpose: "Players must interact with the environment and NPCs to uncover the secrets of the Space Hulk and progress through the story."
 
-* **Narrative Purpose:** To simulate the intense, desperate battles against the alien hordes that infest the Space Hulk, testing the players' skills and resolve.
-* **Gameplay Description:** Players will engage in turn-based combat against various alien threats, using a combination of ranged and melee attacks, cover, and abilities to emerge victorious.
-* **Narrative Connection:** Combat will highlight the players' roles as Deathwatch Space Marines, tasked with eradicating the alien threat and saving the Imperium.
-* **Core Mechanics:**
-	+ Action Points: Players will manage action points to perform attacks, move, and use abilities.
-	+ Cover System: Players will use cover to protect themselves from enemy fire and gain a tactical advantage.
-	+ Abilities: Players will unlock and upgrade abilities, such as frag grenades and bolter shots, to aid in combat.
+  game_state:
+    tracked_variables:
+      - variable: "player_health"
+        purpose: "Track the player's health, influencing the narrative and gameplay."
+      - variable: "resource_availability"
+        purpose: "Track the availability of resources, influencing the player's ability to survive and progress."
+    win_conditions:
+      - condition: "defeat_tyranid_hive_tyrant"
+        description: "Players defeat the Tyranid Hive Tyrant, securing a major victory for humanity."
+    lose_conditions:
+      - condition: "player_death"
+        description: "The player dies, ending their mission and dealing a blow to humanity's chances of survival."
 
-**Mechanic 3: Sanity**
-
-* **Narrative Purpose:** To simulate the psychological strain of facing the horrors of the Space Hulk, testing the players' mental fortitude.
-* **Gameplay Description:** Players will manage their sanity, which will decrease as they witness traumatic events, experience combat, and encounter unspeakable horrors.
-* **Narrative Connection:** Sanity will affect the players' perception of reality, influencing their interactions and decision-making.
-* **Core Mechanics:**
-	+ Sanity Meter: Players will manage a sanity meter, which will decrease as they experience traumatic events.
-	+ Sanity Effects: Players will experience visual and audio hallucinations, altered perception, and reduced abilities as their sanity dwindles.
-
-**Mechanic 4: Resource Management**
-
-* **Narrative Purpose:** To simulate the scarcity of resources in the Space Hulk, forcing players to make tough decisions about how to allocate their limited supplies.
-* **Gameplay Description:** Players will manage resources, such as ammunition, health packs, and oxygen, to sustain themselves and their team.
-* **Narrative Connection:** Resource management will highlight the harsh realities of survival in the Space Hulk, where every decision has consequences.
-* **Core Mechanics:**
-	+ Resource Tracking: Players will track their resources, managing their supplies to ensure survival.
-	+ Resource Allocation: Players will allocate resources to their team members, making tough decisions about who to prioritize.
-
-**Mechanic 5: Decision-Making**
-
-* **Narrative Purpose:** To simulate the difficult choices that players must make in the face of overwhelming odds, testing their moral fiber and leadership abilities.
-* **Gameplay Description:** Players will encounter decision points, where they must choose between different courses of action, each with consequences for the mission and the Imperium.
-* **Narrative Connection:** Decision-making will highlight the players' roles as leaders, forced to make impossible choices that will have far-reaching consequences.
-* **Core Mechanics:**
-	+ Decision Points: Players will encounter decision points, where they must choose between different courses of action.
-	+ Consequences: Players will experience the consequences of their decisions, influencing the narrative and gameplay.
-
-**Mechanic 6: Team Management**
-
-* **Narrative Purpose:** To simulate the importance of teamwork and camaraderie in the face of overwhelming odds, highlighting the bonds between the Space Marines.
-* **Gameplay Description:** Players will manage their team, allocating resources, assigning tasks, and making decisions that affect the team's morale and effectiveness.
-* **Narrative Connection:** Team management will highlight the players' roles as leaders, responsible for the lives and well-being of their team members.
-* **Core Mechanics:**
-	+ Team Morale: Players will manage their team's morale, influencing their effectiveness in combat and exploration.
-	+ Task Allocation: Players will allocate tasks to their team members, making decisions about who to prioritize.
-
-**Conclusion:**
-
-The game mechanics designed for Space Hulk are carefully crafted to support and enhance the narrative experience, providing a immersive and engaging gameplay experience that simulates the horrors of the Space Hulk. Each mechanic is designed to serve a specific narrative purpose, from exploration and combat to sanity and resource management. By combining these mechanics, players will experience a rich and layered narrative that explores the themes of survival, duty, and the struggle against overwhelming odds.
+  technical_requirements:
+    - requirement: " implement turn-based combat mechanics"
+      justification: "Turn-based combat is required to implement the game's combat mechanics, allowing players to strategically plan their actions and anticipate enemy movements."
+    - requirement: "use 3D graphics to render the Space Hulk environment"
+      justification: "3D graphics are required to create a immersive and realistic environment, drawing players into the world of the Space Hulk."
+    - requirement: "implement inventory management system"
+      justification: "An inventory management system is required to track the player's resources and equipment, influencing the narrative and gameplay."
+    - requirement: "use sound effects and music to enhance the atmosphere"
+      justification: "Sound effects and music are required to create a tense and immersive atmosphere, drawing players into the world of the Space Hulk."
+```
