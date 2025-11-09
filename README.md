@@ -13,6 +13,7 @@ All documentation has been moved to the [`docs/`](docs/) folder:
 - **[Agents Documentation](docs/AGENTS.md)** - AI agent system documentation
 - **[Debugging Guide](docs/DEBUGGING_GUIDE.md)** - Troubleshooting and debugging tips
 - **[Workflows Guide](docs/WORKFLOWS.md)** - GitHub Actions workflows documentation
+- **[Secrets Setup](docs/SECRETS_SETUP.md)** - Setting up API keys for workflows
 - **[CrewAI API Reference](docs/crewai-api-reference.md)** - CrewAI framework reference
 
 ## Quick Start

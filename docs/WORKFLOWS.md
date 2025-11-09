@@ -58,7 +58,9 @@ The workflow requires the following repository secrets to be configured:
 - **`OPENROUTER_API_KEY`**: Your OpenRouter API key for LLM access
 - **`MEM0_API_KEY`**: Your Mem0 API key for memory management
 
-**To set up secrets**:
+**To set up secrets**, see the detailed guide: **[SECRETS_SETUP.md](SECRETS_SETUP.md)**
+
+Quick setup:
 1. Go to repository Settings → Secrets and variables → Actions
 2. Click "New repository secret"
 3. Add each required secret with its value

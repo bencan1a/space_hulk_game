@@ -218,6 +218,7 @@ python -m unittest discover -s tests -v
 - **[AGENTS.md](AGENTS.md)**: AI agent system documentation
 - **[DEBUGGING_GUIDE.md](DEBUGGING_GUIDE.md)**: Troubleshooting and debugging tips
 - **[WORKFLOWS.md](WORKFLOWS.md)**: GitHub Actions workflows documentation
+- **[SECRETS_SETUP.md](SECRETS_SETUP.md)**: Setting up API keys for workflows
 - **[crewai-api-reference.md](crewai-api-reference.md)**: CrewAI framework reference guide
 
 ### Memory Bank
