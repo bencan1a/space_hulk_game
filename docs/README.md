@@ -220,7 +220,8 @@ python -m unittest discover -s tests -v
 - **[SETUP.md](SETUP.md)**: Detailed installation and configuration guide
 - **[QUICKSTART.md](QUICKSTART.md)**: Quick setup and running guide
 - **[CONTRIBUTING.md](CONTRIBUTING.md)**: Development guidelines and best practices
-- **[AGENTS.md](AGENTS.md)**: AI agent system documentation
+- **[AGENTS.md](AGENTS.md)**: GitHub Copilot agents documentation
+- **[CREWAI_AGENTS.md](CREWAI_AGENTS.md)**: CrewAI game generation agents documentation
 - **[DEBUGGING_GUIDE.md](DEBUGGING_GUIDE.md)**: Troubleshooting and debugging tips
 - **[WORKFLOWS.md](WORKFLOWS.md)**: GitHub Actions workflows documentation
 - **[SECRETS_SETUP.md](SECRETS_SETUP.md)**: Setting up API keys for workflows
