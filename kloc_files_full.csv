@@ -1,0 +1,6 @@
+repo,sha,file,adds,dels,is_test
+bencan1a/space_hulk_game,d33e9ffd64ca5ab60c19a91c022419075a4dae5b,kloc-report.py,7,6,false
+bencan1a/space_hulk_game,d33e9ffd64ca5ab60c19a91c022419075a4dae5b,kloc_files.csv,0,92,false
+bencan1a/space_hulk_game,52c3c89c35156e8ec94c7bba0e24474fb99a90bc,kloc-report.py,1,0,false
+bencan1a/space_hulk_game,52c3c89c35156e8ec94c7bba0e24474fb99a90bc,kloc_by_repo.csv,3,0,false
+bencan1a/space_hulk_game,52c3c89c35156e8ec94c7bba0e24474fb99a90bc,kloc_files.csv,92,0,false
