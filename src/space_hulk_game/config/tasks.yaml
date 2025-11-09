@@ -67,13 +67,14 @@ GenerateOverarchingPlot:
 EvaluateNarrativeFoundation:
   name: "Evaluate Narrative Foundation"
   description: >
-    Thoroughly evaluate the narrative foundation to ensure it provides sufficient depth, clarity,
-    and direction for all subsequent development. This is a critical quality gate - subsequent 
-    work cannot proceed until a strong narrative foundation is established.
+    Evaluate the narrative foundation for story quality, thematic depth, and emotional engagement.
+    Focus on: Does the plot have compelling hooks? Are themes clearly established? Will the story
+    resonate emotionally? Is the pacing effective? Does it set up meaningful player choices?
+    This is a narrative quality assessment, not technical validation.
   expected_output: >
-    A comprehensive evaluation of the narrative foundation with specific feedback for improvement.
-    Include explicit approval or revision requests. Only when approved can development proceed
-    to the next phase.
+    A narrative quality evaluation assessing plot hooks, thematic development, emotional resonance,
+    and story pacing. Provide specific feedback on how to strengthen the narrative foundation.
+    Focus on story quality, not technical details.
   agent: "NarrativeDirectorAgent"
   context:
     - "GenerateOverarchingPlot"
@@ -102,13 +103,14 @@ CreateNarrativeMap:
 EvaluateNarrativeStructure:
   name: "Evaluate Narrative Structure"
   description: >
-    Thoroughly evaluate the narrative structure to ensure it adequately develops the approved 
-    foundation into an implementable blueprint for all specialized development. This is a 
-    critical quality gate - specialist work cannot fully proceed until the narrative structure 
-    is approved.
+    Evaluate the narrative structure for story flow, scene pacing, and narrative coherence.
+    Focus on: Do scenes flow naturally? Are story beats well-placed? Does the structure
+    support the themes? Are character moments effective? Is the narrative arc satisfying?
+    This is about narrative craft, not technical details.
   expected_output: >
-    A detailed evaluation of the narrative structure with specific feedback. Include explicit
-    approval or revision requests. Only when approved can specialist development fully proceed.
+    A narrative structure assessment evaluating scene flow, story pacing, thematic support,
+    and narrative arc. Provide specific feedback on strengthening the narrative structure.
+    Focus on storytelling quality, not technical validation.
   agent: "NarrativeDirectorAgent"
   context:
     - "CreateNarrativeMap"
@@ -137,18 +139,23 @@ DesignArtifactsAndPuzzles:
     - "EvaluateNarrativeStructure"  # Keeping execution dependency to maintain correct task order
   output_file: "game-config/puzzle_design.yaml"
 
-NarrativeIntegrationCheckPuzzles:
-  name: "Narrative Integration Check: Puzzles"
+ValidatePuzzleIntegration:
+  name: "Validate Puzzle and Game Element Integration"
   description: >
-    Evaluate how well the puzzles, artifacts, monsters, and NPCs integrate with and
-    advance the established narrative. Ensure each element serves the narrative purpose
-    defined in the structure and maintains thematic consistency.
+    Validate that puzzles, artifacts, monsters, and NPCs are technically sound and properly
+    integrated. Check that: puzzles are solvable with available items and mechanics, items
+    function correctly within the game systems, enemies are balanced for the intended difficulty,
+    NPCs fit logically in their locations, all elements work within the defined game mechanics.
+    Ensure nothing creates dead ends, impossible scenarios, or broken gameplay.
   expected_output: >
-    A detailed assessment of narrative integration for each puzzle element with specific
-    feedback for improving narrative cohesion where needed.
-  agent: "NarrativeDirectorAgent"
+    A technical validation report identifying any issues with puzzle solvability, item
+    functionality, enemy balance, NPC placement, or system integration. Flag any problems
+    that would make the game unplayable, frustrating, or inconsistent. Provide specific
+    fixes for identified issues.
+  agent: "GameIntegrationAgent"
   context:
     - "DesignArtifactsAndPuzzles"
+    - "CreateGameMechanicsPRD"
     - "CreateNarrativeMap"
   dependencies:
     - "DesignArtifactsAndPuzzles"
@@ -173,15 +180,18 @@ WriteSceneDescriptionsAndDialogue:
     - "EvaluateNarrativeFoundation"  # Keeping execution dependency to maintain correct task order
   output_file: "game-config/scene_texts.yaml"
 
-NarrativeIntegrationCheckScenes:
-  name: "Narrative Integration Check: Scenes"
+EvaluateSceneQuality:
+  name: "Evaluate Scene Writing Quality"
   description: >
-    Evaluate how well the scene descriptions and dialogue reflect and advance the
-    established narrative. Ensure the writing effectively communicates the narrative
-    moments defined in the structure and maintains consistent tone and themes.
+    Evaluate the quality of scene descriptions and dialogue from a narrative perspective.
+    Focus on: Are descriptions vivid and atmospheric? Does dialogue sound authentic? Do
+    scenes convey the intended mood and tone? Are story moments emotionally effective?
+    Does the writing engage the player's imagination? This is about writing quality, not
+    technical validation.
   expected_output: >
-    A detailed assessment of narrative integration for each scene with specific
-    feedback for improving narrative effectiveness where needed.
+    A writing quality assessment evaluating descriptive prose, dialogue authenticity,
+    atmospheric tone, and emotional impact. Provide specific feedback on strengthening
+    the writing. Focus on literary quality, not technical integration.
   agent: "NarrativeDirectorAgent"
   context:
     - "WriteSceneDescriptionsAndDialogue"
@@ -208,40 +218,48 @@ CreateGameMechanicsPRD:
     - "EvaluateNarrativeStructure"  # Keeping execution dependency to maintain correct task order
   output_file: "game-config/prd_document.yaml"
 
-NarrativeIntegrationCheckMechanics:
-  name: "Narrative Integration Check: Mechanics"
+ValidateMechanicsIntegration:
+  name: "Validate Game Mechanics Integration"
   description: >
-    Evaluate how well the game mechanics support and enhance the established narrative.
-    Ensure each mechanic serves a clear narrative purpose and enables meaningful
-    player engagement with the story elements.
+    Validate that game mechanics are technically sound, balanced, and properly integrated.
+    Check that: mechanics rules are clear and consistent, systems work together without
+    conflicts, combat is balanced and fair, progression systems function properly, player
+    abilities and limits are well-defined, mechanics support the intended gameplay. Ensure
+    the game is playable and mechanically coherent.
   expected_output: >
-    A detailed assessment of narrative integration for each game mechanic with specific
-    feedback for improving narrative alignment where needed.
-  agent: "NarrativeDirectorAgent"
+    A technical validation report identifying any issues with mechanics clarity, rule
+    conflicts, game balance, or system integration. Flag any problems that would make
+    gameplay confusing, unfair, or broken. Provide specific recommendations for fixes.
+  agent: "GameIntegrationAgent"
   context:
     - "CreateGameMechanicsPRD"
     - "CreateNarrativeMap"
+    - "DesignArtifactsAndPuzzles"
   dependencies:
     - "CreateGameMechanicsPRD"
 
 # Final integration checkpoint
-FinalNarrativeIntegration:
-  name: "Final Narrative Integration"
+FinalGameIntegration:
+  name: "Final Game Integration Validation"
   description: >
-    Perform a comprehensive review of all game elements together to ensure they form
-    a cohesive, narrative-driven whole. Identify any inconsistencies across elements
-    and ensure the complete experience maintains narrative integrity throughout the
-    player journey.
+    Perform comprehensive technical validation of the complete game. Verify that all
+    systems work together: Can the player actually complete the game from start to finish?
+    Are all puzzles solvable with obtainable items? Do scenes connect properly? Are there
+    any dead ends or impossible situations? Do mechanics work consistently throughout?
+    Is the difficulty curve appropriate? This is the final technical playability check.
   expected_output: >
-    A final integration report that confirms narrative cohesion across all elements.
-    Include any adjustments needed to ensure the complete game experience delivers
-    a consistent, engaging narrative journey.
-  agent: "NarrativeDirectorAgent"
+    A comprehensive technical validation report confirming the game is playable,
+    coherent, and complete. Identify any blocking issues, impossible scenarios, or
+    integration problems. Provide a final playability assessment and required fixes.
+    Include a checklist of validated systems and confirmed player pathways.
+  agent: "GameIntegrationAgent"
   context:
-    - "NarrativeIntegrationCheckPuzzles"
-    - "NarrativeIntegrationCheckScenes"
-    - "NarrativeIntegrationCheckMechanics"
+    - "ValidatePuzzleIntegration"
+    - "EvaluateSceneQuality"
+    - "ValidateMechanicsIntegration"
+    - "CreateNarrativeMap"
+    - "CreateGameMechanicsPRD"
   dependencies:
-    - "NarrativeIntegrationCheckPuzzles"
-    - "NarrativeIntegrationCheckScenes"
-    - "NarrativeIntegrationCheckMechanics"
+    - "ValidatePuzzleIntegration"
+    - "EvaluateSceneQuality"
+    - "ValidateMechanicsIntegration"

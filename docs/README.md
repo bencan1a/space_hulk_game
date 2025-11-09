@@ -4,13 +4,18 @@ Welcome to the SpaceHulkGame Crew project, powered by [crewAI](https://crewai.co
 
 ## Project Overview
 
-This project uses five specialized AI agents working together to create a complete text-based adventure game:
+This project uses seven specialized AI agents working together to create a complete text-based adventure game:
 
+### Content Creation Agents (5)
 - **Plot Master**: Creates overarching narratives with branching paths and multiple endings
 - **Narrative Architect**: Maps story structure into connected scenes
 - **Puzzle Smith**: Designs puzzles, artifacts, NPCs, and challenges
 - **Creative Scribe**: Writes vivid scene descriptions and dialogue
 - **Mechanics Guru**: Defines game mechanics and creates technical documentation
+
+### Quality Assurance Agents (2)
+- **Narrative Director**: Evaluates narrative quality, pacing, and thematic consistency
+- **Game Integration Specialist**: Validates technical integration and ensures playability
 
 ## Installation
 

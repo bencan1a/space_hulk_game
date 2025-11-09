@@ -7,13 +7,14 @@ text-based adventure games set in the Warhammer 40K Space Hulk universe.
 
 ## Architecture Overview
 
-The system uses 6 specialized agents coordinated through CrewAI:
-- NarrativeDirectorAgent: Ensures narrative cohesion (manager in hierarchical mode)
+The system uses 7 specialized agents coordinated through CrewAI:
+- NarrativeDirectorAgent: Evaluates narrative quality and thematic consistency
 - PlotMasterAgent: Creates overarching plot and story structure
 - NarrativeArchitectAgent: Maps plot into detailed scene structure
-- PuzzleSmithAgent: Designs puzzles, artifacts, and game mechanics
+- PuzzleSmithAgent: Designs puzzles, artifacts, NPCs, and enemies
 - CreativeScribeAgent: Writes vivid descriptions and dialogue
 - MechanicsGuruAgent: Defines game systems and creates PRD
+- GameIntegrationAgent: Validates technical integration and playability
 
 ## Process Modes
 
@@ -29,6 +30,22 @@ The system uses 6 specialized agents coordinated through CrewAI:
 - Enables feedback loops and iterative refinement
 - More complex, requires careful task dependency management
 - Use create_hierarchical_crew() method for testing
+
+## Agent Specialization
+
+### Content Creation Agents (5)
+- PlotMasterAgent: Narrative foundation and plot structure
+- NarrativeArchitectAgent: Scene mapping and connections
+- PuzzleSmithAgent: Game challenges and interactive elements
+- CreativeScribeAgent: Descriptive writing and dialogue
+- MechanicsGuruAgent: Game systems and rules
+
+### Quality Assurance Agents (2)
+- NarrativeDirectorAgent: Story quality, pacing, thematic strength
+- GameIntegrationAgent: Technical validation, playability, integration
+
+This separation ensures narrative quality and technical soundness are
+both addressed by dedicated specialists.
 
 ## Implementation Notes (per REVISED_RESTART_PLAN.md)
 
@@ -493,6 +510,24 @@ class SpaceHulkGame:
             verbose=True
         )
 
+    @agent
+    def GameIntegrationAgent(self) -> Agent:
+        """
+        Returns the GameIntegrationAgent definition from agents.yaml.
+        
+        This agent validates technical aspects and ensures all game elements
+        integrate properly into a playable, coherent whole.
+        
+        Note: The method name must match the agent name in the YAML file for CrewAI to properly
+        map between tasks and agents.
+        """
+        logger.info(f"Creating GameIntegrationAgent with config: {self.agents_config.get('GameIntegrationAgent')}")
+        return Agent(
+            config=self.agents_config["GameIntegrationAgent"],
+            llm=self.llm,  # Use the Ollama LLM configuration
+            verbose=True
+        )
+
     # ---------------------------------
     # Tasks
     # ---------------------------------
@@ -595,67 +630,67 @@ class SpaceHulkGame:
         )
         
     @task
-    def NarrativeIntegrationCheckPuzzles(self) -> Task:
+    def ValidatePuzzleIntegration(self) -> Task:
         """
-        The NarrativeIntegrationCheckPuzzles task from tasks.yaml.
+        The ValidatePuzzleIntegration task from tasks.yaml.
         
-        This task evaluates how well the puzzles, artifacts, monsters, and NPCs integrate
-        with the established narrative.
+        This task validates that puzzles, artifacts, monsters, and NPCs are technically
+        sound and properly integrated into the game systems.
         
         Note: The method name must match the task name in the YAML file for CrewAI to properly
         map between tasks.
         """
-        logger.info(f"Creating NarrativeIntegrationCheckPuzzles task with config: {self.tasks_config.get('NarrativeIntegrationCheckPuzzles')}")
+        logger.info(f"Creating ValidatePuzzleIntegration task with config: {self.tasks_config.get('ValidatePuzzleIntegration')}")
         return Task(
-            config=self.tasks_config["NarrativeIntegrationCheckPuzzles"]
+            config=self.tasks_config["ValidatePuzzleIntegration"]
         )
         
     @task
-    def NarrativeIntegrationCheckScenes(self) -> Task:
+    def EvaluateSceneQuality(self) -> Task:
         """
-        The NarrativeIntegrationCheckScenes task from tasks.yaml.
+        The EvaluateSceneQuality task from tasks.yaml.
         
-        This task evaluates how well the scene descriptions and dialogue reflect and
-        advance the established narrative.
+        This task evaluates the quality of scene descriptions and dialogue from a
+        narrative and writing quality perspective.
         
         Note: The method name must match the task name in the YAML file for CrewAI to properly
         map between tasks.
         """
-        logger.info(f"Creating NarrativeIntegrationCheckScenes task with config: {self.tasks_config.get('NarrativeIntegrationCheckScenes')}")
+        logger.info(f"Creating EvaluateSceneQuality task with config: {self.tasks_config.get('EvaluateSceneQuality')}")
         return Task(
-            config=self.tasks_config["NarrativeIntegrationCheckScenes"]
+            config=self.tasks_config["EvaluateSceneQuality"]
         )
         
     @task
-    def NarrativeIntegrationCheckMechanics(self) -> Task:
+    def ValidateMechanicsIntegration(self) -> Task:
         """
-        The NarrativeIntegrationCheckMechanics task from tasks.yaml.
+        The ValidateMechanicsIntegration task from tasks.yaml.
         
-        This task evaluates how well the game mechanics support and enhance
-        the established narrative.
+        This task validates that game mechanics are technically sound, balanced,
+        and properly integrated with other game systems.
         
         Note: The method name must match the task name in the YAML file for CrewAI to properly
         map between tasks.
         """
-        logger.info(f"Creating NarrativeIntegrationCheckMechanics task with config: {self.tasks_config.get('NarrativeIntegrationCheckMechanics')}")
+        logger.info(f"Creating ValidateMechanicsIntegration task with config: {self.tasks_config.get('ValidateMechanicsIntegration')}")
         return Task(
-            config=self.tasks_config["NarrativeIntegrationCheckMechanics"]
+            config=self.tasks_config["ValidateMechanicsIntegration"]
         )
         
     @task
-    def FinalNarrativeIntegration(self) -> Task:
+    def FinalGameIntegration(self) -> Task:
         """
-        The FinalNarrativeIntegration task from tasks.yaml.
+        The FinalGameIntegration task from tasks.yaml.
         
-        This task performs a comprehensive review of all game elements to ensure they
-        form a cohesive, narrative-driven whole.
+        This task performs comprehensive technical validation of the complete game
+        to ensure it is playable, coherent, and complete.
         
         Note: The method name must match the task name in the YAML file for CrewAI to properly
         map between tasks.
         """
-        logger.info(f"Creating FinalNarrativeIntegration task with config: {self.tasks_config.get('FinalNarrativeIntegration')}")
+        logger.info(f"Creating FinalGameIntegration task with config: {self.tasks_config.get('FinalGameIntegration')}")
         return Task(
-            config=self.tasks_config["FinalNarrativeIntegration"]
+            config=self.tasks_config["FinalGameIntegration"]
         )
 
     # ---------------------------------

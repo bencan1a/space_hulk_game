@@ -248,7 +248,7 @@ class TestAgentConfiguration(unittest.TestCase):
         self.assertIsInstance(agents, dict)
     
     def test_all_agents_present(self):
-        """Test that all 6 agents are defined."""
+        """Test that all 7 agents are defined."""
         import yaml
         
         agents_file = os.path.join(
@@ -265,7 +265,8 @@ class TestAgentConfiguration(unittest.TestCase):
             'NarrativeArchitectAgent',
             'PuzzleSmithAgent',
             'CreativeScribeAgent',
-            'MechanicsGuruAgent'
+            'MechanicsGuruAgent',
+            'GameIntegrationAgent'
         ]
         
         for agent_name in expected_agents:
