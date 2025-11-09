@@ -1,0 +1,24 @@
+{
+  "ignorePatterns": [
+    {
+      "pattern": "^https://github.com/.*/blob/[a-f0-9]{40}/.*#L\\d+"
+    },
+    {
+      "pattern": "^https://www.warhammer.*"
+    },
+    {
+      "pattern": "^https://crewai\\.com.*"
+    },
+    {
+      "pattern": "^https://ollama\\.ai.*"
+    },
+    {
+      "pattern": "^https://mem0\\.ai.*"
+    }
+  ],
+  "timeout": "20s",
+  "retryOn429": true,
+  "retryCount": 3,
+  "fallbackRetryDelay": "30s",
+  "aliveStatusCodes": [200, 206]
+}

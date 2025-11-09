@@ -59,3 +59,14 @@ Thumbs.db
 
 # Project-specific
 tmp/
+
+# Development containers and VS Code
+.devcontainer/.devcontainer.json.backup
+.vscode/settings.json.backup
+
+# UV lock file (can be regenerated)
+# uv.lock
+
+# Additional Python tools
+.ruff_cache/
+.mypy_cache/
