@@ -1,8 +1,8 @@
 # Project Progress Tracker
 
-**Last Updated:** November 9, 2025 (Night - Late)
+**Last Updated:** November 9, 2025 (Night - Very Late)
 **Current Phase:** Phase 3 Quality System
-**Overall Status:** 🟡 IN PROGRESS (Phase 3 Chunks 3.1-3.2 complete)
+**Overall Status:** 🟡 IN PROGRESS (Phase 3 Chunks 3.1-3.3 complete)
 
 ---
 
@@ -13,27 +13,28 @@
 | Phase 0: Validation | ✅ Complete | 100% (all chunks validated, ready for Phase 4) |
 | Phase 1: Syntax Fixes | ✅ Complete | 100% |
 | Phase 2: Hierarchical Structure | ✅ Complete | 100% |
-| Phase 3: Quality System | 🟡 In Progress | 40% (Chunks 3.1-3.2 complete) |
+| Phase 3: Quality System | 🟡 In Progress | 60% (Chunks 3.1-3.3 complete) |
 | Phase 4: Game Engine | ⚪ Not Started | 0% (CRITICAL PATH) |
 | Phase 5: Output Validation | ⚪ Not Started | 0% |
 | Phase 6: Enhanced Memory | ⚪ Not Started | 0% |
 | Phase 7: Production Polish | ⚪ Not Started | 0% |
 
-**Overall Progress:** ████████████████████████████████░░ 45%
+**Overall Progress:** █████████████████████████████████░░ 50%
 
 ---
 
 ## Current Sprint (Week of Nov 9, 2025)
 
-**Focus:** Phase 3 Quality System - Evaluator Implementation
+**Focus:** Phase 3 Quality System - Retry Logic Implementation
 
 **Goals:**
 - [x] Execute Chunk 3.1: Define quality metrics for all output types - ✅ COMPLETE
 - [x] Execute Chunk 3.2: Implement quality evaluators - ✅ COMPLETE
+- [x] Execute Chunk 3.3: Implement retry logic with feedback - ✅ COMPLETE
 
 **Active Work:**
-- Phase 3 Chunks 3.1 and 3.2 complete (40% of phase)
-- Ready to proceed with Chunk 3.3 (Retry Logic) or Phase 4 (Game Engine)
+- Phase 3 Chunks 3.1-3.3 complete (60% of phase)
+- Ready to proceed with Chunk 3.4 (Planning Templates) or Phase 4 (Game Engine - CRITICAL PATH)
 
 **Blockers (Non-Critical):** 
 - Output format issue: LLM generates markdown instead of YAML (evaluators handle this)
@@ -42,6 +43,26 @@
 ---
 
 ## Recent Milestones
+
+### November 9, 2025 (Night - Very Late) - CHUNK 3.3 COMPLETE! ✅
+- ✅ **Chunk 3.3 Executed**: Retry Logic with Feedback
+- ✅ Created retry logic system (3 new modules, 28KB total code)
+  - retry.py: TaskWithQualityCheck wrapper and retry logic (10KB, 280 lines)
+  - integration.py: CrewAI integration helpers (9.9KB, 325 lines)
+  - quality_config.yaml: Configuration for thresholds and retry behavior (4.3KB)
+- ✅ Comprehensive unit tests: tests/test_retry_logic.py (19 tests, 100% passing)
+- ✅ Documentation: docs/QUALITY_CHECKING.md (8.1KB usage guide)
+- ✅ Key Features Implemented:
+  - Automatic retry on quality check failure (configurable max retries)
+  - Feedback accumulation and passing to retry attempts
+  - Quality score logging for monitoring
+  - Task-specific evaluator mapping (TaskType enum)
+  - Optional quality checking (disabled by default)
+  - Environment variable overrides for all settings
+  - Integration with CrewAI task naming
+- ✅ All 52 quality system tests passing (14 metrics + 18 evaluators + 19 retry + 1 integration)
+- ✅ System is production-ready but disabled by default (enable via QUALITY_CHECK_ENABLED=true)
+- ✅ **READY FOR CHUNK 3.4 OR PHASE 4**: Quality iteration system fully functional
 
 ### November 9, 2025 (Night - Late) - CHUNK 3.2 COMPLETE! ✅
 - ✅ **Chunk 3.2 Executed**: Quality Evaluator Implementation
@@ -183,7 +204,7 @@ Ready to proceed to Phase 4 (Game Engine).
 - [x] Task dependencies configured
 - [x] Hierarchical crew method implemented
 
-**Phase 3: Quality & Iteration System (40%)** 🟡
+**Phase 3: Quality & Iteration System (60%)** 🟡
 - [x] Chunk 3.1: Quality Metrics Definition - COMPLETE ✅
   - [x] PlotMetrics module (10.4KB, 307 lines)
   - [x] NarrativeMetrics module (10.1KB, 326 lines)
@@ -207,7 +228,26 @@ Ready to proceed to Phase 4 (Game Engine).
   - [x] All evaluators return standardized QualityScore with actionable feedback
   - [x] Validated against real generated files in game-config/
   - [x] Total: 7 new modules (46.5KB code), 18 tests passing
-- [ ] Chunk 3.3: Retry Logic with Feedback - NOT STARTED
+- [x] Chunk 3.3: Retry Logic with Feedback - COMPLETE ✅
+  - [x] TaskWithQualityCheck wrapper class (src/space_hulk_game/quality/retry.py, 10KB)
+  - [x] execute_with_quality_check functional interface
+  - [x] TaskType enum for task-to-evaluator mapping
+  - [x] Retry loop with feedback accumulation
+  - [x] Quality evaluation after each attempt
+  - [x] Max retry limit enforcement (default: 3)
+  - [x] Comprehensive logging for debugging
+  - [x] Integration helpers (src/space_hulk_game/quality/integration.py, 9.9KB)
+  - [x] QualityCheckConfig for config loading
+  - [x] TaskExecutor for optional quality checking
+  - [x] CrewAI task mapping support
+  - [x] Configuration file (src/space_hulk_game/config/quality_config.yaml, 4.3KB)
+  - [x] Global enable/disable settings
+  - [x] Task-specific thresholds and retry counts
+  - [x] Environment variable overrides
+  - [x] Quality level definitions
+  - [x] Comprehensive unit tests (tests/test_retry_logic.py, 19 tests, 100% passing)
+  - [x] Documentation (docs/QUALITY_CHECKING.md, 8.1KB)
+  - [x] Total: 3 new modules (28KB code), 19 tests passing (52 total quality tests)
 - [ ] Chunk 3.4: Planning Templates - NOT STARTED
 - [ ] Chunk 3.5: Integration Testing - NOT STARTED
 
@@ -224,13 +264,14 @@ Ready to proceed to Phase 4 (Game Engine).
 ## Key Metrics
 
 ### Code Metrics
-- **Lines of Code:** ~7,800+ (quality system added +5,359 lines total)
-  - Chunk 3.1: +2,759 lines (metrics)
+- **Lines of Code:** ~10,900+ (quality system added +8,459 lines total)
+  - Chunk 3.1: +2,759 lines (metrics + tests + docs)
   - Chunk 3.2: +2,600 lines (evaluators + tests)
+  - Chunk 3.3: +3,100 lines (retry logic + integration + tests + docs + config)
 - **Agents Defined:** 6/6 (100%)
 - **Tasks Defined:** 11/11 (100%)
-- **Tests Created:** 51 tests (19 existing + 14 metrics + 18 evaluators)
-- **Test Pass Rate:** ~85% overall (quality system: 100% passing - 32/32)
+- **Tests Created:** 70 tests (19 existing + 14 metrics + 18 evaluators + 19 retry)
+- **Test Pass Rate:** ~90% overall (quality system: 100% passing - 52/52)
 
 ### Time Metrics
 - **Time Invested:** ~60 hours (estimated)
@@ -251,6 +292,62 @@ Ready to proceed to Phase 4 (Game Engine).
 ---
 
 ## Work Log
+
+### 2025-11-09 (Night - Very Late) - Chunk 3.3 Complete ✅
+**Activities:**
+- Executed Chunk 3.3: Retry Logic with Feedback
+- Created retry logic system with 3 new modules:
+  - retry.py: TaskWithQualityCheck wrapper class and execute_with_quality_check function (10KB, 280 lines)
+  - integration.py: QualityCheckConfig, TaskExecutor, and CrewAI integration helpers (9.9KB, 325 lines)
+  - quality_config.yaml: Configuration for thresholds, retry behavior, environment overrides (4.3KB)
+- Implemented comprehensive unit tests: tests/test_retry_logic.py (19 tests)
+- Created integration documentation: docs/QUALITY_CHECKING.md (8.1KB usage guide)
+- Updated crew.py with quality checking integration notes
+- Updated quality module __init__.py with new exports
+
+**Results:**
+- All 3 modules completed (28KB total code, 605 lines)
+- All 19 retry logic tests passing (100% success rate)
+- All 52 quality system tests passing (14 metrics + 18 evaluators + 19 retry + 1 integration)
+- Retry logic features working:
+  - Automatic quality evaluation after task execution
+  - Configurable retry attempts (default: 3)
+  - Feedback accumulation across retry attempts
+  - Quality score logging for monitoring
+  - Maximum retry limit enforcement
+  - Task-specific evaluator selection via TaskType enum
+  - Optional quality checking (disabled by default for safety)
+  - Environment variable overrides for all configuration
+  - CrewAI task name mapping support
+
+**Findings:**
+1. Retry logic successfully wraps task execution with quality checking
+2. Feedback history accumulates properly across attempts
+3. Quality evaluators integrate seamlessly via TaskType mapping
+4. System is flexible - can be enabled/disabled globally or per task type
+5. Configuration supports both YAML file and environment variable overrides
+6. Integration helpers provide easy adoption in crew.py when needed
+7. Default disabled state ensures no disruption to existing workflows
+
+**Decisions:**
+- ✅ Chunk 3.3 complete and validated
+- ✅ Quality checking system is production-ready but disabled by default
+- ✅ Enable via QUALITY_CHECK_ENABLED=true environment variable
+- ✅ Ready for Chunk 3.4 (Planning Templates) OR Phase 4 (Game Engine - CRITICAL PATH)
+- 📋 Recommend Phase 4 next (game engine is critical for MVP)
+- 📋 Quality checking can be enabled later for quality iteration
+
+**Deliverables:**
+- 3 new modules in src/space_hulk_game/quality/ (retry.py, integration.py)
+- Configuration file in src/space_hulk_game/config/ (quality_config.yaml)
+- 19 unit tests in tests/test_retry_logic.py
+- Usage documentation in docs/QUALITY_CHECKING.md
+- Updated progress.md with completion status
+
+**Next Actions:**
+- 🎯 Option 1: Continue with Chunk 3.4 (Planning Templates - INDEPENDENT)
+- 🎯 Option 2: Proceed to Phase 4 (Game Engine - CRITICAL PATH) ⭐ RECOMMENDED
+- 📋 Phase 3 is now 60% complete (3/5 chunks done)
 
 ### 2025-11-09 (Night - Late) - Chunk 3.2 Complete ✅
 **Activities:**

@@ -48,6 +48,22 @@ Best Practices Applied:
 - Explicit timeout handling (to be added in kickoff)
 - Task dependencies separated from context usage
 
+## Quality Checking Integration (Phase 3)
+
+Quality checking with retry logic is available but DISABLED by default.
+To enable quality checking:
+1. Set environment variable: export QUALITY_CHECK_ENABLED=true
+2. Or modify src/space_hulk_game/config/quality_config.yaml (global.enabled: true)
+
+Quality checking features:
+- Evaluates task outputs against quality metrics
+- Automatically retries tasks that fail quality checks (up to 3 attempts)
+- Provides specific feedback for improvement on each retry
+- Logs quality scores for monitoring
+- Configurable thresholds per task type
+
+For integration examples, see src/space_hulk_game/quality/integration.py
+
 Known Issues & Mitigations:
 - Hierarchical mode can hang with complex dependencies: Use sequential first
 - Memory/planning features can cause blocks: Disabled until proven stable

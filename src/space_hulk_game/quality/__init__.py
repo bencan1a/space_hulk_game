@@ -33,6 +33,16 @@ from .retry import (
     create_quality_config
 )
 
+# Integration helpers for CrewAI
+from .integration import (
+    QualityCheckConfig,
+    TaskExecutor,
+    get_default_executor,
+    execute_with_optional_quality_check,
+    get_task_type_for_crew_task,
+    CREW_TASK_MAPPING
+)
+
 # Configure logging for the quality metrics module
 logger = logging.getLogger(__name__)
 
@@ -57,4 +67,11 @@ __all__ = [
     'TaskType',
     'execute_with_quality_check',
     'create_quality_config',
+    # Integration
+    'QualityCheckConfig',
+    'TaskExecutor',
+    'get_default_executor',
+    'execute_with_optional_quality_check',
+    'get_task_type_for_crew_task',
+    'CREW_TASK_MAPPING',
 ]
