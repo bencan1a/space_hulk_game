@@ -6,7 +6,6 @@ including feedback integration, retry limits, and quality score logging.
 """
 
 import unittest
-from unittest.mock import Mock, patch, call
 import logging
 
 from src.space_hulk_game.quality.retry import (
@@ -15,7 +14,6 @@ from src.space_hulk_game.quality.retry import (
     execute_with_quality_check,
     create_quality_config
 )
-from src.space_hulk_game.quality.score import QualityScore
 
 
 class TestTaskType(unittest.TestCase):
@@ -227,7 +225,7 @@ endings:
             max_retries=3
         )
         
-        output, quality, attempts = wrapper.execute(
+        _, _, attempts = wrapper.execute(
             task_function=task_with_feedback,
             task_name="Test Plot"
         )
@@ -506,7 +504,6 @@ endings:
             wrapper.execute(good_task, task_name="Test Plot")
         
         # Check that quality score was logged
-        log_output = " ".join(log.output)
         self.assertTrue(
             any("Quality score" in message or "quality" in message.lower() 
                 for message in log.output)

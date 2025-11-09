@@ -6,7 +6,7 @@ enabling iterative improvement through specific feedback from evaluators.
 """
 
 import logging
-from typing import Optional, Callable, Any, Dict
+from typing import Callable, Any, Dict
 from enum import Enum
 
 from .score import QualityScore
@@ -139,7 +139,7 @@ class TaskWithQualityCheck:
                 quality = QualityScore(
                     score=0.0,
                     passed=False,
-                    feedback=f"Evaluation error: {str(e)}",
+                    feedback=f"Failed to parse: {str(e)}",
                     details={"evaluation_error": True}
                 )
             
