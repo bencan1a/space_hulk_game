@@ -58,12 +58,16 @@ The workflow requires the following repository secrets to be configured:
 - **`OPENROUTER_API_KEY`**: Your OpenRouter API key for LLM access
 - **`MEM0_API_KEY`**: Your Mem0 API key for memory management
 
-**To set up secrets**, see the detailed guide: **[SECRETS_SETUP.md](SECRETS_SETUP.md)**
+**Optional repository variable:**
+
+- **`OPENAI_MODEL_NAME`**: Model to use (defaults to `openrouter/anthropic/claude-3.5-sonnet` if not set)
+
+**To set up secrets and variables**, see the detailed guide: **[SECRETS_SETUP.md](SECRETS_SETUP.md)**
 
 Quick setup:
 1. Go to repository Settings → Secrets and variables → Actions
-2. Click "New repository secret"
-3. Add each required secret with its value
+2. Add secrets in the **Secrets** tab
+3. Add variables in the **Variables** tab (optional)
 
 #### Outputs
 

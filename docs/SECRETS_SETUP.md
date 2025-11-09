@@ -1,13 +1,21 @@
-# Setting Up Repository Secrets for GitHub Actions
+# Setting Up Repository Secrets and Variables for GitHub Actions
 
-The GitHub Actions workflows in this repository require API keys to be configured as repository secrets. This guide walks you through the setup process.
+The GitHub Actions workflows in this repository require API keys (secrets) and configuration variables to be configured at the repository level. This guide walks you through the setup process.
 
-## Required Secrets
+## Required Configuration
 
-The `run-crewai-agents.yml` workflow requires two secrets:
+The `run-crewai-agents.yml` workflow requires:
+
+### Secrets (Required)
 
 1. **`OPENROUTER_API_KEY`** - OpenRouter API key for LLM access
 2. **`MEM0_API_KEY`** - Mem0 API key for memory management
+
+### Variables (Optional)
+
+1. **`OPENAI_MODEL_NAME`** - Model to use (e.g., `openrouter/anthropic/claude-3.5-sonnet`)
+   - Defaults to `openrouter/anthropic/claude-3.5-sonnet` if not set
+   - See [OpenRouter Models](https://openrouter.ai/models) for available options
 
 ## Getting API Keys
 
@@ -51,16 +59,30 @@ The `run-crewai-agents.yml` workflow requires two secrets:
    - Secret: Paste your Mem0 API key
    - Click **Add secret**
 
+5. **Add OPENAI_MODEL_NAME (Optional)**
+   - Click the **Variables** tab at the top
+   - Click **New repository variable**
+   - Name: `OPENAI_MODEL_NAME`
+   - Value: Your chosen model (e.g., `openrouter/anthropic/claude-3.5-sonnet`)
+   - Click **Add variable**
+   - **Note**: If not set, defaults to `openrouter/anthropic/claude-3.5-sonnet`
+
 ### Verification
 
-After adding both secrets, you should see them listed in the repository secrets:
+After adding the secrets and variables, you should see them listed:
 
+**Secrets tab:**
 ```
 OPENROUTER_API_KEY   Updated X minutes ago
 MEM0_API_KEY         Updated X minutes ago
 ```
 
-⚠️ **Note**: Secret values are hidden and cannot be viewed after creation. You can only update or delete them.
+**Variables tab (if configured):**
+```
+OPENAI_MODEL_NAME    Updated X minutes ago
+```
+
+⚠️ **Note**: Secret values are hidden and cannot be viewed after creation. You can only update or delete them. Variables are visible.
 
 ## Testing the Setup
 

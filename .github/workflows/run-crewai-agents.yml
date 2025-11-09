@@ -41,12 +41,13 @@ jobs:
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           MEM0_API_KEY: ${{ secrets.MEM0_API_KEY }}
+          OPENAI_MODEL_NAME: ${{ vars.OPENAI_MODEL_NAME || 'openrouter/anthropic/claude-3.5-sonnet' }}
         run: |
           # Create .env file with configuration
           cat > .env << EOF
           # LLM Configuration - OpenRouter
           OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
-          OPENAI_MODEL_NAME=openrouter/anthropic/claude-3.5-sonnet
+          OPENAI_MODEL_NAME=${OPENAI_MODEL_NAME}
           
           # Memory Configuration - Mem0
           MEM0_API_KEY=${MEM0_API_KEY}
@@ -59,7 +60,8 @@ jobs:
           
           echo "✅ Environment configured"
           echo "📋 Configuration summary:"
-          echo "  - LLM: OpenRouter (Claude 3.5 Sonnet)"
+          echo "  - LLM: OpenRouter"
+          echo "  - Model: ${OPENAI_MODEL_NAME}"
           echo "  - Memory: Mem0"
           echo "  - Verbose: enabled"
       
