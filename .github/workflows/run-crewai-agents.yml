@@ -15,6 +15,10 @@ jobs:
     name: Execute CrewAI Agent Crew
     runs-on: ubuntu-latest
     
+    # Explicitly set minimal permissions for security
+    permissions:
+      contents: read
+    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
