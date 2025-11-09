@@ -11,8 +11,6 @@ These tests validate:
 import sys
 import os
 import unittest
-from unittest.mock import patch, MagicMock, Mock
-import datetime
 
 # Add the src directory to the path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../')))

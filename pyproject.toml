@@ -60,3 +60,25 @@ typeCheckingMode = "basic"
 reportMissingImports = true
 reportMissingTypeStubs = false
 stubPath = "typings"
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+ignore_missing_imports = true
+exclude = [
+    "venv",
+    ".venv",
+    "build",
+    "dist",
+]
+
+# Ignore missing imports for specific third-party libraries without type stubs
+[[tool.mypy.overrides]]
+module = [
+    "crewai.*",
+    "mem0.*",
+    "litellm.*",
+]
+ignore_missing_imports = true

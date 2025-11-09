@@ -2,7 +2,6 @@
 import sys
 import warnings
 import yaml
-import litellm
 
 from space_hulk_game.crew import SpaceHulkGame
 
@@ -72,7 +71,7 @@ def test():
         "game": getTopic()
     }
     try:
-        SpaceHulkGame().crew().test(n_iterations=int(sys.argv[1]), openai_model_name=sys.argv[2], inputs=inputs)
+        SpaceHulkGame().crew().test(n_iterations=int(sys.argv[1]), openai_model_name=sys.argv[2], inputs=inputs)  # type: ignore[call-arg]
 
     except Exception as e:
         raise Exception(f"An error occurred while testing the crew: {e}")

@@ -5,8 +5,6 @@ These tests verify input validation, error handling, and output processing.
 import sys
 import os
 import unittest
-from unittest.mock import patch, MagicMock
-import json
 import datetime
 
 # Add the src directory to the path so we can import the module

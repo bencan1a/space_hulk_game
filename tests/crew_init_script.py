@@ -76,7 +76,7 @@ def test_crew_initialization():
         print("7. Testing hierarchical crew creation (not default)...")
         try:
             h_crew = game.create_hierarchical_crew()
-            print(f"   ✅ Hierarchical crew available")
+            print("   ✅ Hierarchical crew available")
             print(f"      - Process: {h_crew.process}")
             print(f"      - Manager: {h_crew.manager_agent.role if h_crew.manager_agent else 'None'}")
             print(f"      - Workers: {len(h_crew.agents)} agents")

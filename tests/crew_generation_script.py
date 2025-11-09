@@ -48,11 +48,11 @@ def test_sequential_generation(timeout_seconds=600):
     print("=" * 80)
     print(f"Timeout: {timeout_seconds} seconds ({timeout_seconds/60:.1f} minutes)")
     print()
-    
+
     # Set up timeout
-    signal.signal(signal.SIGALRM, timeout_handler)
-    signal.alarm(timeout_seconds)
-    
+    signal.signal(signal.SIGALRM, timeout_handler)  # type: ignore[attr-defined]
+    signal.alarm(timeout_seconds)  # type: ignore[attr-defined]
+
     results = {
         'mode': 'sequential',
         'success': False,
@@ -135,7 +135,7 @@ def test_sequential_generation(timeout_seconds=600):
         
     finally:
         # Cancel alarm
-        signal.alarm(0)
+        signal.alarm(0)  # type: ignore[attr-defined]
     
     return results
 
@@ -155,11 +155,11 @@ def test_hierarchical_generation(timeout_seconds=600):
     print("=" * 80)
     print(f"Timeout: {timeout_seconds} seconds ({timeout_seconds/60:.1f} minutes)")
     print()
-    
+
     # Set up timeout
-    signal.signal(signal.SIGALRM, timeout_handler)
-    signal.alarm(timeout_seconds)
-    
+    signal.signal(signal.SIGALRM, timeout_handler)  # type: ignore[attr-defined]
+    signal.alarm(timeout_seconds)  # type: ignore[attr-defined]
+
     results = {
         'mode': 'hierarchical',
         'success': False,
@@ -250,7 +250,7 @@ def test_hierarchical_generation(timeout_seconds=600):
         
     finally:
         # Cancel alarm
-        signal.alarm(0)
+        signal.alarm(0)  # type: ignore[attr-defined]
     
     return results
 
@@ -276,7 +276,7 @@ def print_summary(results_list):
             print(f"  Outputs: {len(results['outputs_generated'])}/5 files")
         
         if results['timeout']:
-            print(f"  Issue: Timed out (crew likely hanging)")
+            print("  Issue: Timed out (crew likely hanging)")
         
         if results['errors']:
             print(f"  Errors: {', '.join(results['errors'])}")

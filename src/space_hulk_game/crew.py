@@ -58,11 +58,10 @@ import datetime
 import os
 import yaml
 import logging
+from typing import Any
 
 from crewai import Agent, Crew, Task, Process, LLM
 from crewai.project import CrewBase, agent, task, crew, before_kickoff, after_kickoff
-from crewai.memory import ShortTermMemory
-from mem0 import MemoryClient
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -79,7 +78,12 @@ class SpaceHulkGame:
     # Paths to the YAML configuration files
     agents_config_path = "config/agents.yaml"
     tasks_config_path = "config/tasks.yaml"
-    
+
+    # These attributes are populated dynamically by CrewAI decorators
+    # Using Any to avoid type variance issues with crewai's internal types
+    agents: Any
+    tasks: Any
+
     def __init__(self):
         """
         Initialize the SpaceHulkGame crew by loading YAML configuration files
@@ -89,17 +93,9 @@ class SpaceHulkGame:
         
         # Initialize Mem0 memory client for context retention across agents
         logger.info("Initializing Mem0 memory client")
-        
-        # Create a memory client
-        client = MemoryClient()
-        
-        # Add initial context
-        messages = [
-            {"role": "system", "content": "Space Hulk Game development context for all agents."}
-        ]
-        #client.add(messages, user_id="space_hulk_user",output_format="v1.1")
-        
+
         # Setup memory configuration for the crew
+        # Note: Memory client creation commented out until memory features are enabled
         self.memory_config = {
             "provider": "mem0",
             "config": {
@@ -342,7 +338,7 @@ class SpaceHulkGame:
                 crew_obj = self.crew()
                 total_tasks = len(crew_obj.tasks)
                 total_agents = len(crew_obj.agents)
-            except:
+            except Exception:
                 # Fallback if crew() isn't available
                 total_tasks = 0
                 total_agents = 0
@@ -389,7 +385,7 @@ class SpaceHulkGame:
                     output.metadata = {}
                 output.metadata["post_processing_error"] = str(e)
                 output.metadata["processed_at"] = str(datetime.datetime.now())
-            except:
+            except Exception:
                 pass  # If even this fails, just return original output
             
             # Return original output to preserve crew results
@@ -412,7 +408,7 @@ class SpaceHulkGame:
         map between tasks and agents.
         """
         logger.info(f"Creating NarrativeDirectorAgent with config: {self.agents_config.get('NarrativeDirectorAgent')}")
-        return Agent(
+        return Agent(  # type: ignore[call-arg]
             config=self.agents_config["NarrativeDirectorAgent"],
             llm=self.llm,  # Use the Ollama LLM configuration
             verbose=True
@@ -427,7 +423,7 @@ class SpaceHulkGame:
         map between tasks and agents.
         """
         logger.info(f"Creating PlotMasterAgent with config: {self.agents_config.get('PlotMasterAgent')}")
-        return Agent(
+        return Agent(  # type: ignore[call-arg]
             config=self.agents_config["PlotMasterAgent"],
             llm=self.llm,  # Use the Ollama LLM configuration
             verbose=True
@@ -442,7 +438,7 @@ class SpaceHulkGame:
         map between tasks and agents.
         """
         logger.info(f"Creating NarrativeArchitectAgent with config: {self.agents_config.get('NarrativeArchitectAgent')}")
-        return Agent(
+        return Agent(  # type: ignore[call-arg]
             config=self.agents_config["NarrativeArchitectAgent"],
             llm=self.llm,  # Use the Ollama LLM configuration
             verbose=True
@@ -457,7 +453,7 @@ class SpaceHulkGame:
         map between tasks and agents.
         """
         logger.info(f"Creating PuzzleSmithAgent with config: {self.agents_config.get('PuzzleSmithAgent')}")
-        return Agent(
+        return Agent(  # type: ignore[call-arg]
             config=self.agents_config["PuzzleSmithAgent"],
             llm=self.llm,  # Use the Ollama LLM configuration
             verbose=True
@@ -472,7 +468,7 @@ class SpaceHulkGame:
         map between tasks and agents.
         """
         logger.info(f"Creating CreativeScribeAgent with config: {self.agents_config.get('CreativeScribeAgent')}")
-        return Agent(
+        return Agent(  # type: ignore[call-arg]
             config=self.agents_config["CreativeScribeAgent"],
             llm=self.llm,  # Use the Ollama LLM configuration
             verbose=True
@@ -487,7 +483,7 @@ class SpaceHulkGame:
         map between tasks and agents.
         """
         logger.info(f"Creating MechanicsGuruAgent with config: {self.agents_config.get('MechanicsGuruAgent')}")
-        return Agent(
+        return Agent(  # type: ignore[call-arg]
             config=self.agents_config["MechanicsGuruAgent"],
             llm=self.llm,  # Use the Ollama LLM configuration
             verbose=True
@@ -506,7 +502,7 @@ class SpaceHulkGame:
         map between tasks.
         """
         logger.info(f"Creating GenerateOverarchingPlot task with config: {self.tasks_config.get('GenerateOverarchingPlot')}")
-        return Task(
+        return Task(  # type: ignore[call-arg]
             config=self.tasks_config["GenerateOverarchingPlot"]
         )
 
@@ -519,7 +515,7 @@ class SpaceHulkGame:
         map between tasks.
         """
         logger.info(f"Creating CreateNarrativeMap task with config: {self.tasks_config.get('CreateNarrativeMap')}")
-        return Task(
+        return Task(  # type: ignore[call-arg]
             config=self.tasks_config["CreateNarrativeMap"]
         )
 
@@ -532,7 +528,7 @@ class SpaceHulkGame:
         map between tasks.
         """
         logger.info(f"Creating DesignArtifactsAndPuzzles task with config: {self.tasks_config.get('DesignArtifactsAndPuzzles')}")
-        return Task(
+        return Task(  # type: ignore[call-arg]
             config=self.tasks_config["DesignArtifactsAndPuzzles"]
         )
 
@@ -545,7 +541,7 @@ class SpaceHulkGame:
         map between tasks.
         """
         logger.info(f"Creating WriteSceneDescriptionsAndDialogue task with config: {self.tasks_config.get('WriteSceneDescriptionsAndDialogue')}")
-        return Task(
+        return Task(  # type: ignore[call-arg]
             config=self.tasks_config["WriteSceneDescriptionsAndDialogue"]
         )
 
@@ -558,7 +554,7 @@ class SpaceHulkGame:
         map between tasks.
         """
         logger.info(f"Creating CreateGameMechanicsPRD task with config: {self.tasks_config.get('CreateGameMechanicsPRD')}")
-        return Task(
+        return Task(  # type: ignore[call-arg]
             config=self.tasks_config["CreateGameMechanicsPRD"]
         )
         
@@ -574,7 +570,7 @@ class SpaceHulkGame:
         map between tasks.
         """
         logger.info(f"Creating EvaluateNarrativeFoundation task with config: {self.tasks_config.get('EvaluateNarrativeFoundation')}")
-        return Task(
+        return Task(  # type: ignore[call-arg]
             config=self.tasks_config["EvaluateNarrativeFoundation"]
         )
         
@@ -590,7 +586,7 @@ class SpaceHulkGame:
         map between tasks.
         """
         logger.info(f"Creating EvaluateNarrativeStructure task with config: {self.tasks_config.get('EvaluateNarrativeStructure')}")
-        return Task(
+        return Task(  # type: ignore[call-arg]
             config=self.tasks_config["EvaluateNarrativeStructure"]
         )
         
@@ -606,7 +602,7 @@ class SpaceHulkGame:
         map between tasks.
         """
         logger.info(f"Creating NarrativeIntegrationCheckPuzzles task with config: {self.tasks_config.get('NarrativeIntegrationCheckPuzzles')}")
-        return Task(
+        return Task(  # type: ignore[call-arg]
             config=self.tasks_config["NarrativeIntegrationCheckPuzzles"]
         )
         
@@ -622,7 +618,7 @@ class SpaceHulkGame:
         map between tasks.
         """
         logger.info(f"Creating NarrativeIntegrationCheckScenes task with config: {self.tasks_config.get('NarrativeIntegrationCheckScenes')}")
-        return Task(
+        return Task(  # type: ignore[call-arg]
             config=self.tasks_config["NarrativeIntegrationCheckScenes"]
         )
         
@@ -638,7 +634,7 @@ class SpaceHulkGame:
         map between tasks.
         """
         logger.info(f"Creating NarrativeIntegrationCheckMechanics task with config: {self.tasks_config.get('NarrativeIntegrationCheckMechanics')}")
-        return Task(
+        return Task(  # type: ignore[call-arg]
             config=self.tasks_config["NarrativeIntegrationCheckMechanics"]
         )
         
@@ -654,7 +650,7 @@ class SpaceHulkGame:
         map between tasks.
         """
         logger.info(f"Creating FinalNarrativeIntegration task with config: {self.tasks_config.get('FinalNarrativeIntegration')}")
-        return Task(
+        return Task(  # type: ignore[call-arg]
             config=self.tasks_config["FinalNarrativeIntegration"]
         )
 

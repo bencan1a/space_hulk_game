@@ -11,7 +11,7 @@ Tests can run in two modes:
 import os
 import sys
 import unittest
-from unittest.mock import patch, MagicMock, Mock
+from unittest.mock import patch, MagicMock
 import warnings
 
 # Add the src directory to the path
@@ -37,11 +37,11 @@ class TestAPIValidation(unittest.TestCase):
         cls.has_real_credentials = bool(cls.api_key)
         
         if cls.has_real_credentials:
-            print(f"\n✓ Found OPENROUTER_API_KEY - running tests against real API")
+            print("\n✓ Found OPENROUTER_API_KEY - running tests against real API")
             print(f"  Using model: {cls.model_name}")
         else:
-            print(f"\n⚠ OPENROUTER_API_KEY not found - running tests with mocks")
-            print(f"  Set OPENROUTER_API_KEY to test against real API")
+            print("\n⚠ OPENROUTER_API_KEY not found - running tests with mocks")
+            print("  Set OPENROUTER_API_KEY to test against real API")
     
     @unittest.skipUnless(CREWAI_AVAILABLE, "CrewAI not installed")
     def test_llm_initialization_with_openrouter(self):
@@ -86,7 +86,7 @@ class TestAPIValidation(unittest.TestCase):
                 # Validate response
                 self.assertIsNotNone(response)
                 self.assertTrue(len(response) > 0, "Response should not be empty")
-                print(f"\n✓ API Call Successful!")
+                print("\n✓ API Call Successful!")
                 print(f"  Response length: {len(response)} characters")
                 print(f"  Sample: {response[:100]}...")
                 
@@ -105,7 +105,7 @@ class TestAPIValidation(unittest.TestCase):
                 response = llm.call([{"role": "user", "content": "test"}])
                 
                 self.assertEqual(response, mock_response)
-                print(f"\n✓ Mock API Call Successful!")
+                print("\n✓ Mock API Call Successful!")
                 print(f"  Response: {response}")
     
     @unittest.skipUnless(CREWAI_AVAILABLE, "CrewAI not installed")
@@ -129,7 +129,7 @@ class TestAPIValidation(unittest.TestCase):
                 
                 # Check if response seems relevant
                 # (Should mention darkness, silence, danger, etc.)
-                print(f"\n✓ Game Context Prompt Successful!")
+                print("\n✓ Game Context Prompt Successful!")
                 print(f"  Response: {response}")
                 
             except Exception as e:
@@ -148,7 +148,7 @@ class TestAPIValidation(unittest.TestCase):
                 response = llm.call([{"role": "user", "content": game_prompt}])
                 
                 self.assertIn("darkness", response.lower())
-                print(f"\n✓ Mock Game Context Successful!")
+                print("\n✓ Mock Game Context Successful!")
                 print(f"  Response: {response}")
     
     def test_environment_variables_documented(self):

@@ -14,8 +14,7 @@ Test Coverage:
 import os
 import sys
 import unittest
-from unittest.mock import patch, MagicMock, Mock, mock_open
-import json
+from unittest.mock import patch, MagicMock
 import warnings
 
 # Add the src directory to the path
@@ -42,10 +41,10 @@ class TestSequentialAgentSystem(unittest.TestCase):
         cls.use_real_api = bool(cls.api_key)
         
         if cls.use_real_api:
-            print(f"\n✓ Running integration tests with REAL API")
+            print("\n✓ Running integration tests with REAL API")
             print(f"  Model: {cls.model_name}")
         else:
-            print(f"\n⚠ Running integration tests with MOCKED responses")
+            print("\n⚠ Running integration tests with MOCKED responses")
     
     def setUp(self):
         """Set up test fixtures for each test."""
@@ -215,18 +214,18 @@ class TestSequentialAgentSystem(unittest.TestCase):
                 )
                 
                 try:
-                    crew = SpaceHulkGame()
-                    
+                    _ = SpaceHulkGame()
+
                     # Prepare inputs
-                    inputs = {"prompt": self.test_prompt}
-                    
+                    _ = {"prompt": self.test_prompt}
+
                     # Note: Full execution test disabled by default
                     # Uncomment to test full execution (slow)
                     # result = crew.crew().kickoff(inputs=inputs)
                     # self.assertIsNotNone(result)
-                    
-                    print(f"\n✓ Crew execution test framework validated (mocked)")
-                    
+
+                    print("\n✓ Crew execution test framework validated (mocked)")
+
                 except Exception as e:
                     self.fail(f"Crew execution failed: {str(e)}")
     
@@ -336,7 +335,7 @@ class TestRealAPIExecution(unittest.TestCase):
     def test_single_agent_real_execution(self):
         """Test execution of a single agent with real API."""
         # Configure crew to use OpenRouter
-        with patch('src.space_hulk_game.crew.SpaceHulkGame.__init__') as mock_init:
+        with patch('src.space_hulk_game.crew.SpaceHulkGame.__init__'):
             def custom_init(self):
                 # Load configs normally
                 SpaceHulkGame.__init__._original_method(self)

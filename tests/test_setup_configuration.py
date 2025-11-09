@@ -8,7 +8,6 @@ These tests verify that:
 """
 
 import os
-import sys
 import unittest
 from pathlib import Path
 
