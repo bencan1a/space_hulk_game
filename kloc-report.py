@@ -1,14 +1,15 @@
-Aggregates commit diff stats (adds+deletes = "churn") across all repos owned by a GitHub user
-within a date window, filtering commits to those authored/committed by the target user
-or by GitHub Copilot (direct or co-authored). Splits totals into "tests" vs "implementation"
-using filename/path patterns, and writes a per-file CSV plus an optional per-repo summary.
+"""
+Aggregates commit diff stats (adds+deletes = "churn") across all repos owned by a GitHub user,
+including forks, within a date window. Analyzes ALL commits to those repos (not filtered by author).
+Splits totals into "tests" vs "implementation" using filename/path patterns, and writes a per-file 
+CSV plus an optional per-repo summary.
 
 Usage:
-  python kloc_report_github.py --user bencan1a                # last Sunday 00:00 (America/Denver) to today 23:59:59
-  python kloc_report_github.py --user bencan1a --since 2025-11-02 --until 2025-11-09
-  python kloc_report_github.py --user bencan1a --owner-scope user  # (default) scan repos under the user account
-  python kloc_report_github.py --user bencan1a --owner-scope org   # scan repos under an org named --org <name>
-  python kloc_report_github.py --user bencan1a --org YourOrg --owner-scope org
+  python kloc-report.py --user bencan1a                # last Sunday 00:00 (America/Denver) to today 23:59:59
+  python kloc-report.py --user bencan1a --since 2025-11-02 --until 2025-11-09
+  python kloc-report.py --user bencan1a --owner-scope user  # (default) scan repos under the user account
+  python kloc-report.py --user bencan1a --owner-scope org   # scan repos under an org named --org <name>
+  python kloc-report.py --user bencan1a --org YourOrg --owner-scope org
 
 Auth:
   Uses a GitHub token from env var GH_TOKEN or GITHUB_TOKEN (recommended to avoid low rate limits).
@@ -41,7 +42,7 @@ def gh_headers() -> Dict[str, str]:
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser()
-    p.add_argument("--user", required=True, help="GitHub username (e.g., bencan1a). Also used for author/committer filters.")
+    p.add_argument("--user", required=True, help="GitHub username (e.g., bencan1a) to scan all public repos for.")
     p.add_argument("--org", help="If --owner-scope=org, name of the organization to scan (e.g., Alteryx).")
     p.add_argument("--owner-scope", choices=["user","org"], default="user",
                    help="Scan repos owned by user (default) or by org (requires --org).")
@@ -129,8 +130,7 @@ def list_repos_user(user: str) -> List[str]:
     url = f"https://api.github.com/users/{user}/repos"
     repos = []
     for repo in gh_paginated(url, {"per_page": "100", "type": "owner", "sort": "full_name"}):
-        if repo.get("fork"):  # skip forks by default
-            continue
+        # Include forks in the analysis
         full = repo.get("full_name")
         if full: repos.append(full)
     return repos
@@ -140,8 +140,7 @@ def list_repos_org(org: str) -> List[str]:
     url = f"https://api.github.com/orgs/{org}/repos"
     repos = []
     for repo in gh_paginated(url, {"per_page": "100", "type": "all", "sort": "full_name"}):
-        if repo.get("fork"):
-            continue
+        # Include forks in the analysis
         full = repo.get("full_name")
         if full: repos.append(full)
     return repos
@@ -175,11 +174,11 @@ def list_commits_for_repo(full_name: str, since_iso: str, until_iso: str, user: 
     params = {"since": since_iso, "until": until_iso, "per_page": "100"}
     commits = []
     for c in gh_paginated(url, params):
-        if commit_matches_user_or_copilot(c, user):
-            commits.append(c)
+        # Include all commits to the repo (not filtering by user)
+        commits.append(c)
         if sleep_s: time.sleep(sleep_s)
     if verbose:
-        print(f"[{full_name}] matched commits: {len(commits)}", file=sys.stderr)
+        print(f"[{full_name}] total commits: {len(commits)}", file=sys.stderr)
     return commits
 
 def get_commit_detail(full_name: str, sha: str, sleep_s: float) -> dict:
