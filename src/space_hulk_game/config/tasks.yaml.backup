@@ -56,39 +56,14 @@ GenerateOverarchingPlot:
     detailed enough to guide all subsequent development, establishing the setting, key plot points, 
     themes, tone, and central conflicts. This narrative foundation is the critical first step that 
     all other development will build upon.
-    
-    **IMPORTANT: Output must be in valid YAML format with the following structure:**
-    ```yaml
-    narrative_foundation:
-      title: "Game Title"
-      setting: "Detailed setting description"
-      themes:
-        - theme1
-        - theme2
-      tone: "Description of narrative tone"
-      plot_points:
-        - id: "plot1"
-          name: "Plot Point Name"
-          description: "Description"
-        - id: "plot2"
-          name: "Another Plot Point"
-          description: "Description"
-      characters:
-        - name: "Character Name"
-          role: "Role description"
-          backstory: "Character background"
-      conflicts:
-        - type: "Conflict Type"
-          description: "Conflict description"
-    ```
   expected_output: >
-    A valid YAML document following the structure above that clearly defines the game's setting, 
-    core narrative themes, major plot points, key characters, central conflicts, and narrative 
-    tone. The output MUST be parseable YAML, not markdown or plain text.
+    A detailed narrative foundation document that clearly defines the game's setting, core 
+    narrative themes, major plot points, key characters, central conflicts, and narrative 
+    tone. This document must be comprehensive enough to serve as the guiding framework for 
+    all subsequent development work.
   agent: "PlotMasterAgent"
   output_file: "game-config/plot_outline.yaml"
 
-# Restored for Chunk 0.2 testing (all 11 tasks)
 EvaluateNarrativeFoundation:
   name: "Evaluate Narrative Foundation"
   description: >
@@ -112,52 +87,18 @@ CreateNarrativeMap:
     Based on the approved narrative foundation, develop a detailed narrative map that defines
     all critical paths, character arcs, decision points, and narrative progression. This
     structure will direct all subsequent content creation by specialists.
-    
-    **IMPORTANT: Output must be in valid YAML format with the following structure:**
-    ```yaml
-    narrative_map:
-      start_scene: "scene_id"
-      scenes:
-        scene_id:
-          name: "Scene Name"
-          description: "Scene description"
-          connections:
-            - target: "other_scene_id"
-              condition: "optional condition"
-              description: "Connection description"
-          character_moments:
-            - character: "Character Name"
-              moment: "Character development moment"
-          decision_points:
-            - id: "decision1"
-              prompt: "Decision description"
-              options:
-                - choice: "Option A"
-                  outcome: "Outcome description"
-                - choice: "Option B"
-                  outcome: "Outcome description"
-      character_arcs:
-        - character: "Character Name"
-          arc_stages:
-            - stage: "Beginning"
-              description: "Character state"
-            - stage: "Development"
-              description: "Character growth"
-    ```
   expected_output: >
-    A valid YAML document following the structure above that clearly defines all scenes, 
-    connections, character moments, key decision points, and narrative progression. The output 
-    MUST be parseable YAML, not markdown or plain text.
+    A comprehensive narrative structure that clearly defines all scenes, connections, character 
+    moments, key decision points, and narrative progression in a structured format that can
+    guide specialized development work.
   agent: "NarrativeArchitectAgent"
   context:
     - "GenerateOverarchingPlot"
     # Removed EvaluateNarrativeFoundation from context to avoid "context dependency on a future task" error
-  # Restored for Chunk 0.2
   dependencies:
-    - "EvaluateNarrativeFoundation"  # Execution dependency to maintain correct task order
+    - "EvaluateNarrativeFoundation"  # Keeping execution dependency to maintain correct task order
   output_file: "game-config/narrative_map.yaml"
 
-# Restored for Chunk 0.2 testing (all 11 tasks)
 EvaluateNarrativeStructure:
   name: "Evaluate Narrative Structure"
   description: >
@@ -183,59 +124,19 @@ DesignArtifactsAndPuzzles:
     that directly serve and enhance the established narrative. Each element must have clear 
     connections to the narrative themes, advance the story in meaningful ways, and maintain
     thematic consistency.
-    
-    **IMPORTANT: Output must be in valid YAML format with the following structure:**
-    ```yaml
-    puzzle_design:
-      puzzles:
-        - id: "puzzle1"
-          name: "Puzzle Name"
-          description: "Puzzle description"
-          location: "scene_id where puzzle appears"
-          narrative_purpose: "How this advances the story"
-          solution:
-            type: "solution type"
-            steps: ["step1", "step2"]
-          difficulty: "easy/medium/hard"
-      artifacts:
-        - id: "artifact1"
-          name: "Artifact Name"
-          description: "Artifact description"
-          location: "scene_id"
-          narrative_significance: "Story importance"
-          properties:
-            - property: "value"
-      monsters:
-        - id: "monster1"
-          name: "Monster Name"
-          description: "Monster description"
-          locations: ["scene_id1", "scene_id2"]
-          narrative_role: "How it serves the story"
-          abilities: ["ability1", "ability2"]
-      npcs:
-        - id: "npc1"
-          name: "NPC Name"
-          role: "NPC role in story"
-          description: "NPC description"
-          locations: ["scene_id"]
-          dialogue_themes: ["theme1", "theme2"]
-    ```
   expected_output: >
-    A valid YAML document following the structure above with puzzle, artifact, monster, and NPC 
-    designs that are tightly integrated with the narrative. Each design must include explicit 
-    explanations of how it connects to and advances the established narrative. The output MUST be 
-    parseable YAML, not markdown or plain text.
+    A collection of puzzle, artifact, monster, and NPC designs that are tightly integrated
+    with the narrative. Each design must include explicit explanations of how it connects to
+    and advances the established narrative.
   agent: "PuzzleSmithAgent"
   context:
     - "CreateNarrativeMap"
     - "GenerateOverarchingPlot"
     # Removed EvaluateNarrativeStructure from context to avoid "context dependency on a future task" error
-  # Restored for Chunk 0.2
   dependencies:
-    - "EvaluateNarrativeStructure"  # Execution dependency to maintain correct task order
+    - "EvaluateNarrativeStructure"  # Keeping execution dependency to maintain correct task order
   output_file: "game-config/puzzle_design.yaml"
 
-# Restored for Chunk 0.2 testing (all 11 tasks)
 NarrativeIntegrationCheckPuzzles:
   name: "Narrative Integration Check: Puzzles"
   description: >
@@ -259,44 +160,19 @@ WriteSceneDescriptionsAndDialogue:
     that bring the narrative to life. Each scene must accurately reflect its place in
     the narrative structure, advance the story appropriately, and maintain consistent
     tone and themes.
-    
-    **IMPORTANT: Output must be in valid YAML format with the following structure:**
-    ```yaml
-    scene_texts:
-      scenes:
-        scene_id:
-          name: "Scene Name"
-          description: "Vivid scene description"
-          atmosphere: "Mood and tone description"
-          initial_text: "Text shown when player enters"
-          examination_texts:
-            object1: "Description when examining object1"
-            object2: "Description when examining object2"
-          dialogue:
-            - speaker: "Character Name"
-              text: "Dialogue text"
-              context: "When this is said"
-            - speaker: "Another Character"
-              text: "Response text"
-              emotion: "emotional state"
-          narrative_notes: "How this scene advances the story"
-    ```
   expected_output: >
-    A valid YAML document following the structure above with scene descriptions and dialogue 
-    that effectively translate the narrative structure into vivid, engaging content. Each scene 
-    must explicitly connect to its place in the narrative structure. The output MUST be parseable 
-    YAML, not markdown or plain text.
+    A collection of scene descriptions and dialogue that effectively translate the
+    narrative structure into vivid, engaging content. Each scene must explicitly
+    connect to its place in the narrative structure.
   agent: "CreativeScribeAgent"
   context:
     - "CreateNarrativeMap"
     - "GenerateOverarchingPlot"
     # Removed EvaluateNarrativeStructure from context to avoid "context dependency on a future task" error
-  # Restored for Chunk 0.2
   dependencies:
-    - "EvaluateNarrativeFoundation"  # Execution dependency to maintain correct task order
+    - "EvaluateNarrativeFoundation"  # Keeping execution dependency to maintain correct task order
   output_file: "game-config/scene_texts.yaml"
 
-# Restored for Chunk 0.2 testing (all 11 tasks)
 NarrativeIntegrationCheckScenes:
   name: "Narrative Integration Check: Scenes"
   description: >
@@ -319,57 +195,19 @@ CreateGameMechanicsPRD:
     Based on the approved narrative structure, design game mechanics that directly
     support and enhance the narrative experience. Each mechanic must have a clear
     narrative purpose, enabling player engagement with the story in meaningful ways.
-    
-    **IMPORTANT: Output must be in valid YAML format with the following structure:**
-    ```yaml
-    prd_document:
-      game_title: "Game Title"
-      game_systems:
-        movement:
-          description: "How players move through the game"
-          commands: ["command1", "command2"]
-          narrative_purpose: "How this supports the story"
-        inventory:
-          description: "Item management system"
-          capacity: number
-          commands: ["take", "drop", "use"]
-          narrative_purpose: "Story relevance"
-        combat:
-          description: "Combat system description"
-          mechanics:
-            - name: "mechanic name"
-              rules: "How it works"
-          narrative_purpose: "Story importance"
-        interaction:
-          description: "How players interact with world"
-          commands: ["examine", "talk", "use"]
-      game_state:
-        tracked_variables:
-          - variable: "variable_name"
-            purpose: "Why we track this"
-        win_conditions:
-          - condition: "Win condition description"
-        lose_conditions:
-          - condition: "Lose condition description"
-      technical_requirements:
-        - requirement: "Technical need"
-          justification: "Why this is needed"
-    ```
   expected_output: >
-    A valid YAML document following the structure above where each mechanic explicitly connects 
-    to and supports narrative elements. Include explanations of how each mechanic serves the 
-    narrative purpose. The output MUST be parseable YAML, not markdown or plain text.
+    A comprehensive game mechanics design document where each mechanic explicitly
+    connects to and supports narrative elements. Include explanations of how
+    each mechanic serves the narrative purpose.
   agent: "MechanicsGuruAgent"
   context:
     - "CreateNarrativeMap"
     - "GenerateOverarchingPlot"
     # Removed EvaluateNarrativeStructure from context to avoid "context dependency on a future task" error
-  # Restored for Chunk 0.2
   dependencies:
-    - "EvaluateNarrativeStructure"  # Execution dependency to maintain correct task order
+    - "EvaluateNarrativeStructure"  # Keeping execution dependency to maintain correct task order
   output_file: "game-config/prd_document.yaml"
 
-# Restored for Chunk 0.2 testing (all 11 tasks)
 NarrativeIntegrationCheckMechanics:
   name: "Narrative Integration Check: Mechanics"
   description: >
@@ -387,7 +225,6 @@ NarrativeIntegrationCheckMechanics:
     - "CreateGameMechanicsPRD"
 
 # Final integration checkpoint
-# Restored for Chunk 0.2 testing (all 11 tasks)
 FinalNarrativeIntegration:
   name: "Final Narrative Integration"
   description: >

@@ -1,46 +1,140 @@
-The narrative map for the Space Hulk game has been refined to ensure it aligns with the provided context. Here is an outline of the key areas:
+narrative_map:
+  start_scene: "infiltration"
 
-1. **Introduction to Tau'Vaak**:
-   - Briefing on mission objectives, setting the grimdark tone.
-   - Introduce key factions (Human, Eldar, Space Marines) and their conflict with the Hive Mind.
+  scenes:
+    infiltration:
+      name: "Infiltration"
+      description: "The players infiltrate the Space Hulk 'Omnissiah's Fury', navigating through deadly zero-gravity environments, disorienting corridors, and avoiding deadly Tyranid creatures to reach their first objective: establishing a safe operating base within the derelict vessel."
+      connections:
+        - target: "establish_base"
+          condition: "Reach the base location without being detected"
+          description: "Players successfully infiltrate the Space Hulk and establish a safe operating base."
+        - target: "encounter_tyranids"
+          condition: "Encounter Tyranid creatures during infiltration"
+          description: "Players are detected by Tyranid creatures and must fight for survival."
 
-2. **Area 1: Entry Point**:
-   - Landing zone with initial encounter.
-   - Environmental challenges such as alien traps or malfunctioning machinery.
-   - First enemy encounter (e.g., Hive Mind drones), leading to a key decision point like choosing stealth over force.
+    establish_base:
+      name: "Establish Base"
+      description: "Players secure the base and gather resources, preparing for the next stage of their mission."
+      connections:
+        - target: "hub_search"
+          condition: "Gather enough resources to proceed"
+          description: "Players have gathered sufficient resources to proceed with their mission."
+        - target: "encounter_tyranids"
+          condition: "Tyranid creatures discover the base"
+          description: "Players must defend their base against a Tyranid attack."
 
-3. **Area 2: Main Hive**:
-   - Exploration, combat with Tau'Vaak’s defenses.
-   - Dynamic environmental hazards (e.g., collapsing tunnels or shifting platforms).
-   - Pivotal moment where the player must decide between advancing further into the fortress or retreating to regroup.
+    encounter_tyranids:
+      name: "Encounter Tyranids"
+      description: "Players engage in combat with Tyranid creatures, fighting for survival."
+      connections:
+        - target: "hub_search"
+          condition: "Defeat the Tyranid creatures"
+          description: "Players successfully defeat the Tyranid creatures and can proceed with their mission."
+        - target: "death"
+          condition: "Fail to defeat the Tyranid creatures"
+          description: "Players are killed by the Tyranid creatures, ending their mission."
 
-4. **Area 3: Core Chamber**:
-   - Final confrontation with Hive Mind leadership.
-   - Multiple paths leading to different outcomes (e.g., betrayal, sacrifice, redemption).
-   - Narrative hooks for forming alliances or making significant sacrifices.
+    hub_search:
+      name: "Search for the Hub Chamber"
+      description: "Players scour the Space Hulk for clues to locate the Hub Chamber, the central control room that houses the core systems controlling the vessel's course."
+      connections:
+        - target: "ultima_od_smanship"
+          condition: "Find the Hub Chamber"
+          description: "Players successfully locate the Hub Chamber and prepare for the final battle."
+        - target: "encounter_tyranids"
+          condition: "Encounter Tyranid creatures during search"
+          description: "Players must fight for survival against Tyranid creatures while searching for the Hub Chamber."
 
-5. **Area 4: Escape**:
-   - Tense escape sequence with high stakes.
-   - Exiting the fortress while avoiding hostile forces and rescuing teammates or civilians.
-   - Concluding mission by revisiting themes of survival and sacrifice, possibly leading to a moral dilemma that sets up future storylines.
+    ultima_od_smanship:
+      name: "To Denounce the Unknown"
+      description: "Players face off against the Tyranid Hive Tyrant in the Space Hulk's command center, determining the fate of humanity and of the ship."
+      connections:
+        - target: "bbb55fe5_escape"
+          condition: "Defeat the Tyranid Hive Tyrant"
+          description: "Players successfully defeat the Tyranid Hive Tyrant and can escape the Space Hulk."
+        - target: "death"
+          condition: "Fail to defeat the Tyranid Hive Tyrant"
+          description: "Players are killed by the Tyranid Hive Tyrant, ending their mission."
 
-6. **Alliances and Betrayals**:
-   - Develop interactions with friendly factions like Eldar or Space Marines who can aid the player.
-   - Introduce traitors within the group; each decision should have lasting consequences on the mission’s outcome.
+    bbb55fe5_escape:
+      name: "Escape from Space Hulk"
+      description: "Players make a desperate bid to escape the derelict ship as its systems collapse around them, seeking safe passage out of the maelstrom before the 'Omnissiah's Fury' meets its final, devastating demise."
+      connections:
+        - target: "end"
+          condition: "Escape the Space Hulk"
+          description: "Players successfully escape the Space Hulk, completing their mission."
 
-7. **Character Development**:
-   - Dialogue choices that offer different paths to achieving objectives, enriching the narrative experience and making player decisions feel impactful.
-   - Craft a compelling redemption arc for at least one character, aligning with the game's thematic focus.
+    death:
+      name: "Death"
+      description: "Players are killed, ending their mission."
+      connections: []
 
-8. **Redemption Arc**:
-   - A powerful moment that resonates emotionally and ties back to earlier choices made by the player.
+    end:
+      name: "End"
+      description: "Players complete their mission, escaping the Space Hulk."
+      connections: []
 
-9. **Artifact Interaction**:
-   - The artifact becomes pivotal in the story, granting powers or abilities at key moments.
-   - Influence major decisions throughout the map, ensuring its presence is significant.
+  character_moments:
+    Brother-Captain Arcturus:
+      - moment: "Discovers the true extent of the Tyranid infestation"
+        description: "Arcturus realizes the gravity of the situation and the danger that the Tyranids pose to humanity."
+      - moment: "Confronts the Tyranid Hive Tyrant"
+        description: "Arcturus faces off against the Tyranid Hive Tyrant, determined to stop its evil plans."
 
-10. **Final Thoughts**:
-    - Ensure logical progression with increasing stakes as players delve deeper into the fortress.
-    - Include subtle hints about the greater cosmic conflict in Warhammer 40k to maintain immersion and build towards larger lore events.
+    Tech-Priest Elwes:
+      - moment: "Helps Arcturus repair the ship's systems"
+        description: "Elwes uses his technical expertise to help Arcturus repair the ship's systems and progress through the mission."
+      - moment: "Betrays Arcturus"
+        description: "Elwes reveals his true intentions and betrays Arcturus, forcing the player to make a difficult decision."
 
-By integrating these elements, the narrative map will create a rich, engaging experience that fits within the grimdark universe of Warhammer 40k while offering meaningful choices and emotional depth.
+    Inquisitor KReddit:
+      - moment: "Reveals his true intentions"
+        description: "KReddit reveals his plan to harness the power of the Tyranids to further his own goals, shocking Arcturus and the player."
+      - moment: "Fights Arcturus"
+        description: "KReddit engages in combat with Arcturus, determined to stop him from interfering with his plans."
+
+  decision_points:
+    - id: "choose_to_fight"
+      prompt: "Do you choose to fight the Tyranid creatures or try to sneak past them?"
+      options:
+        - choice: "Fight"
+          outcome: "Players engage in combat with the Tyranid creatures, fighting for survival."
+        - choice: "Sneak past"
+          outcome: "Players attempt to sneak past the Tyranid creatures, avoiding combat."
+
+    - id: "choose_to_trust_elwes"
+      prompt: "Do you choose to trust Elwes or not?"
+      options:
+        - choice: "Trust"
+          outcome: "Players trust Elwes, who helps them progress through the mission."
+        - choice: "Don't trust"
+          outcome: "Players do not trust Elwes, who reveals his true intentions and betrays them."
+
+  character_arcs:
+    - character: "Brother-Captain Arcturus"
+      arc_stages:
+        - stage: "Beginning"
+          description: "Arcturus is introduced as a confident and experienced Space Marine captain."
+        - stage: "Development"
+          description: "Arcturus faces challenges and setbacks, forcing him to adapt and grow as a character."
+        - stage: "Climax"
+          description: "Arcturus confronts the Tyranid Hive Tyrant, determined to stop its evil plans."
+
+    - character: "Tech-Priest Elwes"
+      arc_stages:
+        - stage: "Beginning"
+          description: "Elwes is introduced as a helpful and genial Tech-Priest."
+        - stage: "Development"
+          description: "Elwes's true intentions are revealed, and he betrays Arcturus."
+        - stage: "Climax"
+          description: "Elwes's betrayal is revealed, and he must face the consequences of his actions."
+
+    - character: "Inquisitor KReddit"
+      arc_stages:
+        - stage: "Beginning"
+          description: "KReddit is introduced as a mysterious and powerful figure."
+        - stage: "Development"
+          description: "KReddit's true intentions are revealed, and he is shown to be a ruthless and cunning opponent."
+        - stage: "Climax"
+          description: "KReddit engages in combat with Arcturus, determined to stop him from interfering with his plans."

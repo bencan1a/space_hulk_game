@@ -105,27 +105,12 @@ class SpaceHulkGame:
         # Will be used in the crew configuration
         self.shared_memory = None
         
-        # Define the LLM configuration 
-        # Check for OpenRouter API key first, then fall back to Ollama
-        logger.info("Initializing LLM configuration")
-        
-        openrouter_key = os.environ.get("OPENROUTER_API_KEY")
-        openai_model = os.environ.get("OPENAI_MODEL_NAME", "ollama/qwen2.5")
-        
-        if openrouter_key and "openrouter" in openai_model:
-            # Use OpenRouter
-            logger.info(f"Using OpenRouter with model: {openai_model}")
-            self.llm = LLM(
-                model=openai_model,
-                api_key=openrouter_key
-            )
-        else:
-            # Use Ollama (default)
-            logger.info("Using Ollama with model: ollama/qwen2.5")
-            self.llm = LLM(
-                model="ollama/qwen2.5",
-                base_url="http://localhost:11434"
-            )
+        # Define the LLM configuration for Ollama
+        logger.info("Initializing Ollama LLM configuration")
+        self.llm = LLM(
+            model="ollama/qwen2.5",
+            base_url="http://localhost:11434"
+        )
         
         # Determine the base directory for relative paths
         base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -334,57 +319,6 @@ class SpaceHulkGame:
         # Default fallback
         return {"error": error_message, "recovered": False}
     
-    def clean_yaml_output_files(self):
-        """
-        Post-process YAML output files to remove markdown code fences.
-        
-        The LLM sometimes wraps YAML content in markdown code blocks (```yml ... ```),
-        which makes the files unparseable. This method strips those fences.
-        """
-        output_files = [
-            "game-config/plot_outline.yaml",
-            "game-config/narrative_map.yaml",
-            "game-config/puzzle_design.yaml",
-            "game-config/scene_texts.yaml",
-            "game-config/prd_document.yaml"
-        ]
-        
-        cleaned_count = 0
-        for filepath in output_files:
-            try:
-                if not os.path.exists(filepath):
-                    logger.warning(f"Output file not found: {filepath}")
-                    continue
-                
-                with open(filepath, 'r', encoding='utf-8') as f:
-                    content = f.read()
-                
-                # Check if file has code fences
-                if content.startswith('```') or '```yml' in content or '```yaml' in content:
-                    logger.info(f"Cleaning code fences from {filepath}")
-                    
-                    # Remove markdown code fence markers
-                    # Handle various formats: ```yml, ```yaml, ```
-                    cleaned = content.replace('```yml\n', '').replace('```yaml\n', '').replace('```\n', '')
-                    cleaned = cleaned.replace('\n```', '').replace('```', '')
-                    
-                    # Write cleaned content back
-                    with open(filepath, 'w', encoding='utf-8') as f:
-                        f.write(cleaned)
-                    
-                    cleaned_count += 1
-                    logger.info(f"✅ Cleaned {filepath}")
-                else:
-                    logger.debug(f"No code fences found in {filepath}")
-                    
-            except Exception as e:
-                logger.error(f"Error cleaning {filepath}: {str(e)}")
-        
-        if cleaned_count > 0:
-            logger.info(f"Cleaned {cleaned_count} YAML file(s) by removing code fences")
-        
-        return cleaned_count
-    
     @after_kickoff
     def process_output(self, output):
         """
@@ -395,18 +329,9 @@ class SpaceHulkGame:
         - Comprehensive metadata for debugging and tracking
         - Graceful error handling to preserve output
         - Clear status indicators for quality assessment
-        - Post-processing to clean YAML output files
         """
         try:
             logger.info("Processing crew output...")
-            
-            # Clean YAML output files first
-            try:
-                cleaned_files = self.clean_yaml_output_files()
-                logger.info(f"Post-processed {cleaned_files} YAML files")
-            except Exception as e:
-                logger.error(f"Error cleaning YAML files: {str(e)}")
-                # Continue processing even if cleaning fails
             
             # Get crew configuration safely
             try:
@@ -633,7 +558,6 @@ class SpaceHulkGame:
             config=self.tasks_config["CreateGameMechanicsPRD"]
         )
         
-    # Restored for Chunk 0.2 testing (all 11 tasks)
     @task
     def EvaluateNarrativeFoundation(self) -> Task:
         """
@@ -650,7 +574,6 @@ class SpaceHulkGame:
             config=self.tasks_config["EvaluateNarrativeFoundation"]
         )
         
-    # Restored for Chunk 0.2 testing (all 11 tasks)
     @task
     def EvaluateNarrativeStructure(self) -> Task:
         """
@@ -667,7 +590,6 @@ class SpaceHulkGame:
             config=self.tasks_config["EvaluateNarrativeStructure"]
         )
         
-    # Restored for Chunk 0.2 testing (all 11 tasks)
     @task
     def NarrativeIntegrationCheckPuzzles(self) -> Task:
         """
@@ -684,7 +606,6 @@ class SpaceHulkGame:
             config=self.tasks_config["NarrativeIntegrationCheckPuzzles"]
         )
         
-    # Restored for Chunk 0.2 testing (all 11 tasks)
     @task
     def NarrativeIntegrationCheckScenes(self) -> Task:
         """
@@ -701,7 +622,6 @@ class SpaceHulkGame:
             config=self.tasks_config["NarrativeIntegrationCheckScenes"]
         )
         
-    # Restored for Chunk 0.2 testing (all 11 tasks)
     @task
     def NarrativeIntegrationCheckMechanics(self) -> Task:
         """
@@ -718,7 +638,6 @@ class SpaceHulkGame:
             config=self.tasks_config["NarrativeIntegrationCheckMechanics"]
         )
         
-    # Restored for Chunk 0.2 testing (all 11 tasks)
     @task
     def FinalNarrativeIntegration(self) -> Task:
         """

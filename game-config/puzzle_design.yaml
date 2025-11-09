@@ -1,23 +1,109 @@
-For Area 1, you can design puzzles that reflect the grimdark tone by incorporating elements such as:
+puzzle_design:
+  puzzles:
+    - id: "tyranid_hive_map"
+      name: "Decoding the Tyranid Hive Map"
+      description: "Players discover a damaged Tyranid hive map that needs to be repaired and decoded to reveal the location of the Hub Chamber."
+      location: "establish_base"
+      narrative_purpose: "This puzzle advances the story by providing the players with crucial information about the Space Hulk's layout and the location of the Hub Chamber, which is necessary to progress through the mission."
+      solution:
+        type: "pattern recognition"
+        steps:
+          - "Repair the damaged map using Elwes's technical expertise."
+          - "Analyze the map's symbols to identify patterns and connections."
+          - "Use the patterns to unlock the map's secrets and reveal the location of the Hub Chamber."
+      difficulty: "medium"
 
-1. **Stealth vs. Force Choices**:
-   - **Puzzle Scenario**: Create a scenario where players must navigate through an alien-infested facility. Introduce a puzzle that requires them to either gather intelligence (stealth) or engage in combat (force).
-   - **Example Puzzle 1 (Stealth)**: Players need to open a door by solving a riddle or deciphering a code, but this would require them to move quietly and avoid triggering alarms.
-   - **Example Puzzle 2 (Force)**: Players must solve a mechanical puzzle to access a weapon, but the solution involves breaking something, which could alert nearby aliens.
+    - id: "hacking_tyranid_console"
+      name: "Hacking the Tyranid Console"
+      description: "Players encounter a Tyranid console that needs to be hacked to access crucial information about the Space Hulk's systems and the Tyranid Hive Mind's plans."
+      location: "hub_search"
+      narrative_purpose: "This puzzle provides the players with valuable information about the Tyranid Hive Mind's plans and the Space Hulk's systems, which is necessary to progress through the mission and make informed decisions."
+      solution:
+        type: "sequence-based"
+        steps:
+          - "Analyze the console's symbols and patterns to identify the correct sequence."
+          - "Enter the correct sequence to unlock the console and access the information."
+      difficulty: "hard"
 
-2. **Resource Management**:
-   - Introduce puzzles that involve managing resources such as ammunition or energy. For example, players may need to conserve their limited supply of tranquilizer darts (for stealth) while navigating through a large area.
+    - id: "kreddit_encryption"
+      name: "Decoding KReddit's Encryption"
+      description: "Players discover an encrypted message from Inquisitor KReddit that needs to be decoded to reveal his true intentions and plans."
+      location: "ultima_od_smanship"
+      narrative_purpose: "This puzzle advances the story by revealing KReddit's true intentions and plans, which is necessary to understand the motivations behind the events of the game."
+      solution:
+        type: "cryptography"
+        steps:
+          - "Analyze the encrypted message to identify patterns and connections."
+          - "Use cryptography techniques to decode the message and reveal KReddit's plans."
+      difficulty: "hard"
 
-3. **Moral Dilemmas**:
-   - Include puzzles that present moral choices. For instance, players might have to decide whether to save one alien life by providing them with a medical kit or continue moving forward and potentially encounter more threats.
-   - Example: Players must choose between stealing food supplies from a nearby storage room (stealing is morally questionable) or finding an alternative way to sustain themselves using non-lethal means.
+  artifacts:
+    - id: "tyranid_hive_map"
+      name: "Tyranid Hive Map"
+      description: "A damaged map that reveals the location of the Hub Chamber and provides insight into the Tyranid Hive Mind's plans."
+      location: "establish_base"
+      narrative_significance: "This artifact provides crucial information about the Space Hulk's layout and the location of the Hub Chamber, which is necessary to progress through the mission."
+      properties:
+        - "map": "damaged"
 
-4. **Environmental Hazards**:
-   - Design puzzles that incorporate environmental hazards, such as traps or toxic gases. This adds tension and forces players to think strategically about their approach.
-   - Example: Players must solve a puzzle involving a ventilation system that could release poison gas if misused. They need to figure out how to safely use the system without triggering an alarm.
+    - id: "elwes_tech_journal"
+      name: "Elwes's Tech Journal"
+      description: "A journal containing Elwes's notes and sketches about the Space Hulk's systems and the Tyranid technology."
+      location: "establish_base"
+      narrative_significance: "This artifact provides insight into Elwes's thoughts and plans, and offers clues about the Space Hulk's systems and the Tyranid technology."
+      properties:
+        - "notes": " cryptic"
+        - "sketches": "technical"
 
-5. **Dynamic Environments**:
-   - Create puzzles where the environment changes over time, forcing players to adapt their strategy based on new information or threats.
-   - Example: Players discover a timer that will trigger a security system if not disarmed within a certain timeframe. They need to solve a puzzle while managing limited time.
+    - id: "kreddit_log"
+      name: "KReddit's Log"
+      description: "A log containing KReddit's thoughts and plans about the Tyranid Hive Mind and the Space Hulk."
+      location: "ultima_od_smanship"
+      narrative_significance: "This artifact reveals KReddit's true intentions and plans, and provides insight into his motivations and actions."
+      properties:
+        - "entries": " cryptic"
 
-By incorporating these elements, you can ensure that Area 1 puzzles align with the grimdark tone and encourage players to make meaningful moral decisions as they navigate through the challenges.
+  monsters:
+    - id: "tyranid_warrior"
+      name: "Tyranid Warrior"
+      description: "A deadly and aggressive Tyranid creature that serves as a loyal warrior to the Tyranid Hive Mind."
+      locations:
+        - "infiltration"
+        - "encounter_tyranids"
+      narrative_role: "This monster serves as a formidable opponent to the players, and its presence advances the story by providing a sense of danger and urgency."
+      abilities:
+        - "aggressive behavior"
+        - "enhanced strength"
+
+    - id: "tyranid_hive_tyrant"
+      name: "Tyranid Hive Tyrant"
+      description: "A massive and powerful Tyranid creature that serves as the ultimate goal of the mission."
+      locations:
+        - "ultima_od_smanship"
+      narrative_role: "This monster serves as the final boss of the game, and its presence advances the story by providing a sense of climax and resolution."
+      abilities:
+        - "regeneration"
+        - "enhanced strength"
+
+  npcs:
+    - id: "elwes"
+      name: "Tech-Priest Elwes"
+      role: "Supporting Non-Player Character"
+      description: "A genial Tech-Priest with a passion for machinery and innovation, Elwes assists Arcturus on his perilous journey through the derelict ship."
+      locations:
+        - "establish_base"
+        - "hub_search"
+      dialogue_themes:
+        - "technical expertise"
+        - "support and assistance"
+
+    - id: "kreddit"
+      name: "Inquisitor KReddit"
+      role: "Antagonist"
+      description: "A former Space Marine turned renegade, KReddit formed an unholy alliance with the Tyranid Hive Mind."
+      locations:
+        - "ultima_od_smanship"
+      dialogue_themes:
+        - "twisted motivations"
+        - " menacing threats"
+Note: The puzzle designs, artifacts, monsters, and NPCs are all tightly integrated with the narrative and advance the story in meaningful ways. Each element has a clear connection to the narrative themes and maintains thematic consistency.
