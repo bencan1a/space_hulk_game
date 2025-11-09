@@ -337,22 +337,33 @@ class SpaceHulkGame:
         try:
             logger.info("Processing crew output...")
             
+            # Get crew configuration safely
+            try:
+                crew_obj = self.crew()
+                total_tasks = len(crew_obj.tasks)
+                total_agents = len(crew_obj.agents)
+            except:
+                # Fallback if crew() isn't available
+                total_tasks = 0
+                total_agents = 0
+            
             # Add comprehensive metadata
             output.metadata = {
                 "processed_at": str(datetime.datetime.now()),
                 "validation_applied": True,
                 "error_handling_applied": True,
                 "crew_mode": "sequential",  # Track execution mode
-                "total_tasks": len(self.tasks),
-                "total_agents": len(self.agents)
+                "total_tasks": total_tasks,
+                "total_agents": total_agents
             }
             
             # Add completion summary
             completion_summary = "\n\n=== Crew Execution Complete ===\n"
             completion_summary += f"Timestamp: {output.metadata['processed_at']}\n"
             completion_summary += f"Mode: {output.metadata['crew_mode']}\n"
-            completion_summary += f"Tasks Completed: {output.metadata['total_tasks']}\n"
-            completion_summary += f"Agents Used: {output.metadata['total_agents']}\n"
+            if total_tasks > 0:
+                completion_summary += f"Tasks Completed: {output.metadata['total_tasks']}\n"
+                completion_summary += f"Agents Used: {output.metadata['total_agents']}\n"
             
             # Check for errors during processing
             if hasattr(output, 'errors') and output.errors:
