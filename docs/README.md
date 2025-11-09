@@ -210,13 +210,24 @@ python -m unittest discover -s tests -v
 
 ## Project Documentation
 
+### Core Documentation
+
+- **[SETUP.md](SETUP.md)**: Detailed installation and configuration guide
+- **[QUICKSTART.md](QUICKSTART.md)**: Quick setup and running guide
+- **[CONTRIBUTING.md](CONTRIBUTING.md)**: Development guidelines and best practices
+- **[AGENTS.md](AGENTS.md)**: AI agent system documentation
+- **[DEBUGGING_GUIDE.md](DEBUGGING_GUIDE.md)**: Troubleshooting and debugging tips
+- **[WORKFLOWS.md](WORKFLOWS.md)**: GitHub Actions workflows documentation
+- **[crewai-api-reference.md](crewai-api-reference.md)**: CrewAI framework reference guide
+
+### Memory Bank
+
 The `memory-bank/` directory contains comprehensive project documentation:
 
 - **productContext.md**: Project architecture and overview
 - **activeContext.md**: Current development focus
 - **progress.md**: Development history and milestones
 - **decisionLog.md**: Design decisions and rationale
-- **crewai-api-reference.md**: CrewAI framework reference guide
 
 ## Contributing
 
