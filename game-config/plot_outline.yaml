@@ -1,40 +1,52 @@
-```
 title: Space Hulk: Derelict of the Damned
 setting: 
-  location: A derelict Space Hulk
-  time: Unknown
-  environment: Hostile, with signs of a fierce battle between the Hulk's crew and Chaos cultists
+  location: A derelict Space Hulk drifting through the void of space in Segmentum Obscurus
+  time: M41.998, over 300 years after the ship was lost in the warp
+  environment: Dark, twisted corridors filled with ancient technology and corruption
 themes: 
-  - The struggle against Chaos
-  - The importance of brotherhood and loyalty
-  - The psychological effects of being trapped in a hostile environment
+  - The struggle against Chaos and xenos corruption
+  - Brotherhood, loyalty, and the bonds of the Adeptus Astartes
+  - The psychological toll of isolation in a hostile environment
+  - Duty and sacrifice in service to the Emperor
 plot:
-  prologue: 
-    - The game opens with a cinematic showing a derelict Space Hulk
-    - The player is introduced to the protagonist, a Space Marine of the Ultramarines chapter
-    - The player's mission is to explore the Hulk, eliminate any threats, and retrieve valuable technology
-  act1:
-    - The game begins with the player's character and their squad exploring the Hulk's docking bay
-    - The player must navigate through the bay, avoiding hazards and fighting off hordes of Genestealers
-    - Branching Path 1:
-      - The player comes across a log entry from the Hulk's captain, detailing a possible way to reactivate the ship's engines
-      - The player must decide whether to:
-        A) Search for the engine reactor to reactivate the ship's engines
-        B) Investigate the Dark Angels' presence on the Hulk
-  act2:
-    - The player navigates through the Hulk's cargo bays, fighting off hordes of Genestealers and avoiding deadly traps
-    - The player will encounter various clues and hints about the artifact's location
-    - Branching Path 2:
-      - The player comes across a group of survivors from the Hulk's crew
-      - The player must decide whether to:
-        A) Rescue the survivors and escort them to safety
-        B) Leave the survivors to fend for themselves and focus on finding the artifact
-  act3:
-    - The player finally discovers the artifact, but it is guarded by a powerful daemon
-    - The player must defeat the daemon in a intense battle
-  endings:
-    - Good Ending: The player defeats the daemon and retrieves the artifact
-    - Bad Ending: The player fails to defeat the daemon and is consumed by its power
-    - Dark Angels Ending: The player allies with the Dark Angels and together they retrieve the artifact
-    - Survivor Ending: The player rescues the survivors and escorts them to safety
-```
+  prologue: |
+    A team of elite Space Marines from the Ultramarines chapter receives a distress
+    signal from a derelict space hulk. The hulk, identified as the ancient vessel
+    'Emperor's Grace', has been missing for over three centuries after disappearing
+    into a warp storm during the Horus Heresy. Thought lost forever, its sudden
+    reappearance has drawn the attention of multiple Imperial factions. The Space
+    Marines are ordered to board the hulk immediately to investigate the mysterious
+    distress signal, retrieve any valuable technology or lost relics of the Imperium,
+    and determine whether the vessel can be salvaged or must be destroyed to prevent
+    it from falling into enemy hands.
+  act1: |
+    The Space Marines begin their methodical exploration of the docking bay, discovering
+    the frozen corpses of the original crew still at their stations. Ancient technology
+    hums with an eerie power, and the air is thick with the stench of corruption. As they
+    venture deeper into the hulk, they must navigate through sections of zero-gravity where
+    the artificial gravity has failed, avoid deadly traps set by long-dead defenders, and
+    deal with malfunctioning automated defense systems.
+    
+    Branching Path 1:
+    A) Split the team - one squad investigates engineering, another secures the bridge
+    B) Keep the team together for maximum firepower and safety
+  act2: |
+    As the Marines penetrate deeper into the hulk's heart, they encounter the first wave
+    of Genestealers, a horrifying discovery that the hulk is infested with a full brood
+    of these deadly xenos creatures. The team must fight for their lives in the narrow,
+    claustrophobic corridors. During a brief respite after a fierce battle, they discover
+    that they are not alone - a Dark Angels strike force arrived at the hulk days earlier.
+    
+    Branching Path 2:
+    A) Trust the Dark Angels and combine forces against the Genestealer threat
+    B) Pursue objectives independently, suspicious of Dark Angels' ulterior motives
+endings:
+  - name: Glorious Victory
+    description: The Space Marines successfully purge the Genestealer infestation and recover ancient technology of immense value to the Imperium
+    type: victory
+  - name: Pyrrhic Victory
+    description: The team destroys the hulk to prevent xenos spread but at great cost with many casualties among the battle-brothers
+    type: victory
+  - name: Heroic Sacrifice
+    description: The Marines detonate the hulk's reactor, destroying themselves and the Genestealer threat to save nearby Imperial worlds
+    type: defeat

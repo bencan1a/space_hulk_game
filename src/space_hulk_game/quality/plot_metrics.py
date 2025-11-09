@@ -72,13 +72,61 @@ class PlotMetrics:
                 content = '\n'.join(lines[1:-1])
                 logger.debug("Stripped markdown fences from YAML content")
             
-            data = yaml.safe_load(content)
+            # Try to parse as-is first
+            try:
+                data = yaml.safe_load(content)
+            except yaml.YAMLError as parse_error:
+                # Attempt to fix common YAML syntax errors (e.g., unquoted colons in values)
+                logger.debug(f"Initial YAML parse failed, attempting to fix: {parse_error}")
+                content = cls._fix_yaml_syntax(content)
+                data = yaml.safe_load(content)
+                logger.info("Successfully parsed YAML after fixing syntax errors")
+            
             metrics = cls.from_dict(data)
             logger.info(f"PlotMetrics parsed: score={metrics.get_score():.1f}/10, passes={metrics.passes_threshold()}")
             return metrics
         except Exception as e:
             logger.error(f"Failed to parse plot YAML content: {e}")
             raise ValueError(f"Failed to parse YAML content: {e}")
+    
+    @staticmethod
+    def _fix_yaml_syntax(content: str) -> str:
+        """
+        Fix common YAML syntax errors like unquoted colons in values.
+        
+        Args:
+            content: YAML string with potential syntax errors
+            
+        Returns:
+            Fixed YAML string
+        """
+        lines = content.split('\n')
+        fixed_lines = []
+        
+        for line in lines:
+            # Fix unquoted values with colons (e.g., "title: Space Hulk: Derelict")
+            if ':' in line and not line.strip().startswith('-'):
+                parts = line.split(':', 1)
+                if len(parts) == 2:
+                    key_part = parts[0]
+                    value_part = parts[1].strip()
+                    
+                    # If value has a colon and is not already quoted or is a nested structure
+                    if ':' in value_part and value_part and not (
+                        (value_part.startswith('"') and value_part.endswith('"')) or
+                        (value_part.startswith("'") and value_part.endswith("'")) or
+                        value_part.startswith('[') or
+                        value_part.startswith('{')
+                    ):
+                        # Quote the value
+                        fixed_line = f'{key_part}: "{value_part}"'
+                        fixed_lines.append(fixed_line)
+                        logger.debug(f"Fixed YAML syntax: {line.strip()}")
+                        continue
+            
+            fixed_lines.append(line)
+        
+        return '\n'.join(fixed_lines)
     
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> 'PlotMetrics':
