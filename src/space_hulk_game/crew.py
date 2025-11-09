@@ -105,12 +105,27 @@ class SpaceHulkGame:
         # Will be used in the crew configuration
         self.shared_memory = None
         
-        # Define the LLM configuration for Ollama
-        logger.info("Initializing Ollama LLM configuration")
-        self.llm = LLM(
-            model="ollama/qwen2.5",
-            base_url="http://localhost:11434"
-        )
+        # Define the LLM configuration 
+        # Check for OpenRouter API key first, then fall back to Ollama
+        logger.info("Initializing LLM configuration")
+        
+        openrouter_key = os.environ.get("OPENROUTER_API_KEY")
+        openai_model = os.environ.get("OPENAI_MODEL_NAME", "ollama/qwen2.5")
+        
+        if openrouter_key and "openrouter" in openai_model:
+            # Use OpenRouter
+            logger.info(f"Using OpenRouter with model: {openai_model}")
+            self.llm = LLM(
+                model=openai_model,
+                api_key=openrouter_key
+            )
+        else:
+            # Use Ollama (default)
+            logger.info("Using Ollama with model: ollama/qwen2.5")
+            self.llm = LLM(
+                model="ollama/qwen2.5",
+                base_url="http://localhost:11434"
+            )
         
         # Determine the base directory for relative paths
         base_dir = os.path.dirname(os.path.abspath(__file__))

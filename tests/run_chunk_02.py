@@ -1,36 +1,36 @@
 #!/usr/bin/env python3
 """
-Simple test runner for Chunk 0.1: Sequential Mode Validation (5 Core Tasks)
+Simple test runner for Chunk 0.2: Sequential Mode Validation (All 11 Tasks)
 
-This script directly executes the SpaceHulkGame crew with the test prompt
-and validates the outputs according to Chunk 0.1 specifications.
+This script directly executes the SpaceHulkGame crew with all 11 tasks enabled
+and validates the outputs according to Chunk 0.2 specifications.
 
-Per master_implementation_plan.md Chunk 0.1:
+Per master_implementation_plan.md Chunk 0.2:
 - Run with test prompt: "A Space Marine boarding team discovers an ancient derelict vessel"
-- Monitor execution with 15-minute timeout
+- Monitor execution with 20-minute timeout
 - Validate 5 output files exist and are valid YAML
-- Document execution time and any errors
+- Review evaluation task outputs in logs
+- Document execution time and results
 
 Success Criteria:
-✅ All 5 core tasks complete without errors  
-✅ All 5 output files exist and contain valid YAML
-✅ Generation completes in < 10 minutes
-✅ No hanging or timeout issues
+✅ All 11 tasks complete without errors
+✅ All 5 output files exist and contain valid YAML  
+✅ Generation completes in < 15 minutes
+✅ Evaluation tasks provide meaningful feedback in logs
+
+Prerequisites:
+- Chunk 0.1 must be completed successfully
+- Evaluation tasks must be restored in tasks.yaml and crew.py
 """
 
 import sys
 import time
 import yaml
 from pathlib import Path
-import signal
 
 # Add src to path so we can import space_hulk_game
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root / "src"))
-
-def timeout_handler(signum, frame):
-    """Handler for timeout signal."""
-    raise TimeoutError("Crew execution exceeded 15 minute timeout")
 
 def validate_output_files(output_dir, expected_files):
     """Validate that all expected output files exist and are valid YAML."""
@@ -91,16 +91,16 @@ def validate_output_files(output_dir, expected_files):
     return results
 
 def main():
-    """Run Chunk 0.1 validation test."""
+    """Run Chunk 0.2 validation test."""
     print("\n" + "="*80)
-    print("CHUNK 0.1: SEQUENTIAL MODE VALIDATION (5 CORE TASKS)")
+    print("CHUNK 0.2: SEQUENTIAL MODE VALIDATION (ALL 11 TASKS)")
     print("="*80)
     print("Per master_implementation_plan.md:")
-    print("- Testing sequential mode with 5 core tasks only")
-    print("- Evaluation tasks are commented out")
-    print("- Expected: All 5 tasks complete without errors")
-    print("- Expected: Generation time < 10 minutes")
+    print("- Testing sequential mode with all 11 tasks (5 core + 6 evaluation)")
+    print("- Expected: All 11 tasks complete without errors")
+    print("- Expected: Generation time < 15 minutes")
     print("- Expected: All 5 output files are valid YAML")
+    print("- Expected: Evaluation tasks provide meaningful feedback")
     print("="*80 + "\n")
     
     # Test configuration
@@ -131,8 +131,6 @@ def main():
         print(f"❌ Failed to import SpaceHulkGame: {e}")
         print("\nPlease install dependencies:")
         print("  pip install -e .")
-        print("  or")
-        print("  crewai install")
         return 1
     
     # Prepare inputs
@@ -145,13 +143,9 @@ def main():
     print("STARTING CREW EXECUTION")
     print("="*80)
     print(f"Prompt: {test_prompt}")
-    print(f"Timeout: 15 minutes (900 seconds)")
+    print(f"Timeout: 20 minutes (1200 seconds)")
     print(f"Expected Outputs: {len(expected_files)} files")
     print("="*80 + "\n")
-    
-    # Set up timeout (Unix only)
-    # signal.signal(signal.SIGALRM, timeout_handler)
-    # signal.alarm(900)  # 15 minutes
     
     # Execute crew
     start_time = time.time()
@@ -162,7 +156,21 @@ def main():
         print("Initializing crew...")
         crew_instance = SpaceHulkGame()
         
-        print("Starting crew execution...")
+        # Verify all 11 tasks are loaded
+        expected_task_count = 11
+        actual_task_count = len(crew_instance.tasks_config)
+        
+        if actual_task_count != expected_task_count:
+            print(f"\n⚠️  WARNING: Expected {expected_task_count} tasks but found {actual_task_count}")
+            print(f"   Loaded tasks: {list(crew_instance.tasks_config.keys())}")
+            print("\n   This test requires all 11 tasks (5 core + 6 evaluation) to be enabled.")
+            print("   Please restore all evaluation tasks in tasks.yaml and crew.py before running this test.")
+            return 1
+        
+        print(f"✅ Verified all {actual_task_count} tasks loaded")
+        print(f"   Tasks: {', '.join(crew_instance.tasks_config.keys())}")
+        
+        print("\nStarting crew execution...")
         result = crew_instance.crew().kickoff(inputs=inputs)
         
         end_time = time.time()
@@ -190,29 +198,24 @@ def main():
         import traceback
         traceback.print_exc()
     
-    finally:
-        # Cancel timeout alarm
-        # signal.alarm(0)
-        pass
-    
     # Validate outputs
     validation_results = validate_output_files(output_dir, expected_files)
     
     # Print final summary
     print("\n" + "="*80)
-    print("CHUNK 0.1 VALIDATION SUMMARY")
+    print("CHUNK 0.2 VALIDATION SUMMARY")
     print("="*80)
     
     if not success:
         print(f"❌ Crew Execution: FAILED - {error_message}")
     else:
-        if execution_time < 600:  # 10 minutes
-            print(f"✅ Crew Execution: SUCCESS ({execution_time:.2f}s < 600s threshold)")
+        if execution_time < 900:  # 15 minutes
+            print(f"✅ Crew Execution: SUCCESS ({execution_time:.2f}s < 900s threshold)")
         else:
-            print(f"⚠️  Crew Execution: SUCCESS but SLOW ({execution_time:.2f}s > 600s threshold)")
+            print(f"⚠️  Crew Execution: SUCCESS but SLOW ({execution_time:.2f}s > 900s threshold)")
     
     if validation_results["all_exist"]:
-        print(f"✅ All Output Files: FOUND ({len(expected_files)}/{ len(expected_files)})")
+        print(f"✅ All Output Files: FOUND ({len(expected_files)}/{len(expected_files)})")
     else:
         missing = [f for f, s in validation_results["files_status"].items() if not s["exists"]]
         print(f"❌ Output Files: MISSING {len(missing)} files: {', '.join(missing)}")
@@ -226,17 +229,17 @@ def main():
     # Overall result
     print("="*80)
     if success and validation_results["all_exist"] and validation_results["all_valid_yaml"]:
-        if execution_time < 600:
-            print("✅ CHUNK 0.1 VALIDATION: PASSED")
+        if execution_time < 900:
+            print("✅ CHUNK 0.2 VALIDATION: PASSED")
             print("All success criteria met!")
-            print("Ready to proceed to Chunk 0.2 (all 11 tasks)")
+            print("Ready to proceed to Chunk 0.3 (reliability testing)")
             return_code = 0
         else:
-            print("⚠️  CHUNK 0.1 VALIDATION: PASSED WITH WARNINGS")
+            print("⚠️  CHUNK 0.2 VALIDATION: PASSED WITH WARNINGS")
             print("All tasks completed successfully but execution time exceeded threshold")
             return_code = 0
     else:
-        print("❌ CHUNK 0.1 VALIDATION: FAILED")
+        print("❌ CHUNK 0.2 VALIDATION: FAILED")
         print("Review issues above and retry after fixes")
         return_code = 1
     
