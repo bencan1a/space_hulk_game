@@ -51,6 +51,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--out-files-csv", default="kloc_files.csv", help="Per-file CSV output path.")
     p.add_argument("--out-repos-csv", default="kloc_by_repo.csv", help="Per-repo CSV output path (aggregated).")
     p.add_argument("--sleep", type=float, default=0.3, help="Sleep between API calls to be gentle on rate limits.")
+    p.add_argument("--include-forks", action="store_true", help="Include forked repositories in the analysis.")
     p.add_argument("--verbose", action="store_true")
     return p.parse_args()
 
@@ -125,23 +126,23 @@ def gh_paginated(url: str, params: Dict[str, str]) -> Iterable[dict]:
         # After first page, params must be None so we don't duplicate them
         params = {}
 
-def list_repos_user(user: str) -> List[str]:
+def list_repos_user(user: str, include_forks: bool = False) -> List[str]:
     # https://api.github.com/users/{user}/repos
     url = f"https://api.github.com/users/{user}/repos"
     repos = []
     for repo in gh_paginated(url, {"per_page": "100", "type": "owner", "sort": "full_name"}):
-        if repo.get("fork"):  # skip forks by default
+        if repo.get("fork") and not include_forks:  # skip forks unless flag is set
             continue
         full = repo.get("full_name")
         if full: repos.append(full)
     return repos
 
-def list_repos_org(org: str) -> List[str]:
+def list_repos_org(org: str, include_forks: bool = False) -> List[str]:
     # https://api.github.com/orgs/{org}/repos
     url = f"https://api.github.com/orgs/{org}/repos"
     repos = []
     for repo in gh_paginated(url, {"per_page": "100", "type": "all", "sort": "full_name"}):
-        if repo.get("fork"):
+        if repo.get("fork") and not include_forks:
             continue
         full = repo.get("full_name")
         if full: repos.append(full)
@@ -213,9 +214,9 @@ def main():
 
     # Enumerate repos
     if args.owner_scope == "org":
-        repos = list_repos_org(args.org)
+        repos = list_repos_org(args.org, args.include_forks)
     else:
-        repos = list_repos_user(args.user)
+        repos = list_repos_user(args.user, args.include_forks)
 
     if not repos:
         print("No repositories found to scan.", file=sys.stderr)
