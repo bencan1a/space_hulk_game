@@ -9,6 +9,7 @@ import re
 import logging
 from pathlib import Path
 from typing import Optional, Tuple
+import yaml
 
 logger = logging.getLogger(__name__)
 
@@ -140,7 +141,6 @@ def validate_yaml_content(content: str) -> Tuple[bool, Optional[str]]:
     Returns:
         Tuple of (is_valid, error_message)
     """
-    import yaml
     
     try:
         yaml.safe_load(content)
