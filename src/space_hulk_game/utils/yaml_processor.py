@@ -37,7 +37,7 @@ def strip_markdown_yaml_blocks(content: str) -> str:
     
     # Remove trailing ``` markers
     content = re.sub(r'\n```\s*$', '', content, flags=re.MULTILINE)
-    content = re.sub(r'^```\s*$', '', content, flags=re.MULTILINE | re.DOTALL)
+    content = re.sub(r'^```\s*$', '', content, flags=re.MULTILINE)
     
     return content.strip()
 
