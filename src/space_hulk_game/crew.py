@@ -74,6 +74,7 @@ import datetime
 import os
 import yaml
 import logging
+from pathlib import Path
 from typing import Any
 
 from crewai import Agent, Crew, Task, Process, LLM
@@ -236,10 +237,14 @@ class SpaceHulkGame:
         3. Returning template content as context for agents
         
         Template Detection Keywords:
-        - "horror", "scary", "terrifying" → space_horror.yaml
-        - "mystery", "investigation", "detective", "clue" → mystery_investigation.yaml
-        - "survival", "escape", "desperate", "resource" → survival_escape.yaml
-        - "combat", "battle", "tactical", "squad" → combat_focused.yaml
+        - "horror", "scary", "terrifying", etc. → space_horror.yaml
+        - "mystery", "investigation", "investigate", "detective", "clue", etc. → mystery_investigation.yaml
+        - "survival", "escape", "desperate", "resource", etc. → survival_escape.yaml
+        - "combat", "battle", "tactical", "squad", etc. → combat_focused.yaml
+        
+        Template Priority:
+        If multiple keywords match, templates are selected in priority order:
+        space_horror > mystery_investigation > survival_escape > combat_focused
         
         Args:
             prompt: User's input prompt text
@@ -274,17 +279,29 @@ class SpaceHulkGame:
             
             # Construct template file path
             # Templates are in planning_templates/ at project root
-            project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-            template_path = os.path.join(project_root, "planning_templates", f"{detected_template}.yaml")
+            # Use pathlib for cleaner, more maintainable path manipulation
+            project_root = Path(__file__).parent.parent.parent
+            template_path = project_root / "planning_templates" / f"{detected_template}.yaml"
             
             # Check if template file exists
-            if not os.path.exists(template_path):
+            if not template_path.exists():
                 logger.warning(f"Template file not found: {template_path}")
                 return {}
             
             # Load template YAML file
             with open(template_path, 'r', encoding='utf-8') as f:
                 template_content = yaml.safe_load(f)
+            
+            # Validate that loaded content is a dictionary
+            if not isinstance(template_content, dict):
+                logger.warning(f"Template file has invalid structure: {template_path}")
+                return {}
+            
+            # Validate required fields in template
+            required_fields = ['template_name', 'template_version', 'description']
+            if not all(field in template_content for field in required_fields):
+                logger.warning(f"Template missing required fields: {template_path}")
+                return {}
             
             logger.info(f"Successfully loaded planning template: {detected_template}")
             logger.debug(f"Template path: {template_path}")

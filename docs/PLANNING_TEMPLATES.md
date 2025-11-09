@@ -395,13 +395,18 @@ if template_context:
 ```
 
 **Access in Agent Tasks:**
+
+Templates are currently loaded into `inputs["planning_template"]` and available to agents during execution. Future enhancement will include explicit task.yaml integration:
+
 ```yaml
-# In tasks.yaml, agents can reference:
+# Future task.yaml integration (not yet implemented):
 description: >
   Use the planning_template guidance if provided.
   Focus on {planning_template.narrative_focus} and 
   incorporate {planning_template.required_elements}.
 ```
+
+For now, agents receive template context through the standard input mechanism and can utilize it based on their general instructions.
 
 ---
 
