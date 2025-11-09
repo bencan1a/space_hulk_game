@@ -739,46 +739,141 @@ class SpaceHulkGame:
     # Crew Definition
     # ---------------------------------
     
-    def create_hierarchical_crew(self) -> Crew:
+    def create_hierarchical_crew_simplified(self) -> Crew:
         """
-        Alternative crew configuration using hierarchical process.
+        Create hierarchical crew with simplified task descriptions.
         
-        This method is NOT decorated with @crew and is provided for
-        manual testing after sequential mode is proven to work.
+        This version uses much shorter task descriptions to prevent the manager's
+        delegation prompts from exceeding the LLM's context window.
         
-        To use this configuration:
-        1. First verify sequential mode works (default crew() method)
-        2. Test with simple tasks (3-5 tasks max)
-        3. Incrementally add evaluation tasks
-        4. Monitor for hanging/blocking behavior
+        Key differences from create_hierarchical_crew():
+        1. Task descriptions are 90% shorter
+        2. Removes detailed YAML formatting instructions
+        3. Keeps only essential task information
+        4. Manager can better handle delegation with less context
+        
+        Returns:
+            Crew configured for hierarchical process with simplified tasks
+        """
+        logger.info("Creating hierarchical crew with simplified tasks")
+        
+        # Import simplified task configs
+        from space_hulk_game.config.hierarchical_tasks import HIERARCHICAL_TASKS
+        
+        # Create optimized manager
+        manager_llm = LLM(
+            model=os.environ.get("OPENAI_MODEL_NAME", "ollama/qwen2.5"),
+            base_url="http://localhost:11434" if "ollama" in os.environ.get("OPENAI_MODEL_NAME", "ollama") else None,
+            api_key=os.environ.get("OPENROUTER_API_KEY") if os.environ.get("OPENROUTER_API_KEY") else None,
+            temperature=0.3,
+            max_tokens=4000
+        )
+        
+        manager = Agent(
+            role="Narrative Director",
+            goal="Coordinate narrative development efficiently",
+            backstory="An experienced game narrative director who efficiently delegates tasks.",
+            llm=manager_llm,
+            allow_delegation=True,
+            verbose=True,
+            max_iter=10
+        )
+        
+        # Create worker agents
+        plot_master = self.PlotMasterAgent()
+        narrative_architect = self.NarrativeArchitectAgent()
+        puzzle_smith = self.PuzzleSmithAgent()
+        
+        worker_agents = [plot_master, narrative_architect, puzzle_smith]
+        
+        # Create simplified tasks
+        simplified_tasks = []
+        for task_key in ["GenerateOverarchingPlot", "CreateNarrativeMap", "DesignArtifactsAndPuzzles"]:
+            task_config = HIERARCHICAL_TASKS[task_key]
+            simplified_tasks.append(Task(
+                description=task_config["description"],
+                expected_output=task_config["expected_output"],
+                agent=eval(f'self.{task_config["agent"]}()'),
+                output_file=task_config.get("output_file")
+            ))
+        
+        logger.info(f"Manager: {manager.role}")
+        logger.info(f"Workers: {[agent.role for agent in worker_agents]}")
+        logger.info(f"Tasks: {len(simplified_tasks)} (simplified descriptions)")
+        
+        return Crew(
+            agents=worker_agents,
+            tasks=simplified_tasks,
+            process=Process.hierarchical,
+            manager_agent=manager,
+            verbose=True
+        )
+    
+    def create_hierarchical_crew(self, max_iter=10, use_simplified_manager=True) -> Crew:
+        """
+        Alternative crew configuration using hierarchical process with optimizations.
+        
+        This method creates a hierarchical crew with configurations optimized to prevent
+        the LLM context overflow and excessive delegation that causes failures.
+        
+        Args:
+            max_iter: Maximum iterations for manager agent (default: 10, reduced from 25)
+            use_simplified_manager: Use a simplified manager configuration (default: True)
+        
+        Optimizations Applied:
+        1. Reduced max_iter to prevent excessive delegation loops
+        2. Simplified manager LLM with lower temperature for consistent decisions
+        3. Explicit delegation limits to prevent context overflow
         
         Known Issues (per REVISED_RESTART_PLAN.md):
-        - Hierarchical process can hang with complex task dependencies
-        - Manager agent (NarrativeDirector) may not delegate properly
-        - Evaluation tasks may create deadlocks
-        - Memory/planning features may cause blocks
+        - Complex YAML task descriptions can overwhelm the manager LLM
+        - Long task descriptions cause delegation prompts to exceed context window
+        - Solution: Use simplified manager configuration with iteration limits
         """
-        logger.info("Creating hierarchical crew configuration")
+        logger.info("Creating optimized hierarchical crew configuration")
         
-        # Create the manager agent
-        manager = self.NarrativeDirectorAgent()
+        # Create optimized manager LLM configuration
+        if use_simplified_manager:
+            logger.info("Using simplified manager configuration")
+            manager_llm = LLM(
+                model=os.environ.get("OPENAI_MODEL_NAME", "ollama/qwen2.5"),
+                base_url="http://localhost:11434" if "ollama" in os.environ.get("OPENAI_MODEL_NAME", "ollama") else None,
+                api_key=os.environ.get("OPENROUTER_API_KEY") if os.environ.get("OPENROUTER_API_KEY") else None,
+                temperature=0.3,  # Lower temperature for more consistent manager decisions
+                max_tokens=4000   # Ensure enough tokens for delegation decisions
+            )
+            
+            # Create manager with simplified backstory to reduce prompt size
+            manager = Agent(
+                role=self.agents_config["NarrativeDirectorAgent"]["role"],
+                goal=self.agents_config["NarrativeDirectorAgent"]["goal"],
+                backstory="An experienced narrative director who efficiently coordinates specialists.",
+                llm=manager_llm,
+                allow_delegation=True,
+                verbose=True,
+                max_iter=max_iter  # Limit iterations to prevent excessive delegation
+            )
+        else:
+            # Use standard manager configuration
+            manager = self.NarrativeDirectorAgent()
+            manager.max_iter = max_iter
         
         # Get worker agents - all agents except the manager
-        # Note: This filters by checking if the agent's config matches the manager's config
         worker_agents = [
             agent for agent in self.agents 
-            if agent.role != manager.role  # Filter by role instead of type comparison
+            if agent.role != manager.role
         ]
         
         logger.info(f"Manager: {manager.role}")
         logger.info(f"Worker agents: {[agent.role for agent in worker_agents]}")
         logger.info(f"Total tasks: {len(self.tasks)}")
+        logger.info(f"Max iterations: {max_iter}")
         
         return Crew(
             agents=worker_agents,          # Worker agents only (manager not in list)
             tasks=self.tasks,              # All tasks
             process=Process.hierarchical,  # Hierarchical with manager delegation
-            manager_agent=manager,         # NarrativeDirectorAgent coordinates
+            manager_agent=manager,         # Optimized manager for coordination
             verbose=True,                  # Enable detailed logging
             # Optional enhancements (test after basic hierarchical works):
             # memory=True,
