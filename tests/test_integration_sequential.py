@@ -117,7 +117,7 @@ class TestSequentialAgentSystem(unittest.TestCase):
     
     @unittest.skipUnless(CREWAI_AVAILABLE, "CrewAI not available")
     def test_agent_creation(self):
-        """Test that all 6 agents can be created successfully."""
+        """Test that all 7 agents can be created successfully."""
         with patch('src.space_hulk_game.crew.LLM') as mock_llm_class, \
              patch('src.space_hulk_game.crew.MemoryClient') as mock_mem:
             
@@ -134,7 +134,8 @@ class TestSequentialAgentSystem(unittest.TestCase):
                 'NarrativeArchitectAgent',
                 'PuzzleSmithAgent',
                 'CreativeScribeAgent',
-                'MechanicsGuruAgent'
+                'MechanicsGuruAgent',
+                'GameIntegrationAgent'
             ]
             
             for agent_name in agents_to_test:
