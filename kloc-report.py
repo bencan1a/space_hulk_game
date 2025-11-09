@@ -46,12 +46,13 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--org", help="If --owner-scope=org, name of the organization to scan (e.g., Alteryx).")
     p.add_argument("--owner-scope", choices=["user","org"], default="user",
                    help="Scan repos owned by user (default) or by org (requires --org).")
-    p.add_argument("--since", help="Start date YYYY-MM-DD in America/Denver local time (00:00:00). Defaults to last Sunday.")
+    p.add_argument("--since", help="Start date YYYY-MM-DD in America/Denver local time (00:00:00). Defaults to last Sunday (or last 7 days if --all-commits is used).")
     p.add_argument("--until", help="End date YYYY-MM-DD in America/Denver local time (23:59:59). Defaults to today.")
     p.add_argument("--out-files-csv", default="kloc_files.csv", help="Per-file CSV output path.")
     p.add_argument("--out-repos-csv", default="kloc_by_repo.csv", help="Per-repo CSV output path (aggregated).")
     p.add_argument("--sleep", type=float, default=0.3, help="Sleep between API calls to be gentle on rate limits.")
     p.add_argument("--include-forks", action="store_true", help="Include forked repositories in the analysis.")
+    p.add_argument("--all-commits", action="store_true", help="Include all commits by any user (not just --user and GitHub Copilot).")
     p.add_argument("--verbose", action="store_true")
     return p.parse_args()
 
@@ -84,6 +85,18 @@ def last_sunday_window_utc() -> Tuple[str, str, str]:
     until_utc = today_eod.astimezone(dt.timezone.utc).isoformat().replace("+00:00","Z")
     # For printing
     label = f"{last_sun.date()} to {today_eod.date()} (America/Denver)"
+    return since_utc, until_utc, label
+
+def last_seven_days_window_utc() -> Tuple[str, str, str]:
+    """Compute [since, until] in UTC ISO (Z) covering last 7 days (Denver time)."""
+    now = dt.datetime.now(tz=denver_tz())
+    seven_days_ago = (now - dt.timedelta(days=7)).replace(hour=0, minute=0, second=0, microsecond=0)
+    today_eod = now.replace(hour=23, minute=59, second=59, microsecond=0)
+
+    since_utc = seven_days_ago.astimezone(dt.timezone.utc).isoformat().replace("+00:00","Z")
+    until_utc = today_eod.astimezone(dt.timezone.utc).isoformat().replace("+00:00","Z")
+    # For printing
+    label = f"{seven_days_ago.date()} to {today_eod.date()} (America/Denver, last 7 days)"
     return since_utc, until_utc, label
 
 def local_dates_to_utc_range(since_local: str, until_local: str) -> Tuple[str, str, str]:
@@ -171,13 +184,13 @@ def commit_matches_user_or_copilot(commit_obj: dict, user: str) -> bool:
         is_copilot_commit(commit_obj)
     )
 
-def list_commits_for_repo(full_name: str, since_iso: str, until_iso: str, user: str, sleep_s: float, verbose=False) -> List[dict]:
+def list_commits_for_repo(full_name: str, since_iso: str, until_iso: str, user: str, sleep_s: float, all_commits: bool = False, verbose=False) -> List[dict]:
     # https://api.github.com/repos/{owner}/{repo}/commits?since=&until=
     url = f"https://api.github.com/repos/{full_name}/commits"
     params = {"since": since_iso, "until": until_iso, "per_page": "100"}
     commits = []
     for c in gh_paginated(url, params):
-        if commit_matches_user_or_copilot(c, user):
+        if all_commits or commit_matches_user_or_copilot(c, user):
             commits.append(c)
         if sleep_s: time.sleep(sleep_s)
     if verbose:
@@ -207,6 +220,9 @@ def main():
     # Compute window
     if args.since and args.until:
         since_iso, until_iso, label = local_dates_to_utc_range(args.since, args.until)
+    elif args.all_commits:
+        # When looking at all commits, use last 7 days by default
+        since_iso, until_iso, label = last_seven_days_window_utc()
     else:
         since_iso, until_iso, label = last_sunday_window_utc()
 
@@ -236,7 +252,7 @@ def main():
     total_add_impl  = total_del_impl  = 0
 
     for full in repos:
-        commits = list_commits_for_repo(full, since_iso, until_iso, args.user, args.sleep, args.verbose)
+        commits = list_commits_for_repo(full, since_iso, until_iso, args.user, args.sleep, args.all_commits, args.verbose)
         if not commits:
             continue
 
