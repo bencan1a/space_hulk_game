@@ -5,7 +5,6 @@ This module implements the evaluator for puzzle design content,
 using PuzzleMetrics to score puzzles, artifacts, and NPCs.
 """
 
-from typing import Dict, Any
 import logging
 
 from .evaluator import QualityEvaluator

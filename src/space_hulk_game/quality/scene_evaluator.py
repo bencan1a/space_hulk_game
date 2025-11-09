@@ -5,7 +5,6 @@ This module implements the evaluator for scene text content,
 using SceneMetrics to score text quality, dialogue, and tone.
 """
 
-from typing import Dict, Any
 import logging
 
 from .evaluator import QualityEvaluator
@@ -75,7 +74,7 @@ class SceneEvaluator(QualityEvaluator):
                 'average_description_length': metrics.average_description_length,
                 'tone_consistency_score': metrics.tone_consistency_score,
                 'has_sensory_details': metrics.has_sensory_details,
-                'total_word_count': sum([metrics.average_description_length * metrics.total_scenes]) if metrics.total_scenes > 0 else 0,
+                'total_word_count': metrics.average_description_length * metrics.total_scenes if metrics.total_scenes > 0 else 0,
                 'scenes_without_descriptions': [],  # Can be computed if needed
                 'scenes_with_short_descriptions': [],
                 'failures': failures,

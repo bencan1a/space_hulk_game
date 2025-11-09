@@ -5,7 +5,6 @@ This module implements the evaluator for game mechanics content,
 using MechanicsMetrics to score systems, rules clarity, and balance.
 """
 
-from typing import Dict, Any
 import logging
 
 from .evaluator import QualityEvaluator

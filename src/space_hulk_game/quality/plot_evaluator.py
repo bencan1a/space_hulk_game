@@ -5,7 +5,6 @@ This module implements the evaluator for plot outline content,
 using PlotMetrics to score and provide feedback on plot quality.
 """
 
-from typing import Dict, Any
 import logging
 
 from .evaluator import QualityEvaluator

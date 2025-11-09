@@ -49,9 +49,12 @@ class QualityScore:
     
     def __repr__(self) -> str:
         """Detailed representation of the quality score."""
+        feedback_display = (
+            self.feedback[:50] + "..." if len(self.feedback) > 50 else self.feedback
+        )
         return (
             f"QualityScore(score={self.score:.1f}, passed={self.passed}, "
-            f"feedback='{self.feedback[:50]}...')"
+            f"feedback='{feedback_display}')"
         )
     
     def to_dict(self) -> Dict[str, Any]:

@@ -5,7 +5,6 @@ This module implements the evaluator for narrative map content,
 using NarrativeMetrics to score and validate scene graph structure.
 """
 
-from typing import Dict, Any
 import logging
 
 from .evaluator import QualityEvaluator

@@ -15,7 +15,6 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../s
 
 from space_hulk_game.quality import (
     QualityScore,
-    QualityEvaluator,
     PlotEvaluator,
     NarrativeMapEvaluator,
     PuzzleEvaluator,
