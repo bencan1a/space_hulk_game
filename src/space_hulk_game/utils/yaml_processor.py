@@ -104,8 +104,7 @@ def process_yaml_directory(directory: Path, pattern: str = "*.yaml", backup: boo
     stats = {
         'total': 0,
         'processed': 0,
-        'failed': 0,
-        'skipped': 0
+        'failed': 0
     }
     
     if not directory.exists():
