@@ -1,3 +1,4 @@
+"""
 Aggregates commit diff stats (adds+deletes = "churn") across all repos owned by a GitHub user
 within a date window, filtering commits to those authored/committed by the target user
 or by GitHub Copilot (direct or co-authored). Splits totals into "tests" vs "implementation"
