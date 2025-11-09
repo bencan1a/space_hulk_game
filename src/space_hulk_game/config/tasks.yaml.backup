@@ -64,22 +64,21 @@ GenerateOverarchingPlot:
   agent: "PlotMasterAgent"
   output_file: "game-config/plot_outline.yaml"
 
-# COMMENTED OUT FOR CHUNK 0.1 TESTING (5 core tasks only)
-# EvaluateNarrativeFoundation:
-#   name: "Evaluate Narrative Foundation"
-#   description: >
-#     Thoroughly evaluate the narrative foundation to ensure it provides sufficient depth, clarity,
-#     and direction for all subsequent development. This is a critical quality gate - subsequent 
-#     work cannot proceed until a strong narrative foundation is established.
-#   expected_output: >
-#     A comprehensive evaluation of the narrative foundation with specific feedback for improvement.
-#     Include explicit approval or revision requests. Only when approved can development proceed
-#     to the next phase.
-#   agent: "NarrativeDirectorAgent"
-#   context:
-#     - "GenerateOverarchingPlot"
-#   dependencies:
-#     - "GenerateOverarchingPlot"
+EvaluateNarrativeFoundation:
+  name: "Evaluate Narrative Foundation"
+  description: >
+    Thoroughly evaluate the narrative foundation to ensure it provides sufficient depth, clarity,
+    and direction for all subsequent development. This is a critical quality gate - subsequent 
+    work cannot proceed until a strong narrative foundation is established.
+  expected_output: >
+    A comprehensive evaluation of the narrative foundation with specific feedback for improvement.
+    Include explicit approval or revision requests. Only when approved can development proceed
+    to the next phase.
+  agent: "NarrativeDirectorAgent"
+  context:
+    - "GenerateOverarchingPlot"
+  dependencies:
+    - "GenerateOverarchingPlot"
 
 # Narrative structure - can only proceed after foundation approval
 CreateNarrativeMap:
@@ -96,28 +95,26 @@ CreateNarrativeMap:
   context:
     - "GenerateOverarchingPlot"
     # Removed EvaluateNarrativeFoundation from context to avoid "context dependency on a future task" error
-  # CHUNK 0.1: Removed dependency on EvaluateNarrativeFoundation for 5-task testing
-  # dependencies:
-  #   - "EvaluateNarrativeFoundation"  # Keeping execution dependency to maintain correct task order
+  dependencies:
+    - "EvaluateNarrativeFoundation"  # Keeping execution dependency to maintain correct task order
   output_file: "game-config/narrative_map.yaml"
 
-# COMMENTED OUT FOR CHUNK 0.1 TESTING (5 core tasks only)
-# EvaluateNarrativeStructure:
-#   name: "Evaluate Narrative Structure"
-#   description: >
-#     Thoroughly evaluate the narrative structure to ensure it adequately develops the approved 
-#     foundation into an implementable blueprint for all specialized development. This is a 
-#     critical quality gate - specialist work cannot fully proceed until the narrative structure 
-#     is approved.
-#   expected_output: >
-#     A detailed evaluation of the narrative structure with specific feedback. Include explicit
-#     approval or revision requests. Only when approved can specialist development fully proceed.
-#   agent: "NarrativeDirectorAgent"
-#   context:
-#     - "CreateNarrativeMap"
-#     - "GenerateOverarchingPlot"
-#   dependencies:
-#     - "CreateNarrativeMap"
+EvaluateNarrativeStructure:
+  name: "Evaluate Narrative Structure"
+  description: >
+    Thoroughly evaluate the narrative structure to ensure it adequately develops the approved 
+    foundation into an implementable blueprint for all specialized development. This is a 
+    critical quality gate - specialist work cannot fully proceed until the narrative structure 
+    is approved.
+  expected_output: >
+    A detailed evaluation of the narrative structure with specific feedback. Include explicit
+    approval or revision requests. Only when approved can specialist development fully proceed.
+  agent: "NarrativeDirectorAgent"
+  context:
+    - "CreateNarrativeMap"
+    - "GenerateOverarchingPlot"
+  dependencies:
+    - "CreateNarrativeMap"
 
 # Specialized tasks - can only begin meaningful work after narrative structure approval
 DesignArtifactsAndPuzzles:
@@ -136,27 +133,25 @@ DesignArtifactsAndPuzzles:
     - "CreateNarrativeMap"
     - "GenerateOverarchingPlot"
     # Removed EvaluateNarrativeStructure from context to avoid "context dependency on a future task" error
-  # CHUNK 0.1: Removed dependency on EvaluateNarrativeStructure for 5-task testing
-  # dependencies:
-  #   - "EvaluateNarrativeStructure"  # Keeping execution dependency to maintain correct task order
+  dependencies:
+    - "EvaluateNarrativeStructure"  # Keeping execution dependency to maintain correct task order
   output_file: "game-config/puzzle_design.yaml"
 
-# COMMENTED OUT FOR CHUNK 0.1 TESTING (5 core tasks only)
-# NarrativeIntegrationCheckPuzzles:
-#   name: "Narrative Integration Check: Puzzles"
-#   description: >
-#     Evaluate how well the puzzles, artifacts, monsters, and NPCs integrate with and
-#     advance the established narrative. Ensure each element serves the narrative purpose
-#     defined in the structure and maintains thematic consistency.
-#   expected_output: >
-#     A detailed assessment of narrative integration for each puzzle element with specific
-#     feedback for improving narrative cohesion where needed.
-#   agent: "NarrativeDirectorAgent"
-#   context:
-#     - "DesignArtifactsAndPuzzles"
-#     - "CreateNarrativeMap"
-#   dependencies:
-#     - "DesignArtifactsAndPuzzles"
+NarrativeIntegrationCheckPuzzles:
+  name: "Narrative Integration Check: Puzzles"
+  description: >
+    Evaluate how well the puzzles, artifacts, monsters, and NPCs integrate with and
+    advance the established narrative. Ensure each element serves the narrative purpose
+    defined in the structure and maintains thematic consistency.
+  expected_output: >
+    A detailed assessment of narrative integration for each puzzle element with specific
+    feedback for improving narrative cohesion where needed.
+  agent: "NarrativeDirectorAgent"
+  context:
+    - "DesignArtifactsAndPuzzles"
+    - "CreateNarrativeMap"
+  dependencies:
+    - "DesignArtifactsAndPuzzles"
 
 WriteSceneDescriptionsAndDialogue:
   name: "Write Narrative-Driven Scene Descriptions"
@@ -174,27 +169,25 @@ WriteSceneDescriptionsAndDialogue:
     - "CreateNarrativeMap"
     - "GenerateOverarchingPlot"
     # Removed EvaluateNarrativeStructure from context to avoid "context dependency on a future task" error
-  # CHUNK 0.1: Removed dependency on EvaluateNarrativeFoundation for 5-task testing
-  # dependencies:
-  #   - "EvaluateNarrativeFoundation"  # Keeping execution dependency to maintain correct task order
+  dependencies:
+    - "EvaluateNarrativeFoundation"  # Keeping execution dependency to maintain correct task order
   output_file: "game-config/scene_texts.yaml"
 
-# COMMENTED OUT FOR CHUNK 0.1 TESTING (5 core tasks only)
-# NarrativeIntegrationCheckScenes:
-#   name: "Narrative Integration Check: Scenes"
-#   description: >
-#     Evaluate how well the scene descriptions and dialogue reflect and advance the
-#     established narrative. Ensure the writing effectively communicates the narrative
-#     moments defined in the structure and maintains consistent tone and themes.
-#   expected_output: >
-#     A detailed assessment of narrative integration for each scene with specific
-#     feedback for improving narrative effectiveness where needed.
-#   agent: "NarrativeDirectorAgent"
-#   context:
-#     - "WriteSceneDescriptionsAndDialogue"
-#     - "CreateNarrativeMap"
-#   dependencies:
-#     - "WriteSceneDescriptionsAndDialogue"
+NarrativeIntegrationCheckScenes:
+  name: "Narrative Integration Check: Scenes"
+  description: >
+    Evaluate how well the scene descriptions and dialogue reflect and advance the
+    established narrative. Ensure the writing effectively communicates the narrative
+    moments defined in the structure and maintains consistent tone and themes.
+  expected_output: >
+    A detailed assessment of narrative integration for each scene with specific
+    feedback for improving narrative effectiveness where needed.
+  agent: "NarrativeDirectorAgent"
+  context:
+    - "WriteSceneDescriptionsAndDialogue"
+    - "CreateNarrativeMap"
+  dependencies:
+    - "WriteSceneDescriptionsAndDialogue"
 
 CreateGameMechanicsPRD:
   name: "Design Narrative-Supporting Mechanics"
@@ -211,47 +204,44 @@ CreateGameMechanicsPRD:
     - "CreateNarrativeMap"
     - "GenerateOverarchingPlot"
     # Removed EvaluateNarrativeStructure from context to avoid "context dependency on a future task" error
-  # CHUNK 0.1: Removed dependency on EvaluateNarrativeStructure for 5-task testing
-  # dependencies:
-  #   - "EvaluateNarrativeStructure"  # Keeping execution dependency to maintain correct task order
+  dependencies:
+    - "EvaluateNarrativeStructure"  # Keeping execution dependency to maintain correct task order
   output_file: "game-config/prd_document.yaml"
 
-# COMMENTED OUT FOR CHUNK 0.1 TESTING (5 core tasks only)
-# NarrativeIntegrationCheckMechanics:
-#   name: "Narrative Integration Check: Mechanics"
-#   description: >
-#     Evaluate how well the game mechanics support and enhance the established narrative.
-#     Ensure each mechanic serves a clear narrative purpose and enables meaningful
-#     player engagement with the story elements.
-#   expected_output: >
-#     A detailed assessment of narrative integration for each game mechanic with specific
-#     feedback for improving narrative alignment where needed.
-#   agent: "NarrativeDirectorAgent"
-#   context:
-#     - "CreateGameMechanicsPRD"
-#     - "CreateNarrativeMap"
-#   dependencies:
-#     - "CreateGameMechanicsPRD"
+NarrativeIntegrationCheckMechanics:
+  name: "Narrative Integration Check: Mechanics"
+  description: >
+    Evaluate how well the game mechanics support and enhance the established narrative.
+    Ensure each mechanic serves a clear narrative purpose and enables meaningful
+    player engagement with the story elements.
+  expected_output: >
+    A detailed assessment of narrative integration for each game mechanic with specific
+    feedback for improving narrative alignment where needed.
+  agent: "NarrativeDirectorAgent"
+  context:
+    - "CreateGameMechanicsPRD"
+    - "CreateNarrativeMap"
+  dependencies:
+    - "CreateGameMechanicsPRD"
 
 # Final integration checkpoint
-# COMMENTED OUT FOR CHUNK 0.1 TESTING (5 core tasks only)
-# FinalNarrativeIntegration:
-#   name: "Final Narrative Integration"
-#   description: >
-#     Perform a comprehensive review of all game elements together to ensure they form
-#     a cohesive, narrative-driven whole. Identify any inconsistencies across elements
-#     and ensure the complete experience maintains narrative integrity throughout the
-#     player journey.
-#   expected_output: >
-#     A final integration report that confirms narrative cohesion across all elements.
-#     Include any adjustments needed to ensure the complete game experience delivers
-#     a consistent, engaging narrative journey.
-#   agent: "NarrativeDirectorAgent"
-#   context:
-#     - "NarrativeIntegrationCheckPuzzles"
-#     - "NarrativeIntegrationCheckScenes"
-#     - "NarrativeIntegrationCheckMechanics"
-#   dependencies:
-#     - "NarrativeIntegrationCheckPuzzles"
-#     - "NarrativeIntegrationCheckScenes"
-#     - "NarrativeIntegrationCheckMechanics"
+FinalNarrativeIntegration:
+  name: "Final Narrative Integration"
+  description: >
+    Perform a comprehensive review of all game elements together to ensure they form
+    a cohesive, narrative-driven whole. Identify any inconsistencies across elements
+    and ensure the complete experience maintains narrative integrity throughout the
+    player journey.
+  expected_output: >
+    A final integration report that confirms narrative cohesion across all elements.
+    Include any adjustments needed to ensure the complete game experience delivers
+    a consistent, engaging narrative journey.
+  agent: "NarrativeDirectorAgent"
+  context:
+    - "NarrativeIntegrationCheckPuzzles"
+    - "NarrativeIntegrationCheckScenes"
+    - "NarrativeIntegrationCheckMechanics"
+  dependencies:
+    - "NarrativeIntegrationCheckPuzzles"
+    - "NarrativeIntegrationCheckScenes"
+    - "NarrativeIntegrationCheckMechanics"
