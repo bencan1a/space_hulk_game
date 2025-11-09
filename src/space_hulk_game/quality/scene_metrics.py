@@ -7,9 +7,12 @@ and appropriate dialogue.
 """
 
 from dataclasses import dataclass
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List
+import logging
 import yaml
 import re
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -191,15 +194,16 @@ class SceneMetrics:
             return False
         
         # Check for dialogue markers
-        dialogue_markers = ['"', "'", ':', 'says', 'said', 'asks', 'asked']
+        dialogue_markers = ['"', "'", 'says', 'said', 'asks', 'asked']
         
-        # Look for quoted text
+        # Look for quoted text (primary indicator)
         if '"' in description or "'" in description:
             return True
         
-        # Look for dialogue keywords
-        for marker in dialogue_markers:
-            if marker in description.lower():
+        # Look for dialogue keywords (more specific patterns)
+        desc_lower = description.lower()
+        for marker in ['says', 'said', 'asks', 'asked']:
+            if marker in desc_lower:
                 return True
         
         return False

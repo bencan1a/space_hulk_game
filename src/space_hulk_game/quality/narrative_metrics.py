@@ -7,8 +7,12 @@ and structural validity.
 """
 
 from dataclasses import dataclass
-from typing import Dict, Any, List, Set, Optional
+from typing import Dict, Any, List, Optional
+from collections import deque
+import logging
 import yaml
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -63,10 +67,18 @@ class NarrativeMetrics:
             if content.startswith('```'):
                 lines = content.split('\n')
                 content = '\n'.join(lines[1:-1])
+                logger.debug("Stripped markdown fences from narrative YAML")
             
             data = yaml.safe_load(content)
-            return cls.from_dict(data)
+            metrics = cls.from_dict(data)
+            
+            if metrics.has_orphaned_scenes:
+                logger.warning(f"NarrativeMetrics: Found {len(metrics.orphaned_scenes)} orphaned scenes: {metrics.orphaned_scenes}")
+            
+            logger.info(f"NarrativeMetrics parsed: score={metrics.get_score():.1f}/10, passes={metrics.passes_threshold()}")
+            return metrics
         except Exception as e:
+            logger.error(f"Failed to parse narrative YAML content: {e}")
             raise ValueError(f"Failed to parse YAML content: {e}")
     
     @classmethod
@@ -166,12 +178,12 @@ class NarrativeMetrics:
             # If no valid start scene, all scenes are potentially orphaned
             return list(scenes.keys())
         
-        # Perform graph traversal to find reachable scenes
+        # Perform graph traversal to find reachable scenes (BFS)
         reachable = set()
-        to_visit = [start_scene]
+        to_visit = deque([start_scene])
         
         while to_visit:
-            current = to_visit.pop(0)
+            current = to_visit.popleft()
             if current in reachable:
                 continue
             

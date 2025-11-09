@@ -7,8 +7,11 @@ and narrative completeness.
 """
 
 from dataclasses import dataclass
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List
+import logging
 import yaml
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -67,10 +70,14 @@ class PlotMetrics:
                 lines = content.split('\n')
                 # Remove first and last lines (markdown fences)
                 content = '\n'.join(lines[1:-1])
+                logger.debug("Stripped markdown fences from YAML content")
             
             data = yaml.safe_load(content)
-            return cls.from_dict(data)
+            metrics = cls.from_dict(data)
+            logger.info(f"PlotMetrics parsed: score={metrics.get_score():.1f}/10, passes={metrics.passes_threshold()}")
+            return metrics
         except Exception as e:
+            logger.error(f"Failed to parse plot YAML content: {e}")
             raise ValueError(f"Failed to parse YAML content: {e}")
     
     @classmethod
@@ -131,7 +138,7 @@ class PlotMetrics:
         Count the number of branching paths in the plot.
         
         Searches for "Branching Path" mentions in the plot structure
-        and option lists (A, B, C choices).
+        and validates them by checking for associated choice options.
         """
         count = 0
         plot = data.get('plot', {})
@@ -139,20 +146,35 @@ class PlotMetrics:
         # Convert entire plot to string for searching
         plot_str = str(plot)
         
-        # Count explicit "Branching Path" mentions
-        count += plot_str.count('Branching Path')
+        # Count explicit "Branching Path" mentions (primary method)
+        # This is more reliable than counting option patterns
+        branching_path_count = plot_str.count('Branching Path')
+        count += branching_path_count
         
-        # Count decision points (looking for A) B) patterns)
-        lines = plot_str.split('\n')
-        for line in lines:
-            line_stripped = line.strip()
-            if (line_stripped.startswith('A)') or 
-                line_stripped.startswith('B)') or
-                line_stripped.startswith('C)')):
-                # This is likely part of a branching decision
-                # Only count the first option to avoid double counting
-                if line_stripped.startswith('A)'):
-                    count += 1
+        # If no explicit "Branching Path" mentions, look for structured choice patterns
+        # Only as a fallback, and with more careful validation
+        if branching_path_count == 0:
+            lines = plot_str.split('\n')
+            in_choice_block = False
+            
+            for i, line in enumerate(lines):
+                line_stripped = line.strip()
+                
+                # Look for "A)" at start of line, preceded by some context
+                # and followed by "B)" to confirm it's a real choice
+                if line_stripped.startswith('A)') and not in_choice_block:
+                    # Check if next few lines contain "B)" to validate this is a choice
+                    is_valid_choice = False
+                    for j in range(i + 1, min(i + 5, len(lines))):
+                        if lines[j].strip().startswith('B)'):
+                            is_valid_choice = True
+                            break
+                    
+                    if is_valid_choice:
+                        count += 1
+                        in_choice_block = True
+                elif not line_stripped.startswith(('A)', 'B)', 'C)', 'D)')):
+                    in_choice_block = False
         
         return count
     
