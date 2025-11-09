@@ -1,0 +1,222 @@
+# Space Horror Planning Template
+# Provides guidance for generating gothic horror-themed Space Hulk adventures
+
+template_name: "space_horror"
+template_version: "1.0"
+description: "Gothic horror template emphasizing atmosphere, isolation, and psychological dread in the dark corridors of a Space Hulk"
+
+# Narrative Focus
+narrative_focus:
+  primary_theme: "gothic_horror"
+  atmosphere: "oppressive_dread"
+  pacing: "slow_burn_tension"
+  emotional_tone: "isolation_and_paranoia"
+
+# Required Elements
+required_elements:
+  setting:
+    - "Dark, labyrinthine corridors with failing emergency lighting"
+    - "Ancient, decaying technology with machine spirits in distress"
+    - "Isolated sections cut off from communication"
+    - "Evidence of previous inhabitants who met terrible fates"
+  
+  narrative_beats:
+    - "Slow discovery of something deeply wrong with the hulk"
+    - "Growing sense of being watched or hunted"
+    - "Revelation of ancient evil or corruption"
+    - "Desperate survival against overwhelming odds"
+  
+  horror_elements:
+    - "Body horror: mutations, parasites, or transformation"
+    - "Psychological horror: madness, hallucinations, paranoia"
+    - "Cosmic horror: entities beyond comprehension"
+    - "Environmental horror: the hulk itself as threat"
+  
+  mandatory_components:
+    - "At least one segment of total darkness"
+    - "Audio cues suggesting unseen threats"
+    - "Discovery of disturbing recordings or journals"
+    - "Moral dilemma involving sacrifice or terrible choice"
+
+# Tone Guidelines
+tone:
+  adjectives:
+    - "Claustrophobic"
+    - "Oppressive"
+    - "Foreboding"
+    - "Despairing"
+    - "Visceral"
+  
+  avoid:
+    - "Heroic victories without cost"
+    - "Simple combat solutions"
+    - "Comic relief or levity"
+    - "Clear-cut good vs evil"
+  
+  emphasis:
+    - "No safe spaces - constant underlying threat"
+    - "Resources are precious and scarce"
+    - "Every action has consequences"
+    - "Knowledge comes at a terrible price"
+
+# Example Scenes
+example_scenes:
+  opening:
+    location: "Derelict cargo bay, emergency lighting flickering"
+    description: "The bulkhead groans open with a shriek of tortured metal. Your suit lamps cut narrow beams through the darkness, revealing a vast chamber choked with floating debris. The air tastes of rust and decay. Something moves in the shadows beyond your light - or was that just a trick of your mind?"
+    mood: "Immediate unease, unknown danger"
+    sensory_details:
+      - "Metallic tang in recycled air"
+      - "Distant, echoing drips"
+      - "Creaking metal under pressure"
+      - "Cold seeping through armor"
+  
+  middle:
+    location: "Ancient medicae bay with disturbing modifications"
+    description: "Row upon row of surgical tables stretch into darkness. Most are empty. Some are not. The modifications to the equipment suggest purposes you don't want to contemplate. Fresh blood on one table - still warm. You are not alone here."
+    mood: "Mounting dread, body horror revelation"
+    sensory_details:
+      - "Copper scent of blood"
+      - "Hum of still-active machinery"
+      - "Wet sounds from the darkness"
+      - "Your own rapid breathing"
+  
+  climax:
+    location: "Corrupted ship's bridge, reality warping"
+    description: "The bridge is wrong. Geometry bends in impossible ways. The viewscreens show places that cannot exist. At the captain's throne sits something wearing a human face like a mask. It smiles with too many teeth and speaks with a voice that makes your mind bleed. You must choose: destroy this abomination or learn the truth it offers."
+    mood: "Cosmic horror, terrible revelation, impossible choice"
+    sensory_details:
+      - "Whispers from nowhere and everywhere"
+      - "Colors that shouldn't exist"
+      - "The taste of starlight and void"
+      - "Time flowing strangely"
+
+# Example Puzzles
+example_puzzles:
+  environmental:
+    name: "The Flooded Section"
+    description: "Critical passage is flooded with corrupted coolant. Must navigate in near-zero visibility while managing oxygen and avoiding contaminated fluid. Disturbing shapes move through the murk."
+    solution_hint: "Careful mapping, teamwork, accepting some contamination is unavoidable"
+    difficulty: "high"
+    horror_element: "Drowning fear, unknown threats in fluid"
+  
+  psychological:
+    name: "The Whispering Archives"
+    description: "Ship's data-logs contain information needed to proceed. But exposure causes vivid hallucinations of crew's fears. Team members begin seeing things that aren't there - or are they?"
+    solution_hint: "Limited exposure, cross-verification, accepting some mental contamination"
+    difficulty: "medium"
+    horror_element: "Unreliable reality, paranoia among team"
+  
+  moral:
+    name: "The Trapped Survivors"
+    description: "Survivors from previous expedition found, but showing signs of infection/corruption. They beg for rescue. Saving them risks contamination spreading. Your mission parameters are clear: no one leaves infected."
+    solution_hint: "No good choice - mercy kill, quarantine, or risk contamination"
+    difficulty: "high"
+    horror_element: "Moral horror, no right answer"
+
+# Character Archetypes
+character_suggestions:
+  protagonist_types:
+    - "Grizzled veteran haunted by previous mission"
+    - "Tech-priest whose faith in the Machine God is tested"
+    - "Young soldier experiencing true horror for first time"
+    - "Desperate survivor from previous expedition"
+  
+  npc_types:
+    - "Unreliable survivor with partial madness"
+    - "Servitor with disturbing glitches"
+    - "Ship AI with fragmenting consciousness"
+    - "Something pretending to be human"
+
+# Narrative Structure
+story_structure:
+  act_1_introduction:
+    - "Arrival and initial exploration"
+    - "First signs something is wrong"
+    - "Discovery of disturbing evidence"
+    - "Loss of escape route or communication"
+  
+  act_2_escalation:
+    - "True nature of threat begins revealing itself"
+    - "Team members start showing effects of corruption/stress"
+    - "Resources dwindle, situation worsens"
+    - "Moral compromises become necessary"
+  
+  act_3_resolution:
+    - "Confrontation with source of horror"
+    - "Terrible revelations about the hulk's history"
+    - "Pyrrhic victory or desperate escape"
+    - "Lasting consequences for survivors"
+
+# Recommended Mechanics
+mechanics_suggestions:
+  sanity_system:
+    description: "Track mental stability as characters witness horrors"
+    effects:
+      - "Hallucinations at low sanity"
+      - "Unreliable narrator moments"
+      - "Stress-induced mistakes"
+  
+  corruption_tracker:
+    description: "Physical and spiritual contamination builds over time"
+    effects:
+      - "Growing mutations or changes"
+      - "Increasing susceptibility to influence"
+      - "Difficult choices about accepting corruption for power"
+  
+  resource_scarcity:
+    description: "Limited ammunition, oxygen, medical supplies"
+    effects:
+      - "Must choose when to spend resources"
+      - "Some threats must be avoided rather than fought"
+      - "Desperation increases over time"
+  
+  isolation_effects:
+    description: "Cut off from help, communication, and hope"
+    effects:
+      - "No backup or extraction"
+      - "Paranoia and distrust increase"
+      - "Team cohesion tested under pressure"
+
+# Ending Types
+ending_guidelines:
+  victory:
+    description: "Survival is possible but never without cost"
+    requirements:
+      - "At least one team member lost or corrupted"
+      - "Lasting physical or psychological scars"
+      - "Truth discovered is disturbing and incomplete"
+      - "Implication that horror persists elsewhere"
+  
+  defeat:
+    description: "Overwhelming horror claims the team"
+    types:
+      - "Total party death with final moments of horror"
+      - "Corruption claims all, they become the threat"
+      - "One survivor escapes with terrible knowledge"
+      - "Ambiguous fate worse than death"
+  
+  neutral:
+    description: "Escape but at terrible cost or with grim implications"
+    requirements:
+      - "Mission technically succeeds but feels like failure"
+      - "Survivors are forever changed"
+      - "Threat is contained but not destroyed"
+      - "Questions remain unanswered"
+
+# Quality Targets
+quality_targets:
+  atmosphere_density: "Every scene should have sensory details building dread"
+  pacing: "Slow build with sudden punctuations of horror"
+  player_agency: "Choices matter but often have no good option"
+  emotional_impact: "Aim for unease, not just jump scares"
+  thematic_consistency: "All elements reinforce oppressive horror tone"
+
+# Additional Notes
+notes:
+  - "Warhammer 40K grimdark aesthetic: there is only war, no real hope"
+  - "Space Hulks are drifting amalgamations of ships lost in warp"
+  - "Body horror and corruption are core 40K themes"
+  - "The Imperium of Man is xenophobic, superstitious, and brutal"
+  - "Technology is poorly understood and treated as religious"
+  - "Death is commonplace, survival is not guaranteed"
