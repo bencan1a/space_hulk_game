@@ -19,10 +19,14 @@ Success Criteria:
 """
 
 import sys
+import os
 import time
 import yaml
 from pathlib import Path
 import signal
+
+# Disable CrewAI telemetry to avoid firewall warnings
+os.environ['OTEL_SDK_DISABLED'] = 'true'
 
 # Add src to path so we can import space_hulk_game
 project_root = Path(__file__).parent.parent

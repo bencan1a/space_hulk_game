@@ -29,10 +29,14 @@ Prerequisites:
 """
 
 import sys
+import os
 import time
 import yaml
 import json
 from pathlib import Path
+
+# Disable CrewAI telemetry to avoid firewall warnings
+os.environ['OTEL_SDK_DISABLED'] = 'true'
 from datetime import datetime
 
 # Add src to path so we can import space_hulk_game
