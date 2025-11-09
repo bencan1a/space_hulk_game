@@ -1,25 +1,47 @@
 """
-Quality metrics module for Space Hulk Game.
+Quality metrics and evaluation module for Space Hulk Game.
 
-This module provides quality evaluation metrics for generated game content,
-including plot outlines, narrative maps, puzzles, scenes, and mechanics.
+This module provides quality evaluation metrics and evaluators for generated
+game content, including plot outlines, narrative maps, puzzles, scenes, and mechanics.
 """
 
 import logging
 
+# Metrics classes
 from .plot_metrics import PlotMetrics
 from .narrative_metrics import NarrativeMetrics
 from .puzzle_metrics import PuzzleMetrics
 from .scene_metrics import SceneMetrics
 from .mechanics_metrics import MechanicsMetrics
 
+# Quality score and evaluator base
+from .score import QualityScore
+from .evaluator import QualityEvaluator
+
+# Evaluator implementations
+from .plot_evaluator import PlotEvaluator
+from .narrative_evaluator import NarrativeMapEvaluator
+from .puzzle_evaluator import PuzzleEvaluator
+from .scene_evaluator import SceneEvaluator
+from .mechanics_evaluator import MechanicsEvaluator
+
 # Configure logging for the quality metrics module
 logger = logging.getLogger(__name__)
 
 __all__ = [
+    # Metrics
     'PlotMetrics',
     'NarrativeMetrics',
     'PuzzleMetrics',
     'SceneMetrics',
     'MechanicsMetrics',
+    # Score and base evaluator
+    'QualityScore',
+    'QualityEvaluator',
+    # Evaluators
+    'PlotEvaluator',
+    'NarrativeMapEvaluator',
+    'PuzzleEvaluator',
+    'SceneEvaluator',
+    'MechanicsEvaluator',
 ]
