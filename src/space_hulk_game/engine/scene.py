@@ -18,7 +18,7 @@ Example:
 """
 
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Tuple
 from .entities import Item, NPC, Event
 
 
@@ -106,13 +106,10 @@ class Scene:
         if not self.description:
             raise ValueError("Scene description cannot be empty")
     
-    def get_full_description(self, first_visit: bool = False) -> str:
+    def get_full_description(self) -> str:
         """
         Get the complete description of the scene, including items and NPCs.
         
-        Args:
-            first_visit: Whether this is the player's first visit.
-            
         Returns:
             A formatted string describing the scene and its contents.
             
@@ -169,7 +166,7 @@ class Scene:
             return f"There are exits to the {exits_str}."
     
     def can_exit(self, direction: str, inventory: List[str], 
-                 game_flags: Dict[str, bool]) -> tuple[bool, Optional[str]]:
+                 game_flags: Dict[str, bool]) -> Tuple[bool, Optional[str]]:
         """
         Check if the player can use a specific exit.
         
