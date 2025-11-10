@@ -18,7 +18,7 @@ Example:
 
 import difflib
 import re
-from typing import Dict, List, Optional, Set, Tuple
+from typing import Dict, List, Optional, Tuple
 import logging
 
 from .actions import (
