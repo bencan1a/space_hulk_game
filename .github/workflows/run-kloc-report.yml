@@ -41,14 +41,16 @@ jobs:
       
       - name: Run KLOC report script
         id: run_kloc
+        timeout-minutes: 360  # 6 hours max (GitHub Actions default)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "🚀 Running KLOC report for user bencan1a..."
           echo "📅 Run timestamp: $(date -Iseconds)"
           
-          # Build the command
-          CMD="python kloc-report.py --user bencan1a --verbose"
+          # Build the command with unbuffered output
+          # Default to specific repos for faster execution
+          CMD="python -u kloc-report.py --user bencan1a --verbose --repos CalendarBot space_hulk_game Azahar 3dsconv Python-template"
           
           # Add date range if provided
           if [ -n "${{ inputs.since_date }}" ]; then
@@ -61,8 +63,15 @@ jobs:
           
           echo "📋 Command: $CMD"
           
-          # Run the script and capture output
+          # Run the script and capture output (unbuffered)
           $CMD 2>&1 | tee kloc_output.log
+          
+          # Check if script succeeded
+          SCRIPT_EXIT=${PIPESTATUS[0]}
+          if [ $SCRIPT_EXIT -ne 0 ]; then
+            echo "❌ KLOC report failed with exit code $SCRIPT_EXIT"
+            exit $SCRIPT_EXIT
+          fi
           
           echo "✅ KLOC report completed"
           echo "run_timestamp=$(date +%Y%m%d_%H%M%S)" >> $GITHUB_OUTPUT
