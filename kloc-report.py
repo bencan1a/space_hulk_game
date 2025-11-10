@@ -46,6 +46,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--org", help="If --owner-scope=org, name of the organization to scan (e.g., Alteryx).")
     p.add_argument("--owner-scope", choices=["user","org"], default="user",
                    help="Scan repos owned by user (default) or by org (requires --org).")
+    p.add_argument("--repos", nargs="+", help="Specific repository names to scan (e.g., CalendarBot Space_hulk_game). If not provided, scans all repos.")
     p.add_argument("--since", help="Start date YYYY-MM-DD in America/Denver local time (00:00:00). Defaults to last Sunday.")
     p.add_argument("--until", help="End date YYYY-MM-DD in America/Denver local time (23:59:59). Defaults to today.")
     p.add_argument("--out-files-csv", default="kloc_files.csv", help="Per-file CSV output path.")
@@ -211,11 +212,24 @@ def main():
     sys.stdout.flush()  # Ensure output is visible immediately
 
     # Enumerate repos
-    if args.owner_scope == "org":
+    if args.repos:
+        # Use specific repos provided by user
+        repos = []
+        for repo_name in args.repos:
+            # Construct full repo name (user/repo or org/repo)
+            if '/' in repo_name:
+                # Already has owner prefix
+                repos.append(repo_name)
+            else:
+                # Add owner prefix
+                owner = args.org if args.owner_scope == "org" else args.user
+                repos.append(f"{owner}/{repo_name}")
+        print(f"Using specified repositories: {', '.join(repos)}")
+    elif args.owner_scope == "org":
         repos = list_repos_org(args.org)
     else:
         repos = list_repos_user(args.user)
-
+    
     if not repos:
         print("No repositories found to scan.", file=sys.stderr)
         sys.exit(1)

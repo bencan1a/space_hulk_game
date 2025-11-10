@@ -63,6 +63,19 @@ class TestWorkflows(unittest.TestCase):
         self.assertIn("python -u", content, "Workflow should use 'python -u' for unbuffered output")
         self.assertIn("kloc-report.py", content, "Workflow should run kloc-report.py")
     
+    def test_kloc_workflow_uses_specific_repos(self):
+        """Test that kloc workflow uses --repos for faster execution."""
+        workflow_path = self.workflows_dir / "run-kloc-report.yml"
+        
+        with open(workflow_path, 'r') as f:
+            content = f.read()
+        
+        # Check that --repos is used
+        self.assertIn("--repos", content, "Workflow should use --repos parameter")
+        # Check for at least some of the expected repos
+        self.assertIn("CalendarBot", content, "Workflow should include CalendarBot repo")
+        self.assertIn("space_hulk_game", content, "Workflow should include space_hulk_game repo")
+    
     def test_kloc_workflow_checks_exit_code(self):
         """Test that kloc workflow checks script exit code."""
         workflow_path = self.workflows_dir / "run-kloc-report.yml"

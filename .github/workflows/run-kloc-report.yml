@@ -49,7 +49,8 @@ jobs:
           echo "📅 Run timestamp: $(date -Iseconds)"
           
           # Build the command with unbuffered output
-          CMD="python -u kloc-report.py --user bencan1a --verbose"
+          # Default to specific repos for faster execution
+          CMD="python -u kloc-report.py --user bencan1a --verbose --repos CalendarBot space_hulk_game Azahar 3dsconv Python-template"
           
           # Add date range if provided
           if [ -n "${{ inputs.since_date }}" ]; then

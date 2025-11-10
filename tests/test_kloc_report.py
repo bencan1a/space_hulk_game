@@ -78,6 +78,20 @@ class TestKlocReport(unittest.TestCase):
             "Script should have at least 3 flush calls for unbuffered output"
         )
     
+    def test_script_accepts_repos_parameter(self):
+        """Test that script accepts --repos parameter."""
+        result = subprocess.run(
+            [sys.executable, str(self.script_path), "--help"],
+            capture_output=True,
+            text=True,
+            timeout=5
+        )
+        
+        self.assertEqual(result.returncode, 0)
+        self.assertIn("--repos", result.stdout, "Help should mention --repos parameter")
+        self.assertIn("repository names", result.stdout.lower(), 
+                     "Help should explain --repos parameter")
+    
     def test_script_handles_missing_token_gracefully(self):
         """Test that script shows warning when GH_TOKEN is missing."""
         # This test runs without GH_TOKEN set, script should warn but not crash on --help

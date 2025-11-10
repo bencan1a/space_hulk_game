@@ -105,6 +105,16 @@ else
 fi
 echo ""
 
+# Test 10: --repos parameter works
+echo "Test 10: --repos parameter accepts repository names..."
+if grep -q "\-\-repos" kloc-report.py && python -u kloc-report.py --help 2>&1 | grep -q "\-\-repos"; then
+    echo "✓ PASS: --repos parameter is available"
+else
+    echo "✗ FAIL: --repos parameter not found"
+    exit 1
+fi
+echo ""
+
 echo "=========================================="
 echo "All validation tests passed! ✓"
 echo "=========================================="
@@ -114,9 +124,10 @@ echo "  • Unbuffered Python output (python -u)"
 echo "  • 3 stdout flush calls in script"
 echo "  • 6-hour timeout configured"
 echo "  • Exit code checking (PIPESTATUS)"
-echo "  • 11 comprehensive unit tests"
+echo "  • 13 comprehensive unit tests"
 echo "  • Detailed documentation"
+echo "  • Repository filtering (--repos) for faster execution"
 echo ""
 echo "The script will now show real-time progress"
-echo "instead of appearing to hang."
+echo "and can scan specific repos for faster results."
 echo ""

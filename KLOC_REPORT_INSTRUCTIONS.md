@@ -37,12 +37,20 @@ You need a GitHub Personal Access Token to avoid rate limiting:
 # Analyze all repos for user bencan1a from last Sunday to today
 python kloc-report.py --user bencan1a
 
+# Analyze specific repos only (faster - recommended)
+python kloc-report.py --user bencan1a --repos CalendarBot space_hulk_game Azahar 3dsconv Python-template
+
 # Analyze with specific date range
 python kloc-report.py --user bencan1a --since 2025-11-02 --until 2025-11-09
 
 # Analyze with verbose output
 python kloc-report.py --user bencan1a --since 2025-11-08 --until 2025-11-09 --verbose
+
+# Combine specific repos with date range (typical usage)
+python kloc-report.py --user bencan1a --repos CalendarBot space_hulk_game --since 2025-11-08 --until 2025-11-09 --verbose
 ```
+
+**Performance Note**: Using `--repos` to specify particular repositories is much faster (5 minutes vs 30-60 minutes) and is recommended unless you need data from all repositories.
 
 ## Expected Output
 

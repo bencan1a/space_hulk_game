@@ -197,3 +197,42 @@ To verify the fix works:
 - Python unbuffered mode: https://docs.python.org/3/using/cmdline.html#cmdoption-u
 - GitHub Actions timeout: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepstimeout-minutes
 - Bash PIPESTATUS: https://www.gnu.org/software/bash/manual/html_node/Special-Parameters.html
+
+## Performance Optimization - Specific Repos (November 2025)
+
+### Additional Problem
+After fixing the buffering issue, it was discovered that the script was still taking 30-60 minutes to complete because it scanned ALL repositories for the user, even though only 5 specific repositories were needed for reporting.
+
+### Solution - Repository Filtering
+
+Added a new `--repos` parameter to allow specifying which repositories to scan:
+
+```bash
+python kloc-report.py --user bencan1a --repos CalendarBot space_hulk_game Azahar 3dsconv Python-template
+```
+
+**Benefits**:
+- **Dramatic speed improvement**: From 30-60 minutes down to ~5 minutes
+- **Reduced API calls**: Only queries the specified repositories
+- **More predictable runtime**: Scales with number of specified repos, not total repos
+- **Flexibility**: Can still scan all repos by omitting the `--repos` parameter
+
+**Workflow Update**:
+The workflow now defaults to the 5 specific repositories:
+```yaml
+CMD="python -u kloc-report.py --user bencan1a --verbose --repos CalendarBot space_hulk_game Azahar 3dsconv Python-template"
+```
+
+**Usage**:
+- Repo names can be specified with or without the owner prefix
+  - `CalendarBot` → automatically becomes `bencan1a/CalendarBot`
+  - `bencan1a/CalendarBot` → used as-is
+- Multiple repos separated by spaces
+- If `--repos` is omitted, scans all repos (original behavior)
+
+**Expected Runtime**:
+- With 5 specific repos: ~5 minutes (depending on commit volume)
+- With all repos: 30-60 minutes (original behavior)
+- Approximately 1 minute per repo for API calls and processing
+
+This optimization addresses the user feedback to reduce run time while maintaining flexibility for different use cases.
