@@ -208,6 +208,7 @@ def main():
         since_iso, until_iso, label = last_sunday_window_utc()
 
     print(f"Time window: {label}  â  UTC [{since_iso} .. {until_iso}]")
+    sys.stdout.flush()  # Ensure output is visible immediately
 
     # Enumerate repos
     if args.owner_scope == "org":
@@ -220,6 +221,7 @@ def main():
         sys.exit(1)
 
     print(f"Scanning {len(repos)} repositories...")
+    sys.stdout.flush()  # Ensure output is visible immediately
 
     # Open CSVs
     files_out = open(args.out_files_csv, "w", newline="", encoding="utf-8")
@@ -296,6 +298,7 @@ def main():
     print(f"Percent tests: {pct_tests:.1f}%")
     print(f"Per-file CSV: {args.out_files_csv}")
     print(f"Per-repo CSV: {args.out_repos_csv}")
+    sys.stdout.flush()  # Ensure final output is visible
 
 if __name__ == "__main__":
     # Friendly hint if unauthenticated
