@@ -242,7 +242,7 @@ class CommandParser:
         matches = difflib.get_close_matches(
             first_word,
             self._command_map.keys(),
-            n=5,  # Get multiple matches to handle ties
+            n=5,  # Get multiple matches for prioritization
             cutoff=self.CUTOFF
         )
         
