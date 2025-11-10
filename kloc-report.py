@@ -303,6 +303,7 @@ if __name__ == "__main__":
         print("Warning: No GH_TOKEN/GITHUB_TOKEN found. You may hit rate limits. Set GH_TOKEN to a personal access token.", file=sys.stderr)
     try:
         main()
+        sys.exit(0)  # Explicitly exit with success code to ensure workflow step completes
     except requests.HTTPError as e:
         print(f"GitHub API error: {e} -> {getattr(e.response, 'text', '')[:300]}", file=sys.stderr)
         sys.exit(1)
