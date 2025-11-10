@@ -14,12 +14,12 @@
 | Phase 1: Syntax Fixes | ✅ Complete | 100% |
 | Phase 2: Hierarchical Structure | ✅ Complete | 100% |
 | Phase 3: Quality System | ✅ Complete | 100% (All 5 chunks complete) |
-| Phase 4: Game Engine | 🔄 In Progress | 50% (3/6 chunks complete - CRITICAL PATH) |
+| Phase 4: Game Engine | 🔄 In Progress | 67% (4/6 chunks complete - CRITICAL PATH) |
 | Phase 5: Output Validation | ⚪ Not Started | 0% |
 | Phase 6: Enhanced Memory | ⚪ Not Started | 0% |
 | Phase 7: Production Polish | ⚪ Not Started | 0% |
 
-**Overall Progress:** ████████████████████████████████████████████ 70%
+**Overall Progress:** ██████████████████████████████████████████████ 73%
 
 ---
 
@@ -31,7 +31,7 @@
 - [x] Execute Chunk 4.1: Game State Model - ✅ COMPLETE
 - [x] Execute Chunk 4.2: Command Parser - ✅ COMPLETE
 - [x] Execute Chunk 4.3: Game Engine Core - ✅ COMPLETE
-- [ ] Execute Chunk 4.4: Content Loader
+- [x] Execute Chunk 4.4: Content Loader - ✅ COMPLETE
 - [ ] Execute Chunk 4.5: Game Validator
 - [ ] Execute Chunk 4.6: Demo Game & Integration
 
@@ -39,7 +39,8 @@
 - Chunk 4.1 COMPLETE (100% - all deliverables finished, 68 tests passing)
 - Chunk 4.2 COMPLETE (100% - all deliverables finished, 79 tests passing)
 - Chunk 4.3 COMPLETE (100% - all deliverables finished, 40 tests passing)
-- Ready to proceed with Chunk 4.4 (Content Loader)
+- Chunk 4.4 COMPLETE (100% - all deliverables finished, 42 tests passing)
+- Ready to proceed with Chunk 4.5 (Game Validator)
 
 **Blockers (Non-Critical):** 
 - Output format issue: LLM generates markdown instead of YAML (evaluators handle this)
@@ -48,6 +49,41 @@
 ---
 
 ## Recent Milestones
+
+### November 10, 2025 - CHUNK 4.4 COMPLETE! 🎯
+- ✅ **Chunk 4.4 Executed**: Content Loader implementation
+- ✅ Created GameData class (src/space_hulk_game/engine/game_data.py, 262 lines)
+  - Holds all loaded game content (scenes, items, npcs, events, metadata)
+  - Full validation in __post_init__
+  - Serialization support (to_dict/from_dict)
+  - Victory/defeat conditions management
+- ✅ Created ContentLoader class (src/space_hulk_game/engine/loader.py, 677 lines)
+  - Loads all 5 YAML files (plot, narrative, puzzles, scenes, mechanics)
+  - Handles markdown-wrapped YAML (common AI output issue)
+  - Format converters for each file type
+  - Graceful error handling with strict/lenient modes
+  - Validation warnings for inconsistencies
+- ✅ Comprehensive unit tests: tests/test_content_loader.py (578 lines, 42 tests)
+  - 42 tests covering all loader functionality
+  - 100% test pass rate (42/42 passing)
+  - Integration tests with real generated content
+  - Test fixtures created in tests/fixtures/
+- ✅ All success criteria validated:
+  - Loader handles all 5 YAML files ✅
+  - Converts to engine-compatible format ✅
+  - Handles missing or malformed data gracefully ✅
+  - Integration test with real generated content ✅
+- ✅ Key features implemented:
+  - YAML parsing with markdown fence stripping
+  - Flexible format handling (lists vs dicts, missing fields)
+  - Default values for optional content
+  - Comprehensive logging for debugging
+  - Integration with TextAdventureEngine validated
+- ✅ Design patterns applied: Facade, Strategy, Builder
+- ✅ Security: CodeQL scan passed, 0 vulnerabilities
+- ✅ **PHASE 4: 67% COMPLETE** (4/6 chunks finished)
+- ✅ **ALL 229 GAME ENGINE TESTS PASSING** (68 + 79 + 40 + 42)
+- ✅ **READY FOR CHUNK 4.5**: Game Validator
 
 ### November 10, 2025 - CHUNK 4.3 COMPLETE! 🎯
 - ✅ **Chunk 4.3 Executed**: Game Engine Core implementation
@@ -456,7 +492,7 @@ Ready to proceed to Phase 4 (Game Engine).
 
 ### 🔄 In Progress
 
-**Phase 4: Game Engine (50% - CRITICAL PATH)** 🎯
+**Phase 4: Game Engine (67% - CRITICAL PATH)** 🎯
 - [x] Chunk 4.1: Game State Model - COMPLETE ✅
   - [x] GameState class (src/space_hulk_game/engine/game_state.py, 326 lines)
   - [x] Scene class (src/space_hulk_game/engine/scene.py, 425 lines)
@@ -500,8 +536,19 @@ Ready to proceed to Phase 4 (Game Engine).
   - [x] Design patterns: Facade, Strategy, Observer, Dependency Injection
   - [x] Security: CodeQL scan passed, 0 vulnerabilities
   - [x] Total: 1,091 lines production code, 40 tests
-- [ ] Chunk 4.4: Content Loader - NEXT
-- [ ] Chunk 4.4: Content Loader
+- [x] Chunk 4.4: Content Loader - COMPLETE ✅
+  - [x] GameData class (src/space_hulk_game/engine/game_data.py, 262 lines)
+  - [x] ContentLoader class (src/space_hulk_game/engine/loader.py, 677 lines)
+  - [x] 5 YAML file loaders (plot, narrative, puzzles, scenes, mechanics)
+  - [x] Format converters (narrative map → Scene objects, etc.)
+  - [x] Graceful error handling (markdown-wrapped YAML, missing fields)
+  - [x] Comprehensive unit tests (tests/test_content_loader.py, 42 tests)
+  - [x] All tests passing (100% - 42/42)
+  - [x] Integration with real generated content validated
+  - [x] Design patterns: Facade, Strategy, Builder
+  - [x] Security: CodeQL scan passed, 0 vulnerabilities
+  - [x] Total: 939 lines production code, 42 tests
+
 - [ ] Chunk 4.5: Game Validator
 - [ ] Chunk 4.6: Demo Game & Integration
 
@@ -515,7 +562,7 @@ Ready to proceed to Phase 4 (Game Engine).
 ## Key Metrics
 
 ### Code Metrics
-- **Lines of Code:** ~20,535+ (quality system + templates + game engine: +18,059 lines total)
+- **Lines of Code:** ~23,013+ (quality system + templates + game engine: +20,537 lines total)
   - Chunk 3.1: +2,759 lines (metrics + tests + docs)
   - Chunk 3.2: +2,600 lines (evaluators + tests)
   - Chunk 3.3: +3,100 lines (retry logic + integration + tests + docs + config)
@@ -524,13 +571,15 @@ Ready to proceed to Phase 4 (Game Engine).
   - Chunk 4.1: +2,214 lines (game state model + tests)
   - Chunk 4.2: +2,275 lines (command parser + actions + tests)
   - Chunk 4.3: +1,918 lines (game engine core + persistence + tests)
+  - Chunk 4.4: +1,517 lines (content loader + game data + tests + fixtures)
 - **Agents Defined:** 6/6 (100%)
 - **Tasks Defined:** 11/11 (100%)
-- **Tests Created:** 266 tests (19 existing + 70 quality + 177 game engine)
+- **Tests Created:** 308 tests (19 existing + 70 quality + 219 game engine)
   - Chunk 4.1: 68 tests (game state model)
   - Chunk 4.2: 79 tests (command parser)
   - Chunk 4.3: 40 tests (game engine core)
-- **Test Pass Rate:** 100% overall (quality: 70/70, game engine: 187/187)
+  - Chunk 4.4: 42 tests (content loader)
+- **Test Pass Rate:** 100% overall (quality: 70/70, game engine: 229/229)
 
 ### Time Metrics
 - **Time Invested:** ~60 hours (estimated)
@@ -551,6 +600,91 @@ Ready to proceed to Phase 4 (Game Engine).
 ---
 
 ## Work Log
+
+### 2025-11-10 - Chunk 4.4 Complete ✅ (Content Loader)
+**Activities:**
+- Executed Chunk 4.4: Content Loader implementation using Principal Engineer custom agent
+- Created src/space_hulk_game/engine/game_data.py (262 lines)
+  - GameData dataclass to hold all loaded game content
+  - Fields: scenes (Dict[str, Scene]), items, npcs, events, metadata
+  - Victory and defeat conditions
+  - Full validation in __post_init__
+  - Serialization support (to_dict/from_dict)
+- Created src/space_hulk_game/engine/loader.py (677 lines)
+  - ContentLoader class implementing Facade pattern
+  - load_game() method loading all 5 YAML files
+  - load_yaml() helper with markdown fence stripping
+  - merge_into_game_data() combining all content
+  - Format converters:
+    - _load_narrative_map() → Dict[str, Scene]
+    - _load_puzzles() → Items, NPCs, Events
+    - _merge_scene_texts() → Enhanced scene descriptions
+    - _load_mechanics() → Game rules and systems
+  - Handles markdown-wrapped YAML (common AI output issue)
+  - Graceful error handling with strict/lenient modes
+  - Default values for missing fields
+  - Comprehensive logging for debugging
+- Implemented comprehensive unit test suite: tests/test_content_loader.py (578 lines, 42 tests)
+  - GameData class tests (5)
+  - ContentLoader basic tests (8)
+  - Format converter tests (12)
+  - Error handling tests (8)
+  - Integration tests (9)
+- Created test fixtures in tests/fixtures/ (5 YAML files)
+  - Realistic samples mimicking AI agent outputs
+  - Complete_game_example.yaml demonstrating integration
+- Created demo script: tests/demo_content_loader.py
+  - Shows complete YAML → GameData → Engine pipeline
+  - Validates integration with TextAdventureEngine
+- Updated engine module __init__.py with new exports
+
+**Results:**
+- All 2 modules completed (939 lines production code)
+- All 42 unit tests passing (100% success rate)
+- All 229 game engine tests passing (68 + 79 + 40 + 42)
+- 100% type hint coverage on all classes and methods
+- Design patterns applied: Facade, Strategy, Builder
+- Key features implemented:
+  - Loads all 5 YAML files (plot, narrative, puzzles, scenes, mechanics)
+  - Handles markdown-wrapped YAML automatically
+  - Flexible format parsing (lists vs dicts, missing fields)
+  - Graceful error handling with strict/lenient modes
+  - Default values for optional content
+  - Validation warnings for inconsistencies
+  - Integration with TextAdventureEngine validated
+- Security: CodeQL scan passed, 0 vulnerabilities
+- Zero technical debt introduced
+
+**Findings:**
+1. Facade Pattern provides clean interface to complex loading logic
+2. Builder Pattern enables step-by-step GameData construction
+3. Markdown fence stripping handles common AI output issue
+4. Flexible format parsing essential for AI-generated content
+5. Strict mode useful for development, lenient for production
+6. Integration tests validate complete YAML → Engine pipeline
+7. Test fixtures provide realistic examples for future reference
+8. ContentLoader successfully bridges AI content and game engine
+
+**Decisions:**
+- ✅ Chunk 4.4 complete and validated (all success criteria met)
+- ✅ Content loader provides robust bridge between AI and engine
+- ✅ Design follows SOLID principles and Gang of Four patterns
+- ✅ Zero technical debt introduced
+- ✅ Ready for Chunk 4.5 (Game Validator)
+- 📋 Phase 4 is now 67% complete (4/6 chunks done)
+
+**Deliverables:**
+- 2 production modules in src/space_hulk_game/engine/
+- 1 comprehensive test suite with 42 tests
+- 5 test fixtures in tests/fixtures/
+- 1 demo script showing integration
+- Updated progress tracking
+
+**Next Actions:**
+- 🎯 Proceed to Chunk 4.5: Game Validator implementation
+- 📋 Validate that generated content can be played
+- 📋 Check for playability issues (unreachable scenes, unsolvable puzzles)
+- 📋 Continue test-first approach with comprehensive coverage
 
 ### 2025-11-10 - Chunk 4.3 Complete ✅ (Game Engine Core)
 **Activities:**
