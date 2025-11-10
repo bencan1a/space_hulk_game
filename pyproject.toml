@@ -19,6 +19,7 @@ dependencies = [
     "mem0ai>=0.1.0",
     "pyyaml>=6.0",
     "litellm>=1.0.0",
+    "colorama>=0.4.6",
 ]
 
 [project.optional-dependencies]
@@ -38,6 +39,8 @@ run_crew = "space_hulk_game.main:run"
 train = "space_hulk_game.main:train"
 replay = "space_hulk_game.main:replay"
 test = "space_hulk_game.main:test"
+demo_game = "space_hulk_game.demo_game:main"
+play_game = "space_hulk_game.demo_game:main"
 
 [build-system]
 requires = ["hatchling"]
