@@ -330,3 +330,184 @@ def delete_save(filepath: str) -> None:
         error_msg = f"Failed to delete save file: {e}"
         logger.error(error_msg)
         raise PersistenceError(error_msg) from e
+
+
+class SaveSystem:
+    """
+    High-level save/load system with simplified interface.
+    
+    This class provides an object-oriented interface to the persistence
+    functions, managing save directory and file naming conventions.
+    
+    Attributes:
+        save_dir: Directory where save files are stored.
+    
+    Examples:
+        Create a save system:
+        >>> save_system = SaveSystem("saves/")
+        >>> save_system.save(game_state, "mysave")
+        >>> loaded_state = save_system.load("mysave")
+        >>> saves = save_system.list_saves()
+    """
+    
+    def __init__(self, save_dir: str = "saves"):
+        """
+        Initialize the save system.
+        
+        Args:
+            save_dir: Directory for save files (created if it doesn't exist).
+        """
+        self.save_dir = Path(save_dir)
+        self.save_dir.mkdir(parents=True, exist_ok=True)
+        logger.info(f"SaveSystem initialized (save_dir={self.save_dir})")
+    
+    def save(
+        self,
+        game_state: GameState,
+        save_name: str,
+        scenes: Dict[str, Scene] = None,
+        metadata: Dict[str, Any] = None
+    ) -> None:
+        """
+        Save a game state.
+        
+        Args:
+            game_state: Game state to save.
+            save_name: Name for the save (without .json extension).
+            scenes: Optional scenes dict (not needed for state-only saves).
+            metadata: Optional metadata to include.
+            
+        Raises:
+            PersistenceError: If save fails.
+        """
+        # Add .json extension if not present
+        if not save_name.endswith('.json'):
+            save_name = f"{save_name}.json"
+        
+        filepath = self.save_dir / save_name
+        
+        # For simplified saves, we only save the game state
+        # Scenes will be loaded from the original game files
+        save_data = {
+            'version': '1.0',
+            'timestamp': datetime.now().isoformat(),
+            'metadata': metadata or {},
+            'game_state': game_state.to_dict(),
+        }
+        
+        # If scenes provided, save them too (for compatibility)
+        if scenes:
+            save_data['scenes'] = {
+                scene_id: scene.to_dict()
+                for scene_id, scene in scenes.items()
+            }
+        
+        try:
+            with open(filepath, 'w', encoding='utf-8') as f:
+                json.dump(save_data, f, indent=2, ensure_ascii=False)
+            
+            logger.info(f"Game saved to: {filepath}")
+            
+        except Exception as e:
+            error_msg = f"Failed to save game: {e}"
+            logger.error(error_msg)
+            raise PersistenceError(error_msg) from e
+    
+    def load(self, save_name: str) -> GameState:
+        """
+        Load a game state.
+        
+        Args:
+            save_name: Name of the save to load (with or without .json).
+            
+        Returns:
+            Loaded game state.
+            
+        Raises:
+            PersistenceError: If load fails.
+        """
+        # Add .json extension if not present
+        if not save_name.endswith('.json'):
+            save_name = f"{save_name}.json"
+        
+        filepath = self.save_dir / save_name
+        
+        try:
+            with open(filepath, 'r', encoding='utf-8') as f:
+                save_data = json.load(f)
+            
+            # Validate basic structure
+            if 'game_state' not in save_data:
+                raise PersistenceError("Invalid save file: missing game_state")
+            
+            # Deserialize game state
+            game_state = GameState.from_dict(save_data['game_state'])
+            
+            logger.info(f"Game loaded from: {filepath}")
+            return game_state
+            
+        except FileNotFoundError:
+            raise PersistenceError(f"Save file not found: {save_name}")
+        except Exception as e:
+            error_msg = f"Failed to load game: {e}"
+            logger.error(error_msg)
+            raise PersistenceError(error_msg) from e
+    
+    def list_saves(self) -> list:
+        """
+        List all available save files.
+        
+        Returns:
+            List of save names (without .json extension).
+        """
+        try:
+            save_files = []
+            for file_path in self.save_dir.glob("*.json"):
+                # Return just the stem (filename without extension)
+                save_files.append((file_path.stem, file_path.stat().st_mtime))
+            
+            # Sort by modification time (newest first)
+            save_files.sort(key=lambda x: x[1], reverse=True)
+            
+            return [f[0] for f in save_files]
+            
+        except Exception as e:
+            logger.error(f"Failed to list save files: {e}")
+            return []
+    
+    def delete(self, save_name: str) -> None:
+        """
+        Delete a save file.
+        
+        Args:
+            save_name: Name of the save to delete (with or without .json).
+            
+        Raises:
+            PersistenceError: If deletion fails.
+        """
+        # Add .json extension if not present
+        if not save_name.endswith('.json'):
+            save_name = f"{save_name}.json"
+        
+        filepath = self.save_dir / save_name
+        delete_save(str(filepath))
+    
+    def get_metadata(self, save_name: str) -> Dict[str, Any]:
+        """
+        Get metadata for a save file.
+        
+        Args:
+            save_name: Name of the save (with or without .json).
+            
+        Returns:
+            Dictionary of metadata.
+            
+        Raises:
+            PersistenceError: If reading metadata fails.
+        """
+        # Add .json extension if not present
+        if not save_name.endswith('.json'):
+            save_name = f"{save_name}.json"
+        
+        filepath = self.save_dir / save_name
+        return get_save_metadata(str(filepath))
