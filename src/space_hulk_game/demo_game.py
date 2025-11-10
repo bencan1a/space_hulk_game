@@ -30,13 +30,13 @@ from pathlib import Path
 from typing import Optional, List
 
 try:
-    from colorama import Fore, Back, Style, init as colorama_init
+    from colorama import Fore, Style, init as colorama_init
 except ImportError:
     # Fallback if colorama not available
     class _DummyColor:
         def __getattr__(self, name):
             return ""
-    Fore = Back = Style = _DummyColor()
+    Fore = Style = _DummyColor()
     def colorama_init(**kwargs):
         pass
 
@@ -45,7 +45,6 @@ from .engine import (
     TextAdventureEngine,
     GameState,
     GameData,
-    Scene,
 )
 from .engine.persistence import SaveSystem
 

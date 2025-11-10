@@ -13,21 +13,16 @@ to simulate user input without requiring interactive sessions.
 """
 
 import unittest
-from unittest.mock import patch, MagicMock, call
+from unittest.mock import patch
 from pathlib import Path
 import tempfile
 import shutil
-import sys
 from io import StringIO
 
 from space_hulk_game.demo_game import (
     DemoGameCLI,
     ColorFormatter,
     main,
-)
-from space_hulk_game.engine import (
-    GameState,
-    ContentLoader,
 )
 
 
@@ -179,7 +174,7 @@ class TestDemoGameCLI(unittest.TestCase):
         
         # Modify game state
         self.cli.engine.game_state.game_flags["test_flag"] = True
-        self.cli.engine.game_state.game_flags["test_var_42"] = True  # Use flag instead of variable
+        self.cli.engine.game_state.game_flags["test_var_42"] = True  # Store as boolean flag for testing
         
         # Save the game
         save_name = "test_save"
@@ -351,7 +346,7 @@ class TestDemoGameIntegration(unittest.TestCase):
         
         # Add some state changes
         cli.engine.game_state.game_flags["explored_starting_area"] = True
-        cli.engine.game_state.game_flags["turn_count_5"] = True  # Use flag instead of variable
+        cli.engine.game_state.game_flags["turn_count_5"] = True  # Flag to indicate turn 5 has been reached (not tracking turn count numerically)
         
         # Step 3: Save the game
         save_name = "integration_test_save"
@@ -396,7 +391,7 @@ class TestDemoGameIntegration(unittest.TestCase):
         
         # Verify engine is functional
         self.assertIsNotNone(new_cli.engine.game_state)
-        self.assertTrue(len(new_cli.engine.scenes) > 0)
+        self.assertGreater(len(new_cli.engine.scenes), 0)
     
     def test_automated_playthrough(self):
         """
@@ -436,7 +431,7 @@ class TestDemoGameIntegration(unittest.TestCase):
         # Verify game ran successfully
         self.assertIsNotNone(cli.engine.game_state)
         # Should have visited starting scene
-        self.assertTrue(len(cli.engine.game_state.visited_scenes) > 0)
+        self.assertGreater(len(cli.engine.game_state.visited_scenes), 0)
     
     def test_game_with_items_and_npcs(self):
         """Test game interactions with items and NPCs."""
