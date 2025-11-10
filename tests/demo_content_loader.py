@@ -4,13 +4,12 @@ Demo script showing ContentLoader integration with TextAdventureEngine.
 
 This demonstrates the complete pipeline from AI-generated YAML files
 to a playable text adventure game.
+
+Run with: python -m tests.demo_content_loader
+Or install package first: pip install -e .
 """
 
-import sys
 from pathlib import Path
-
-# Add src to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 from space_hulk_game.engine import ContentLoader, TextAdventureEngine, GameState
 
@@ -83,10 +82,7 @@ def main():
         visited_scenes={game_data.starting_scene}
     )
     
-    # Create engine
-    engine = TextAdventureEngine(initial_state, game_data.scenes)
-    
-    print(f"Engine initialized with {len(game_data.scenes)} scenes")
+    print(f"Game can be initialized with {len(game_data.scenes)} scenes")
     print(f"Starting scene: {game_data.starting_scene}")
     print()
     
@@ -124,4 +120,4 @@ def main():
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    main()

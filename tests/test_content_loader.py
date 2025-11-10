@@ -18,10 +18,8 @@ from space_hulk_game.engine import (
     Scene,
     Item,
     NPC,
-    Event,
     LoaderError,
     YAMLParseError,
-    ValidationError,
 )
 
 

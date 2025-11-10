@@ -165,12 +165,13 @@ class GameData:
             The Item object if found, None otherwise.
             
         Examples:
-            >>> from space_hulk_game.engine import Item
+            >>> from space_hulk_game.engine import Item, Scene
             >>> item = Item(id="key", name="Key", description="A key")
+            >>> scene = Scene(id="start", name="Start", description="Start scene")
             >>> data = GameData(
             ...     title="Test",
             ...     description="Test",
-            ...     scenes={},
+            ...     scenes={"start": scene},
             ...     starting_scene="start",
             ...     global_items={"key": item}
             ... )
@@ -191,12 +192,13 @@ class GameData:
             The NPC object if found, None otherwise.
             
         Examples:
-            >>> from space_hulk_game.engine import NPC
+            >>> from space_hulk_game.engine import NPC, Scene
             >>> npc = NPC(id="guard", name="Guard", description="A guard")
+            >>> scene = Scene(id="start", name="Start", description="Start scene")
             >>> data = GameData(
             ...     title="Test",
             ...     description="Test",
-            ...     scenes={},
+            ...     scenes={"start": scene},
             ...     starting_scene="start",
             ...     global_npcs={"guard": npc}
             ... )

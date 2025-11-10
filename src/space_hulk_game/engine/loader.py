@@ -21,8 +21,7 @@ Example:
 import logging
 import os
 import re
-from pathlib import Path
-from typing import Dict, List, Optional, Any
+from typing import Dict, List, Any
 import yaml
 
 from .game_data import GameData
@@ -209,11 +208,15 @@ class ContentLoader:
         """
         Clean up common issues in AI-generated YAML content.
         
+        Specifically, this method:
+            - Removes markdown code fences (e.g., ```yaml ... ```) that may wrap YAML content.
+            - Strips leading and trailing whitespace from the content.
+        
         Args:
             content: Raw YAML content string.
             
         Returns:
-            Cleaned YAML content.
+            Cleaned YAML content with code fences and extraneous whitespace removed.
         """
         # Remove markdown code fences
         content = re.sub(r'^```ya?ml\s*\n', '', content, flags=re.MULTILINE)
