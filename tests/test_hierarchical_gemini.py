@@ -30,11 +30,12 @@ Available Gemini models (via litellm):
 - gemini/gemini-1.5-pro (Most capable)
 """
 
-import sys
 import os
+import sys
 import time
 from datetime import datetime
 from pathlib import Path
+from typing import cast
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
@@ -44,10 +45,10 @@ def test_hierarchical_with_gemini():
     print("HIERARCHICAL MODE TEST - GEMINI 2.5 FLASH")
     print("="*80)
     print(f"Start: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    
+
     # Check for Gemini configuration
     gemini_key = os.environ.get("GOOGLE_API_KEY") or os.environ.get("GEMINI_API_KEY")
-    
+
     if not gemini_key:
         print("\n" + "="*80)
         print("⚠️  GEMINI API KEY NOT CONFIGURED")
@@ -65,32 +66,33 @@ def test_hierarchical_with_gemini():
         print("  OPENAI_MODEL_NAME=gemini/gemini-2.0-flash-exp")
         print("\n" + "="*80)
         return False
-    
-    print(f"✅ Gemini API key found")
-    
+
+    print("✅ Gemini API key found")
+
     # Determine which Gemini model to use
     configured_model = os.environ.get("OPENAI_MODEL_NAME", "gemini/gemini-2.0-flash-exp")
     if "gemini" not in configured_model.lower():
         print(f"⚠️  OPENAI_MODEL_NAME is set to '{configured_model}'")
-        print(f"    Overriding to use Gemini for this test...")
+        print("    Overriding to use Gemini for this test...")
         gemini_model = "gemini/gemini-2.0-flash-exp"
     else:
         gemini_model = configured_model
-    
+
     print(f"✅ Using model: {gemini_model}")
     print("="*80 + "\n")
-    
+
     start_time = time.time()
-    
+
     try:
-        from crewai import Agent, Crew, Task, Process, LLM
+        from crewai import LLM, Agent, Crew, Process
+
         from space_hulk_game.crew import SpaceHulkGame
-        
+
         print("✅ Importing crew...")
         crew_instance = SpaceHulkGame()
-        
+
         print("\n🔧 Creating hierarchical crew with Gemini...")
-        
+
         # Create Gemini-powered manager
         gemini_llm = LLM(
             model=gemini_model,
@@ -98,7 +100,7 @@ def test_hierarchical_with_gemini():
             temperature=0.3,
             max_tokens=4000
         )
-        
+
         manager = Agent(
             role="Narrative Director",
             goal="Coordinate narrative development efficiently",
@@ -108,71 +110,71 @@ def test_hierarchical_with_gemini():
             verbose=True,
             max_iter=15  # Give Gemini a bit more room
         )
-        
+
         print(f"   Manager: {manager.role}")
         print(f"   Manager LLM: {gemini_model}")
         print(f"   Manager max_iter: {manager.max_iter}")
-        print(f"   Manager temperature: 0.3")
-        
+        print("   Manager temperature: 0.3")
+
         # Get 3 workers (using Gemini for consistency)
         plot_master = crew_instance.PlotMasterAgent()
         narrative_architect = crew_instance.NarrativeArchitectAgent()
         puzzle_smith = crew_instance.PuzzleSmithAgent()
-        
+
         # Use Gemini for workers too (consistency and quality)
         plot_master.llm = gemini_llm
         narrative_architect.llm = gemini_llm
         puzzle_smith.llm = gemini_llm
-        
+
         worker_agents = [plot_master, narrative_architect, puzzle_smith]
         print(f"   Workers: {[agent.role for agent in worker_agents]}")
         print(f"   Worker LLM: {gemini_model}")
-        
+
         # Get 3 tasks
         task1 = crew_instance.GenerateOverarchingPlot()
         task2 = crew_instance.CreateNarrativeMap()
         task3 = crew_instance.DesignArtifactsAndPuzzles()
-        
+
         minimal_tasks = [task1, task2, task3]
         print(f"   Tasks: {len(minimal_tasks)}")
-        
+
         # Create hierarchical crew
         hierarchical_crew = Crew(
-            agents=worker_agents,
+            agents=cast(list, worker_agents),
             tasks=minimal_tasks,
             process=Process.hierarchical,
             manager_agent=manager,
             verbose=True
         )
-        
+
         print("✅ Hierarchical crew created successfully")
-        
+
         test_prompt = "A Space Marine boarding team discovers an ancient derelict vessel"
         inputs = {"prompt": test_prompt}
-        
-        print(f"\n🚀 Starting hierarchical execution with Gemini...")
+
+        print("\n🚀 Starting hierarchical execution with Gemini...")
         print(f"   Prompt: {test_prompt}")
-        print(f"   Max timeout: 10 minutes")
-        print(f"   Monitoring for delegation behavior...")
+        print("   Max timeout: 10 minutes")
+        print("   Monitoring for delegation behavior...")
         print("\n" + "-"*80)
-        
+
         exec_start = time.time()
-        result = hierarchical_crew.kickoff(inputs=inputs)
+        hierarchical_crew.kickoff(inputs=inputs)
         exec_time = time.time() - exec_start
-        
+
         print("-"*80)
-        print(f"\n✅ HIERARCHICAL EXECUTION COMPLETED SUCCESSFULLY!")
+        print("\n✅ HIERARCHICAL EXECUTION COMPLETED SUCCESSFULLY!")
         print(f"   Execution time: {exec_time:.2f}s ({exec_time/60:.2f} min)")
-        
+
         # Check output files
         output_files = [
             "game-config/plot_outline.yaml",
             "game-config/narrative_map.yaml",
             "game-config/puzzle_design.yaml"
         ]
-        
+
         files_created = sum(1 for f in output_files if os.path.exists(f))
-        
+
         print(f"\n📁 Output files created: {files_created}/{len(output_files)}")
         for filepath in output_files:
             if os.path.exists(filepath):
@@ -180,28 +182,28 @@ def test_hierarchical_with_gemini():
                 print(f"   ✅ {filepath} ({size} bytes)")
             else:
                 print(f"   ❌ {filepath} (not found)")
-        
+
         total_time = time.time() - start_time
-        
+
         print("\n" + "="*80)
         print("🎉 BREAKTHROUGH: HIERARCHICAL MODE WORKS WITH GEMINI!")
         print("="*80)
         print(f"✅ Hierarchical mode SUCCESSFUL with Gemini {gemini_model}")
         print(f"✅ Execution time: {exec_time:.2f}s ({exec_time/60:.2f} min)")
         print(f"✅ Files created: {files_created}/{len(output_files)}")
-        print(f"✅ No delegation failures or LLM errors")
-        print(f"\n🔑 Key finding: Gemini handles delegation much better than Llama")
+        print("✅ No delegation failures or LLM errors")
+        print("\n🔑 Key finding: Gemini handles delegation much better than Llama")
         print(f"📊 Performance: {exec_time/60:.2f} min vs ~2-6 min failures with Llama")
-        print(f"\n💡 Recommendation for production:")
-        print(f"   - Use Gemini for hierarchical mode manager")
-        print(f"   - Can use Ollama for workers (cost savings)")
-        print(f"   - Or use Gemini for all agents (best quality)")
+        print("\n💡 Recommendation for production:")
+        print("   - Use Gemini for hierarchical mode manager")
+        print("   - Can use Ollama for workers (cost savings)")
+        print("   - Or use Gemini for all agents (best quality)")
         print(f"\nTotal test time: {total_time:.2f}s")
         print(f"End: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         print("="*80)
-        
+
         return True
-        
+
     except Exception as e:
         error_time = time.time() - start_time
         print("\n" + "="*80)
@@ -209,7 +211,7 @@ def test_hierarchical_with_gemini():
         print("="*80)
         print(f"Error: {str(e)}")
         print(f"Time before failure: {error_time:.2f}s ({error_time/60:.2f} min)")
-        
+
         # Check if it's the same delegation error
         if "Invalid response from LLM call" in str(e):
             print("\n📋 Analysis: Still getting delegation errors with Gemini.")
@@ -221,12 +223,12 @@ def test_hierarchical_with_gemini():
         elif "API" in str(e) or "key" in str(e).lower():
             print("\n📋 Analysis: API authentication issue.")
             print("   Check that GOOGLE_API_KEY is valid and has sufficient quota.")
-        
+
         print("="*80)
-        
+
         import traceback
         traceback.print_exc()
-        
+
         return False
 
 
@@ -237,9 +239,9 @@ if __name__ == "__main__":
     print("\nThis test checks if Gemini can handle hierarchical delegation")
     print("where Llama 3.1 70B failed.")
     print("="*80)
-    
+
     success = test_hierarchical_with_gemini()
-    
+
     if success:
         print("\n" + "="*80)
         print("🎉 SUCCESS - HIERARCHICAL MODE WORKS!")
@@ -258,7 +260,7 @@ if __name__ == "__main__":
         print("- Check docs/HIERARCHICAL_MODE_ASSESSMENT.md")
         print("- Consider using sequential mode (100% reliable)")
         print("- Review task descriptions in src/space_hulk_game/config/tasks.yaml")
-    
+
     print("="*80)
-    
+
     sys.exit(0 if success else 1)

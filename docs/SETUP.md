@@ -23,6 +23,9 @@ cd space_hulk_game
 
 # Run the automated setup script
 ./setup.sh
+
+# Activate the virtual environment
+source .venv/bin/activate
 ```
 
 ### Windows
@@ -34,6 +37,9 @@ cd space_hulk_game
 
 # Run the automated setup script
 .\setup.ps1
+
+# Activate the virtual environment
+.venv\Scripts\activate
 ```
 
 ## Prerequisites
@@ -83,11 +89,12 @@ The `setup.sh` script provides the following options:
 
 1. ✓ Checks Python version compatibility
 2. ✓ Installs UV package manager
-3. ✓ Installs Ollama (optional)
-4. ✓ Downloads qwen2.5 model (optional)
-5. ✓ Installs Python dependencies
-6. ✓ Creates `.env` configuration file
-7. ✓ Verifies installation
+3. ✓ Creates `.venv` virtual environment
+4. ✓ Installs Ollama (optional)
+5. ✓ Downloads qwen2.5 model (optional)
+6. ✓ Installs Python dependencies in the virtual environment
+7. ✓ Creates `.env` configuration file
+8. ✓ Verifies installation
 
 ### Windows Setup Script
 
@@ -170,7 +177,20 @@ ollama serve
 ollama pull qwen2.5
 ```
 
-### 4. Install Python Dependencies
+### 4. Create Virtual Environment
+
+Create a virtual environment to isolate project dependencies:
+
+```bash
+# Create virtual environment
+python -m venv .venv
+
+# Activate the virtual environment
+source .venv/bin/activate      # Linux/macOS
+.venv\Scripts\activate         # Windows
+```
+
+### 5. Install Python Dependencies
 
 Using UV (recommended):
 
@@ -198,7 +218,7 @@ Using crewai CLI:
 crewai install
 ```
 
-### 5. Create Environment Configuration
+### 6. Create Environment Configuration
 
 Create a `.env` file in the project root:
 
@@ -387,22 +407,38 @@ LOG_LEVEL=INFO
 
 ## Verifying Installation
 
-### 1. Check Python Environment
+### 1. Activate Virtual Environment
+
+The setup script creates a `.venv` virtual environment. You must activate it before running commands:
 
 ```bash
-# Check Python version
-python --version  # or python3 --version
+# Linux/macOS/WSL
+source .venv/bin/activate
+
+# Windows
+.venv\Scripts\activate
+
+# You should see (.venv) prefix in your terminal prompt
+```
+
+**Note:** VS Code will automatically detect and use the `.venv` virtual environment after you reload the window.
+
+### 2. Check Python Environment
+
+```bash
+# Check Python version (should be from .venv)
+python --version
 
 # Should output: Python 3.10.x, 3.11.x, or 3.12.x
 ```
 
-### 2. Check UV Installation
+### 3. Check UV Installation
 
 ```bash
 uv --version
 ```
 
-### 3. Check Ollama Installation (if applicable)
+### 4. Check Ollama Installation (if applicable)
 
 ```bash
 # Check if Ollama is installed
@@ -414,9 +450,10 @@ ollama list
 # Should show qwen2.5 model if downloaded
 ```
 
-### 4. Verify Python Dependencies
+### 5. Verify Python Dependencies
 
 ```bash
+# Ensure virtual environment is activated first!
 # Check if crewai is installed
 python -c "import crewai; print(crewai.__version__)"
 
@@ -424,18 +461,21 @@ python -c "import crewai; print(crewai.__version__)"
 python -c "import mem0; import yaml; import litellm; print('All dependencies OK')"
 ```
 
-### 5. Run Tests
+### 6. Run Tests
 
 ```bash
+# Ensure virtual environment is activated first!
 # Run the test suite
 python -m unittest discover -s tests -v
 
 # All tests should pass
 ```
 
-### 6. Run the Application
+### 7. Run the Application
 
 ```bash
+# Ensure virtual environment is activated first!
+
 # If using Ollama, ensure it's running first
 ollama serve  # In a separate terminal
 
@@ -500,12 +540,18 @@ ollama pull qwen2.5
 
 **Solution:**
 ```bash
-# Reinstall dependencies
+# First, make sure virtual environment is activated
+source .venv/bin/activate      # Linux/macOS
+.venv\Scripts\activate         # Windows
+
+# Then reinstall dependencies
 uv pip install -e .
 
 # Or use pip
 pip install -e .
 ```
+
+**Common Cause:** The virtual environment is not activated. Always activate `.venv` before running commands.
 
 #### Issue: Permission denied on Linux/macOS
 
@@ -552,7 +598,9 @@ For contributors and developers, install the development dependencies:
 ./setup.sh --dev  # Linux/macOS
 .\setup.ps1 -Dev  # Windows
 
-# Or manually
+# Or manually (with venv activated)
+source .venv/bin/activate      # Linux/macOS
+.venv\Scripts\activate         # Windows
 uv pip install -e ".[dev]"
 ```
 
@@ -566,6 +614,10 @@ This installs additional tools:
 ### Development Workflow
 
 ```bash
+# Ensure virtual environment is activated
+source .venv/bin/activate      # Linux/macOS
+.venv\Scripts\activate         # Windows
+
 # Format code
 black src/ tests/
 

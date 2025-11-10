@@ -5,14 +5,15 @@ Connectivity Test Report for OpenRouter API and CrewAI Dependencies
 This script tests network connectivity to required services after firewall
 rule updates.
 """
-import sys
 import os
+import sys
+
 
 def main():
     print("\n" + "=" * 70)
     print("CONNECTIVITY TEST REPORT")
     print("=" * 70)
-    
+
     # Import test
     print("\n✓ Step 1: Import CrewAI")
     try:
@@ -21,7 +22,7 @@ def main():
     except ImportError as e:
         print(f"  FAILED: {e}")
         return False
-    
+
     # Connectivity test
     print("\n✓ Step 2: Test OpenRouter API Connectivity")
     import requests
@@ -31,7 +32,7 @@ def main():
     except Exception as e:
         print(f"  FAILED: {e}")
         return False
-    
+
     # Scarf test
     print("\n⚠ Step 3: Test Scarf Analytics (optional)")
     try:
@@ -41,7 +42,7 @@ def main():
         print(f"  BLOCKED: {type(e).__name__}")
         print("  NOTE: CrewAI may send analytics to Scarf, but this is optional")
         print("        The main functionality should work without it")
-    
+
     # LLM initialization test
     print("\n✓ Step 4: Test LLM Initialization")
     try:
@@ -53,7 +54,7 @@ def main():
     except Exception as e:
         print(f"  FAILED: {e}")
         return False
-    
+
     # API endpoint test
     print("\n✓ Step 5: Test OpenRouter API Endpoint")
     try:
@@ -67,7 +68,7 @@ def main():
         else:
             print(f"  ERROR: {type(e).__name__}: {str(e)[:100]}")
             return False
-    
+
     # Credentials check
     print("\n⚠ Step 6: Check API Credentials")
     api_key = os.getenv('OPENROUTER_API_KEY')
@@ -83,17 +84,17 @@ def main():
         print("\n  Then run:")
         print("    python -m unittest tests.test_api_validation -v")
         return None  # Connectivity OK, but no credentials
-    
+
     print("\n" + "=" * 70)
 
 
 if __name__ == "__main__":
     result = main()
-    
+
     print("\n" + "=" * 70)
     print("FINAL STATUS")
     print("=" * 70)
-    
+
     if result is True:
         print("✅ READY FOR REAL API TESTS")
         print("   All connectivity checks passed and credentials are available")

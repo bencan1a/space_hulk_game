@@ -9,12 +9,12 @@ from pathlib import Path
 
 class TestKlocReport(unittest.TestCase):
     """Test the KLOC report script."""
-    
+
     def setUp(self):
         """Set up test fixtures."""
         self.script_path = Path(__file__).parent.parent / "kloc-report.py"
         self.assertTrue(self.script_path.exists(), f"Script not found: {self.script_path}")
-    
+
     def test_script_help_runs_without_hanging(self):
         """Test that --help runs quickly and doesn't hang."""
         # Run with timeout to ensure it doesn't hang
@@ -24,11 +24,11 @@ class TestKlocReport(unittest.TestCase):
             text=True,
             timeout=5  # Should complete in under 5 seconds
         )
-        
+
         self.assertEqual(result.returncode, 0, "Help command should succeed")
         self.assertIn("usage:", result.stdout.lower(), "Should show usage information")
         self.assertIn("--user", result.stdout, "Should show --user parameter")
-    
+
     def test_script_syntax_is_valid(self):
         """Test that the Python script has valid syntax."""
         result = subprocess.run(
@@ -37,9 +37,9 @@ class TestKlocReport(unittest.TestCase):
             text=True,
             timeout=5
         )
-        
+
         self.assertEqual(result.returncode, 0, f"Script should compile: {result.stderr}")
-    
+
     def test_unbuffered_output_flag_works(self):
         """Test that -u flag for unbuffered output works with the script."""
         # Run with -u flag (unbuffered) to ensure it's compatible
@@ -49,10 +49,10 @@ class TestKlocReport(unittest.TestCase):
             text=True,
             timeout=5
         )
-        
+
         self.assertEqual(result.returncode, 0, "Unbuffered mode should work")
         self.assertIn("usage:", result.stdout.lower(), "Should show usage with -u flag")
-    
+
     def test_script_requires_user_parameter(self):
         """Test that script requires --user parameter."""
         result = subprocess.run(
@@ -61,23 +61,23 @@ class TestKlocReport(unittest.TestCase):
             text=True,
             timeout=5
         )
-        
+
         # Should fail without --user
         self.assertNotEqual(result.returncode, 0, "Should fail without --user")
         self.assertIn("--user", result.stderr, "Error should mention --user parameter")
-    
+
     def test_script_has_flush_calls(self):
         """Test that the script contains sys.stdout.flush() calls."""
-        with open(self.script_path, 'r') as f:
+        with open(self.script_path) as f:
             content = f.read()
-        
+
         # Check for flush calls
         flush_count = content.count('sys.stdout.flush()')
         self.assertGreaterEqual(
             flush_count, 3,
             "Script should have at least 3 flush calls for unbuffered output"
         )
-    
+
     def test_script_accepts_repos_parameter(self):
         """Test that script accepts --repos parameter."""
         result = subprocess.run(
@@ -86,12 +86,12 @@ class TestKlocReport(unittest.TestCase):
             text=True,
             timeout=5
         )
-        
+
         self.assertEqual(result.returncode, 0)
         self.assertIn("--repos", result.stdout, "Help should mention --repos parameter")
-        self.assertIn("repository names", result.stdout.lower(), 
+        self.assertIn("repository names", result.stdout.lower(),
                      "Help should explain --repos parameter")
-    
+
     def test_script_handles_missing_token_gracefully(self):
         """Test that script shows warning when GH_TOKEN is missing."""
         # This test runs without GH_TOKEN set, script should warn but not crash on --help
@@ -99,7 +99,7 @@ class TestKlocReport(unittest.TestCase):
         env = os.environ.copy()
         env.pop('GH_TOKEN', None)
         env.pop('GITHUB_TOKEN', None)
-        
+
         result = subprocess.run(
             [sys.executable, str(self.script_path), "--help"],
             capture_output=True,
@@ -107,7 +107,7 @@ class TestKlocReport(unittest.TestCase):
             timeout=5,
             env=env
         )
-        
+
         # Should still work for --help
         self.assertEqual(result.returncode, 0)
         # Should show warning about missing token

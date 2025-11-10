@@ -12,6 +12,14 @@ This guide helps you quickly understand and use the improved Space Hulk Game Cre
 
 ## Quick Commands
 
+**Important:** Always activate the virtual environment first!
+
+```bash
+# Activate virtual environment
+source .venv/bin/activate      # Linux/macOS/WSL
+.venv\Scripts\activate         # Windows
+```
+
 ### Test the Setup
 
 ```bash
@@ -136,12 +144,19 @@ process=Process.sequential
 
 ### Problem: Import errors
 
-**Solution**: Make sure you're in the project root:
+**Solution**: Make sure the virtual environment is activated and you're in the project root:
 
 ```bash
-cd /home/runner/work/space_hulk_game/space_hulk_game
+# Activate virtual environment first
+source .venv/bin/activate      # Linux/macOS/WSL
+.venv\Scripts\activate         # Windows
+
+# Verify you're in the project root
+cd /path/to/space_hulk_game
 python test_crew_init.py
 ```
+
+**Common Cause:** The virtual environment is not activated. Always activate `.venv` before running commands.
 
 ### Problem: Tasks produce errors
 
@@ -168,6 +183,13 @@ def crew(self) -> Crew:
 ## Testing Strategy
 
 ### Phase 0: Validate Sequential Mode
+
+**Prerequisites:** Activate the virtual environment for all commands below.
+
+```bash
+source .venv/bin/activate      # Linux/macOS/WSL
+.venv\Scripts\activate         # Windows
+```
 
 1. **Smoke Test** (5 core tasks only)
 
@@ -226,6 +248,13 @@ Only after Phase 0 succeeds:
 ## Advanced Usage
 
 ### Custom Prompt Examples
+
+**Prerequisites:** Activate the virtual environment first.
+
+```bash
+source .venv/bin/activate      # Linux/macOS/WSL
+.venv\Scripts\activate         # Windows
+```
 
 **Simple Exploration**:
 
@@ -298,6 +327,10 @@ result = h_crew.kickoff({"prompt": "Simple test"})
 ### Diagnostics
 
 ```bash
+# Activate virtual environment first
+source .venv/bin/activate      # Linux/macOS/WSL
+.venv\Scripts\activate         # Windows
+
 # Check configuration
 python test_crew_init.py
 
@@ -312,9 +345,10 @@ grep -i warning *.log
 ### Common Issues
 
 1. **Hanging**: Switch to sequential mode
-2. **Import errors**: Check you're in project root
+2. **Import errors**: Activate virtual environment, check you're in project root
 3. **LLM errors**: Verify Ollama is running on localhost:11434
 4. **YAML errors**: Check output file syntax
+5. **Module not found**: Ensure `.venv` is activated before running commands
 
 ## Next Steps
 

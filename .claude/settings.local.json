@@ -3,7 +3,18 @@
     "allow": [
       "Bash(pip install:*)",
       "Bash(./venv/Scripts/activate)",
-      "Bash(ruff check:*)"
+      "Bash(ruff check:*)",
+      "Bash(python3 -m pip:*)",
+      "Bash(env)",
+      "Bash(python3:*)",
+      "Bash(test:*)",
+      "Bash(.venv/bin/python:*)",
+      "Bash(.venv/bin/bandit:*)",
+      "Bash(source .venv/bin/activate)",
+      "Bash(python -m pyright:*)",
+      "Bash(python -m unittest:*)",
+      "Bash(cat:*)",
+      "Bash(python -m pytest:*)"
     ],
     "deny": [],
     "ask": []

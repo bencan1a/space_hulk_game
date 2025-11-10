@@ -26,7 +26,7 @@ Thank you for your interest in contributing to the Space Hulk Game project! This
 
 **Option 1: Automated Setup (Recommended)**
 
-Use the automated setup script that installs all dependencies:
+Use the automated setup script that installs all dependencies and creates a virtual environment:
 
 ```bash
 # Clone the repository
@@ -40,31 +40,52 @@ cd space_hulk_game
 # For development environment
 ./setup.sh --dev        # Linux/macOS
 .\setup.ps1 -Dev        # Windows
+
+# Activate the virtual environment
+source .venv/bin/activate      # Linux/macOS/WSL
+.venv\Scripts\activate         # Windows
 ```
 
 **Option 2: Manual Installation**
 
-See the detailed [SETUP.md](SETUP.md) guide for manual installation steps.
+See the detailed [docs/SETUP.md](docs/SETUP.md) guide for manual installation steps.
 
 **Quick manual setup:**
 
-1. Install UV package manager:
+1. Create virtual environment:
+   ```bash
+   python -m venv .venv
+   ```
+
+2. Activate virtual environment:
+   ```bash
+   source .venv/bin/activate      # Linux/macOS/WSL
+   .venv\Scripts\activate         # Windows
+   ```
+
+3. Install UV package manager:
    ```bash
    pip install uv
    ```
 
-2. Install dependencies:
+4. Install dependencies:
    ```bash
    uv pip install -e ".[dev]"
    ```
 
-3. Configure environment:
-   - Create `.env` file (see SETUP.md or run setup script)
+5. Configure environment:
+   - Create `.env` file (see docs/SETUP.md or run setup script)
    - Add API keys if using OpenAI or Mem0
 
 ### Running the Project
 
+**Important:** Always activate the virtual environment first!
+
 ```bash
+# Activate virtual environment
+source .venv/bin/activate      # Linux/macOS/WSL
+.venv\Scripts\activate         # Windows
+
 # If using Ollama, start it first
 ollama serve  # In a separate terminal
 
@@ -75,6 +96,11 @@ crewai run
 ### Running Tests
 
 ```bash
+# Activate virtual environment first
+source .venv/bin/activate      # Linux/macOS/WSL
+.venv\Scripts\activate         # Windows
+
+# Run tests
 python -m unittest discover -s tests -v
 ```
 
@@ -123,6 +149,18 @@ space_hulk_game/
 
 ## Development Workflow
 
+**Important:** Always ensure the virtual environment is activated before development work!
+
+```bash
+# Activate virtual environment
+source .venv/bin/activate      # Linux/macOS/WSL
+.venv\Scripts\activate         # Windows
+
+# You should see (.venv) prefix in your terminal prompt
+```
+
+**Note:** VS Code will automatically use the `.venv` virtual environment after you reload the window. You don't need to manually activate it in VS Code's integrated terminal.
+
 ### 1. Create a Branch
 
 ```bash
@@ -135,10 +173,15 @@ git checkout -b feature/your-feature-name
 - Write tests for new functionality
 - Update documentation as needed
 - Use GitHub Copilot agents for assistance (see below)
+- Ensure virtual environment is activated when running Python code
 
 ### 3. Test Your Changes
 
 ```bash
+# Ensure virtual environment is activated
+source .venv/bin/activate      # Linux/macOS/WSL
+.venv\Scripts\activate         # Windows
+
 # Run all tests
 python -m unittest discover -s tests
 
@@ -336,11 +379,21 @@ The project uses a clear documentation structure:
 
 ### Before Submitting
 
-1. Ensure all tests pass
-2. Update documentation
-3. Follow coding standards
-4. Add or update tests for new features
-5. Run the full test suite locally
+1. Ensure virtual environment is activated
+2. Ensure all tests pass
+3. Update documentation
+4. Follow coding standards
+5. Add or update tests for new features
+6. Run the full test suite locally
+
+```bash
+# Activate virtual environment
+source .venv/bin/activate      # Linux/macOS/WSL
+.venv\Scripts\activate         # Windows
+
+# Run all tests
+python -m unittest discover -s tests -v
+```
 
 ### PR Description Template
 

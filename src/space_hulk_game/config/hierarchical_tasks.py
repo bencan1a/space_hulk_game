@@ -5,8 +5,15 @@ These tasks have shorter descriptions to prevent LLM context overflow
 when the manager creates delegation prompts.
 """
 
+from typing import Any
+
+
+# Type alias for task configuration
+TaskConfig = dict[str, Any]
+
+
 # Simplified tasks for hierarchical mode
-HIERARCHICAL_TASKS = {
+HIERARCHICAL_TASKS: dict[str, TaskConfig] = {
     "GenerateOverarchingPlot": {
         "name": "Generate Plot",
         "description": "Create a plot outline for a Space Hulk adventure game with branching paths and multiple endings.",
@@ -14,7 +21,7 @@ HIERARCHICAL_TASKS = {
         "agent": "PlotMasterAgent",
         "output_file": "game-config/plot_outline.yaml"
     },
-    
+
     "CreateNarrativeMap": {
         "name": "Create Narrative Map",
         "description": "Based on the plot, create a map of scenes and connections showing how the story flows.",
@@ -23,7 +30,7 @@ HIERARCHICAL_TASKS = {
         "output_file": "game-config/narrative_map.yaml",
         "context": ["GenerateOverarchingPlot"]
     },
-    
+
     "DesignArtifactsAndPuzzles": {
         "name": "Design Puzzles",
         "description": "Design puzzles, artifacts, and challenges that fit the story and narrative map.",

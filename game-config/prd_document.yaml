@@ -1,0 +1,64 @@
+```yaml
+prd_document:
+  game_title: "Space Hulk: Echoes of Oblivion"
+  game_systems:
+    movement:
+      description: "Players navigate the claustrophobic, ever-shifting corridors and chambers of Golgotha's Maw in Terminator suits. Movement can be slow and deliberate, with tactical dashes and environmental traversal challenges such as debris fields, zero-gravity zones, and collapsed sections. Certain areas may require specific environmental checks or actions (e.g., bracing against structural shifts, activating magnetic boots for zero-g). Terminator armor grants resilience but limits agility."
+      commands: ["move_forward", "move_backward", "strafe_left", "strafe_right", "tactical_dash", "interact_environment"]
+      narrative_purpose: "Reinforces the 'Man vs. Environment' conflict and the hostile, unpredictable nature of the Space Hulk. The slow, deliberate movement emphasizes the weighty responsibility of the Terminators and the pervasive sense of dread and claustrophobia. Environmental challenges introduce tactical decision-making, reflecting Theron's leadership and the squad's adaptation to extreme conditions."
+    inventory:
+      description: "A limited capacity inventory system for managing wargear, mission-critical artifacts (like data-slates, archeotech), and consumable resources (ammo, med-kits). Item weight and bulk influence capacity, reflecting the logistical constraints of a deep-strike mission. Unique slots for Terminator wargear ensure core armaments are always available."
+      capacity: 10 # Example, can be refined based on item sizes
+      commands: ["take", "drop", "use", "transfer_to_squad", "examine_item"]
+      narrative_purpose: "Supports 'Sacrifice and Duty' by forcing players to prioritize critical gear over minor gains. 'Echoes of the Past' is served by the retrieval of data-slates from the 13th, which are inventory items Cygnus can `examine_item` to advance the plot. Kael's role as Apothecary is supported by managing med-kits and potentially retrieving gene-seed (a special inventory item). Limited capacity reinforces the sense of desperation and resource scarcity within the Hulk."
+    combat:
+      description: "Real-time tactical combat with an emphasis on positioning, area control, and managing overwhelming enemy numbers. Players control Brother-Captain Theron, issuing commands to the other three squad members (Varkos, Cygnus, Kael). Each Terminator has unique abilities and weapon specializations. Genestealer encounters are characterized by swift, numerous enemies, requiring crowd control and tactical retreats. Boss encounters (Patriarch) involve multi-stage mechanics, environmental hazards, and requiring exploitation of vulnerabilities. Critical hits and targeted damage exist. Terminator armor provides significant damage reduction but is not impenetrable."
+      mechanics:
+        - name: "Squad Tactics"
+          rules: "Player controls Theron, can issue direct commands to other squad members (e.g., 'focus fire on target,' 'hold position,' 'use ability'). Squad AI acts independently but follows general directives. Emphasizes Theron's role as squad leader and tactical decision-maker, especially in 'The Swarm Unveiled' and 'Custodian of the Void'."
+        - name: "Overwatch & Suppressive Fire"
+          rules: "Terminators can enter an 'overwatch' stance, automatically firing at enemies entering their firing arc. Heavy weapons (Cygnus's assault cannon) can lay down suppressive fire, slowing enemy advances and creating choke points. Essential for managing 'The Swarm Unveiled'."
+        - name: "Varkos's Fury"
+          rules: "Varkos, the Assault Specialist, has a 'Battle Trance' ability that temporarily increases his melee damage and resistance to crowd control, reflecting his 'battlelust surging despite overwhelming odds' during intense close combat."
+        - name: "Kael's Aid & Gene-Seed Retrieval"
+          rules: "Kael, as Apothecary, has a 'Field Medic' ability to rapidly revive downed squadmates (with limited uses) and 'Gene-Seed Retrieval' mini-game for fallen brothers, directly linking to his narrative role of 'tending to a fallen brother' and 'ensuring the gene-seed of fallen brothers can be recovered.'"
+        - name: "Cygnus's Precision Targeting"
+          rules: "Cygnus can mark specific enemy weak points, increasing damage dealt by the squad to that target, reflecting his 'meticulously scans the environment' and 'calculated precision' in combat."
+      narrative_purpose: "Directly implements the theme of 'Survival Against Overwhelming Odds' and the 'Man vs. Alien' conflict. Combat mechanics provide a direct outlet for each character's arc: Theron's leadership, Varkos's ferocity, Cygnus's analytical mind, and Kael's pragmatism and care. The scale and brutality of combat underscore the 'Bleak, claustrophobic, horror-infused, and relentlessly grim' tone, and the overwhelming odds make victories feel hard-won."
+    interaction:
+      description: "Players interact with the environment, objects, and key NPCs (the Archivist) to gather intelligence, solve environmental puzzles, and make critical narrative choices. This includes investigating discovered scenes, deciphering data, and engaging in dialogue."
+      commands: ["examine", "talk", "scan", "use", "decipher"]
+      narrative_purpose: "Enables 'Echoes of the Past' by allowing players to `examine` the remains of the 13th and `decipher` their logs. Fosters 'Moral Compromise' and 'The Survivor's Plea' through direct `talk` interactions with the Archivist, where dialogue choices have significant narrative consequences, affecting the 'archivist_disposition' variable. `Scan` (Cygnus's ability) reveals environmental details and lore, enhancing the 'Unknowable Terror' and 'Corruption' themes."
+  game_state:
+    tracked_variables:
+      - variable: "squad_casualties"
+        purpose: "Tracks the number of times a squad member has been incapacitated or permanently lost (if a hardcore mode exists). Reflects the 'Sacrifice and Duty' theme and impacts Theron's internal struggle with past failures."
+      - variable: "archivist_disposition"
+        purpose: "Determines the outcome of the 'archivist_choice' decision point. Can be 'trusted_insight' or 'eliminated'. This variable dictates whether the Archivist's cryptic hints (or deception) influence subsequent choices, directly impacting ending conditions and Kael's arc. Supports 'The Survivor's Plea' and 'Moral Compromise'."
+      - variable: "destruction_method"
+        purpose: "Records the player's choice at the 'core_destruction_decision' point: 'warp_core_overload' or 'precision_strike'. This variable is critical for branching the narrative to the various ending conditions, reflecting 'The Sacrificial Gambit' and impacting the sector's fate and Theron/Kael's arcs."
+      - variable: "hulk_corruption_level"
+        purpose: "An abstract variable that increases with certain narrative events (e.g., prolonged exposure to anomalies, failed checks against psychic influence). Could influence minor environmental hazards or character dialogue, reinforcing 'The Corrupting Influence of the Warp/Chaos' and 'Subtle Corruption vs. Imperium's Purity' themes."
+      - variable: "data_logged_13th"
+        purpose: "Tracks the completeness of the recovered logs from the Golgotha 13th. High completeness could unlock optional insights or dialogue with Cygnus, deepening the 'Echoes of the Past' theme."
+      - variable: "theron_resolve"
+        purpose: "Internal character variable for Theron, influenced by successes, casualties, and moral choices. Affects his dialogue and reactions in final scenes, tying into his 'Development' arc of being 'tested by the scale of the horror'."
+    win_conditions:
+      - condition: "The primordial Tyranid seed in the Ark Mechanicus is successfully destroyed, and the Angels of Redemption squad extracts (or perishes heroically having completed the objective)."
+    lose_conditions:
+      - condition: "All Angels of Redemption squad members are incapacitated or killed before the objective is complete."
+      - condition: "The primordial Tyranid seed prematurely awakens and consumes the squad or devastates the sector due to player failure."
+  technical_requirements:
+    - requirement: "Complex AI for Genestealer swarm behavior (pathfinding, flanking, coordinated attacks)."
+      justification: "To accurately portray the 'dense infestation' and 'overwhelming odds' against the Terminators, reflecting the primary 'Man vs. Alien' conflict and requiring tactical player response."
+    - requirement: "Dynamic environmental system for Space Hulk hazards (shifting corridors, debris, zero-gravity, atmospheric changes)."
+      justification: "Essential for supporting the 'Man vs. Environment' conflict and reinforcing the claustrophobic, unpredictable 'Golgotha's Maw' setting, adding to the grim tone."
+    - requirement: "Non-linear narrative branching and state-tracking system for player choices (Archivist, Destruction Method)."
+      justification: "Crucial for implementing the 'Moral Compromise' and 'The Sacrificial Gambit' plot points, ensuring player decisions have meaningful, diverse impacts on the 'Uncertain Future' endings and character arcs."
+    - requirement: "Robust character dialogue system with multiple conversational paths and consequences for the Archivist interaction."
+      justification: "To fully explore 'The Survivor's Plea' plot point and allow the player's interaction with the Archivist to genuinely influence narrative flow and consequences, impacting their 'archivist_disposition'."
+    - requirement: "Advanced physics engine for destructible environments and realistic projectile/melee interactions with Terminating armor and xenos."
+      justification: "To provide visceral, impactful combat that reflects the power of Terminators and the brutality of the Genestealer threat, enhancing the 'bleak, claustrophobic, and relentlessly grim' tone."
+    - requirement: "Sound design that emphasizes claustrophobia, distant chittering, warp whispers, and heavy Terminator footsteps."
+      justification: "To immerse the player in the horror and dread of the Space Hulk, contributing significantly to the 'bleak, claustrophobic, horror-infused' tone and the 'Subtle Corruption vs. Imperium's Purity' theme."
+```

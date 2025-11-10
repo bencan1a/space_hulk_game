@@ -5,7 +5,7 @@ This file provides backward compatibility for older installation methods.
 Modern installations should use pyproject.toml with uv or pip.
 """
 
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 if __name__ == "__main__":
     setup(

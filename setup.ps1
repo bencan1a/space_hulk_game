@@ -70,19 +70,33 @@ function Test-Python {
 # Install UV package manager
 function Install-UV {
     Write-Header "Installing UV Package Manager"
-    
+
     if (Test-CommandExists "uv") {
         Write-ColorOutput "✓ UV is already installed" "Green"
         uv --version
     } else {
         Write-ColorOutput "Installing UV package manager..." "Yellow"
-        
+
         # Download and install UV for Windows
         powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
-        
-        # Refresh environment variables
+
+        # Refresh environment variables and check common UV installation paths
         $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
-        
+
+        # Check common UV installation locations on Windows
+        $uvPaths = @(
+            "$env:USERPROFILE\.local\bin",
+            "$env:USERPROFILE\.cargo\bin",
+            "$env:LOCALAPPDATA\Programs\uv\bin"
+        )
+
+        foreach ($path in $uvPaths) {
+            if (Test-Path "$path\uv.exe") {
+                $env:Path = "$path;$env:Path"
+                break
+            }
+        }
+
         if (Test-CommandExists "uv") {
             Write-ColorOutput "✓ UV installed successfully" "Green"
             uv --version
@@ -162,20 +176,22 @@ function Install-Model {
     }
 }
 
-# Install Python dependencies
+# Install Python dependencies with virtual environment
 function Install-PythonDeps {
-    Write-Header "Installing Python Dependencies"
-    
+    Write-Header "Installing Python Dependencies with Virtual Environment"
+
     if ($Dev) {
-        Write-ColorOutput "Installing project dependencies (including dev dependencies)..." "Yellow"
-        uv pip install -e ".[dev]"
+        Write-ColorOutput "Creating virtual environment and installing with dev dependencies..." "Yellow"
+        uv sync --dev
     } else {
-        Write-ColorOutput "Installing project dependencies..." "Yellow"
-        uv pip install -e .
+        Write-ColorOutput "Creating virtual environment and installing dependencies..." "Yellow"
+        uv sync
     }
-    
+
     if ($LASTEXITCODE -eq 0) {
-        Write-ColorOutput "✓ Python dependencies installed successfully" "Green"
+        Write-ColorOutput "✓ Virtual environment created at .venv\" "Green"
+        Write-ColorOutput "✓ Dependencies installed from lock file" "Green"
+        Write-ColorOutput "📝 Activate the environment with: .venv\Scripts\Activate.ps1" "Yellow"
     } else {
         Write-ColorOutput "Error installing dependencies" "Red"
         exit 1
@@ -216,12 +232,61 @@ LOG_LEVEL=INFO
     }
 }
 
+# Setup VS Code configuration
+function Setup-VSCode {
+    Write-Header "Setting Up VS Code Configuration"
+
+    # Create .vscode directory if it doesn't exist
+    if (-not (Test-Path .vscode)) {
+        New-Item -ItemType Directory -Path .vscode | Out-Null
+    }
+
+    if (Test-Path .vscode\settings.json) {
+        Write-ColorOutput "✓ VS Code settings already exist" "Green"
+    } else {
+        Write-ColorOutput "Creating VS Code settings..." "Yellow"
+
+        $vscodeSetting = @"
+{
+    "python.defaultInterpreterPath": "`${workspaceFolder}/.venv/Scripts/python.exe",
+    "python.terminal.activateEnvironment": true,
+    "python.terminal.activateEnvInCurrentTerminal": true,
+    "python.testing.pytestEnabled": false,
+    "python.testing.unittestEnabled": true,
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        "./tests",
+        "-p",
+        "test_*.py"
+    ],
+    "files.associations": {
+        "*.yaml": "yaml",
+        "*.yml": "yaml"
+    },
+    "yaml.validate": true,
+    "yaml.completion": true,
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit",
+        "source.fixAll": "explicit"
+    },
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true
+}
+"@
+
+        Set-Content -Path .vscode\settings.json -Value $vscodeSetting
+        Write-ColorOutput "✓ VS Code settings created" "Green"
+    }
+}
+
 # Verify installation
 function Test-Installation {
     Write-Header "Verifying Installation"
-    
+
     $allGood = $true
-    
+
     # Check Python
     if (Test-CommandExists "python") {
         Write-ColorOutput "✓ Python installed" "Green"
@@ -229,7 +294,7 @@ function Test-Installation {
         Write-ColorOutput "✗ Python not found" "Red"
         $allGood = $false
     }
-    
+
     # Check UV
     if (Test-CommandExists "uv") {
         Write-ColorOutput "✓ UV package manager installed" "Green"
@@ -237,12 +302,31 @@ function Test-Installation {
         Write-ColorOutput "✗ UV not found" "Red"
         $allGood = $false
     }
-    
+
+    # Check virtual environment
+    if (Test-Path .venv) {
+        Write-ColorOutput "✓ Virtual environment created (.venv\)" "Green"
+
+        # Test if we can import key packages
+        $pythonExe = ".venv\Scripts\python.exe"
+        if (Test-Path $pythonExe) {
+            $testImport = & $pythonExe -c "import crewai" 2>&1
+            if ($LASTEXITCODE -eq 0) {
+                Write-ColorOutput "✓ Python packages installed correctly" "Green"
+            } else {
+                Write-ColorOutput "⚠ Python packages may not be fully installed" "Yellow"
+            }
+        }
+    } else {
+        Write-ColorOutput "✗ Virtual environment not found" "Red"
+        $allGood = $false
+    }
+
     # Check Ollama (if not skipped)
     if (-not $SkipOllama) {
         if (Test-CommandExists "ollama") {
             Write-ColorOutput "✓ Ollama installed" "Green"
-            
+
             # Check if model is available (if not skipped)
             if (-not $SkipModel) {
                 $models = ollama list 2>&1
@@ -256,14 +340,21 @@ function Test-Installation {
             Write-ColorOutput "⚠ Ollama not found (skipped or not installed)" "Yellow"
         }
     }
-    
+
     # Check .env file
     if (Test-Path .env) {
         Write-ColorOutput "✓ .env file exists" "Green"
     } else {
         Write-ColorOutput "⚠ .env file not found" "Yellow"
     }
-    
+
+    # Check VS Code settings
+    if (Test-Path .vscode\settings.json) {
+        Write-ColorOutput "✓ VS Code settings configured" "Green"
+    } else {
+        Write-ColorOutput "⚠ VS Code settings not found" "Yellow"
+    }
+
     if ($allGood) {
         Write-ColorOutput "✓ All core components verified successfully" "Green"
     } else {
@@ -274,19 +365,28 @@ function Test-Installation {
 # Print completion message
 function Show-Completion {
     Write-Header "Setup Complete!"
-    
+
     Write-Host ""
     Write-ColorOutput "The Space Hulk Game environment is ready!" "Green"
     Write-Host ""
     Write-ColorOutput "Next steps:" "Blue"
-    Write-Host "  1. Review and edit .env file if needed"
-    Write-Host "  2. Run the game with: crewai run"
-    Write-Host "  3. Run tests with: python -m unittest discover -s tests"
+    Write-Host "  1. Activate the virtual environment:"
+    Write-ColorOutput "     .venv\Scripts\Activate.ps1" "Yellow"
+    Write-Host ""
+    Write-Host "  2. Review and edit .env file if needed"
+    Write-Host ""
+    Write-Host "  3. Run the game with:"
+    Write-Host "     crewai run"
+    Write-Host ""
+    Write-Host "  4. Run tests with:"
+    Write-Host "     python -m unittest discover -s tests"
     Write-Host ""
     Write-ColorOutput "For more information, see:" "Blue"
     Write-Host "  - README.md: Project overview and usage"
-    Write-Host "  - SETUP.md: Detailed setup documentation"
-    Write-Host "  - CONTRIBUTING.md: Development guidelines"
+    Write-Host "  - docs\SETUP.md: Detailed setup documentation"
+    Write-Host "  - docs\CONTRIBUTING.md: Development guidelines"
+    Write-Host ""
+    Write-ColorOutput "💡 Tip: If using VS Code, reload the window to pick up the Python interpreter" "Yellow"
     Write-Host ""
 }
 
@@ -295,13 +395,14 @@ function Main {
     Write-Header "Space Hulk Game - Windows Setup Script"
     Write-ColorOutput "This script will install all required dependencies" "Yellow"
     Write-Host ""
-    
+
     Test-Python
     Install-UV
     Install-Ollama
     Install-Model
     Install-PythonDeps
     Setup-Environment
+    Setup-VSCode
     Test-Installation
     Show-Completion
 }

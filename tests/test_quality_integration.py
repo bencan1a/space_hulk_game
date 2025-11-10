@@ -17,10 +17,10 @@ Date: November 2025
 """
 import os
 import sys
-import unittest
 import time
-from unittest.mock import patch
+import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 # Add the src directory to the path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../')))
@@ -30,18 +30,18 @@ CREWAI_AVAILABLE = False
 QUALITY_MODULES_AVAILABLE = False
 
 try:
-    import crewai
-    CREWAI_AVAILABLE = True
+    import importlib.util
+    CREWAI_AVAILABLE = importlib.util.find_spec("crewai") is not None
 except ImportError:
     # CrewAI not available - some tests will be skipped
-    pass
+    CREWAI_AVAILABLE = False
 
 try:
     from src.space_hulk_game.quality.integration import QualityCheckConfig
+    from src.space_hulk_game.quality.narrative_evaluator import NarrativeMapEvaluator
+    from src.space_hulk_game.quality.plot_evaluator import PlotEvaluator
     from src.space_hulk_game.quality.retry import TaskType, execute_with_quality_check
     from src.space_hulk_game.quality.score import QualityScore
-    from src.space_hulk_game.quality.plot_evaluator import PlotEvaluator
-    from src.space_hulk_game.quality.narrative_evaluator import NarrativeMapEvaluator
     QUALITY_MODULES_AVAILABLE = True
 except ImportError as e:
     # Quality modules not available - tests will be skipped
@@ -50,20 +50,20 @@ except ImportError as e:
 
 class TestQualitySystemConfiguration(unittest.TestCase):
     """Test that quality system configuration works correctly."""
-    
+
     @unittest.skipUnless(QUALITY_MODULES_AVAILABLE, "Quality modules not available")
     def test_quality_config_loads(self):
         """Test that quality configuration can be loaded."""
         config = QualityCheckConfig()
-        
+
         self.assertIsNotNone(config)
         self.assertIsNotNone(config.config)
         self.assertIn('global', config.config)
         self.assertIn('thresholds', config.config)
-        
+
         # Check default state (disabled)
         self.assertFalse(config.config['global']['enabled'])
-    
+
     @unittest.skipUnless(QUALITY_MODULES_AVAILABLE, "Quality modules not available")
     def test_quality_config_env_override(self):
         """Test that environment variable can enable quality checking."""
@@ -73,7 +73,7 @@ class TestQualitySystemConfiguration(unittest.TestCase):
             # Note: Current implementation loads from file, not env
             # This test documents expected behavior for future implementation
             self.assertIsNotNone(config)
-    
+
     @unittest.skipUnless(QUALITY_MODULES_AVAILABLE, "Quality modules not available")
     def test_task_type_mapping(self):
         """Test that all task types are properly defined."""
@@ -87,12 +87,12 @@ class TestQualitySystemConfiguration(unittest.TestCase):
 
 class TestQualityEvaluatorIntegration(unittest.TestCase):
     """Test that quality evaluators integrate correctly."""
-    
+
     @unittest.skipUnless(QUALITY_MODULES_AVAILABLE, "Quality modules not available")
     def test_plot_evaluator_integration(self):
         """Test PlotEvaluator can evaluate YAML output."""
         evaluator = PlotEvaluator()
-        
+
         # Create sample plot YAML
         sample_plot = """
 title: Test Plot
@@ -114,19 +114,19 @@ endings:
     description: The crew is overwhelmed
     type: defeat
 """
-        
+
         result = evaluator.evaluate(sample_plot)
-        
+
         self.assertIsInstance(result, QualityScore)
         self.assertIsNotNone(result.score)
         self.assertIsInstance(result.passed, bool)
         self.assertIsInstance(result.feedback, str)
-    
+
     @unittest.skipUnless(QUALITY_MODULES_AVAILABLE, "Quality modules not available")
     def test_narrative_evaluator_integration(self):
         """Test NarrativeMapEvaluator can evaluate YAML output."""
         evaluator = NarrativeMapEvaluator()
-        
+
         # Create sample narrative map YAML
         sample_narrative = """
 scenes:
@@ -147,9 +147,9 @@ scenes:
     exits:
       west: corridor1
 """
-        
+
         result = evaluator.evaluate(sample_narrative)
-        
+
         self.assertIsInstance(result, QualityScore)
         self.assertIsNotNone(result.score)
         self.assertIsInstance(result.passed, bool)
@@ -157,13 +157,13 @@ scenes:
 
 class TestRetryLogicIntegration(unittest.TestCase):
     """Test that retry logic works with quality evaluation."""
-    
+
     @unittest.skipUnless(QUALITY_MODULES_AVAILABLE, "Quality modules not available")
     def test_retry_logic_with_poor_quality(self):
         """Test that retry logic activates on poor quality output."""
         # Create a mock task that returns poor quality output
         call_count = [0]
-        
+
         def mock_task_executor(**kwargs):
             """Mock task that improves on retries."""
             call_count[0] += 1
@@ -190,7 +190,7 @@ endings:
     description: Detailed defeat
     type: defeat
 """
-        
+
         # Execute with quality checking
         output, _quality_score, _attempts = execute_with_quality_check(
             task_function=mock_task_executor,
@@ -199,21 +199,21 @@ endings:
             pass_threshold=6.0,
             max_retries=3
         )
-        
+
         # Should have retried at least once
         self.assertGreater(call_count[0], 1, "Retry logic should have activated")
         self.assertIsNotNone(output)
-    
+
     @unittest.skipUnless(QUALITY_MODULES_AVAILABLE, "Quality modules not available")
     def test_retry_limit_enforced(self):
         """Test that retry limit is enforced."""
         call_count = [0]
-        
+
         def mock_task_always_poor(**kwargs):
             """Mock task that always returns poor output."""
             call_count[0] += 1
             return "title: Bad"  # Always poor quality
-        
+
         # Execute with quality checking and low retry limit
         output, _quality_score, _attempts = execute_with_quality_check(
             task_function=mock_task_always_poor,
@@ -222,7 +222,7 @@ endings:
             pass_threshold=6.0,
             max_retries=2
         )
-        
+
         # Should have tried max_retries times (not max_retries + 1)
         self.assertEqual(call_count[0], 2, "Should execute max_retries times")
         self.assertIsNotNone(output, "Should return last attempt even if poor")
@@ -230,7 +230,7 @@ endings:
 
 class TestQualityScoreLogging(unittest.TestCase):
     """Test that quality scores are logged correctly."""
-    
+
     @unittest.skipUnless(QUALITY_MODULES_AVAILABLE, "Quality modules not available")
     def test_quality_score_logged(self):
         """Test that quality scores appear in logs."""
@@ -255,7 +255,7 @@ endings:
     description: Ending 2
     type: defeat
 """
-            
+
             execute_with_quality_check(
                 task_function=mock_task,
                 task_type=TaskType.PLOT,
@@ -263,7 +263,7 @@ endings:
                 pass_threshold=6.0,
                 max_retries=1
             )
-            
+
             # Check that logger was called with quality score info
             # Note: This depends on implementation details
             self.assertTrue(mock_logger.info.called or mock_logger.debug.called)
@@ -271,12 +271,12 @@ endings:
 
 class TestPlanningTemplateIntegration(unittest.TestCase):
     """Test quality system with planning templates."""
-    
+
     def setUp(self):
         """Set up test fixtures."""
         self.templates_dir = Path(__file__).parent.parent / "planning_templates"
         self.templates_exist = self.templates_dir.exists()
-    
+
     @unittest.skipUnless(QUALITY_MODULES_AVAILABLE, "Quality modules not available")
     def test_templates_directory_exists(self):
         """Test that planning templates directory exists."""
@@ -284,20 +284,20 @@ class TestPlanningTemplateIntegration(unittest.TestCase):
             self.templates_exist,
             f"Planning templates directory should exist at {self.templates_dir}"
         )
-    
+
     @unittest.skipUnless(QUALITY_MODULES_AVAILABLE, "Quality modules not available")
     def test_template_files_exist(self):
         """Test that all expected template files exist."""
         if not self.templates_exist:
             self.skipTest("Templates directory not found")
-        
+
         expected_templates = [
             'space_horror.yaml',
             'mystery_investigation.yaml',
             'survival_escape.yaml',
             'combat_focused.yaml'
         ]
-        
+
         for template in expected_templates:
             template_path = self.templates_dir / template
             self.assertTrue(
@@ -309,11 +309,11 @@ class TestPlanningTemplateIntegration(unittest.TestCase):
 class TestEndToEndIntegration(unittest.TestCase):
     """
     End-to-end integration tests.
-    
+
     These tests validate the complete quality system workflow.
     They run with mocked LLM responses to avoid API costs.
     """
-    
+
     @unittest.skipUnless(
         CREWAI_AVAILABLE and QUALITY_MODULES_AVAILABLE,
         "CrewAI and quality modules required"
@@ -325,7 +325,7 @@ class TestEndToEndIntegration(unittest.TestCase):
             config.config['global']['enabled'],
             "Quality checking should be disabled by default"
         )
-    
+
     @unittest.skipUnless(
         CREWAI_AVAILABLE and QUALITY_MODULES_AVAILABLE,
         "CrewAI and quality modules required"
@@ -334,12 +334,12 @@ class TestEndToEndIntegration(unittest.TestCase):
         """Test complete workflow: task → quality check → retry if needed."""
         # Track execution
         execution_log = []
-        
+
         def mock_task(**kwargs):
             """Mock task with improving quality."""
             attempt = len(execution_log) + 1
             execution_log.append(f"Attempt {attempt}")
-            
+
             if attempt == 1:
                 # Poor quality on first attempt
                 return "title: Minimal"
@@ -363,7 +363,7 @@ endings:
     description: Detailed failure ending
     type: defeat
 """
-        
+
         output, _quality_score, _attempts = execute_with_quality_check(
             task_function=mock_task,
             task_type=TaskType.PLOT,
@@ -371,7 +371,7 @@ endings:
             pass_threshold=6.0,
             max_retries=3
         )
-        
+
         # Should have improved on retry
         self.assertGreater(len(execution_log), 1, "Should retry on poor quality")
         self.assertLessEqual(len(execution_log), 4, "Should not exceed max retries")
@@ -380,7 +380,7 @@ endings:
 
 class TestPerformanceRequirements(unittest.TestCase):
     """Test that performance requirements are met."""
-    
+
     @unittest.skipUnless(QUALITY_MODULES_AVAILABLE, "Quality modules not available")
     def test_quality_check_performance(self):
         """Test that quality checking adds minimal overhead."""
@@ -406,15 +406,15 @@ endings:
     description: Overwhelmed by the darkness within
     type: defeat
 """
-        
+
         # Time the quality evaluation
         evaluator = PlotEvaluator()
         start_time = time.time()
-        
+
         result = evaluator.evaluate(sample_output)
-        
+
         elapsed = time.time() - start_time
-        
+
         # Quality check should be very fast (< 1 second)
         self.assertLess(elapsed, 1.0, "Quality evaluation should be fast")
         self.assertIsInstance(result, QualityScore)
@@ -422,34 +422,34 @@ endings:
 
 class TestDocumentation(unittest.TestCase):
     """Test that quality system is properly documented."""
-    
+
     @classmethod
     def setUpClass(cls):
         """Set up class-level fixtures."""
         cls.docs_dir = Path(__file__).parent.parent / "docs"
-    
+
     def test_quality_metrics_documentation_exists(self):
         """Test that QUALITY_METRICS.md exists."""
         quality_doc = self.docs_dir / "QUALITY_METRICS.md"
-        
+
         self.assertTrue(
             quality_doc.exists(),
             "QUALITY_METRICS.md documentation should exist"
         )
-    
+
     def test_quality_checking_documentation_exists(self):
         """Test that QUALITY_CHECKING.md exists."""
         checking_doc = self.docs_dir / "QUALITY_CHECKING.md"
-        
+
         self.assertTrue(
             checking_doc.exists(),
             "QUALITY_CHECKING.md documentation should exist"
         )
-    
+
     def test_planning_templates_documentation_exists(self):
         """Test that PLANNING_TEMPLATES.md exists."""
         templates_doc = self.docs_dir / "PLANNING_TEMPLATES.md"
-        
+
         self.assertTrue(
             templates_doc.exists(),
             "PLANNING_TEMPLATES.md documentation should exist"
@@ -461,24 +461,24 @@ if __name__ == '__main__':
     print("\n" + "="*70)
     print("QUALITY SYSTEM - END-TO-END INTEGRATION TESTS")
     print("="*70)
-    
+
     if CREWAI_AVAILABLE:
         print("✓ CrewAI available")
     else:
         print("⚠ CrewAI not available - some tests will be skipped")
-    
+
     if QUALITY_MODULES_AVAILABLE:
         print("✓ Quality modules available")
     else:
         print("⚠ Quality modules not available - tests will be skipped")
-    
+
     # Check for quality config
     config_path = Path(__file__).parent.parent / "src" / "space_hulk_game" / "config" / "quality_config.yaml"
     if config_path.exists():
         print("✓ quality_config.yaml found")
     else:
         print("⚠ quality_config.yaml not found")
-    
+
     # Check for templates
     templates_dir = Path(__file__).parent.parent / "planning_templates"
     if templates_dir.exists():
@@ -486,8 +486,8 @@ if __name__ == '__main__':
         print(f"✓ Planning templates directory found ({template_count} templates)")
     else:
         print("⚠ Planning templates directory not found")
-    
+
     print("="*70 + "\n")
-    
+
     # Run tests
     unittest.main(verbosity=2)

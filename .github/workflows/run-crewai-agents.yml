@@ -33,9 +33,15 @@ jobs:
           curl -LsSf https://astral.sh/uv/install.sh | sh
           echo "$HOME/.cargo/bin" >> $GITHUB_PATH
       
+      - name: Create virtual environment
+        run: |
+          uv venv .venv
+          echo "✅ Virtual environment created at .venv"
+
       - name: Install dependencies
         run: |
-          uv pip install --system -e .
+          .venv/bin/python -m pip install -e .
+          echo "✅ Dependencies installed in virtual environment"
       
       - name: Configure environment variables
         env:
@@ -75,10 +81,11 @@ jobs:
         run: |
           echo "🚀 Starting CrewAI agent execution..."
           echo "📅 Run timestamp: $(date -Iseconds)"
-          
-          # Run the crew and capture output
+
+          # Activate virtual environment and run the crew
+          source .venv/bin/activate
           crewai run 2>&1 | tee crew_run_output.log
-          
+
           echo "✅ CrewAI execution completed"
           echo "run_timestamp=$(date +%Y%m%d_%H%M%S)" >> $GITHUB_OUTPUT
         continue-on-error: false

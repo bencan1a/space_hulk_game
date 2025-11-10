@@ -34,10 +34,16 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      
+
+      - name: Create virtual environment
+        run: |
+          python -m venv .venv
+          echo "✅ Virtual environment created at .venv"
+
       - name: Install dependencies
         run: |
-          pip install requests
+          .venv/bin/python -m pip install requests
+          echo "✅ Dependencies installed in virtual environment"
       
       - name: Run KLOC report script
         id: run_kloc
@@ -48,9 +54,9 @@ jobs:
           echo "🚀 Running KLOC report for user bencan1a..."
           echo "📅 Run timestamp: $(date -Iseconds)"
           
-          # Build the command with unbuffered output
+          # Build the command with unbuffered output (using venv python)
           # Default to specific repos for faster execution
-          CMD="python -u kloc-report.py --user bencan1a --verbose --repos CalendarBot space_hulk_game Azahar 3dsconv Python-template"
+          CMD=".venv/bin/python -u kloc-report.py --user bencan1a --verbose --repos CalendarBot space_hulk_game Azahar 3dsconv Python-template"
           
           # Add date range if provided
           if [ -n "${{ inputs.since_date }}" ]; then

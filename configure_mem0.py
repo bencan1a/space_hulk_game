@@ -20,14 +20,11 @@ Options:
 """
 
 import argparse
-import os
-import sys
 import re
-import requests
-import subprocess
+import sys
 from pathlib import Path
-from typing import Dict, Optional, Tuple
-import datetime
+
+import requests
 
 
 class Mem0Configurator:
@@ -66,7 +63,7 @@ class Mem0Configurator:
             True if successful, False otherwise
         """
         print(f"\n{'='*60}")
-        print(f"Mem0 Configuration for Space Hulk Game")
+        print("Mem0 Configuration for Space Hulk Game")
         print(f"{'='*60}\n")
         print(f"Mode: {self.mode}")
         print(f"Validate Only: {self.validate_only}")
@@ -115,7 +112,7 @@ class Mem0Configurator:
         # Check .env file
         if not self.env_file.exists():
             print(f"⚠️  Warning: .env file not found at {self.env_file}")
-            print(f"   Creating from .env.example...")
+            print("   Creating from .env.example...")
             self._create_env_file()
         print(f"✅ Found .env at {self.env_file}")
 
@@ -140,7 +137,7 @@ class Mem0Configurator:
             print("3. Add to .env: MEM0_API_KEY=m0-your-key-here")
             return False
 
-        print(f"✅ Found MEM0_API_KEY in .env")
+        print("✅ Found MEM0_API_KEY in .env")
 
         # Test API key validity
         print("   Testing API key...")
@@ -217,14 +214,14 @@ class Mem0Configurator:
         try:
             # Try to initialize client
             from mem0 import MemoryClient
-            client = MemoryClient(api_key=api_key)
+            MemoryClient(api_key=api_key)
             # Test with a simple operation
             return True
         except Exception as e:
             print(f"   Error: {str(e)}")
             return False
 
-    def _generate_configuration(self) -> Optional[Dict]:
+    def _generate_configuration(self) -> dict | None:
         """Generate configuration based on mode."""
         print(f"\nGenerating {self.mode} mode configuration...\n")
 
@@ -238,7 +235,7 @@ class Mem0Configurator:
             print(f"❌ Unknown mode: {self.mode}")
             return None
 
-    def _generate_basic_config(self) -> Dict:
+    def _generate_basic_config(self) -> dict:
         """Generate basic memory configuration."""
         return {
             "mode": "basic",
@@ -248,7 +245,7 @@ class Mem0Configurator:
             "description": "Built-in CrewAI memory with ChromaDB and SQLite"
         }
 
-    def _generate_cloud_config(self) -> Dict:
+    def _generate_cloud_config(self) -> dict:
         """Generate cloud mem0 configuration."""
         return {
             "mode": "cloud",
@@ -265,7 +262,7 @@ class Mem0Configurator:
             "description": "Cloud mem0 with managed infrastructure"
         }
 
-    def _generate_local_config(self) -> Dict:
+    def _generate_local_config(self) -> dict:
         """Generate local mem0 configuration."""
         # Vector store config
         if self.vector_store == "qdrant":
@@ -323,7 +320,7 @@ class Mem0Configurator:
             "local_config": local_mem0_config
         }
 
-    def _display_configuration(self, config: Dict) -> None:
+    def _display_configuration(self, config: dict) -> None:
         """Display the generated configuration."""
         print("Configuration Details:")
         print("-" * 60)
@@ -342,7 +339,7 @@ class Mem0Configurator:
 
         print()
 
-    def _print_dict(self, d: Dict, indent: int = 0) -> None:
+    def _print_dict(self, d: dict, indent: int = 0) -> None:
         """Pretty print a dictionary with indentation."""
         for key, value in d.items():
             if isinstance(value, dict):
@@ -351,13 +348,13 @@ class Mem0Configurator:
             else:
                 print("  " * indent + f"{key}: {value}")
 
-    def _apply_configuration(self, config: Dict) -> bool:
+    def _apply_configuration(self, config: dict) -> bool:
         """Apply the configuration to crew.py."""
         print("\nApplying configuration to crew.py...\n")
 
         try:
             # Read crew.py
-            with open(self.crew_file, 'r', encoding='utf-8') as f:
+            with open(self.crew_file, encoding='utf-8') as f:
                 crew_content = f.read()
 
             # Modify based on mode
@@ -402,7 +399,7 @@ class Mem0Configurator:
         content = re.sub(pattern, replacer, content, flags=re.DOTALL)
         return content
 
-    def _apply_cloud_config(self, content: str, config: Dict) -> str:
+    def _apply_cloud_config(self, content: str, config: dict) -> str:
         """Apply cloud mem0 configuration to crew.py."""
         # Add memory_config in __init__ if not present
         if 'self.memory_config' not in content:
@@ -415,7 +412,7 @@ class Mem0Configurator:
 
         return content
 
-    def _apply_local_config(self, content: str, config: Dict) -> str:
+    def _apply_local_config(self, content: str, config: dict) -> str:
         """Apply local mem0 configuration to crew.py."""
         # Add local_mem0_config and memory_config in __init__
         if 'self.local_mem0_config' not in content:
@@ -428,7 +425,7 @@ class Mem0Configurator:
 
         return content
 
-    def _add_memory_config_to_init(self, content: str, config: Dict) -> str:
+    def _add_memory_config_to_init(self, content: str, config: dict) -> str:
         """Add memory_config to __init__ method."""
         # Find the end of __init__ (before first @agent decorator)
         init_end_pattern = r'(\s+)(# Will be used in the crew configuration\s+self\.shared_memory = None)'
@@ -452,7 +449,7 @@ class Mem0Configurator:
 
         return content
 
-    def _update_memory_config_in_init(self, content: str, config: Dict) -> str:
+    def _update_memory_config_in_init(self, content: str, config: dict) -> str:
         """Update existing memory_config in __init__ method."""
         # Replace the existing memory_config
         pattern = r'self\.memory_config = \{[^}]+\}'
@@ -468,7 +465,7 @@ class Mem0Configurator:
         content = re.sub(pattern, replacement, content, flags=re.DOTALL)
         return content
 
-    def _add_local_config_to_init(self, content: str, config: Dict) -> str:
+    def _add_local_config_to_init(self, content: str, config: dict) -> str:
         """Add local_mem0_config to __init__ method."""
         local_config = config['local_config']
 
@@ -519,7 +516,7 @@ class Mem0Configurator:
 
         return content
 
-    def _update_local_config_in_init(self, content: str, config: Dict) -> str:
+    def _update_local_config_in_init(self, content: str, config: dict) -> str:
         """Update existing local_mem0_config in __init__ method."""
         # This is more complex - for now, just replace the whole block
         # In production, you'd want more sophisticated merging
@@ -580,19 +577,19 @@ class Mem0Configurator:
         if env_example.exists():
             import shutil
             shutil.copy(env_example, self.env_file)
-            print(f"✅ Created .env from .env.example")
+            print("✅ Created .env from .env.example")
         else:
             # Create minimal .env
             with open(self.env_file, 'w') as f:
                 f.write("# Space Hulk Game Environment Configuration\n")
                 f.write("OPENAI_MODEL_NAME=ollama/qwen2.5\n")
                 f.write("OLLAMA_BASE_URL=http://localhost:11434\n")
-            print(f"✅ Created minimal .env file")
+            print("✅ Created minimal .env file")
 
-    def _get_env_var(self, key: str) -> Optional[str]:
+    def _get_env_var(self, key: str) -> str | None:
         """Get environment variable from .env file."""
         try:
-            with open(self.env_file, 'r') as f:
+            with open(self.env_file) as f:
                 for line in f:
                     if line.strip().startswith(key + '='):
                         return line.split('=', 1)[1].strip()

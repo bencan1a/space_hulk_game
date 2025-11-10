@@ -111,17 +111,21 @@ check_python() {
 # Install UV package manager
 install_uv() {
     print_header "Installing UV Package Manager"
-    
+
     if command_exists uv; then
         print_message "$GREEN" "✓ UV is already installed"
         uv --version
     else
         print_message "$YELLOW" "Installing UV package manager..."
         curl -LsSf https://astral.sh/uv/install.sh | sh
-        
-        # Add UV to PATH for current session
-        export PATH="$HOME/.cargo/bin:$PATH"
-        
+
+        # Add UV to PATH for current session (check both possible locations)
+        if [ -f "$HOME/.local/bin/uv" ]; then
+            export PATH="$HOME/.local/bin:$PATH"
+        elif [ -f "$HOME/.cargo/bin/uv" ]; then
+            export PATH="$HOME/.cargo/bin:$PATH"
+        fi
+
         if command_exists uv; then
             print_message "$GREEN" "✓ UV installed successfully"
             uv --version
@@ -212,25 +216,27 @@ pull_model() {
     fi
 }
 
-# Install Python dependencies
+# Install Python dependencies with virtual environment
 install_python_deps() {
-    print_header "Installing Python Dependencies"
-    
+    print_header "Installing Python Dependencies with Virtual Environment"
+
     if [ "$INSTALL_DEV" = true ]; then
-        print_message "$YELLOW" "Installing project dependencies (including dev dependencies)..."
-        uv pip install -e ".[dev]"
+        print_message "$YELLOW" "Creating virtual environment and installing with dev dependencies..."
+        uv sync --dev
     else
-        print_message "$YELLOW" "Installing project dependencies..."
-        uv pip install -e .
+        print_message "$YELLOW" "Creating virtual environment and installing dependencies..."
+        uv sync
     fi
-    
-    print_message "$GREEN" "✓ Python dependencies installed successfully"
+
+    print_message "$GREEN" "✓ Virtual environment created at .venv/"
+    print_message "$GREEN" "✓ Dependencies installed from lock file"
+    print_message "$YELLOW" "📝 Activate the environment with: source .venv/bin/activate"
 }
 
 # Setup environment file
 setup_env() {
     print_header "Setting Up Environment Configuration"
-    
+
     if [ -f .env ]; then
         print_message "$GREEN" "✓ .env file already exists"
     else
@@ -258,12 +264,55 @@ EOF
     fi
 }
 
+# Setup VS Code configuration
+setup_vscode() {
+    print_header "Setting Up VS Code Configuration"
+
+    mkdir -p .vscode
+
+    if [ -f .vscode/settings.json ]; then
+        print_message "$GREEN" "✓ VS Code settings already exist"
+    else
+        print_message "$YELLOW" "Creating VS Code settings..."
+        cat > .vscode/settings.json << 'EOF'
+{
+    "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+    "python.terminal.activateEnvironment": true,
+    "python.terminal.activateEnvInCurrentTerminal": true,
+    "python.testing.pytestEnabled": false,
+    "python.testing.unittestEnabled": true,
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        "./tests",
+        "-p",
+        "test_*.py"
+    ],
+    "files.associations": {
+        "*.yaml": "yaml",
+        "*.yml": "yaml"
+    },
+    "yaml.validate": true,
+    "yaml.completion": true,
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit",
+        "source.fixAll": "explicit"
+    },
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true
+}
+EOF
+        print_message "$GREEN" "✓ VS Code settings created"
+    fi
+}
+
 # Verify installation
 verify_installation() {
     print_header "Verifying Installation"
-    
+
     local all_good=true
-    
+
     # Check Python
     if command_exists python3; then
         print_message "$GREEN" "✓ Python 3 installed"
@@ -271,7 +320,7 @@ verify_installation() {
         print_message "$RED" "✗ Python 3 not found"
         all_good=false
     fi
-    
+
     # Check UV
     if command_exists uv; then
         print_message "$GREEN" "✓ UV package manager installed"
@@ -279,12 +328,27 @@ verify_installation() {
         print_message "$RED" "✗ UV not found"
         all_good=false
     fi
-    
+
+    # Check virtual environment
+    if [ -d .venv ]; then
+        print_message "$GREEN" "✓ Virtual environment created (.venv/)"
+
+        # Test if we can import key packages
+        if .venv/bin/python -c "import crewai" 2>/dev/null; then
+            print_message "$GREEN" "✓ Python packages installed correctly"
+        else
+            print_message "$YELLOW" "⚠ Python packages may not be fully installed"
+        fi
+    else
+        print_message "$RED" "✗ Virtual environment not found"
+        all_good=false
+    fi
+
     # Check Ollama (if not skipped)
     if [ "$SKIP_OLLAMA" = false ]; then
         if command_exists ollama; then
             print_message "$GREEN" "✓ Ollama installed"
-            
+
             # Check if model is available (if not skipped)
             if [ "$SKIP_MODEL" = false ]; then
                 if ollama list | grep -q "qwen2.5"; then
@@ -297,14 +361,21 @@ verify_installation() {
             print_message "$YELLOW" "⚠ Ollama not found (skipped or not installed)"
         fi
     fi
-    
+
     # Check .env file
     if [ -f .env ]; then
         print_message "$GREEN" "✓ .env file exists"
     else
         print_message "$YELLOW" "⚠ .env file not found"
     fi
-    
+
+    # Check VS Code settings
+    if [ -f .vscode/settings.json ]; then
+        print_message "$GREEN" "✓ VS Code settings configured"
+    else
+        print_message "$YELLOW" "⚠ VS Code settings not found"
+    fi
+
     if [ "$all_good" = true ]; then
         print_message "$GREEN" "✓ All core components verified successfully"
     else
@@ -315,19 +386,28 @@ verify_installation() {
 # Print completion message
 print_completion() {
     print_header "Setup Complete!"
-    
+
     echo ""
     print_message "$GREEN" "The Space Hulk Game environment is ready!"
     echo ""
     print_message "$BLUE" "Next steps:"
-    echo "  1. Review and edit .env file if needed"
-    echo "  2. Run the game with: crewai run"
-    echo "  3. Run tests with: python -m unittest discover -s tests"
+    echo "  1. Activate the virtual environment:"
+    print_message "$YELLOW" "     source .venv/bin/activate"
+    echo ""
+    echo "  2. Review and edit .env file if needed"
+    echo ""
+    echo "  3. Run the game with:"
+    echo "     crewai run"
+    echo ""
+    echo "  4. Run tests with:"
+    echo "     python -m unittest discover -s tests"
     echo ""
     print_message "$BLUE" "For more information, see:"
     echo "  - README.md: Project overview and usage"
-    echo "  - SETUP.md: Detailed setup documentation"
-    echo "  - CONTRIBUTING.md: Development guidelines"
+    echo "  - docs/SETUP.md: Detailed setup documentation"
+    echo "  - docs/CONTRIBUTING.md: Development guidelines"
+    echo ""
+    print_message "$YELLOW" "💡 Tip: If using VS Code, reload the window to pick up the Python interpreter"
     echo ""
 }
 
@@ -336,13 +416,14 @@ main() {
     print_header "Space Hulk Game - Setup Script"
     print_message "$YELLOW" "This script will install all required dependencies"
     echo ""
-    
+
     check_python
     install_uv
     install_ollama
     pull_model
     install_python_deps
     setup_env
+    setup_vscode
     verify_installation
     print_completion
 }

@@ -1,7 +1,7 @@
 """
 Aggregates commit diff stats (adds+deletes = "churn") across all repos owned by a GitHub user,
 including forks, within a date window. Analyzes ALL commits to those repos (not filtered by author).
-Splits totals into "tests" vs "implementation" using filename/path patterns, and writes a per-file 
+Splits totals into "tests" vs "implementation" using filename/path patterns, and writes a per-file
 CSV plus an optional per-repo summary.
 
 Usage:
@@ -22,7 +22,8 @@ import os
 import re
 import sys
 import time
-from typing import Dict, Iterable, List, Optional, Tuple
+from collections.abc import Iterable
+
 import requests
 
 # -------- Configuration: test & ignore patterns (adjust to your stack) --------
@@ -30,10 +31,10 @@ TEST_RE = re.compile(r'(^|/)(test|tests|__tests__|spec|specs)/|(^|/).*(_test|\.(
 IGNORE_RE = re.compile(r'(^|/)(node_modules|dist|build|target|vendor|\.venv|\.git|coverage|out)/|(\.lock$|\.min\.js$|\.map$|\.svg$|\.png$|\.jpe?g$|\.gif$|\.pdf$|\.zip$)', re.I)
 
 # -------- Helpers --------
-def get_token() -> Optional[str]:
+def get_token() -> str | None:
     return os.getenv("GH_TOKEN") or os.getenv("GITHUB_TOKEN")
 
-def gh_headers() -> Dict[str, str]:
+def gh_headers() -> dict[str, str]:
     headers = {"Accept": "application/vnd.github+json", "User-Agent": "kloc-report-script"}
     tok = get_token()
     if tok:
@@ -71,7 +72,7 @@ def denver_tz():
         def dst(self, d): return dt.timedelta(0)
     return _Denver()
 
-def last_sunday_window_utc() -> Tuple[str, str, str]:
+def last_sunday_window_utc() -> tuple[str, str, str]:
     """Compute [since, until] in UTC ISO (Z) covering last Sunday 00:00 (Denver) to today 23:59:59 (Denver)."""
     now = dt.datetime.now(tz=denver_tz())
     # If today is Sunday, "last Sunday" is 7 days ago
@@ -86,7 +87,7 @@ def last_sunday_window_utc() -> Tuple[str, str, str]:
     label = f"{last_sun.date()} to {today_eod.date()} (America/Denver)"
     return since_utc, until_utc, label
 
-def local_dates_to_utc_range(since_local: str, until_local: str) -> Tuple[str, str, str]:
+def local_dates_to_utc_range(since_local: str, until_local: str) -> tuple[str, str, str]:
     tz = denver_tz()
     s = dt.datetime.strptime(since_local, "%Y-%m-%d").replace(tzinfo=tz)
     u = dt.datetime.strptime(until_local, "%Y-%m-%d").replace(tzinfo=tz)
@@ -98,7 +99,7 @@ def local_dates_to_utc_range(since_local: str, until_local: str) -> Tuple[str, s
         f"{s.date()} to {u.date()} (America/Denver)"
     )
 
-def gh_paginated(url: str, params: Dict[str, str]) -> Iterable[dict]:
+def gh_paginated(url: str, params: dict[str, str]) -> Iterable[dict]:
     """Yield all JSON items across pages for endpoints that return a list and use Link headers."""
     headers = gh_headers()
     while url:
@@ -107,14 +108,14 @@ def gh_paginated(url: str, params: Dict[str, str]) -> Iterable[dict]:
             reset = resp.headers.get("X-RateLimit-Reset")
             wait = max(5, int(reset) - int(time.time())) if reset and reset.isdigit() else 60
             print(f"Rate-limited. Sleeping {wait}s...", file=sys.stderr)
-            time.sleep(wait); continue
+            time.sleep(wait)
+            continue
         resp.raise_for_status()
         data = resp.json()
         if not isinstance(data, list):
             # Some endpoints return an object (e.g., search). Assume 'items' pattern (not used here).
             data = data.get("items", [])
-        for item in data:
-            yield item
+        yield from data
         # Parse Link header for next
         link = resp.headers.get("Link","")
         next_url = None
@@ -126,24 +127,26 @@ def gh_paginated(url: str, params: Dict[str, str]) -> Iterable[dict]:
         # After first page, params must be None so we don't duplicate them
         params = {}
 
-def list_repos_user(user: str) -> List[str]:
+def list_repos_user(user: str) -> list[str]:
     # https://api.github.com/users/{user}/repos
     url = f"https://api.github.com/users/{user}/repos"
     repos = []
     for repo in gh_paginated(url, {"per_page": "100", "type": "owner", "sort": "full_name"}):
         # Include forks in the analysis
         full = repo.get("full_name")
-        if full: repos.append(full)
+        if full:
+            repos.append(full)
     return repos
 
-def list_repos_org(org: str) -> List[str]:
+def list_repos_org(org: str) -> list[str]:
     # https://api.github.com/orgs/{org}/repos
     url = f"https://api.github.com/orgs/{org}/repos"
     repos = []
     for repo in gh_paginated(url, {"per_page": "100", "type": "all", "sort": "full_name"}):
         # Include forks in the analysis
         full = repo.get("full_name")
-        if full: repos.append(full)
+        if full:
+            repos.append(full)
     return repos
 
 def is_copilot_commit(commit_obj: dict) -> bool:
@@ -169,7 +172,7 @@ def commit_matches_user_or_copilot(commit_obj: dict, user: str) -> bool:
         is_copilot_commit(commit_obj)
     )
 
-def list_commits_for_repo(full_name: str, since_iso: str, until_iso: str, sleep_s: float, verbose=False) -> List[dict]:
+def list_commits_for_repo(full_name: str, since_iso: str, until_iso: str, sleep_s: float, verbose=False) -> list[dict]:
     # https://api.github.com/repos/{owner}/{repo}/commits?since=&until=
     url = f"https://api.github.com/repos/{full_name}/commits"
     params = {"since": since_iso, "until": until_iso, "per_page": "100"}
@@ -177,7 +180,8 @@ def list_commits_for_repo(full_name: str, since_iso: str, until_iso: str, sleep_
     for c in gh_paginated(url, params):
         # Include all commits to the repo (not filtering by user)
         commits.append(c)
-        if sleep_s: time.sleep(sleep_s)
+        if sleep_s:
+            time.sleep(sleep_s)
     if verbose:
         print(f"[{full_name}] total commits: {len(commits)}", file=sys.stderr)
     return commits
@@ -192,7 +196,8 @@ def get_commit_detail(full_name: str, sha: str, sleep_s: float) -> dict:
         time.sleep(wait)
         resp = requests.get(url, headers=gh_headers())
     resp.raise_for_status()
-    if sleep_s: time.sleep(sleep_s)
+    if sleep_s:
+        time.sleep(sleep_s)
     return resp.json()
 
 def main():
@@ -229,7 +234,7 @@ def main():
         repos = list_repos_org(args.org)
     else:
         repos = list_repos_user(args.user)
-    
+
     if not repos:
         print("No repositories found to scan.", file=sys.stderr)
         sys.exit(1)
@@ -243,7 +248,7 @@ def main():
     files_writer.writerow(["repo","sha","file","adds","dels","is_test"])
 
     # Per-repo aggregates
-    agg: Dict[str, Dict[str, int]] = {}
+    agg: dict[str, dict[str, int]] = {}
 
     total_add_tests = total_del_tests = 0
     total_add_impl  = total_del_impl  = 0
@@ -283,9 +288,11 @@ def main():
                 # Per-repo
                 a = agg.setdefault(full, {"adds_t":0,"dels_t":0,"adds_i":0,"dels_i":0})
                 if is_test:
-                    a["adds_t"] += adds; a["dels_t"] += dels
+                    a["adds_t"] += adds
+                    a["dels_t"] += dels
                 else:
-                    a["adds_i"] += adds; a["dels_i"] += dels
+                    a["adds_i"] += adds
+                    a["dels_i"] += dels
 
     files_out.close()
 

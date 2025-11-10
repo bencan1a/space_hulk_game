@@ -8,8 +8,8 @@ using MechanicsMetrics to score systems, rules clarity, and balance.
 import logging
 
 from .evaluator import QualityEvaluator
-from .score import QualityScore
 from .mechanics_metrics import MechanicsMetrics
+from .score import QualityScore
 
 logger = logging.getLogger(__name__)
 
@@ -17,54 +17,54 @@ logger = logging.getLogger(__name__)
 class MechanicsEvaluator(QualityEvaluator):
     """
     Evaluator for game mechanics content.
-    
+
     Uses MechanicsMetrics to evaluate game mechanics against quality criteria
     including systems completeness, rules clarity, and balance.
-    
+
     Example:
         >>> evaluator = MechanicsEvaluator()
         >>> score = evaluator.evaluate(mechanics_yaml_content)
         >>> print(f"Score: {score.score}/10")
         >>> print(score.feedback)
     """
-    
+
     def __init__(self, pass_threshold: float = 6.0):
         """
         Initialize the mechanics evaluator.
-        
+
         Args:
             pass_threshold: Minimum score required to pass (default: 6.0)
         """
         super().__init__(pass_threshold)
         logger.info(f"MechanicsEvaluator initialized with threshold {pass_threshold}")
-    
+
     def evaluate(self, content: str) -> QualityScore:
         """
         Evaluate game mechanics content.
-        
+
         Args:
             content: YAML string containing game mechanics
-            
+
         Returns:
             QualityScore with evaluation results
-            
+
         Raises:
             ValueError: If content cannot be parsed
         """
         try:
             # Parse YAML content using metrics class
             metrics = MechanicsMetrics.from_yaml_content(content)
-            
+
             # Get score and check if passes threshold
             score = metrics.get_score()
             passed = score >= self.pass_threshold
-            
+
             # Get failures for detailed feedback
             failures = metrics.get_failures()
-            
+
             # Build feedback message
             feedback = self._build_feedback(score, failures)
-            
+
             # Build details dictionary
             details = {
                 'total_systems': metrics.total_systems,
@@ -82,14 +82,14 @@ class MechanicsEvaluator(QualityEvaluator):
                 'failures': failures,
                 'threshold': self.pass_threshold
             }
-            
+
             logger.info(
                 f"Mechanics evaluation complete: score={score:.1f}, passed={passed}, "
                 f"systems={metrics.total_systems}, clarity={metrics.average_rule_clarity:.1f}"
             )
-            
+
             return self._create_score(score, passed, feedback, details)
-            
+
         except ValueError as e:
             logger.error(f"Failed to evaluate mechanics content: {e}")
             return self._create_score(
@@ -106,48 +106,48 @@ class MechanicsEvaluator(QualityEvaluator):
                 feedback=f"Unexpected error during evaluation: {str(e)}",
                 details={'error': str(e)}
             )
-    
+
     def generate_detailed_feedback(self, content: str) -> str:
         """
         Generate detailed, actionable feedback for improvement.
-        
+
         Args:
             content: YAML string containing game mechanics
-            
+
         Returns:
             Multi-line feedback with specific suggestions
         """
         result = self.evaluate(content)
-        
+
         lines = [
             f"Game Mechanics Quality Score: {result.score:.1f}/10.0",
             f"Status: {'PASS ✓' if result.passed else 'FAIL ✗'}",
             "",
         ]
-        
+
         if result.passed:
             lines.append("The game mechanics meet all quality requirements!")
         else:
             lines.append("The game mechanics need improvement:")
-        
+
         lines.append("")
-        
+
         # Add specific findings
         details = result.details
         failures = details.get('failures', [])
-        
+
         if failures:
             lines.append("Issues to address:")
             for failure in failures:
                 lines.append(f"  • {failure}")
             lines.append("")
-        
+
         # Add content statistics
         lines.append(f"System count: {details.get('total_systems', 0)} (min: 3)")
         lines.append(f"Systems with rules: {details.get('systems_with_rules', 0)}")
         lines.append(f"Completeness: {details.get('completeness_percentage', 0):.1f}%")
         lines.append(f"Average clarity: {details.get('average_rule_clarity', 0):.1f}/10")
-        
+
         # Add positive feedback
         lines.append("")
         if details.get('has_combat_system'):
@@ -162,5 +162,5 @@ class MechanicsEvaluator(QualityEvaluator):
             lines.append("✓ Rules are clear and well-explained")
         if details.get('has_balance_notes'):
             lines.append("✓ Difficulty/balance discussed")
-        
+
         return "\n".join(lines)

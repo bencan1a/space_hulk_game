@@ -11,8 +11,8 @@ This script runs a minimal test of the crew to verify:
 Usage:
     python test_crew_init.py
 """
-import sys
 import os
+import sys
 import time
 
 # Add src to path
@@ -24,47 +24,47 @@ def test_crew_initialization():
     print("Space Hulk Game - Crew Initialization Test")
     print("=" * 70)
     print()
-    
+
     try:
         print("1. Importing SpaceHulkGame class...")
         from space_hulk_game.crew import SpaceHulkGame
         print("   ✅ Import successful\n")
-        
+
         print("2. Initializing crew instance...")
         start_time = time.time()
         game = SpaceHulkGame()
         init_time = time.time() - start_time
         print(f"   ✅ Initialization successful ({init_time:.2f}s)\n")
-        
+
         print("3. Checking agents configuration...")
         print(f"   - Agents loaded: {len(game.agents_config)} agents")
         for agent_name in game.agents_config.keys():
             print(f"     • {agent_name}")
         print()
-        
+
         print("4. Checking tasks configuration...")
         print(f"   - Tasks loaded: {len(game.tasks_config)} tasks")
-        core_tasks = ['GenerateOverarchingPlot', 'CreateNarrativeMap', 
+        core_tasks = ['GenerateOverarchingPlot', 'CreateNarrativeMap',
                      'DesignArtifactsAndPuzzles', 'WriteSceneDescriptionsAndDialogue',
                      'CreateGameMechanicsPRD']
         for task_name in core_tasks:
             status = "✅" if task_name in game.tasks_config else "❌"
             print(f"     {status} {task_name}")
         print()
-        
+
         print("5. Creating crew instance...")
         start_time = time.time()
         crew = game.crew()
         crew_time = time.time() - start_time
         print(f"   ✅ Crew created successfully ({crew_time:.2f}s)\n")
-        
+
         print("6. Validating crew configuration...")
         print(f"   - Process mode: {crew.process}")
         print(f"   - Total agents: {len(crew.agents)}")
         print(f"   - Total tasks: {len(crew.tasks)}")
         print(f"   - Verbose mode: {crew.verbose}")
         print()
-        
+
         # Verify sequential mode
         from crewai import Process
         if crew.process == Process.sequential:
@@ -72,7 +72,7 @@ def test_crew_initialization():
         else:
             print(f"   ⚠️  WARNING: Unexpected process mode: {crew.process}")
         print()
-        
+
         print("7. Testing hierarchical crew creation (not default)...")
         try:
             h_crew = game.create_hierarchical_crew()
@@ -83,7 +83,7 @@ def test_crew_initialization():
         except Exception as e:
             print(f"   ⚠️  Hierarchical crew creation failed: {str(e)}")
         print()
-        
+
         print("=" * 70)
         print("✅ ALL INITIALIZATION TESTS PASSED")
         print("=" * 70)
@@ -96,15 +96,15 @@ def test_crew_initialization():
         print("  game = SpaceHulkGame()")
         print("  result = game.crew().kickoff({\"prompt\": \"Your scenario\"})")
         print()
-        
+
         return True
-        
+
     except ImportError as e:
         print(f"\n❌ Import Error: {str(e)}")
         print("\nMake sure you're running from the project root directory.")
         print("Try: cd /home/runner/work/space_hulk_game/space_hulk_game")
         return False
-        
+
     except Exception as e:
         print(f"\n❌ Initialization Error: {str(e)}")
         import traceback

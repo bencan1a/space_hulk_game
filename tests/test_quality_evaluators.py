@@ -6,26 +6,26 @@ Tests QualityScore, QualityEvaluator base class, and all 5 specific evaluators
 evaluate generated content and return standardized QualityScore results.
 """
 
-import unittest
-import sys
 import os
+import sys
+import unittest
 
 # Add src to path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
 
 from space_hulk_game.quality import (
-    QualityScore,
-    PlotEvaluator,
-    NarrativeMapEvaluator,
-    PuzzleEvaluator,
-    SceneEvaluator,
     MechanicsEvaluator,
+    NarrativeMapEvaluator,
+    PlotEvaluator,
+    PuzzleEvaluator,
+    QualityScore,
+    SceneEvaluator,
 )
 
 
 class TestQualityScore(unittest.TestCase):
     """Test QualityScore data class."""
-    
+
     def test_create_score(self):
         """Test creating a QualityScore."""
         score = QualityScore(
@@ -34,36 +34,36 @@ class TestQualityScore(unittest.TestCase):
             feedback="Good quality",
             details={'word_count': 650}
         )
-        
+
         self.assertEqual(score.score, 8.5)
         self.assertTrue(score.passed)
         self.assertEqual(score.feedback, "Good quality")
         self.assertEqual(score.details['word_count'], 650)
-    
+
     def test_score_validation(self):
         """Test that score is validated to be in range 0-10."""
         # Valid scores
         QualityScore(0.0, True, "Min")
         QualityScore(10.0, True, "Max")
         QualityScore(5.5, False, "Mid")
-        
+
         # Invalid scores
         with self.assertRaises(ValueError):
             QualityScore(-1.0, False, "Too low")
-        
+
         with self.assertRaises(ValueError):
             QualityScore(11.0, True, "Too high")
-    
+
     def test_to_dict(self):
         """Test converting score to dictionary."""
         score = QualityScore(7.5, True, "Good", {'key': 'value'})
         d = score.to_dict()
-        
+
         self.assertEqual(d['score'], 7.5)
         self.assertEqual(d['passed'], True)
         self.assertEqual(d['feedback'], "Good")
         self.assertEqual(d['details']['key'], 'value')
-    
+
     def test_from_dict(self):
         """Test creating score from dictionary."""
         data = {
@@ -73,12 +73,12 @@ class TestQualityScore(unittest.TestCase):
             'details': {'issues': 3}
         }
         score = QualityScore.from_dict(data)
-        
+
         self.assertEqual(score.score, 6.0)
         self.assertFalse(score.passed)
         self.assertEqual(score.feedback, 'Needs work')
         self.assertEqual(score.details['issues'], 3)
-    
+
     def test_get_failures(self):
         """Test extracting failures from details."""
         score = QualityScore(
@@ -86,11 +86,11 @@ class TestQualityScore(unittest.TestCase):
             {'failures': ['Issue 1', 'Issue 2']}
         )
         failures = score.get_failures()
-        
+
         self.assertEqual(len(failures), 2)
         self.assertIn('Issue 1', failures)
         self.assertIn('Issue 2', failures)
-    
+
     def test_get_summary(self):
         """Test getting formatted summary."""
         score = QualityScore(
@@ -98,7 +98,7 @@ class TestQualityScore(unittest.TestCase):
             {'word_count': 500, 'failures': []}
         )
         summary = score.get_summary()
-        
+
         self.assertIn('8.0/10.0', summary)
         self.assertIn('PASS', summary)
         self.assertIn('Good', summary)
@@ -107,15 +107,15 @@ class TestQualityScore(unittest.TestCase):
 
 class TestPlotEvaluator(unittest.TestCase):
     """Test PlotEvaluator implementation."""
-    
+
     def setUp(self):
         """Set up test evaluator."""
         self.evaluator = PlotEvaluator(pass_threshold=6.0)
-    
+
     def test_evaluator_initialization(self):
         """Test evaluator initializes correctly."""
         self.assertEqual(self.evaluator.pass_threshold, 6.0)
-    
+
     def test_evaluate_good_plot(self):
         """Test evaluating a good quality plot."""
         # Create comprehensive plot YAML with sufficient word count
@@ -144,7 +144,7 @@ plot:
     venture deeper into the hulk, they must navigate through sections of zero-gravity where
     the artificial gravity has failed, avoid deadly traps set by long-dead defenders, and
     deal with malfunctioning automated defense systems.
-    
+
     Branching Path 1:
     A) Split the team - one squad investigates engineering, another secures the bridge
     B) Keep the team together for maximum firepower and safety
@@ -154,7 +154,7 @@ plot:
     of these deadly xenos creatures. The team must fight for their lives in the narrow,
     claustrophobic corridors. During a brief respite after a fierce battle, they discover
     that they are not alone - a Dark Angels strike force arrived at the hulk days earlier.
-    
+
     Branching Path 2:
     A) Trust the Dark Angels and combine forces against the Genestealer threat
     B) Pursue objectives independently, suspicious of Dark Angels' ulterior motives
@@ -169,14 +169,14 @@ endings:
     description: "Overwhelmed by Genestealers, the team is lost"
     type: "defeat"
 """
-        
+
         result = self.evaluator.evaluate(plot_yaml)
-        
+
         self.assertIsInstance(result, QualityScore)
         self.assertGreaterEqual(result.score, 6.0)
         self.assertTrue(result.passed)
         self.assertIn('details', result.to_dict())
-    
+
     def test_evaluate_poor_plot(self):
         """Test evaluating a poor quality plot."""
         plot_yaml = """
@@ -184,35 +184,35 @@ title: "Test"
 plot:
   act1: "Something happens"
 """
-        
+
         result = self.evaluator.evaluate(plot_yaml)
-        
+
         self.assertIsInstance(result, QualityScore)
         self.assertLess(result.score, 6.0)
         self.assertFalse(result.passed)
         self.assertGreater(len(result.get_failures()), 0)
-    
+
     def test_evaluate_invalid_yaml(self):
         """Test evaluating invalid YAML."""
         invalid_yaml = "{ invalid yaml: [unclosed"
-        
+
         result = self.evaluator.evaluate(invalid_yaml)
-        
+
         self.assertEqual(result.score, 0.0)
         self.assertFalse(result.passed)
         self.assertIn('error', result.details)
-    
+
     def test_evaluate_yaml_with_colon_in_value(self):
         """Test evaluating YAML with unquoted colons in values (common LLM output)."""
         plot_yaml = """title: Space Hulk: Derelict of the Damned
-setting: 
+setting:
   location: A derelict Space Hulk
   time: Unknown
-themes: 
+themes:
   - Horror
   - Action
 plot:
-  prologue: 
+  prologue:
     - Opening scene
   act1:
     - Branching Path 1: A) Split team B) Stay together
@@ -224,15 +224,15 @@ endings:
   - name: Defeat
     type: defeat
 """
-        
+
         # Should successfully parse after automatic fix
         result = self.evaluator.evaluate(plot_yaml)
-        
+
         self.assertIsInstance(result, QualityScore)
         self.assertGreater(result.score, 0.0)  # Should not be 0 (parse error)
         self.assertTrue(result.details.get('has_title'))
         self.assertEqual(result.details.get('branching_paths_count'), 2)
-    
+
     def test_generate_detailed_feedback(self):
         """Test generating detailed feedback."""
         plot_yaml = """
@@ -242,9 +242,9 @@ themes: ["horror"]
 plot:
   prologue: "The story begins with a dark and stormy night in the derelict space hulk."
 """
-        
+
         feedback = self.evaluator.generate_detailed_feedback(plot_yaml)
-        
+
         self.assertIsInstance(feedback, str)
         self.assertIn('Quality Score', feedback)
         self.assertIn('Status', feedback)
@@ -252,11 +252,11 @@ plot:
 
 class TestNarrativeMapEvaluator(unittest.TestCase):
     """Test NarrativeMapEvaluator implementation."""
-    
+
     def setUp(self):
         """Set up test evaluator."""
         self.evaluator = NarrativeMapEvaluator(pass_threshold=6.0)
-    
+
     def test_evaluate_good_narrative(self):
         """Test evaluating a good quality narrative map."""
         narrative_yaml = """
@@ -292,13 +292,13 @@ scenes:
       - target: scene_1
         description: "Return to docking bay"
 """
-        
+
         result = self.evaluator.evaluate(narrative_yaml)
-        
+
         self.assertIsInstance(result, QualityScore)
         self.assertGreaterEqual(result.score, 6.0)
         self.assertTrue(result.passed)
-    
+
     def test_evaluate_orphaned_scenes(self):
         """Test detecting orphaned scenes."""
         narrative_yaml = """
@@ -317,20 +317,20 @@ scenes:
     description: "Unreachable scene"
     connections: []
 """
-        
+
         result = self.evaluator.evaluate(narrative_yaml)
-        
+
         # May not pass due to orphaned scene
         self.assertIn('orphaned_scenes', result.details)
 
 
 class TestPuzzleEvaluator(unittest.TestCase):
     """Test PuzzleEvaluator implementation."""
-    
+
     def setUp(self):
         """Set up test evaluator."""
         self.evaluator = PuzzleEvaluator(pass_threshold=6.0)
-    
+
     def test_evaluate_good_puzzles(self):
         """Test evaluating good quality puzzles."""
         puzzle_yaml = """
@@ -348,9 +348,9 @@ puzzles:
     narrative_tie: "Restores breathable atmosphere"
     difficulty: "hard"
 """
-        
+
         result = self.evaluator.evaluate(puzzle_yaml)
-        
+
         self.assertIsInstance(result, QualityScore)
         self.assertGreaterEqual(result.score, 6.0)
         self.assertTrue(result.passed)
@@ -358,11 +358,11 @@ puzzles:
 
 class TestSceneEvaluator(unittest.TestCase):
     """Test SceneEvaluator implementation."""
-    
+
     def setUp(self):
         """Set up test evaluator."""
         self.evaluator = SceneEvaluator(pass_threshold=6.0)
-    
+
     def test_evaluate_good_scenes(self):
         """Test evaluating good quality scene texts."""
         scene_yaml = """
@@ -402,9 +402,9 @@ scenes:
       crackles with electricity. The walls press in close. You must crouch to
       move forward. Distant sounds echo - metallic screeches, inhuman howls.
 """
-        
+
         result = self.evaluator.evaluate(scene_yaml)
-        
+
         self.assertIsInstance(result, QualityScore)
         # Should pass with vivid descriptions and sensory details
         self.assertGreaterEqual(result.score, 5.0)
@@ -412,11 +412,11 @@ scenes:
 
 class TestMechanicsEvaluator(unittest.TestCase):
     """Test MechanicsEvaluator implementation."""
-    
+
     def setUp(self):
         """Set up test evaluator."""
         self.evaluator = MechanicsEvaluator(pass_threshold=6.0)
-    
+
     def test_evaluate_good_mechanics(self):
         """Test evaluating good quality game mechanics."""
         mechanics_yaml = """
@@ -441,9 +441,9 @@ movement_system:
     available items, NPCs, and exits. Some areas are locked until puzzles are
     solved or items are found. The map reveals as players explore.
 """
-        
+
         result = self.evaluator.evaluate(mechanics_yaml)
-        
+
         self.assertIsInstance(result, QualityScore)
         self.assertGreaterEqual(result.score, 6.0)
         self.assertTrue(result.passed)
@@ -451,7 +451,7 @@ movement_system:
 
 class TestEvaluatorIntegration(unittest.TestCase):
     """Integration tests for evaluator system."""
-    
+
     def test_all_evaluators_return_quality_score(self):
         """Test that all evaluators return QualityScore instances."""
         # Minimal valid content for each type
@@ -460,7 +460,7 @@ class TestEvaluatorIntegration(unittest.TestCase):
         puzzle_yaml = "puzzles:\n  - id: p1\n    solution: yes\n    narrative_tie: yes\n    difficulty: easy"
         scene_yaml = "scenes:\n  s1:\n    description: A vivid description"
         mechanics_yaml = "systems:\n  combat:\n    description: How combat works"
-        
+
         evaluators = [
             PlotEvaluator(),
             NarrativeMapEvaluator(),
@@ -468,17 +468,17 @@ class TestEvaluatorIntegration(unittest.TestCase):
             SceneEvaluator(),
             MechanicsEvaluator(),
         ]
-        
+
         contents = [plot_yaml, narrative_yaml, puzzle_yaml, scene_yaml, mechanics_yaml]
-        
-        for evaluator, content in zip(evaluators, contents):
+
+        for evaluator, content in zip(evaluators, contents, strict=False):
             result = evaluator.evaluate(content)
             self.assertIsInstance(result, QualityScore)
             self.assertTrue(0.0 <= result.score <= 10.0)
             self.assertIsInstance(result.passed, bool)
             self.assertIsInstance(result.feedback, str)
             self.assertIsInstance(result.details, dict)
-    
+
     def test_evaluators_handle_markdown_wrapped_yaml(self):
         """Test that evaluators handle markdown-wrapped YAML."""
         plot_yaml = """```yaml
@@ -491,10 +491,10 @@ endings:
   - name: "End"
     type: "victory"
 ```"""
-        
+
         evaluator = PlotEvaluator()
         result = evaluator.evaluate(plot_yaml)
-        
+
         # Should parse successfully
         self.assertIsInstance(result, QualityScore)
         self.assertNotIn('error', result.details)

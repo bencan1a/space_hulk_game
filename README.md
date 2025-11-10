@@ -29,6 +29,11 @@ cd space_hulk_game
 # Or on Windows
 .\setup.ps1
 
+# Activate the virtual environment
+source .venv/bin/activate      # Linux/macOS/WSL
+# OR
+.venv\Scripts\activate         # Windows
+
 # Run the game
 crewai run
 ```

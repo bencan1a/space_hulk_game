@@ -5,25 +5,25 @@ Tests PlotMetrics, NarrativeMetrics, PuzzleMetrics, SceneMetrics, and MechanicsM
 to ensure they correctly evaluate generated content.
 """
 
-import unittest
-import sys
 import os
+import sys
+import unittest
 
 # Add src to path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
 
 from space_hulk_game.quality import (
-    PlotMetrics,
+    MechanicsMetrics,
     NarrativeMetrics,
+    PlotMetrics,
     PuzzleMetrics,
     SceneMetrics,
-    MechanicsMetrics,
 )
 
 
 class TestPlotMetrics(unittest.TestCase):
     """Test PlotMetrics evaluation."""
-    
+
     def test_from_dict_basic(self):
         """Test creating PlotMetrics from a basic dictionary."""
         data = {
@@ -40,9 +40,9 @@ class TestPlotMetrics(unittest.TestCase):
                 'Bad Ending: Defeat',
             ]
         }
-        
+
         metrics = PlotMetrics.from_dict(data)
-        
+
         self.assertTrue(metrics.has_title)
         self.assertTrue(metrics.has_clear_setting)
         self.assertTrue(metrics.themes_defined)
@@ -51,7 +51,7 @@ class TestPlotMetrics(unittest.TestCase):
         self.assertEqual(metrics.branching_paths_count, 2)
         self.assertEqual(metrics.endings_count, 2)
         self.assertGreater(metrics.word_count, 0)
-    
+
     def test_passes_threshold_success(self):
         """Test that a good plot passes thresholds."""
         # Create a plot with sufficient content to meet the 500 word minimum
@@ -68,7 +68,7 @@ class TestPlotMetrics(unittest.TestCase):
             "discover signs of a terrible conflict that took place centuries ago between the original Imperial "
             "Navy crew and Chaos cultists who had infiltrated the ship before its disappearance."
         )
-        
+
         act1_text = (
             "The Space Marines begin their methodical exploration of the docking bay, discovering the frozen "
             "corpses of the original crew still at their stations, perfectly preserved by the void. Ancient "
@@ -80,7 +80,7 @@ class TestPlotMetrics(unittest.TestCase):
             "sections to locate the source of the mysterious signal, while another secures the command bridge "
             "to access the ship's ancient data archives."
         )
-        
+
         act2_text = (
             "As the Marines penetrate deeper into the hulk's heart, they encounter the first wave of Genestealers, "
             "a horrifying discovery that the hulk is infested with a full brood of these deadly xenos creatures. "
@@ -92,7 +92,7 @@ class TestPlotMetrics(unittest.TestCase):
             "forces against the Genestealer threat, or pursue their own objectives independently, knowing that "
             "the Dark Angels may have ulterior motives that conflict with the Ultramarines' mission parameters."
         )
-        
+
         data = {
             'title': 'Space Hulk: The Emperor\'s Grace',
             'setting': {
@@ -100,7 +100,7 @@ class TestPlotMetrics(unittest.TestCase):
                 'time': 'M41.998, over 300 years after the ship was lost in the warp',
                 'environment': 'Hostile vacuum environment, corrupted by Chaos and infested with Genestealers'
             },
-            'themes': ['survival against overwhelming odds', 'the horror of Chaos corruption', 
+            'themes': ['survival against overwhelming odds', 'the horror of Chaos corruption',
                       'brotherhood and loyalty to the Emperor', 'the terrible price of victory'],
             'plot': {
                 'prologue': [prologue_text],
@@ -114,14 +114,14 @@ class TestPlotMetrics(unittest.TestCase):
                 'Dark Ending: Some marines succumb to corruption, forcing difficult choices about brotherhood'
             ]
         }
-        
+
         metrics = PlotMetrics.from_dict(data)
-        
-        self.assertTrue(metrics.passes_threshold(), 
+
+        self.assertTrue(metrics.passes_threshold(),
                        f"Plot should pass threshold. Failures: {metrics.get_failures()}")
         self.assertEqual(len(metrics.get_failures()), 0)
         self.assertGreaterEqual(metrics.get_score(), 8.0)
-    
+
     def test_fails_insufficient_content(self):
         """Test that a minimal plot fails thresholds."""
         data = {
@@ -130,9 +130,9 @@ class TestPlotMetrics(unittest.TestCase):
                 'act1': ['Brief']
             }
         }
-        
+
         metrics = PlotMetrics.from_dict(data)
-        
+
         self.assertFalse(metrics.passes_threshold())
         failures = metrics.get_failures()
         self.assertGreater(len(failures), 0)
@@ -141,7 +141,7 @@ class TestPlotMetrics(unittest.TestCase):
 
 class TestNarrativeMetrics(unittest.TestCase):
     """Test NarrativeMetrics evaluation."""
-    
+
     def test_from_dict_basic(self):
         """Test creating NarrativeMetrics from a basic dictionary."""
         data = {
@@ -181,16 +181,16 @@ class TestNarrativeMetrics(unittest.TestCase):
                 }
             }
         }
-        
+
         metrics = NarrativeMetrics.from_dict(data)
-        
+
         self.assertTrue(metrics.has_start_scene)
         self.assertEqual(metrics.total_scenes, 5)
         self.assertEqual(metrics.scenes_with_descriptions, 5)
         self.assertEqual(metrics.completeness_percentage, 100.0)
         self.assertTrue(metrics.all_connections_valid)
         self.assertFalse(metrics.has_orphaned_scenes)
-    
+
     def test_detects_orphaned_scenes(self):
         """Test detection of orphaned scenes."""
         data = {
@@ -212,13 +212,13 @@ class TestNarrativeMetrics(unittest.TestCase):
                 }
             }
         }
-        
+
         metrics = NarrativeMetrics.from_dict(data)
-        
+
         self.assertTrue(metrics.has_orphaned_scenes)
         self.assertIn('orphan', metrics.orphaned_scenes)
         self.assertFalse(metrics.passes_threshold())
-    
+
     def test_passes_threshold_success(self):
         """Test that a good narrative map passes."""
         data = {
@@ -234,9 +234,9 @@ class TestNarrativeMetrics(unittest.TestCase):
                 }
             }
         }
-        
+
         metrics = NarrativeMetrics.from_dict(data)
-        
+
         self.assertTrue(metrics.passes_threshold())
         self.assertEqual(len(metrics.get_failures()), 0)
         self.assertGreaterEqual(metrics.get_score(), 8.0)
@@ -244,7 +244,7 @@ class TestNarrativeMetrics(unittest.TestCase):
 
 class TestPuzzleMetrics(unittest.TestCase):
     """Test PuzzleMetrics evaluation."""
-    
+
     def test_from_dict_basic(self):
         """Test creating PuzzleMetrics from a basic dictionary."""
         data = {
@@ -267,9 +267,9 @@ class TestPuzzleMetrics(unittest.TestCase):
             'monsters': ['Genestealer'],
             'npcs': ['Wounded Marine']
         }
-        
+
         metrics = PuzzleMetrics.from_dict(data)
-        
+
         self.assertEqual(metrics.total_puzzles, 2)
         self.assertEqual(metrics.puzzles_with_solutions, 2)
         self.assertEqual(metrics.puzzles_with_difficulty, 2)
@@ -277,7 +277,7 @@ class TestPuzzleMetrics(unittest.TestCase):
         self.assertTrue(metrics.has_artifacts)
         self.assertTrue(metrics.has_monsters)
         self.assertTrue(metrics.has_npcs)
-    
+
     def test_passes_threshold_success(self):
         """Test that good puzzle design passes."""
         data = {
@@ -296,16 +296,16 @@ class TestPuzzleMetrics(unittest.TestCase):
                 }
             ]
         }
-        
+
         metrics = PuzzleMetrics.from_dict(data)
-        
+
         self.assertTrue(metrics.passes_threshold())
         self.assertGreaterEqual(metrics.get_score(), 6.0)
 
 
 class TestSceneMetrics(unittest.TestCase):
     """Test SceneMetrics evaluation."""
-    
+
     def test_from_dict_basic(self):
         """Test creating SceneMetrics from a basic dictionary."""
         vivid_desc = (
@@ -316,7 +316,7 @@ class TestSceneMetrics(unittest.TestCase):
             "whispering of unseen terrors. You can smell the decay and blood-scent "
             "that permeates the stale air."
         )
-        
+
         data = {
             'scenes': {
                 'scene1': {
@@ -346,18 +346,18 @@ class TestSceneMetrics(unittest.TestCase):
                 }
             }
         }
-        
+
         metrics = SceneMetrics.from_dict(data)
-        
+
         self.assertEqual(metrics.total_scenes, 5)
         self.assertGreater(metrics.scenes_with_vivid_descriptions, 0)
         self.assertGreater(metrics.average_description_length, 50)
         self.assertTrue(metrics.has_sensory_details)
-    
+
     def test_passes_threshold_success(self):
         """Test that good scene texts pass."""
         long_desc = " ".join(["A dark and twisted ancient corridor with flickering lights"] * 10)
-        
+
         data = {
             'scenes': {
                 f'scene{i}': {
@@ -367,16 +367,16 @@ class TestSceneMetrics(unittest.TestCase):
                 for i in range(6)
             }
         }
-        
+
         metrics = SceneMetrics.from_dict(data)
-        
+
         self.assertTrue(metrics.passes_threshold())
         self.assertGreaterEqual(metrics.get_score(), 5.0)
 
 
 class TestMechanicsMetrics(unittest.TestCase):
     """Test MechanicsMetrics evaluation."""
-    
+
     def test_from_dict_basic(self):
         """Test creating MechanicsMetrics from a basic dictionary."""
         data = {
@@ -403,16 +403,16 @@ class TestMechanicsMetrics(unittest.TestCase):
                 'balance': 'Difficulty scales moderately, ensuring fair challenge'
             }
         }
-        
+
         metrics = MechanicsMetrics.from_dict(data)
-        
+
         self.assertTrue(metrics.has_combat_system)
         self.assertTrue(metrics.has_movement_system)
         self.assertTrue(metrics.has_inventory_system)
         self.assertTrue(metrics.has_progression_system)
         self.assertGreaterEqual(metrics.total_systems, 4)
         self.assertTrue(metrics.has_balance_notes)
-    
+
     def test_passes_threshold_success(self):
         """Test that good mechanics pass."""
         data = {
@@ -437,16 +437,16 @@ class TestMechanicsMetrics(unittest.TestCase):
                 }
             }
         }
-        
+
         metrics = MechanicsMetrics.from_dict(data)
-        
+
         self.assertTrue(metrics.passes_threshold())
         self.assertGreaterEqual(metrics.get_score(), 7.0)
 
 
 class TestMetricsIntegration(unittest.TestCase):
     """Test metrics integration and common patterns."""
-    
+
     def test_to_dict_all_metrics(self):
         """Test that all metrics can be converted to dict."""
         metrics_classes = [
@@ -456,21 +456,21 @@ class TestMetricsIntegration(unittest.TestCase):
             SceneMetrics,
             MechanicsMetrics,
         ]
-        
+
         for metrics_class in metrics_classes:
             metrics = metrics_class()
             result = metrics.to_dict()
-            
+
             # All metrics should have these keys
             self.assertIn('passes_threshold', result)
             self.assertIn('score', result)
             self.assertIn('failures', result)
-            
+
             # Check types
             self.assertIsInstance(result['passes_threshold'], bool)
             self.assertIsInstance(result['score'], float)
             self.assertIsInstance(result['failures'], list)
-    
+
     def test_score_range(self):
         """Test that scores are always in valid range."""
         metrics_classes = [
@@ -480,11 +480,11 @@ class TestMetricsIntegration(unittest.TestCase):
             SceneMetrics,
             MechanicsMetrics,
         ]
-        
+
         for metrics_class in metrics_classes:
             metrics = metrics_class()
             score = metrics.get_score()
-            
+
             self.assertGreaterEqual(score, 0.0)
             self.assertLessEqual(score, 10.0)
 

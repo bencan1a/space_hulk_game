@@ -18,8 +18,24 @@ This is a text-based adventure game set in the Warhammer 40K Space Hulk universe
 
 ## Essential Commands
 
+**Important:** The setup script creates a `.venv` virtual environment. You must activate it before running any commands:
+
+```bash
+# Activate virtual environment
+source .venv/bin/activate      # Linux/macOS/WSL
+.venv\Scripts\activate         # Windows
+
+# You should see (.venv) prefix in your terminal prompt
+```
+
+**Note:** VS Code will automatically detect and use the `.venv` virtual environment after you reload the window.
+
 ### Running the Game
 ```bash
+# Ensure virtual environment is activated first!
+source .venv/bin/activate      # Linux/macOS/WSL
+.venv\Scripts\activate         # Windows
+
 # Standard execution
 crewai run
 
@@ -32,6 +48,10 @@ crewai run --inputs "prompt: Your scenario"
 
 ### Testing
 ```bash
+# Ensure virtual environment is activated first!
+source .venv/bin/activate      # Linux/macOS/WSL
+.venv\Scripts\activate         # Windows
+
 # Run all tests (mock mode, no API required)
 python -m unittest discover -s tests -v
 
@@ -49,14 +69,28 @@ python validate_api.py
 
 ### Setup & Dependencies
 ```bash
-# Automated setup (includes Ollama, dependencies, .env)
+# Automated setup (includes Ollama, dependencies, .env, virtual environment)
 ./setup.sh              # Linux/macOS
 .\setup.ps1             # Windows
 
-# Manual dependency installation
+# For development with type checking and linting tools
+./setup.sh --dev        # Linux/macOS
+.\setup.ps1 -Dev        # Windows
+
+# After setup, activate the virtual environment
+source .venv/bin/activate      # Linux/macOS/WSL
+.venv\Scripts\activate         # Windows
+
+# Manual dependency installation (with venv activated)
 crewai install
 # OR
 uv pip install -e .
+
+# Install with dev dependencies (includes mypy, pytest, black, ruff, type stubs)
+uv pip install -e ".[dev]"
+
+# Install type stubs only (if getting mypy errors about missing stubs)
+pip install types-pyyaml
 
 # Start Ollama (if using local LLM)
 ollama serve
@@ -65,6 +99,10 @@ ollama pull qwen2.5
 
 ### CrewAI Development Commands
 ```bash
+# Ensure virtual environment is activated first!
+source .venv/bin/activate      # Linux/macOS/WSL
+.venv\Scripts\activate         # Windows
+
 # Train the crew
 python -m space_hulk_game.main train <iterations> <filename>
 
@@ -300,11 +338,15 @@ space_hulk_game/
 
 ## Environment Setup
 
-1. **Copy .env.example to .env**: `cp .env.example .env`
-2. **Configure LLM provider**: Edit `.env` with your API key and model
-3. **Install dependencies**: `./setup.sh` or `crewai install`
+1. **Run setup script**: `./setup.sh` (Linux/macOS) or `.\setup.ps1` (Windows)
+2. **Activate virtual environment**:
+   - Linux/macOS/WSL: `source .venv/bin/activate`
+   - Windows: `.venv\Scripts\activate`
+3. **Configure LLM provider**: Edit `.env` with your API key and model
 4. **Start Ollama** (if using local): `ollama serve`
 5. **Validate setup**: `python validate_api.py`
+
+**Important:** The setup script creates a `.venv` virtual environment containing all dependencies. Always activate it before running commands.
 
 For CI/CD environments, set API keys as environment variables instead of using `.env` files.
 
