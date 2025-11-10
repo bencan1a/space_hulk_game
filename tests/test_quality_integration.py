@@ -18,10 +18,8 @@ Date: November 2025
 import os
 import sys
 import unittest
-import tempfile
-import shutil
 import time
-from unittest.mock import patch, MagicMock, Mock
+from unittest.mock import patch
 from pathlib import Path
 
 # Add the src directory to the path
@@ -32,19 +30,21 @@ CREWAI_AVAILABLE = False
 QUALITY_MODULES_AVAILABLE = False
 
 try:
-    from crewai import Agent, Crew, Task, Process, LLM
+    import crewai
     CREWAI_AVAILABLE = True
 except ImportError:
+    # CrewAI not available - some tests will be skipped
     pass
 
 try:
-    from src.space_hulk_game.quality.integration import QualityCheckConfig, TaskExecutor
+    from src.space_hulk_game.quality.integration import QualityCheckConfig
     from src.space_hulk_game.quality.retry import TaskType, execute_with_quality_check
     from src.space_hulk_game.quality.score import QualityScore
     from src.space_hulk_game.quality.plot_evaluator import PlotEvaluator
     from src.space_hulk_game.quality.narrative_evaluator import NarrativeMapEvaluator
     QUALITY_MODULES_AVAILABLE = True
 except ImportError as e:
+    # Quality modules not available - tests will be skipped
     print(f"⚠ Quality modules not available: {e}")
 
 
@@ -192,18 +192,17 @@ endings:
 """
         
         # Execute with quality checking
-        output, quality_score, attempts = execute_with_quality_check(
+        output, _quality_score, _attempts = execute_with_quality_check(
             task_function=mock_task_executor,
             task_type=TaskType.PLOT,
             task_name="Test Plot Task",
             pass_threshold=6.0,
             max_retries=3
         )
-        result = output
         
         # Should have retried at least once
         self.assertGreater(call_count[0], 1, "Retry logic should have activated")
-        self.assertIsNotNone(result)
+        self.assertIsNotNone(output)
     
     @unittest.skipUnless(QUALITY_MODULES_AVAILABLE, "Quality modules not available")
     def test_retry_limit_enforced(self):
@@ -216,18 +215,17 @@ endings:
             return "title: Bad"  # Always poor quality
         
         # Execute with quality checking and low retry limit
-        output, quality_score, attempts = execute_with_quality_check(
+        output, _quality_score, _attempts = execute_with_quality_check(
             task_function=mock_task_always_poor,
             task_type=TaskType.PLOT,
             task_name="Test Poor Task",
             pass_threshold=6.0,
             max_retries=2
         )
-        result = output
         
         # Should have tried max_retries times (not max_retries + 1)
         self.assertEqual(call_count[0], 2, "Should execute max_retries times")
-        self.assertIsNotNone(result, "Should return last attempt even if poor")
+        self.assertIsNotNone(output, "Should return last attempt even if poor")
 
 
 class TestQualityScoreLogging(unittest.TestCase):
@@ -366,19 +364,18 @@ endings:
     type: defeat
 """
         
-        output, quality_score, attempts = execute_with_quality_check(
+        output, _quality_score, _attempts = execute_with_quality_check(
             task_function=mock_task,
             task_type=TaskType.PLOT,
             task_name="Test Integration Task",
             pass_threshold=6.0,
             max_retries=3
         )
-        result = output
         
         # Should have improved on retry
         self.assertGreater(len(execution_log), 1, "Should retry on poor quality")
         self.assertLessEqual(len(execution_log), 4, "Should not exceed max retries")
-        self.assertIsNotNone(result)
+        self.assertIsNotNone(output)
 
 
 class TestPerformanceRequirements(unittest.TestCase):
@@ -426,10 +423,14 @@ endings:
 class TestDocumentation(unittest.TestCase):
     """Test that quality system is properly documented."""
     
+    @classmethod
+    def setUpClass(cls):
+        """Set up class-level fixtures."""
+        cls.docs_dir = Path(__file__).parent.parent / "docs"
+    
     def test_quality_metrics_documentation_exists(self):
         """Test that QUALITY_METRICS.md exists."""
-        docs_dir = Path(__file__).parent.parent / "docs"
-        quality_doc = docs_dir / "QUALITY_METRICS.md"
+        quality_doc = self.docs_dir / "QUALITY_METRICS.md"
         
         self.assertTrue(
             quality_doc.exists(),
@@ -438,8 +439,7 @@ class TestDocumentation(unittest.TestCase):
     
     def test_quality_checking_documentation_exists(self):
         """Test that QUALITY_CHECKING.md exists."""
-        docs_dir = Path(__file__).parent.parent / "docs"
-        checking_doc = docs_dir / "QUALITY_CHECKING.md"
+        checking_doc = self.docs_dir / "QUALITY_CHECKING.md"
         
         self.assertTrue(
             checking_doc.exists(),
@@ -448,8 +448,7 @@ class TestDocumentation(unittest.TestCase):
     
     def test_planning_templates_documentation_exists(self):
         """Test that PLANNING_TEMPLATES.md exists."""
-        docs_dir = Path(__file__).parent.parent / "docs"
-        templates_doc = docs_dir / "PLANNING_TEMPLATES.md"
+        templates_doc = self.docs_dir / "PLANNING_TEMPLATES.md"
         
         self.assertTrue(
             templates_doc.exists(),
