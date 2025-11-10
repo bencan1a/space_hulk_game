@@ -664,8 +664,8 @@ Ready to proceed to Phase 4 (Game Engine).
 - Executed Chunk 4.5: Game Validator implementation using Principal Engineer custom agent
 - Created src/space_hulk_game/engine/validator.py (597 lines)
   - ValidationResult dataclass for storing validation results
-    - Fields: issues (List[str]), warnings (List[str]), suggestions (List[str])
-    - Statistics tracking: total_scenes, total_items, total_npcs, total_events
+    - Fields: issues (List[str]), warnings (List[str]), suggestions (Dict[str, List[str]])
+    - Statistics tracking: total_scenes, total_items, total_npcs
     - is_valid property (returns False if critical issues exist)
     - get_summary() method for readable validation reports
   - GameValidator class with comprehensive validation logic

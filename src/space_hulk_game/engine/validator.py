@@ -25,10 +25,9 @@ Example:
 import logging
 from collections import deque
 from dataclasses import dataclass, field
-from typing import Dict, List, Set, Optional, Any
+from typing import Dict, List, Set, Any
 from .game_data import GameData
 from .scene import Scene
-from .entities import Item, NPC
 
 
 # Configure logging
@@ -280,6 +279,11 @@ class GameValidator:
             f"{len(result.warnings)} warnings"
         )
         
+        # If strict_mode is enabled, treat warnings as errors
+        if self.strict_mode:
+            result.issues.extend(result.warnings)
+            result.warnings.clear()
+        
         return result
     
     def _find_reachable_scenes(
@@ -455,7 +459,6 @@ class GameValidator:
         Checks:
         - Locked exits requiring non-existent items
         - NPCs giving non-existent items
-        - Items required by other items
         
         Args:
             game_data: The game data to check.
@@ -476,36 +479,32 @@ class GameValidator:
                 # Only check if it looks like an item (not a flag pattern)
                 if required_item and not required_item.startswith('flag_'):
                     if required_item not in all_items:
-                        # Could be a game flag, check if it's in global items
-                        if required_item not in game_data.global_items:
-                            result.add_warning(
-                                f"Scene '{scene_id}' exit '{direction}' requires "
-                                f"'{required_item}' which may not exist as an item "
-                                f"(could be a flag)"
-                            )
+                        result.add_warning(
+                            f"Scene '{scene_id}' exit '{direction}' requires "
+                            f"'{required_item}' which may not exist as an item "
+                            f"(could be a flag)"
+                        )
         
         # Check NPCs giving items
         for scene_id, scene in game_data.scenes.items():
             for npc in scene.npcs:
                 if npc.gives_item and npc.gives_item not in all_items:
-                    if npc.gives_item not in game_data.global_items:
-                        result.add_issue(
-                            f"NPC '{npc.id}' in scene '{scene_id}' gives item "
-                            f"'{npc.gives_item}' which does not exist"
-                        )
-                        result.add_suggestion(
-                            scene_id,
-                            f"Create item '{npc.gives_item}' or update NPC '{npc.id}'"
-                        )
+                    result.add_issue(
+                        f"NPC '{npc.id}' in scene '{scene_id}' gives item "
+                        f"'{npc.gives_item}' which does not exist"
+                    )
+                    result.add_suggestion(
+                        scene_id,
+                        f"Create item '{npc.gives_item}' or update NPC '{npc.id}'"
+                    )
         
         # Also check global NPCs
         for npc_id, npc in game_data.global_npcs.items():
             if npc.gives_item and npc.gives_item not in all_items:
-                if npc.gives_item not in game_data.global_items:
-                    result.add_issue(
-                        f"Global NPC '{npc_id}' gives item '{npc.gives_item}' "
-                        f"which does not exist"
-                    )
+                result.add_issue(
+                    f"Global NPC '{npc_id}' gives item '{npc.gives_item}' "
+                    f"which does not exist"
+                )
     
     def _check_npc_dialogues(
         self,
@@ -537,6 +536,21 @@ class GameValidator:
                     result.add_warning(
                         f"NPC '{npc.id}' in scene '{scene_id}' has empty dialogue"
                     )
+                    result.add_suggestion(
+                        scene_id,
+                        f"Add dialogue content for NPC '{npc.id}'"
+                    )
+        
+        # Check global NPCs for dialogue issues
+        for npc_id, npc in game_data.global_npcs.items():
+            if not npc.dialogue:
+                result.add_warning(
+                    f"Global NPC '{npc_id}' has no dialogue"
+                )
+            elif all(not v for v in npc.dialogue.values()):
+                result.add_warning(
+                    f"Global NPC '{npc_id}' has empty dialogue"
+                )
     
     def _check_locked_exits(
         self,

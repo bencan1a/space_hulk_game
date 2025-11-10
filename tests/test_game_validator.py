@@ -203,7 +203,7 @@ class TestGameValidator(unittest.TestCase):
         self.assertEqual(result.stats["reachable_scenes"], 2)
         
         # Should suggest connection
-        self.assertTrue(len(result.suggestions) > 0)
+        self.assertGreater(len(result.suggestions), 0)
     
     def test_detect_invalid_exits(self):
         """Test detection of exits pointing to non-existent scenes."""
@@ -504,7 +504,7 @@ class TestGameValidator(unittest.TestCase):
         )
         
         # Should have suggestions
-        self.assertTrue(len(result.suggestions) > 0)
+        self.assertGreater(len(result.suggestions), 0)
     
     def test_find_reachable_scenes(self):
         """Test the BFS algorithm for finding reachable scenes."""
@@ -616,6 +616,43 @@ class TestGameValidator(unittest.TestCase):
         self.assertEqual(result.stats["total_npcs"], 1)
         self.assertEqual(result.stats["starting_scene"], "start")
         self.assertEqual(result.stats["reachable_scenes"], 1)
+    
+    def test_strict_mode(self):
+        """Test that strict_mode converts warnings to errors."""
+        # Create game with NPC that has no dialogue (generates warning)
+        npc = NPC(
+            id="silent_npc",
+            name="Silent NPC",
+            description="A quiet character"
+        )
+        scene = Scene(
+            id="start",
+            name="Start",
+            description="Starting room",
+            exits={},
+            npcs=[npc]
+        )
+        
+        game_data = GameData(
+            title="Test Game",
+            description="Test",
+            scenes={"start": scene},
+            starting_scene="start",
+            endings=[{"scene_id": "start"}]
+        )
+        
+        # Normal mode - should have warning but no issues
+        validator_normal = GameValidator(strict_mode=False)
+        result_normal = validator_normal.validate_game(game_data)
+        self.assertTrue(result_normal.is_valid())
+        self.assertGreater(len(result_normal.warnings), 0)
+        
+        # Strict mode - warnings should become issues
+        validator_strict = GameValidator(strict_mode=True)
+        result_strict = validator_strict.validate_game(game_data)
+        self.assertFalse(result_strict.is_valid())
+        self.assertGreater(len(result_strict.issues), 0)
+        self.assertEqual(len(result_strict.warnings), 0)
 
 
 if __name__ == '__main__':
