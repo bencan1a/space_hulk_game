@@ -34,6 +34,8 @@ from .persistence import (
     delete_save,
     PersistenceError,
 )
+from .game_data import GameData
+from .loader import ContentLoader, LoaderError, YAMLParseError, ValidationError
 
 __all__ = [
     'GameState',
@@ -59,4 +61,9 @@ __all__ = [
     'list_save_files',
     'delete_save',
     'PersistenceError',
+    'GameData',
+    'ContentLoader',
+    'LoaderError',
+    'YAMLParseError',
+    'ValidationError',
 ]
