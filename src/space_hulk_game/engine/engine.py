@@ -13,9 +13,7 @@ Example:
 """
 
 import logging
-from typing import Dict, Optional, Callable, Tuple
-from io import StringIO
-import sys
+from typing import Dict, Optional, Callable
 
 from .game_state import GameState
 from .scene import Scene
@@ -121,6 +119,12 @@ class TextAdventureEngine:
         # Win/loss conditions
         self.victory_conditions = victory_conditions or set()
         self.defeat_conditions = defeat_conditions or set()
+        
+        # Build item registry from all scenes
+        self._item_registry: Dict[str, Item] = {}
+        for scene in scenes.values():
+            for item in scene.items:
+                self._item_registry[item.id] = item
         
         # Validate initial state
         if game_state.current_scene not in scenes:
@@ -303,6 +307,10 @@ class TextAdventureEngine:
         self.game_state.add_item(item.id)
         current_scene.remove_item(item.id)
         
+        # Register item in registry if not already there
+        if item.id not in self._item_registry:
+            self._item_registry[item.id] = item
+        
         self._output(f"\nYou take the {item.name}.\n")
         logger.info(f"Took item: {item.id}")
     
@@ -318,26 +326,26 @@ class TextAdventureEngine:
             logger.debug(f"Item not in inventory: {item_id}")
             return
         
-        # Find item in inventory (we need the full Item object)
-        # For now, we'll create a simple Item object
-        # In a full implementation, we'd maintain item objects separately
-        current_scene = self.scenes[self.game_state.current_scene]
+        # Get the item from registry
+        item = self._item_registry.get(item_id)
+        if item is None:
+            # Item not in registry - create a basic item as fallback
+            item = Item(
+                id=item_id,
+                name=item_id.replace('_', ' ').title(),
+                description=f"A {item_id.replace('_', ' ')}.",
+                takeable=True
+            )
+            self._item_registry[item_id] = item
         
         # Remove from inventory
         self.game_state.remove_item(item_id)
         
-        # We need to add it back to the scene, but we need the Item object
-        # For simplicity, create a basic item
-        # In production, items would be stored in a registry
-        dropped_item = Item(
-            id=item_id,
-            name=item_id.replace('_', ' ').title(),
-            description=f"A {item_id.replace('_', ' ')}.",
-            takeable=True
-        )
-        current_scene.add_item(dropped_item)
+        # Add to current scene
+        current_scene = self.scenes[self.game_state.current_scene]
+        current_scene.add_item(item)
         
-        self._output(f"\nYou drop the {dropped_item.name}.\n")
+        self._output(f"\nYou drop the {item.name}.\n")
         logger.info(f"Dropped item: {item_id}")
     
     def handle_use(self, item_id: str, target_id: Optional[str] = None) -> None:
@@ -354,38 +362,85 @@ class TextAdventureEngine:
             logger.debug(f"Item not in inventory: {item_id}")
             return
         
-        # For now, we'll implement basic item use logic
-        # In a full implementation, items would have use effects defined
-        
-        # Handle healing items
-        if 'medkit' in item_id.lower() or 'heal' in item_id.lower():
-            heal_amount = 30
-            self.game_state.heal(heal_amount)
-            self._output(f"\nYou use the {item_id}. You feel better! (+{heal_amount} HP)\n")
-            self.game_state.remove_item(item_id)
-            logger.info(f"Used healing item: {item_id}")
+        # Get the item from registry
+        item = self._item_registry.get(item_id)
+        if item is None:
+            self._output(f"\nYou can't use the {item_id}.\n")
+            logger.warning(f"Item not in registry: {item_id}")
             return
         
-        # Handle key items
-        if 'key' in item_id.lower() and target_id:
+        # Check if item is useable
+        if not item.useable:
+            self._output(f"\nYou can't use the {item.name}.\n")
+            logger.debug(f"Item not useable: {item_id}")
+            return
+        
+        # Check if item has required flag
+        if item.required_flag and not self.game_state.get_flag(item.required_flag):
+            self._output(f"\nYou can't use the {item.name} right now.\n")
+            logger.debug(f"Missing required flag for item: {item.required_flag}")
+            return
+        
+        # Display use text if available
+        if item.use_text:
+            self._output(f"\n{item.use_text}\n")
+        
+        # Apply item effects
+        effects_applied = False
+        
+        # Handle healing effect
+        if 'heal' in item.effects:
+            heal_amount = item.effects['heal']
+            self.game_state.heal(heal_amount)
+            if not item.use_text:
+                self._output(f"\nYou use the {item.name}. You feel better! (+{heal_amount} HP)\n")
+            effects_applied = True
+            # Remove consumable healing items
+            self.game_state.remove_item(item_id)
+            logger.info(f"Used healing item: {item_id}, healed {heal_amount} HP")
+        
+        # Handle unlock effect
+        if 'unlock' in item.effects:
             current_scene = self.scenes[self.game_state.current_scene]
+            unlock_target = item.effects['unlock']
             
-            # Try to unlock an exit
-            for direction, locked_item in current_scene.locked_exits.items():
-                if locked_item == item_id:
+            # Try to unlock the specified exit or any locked exit that requires this item
+            unlocked = False
+            for direction, locked_item in list(current_scene.locked_exits.items()):
+                if locked_item == item_id or (target_id and direction == target_id):
                     current_scene.unlock_exit(direction)
-                    self._output(f"\nYou use the {item_id}. You hear a click as the lock opens.\n")
+                    if not item.use_text:
+                        self._output(f"\nYou use the {item.name}. You hear a click as the lock opens.\n")
                     logger.info(f"Unlocked exit: {direction}")
-                    return
+                    unlocked = True
+                    effects_applied = True
+                    break
+            
+            if not unlocked and not item.use_text:
+                self._output(f"\nThe {item.name} doesn't seem to unlock anything here.\n")
         
-        # Generic use
-        self._output(f"\nYou use the {item_id}.")
-        if target_id:
-            self._output(f" Nothing seems to happen with the {target_id}.\n")
-        else:
-            self._output(" Nothing happens.\n")
+        # Handle damage effect
+        if 'damage' in item.effects:
+            damage_amount = item.effects['damage']
+            self.game_state.take_damage(damage_amount)
+            if not item.use_text:
+                self._output(f"\nYou use the {item.name}. It hurts! (-{damage_amount} HP)\n")
+            effects_applied = True
+            logger.info(f"Used damaging item: {item_id}, dealt {damage_amount} damage")
         
-        logger.debug(f"Used item: {item_id} on {target_id}")
+        # Handle flag setting effect
+        if 'set_flag' in item.effects:
+            flag_name = item.effects['set_flag']
+            self.game_state.set_flag(flag_name, True)
+            if not item.use_text:
+                self._output(f"\nYou use the {item.name}.\n")
+            effects_applied = True
+            logger.info(f"Set flag from item use: {flag_name}")
+        
+        # If no effects were applied and no use_text, show generic message
+        if not effects_applied and not item.use_text:
+            self._output(f"\nYou use the {item.name}. Nothing happens.\n")
+            logger.debug(f"Used item with no effects: {item_id}")
     
     def handle_look(self, target: Optional[str] = None) -> None:
         """
@@ -573,13 +628,13 @@ Type 'help' for a list of commands. Type 'quit' to exit.
     
     def _get_health_bar(self, percent: float) -> str:
         """
-        Generate a visual health bar.
+        Generate a visual health bar with status indicators.
         
         Args:
             percent: Health percentage (0-100).
             
         Returns:
-            A string representing a health bar.
+            A string representing a health bar with status indicator.
         """
         bar_length = 20
         filled = int((percent / 100) * bar_length)
@@ -587,13 +642,13 @@ Type 'help' for a list of commands. Type 'quit' to exit.
         
         bar = "█" * filled + "░" * empty
         
-        # Color coding based on health
+        # Add status indicators based on health
         if percent > 75:
-            return f"[{bar}]"  # Good
+            return f"[{bar}] (Good)"
         elif percent > 25:
-            return f"[{bar}]"  # Warning
+            return f"[{bar}] (Warning)"
         else:
-            return f"[{bar}]"  # Critical
+            return f"[{bar}] (CRITICAL)"
     
     def _process_entry_events(self) -> None:
         """Process events that trigger on entering the current scene."""

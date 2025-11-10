@@ -196,10 +196,18 @@ def _validate_save_data(save_data: Dict) -> None:
     if not isinstance(version, str):
         raise PersistenceError("Invalid version format")
     
-    # Could add version-specific validation here
-    major_version = version.split('.')[0]
-    if major_version != '1':
-        logger.warning(f"Loading save file from different version: {version}")
+    # Validate version format and check compatibility
+    try:
+        version_parts = version.split('.')
+        if len(version_parts) < 1:
+            raise PersistenceError(f"Invalid version format: {version}")
+        major_version = version_parts[0]
+        if not major_version.isdigit():
+            raise PersistenceError(f"Invalid version format: {version}")
+        if major_version != '1':
+            logger.warning(f"Loading save file from different version: {version}")
+    except (AttributeError, IndexError) as e:
+        raise PersistenceError(f"Invalid version format: {version}") from e
     
     # Validate game_state structure
     if not isinstance(save_data['game_state'], dict):
@@ -282,10 +290,15 @@ def list_save_files(save_directory: str = "saves") -> list:
         if not save_dir.exists():
             return []
         
-        save_files = list(save_dir.glob("*.json"))
-        save_files.sort(key=lambda p: p.stat().st_mtime, reverse=True)
+        # Use a list to avoid multiple stat() calls
+        save_files = []
+        for file_path in save_dir.glob("*.json"):
+            save_files.append((file_path, file_path.stat().st_mtime))
         
-        return [str(f) for f in save_files]
+        # Sort by modification time (newest first)
+        save_files.sort(key=lambda x: x[1], reverse=True)
+        
+        return [str(f[0]) for f in save_files]
         
     except Exception as e:
         logger.error(f"Failed to list save files: {e}")

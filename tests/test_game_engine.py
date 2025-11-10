@@ -8,7 +8,6 @@ and persistence.
 import unittest
 import tempfile
 import os
-from io import StringIO
 from typing import List
 
 from src.space_hulk_game.engine.engine import TextAdventureEngine
@@ -125,7 +124,8 @@ class TestActionHandlers(unittest.TestCase):
             name="Medical Kit",
             description="A standard medkit.",
             takeable=True,
-            useable=True
+            useable=True,
+            effects={'heal': 30}
         )
         
         self.item2 = Item(
@@ -720,10 +720,10 @@ class TestScriptedPlaythrough(unittest.TestCase):
             )
         }
         
-        # Commands: take key, try to go north (should fail), use key, go north, quit
+        # Commands: take key, go north (should succeed - have key), inventory, quit
         commands = [
             "take brass key",
-            "go north",  # Should fail - still locked
+            "go north",  # Should succeed - player has the required key
             "inventory",
             "quit",
             "yes"
@@ -742,6 +742,8 @@ class TestScriptedPlaythrough(unittest.TestCase):
         
         # Verify state
         self.assertIn("brass_key", state.inventory)
+        # Player should have successfully moved to locked_room (had the key)
+        self.assertEqual(state.current_scene, "locked_room")
         
         output = mock_io.get_all_output()
         self.assertIn("Brass Key", output)
