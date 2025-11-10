@@ -36,6 +36,7 @@ from .persistence import (
 )
 from .game_data import GameData
 from .loader import ContentLoader, LoaderError, YAMLParseError, ValidationError
+from .validator import GameValidator, ValidationResult
 
 __all__ = [
     'GameState',
@@ -66,4 +67,6 @@ __all__ = [
     'LoaderError',
     'YAMLParseError',
     'ValidationError',
+    'GameValidator',
+    'ValidationResult',
 ]
