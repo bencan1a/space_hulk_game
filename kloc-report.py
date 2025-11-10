@@ -168,7 +168,7 @@ def commit_matches_user_or_copilot(commit_obj: dict, user: str) -> bool:
         is_copilot_commit(commit_obj)
     )
 
-def list_commits_for_repo(full_name: str, since_iso: str, until_iso: str, user: str, sleep_s: float, verbose=False) -> List[dict]:
+def list_commits_for_repo(full_name: str, since_iso: str, until_iso: str, sleep_s: float, verbose=False) -> List[dict]:
     # https://api.github.com/repos/{owner}/{repo}/commits?since=&until=
     url = f"https://api.github.com/repos/{full_name}/commits"
     params = {"since": since_iso, "until": until_iso, "per_page": "100"}
@@ -233,7 +233,7 @@ def main():
     total_add_impl  = total_del_impl  = 0
 
     for full in repos:
-        commits = list_commits_for_repo(full, since_iso, until_iso, args.user, args.sleep, args.verbose)
+        commits = list_commits_for_repo(full, since_iso, until_iso, args.sleep, args.verbose)
         if not commits:
             continue
 

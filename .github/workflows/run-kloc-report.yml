@@ -42,7 +42,7 @@ jobs:
       - name: Run KLOC report script
         id: run_kloc
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "🚀 Running KLOC report for user bencan1a..."
           echo "📅 Run timestamp: $(date -Iseconds)"
@@ -95,7 +95,7 @@ jobs:
         if: always()
         id: summary
         run: |
-          cat > kloc_summary.md << 'EOF'
+          cat > kloc_summary.md << EOF
           # KLOC Report Summary
           
           **Timestamp**: $(date -Iseconds)
