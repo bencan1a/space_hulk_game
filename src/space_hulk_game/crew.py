@@ -74,7 +74,6 @@ Known Issues & Mitigations:
 import datetime
 import logging
 import os
-import re
 from pathlib import Path
 from typing import Any, cast
 
@@ -84,7 +83,6 @@ from crewai.project import CrewBase, after_kickoff, agent, before_kickoff, crew,
 
 from space_hulk_game.config.hierarchical_tasks import HIERARCHICAL_TASKS
 from space_hulk_game.utils.output_sanitizer import OutputSanitizer
-from space_hulk_game.utils.yaml_processor import strip_markdown_yaml_blocks
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -566,147 +564,26 @@ class SpaceHulkGame:
         # Default fallback
         return {"error": error_message, "recovered": False}
 
-    def clean_yaml_output_files(self):
-        """
-        Post-process YAML output files to remove markdown code fences and fix common YAML issues.
-
-        The LLM sometimes:
-        1. Wraps YAML content in markdown code blocks (```yml ... ```)
-        2. Uses em dashes (-) instead of hyphens (--)
-        3. Creates improper line continuations in multiline strings
-        4. Generates numbered lists that break YAML syntax
-
-        This method cleans all these issues.
-        """
-        output_files = [
-            "game-config/plot_outline.yaml",
-            "game-config/narrative_map.yaml",
-            "game-config/puzzle_design.yaml",
-            "game-config/scene_texts.yaml",
-            "game-config/prd_document.yaml",
-        ]
-
-        cleaned_count = 0
-        for filepath in output_files:
-            try:
-                if not Path(filepath).exists():
-                    logger.warning(f"Output file not found: {filepath}")
-                    continue
-
-                with Path(filepath).open(encoding="utf-8") as f:
-                    content = f.read()
-
-                original_content = content
-                needs_cleaning = False
-
-                # 1. Remove markdown code fence markers
-                if content.startswith("```") or "```yml" in content or "```yaml" in content:
-                    logger.info(f"Removing code fences from {filepath}")
-                    content = strip_markdown_yaml_blocks(content)
-                    needs_cleaning = True
-
-                # 2. Replace em dashes with double hyphens (for YAML compatibility)
-                if "-" in content or "-" in content:
-                    logger.info(f"Replacing em dashes in {filepath}")
-                    content = content.replace("-", "--").replace("-", "--")
-                    needs_cleaning = True
-
-                # 3. Fix improper line continuations in YAML strings
-                # Pattern: lines within a quoted string that have wrong indentation
-                # Find lines that continue a string but have incorrect indentation
-                # (e.g., line starting with more spaces than the parent)
-                lines = content.split("\n")
-                fixed_lines = []
-                i = 0
-                while i < len(lines):
-                    line = lines[i]
-                    # Check if this is a description line that's broken
-                    if (
-                        i + 1 < len(lines)
-                        and 'description: "' in line
-                        and not line.rstrip().endswith('"')
-                    ):
-                        # This line starts a description but doesn't end it
-                        # Check if next line is a continuation with wrong indentation
-                        next_line = lines[i + 1]
-                        current_indent = len(line) - len(line.lstrip())
-                        next_indent = len(next_line) - len(next_line.lstrip())
-
-                        # If next line has more indentation and isn't a YAML key
-                        if next_indent > current_indent and ":" not in next_line.lstrip()[:20]:
-                            logger.info(f"Fixing line continuation in {filepath} at line {i + 1}")
-                            # Merge the lines
-                            fixed_line = line.rstrip() + " " + next_line.lstrip()
-                            fixed_lines.append(fixed_line)
-                            i += 2  # Skip the next line since we merged it
-                            needs_cleaning = True
-                            continue
-
-                    fixed_lines.append(line)
-                    i += 1
-
-                content = "\n".join(fixed_lines)
-
-                # 4. Fix numbered lists inside quoted strings
-                # Pattern: description: "text:\n        1. item\n        2. item"
-                # Should be: description: "text: (1) item (2) item"
-                def fix_numbered_list(match, fp=filepath):
-                    text = match.group(0)
-                    # If there are numbered items on separate lines, inline them
-                    if re.search(r"\n\s+\d+\.", text):
-                        logger.info(f"Fixing numbered list in {fp}")
-                        # Convert multiline numbered list to inline
-                        fixed = re.sub(r"\n\s+(\d+)\.\s+", r" (\1) ", text)
-                        return fixed
-                    return text
-
-                content = re.sub(
-                    r'description: "[^"]*"',
-                    fix_numbered_list,
-                    content,
-                    flags=re.MULTILINE | re.DOTALL,
-                )
-
-                # Write cleaned content back if any changes were made
-                if needs_cleaning or content != original_content:
-                    with Path(filepath).open("w", encoding="utf-8") as f:
-                        f.write(content)
-
-                    cleaned_count += 1
-                    logger.info(f"✅ Cleaned {filepath}")
-                else:
-                    logger.debug(f"No issues found in {filepath}")
-
-            except Exception as e:
-                logger.error(f"Error cleaning {filepath}: {e!s}")
-
-        if cleaned_count > 0:
-            logger.info(f"Cleaned {cleaned_count} YAML file(s)")
-
-        return cleaned_count
-
     @after_kickoff
     def process_output(self, output):
         """
         Hook method that modifies the final output after the crew finishes all tasks.
         Adds metadata and formats the output for better usability.
 
+        Note: YAML sanitization is handled by OutputSanitizer in Phase 1,
+        which intercepts Task._save_file() BEFORE writing to disk.
+        Post-write cleanup is no longer needed.
+
         Best Practices Applied:
         - Comprehensive metadata for debugging and tracking
         - Graceful error handling to preserve output
         - Clear status indicators for quality assessment
-        - Post-processing to clean YAML output files
         """
         try:
             logger.info("Processing crew output...")
 
-            # Clean YAML output files first
-            try:
-                cleaned_files = self.clean_yaml_output_files()
-                logger.info(f"Post-processed {cleaned_files} YAML files")
-            except Exception as e:
-                logger.error(f"Error cleaning YAML files: {e!s}")
-                # Continue processing even if cleaning fails
+            # Note: YAML sanitization now happens pre-write via OutputSanitizer (Phase 1).
+            # Post-write cleanup is no longer needed.
 
             # Get crew configuration safely
             try:

@@ -6,7 +6,7 @@ YAML outputs from AI agents against Pydantic schemas.
 
 import logging
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any
 
 import yaml
@@ -26,10 +26,14 @@ logger = logging.getLogger(__name__)
 class ValidationResult:
     """Result of validating YAML output against a schema.
 
+    NOTE: ValidationResult is kept for backward compatibility.
+    New code should use ProcessingResult from validation.types
+
     Attributes:
         valid: Whether the validation succeeded.
         data: Parsed Pydantic model if validation succeeded, None otherwise.
         errors: List of error messages if validation failed, empty list otherwise.
+        warnings: List of warning messages (non-critical issues).
 
     Example:
         >>> result = ValidationResult(valid=True, data=plot_outline, errors=[])
@@ -42,6 +46,30 @@ class ValidationResult:
     valid: bool
     data: Any | None
     errors: list[str]
+    warnings: list[str] = field(default_factory=list)
+
+    def to_processing_result(self) -> "ProcessingResult":
+        """Convert to unified ProcessingResult type.
+
+        Returns:
+            ProcessingResult instance with equivalent data.
+
+        Example:
+            >>> result = ValidationResult(valid=True, data=plot, errors=[])
+            >>> processing_result = result.to_processing_result()
+            >>> processing_result.is_valid
+            True
+        """
+        from space_hulk_game.validation.types import ProcessingResult
+
+        return ProcessingResult(
+            success=self.valid,
+            data=self.data,
+            errors=self.errors,
+            warnings=self.warnings,
+            corrections=[],
+            metadata={},
+        )
 
 
 class OutputValidator:

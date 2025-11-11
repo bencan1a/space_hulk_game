@@ -21,6 +21,9 @@ logger = logging.getLogger(__name__)
 class CorrectionResult:
     """Result of attempting to auto-correct YAML output.
 
+    NOTE: CorrectionResult is kept for backward compatibility.
+    New code should use ProcessingResult from validation.types
+
     Attributes:
         corrected_yaml: The corrected YAML string.
         corrections: List of corrections applied.
@@ -40,6 +43,34 @@ class CorrectionResult:
     corrections: list[str]
     validation_result: ValidationResult
     success: bool
+
+    def to_processing_result(self) -> "ProcessingResult":
+        """Convert to unified ProcessingResult type.
+
+        Returns:
+            ProcessingResult instance with equivalent data.
+
+        Example:
+            >>> result = CorrectionResult(
+            ...     corrected_yaml="title: Fixed",
+            ...     corrections=["Fixed ID"],
+            ...     validation_result=ValidationResult(valid=True, data=None, errors=[]),
+            ...     success=True
+            ... )
+            >>> processing_result = result.to_processing_result()
+            >>> processing_result.is_valid
+            True
+        """
+        from space_hulk_game.validation.types import ProcessingResult
+
+        return ProcessingResult(
+            success=self.success,
+            data=None,  # corrected_yaml is in metadata
+            errors=self.validation_result.errors if self.validation_result else [],
+            warnings=self.validation_result.warnings if self.validation_result else [],
+            corrections=self.corrections,
+            metadata={"corrected_yaml": self.corrected_yaml},
+        )
 
 
 class OutputCorrector:

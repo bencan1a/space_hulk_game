@@ -19,6 +19,10 @@ from .score import QualityScore
 logger = logging.getLogger(__name__)
 
 
+# NOTE: For QualityScore conversion to ProcessingResult, see score.py
+# The conversion method is added to QualityScore class directly
+
+
 class QualityEvaluator(ABC):
     """
     Abstract base class for all quality evaluators.
