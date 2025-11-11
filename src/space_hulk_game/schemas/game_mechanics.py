@@ -4,7 +4,7 @@ This module defines the schema for validating game mechanics outputs including
 game systems, state management, win/lose conditions, and technical requirements.
 """
 
-from typing import List, Dict, Optional
+from typing import List
 from pydantic import BaseModel, Field, field_validator
 
 

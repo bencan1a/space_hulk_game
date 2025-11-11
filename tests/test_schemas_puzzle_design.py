@@ -203,7 +203,7 @@ class TestPuzzleDesign:
                 ],
                 npcs=[
                     NPC(
-                        id="n1", name="N1", role="r", description="d" * 20,
+                        id="n1", name="N1", role="r", description="A grizzled veteran of the Imperial Guard, haunted by past battles.",
                         locations=["s1"], dialogue_themes=["t"]
                     )
                 ]
@@ -239,7 +239,7 @@ class TestPuzzleDesign:
                 ],
                 npcs=[
                     NPC(
-                        id="n1", name="N1", role="r", description="d" * 20,
+                        id="n1", name="N1", role="r", description="A grizzled veteran of the Imperial Guard, haunted by past battles.",
                         locations=["s1"], dialogue_themes=["t"]
                     )
                 ]

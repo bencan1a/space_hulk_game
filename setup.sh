@@ -205,7 +205,7 @@ pull_model() {
 
     if ! command_exists ollama; then
         print_message "$YELLOW" "Ollama not found, skipping model download"
-        print_message "$YELLOW" "Use --with-ollama flag to install Ollama first"
+        print_message "$YELLOW" "(use --with-ollama to install)"
         return
     fi
 

@@ -4,7 +4,7 @@ This module defines the schema for validating puzzle design outputs including
 puzzles, artifacts, monsters, NPCs, and overall puzzle design structure.
 """
 
-from typing import List, Optional
+from typing import List
 from pydantic import BaseModel, Field, field_validator
 
 
@@ -474,7 +474,7 @@ if __name__ == "__main__":
                 solution=PuzzleSolution(
                     type="multi-step_interaction_and_logic",
                     steps=[
-                        PuzzleStep(step_text="Locate the auxiliary power conduit junction...")
+                        PuzzleStep(step="Locate the auxiliary power conduit junction...")
                     ]
                 ),
                 difficulty="medium"
