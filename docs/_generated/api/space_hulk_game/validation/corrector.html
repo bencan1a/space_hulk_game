@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 <meta name="generator" content="pdoc3 0.11.6">
-<title>space_hulk_game.validation API documentation</title>
-<meta name="description" content="Validation module for Space Hulk Game YAML outputs …">
+<title>space_hulk_game.validation.corrector API documentation</title>
+<meta name="description" content="Auto-correction for YAML validation outputs …">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
@@ -33,30 +33,15 @@ el.replaceWith(d);
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>space_hulk_game.validation</code></h1>
+<h1 class="title">Module <code>space_hulk_game.validation.corrector</code></h1>
 </header>
 <section id="section-intro">
-<p>Validation module for Space Hulk Game YAML outputs.</p>
-<p>This module provides validators and auto-correctors for parsing, validating,
-and fixing YAML outputs from AI agents against Pydantic schemas.</p>
-<h2 id="exports">Exports</h2>
-<p>OutputValidator: Main validator class for all YAML outputs
-ValidationResult: Result dataclass containing validation status and errors
-OutputCorrector: Auto-corrector for fixing common YAML validation errors
-CorrectionResult: Result dataclass containing correction status and changes</p>
+<p>Auto-correction for YAML validation outputs.</p>
+<p>This module provides automatic correction functionality for common YAML validation
+errors in AI agent outputs. It attempts to fix missing fields, syntax errors,
+and format violations while preserving the intent of the original content.</p>
 </section>
 <section>
-<h2 class="section-title" id="header-submodules">Sub-modules</h2>
-<dl>
-<dt><code class="name"><a title="space_hulk_game.validation.corrector" href="corrector.html">space_hulk_game.validation.corrector</a></code></dt>
-<dd>
-<div class="desc"><p>Auto-correction for YAML validation outputs …</p></div>
-</dd>
-<dt><code class="name"><a title="space_hulk_game.validation.validator" href="validator.html">space_hulk_game.validation.validator</a></code></dt>
-<dd>
-<div class="desc"><p>Output validation for Space Hulk Game YAML outputs …</p></div>
-</dd>
-</dl>
 </section>
 <section>
 </section>
@@ -65,7 +50,7 @@ CorrectionResult: Result dataclass containing correction status and changes</p>
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
-<dt id="space_hulk_game.validation.CorrectionResult"><code class="flex name class">
+<dt id="space_hulk_game.validation.corrector.CorrectionResult"><code class="flex name class">
 <span>class <span class="ident">CorrectionResult</span></span>
 <span>(</span><span>corrected_yaml: str,<br>corrections: list[str],<br>validation_result: <a title="space_hulk_game.validation.validator.ValidationResult" href="validator.html#space_hulk_game.validation.validator.ValidationResult">ValidationResult</a>,<br>success: bool)</span>
 </code></dt>
@@ -120,25 +105,25 @@ class CorrectionResult:
 </code></pre></div>
 <h3>Instance variables</h3>
 <dl>
-<dt id="space_hulk_game.validation.CorrectionResult.corrected_yaml"><code class="name">var <span class="ident">corrected_yaml</span> : str</code></dt>
+<dt id="space_hulk_game.validation.corrector.CorrectionResult.corrected_yaml"><code class="name">var <span class="ident">corrected_yaml</span> : str</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="space_hulk_game.validation.CorrectionResult.corrections"><code class="name">var <span class="ident">corrections</span> : list[str]</code></dt>
+<dt id="space_hulk_game.validation.corrector.CorrectionResult.corrections"><code class="name">var <span class="ident">corrections</span> : list[str]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="space_hulk_game.validation.CorrectionResult.success"><code class="name">var <span class="ident">success</span> : bool</code></dt>
+<dt id="space_hulk_game.validation.corrector.CorrectionResult.success"><code class="name">var <span class="ident">success</span> : bool</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="space_hulk_game.validation.CorrectionResult.validation_result"><code class="name">var <span class="ident">validation_result</span> : <a title="space_hulk_game.validation.validator.ValidationResult" href="validator.html#space_hulk_game.validation.validator.ValidationResult">ValidationResult</a></code></dt>
+<dt id="space_hulk_game.validation.corrector.CorrectionResult.validation_result"><code class="name">var <span class="ident">validation_result</span> : <a title="space_hulk_game.validation.validator.ValidationResult" href="validator.html#space_hulk_game.validation.validator.ValidationResult">ValidationResult</a></code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
 </dl>
 </dd>
-<dt id="space_hulk_game.validation.OutputCorrector"><code class="flex name class">
+<dt id="space_hulk_game.validation.corrector.OutputCorrector"><code class="flex name class">
 <span>class <span class="ident">OutputCorrector</span></span>
 </code></dt>
 <dd>
@@ -1253,8 +1238,8 @@ fix syntax errors, normalize field names, and correct ID format violations.</p>
 <p>Initialize the output corrector with a validator instance.</p></div>
 <h3>Methods</h3>
 <dl>
-<dt id="space_hulk_game.validation.OutputCorrector.correct_game_mechanics"><code class="name flex">
-<span>def <span class="ident">correct_game_mechanics</span></span>(<span>self, raw_output: str) ‑> <a title="space_hulk_game.validation.corrector.CorrectionResult" href="corrector.html#space_hulk_game.validation.corrector.CorrectionResult">CorrectionResult</a></span>
+<dt id="space_hulk_game.validation.corrector.OutputCorrector.correct_game_mechanics"><code class="name flex">
+<span>def <span class="ident">correct_game_mechanics</span></span>(<span>self, raw_output: str) ‑> <a title="space_hulk_game.validation.corrector.CorrectionResult" href="#space_hulk_game.validation.corrector.CorrectionResult">CorrectionResult</a></span>
 </code></dt>
 <dd>
 <details class="source">
@@ -1457,8 +1442,8 @@ validation result, and success status.</p>
 ...     print(f&quot;Game mechanics corrected with {len(result.corrections)} changes&quot;)
 </code></pre></div>
 </dd>
-<dt id="space_hulk_game.validation.OutputCorrector.correct_narrative_map"><code class="name flex">
-<span>def <span class="ident">correct_narrative_map</span></span>(<span>self, raw_output: str) ‑> <a title="space_hulk_game.validation.corrector.CorrectionResult" href="corrector.html#space_hulk_game.validation.corrector.CorrectionResult">CorrectionResult</a></span>
+<dt id="space_hulk_game.validation.corrector.OutputCorrector.correct_narrative_map"><code class="name flex">
+<span>def <span class="ident">correct_narrative_map</span></span>(<span>self, raw_output: str) ‑> <a title="space_hulk_game.validation.corrector.CorrectionResult" href="#space_hulk_game.validation.corrector.CorrectionResult">CorrectionResult</a></span>
 </code></dt>
 <dd>
 <details class="source">
@@ -1638,8 +1623,8 @@ validation result, and success status.</p>
 ...     print(f&quot;Map corrected with {len(result.corrections)} changes&quot;)
 </code></pre></div>
 </dd>
-<dt id="space_hulk_game.validation.OutputCorrector.correct_plot"><code class="name flex">
-<span>def <span class="ident">correct_plot</span></span>(<span>self, raw_output: str) ‑> <a title="space_hulk_game.validation.corrector.CorrectionResult" href="corrector.html#space_hulk_game.validation.corrector.CorrectionResult">CorrectionResult</a></span>
+<dt id="space_hulk_game.validation.corrector.OutputCorrector.correct_plot"><code class="name flex">
+<span>def <span class="ident">correct_plot</span></span>(<span>self, raw_output: str) ‑> <a title="space_hulk_game.validation.corrector.CorrectionResult" href="#space_hulk_game.validation.corrector.CorrectionResult">CorrectionResult</a></span>
 </code></dt>
 <dd>
 <details class="source">
@@ -1890,8 +1875,8 @@ validation result, and success status.</p>
 ...     print(f&quot;Plot corrected with {len(result.corrections)} changes&quot;)
 </code></pre></div>
 </dd>
-<dt id="space_hulk_game.validation.OutputCorrector.correct_puzzle_design"><code class="name flex">
-<span>def <span class="ident">correct_puzzle_design</span></span>(<span>self, raw_output: str) ‑> <a title="space_hulk_game.validation.corrector.CorrectionResult" href="corrector.html#space_hulk_game.validation.corrector.CorrectionResult">CorrectionResult</a></span>
+<dt id="space_hulk_game.validation.corrector.OutputCorrector.correct_puzzle_design"><code class="name flex">
+<span>def <span class="ident">correct_puzzle_design</span></span>(<span>self, raw_output: str) ‑> <a title="space_hulk_game.validation.corrector.CorrectionResult" href="#space_hulk_game.validation.corrector.CorrectionResult">CorrectionResult</a></span>
 </code></dt>
 <dd>
 <details class="source">
@@ -2116,8 +2101,8 @@ validation result, and success status.</p>
 ...     print(f&quot;Puzzle design corrected with {len(result.corrections)} changes&quot;)
 </code></pre></div>
 </dd>
-<dt id="space_hulk_game.validation.OutputCorrector.correct_scene_texts"><code class="name flex">
-<span>def <span class="ident">correct_scene_texts</span></span>(<span>self, raw_output: str) ‑> <a title="space_hulk_game.validation.corrector.CorrectionResult" href="corrector.html#space_hulk_game.validation.corrector.CorrectionResult">CorrectionResult</a></span>
+<dt id="space_hulk_game.validation.corrector.OutputCorrector.correct_scene_texts"><code class="name flex">
+<span>def <span class="ident">correct_scene_texts</span></span>(<span>self, raw_output: str) ‑> <a title="space_hulk_game.validation.corrector.CorrectionResult" href="#space_hulk_game.validation.corrector.CorrectionResult">CorrectionResult</a></span>
 </code></dt>
 <dd>
 <details class="source">
@@ -2309,891 +2294,6 @@ validation result, and success status.</p>
 </dd>
 </dl>
 </dd>
-<dt id="space_hulk_game.validation.OutputValidator"><code class="flex name class">
-<span>class <span class="ident">OutputValidator</span></span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class OutputValidator:
-    &#34;&#34;&#34;Validator for YAML outputs against Pydantic schemas.
-
-    This class provides methods to parse and validate YAML strings
-    against specific Pydantic schemas for different game design outputs.
-
-    Features:
-        - Handles markdown-wrapped YAML (common in AI outputs)
-        - Provides detailed, helpful error messages
-        - Validates against all schema constraints
-
-    Example:
-        &gt;&gt;&gt; validator = OutputValidator()
-        &gt;&gt;&gt; result = validator.validate_plot(yaml_string)
-        &gt;&gt;&gt; if result.valid:
-        ...     print(f&#34;Valid plot: {result.data.title}&#34;)
-        ... else:
-        ...     for error in result.errors:
-        ...         print(f&#34;Error: {error}&#34;)
-    &#34;&#34;&#34;
-
-    def __init__(self):
-        &#34;&#34;&#34;Initialize the output validator.&#34;&#34;&#34;
-        logger.info(&#34;OutputValidator initialized&#34;)
-
-    def _strip_markdown_fences(self, raw_output: str) -&gt; str:
-        &#34;&#34;&#34;Strip markdown code fences from YAML output.
-
-        AI outputs often wrap YAML in markdown fences like:
-        ```yaml
-        content: here
-        ```
-
-        This method removes those fences to get clean YAML.
-
-        Args:
-            raw_output: Raw output string, potentially with markdown fences.
-
-        Returns:
-            Cleaned YAML string without markdown fences.
-
-        Example:
-            &gt;&gt;&gt; validator = OutputValidator()
-            &gt;&gt;&gt; yaml_with_fences = &#34;```yaml\\nkey: value\\n```&#34;
-            &gt;&gt;&gt; clean = validator._strip_markdown_fences(yaml_with_fences)
-            &gt;&gt;&gt; clean
-            &#39;key: value&#39;
-        &#34;&#34;&#34;
-        # Remove opening fence (```yaml or ```)
-        output = re.sub(r&#34;\A```(?:yaml)?\s*\n&#34;, &#34;&#34;, raw_output.strip())
-        # Remove closing fence (```)
-        output = re.sub(r&#34;\n```\s*$&#34;, &#34;&#34;, output, flags=re.MULTILINE)
-        return output.strip()
-
-    def _parse_yaml(self, raw_output: str) -&gt; tuple[dict | None, list[str]]:
-        &#34;&#34;&#34;Parse YAML string into a dictionary.
-
-        Args:
-            raw_output: Raw YAML string to parse.
-
-        Returns:
-            Tuple of (parsed_data, errors). If parsing succeeds, parsed_data
-            is a dict and errors is empty. If parsing fails, parsed_data is None
-            and errors contains the error message.
-        &#34;&#34;&#34;
-        try:
-            # Strip markdown fences first
-            clean_yaml = self._strip_markdown_fences(raw_output)
-
-            # Parse YAML
-            data = yaml.safe_load(clean_yaml)
-
-            if data is None:
-                return None, [&#34;YAML is empty or contains only whitespace&#34;]
-
-            if not isinstance(data, dict):
-                return None, [f&#34;YAML must be a dictionary, got {type(data).__name__}&#34;]
-
-            return data, []
-
-        except yaml.YAMLError as e:
-            error_msg = f&#34;YAML parsing error: {e!s}&#34;
-            logger.error(error_msg)
-            return None, [error_msg]
-        except Exception as e:
-            error_msg = f&#34;Unexpected error during YAML parsing: {e!s}&#34;
-            logger.error(error_msg)
-            return None, [error_msg]
-
-    def _format_pydantic_errors(self, validation_error: ValidationError) -&gt; list[str]:
-        &#34;&#34;&#34;Format Pydantic validation errors into helpful messages.
-
-        Pydantic errors can be complex. This method extracts the key information
-        and formats it in a user-friendly way.
-
-        Args:
-            validation_error: Pydantic ValidationError to format.
-
-        Returns:
-            List of formatted error messages.
-        &#34;&#34;&#34;
-        errors = []
-        for error in validation_error.errors():
-            loc = &#34; -&gt; &#34;.join(str(x) for x in error[&#34;loc&#34;])
-            msg = error[&#34;msg&#34;]
-            error_type = error[&#34;type&#34;]
-
-            # Create a detailed error message
-            if error.get(&#34;ctx&#34;):
-                ctx = &#34;, &#34;.join(f&#34;{k}={v}&#34; for k, v in error[&#34;ctx&#34;].items())
-                error_msg = f&#34;Field &#39;{loc}&#39;: {msg} (type={error_type}, {ctx})&#34;
-            else:
-                error_msg = f&#34;Field &#39;{loc}&#39;: {msg} (type={error_type})&#34;
-
-            errors.append(error_msg)
-
-        return errors
-
-    def validate_plot(self, raw_output: str) -&gt; ValidationResult:
-        &#34;&#34;&#34;Parse and validate plot outline YAML against PlotOutline schema.
-
-        Args:
-            raw_output: Raw YAML string containing plot outline data.
-
-        Returns:
-            ValidationResult with validation status, parsed data if valid,
-            and error messages if invalid.
-
-        Example:
-            &gt;&gt;&gt; validator = OutputValidator()
-            &gt;&gt;&gt; yaml_str = &#39;&#39;&#39;
-            ... title: &#34;Test Plot&#34;
-            ... setting: &#34;A dark and atmospheric setting with lots of detail...&#34;
-            ... themes: [&#34;survival&#34;, &#34;horror&#34;]
-            ... tone: &#34;Dark and gritty atmosphere&#34;
-            ... plot_points: [...]
-            ... characters: [...]
-            ... conflicts: [...]
-            ... &#39;&#39;&#39;
-            &gt;&gt;&gt; result = validator.validate_plot(yaml_str)
-            &gt;&gt;&gt; if result.valid:
-            ...     print(f&#34;Valid plot: {result.data.title}&#34;)
-        &#34;&#34;&#34;
-        logger.info(&#34;Validating plot outline&#34;)
-
-        # Parse YAML
-        data, parse_errors = self._parse_yaml(raw_output)
-        if parse_errors:
-            return ValidationResult(valid=False, data=None, errors=parse_errors)
-
-        # Type guard: data is guaranteed to be dict here since parse_errors is empty
-        assert data is not None, &#34;data should not be None when parse_errors is empty&#34;
-
-        # Validate against schema
-        try:
-            plot = PlotOutline(**data)
-            logger.info(f&#34;Plot outline validation successful: {plot.title}&#34;)
-            return ValidationResult(valid=True, data=plot, errors=[])
-
-        except ValidationError as e:
-            errors = self._format_pydantic_errors(e)
-            logger.error(f&#34;Plot outline validation failed: {len(errors)} errors&#34;)
-            return ValidationResult(valid=False, data=None, errors=errors)
-
-        except Exception as e:
-            error_msg = f&#34;Unexpected error during plot outline validation: {e!s}&#34;
-            logger.error(error_msg)
-            return ValidationResult(valid=False, data=None, errors=[error_msg])
-
-    def validate_narrative_map(self, raw_output: str) -&gt; ValidationResult:
-        &#34;&#34;&#34;Parse and validate narrative map YAML against NarrativeMap schema.
-
-        Args:
-            raw_output: Raw YAML string containing narrative map data.
-
-        Returns:
-            ValidationResult with validation status, parsed data if valid,
-            and error messages if invalid.
-
-        Example:
-            &gt;&gt;&gt; validator = OutputValidator()
-            &gt;&gt;&gt; yaml_str = &#39;&#39;&#39;
-            ... start_scene: &#34;scene_1&#34;
-            ... scenes:
-            ...   scene_1:
-            ...     name: &#34;Opening Scene&#34;
-            ...     description: &#34;A detailed description of the opening scene...&#34;
-            ...     connections: []
-            ... &#39;&#39;&#39;
-            &gt;&gt;&gt; result = validator.validate_narrative_map(yaml_str)
-            &gt;&gt;&gt; if result.valid:
-            ...     print(f&#34;Valid map: {len(result.data.scenes)} scenes&#34;)
-        &#34;&#34;&#34;
-        logger.info(&#34;Validating narrative map&#34;)
-
-        # Parse YAML
-        data, parse_errors = self._parse_yaml(raw_output)
-        if parse_errors:
-            return ValidationResult(valid=False, data=None, errors=parse_errors)
-
-        # Type guard: data is guaranteed to be dict here since parse_errors is empty
-        assert data is not None, &#34;data should not be None when parse_errors is empty&#34;
-
-        # Validate against schema
-        try:
-            narrative_map = NarrativeMap(**data)
-            logger.info(f&#34;Narrative map validation successful: {len(narrative_map.scenes)} scenes&#34;)
-            return ValidationResult(valid=True, data=narrative_map, errors=[])
-
-        except ValidationError as e:
-            errors = self._format_pydantic_errors(e)
-            logger.error(f&#34;Narrative map validation failed: {len(errors)} errors&#34;)
-            return ValidationResult(valid=False, data=None, errors=errors)
-
-        except Exception as e:
-            error_msg = f&#34;Unexpected error during narrative map validation: {e!s}&#34;
-            logger.error(error_msg)
-            return ValidationResult(valid=False, data=None, errors=[error_msg])
-
-    def validate_puzzle_design(self, raw_output: str) -&gt; ValidationResult:
-        &#34;&#34;&#34;Parse and validate puzzle design YAML against PuzzleDesign schema.
-
-        Args:
-            raw_output: Raw YAML string containing puzzle design data.
-
-        Returns:
-            ValidationResult with validation status, parsed data if valid,
-            and error messages if invalid.
-
-        Example:
-            &gt;&gt;&gt; validator = OutputValidator()
-            &gt;&gt;&gt; yaml_str = &#39;&#39;&#39;
-            ... puzzles: [...]
-            ... artifacts: [...]
-            ... monsters: [...]
-            ... npcs: [...]
-            ... &#39;&#39;&#39;
-            &gt;&gt;&gt; result = validator.validate_puzzle_design(yaml_str)
-            &gt;&gt;&gt; if result.valid:
-            ...     print(f&#34;Valid design: {len(result.data.puzzles)} puzzles&#34;)
-        &#34;&#34;&#34;
-        logger.info(&#34;Validating puzzle design&#34;)
-
-        # Parse YAML
-        data, parse_errors = self._parse_yaml(raw_output)
-        if parse_errors:
-            return ValidationResult(valid=False, data=None, errors=parse_errors)
-
-        # Type guard: data is guaranteed to be dict here since parse_errors is empty
-        assert data is not None, &#34;data should not be None when parse_errors is empty&#34;
-
-        # Validate against schema
-        try:
-            puzzle_design = PuzzleDesign(**data)
-            logger.info(
-                f&#34;Puzzle design validation successful: {len(puzzle_design.puzzles)} puzzles&#34;
-            )
-            return ValidationResult(valid=True, data=puzzle_design, errors=[])
-
-        except ValidationError as e:
-            errors = self._format_pydantic_errors(e)
-            logger.error(f&#34;Puzzle design validation failed: {len(errors)} errors&#34;)
-            return ValidationResult(valid=False, data=None, errors=errors)
-
-        except Exception as e:
-            error_msg = f&#34;Unexpected error during puzzle design validation: {e!s}&#34;
-            logger.error(error_msg)
-            return ValidationResult(valid=False, data=None, errors=[error_msg])
-
-    def validate_scene_texts(self, raw_output: str) -&gt; ValidationResult:
-        &#34;&#34;&#34;Parse and validate scene texts YAML against SceneTexts schema.
-
-        Args:
-            raw_output: Raw YAML string containing scene texts data.
-
-        Returns:
-            ValidationResult with validation status, parsed data if valid,
-            and error messages if invalid.
-
-        Example:
-            &gt;&gt;&gt; validator = OutputValidator()
-            &gt;&gt;&gt; yaml_str = &#39;&#39;&#39;
-            ... scenes:
-            ...   scene_1:
-            ...     name: &#34;Scene 1&#34;
-            ...     description: &#34;A very detailed description of what happens in this scene...&#34;
-            ...     atmosphere: &#34;Dark and foreboding atmosphere&#34;
-            ...     initial_text: &#34;You enter the dark corridor...&#34;
-            ...     examination_texts: {}
-            ...     dialogue: []
-            ... &#39;&#39;&#39;
-            &gt;&gt;&gt; result = validator.validate_scene_texts(yaml_str)
-            &gt;&gt;&gt; if result.valid:
-            ...     print(f&#34;Valid texts: {len(result.data.scenes)} scenes&#34;)
-        &#34;&#34;&#34;
-        logger.info(&#34;Validating scene texts&#34;)
-
-        # Parse YAML
-        data, parse_errors = self._parse_yaml(raw_output)
-        if parse_errors:
-            return ValidationResult(valid=False, data=None, errors=parse_errors)
-
-        # Type guard: data is guaranteed to be dict here since parse_errors is empty
-        assert data is not None, &#34;data should not be None when parse_errors is empty&#34;
-
-        # Validate against schema
-        try:
-            scene_texts = SceneTexts(**data)
-            logger.info(f&#34;Scene texts validation successful: {len(scene_texts.scenes)} scenes&#34;)
-            return ValidationResult(valid=True, data=scene_texts, errors=[])
-
-        except ValidationError as e:
-            errors = self._format_pydantic_errors(e)
-            logger.error(f&#34;Scene texts validation failed: {len(errors)} errors&#34;)
-            return ValidationResult(valid=False, data=None, errors=errors)
-
-        except Exception as e:
-            error_msg = f&#34;Unexpected error during scene texts validation: {e!s}&#34;
-            logger.error(error_msg)
-            return ValidationResult(valid=False, data=None, errors=[error_msg])
-
-    def validate_game_mechanics(self, raw_output: str) -&gt; ValidationResult:
-        &#34;&#34;&#34;Parse and validate game mechanics YAML against GameMechanics schema.
-
-        Args:
-            raw_output: Raw YAML string containing game mechanics data.
-
-        Returns:
-            ValidationResult with validation status, parsed data if valid,
-            and error messages if invalid.
-
-        Example:
-            &gt;&gt;&gt; validator = OutputValidator()
-            &gt;&gt;&gt; yaml_str = &#39;&#39;&#39;
-            ... game_title: &#34;Test Game&#34;
-            ... game_systems:
-            ...   movement: {...}
-            ...   inventory: {...}
-            ...   combat: {...}
-            ...   interaction: {...}
-            ... game_state: {...}
-            ... technical_requirements: [...]
-            ... &#39;&#39;&#39;
-            &gt;&gt;&gt; result = validator.validate_game_mechanics(yaml_str)
-            &gt;&gt;&gt; if result.valid:
-            ...     print(f&#34;Valid mechanics: {result.data.game_title}&#34;)
-        &#34;&#34;&#34;
-        logger.info(&#34;Validating game mechanics&#34;)
-
-        # Parse YAML
-        data, parse_errors = self._parse_yaml(raw_output)
-        if parse_errors:
-            return ValidationResult(valid=False, data=None, errors=parse_errors)
-
-        # Type guard: data is guaranteed to be dict here since parse_errors is empty
-        assert data is not None, &#34;data should not be None when parse_errors is empty&#34;
-
-        # Validate against schema
-        try:
-            game_mechanics = GameMechanics(**data)
-            logger.info(f&#34;Game mechanics validation successful: {game_mechanics.game_title}&#34;)
-            return ValidationResult(valid=True, data=game_mechanics, errors=[])
-
-        except ValidationError as e:
-            errors = self._format_pydantic_errors(e)
-            logger.error(f&#34;Game mechanics validation failed: {len(errors)} errors&#34;)
-            return ValidationResult(valid=False, data=None, errors=errors)
-
-        except Exception as e:
-            error_msg = f&#34;Unexpected error during game mechanics validation: {e!s}&#34;
-            logger.error(error_msg)
-            return ValidationResult(valid=False, data=None, errors=[error_msg])</code></pre>
-</details>
-<div class="desc"><p>Validator for YAML outputs against Pydantic schemas.</p>
-<p>This class provides methods to parse and validate YAML strings
-against specific Pydantic schemas for different game design outputs.</p>
-<h2 id="features">Features</h2>
-<ul>
-<li>Handles markdown-wrapped YAML (common in AI outputs)</li>
-<li>Provides detailed, helpful error messages</li>
-<li>Validates against all schema constraints</li>
-</ul>
-<h2 id="example">Example</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; validator = OutputValidator()
-&gt;&gt;&gt; result = validator.validate_plot(yaml_string)
-&gt;&gt;&gt; if result.valid:
-...     print(f&quot;Valid plot: {result.data.title}&quot;)
-... else:
-...     for error in result.errors:
-...         print(f&quot;Error: {error}&quot;)
-</code></pre>
-<p>Initialize the output validator.</p></div>
-<h3>Methods</h3>
-<dl>
-<dt id="space_hulk_game.validation.OutputValidator.validate_game_mechanics"><code class="name flex">
-<span>def <span class="ident">validate_game_mechanics</span></span>(<span>self, raw_output: str) ‑> <a title="space_hulk_game.validation.validator.ValidationResult" href="validator.html#space_hulk_game.validation.validator.ValidationResult">ValidationResult</a></span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def validate_game_mechanics(self, raw_output: str) -&gt; ValidationResult:
-    &#34;&#34;&#34;Parse and validate game mechanics YAML against GameMechanics schema.
-
-    Args:
-        raw_output: Raw YAML string containing game mechanics data.
-
-    Returns:
-        ValidationResult with validation status, parsed data if valid,
-        and error messages if invalid.
-
-    Example:
-        &gt;&gt;&gt; validator = OutputValidator()
-        &gt;&gt;&gt; yaml_str = &#39;&#39;&#39;
-        ... game_title: &#34;Test Game&#34;
-        ... game_systems:
-        ...   movement: {...}
-        ...   inventory: {...}
-        ...   combat: {...}
-        ...   interaction: {...}
-        ... game_state: {...}
-        ... technical_requirements: [...]
-        ... &#39;&#39;&#39;
-        &gt;&gt;&gt; result = validator.validate_game_mechanics(yaml_str)
-        &gt;&gt;&gt; if result.valid:
-        ...     print(f&#34;Valid mechanics: {result.data.game_title}&#34;)
-    &#34;&#34;&#34;
-    logger.info(&#34;Validating game mechanics&#34;)
-
-    # Parse YAML
-    data, parse_errors = self._parse_yaml(raw_output)
-    if parse_errors:
-        return ValidationResult(valid=False, data=None, errors=parse_errors)
-
-    # Type guard: data is guaranteed to be dict here since parse_errors is empty
-    assert data is not None, &#34;data should not be None when parse_errors is empty&#34;
-
-    # Validate against schema
-    try:
-        game_mechanics = GameMechanics(**data)
-        logger.info(f&#34;Game mechanics validation successful: {game_mechanics.game_title}&#34;)
-        return ValidationResult(valid=True, data=game_mechanics, errors=[])
-
-    except ValidationError as e:
-        errors = self._format_pydantic_errors(e)
-        logger.error(f&#34;Game mechanics validation failed: {len(errors)} errors&#34;)
-        return ValidationResult(valid=False, data=None, errors=errors)
-
-    except Exception as e:
-        error_msg = f&#34;Unexpected error during game mechanics validation: {e!s}&#34;
-        logger.error(error_msg)
-        return ValidationResult(valid=False, data=None, errors=[error_msg])</code></pre>
-</details>
-<div class="desc"><p>Parse and validate game mechanics YAML against GameMechanics schema.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>raw_output</code></strong></dt>
-<dd>Raw YAML string containing game mechanics data.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<p>ValidationResult with validation status, parsed data if valid,
-and error messages if invalid.</p>
-<h2 id="example">Example</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; validator = OutputValidator()
-&gt;&gt;&gt; yaml_str = '''
-... game_title: &quot;Test Game&quot;
-... game_systems:
-...   movement: {...}
-...   inventory: {...}
-...   combat: {...}
-...   interaction: {...}
-... game_state: {...}
-... technical_requirements: [...]
-... '''
-&gt;&gt;&gt; result = validator.validate_game_mechanics(yaml_str)
-&gt;&gt;&gt; if result.valid:
-...     print(f&quot;Valid mechanics: {result.data.game_title}&quot;)
-</code></pre></div>
-</dd>
-<dt id="space_hulk_game.validation.OutputValidator.validate_narrative_map"><code class="name flex">
-<span>def <span class="ident">validate_narrative_map</span></span>(<span>self, raw_output: str) ‑> <a title="space_hulk_game.validation.validator.ValidationResult" href="validator.html#space_hulk_game.validation.validator.ValidationResult">ValidationResult</a></span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def validate_narrative_map(self, raw_output: str) -&gt; ValidationResult:
-    &#34;&#34;&#34;Parse and validate narrative map YAML against NarrativeMap schema.
-
-    Args:
-        raw_output: Raw YAML string containing narrative map data.
-
-    Returns:
-        ValidationResult with validation status, parsed data if valid,
-        and error messages if invalid.
-
-    Example:
-        &gt;&gt;&gt; validator = OutputValidator()
-        &gt;&gt;&gt; yaml_str = &#39;&#39;&#39;
-        ... start_scene: &#34;scene_1&#34;
-        ... scenes:
-        ...   scene_1:
-        ...     name: &#34;Opening Scene&#34;
-        ...     description: &#34;A detailed description of the opening scene...&#34;
-        ...     connections: []
-        ... &#39;&#39;&#39;
-        &gt;&gt;&gt; result = validator.validate_narrative_map(yaml_str)
-        &gt;&gt;&gt; if result.valid:
-        ...     print(f&#34;Valid map: {len(result.data.scenes)} scenes&#34;)
-    &#34;&#34;&#34;
-    logger.info(&#34;Validating narrative map&#34;)
-
-    # Parse YAML
-    data, parse_errors = self._parse_yaml(raw_output)
-    if parse_errors:
-        return ValidationResult(valid=False, data=None, errors=parse_errors)
-
-    # Type guard: data is guaranteed to be dict here since parse_errors is empty
-    assert data is not None, &#34;data should not be None when parse_errors is empty&#34;
-
-    # Validate against schema
-    try:
-        narrative_map = NarrativeMap(**data)
-        logger.info(f&#34;Narrative map validation successful: {len(narrative_map.scenes)} scenes&#34;)
-        return ValidationResult(valid=True, data=narrative_map, errors=[])
-
-    except ValidationError as e:
-        errors = self._format_pydantic_errors(e)
-        logger.error(f&#34;Narrative map validation failed: {len(errors)} errors&#34;)
-        return ValidationResult(valid=False, data=None, errors=errors)
-
-    except Exception as e:
-        error_msg = f&#34;Unexpected error during narrative map validation: {e!s}&#34;
-        logger.error(error_msg)
-        return ValidationResult(valid=False, data=None, errors=[error_msg])</code></pre>
-</details>
-<div class="desc"><p>Parse and validate narrative map YAML against NarrativeMap schema.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>raw_output</code></strong></dt>
-<dd>Raw YAML string containing narrative map data.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<p>ValidationResult with validation status, parsed data if valid,
-and error messages if invalid.</p>
-<h2 id="example">Example</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; validator = OutputValidator()
-&gt;&gt;&gt; yaml_str = '''
-... start_scene: &quot;scene_1&quot;
-... scenes:
-...   scene_1:
-...     name: &quot;Opening Scene&quot;
-...     description: &quot;A detailed description of the opening scene...&quot;
-...     connections: []
-... '''
-&gt;&gt;&gt; result = validator.validate_narrative_map(yaml_str)
-&gt;&gt;&gt; if result.valid:
-...     print(f&quot;Valid map: {len(result.data.scenes)} scenes&quot;)
-</code></pre></div>
-</dd>
-<dt id="space_hulk_game.validation.OutputValidator.validate_plot"><code class="name flex">
-<span>def <span class="ident">validate_plot</span></span>(<span>self, raw_output: str) ‑> <a title="space_hulk_game.validation.validator.ValidationResult" href="validator.html#space_hulk_game.validation.validator.ValidationResult">ValidationResult</a></span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def validate_plot(self, raw_output: str) -&gt; ValidationResult:
-    &#34;&#34;&#34;Parse and validate plot outline YAML against PlotOutline schema.
-
-    Args:
-        raw_output: Raw YAML string containing plot outline data.
-
-    Returns:
-        ValidationResult with validation status, parsed data if valid,
-        and error messages if invalid.
-
-    Example:
-        &gt;&gt;&gt; validator = OutputValidator()
-        &gt;&gt;&gt; yaml_str = &#39;&#39;&#39;
-        ... title: &#34;Test Plot&#34;
-        ... setting: &#34;A dark and atmospheric setting with lots of detail...&#34;
-        ... themes: [&#34;survival&#34;, &#34;horror&#34;]
-        ... tone: &#34;Dark and gritty atmosphere&#34;
-        ... plot_points: [...]
-        ... characters: [...]
-        ... conflicts: [...]
-        ... &#39;&#39;&#39;
-        &gt;&gt;&gt; result = validator.validate_plot(yaml_str)
-        &gt;&gt;&gt; if result.valid:
-        ...     print(f&#34;Valid plot: {result.data.title}&#34;)
-    &#34;&#34;&#34;
-    logger.info(&#34;Validating plot outline&#34;)
-
-    # Parse YAML
-    data, parse_errors = self._parse_yaml(raw_output)
-    if parse_errors:
-        return ValidationResult(valid=False, data=None, errors=parse_errors)
-
-    # Type guard: data is guaranteed to be dict here since parse_errors is empty
-    assert data is not None, &#34;data should not be None when parse_errors is empty&#34;
-
-    # Validate against schema
-    try:
-        plot = PlotOutline(**data)
-        logger.info(f&#34;Plot outline validation successful: {plot.title}&#34;)
-        return ValidationResult(valid=True, data=plot, errors=[])
-
-    except ValidationError as e:
-        errors = self._format_pydantic_errors(e)
-        logger.error(f&#34;Plot outline validation failed: {len(errors)} errors&#34;)
-        return ValidationResult(valid=False, data=None, errors=errors)
-
-    except Exception as e:
-        error_msg = f&#34;Unexpected error during plot outline validation: {e!s}&#34;
-        logger.error(error_msg)
-        return ValidationResult(valid=False, data=None, errors=[error_msg])</code></pre>
-</details>
-<div class="desc"><p>Parse and validate plot outline YAML against PlotOutline schema.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>raw_output</code></strong></dt>
-<dd>Raw YAML string containing plot outline data.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<p>ValidationResult with validation status, parsed data if valid,
-and error messages if invalid.</p>
-<h2 id="example">Example</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; validator = OutputValidator()
-&gt;&gt;&gt; yaml_str = '''
-... title: &quot;Test Plot&quot;
-... setting: &quot;A dark and atmospheric setting with lots of detail...&quot;
-... themes: [&quot;survival&quot;, &quot;horror&quot;]
-... tone: &quot;Dark and gritty atmosphere&quot;
-... plot_points: [...]
-... characters: [...]
-... conflicts: [...]
-... '''
-&gt;&gt;&gt; result = validator.validate_plot(yaml_str)
-&gt;&gt;&gt; if result.valid:
-...     print(f&quot;Valid plot: {result.data.title}&quot;)
-</code></pre></div>
-</dd>
-<dt id="space_hulk_game.validation.OutputValidator.validate_puzzle_design"><code class="name flex">
-<span>def <span class="ident">validate_puzzle_design</span></span>(<span>self, raw_output: str) ‑> <a title="space_hulk_game.validation.validator.ValidationResult" href="validator.html#space_hulk_game.validation.validator.ValidationResult">ValidationResult</a></span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def validate_puzzle_design(self, raw_output: str) -&gt; ValidationResult:
-    &#34;&#34;&#34;Parse and validate puzzle design YAML against PuzzleDesign schema.
-
-    Args:
-        raw_output: Raw YAML string containing puzzle design data.
-
-    Returns:
-        ValidationResult with validation status, parsed data if valid,
-        and error messages if invalid.
-
-    Example:
-        &gt;&gt;&gt; validator = OutputValidator()
-        &gt;&gt;&gt; yaml_str = &#39;&#39;&#39;
-        ... puzzles: [...]
-        ... artifacts: [...]
-        ... monsters: [...]
-        ... npcs: [...]
-        ... &#39;&#39;&#39;
-        &gt;&gt;&gt; result = validator.validate_puzzle_design(yaml_str)
-        &gt;&gt;&gt; if result.valid:
-        ...     print(f&#34;Valid design: {len(result.data.puzzles)} puzzles&#34;)
-    &#34;&#34;&#34;
-    logger.info(&#34;Validating puzzle design&#34;)
-
-    # Parse YAML
-    data, parse_errors = self._parse_yaml(raw_output)
-    if parse_errors:
-        return ValidationResult(valid=False, data=None, errors=parse_errors)
-
-    # Type guard: data is guaranteed to be dict here since parse_errors is empty
-    assert data is not None, &#34;data should not be None when parse_errors is empty&#34;
-
-    # Validate against schema
-    try:
-        puzzle_design = PuzzleDesign(**data)
-        logger.info(
-            f&#34;Puzzle design validation successful: {len(puzzle_design.puzzles)} puzzles&#34;
-        )
-        return ValidationResult(valid=True, data=puzzle_design, errors=[])
-
-    except ValidationError as e:
-        errors = self._format_pydantic_errors(e)
-        logger.error(f&#34;Puzzle design validation failed: {len(errors)} errors&#34;)
-        return ValidationResult(valid=False, data=None, errors=errors)
-
-    except Exception as e:
-        error_msg = f&#34;Unexpected error during puzzle design validation: {e!s}&#34;
-        logger.error(error_msg)
-        return ValidationResult(valid=False, data=None, errors=[error_msg])</code></pre>
-</details>
-<div class="desc"><p>Parse and validate puzzle design YAML against PuzzleDesign schema.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>raw_output</code></strong></dt>
-<dd>Raw YAML string containing puzzle design data.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<p>ValidationResult with validation status, parsed data if valid,
-and error messages if invalid.</p>
-<h2 id="example">Example</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; validator = OutputValidator()
-&gt;&gt;&gt; yaml_str = '''
-... puzzles: [...]
-... artifacts: [...]
-... monsters: [...]
-... npcs: [...]
-... '''
-&gt;&gt;&gt; result = validator.validate_puzzle_design(yaml_str)
-&gt;&gt;&gt; if result.valid:
-...     print(f&quot;Valid design: {len(result.data.puzzles)} puzzles&quot;)
-</code></pre></div>
-</dd>
-<dt id="space_hulk_game.validation.OutputValidator.validate_scene_texts"><code class="name flex">
-<span>def <span class="ident">validate_scene_texts</span></span>(<span>self, raw_output: str) ‑> <a title="space_hulk_game.validation.validator.ValidationResult" href="validator.html#space_hulk_game.validation.validator.ValidationResult">ValidationResult</a></span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def validate_scene_texts(self, raw_output: str) -&gt; ValidationResult:
-    &#34;&#34;&#34;Parse and validate scene texts YAML against SceneTexts schema.
-
-    Args:
-        raw_output: Raw YAML string containing scene texts data.
-
-    Returns:
-        ValidationResult with validation status, parsed data if valid,
-        and error messages if invalid.
-
-    Example:
-        &gt;&gt;&gt; validator = OutputValidator()
-        &gt;&gt;&gt; yaml_str = &#39;&#39;&#39;
-        ... scenes:
-        ...   scene_1:
-        ...     name: &#34;Scene 1&#34;
-        ...     description: &#34;A very detailed description of what happens in this scene...&#34;
-        ...     atmosphere: &#34;Dark and foreboding atmosphere&#34;
-        ...     initial_text: &#34;You enter the dark corridor...&#34;
-        ...     examination_texts: {}
-        ...     dialogue: []
-        ... &#39;&#39;&#39;
-        &gt;&gt;&gt; result = validator.validate_scene_texts(yaml_str)
-        &gt;&gt;&gt; if result.valid:
-        ...     print(f&#34;Valid texts: {len(result.data.scenes)} scenes&#34;)
-    &#34;&#34;&#34;
-    logger.info(&#34;Validating scene texts&#34;)
-
-    # Parse YAML
-    data, parse_errors = self._parse_yaml(raw_output)
-    if parse_errors:
-        return ValidationResult(valid=False, data=None, errors=parse_errors)
-
-    # Type guard: data is guaranteed to be dict here since parse_errors is empty
-    assert data is not None, &#34;data should not be None when parse_errors is empty&#34;
-
-    # Validate against schema
-    try:
-        scene_texts = SceneTexts(**data)
-        logger.info(f&#34;Scene texts validation successful: {len(scene_texts.scenes)} scenes&#34;)
-        return ValidationResult(valid=True, data=scene_texts, errors=[])
-
-    except ValidationError as e:
-        errors = self._format_pydantic_errors(e)
-        logger.error(f&#34;Scene texts validation failed: {len(errors)} errors&#34;)
-        return ValidationResult(valid=False, data=None, errors=errors)
-
-    except Exception as e:
-        error_msg = f&#34;Unexpected error during scene texts validation: {e!s}&#34;
-        logger.error(error_msg)
-        return ValidationResult(valid=False, data=None, errors=[error_msg])</code></pre>
-</details>
-<div class="desc"><p>Parse and validate scene texts YAML against SceneTexts schema.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>raw_output</code></strong></dt>
-<dd>Raw YAML string containing scene texts data.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<p>ValidationResult with validation status, parsed data if valid,
-and error messages if invalid.</p>
-<h2 id="example">Example</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; validator = OutputValidator()
-&gt;&gt;&gt; yaml_str = '''
-... scenes:
-...   scene_1:
-...     name: &quot;Scene 1&quot;
-...     description: &quot;A very detailed description of what happens in this scene...&quot;
-...     atmosphere: &quot;Dark and foreboding atmosphere&quot;
-...     initial_text: &quot;You enter the dark corridor...&quot;
-...     examination_texts: {}
-...     dialogue: []
-... '''
-&gt;&gt;&gt; result = validator.validate_scene_texts(yaml_str)
-&gt;&gt;&gt; if result.valid:
-...     print(f&quot;Valid texts: {len(result.data.scenes)} scenes&quot;)
-</code></pre></div>
-</dd>
-</dl>
-</dd>
-<dt id="space_hulk_game.validation.ValidationResult"><code class="flex name class">
-<span>class <span class="ident">ValidationResult</span></span>
-<span>(</span><span>valid: bool, data: typing.Any | None, errors: list[str])</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@dataclass
-class ValidationResult:
-    &#34;&#34;&#34;Result of validating YAML output against a schema.
-
-    Attributes:
-        valid: Whether the validation succeeded.
-        data: Parsed Pydantic model if validation succeeded, None otherwise.
-        errors: List of error messages if validation failed, empty list otherwise.
-
-    Example:
-        &gt;&gt;&gt; result = ValidationResult(valid=True, data=plot_outline, errors=[])
-        &gt;&gt;&gt; if result.valid:
-        ...     print(f&#34;Validation succeeded: {result.data.title}&#34;)
-        ... else:
-        ...     print(f&#34;Errors: {result.errors}&#34;)
-    &#34;&#34;&#34;
-
-    valid: bool
-    data: Any | None
-    errors: list[str]</code></pre>
-</details>
-<div class="desc"><p>Result of validating YAML output against a schema.</p>
-<h2 id="attributes">Attributes</h2>
-<dl>
-<dt><strong><code>valid</code></strong></dt>
-<dd>Whether the validation succeeded.</dd>
-<dt><strong><code>data</code></strong></dt>
-<dd>Parsed Pydantic model if validation succeeded, None otherwise.</dd>
-<dt><strong><code>errors</code></strong></dt>
-<dd>List of error messages if validation failed, empty list otherwise.</dd>
-</dl>
-<h2 id="example">Example</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; result = ValidationResult(valid=True, data=plot_outline, errors=[])
-&gt;&gt;&gt; if result.valid:
-...     print(f&quot;Validation succeeded: {result.data.title}&quot;)
-... else:
-...     print(f&quot;Errors: {result.errors}&quot;)
-</code></pre></div>
-<h3>Instance variables</h3>
-<dl>
-<dt id="space_hulk_game.validation.ValidationResult.data"><code class="name">var <span class="ident">data</span> : typing.Any | None</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.validation.ValidationResult.errors"><code class="name">var <span class="ident">errors</span> : list[str]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.validation.ValidationResult.valid"><code class="name">var <span class="ident">valid</span> : bool</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-</dl>
-</dd>
 </dl>
 </section>
 </article>
@@ -3204,52 +2304,28 @@ class ValidationResult:
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="space_hulk_game" href="../index.html">space_hulk_game</a></code></li>
-</ul>
-</li>
-<li><h3><a href="#header-submodules">Sub-modules</a></h3>
-<ul>
-<li><code><a title="space_hulk_game.validation.corrector" href="corrector.html">space_hulk_game.validation.corrector</a></code></li>
-<li><code><a title="space_hulk_game.validation.validator" href="validator.html">space_hulk_game.validation.validator</a></code></li>
+<li><code><a title="space_hulk_game.validation" href="index.html">space_hulk_game.validation</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
-<h4><code><a title="space_hulk_game.validation.CorrectionResult" href="#space_hulk_game.validation.CorrectionResult">CorrectionResult</a></code></h4>
+<h4><code><a title="space_hulk_game.validation.corrector.CorrectionResult" href="#space_hulk_game.validation.corrector.CorrectionResult">CorrectionResult</a></code></h4>
 <ul class="">
-<li><code><a title="space_hulk_game.validation.CorrectionResult.corrected_yaml" href="#space_hulk_game.validation.CorrectionResult.corrected_yaml">corrected_yaml</a></code></li>
-<li><code><a title="space_hulk_game.validation.CorrectionResult.corrections" href="#space_hulk_game.validation.CorrectionResult.corrections">corrections</a></code></li>
-<li><code><a title="space_hulk_game.validation.CorrectionResult.success" href="#space_hulk_game.validation.CorrectionResult.success">success</a></code></li>
-<li><code><a title="space_hulk_game.validation.CorrectionResult.validation_result" href="#space_hulk_game.validation.CorrectionResult.validation_result">validation_result</a></code></li>
+<li><code><a title="space_hulk_game.validation.corrector.CorrectionResult.corrected_yaml" href="#space_hulk_game.validation.corrector.CorrectionResult.corrected_yaml">corrected_yaml</a></code></li>
+<li><code><a title="space_hulk_game.validation.corrector.CorrectionResult.corrections" href="#space_hulk_game.validation.corrector.CorrectionResult.corrections">corrections</a></code></li>
+<li><code><a title="space_hulk_game.validation.corrector.CorrectionResult.success" href="#space_hulk_game.validation.corrector.CorrectionResult.success">success</a></code></li>
+<li><code><a title="space_hulk_game.validation.corrector.CorrectionResult.validation_result" href="#space_hulk_game.validation.corrector.CorrectionResult.validation_result">validation_result</a></code></li>
 </ul>
 </li>
 <li>
-<h4><code><a title="space_hulk_game.validation.OutputCorrector" href="#space_hulk_game.validation.OutputCorrector">OutputCorrector</a></code></h4>
+<h4><code><a title="space_hulk_game.validation.corrector.OutputCorrector" href="#space_hulk_game.validation.corrector.OutputCorrector">OutputCorrector</a></code></h4>
 <ul class="">
-<li><code><a title="space_hulk_game.validation.OutputCorrector.correct_game_mechanics" href="#space_hulk_game.validation.OutputCorrector.correct_game_mechanics">correct_game_mechanics</a></code></li>
-<li><code><a title="space_hulk_game.validation.OutputCorrector.correct_narrative_map" href="#space_hulk_game.validation.OutputCorrector.correct_narrative_map">correct_narrative_map</a></code></li>
-<li><code><a title="space_hulk_game.validation.OutputCorrector.correct_plot" href="#space_hulk_game.validation.OutputCorrector.correct_plot">correct_plot</a></code></li>
-<li><code><a title="space_hulk_game.validation.OutputCorrector.correct_puzzle_design" href="#space_hulk_game.validation.OutputCorrector.correct_puzzle_design">correct_puzzle_design</a></code></li>
-<li><code><a title="space_hulk_game.validation.OutputCorrector.correct_scene_texts" href="#space_hulk_game.validation.OutputCorrector.correct_scene_texts">correct_scene_texts</a></code></li>
-</ul>
-</li>
-<li>
-<h4><code><a title="space_hulk_game.validation.OutputValidator" href="#space_hulk_game.validation.OutputValidator">OutputValidator</a></code></h4>
-<ul class="">
-<li><code><a title="space_hulk_game.validation.OutputValidator.validate_game_mechanics" href="#space_hulk_game.validation.OutputValidator.validate_game_mechanics">validate_game_mechanics</a></code></li>
-<li><code><a title="space_hulk_game.validation.OutputValidator.validate_narrative_map" href="#space_hulk_game.validation.OutputValidator.validate_narrative_map">validate_narrative_map</a></code></li>
-<li><code><a title="space_hulk_game.validation.OutputValidator.validate_plot" href="#space_hulk_game.validation.OutputValidator.validate_plot">validate_plot</a></code></li>
-<li><code><a title="space_hulk_game.validation.OutputValidator.validate_puzzle_design" href="#space_hulk_game.validation.OutputValidator.validate_puzzle_design">validate_puzzle_design</a></code></li>
-<li><code><a title="space_hulk_game.validation.OutputValidator.validate_scene_texts" href="#space_hulk_game.validation.OutputValidator.validate_scene_texts">validate_scene_texts</a></code></li>
-</ul>
-</li>
-<li>
-<h4><code><a title="space_hulk_game.validation.ValidationResult" href="#space_hulk_game.validation.ValidationResult">ValidationResult</a></code></h4>
-<ul class="">
-<li><code><a title="space_hulk_game.validation.ValidationResult.data" href="#space_hulk_game.validation.ValidationResult.data">data</a></code></li>
-<li><code><a title="space_hulk_game.validation.ValidationResult.errors" href="#space_hulk_game.validation.ValidationResult.errors">errors</a></code></li>
-<li><code><a title="space_hulk_game.validation.ValidationResult.valid" href="#space_hulk_game.validation.ValidationResult.valid">valid</a></code></li>
+<li><code><a title="space_hulk_game.validation.corrector.OutputCorrector.correct_game_mechanics" href="#space_hulk_game.validation.corrector.OutputCorrector.correct_game_mechanics">correct_game_mechanics</a></code></li>
+<li><code><a title="space_hulk_game.validation.corrector.OutputCorrector.correct_narrative_map" href="#space_hulk_game.validation.corrector.OutputCorrector.correct_narrative_map">correct_narrative_map</a></code></li>
+<li><code><a title="space_hulk_game.validation.corrector.OutputCorrector.correct_plot" href="#space_hulk_game.validation.corrector.OutputCorrector.correct_plot">correct_plot</a></code></li>
+<li><code><a title="space_hulk_game.validation.corrector.OutputCorrector.correct_puzzle_design" href="#space_hulk_game.validation.corrector.OutputCorrector.correct_puzzle_design">correct_puzzle_design</a></code></li>
+<li><code><a title="space_hulk_game.validation.corrector.OutputCorrector.correct_scene_texts" href="#space_hulk_game.validation.corrector.OutputCorrector.correct_scene_texts">correct_scene_texts</a></code></li>
 </ul>
 </li>
 </ul>
