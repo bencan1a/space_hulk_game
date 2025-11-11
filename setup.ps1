@@ -1,21 +1,21 @@
 # Space Hulk Game - Windows Setup Script
 #
-# This script automates the installation of all dependencies required to run
+# This script automates the installation of dependencies required to run
 # the Space Hulk Game project on Windows, including:
 # - UV package manager
-# - Ollama (local LLM runtime)
-# - Qwen2.5 model for Ollama
 # - Python dependencies
 # - Environment configuration
 #
-# Usage: .\setup.ps1 [-SkipOllama] [-SkipModel] [-Dev]
-#   -SkipOllama: Skip Ollama installation
-#   -SkipModel: Skip model download
+# Optional: Ollama local LLM runtime (use -WithOllama flag)
+#
+# Usage: .\setup.ps1 [-WithOllama] [-WithModel] [-Dev]
+#   -WithOllama: Install Ollama (optional, for local LLM)
+#   -WithModel: Download qwen2.5 model (requires -WithOllama)
 #   -Dev: Install development dependencies
 
 param(
-    [switch]$SkipOllama,
-    [switch]$SkipModel,
+    [switch]$WithOllama,
+    [switch]$WithModel,
     [switch]$Dev
 )
 
@@ -111,8 +111,8 @@ function Install-UV {
 
 # Install Ollama
 function Install-Ollama {
-    if ($SkipOllama) {
-        Write-ColorOutput "Skipping Ollama installation (-SkipOllama flag set)" "Yellow"
+    if (-not $WithOllama) {
+        Write-ColorOutput "Skipping Ollama installation (use -WithOllama to install)" "Yellow"
         return
     }
 
@@ -148,8 +148,8 @@ function Install-Ollama {
 
 # Pull Ollama model
 function Install-Model {
-    if ($SkipModel) {
-        Write-ColorOutput "Skipping model download (-SkipModel flag set)" "Yellow"
+    if (-not $WithModel) {
+        Write-ColorOutput "Skipping model download (use -WithModel to download)" "Yellow"
         return
     }
 
@@ -157,6 +157,7 @@ function Install-Model {
 
     if (-not (Test-CommandExists "ollama")) {
         Write-ColorOutput "Ollama not found, skipping model download" "Yellow"
+        Write-ColorOutput "Use -WithOllama flag to install Ollama first" "Yellow"
         return
     }
 
@@ -322,13 +323,13 @@ function Test-Installation {
         $allGood = $false
     }
 
-    # Check Ollama (if not skipped)
-    if (-not $SkipOllama) {
+    # Check Ollama (if requested)
+    if ($WithOllama) {
         if (Test-CommandExists "ollama") {
             Write-ColorOutput "✓ Ollama installed" "Green"
 
-            # Check if model is available (if not skipped)
-            if (-not $SkipModel) {
+            # Check if model is available (if requested)
+            if ($WithModel) {
                 $models = ollama list 2>&1
                 if ($models -match "qwen2.5") {
                     Write-ColorOutput "✓ Qwen2.5 model available" "Green"
@@ -337,8 +338,10 @@ function Test-Installation {
                 }
             }
         } else {
-            Write-ColorOutput "⚠ Ollama not found (skipped or not installed)" "Yellow"
+            Write-ColorOutput "⚠ Ollama installation failed or not completed" "Yellow"
         }
+    } else {
+        Write-ColorOutput "✓ Ollama not requested (using cloud LLM services)" "Green"
     }
 
     # Check .env file

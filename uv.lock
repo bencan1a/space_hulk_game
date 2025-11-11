@@ -3655,6 +3655,7 @@ name = "space-hulk-game"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
+    { name = "colorama" },
     { name = "crewai", extra = ["tools"] },
     { name = "litellm" },
     { name = "mem0ai" },
@@ -3676,6 +3677,7 @@ dev = [
 requires-dist = [
     { name = "bandit", marker = "extra == 'dev'", specifier = ">=1.7.0" },
     { name = "black", marker = "extra == 'dev'", specifier = ">=23.0.0" },
+    { name = "colorama", specifier = ">=0.4.6" },
     { name = "crewai", extras = ["tools"], specifier = ">=0.102.0,<1.0.0" },
     { name = "litellm", specifier = ">=1.0.0" },
     { name = "mem0ai", specifier = ">=0.1.0" },

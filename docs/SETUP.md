@@ -56,33 +56,32 @@ cd space_hulk_game
 
 ### Optional Software
 
-- **Ollama** (for local LLM support)
-  - Linux/macOS: Installed automatically by setup script
+- **Ollama** (for local LLM support - optional)
+  - Only needed if you want to use a local LLM instead of cloud services
+  - Can be installed with setup script flags (see below)
+  - Linux/macOS: Use `./setup.sh --with-ollama --with-model`
   - Windows: Download from [ollama.com/download/windows](https://ollama.com/download/windows)
 
 ## Automated Setup
 
-The automated setup scripts handle all dependency installation and configuration.
+The automated setup scripts handle all dependency installation and configuration. **By default, the scripts do NOT install Ollama** - they are configured for cloud LLM services like Anthropic Claude, OpenRouter, or OpenAI.
 
 ### Linux/macOS Setup Script
 
 The `setup.sh` script provides the following options:
 
 ```bash
-# Standard installation
+# Standard installation (cloud LLM services, no Ollama)
 ./setup.sh
 
-# Skip Ollama installation (if you'll use OpenAI API instead)
-./setup.sh --skip-ollama
-
-# Skip model download (download later manually)
-./setup.sh --skip-model
+# Install with Ollama for local LLM
+./setup.sh --with-ollama --with-model
 
 # Install development dependencies
 ./setup.sh --dev
 
 # Combine flags
-./setup.sh --skip-ollama --dev
+./setup.sh --with-ollama --with-model --dev
 ```
 
 **What the script does:**
@@ -90,31 +89,28 @@ The `setup.sh` script provides the following options:
 1. ✓ Checks Python version compatibility
 2. ✓ Installs UV package manager
 3. ✓ Creates `.venv` virtual environment
-4. ✓ Installs Ollama (optional)
-5. ✓ Downloads qwen2.5 model (optional)
-6. ✓ Installs Python dependencies in the virtual environment
-7. ✓ Creates `.env` configuration file
-8. ✓ Verifies installation
+4. ✓ Installs Python dependencies in the virtual environment
+5. ✓ Creates `.env` configuration file
+6. ✓ Verifies installation
+7. ✓ Optionally installs Ollama (with `--with-ollama` flag)
+8. ✓ Optionally downloads qwen2.5 model (with `--with-model` flag)
 
 ### Windows Setup Script
 
 The `setup.ps1` script provides the following options:
 
 ```powershell
-# Standard installation
+# Standard installation (cloud LLM services, no Ollama)
 .\setup.ps1
 
-# Skip Ollama installation
-.\setup.ps1 -SkipOllama
-
-# Skip model download
-.\setup.ps1 -SkipModel
+# Install with Ollama for local LLM
+.\setup.ps1 -WithOllama -WithModel
 
 # Install development dependencies
 .\setup.ps1 -Dev
 
 # Combine flags
-.\setup.ps1 -SkipOllama -Dev
+.\setup.ps1 -WithOllama -WithModel -Dev
 ```
 
 **Note for Windows users:** You may need to allow script execution:
@@ -255,27 +251,7 @@ The `.env` file controls various aspects of the application. Here are the key co
 
 The project supports multiple LLM providers through [litellm](https://docs.litellm.ai/docs/providers). Configure your preferred provider in the `.env` file:
 
-**Option 1: Use Ollama (Local, Free)**
-
-```bash
-OLLAMA_BASE_URL=http://localhost:11434
-OPENAI_MODEL_NAME=ollama/qwen2.5
-```
-
-Best for: Privacy, offline work, no API costs. Requires local installation.
-
-**Option 2: Use OpenAI API**
-
-```bash
-OPENAI_API_KEY=sk-your-api-key-here
-OPENAI_MODEL_NAME=gpt-4
-# or
-OPENAI_MODEL_NAME=gpt-3.5-turbo  # Cheaper alternative
-```
-
-Get your API key from: [platform.openai.com/api-keys](https://platform.openai.com/api-keys)
-
-**Option 3: Use Anthropic Claude**
+**Option 1: Use Anthropic Claude (Recommended)**
 
 ```bash
 ANTHROPIC_API_KEY=sk-ant-your-key-here
@@ -290,7 +266,7 @@ Available models:
 
 Get your API key from: [console.anthropic.com](https://console.anthropic.com/)
 
-**Option 4: Use OpenRouter (Access to Multiple Providers)**
+**Option 2: Use OpenRouter (Access to Multiple Providers)**
 
 ```bash
 OPENROUTER_API_KEY=sk-or-v1-your-key-here
@@ -300,6 +276,26 @@ OPENAI_MODEL_NAME=openrouter/openai/gpt-4-turbo
 # or
 OPENAI_MODEL_NAME=openrouter/meta-llama/llama-3.1-70b-instruct
 ```
+
+**Option 3: Use OpenAI API**
+
+```bash
+OPENAI_API_KEY=sk-your-api-key-here
+OPENAI_MODEL_NAME=gpt-4
+# or
+OPENAI_MODEL_NAME=gpt-3.5-turbo  # Cheaper alternative
+```
+
+Get your API key from: [platform.openai.com/api-keys](https://platform.openai.com/api-keys)
+
+**Option 4: Use Ollama (Local, Optional)**
+
+```bash
+OLLAMA_BASE_URL=http://localhost:11434
+OPENAI_MODEL_NAME=ollama/qwen2.5
+```
+
+Best for: Privacy, offline work, no API costs. Requires local installation using `./setup.sh --with-ollama --with-model`.
 
 OpenRouter provides unified access to models from Anthropic, OpenAI, Meta, Google, and more. See all available models at: [openrouter.ai/models](https://openrouter.ai/models)
 

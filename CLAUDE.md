@@ -83,13 +83,17 @@ git commit --no-verify -m "message"
 
 ### Setup & Dependencies
 ```bash
-# Automated setup (includes Ollama, dependencies, .env, virtual environment)
+# Automated setup (dependencies, .env, virtual environment)
 ./setup.sh              # Linux/macOS
 .\setup.ps1             # Windows
 
 # For development with type checking and linting tools
 ./setup.sh --dev        # Linux/macOS
 .\setup.ps1 -Dev        # Windows
+
+# Optional: Install Ollama for local LLM (not required for cloud services)
+./setup.sh --with-ollama --with-model   # Linux/macOS
+.\setup.ps1 -WithOllama -WithModel      # Windows
 
 # After setup, activate the virtual environment
 source .venv/bin/activate      # Linux/macOS/WSL
@@ -106,7 +110,7 @@ uv pip install -e ".[dev]"
 # Install type stubs only (if getting mypy errors about missing stubs)
 pip install types-pyyaml
 
-# Start Ollama (if using local LLM)
+# Start Ollama (if using local LLM - optional)
 ollama serve
 ollama pull qwen2.5
 ```
@@ -230,13 +234,7 @@ Agent outputs are written to `game-config/*.yaml` based on templates defined the
 
 The project supports multiple LLM providers via litellm. Configure in `.env`:
 
-**Ollama (Local, Free):**
-```bash
-OPENAI_MODEL_NAME=ollama/qwen2.5
-OLLAMA_BASE_URL=http://localhost:11434
-```
-
-**Anthropic Claude (Recommended for production):**
+**Anthropic Claude (Recommended):**
 ```bash
 ANTHROPIC_API_KEY=sk-ant-your-key-here
 OPENAI_MODEL_NAME=claude-3-5-sonnet-20241022
@@ -254,7 +252,13 @@ OPENAI_API_KEY=sk-your-key-here
 OPENAI_MODEL_NAME=gpt-4
 ```
 
-The system uses Ollama by default for local development. Ollama must be running (`ollama serve`) before starting the crew.
+**Ollama (Local, Optional):**
+```bash
+OPENAI_MODEL_NAME=ollama/qwen2.5
+OLLAMA_BASE_URL=http://localhost:11434
+```
+
+The system is configured for cloud LLM services by default. If using Ollama locally, you must install it using `./setup.sh --with-ollama --with-model` and ensure it's running (`ollama serve`) before starting the crew.
 
 ## Key Development Patterns
 
@@ -407,10 +411,12 @@ space_hulk_game/
    - Linux/macOS/WSL: `source .venv/bin/activate`
    - Windows: `.venv\Scripts\activate`
 3. **Configure LLM provider**: Edit `.env` with your API key and model
-4. **Start Ollama** (if using local): `ollama serve`
-5. **Validate setup**: `python tools/validate_api.py`
+4. **Optional - Install Ollama** (if using local LLM):
+   - Run setup again with: `./setup.sh --with-ollama --with-model` or `.\setup.ps1 -WithOllama -WithModel`
+   - Start Ollama: `ollama serve`
+5. **Validate setup**: `python validate_api.py`
 
-**Important:** The setup script creates a `.venv` virtual environment containing all dependencies. Always activate it before running commands.
+**Important:** The setup script creates a `.venv` virtual environment containing all dependencies. Always activate it before running commands. The setup script does NOT install Ollama by default - it's designed for cloud LLM services.
 
 For CI/CD environments, set API keys as environment variables instead of using `.env` files.
 

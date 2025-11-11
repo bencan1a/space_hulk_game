@@ -3,17 +3,17 @@
 ###############################################################################
 # Space Hulk Game - Setup Script
 #
-# This script automates the installation of all dependencies required to run
+# This script automates the installation of dependencies required to run
 # the Space Hulk Game project, including:
 # - UV package manager
-# - Ollama (local LLM runtime)
-# - Qwen2.5 model for Ollama
 # - Python dependencies
 # - Environment configuration
 #
-# Usage: ./setup.sh [--skip-ollama] [--skip-model]
-#   --skip-ollama: Skip Ollama installation
-#   --skip-model: Skip model download
+# Optional: Ollama local LLM runtime (use --with-ollama flag)
+#
+# Usage: ./setup.sh [--with-ollama] [--with-model] [--dev]
+#   --with-ollama: Install Ollama (optional, for local LLM)
+#   --with-model: Download qwen2.5 model (requires --with-ollama)
 #   --dev: Install development dependencies
 ###############################################################################
 
@@ -27,19 +27,19 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Flags
-SKIP_OLLAMA=false
-SKIP_MODEL=false
+INSTALL_OLLAMA=false
+INSTALL_MODEL=false
 INSTALL_DEV=false
 
 # Parse command-line arguments
 while [[ $# -gt 0 ]]; do
     case $1 in
-        --skip-ollama)
-            SKIP_OLLAMA=true
+        --with-ollama)
+            INSTALL_OLLAMA=true
             shift
             ;;
-        --skip-model)
-            SKIP_MODEL=true
+        --with-model)
+            INSTALL_MODEL=true
             shift
             ;;
         --dev)
@@ -48,7 +48,7 @@ while [[ $# -gt 0 ]]; do
             ;;
         *)
             echo -e "${RED}Unknown option: $1${NC}"
-            echo "Usage: $0 [--skip-ollama] [--skip-model] [--dev]"
+            echo "Usage: $0 [--with-ollama] [--with-model] [--dev]"
             exit 1
             ;;
     esac
@@ -139,10 +139,11 @@ install_uv() {
 
 # Install Ollama
 install_ollama() {
-    if [ "$SKIP_OLLAMA" = true ]; then
-        print_message "$YELLOW" "Skipping Ollama installation (--skip-ollama flag set)"
+    if [ "$INSTALL_OLLAMA" = false ]; then
+        print_message "$YELLOW" "Skipping Ollama installation (use --with-ollama to install)"
         return
     fi
+
 
     print_header "Installing Ollama"
 
@@ -193,15 +194,18 @@ install_ollama() {
 
 # Pull Ollama model
 pull_model() {
-    if [ "$SKIP_MODEL" = true ]; then
-        print_message "$YELLOW" "Skipping model download (--skip-model flag set)"
+    if [ "$INSTALL_MODEL" = false ]; then
+        print_message "$YELLOW" "Skipping model download (use --with-model to download)"
         return
     fi
 
+
     print_header "Downloading Qwen2.5 Model"
+
 
     if ! command_exists ollama; then
         print_message "$YELLOW" "Ollama not found, skipping model download"
+        print_message "$YELLOW" "Use --with-ollama flag to install Ollama first"
         return
     fi
 
@@ -344,13 +348,13 @@ verify_installation() {
         all_good=false
     fi
 
-    # Check Ollama (if not skipped)
-    if [ "$SKIP_OLLAMA" = false ]; then
+    # Check Ollama (if requested)
+    if [ "$INSTALL_OLLAMA" = true ]; then
         if command_exists ollama; then
             print_message "$GREEN" "✓ Ollama installed"
 
-            # Check if model is available (if not skipped)
-            if [ "$SKIP_MODEL" = false ]; then
+            # Check if model is available (if requested)
+            if [ "$INSTALL_MODEL" = true ]; then
                 if ollama list | grep -q "qwen2.5"; then
                     print_message "$GREEN" "✓ Qwen2.5 model available"
                 else
@@ -358,8 +362,10 @@ verify_installation() {
                 fi
             fi
         else
-            print_message "$YELLOW" "⚠ Ollama not found (skipped or not installed)"
+            print_message "$YELLOW" "⚠ Ollama installation failed or not completed"
         fi
+    else
+        print_message "$GREEN" "✓ Ollama not requested (using cloud LLM services)"
     fi
 
     # Check .env file
