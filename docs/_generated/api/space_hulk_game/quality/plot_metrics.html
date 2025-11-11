@@ -1,0 +1,718 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>space_hulk_game.quality.plot_metrics API documentation</title>
+<meta name="description" content="Quality metrics for PlotOutline evaluation …">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>space_hulk_game.quality.plot_metrics</code></h1>
+</header>
+<section id="section-intro">
+<p>Quality metrics for PlotOutline evaluation.</p>
+<p>This module defines measurable quality criteria for plot outlines generated
+by the Space Hulk Game crew, including structure, branching paths, endings,
+and narrative completeness.</p>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="space_hulk_game.quality.plot_metrics.PlotMetrics"><code class="flex name class">
+<span>class <span class="ident">PlotMetrics</span></span>
+<span>(</span><span>has_clear_setting: bool = False,<br>branching_paths_count: int = 0,<br>endings_count: int = 0,<br>themes_defined: bool = False,<br>word_count: int = 0,<br>has_title: bool = False,<br>has_prologue: bool = False,<br>has_acts: bool = False,<br>min_branching_paths: int = 2,<br>min_endings: int = 2,<br>min_word_count: int = 500)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
+class PlotMetrics:
+    &#34;&#34;&#34;
+    Quality metrics for evaluating plot outline content.
+
+    Attributes:
+        has_clear_setting: Whether the plot has a clearly defined setting (yes/no)
+        branching_paths_count: Number of branching paths in the plot (count)
+        endings_count: Number of defined endings (count)
+        themes_defined: Whether themes are clearly stated (yes/no)
+        word_count: Total word count of the plot outline (number)
+        has_title: Whether the plot has a title (yes/no)
+        has_prologue: Whether the plot includes a prologue (yes/no)
+        has_acts: Whether the plot is structured into acts (yes/no)
+        min_branching_paths: Minimum required branching paths (default: 2)
+        min_endings: Minimum required endings (default: 2)
+        min_word_count: Minimum required word count (default: 500)
+    &#34;&#34;&#34;
+
+    # Measured values
+    has_clear_setting: bool = False
+    branching_paths_count: int = 0
+    endings_count: int = 0
+    themes_defined: bool = False
+    word_count: int = 0
+    has_title: bool = False
+    has_prologue: bool = False
+    has_acts: bool = False
+
+    # Thresholds
+    min_branching_paths: int = 2
+    min_endings: int = 2
+    min_word_count: int = 500
+
+    @classmethod
+    def from_yaml_content(cls, yaml_content: str) -&gt; &#34;PlotMetrics&#34;:
+        &#34;&#34;&#34;
+        Create PlotMetrics from YAML content string.
+
+        Args:
+            yaml_content: YAML string containing plot outline data
+
+        Returns:
+            PlotMetrics instance with measured values
+
+        Example:
+            &gt;&gt;&gt; metrics = PlotMetrics.from_yaml_content(yaml_string)
+            &gt;&gt;&gt; print(metrics.passes_threshold())
+        &#34;&#34;&#34;
+        try:
+            # Handle markdown-wrapped YAML
+            content = yaml_content.strip()
+            if content.startswith(&#34;```&#34;):
+                lines = content.split(&#34;\n&#34;)
+                # Remove first and last lines (markdown fences)
+                content = &#34;\n&#34;.join(lines[1:-1])
+                logger.debug(&#34;Stripped markdown fences from YAML content&#34;)
+
+            # Try to parse as-is first
+            try:
+                data = yaml.safe_load(content)
+            except yaml.YAMLError as parse_error:
+                # Attempt to fix common YAML syntax errors (e.g., unquoted colons in values)
+                logger.debug(f&#34;Initial YAML parse failed, attempting to fix: {parse_error}&#34;)
+                content = cls._fix_yaml_syntax(content)
+                data = yaml.safe_load(content)
+                logger.info(&#34;Successfully parsed YAML after fixing syntax errors&#34;)
+
+            metrics = cls.from_dict(data)
+            logger.info(
+                f&#34;PlotMetrics parsed: score={metrics.get_score():.1f}/10, passes={metrics.passes_threshold()}&#34;
+            )
+            return metrics
+        except Exception as e:
+            logger.error(f&#34;Failed to parse plot YAML content: {e}&#34;)
+            raise ValueError(f&#34;Failed to parse YAML content: {e}&#34;) from e
+
+    @staticmethod
+    def _fix_yaml_syntax(content: str) -&gt; str:
+        &#34;&#34;&#34;
+        Fix common YAML syntax errors like unquoted colons in values.
+
+        Args:
+            content: YAML string with potential syntax errors
+
+        Returns:
+            Fixed YAML string
+        &#34;&#34;&#34;
+        lines = content.split(&#34;\n&#34;)
+        fixed_lines = []
+
+        for line in lines:
+            # Fix unquoted values with colons (e.g., &#34;title: Space Hulk: Derelict&#34;)
+            if &#34;:&#34; in line and not line.strip().startswith(&#34;-&#34;):
+                parts = line.split(&#34;:&#34;, 1)
+                if len(parts) == 2:
+                    key_part = parts[0]
+                    value_part = parts[1].strip()
+
+                    # If value has a colon and is not already quoted or is a nested structure
+                    if (
+                        &#34;:&#34; in value_part
+                        and value_part
+                        and not (
+                            (value_part.startswith(&#39;&#34;&#39;) and value_part.endswith(&#39;&#34;&#39;))
+                            or (value_part.startswith(&#34;&#39;&#34;) and value_part.endswith(&#34;&#39;&#34;))
+                            or value_part.startswith(&#34;[&#34;)
+                            or value_part.startswith(&#34;{&#34;)
+                        )
+                    ):
+                        # Quote the value
+                        fixed_line = f&#39;{key_part}: &#34;{value_part}&#34;&#39;
+                        fixed_lines.append(fixed_line)
+                        logger.debug(f&#34;Fixed YAML syntax: {line.strip()}&#34;)
+                        continue
+
+            fixed_lines.append(line)
+
+        return &#34;\n&#34;.join(fixed_lines)
+
+    @classmethod
+    def from_dict(cls, data: dict[str, Any]) -&gt; &#34;PlotMetrics&#34;:
+        &#34;&#34;&#34;
+        Create PlotMetrics from a dictionary (parsed YAML).
+
+        Args:
+            data: Dictionary containing plot outline data
+
+        Returns:
+            PlotMetrics instance with measured values
+        &#34;&#34;&#34;
+        metrics = cls()
+
+        # Check for title
+        metrics.has_title = bool(data.get(&#34;title&#34;))
+
+        # Check for clear setting
+        setting = data.get(&#34;setting&#34;)
+        if setting:
+            if isinstance(setting, dict):
+                # Setting is a structured dict with location, time, environment
+                metrics.has_clear_setting = bool(
+                    setting.get(&#34;location&#34;) or setting.get(&#34;time&#34;) or setting.get(&#34;environment&#34;)
+                )
+            elif isinstance(setting, str):
+                # Setting is a simple string - any non-empty string is valid
+                metrics.has_clear_setting = len(setting.strip()) &gt; 0
+
+        # Check for themes
+        themes = data.get(&#34;themes&#34;, [])
+        metrics.themes_defined = bool(themes) and len(themes) &gt; 0
+
+        # Count branching paths
+        metrics.branching_paths_count = cls._count_branching_paths(data)
+
+        # Count endings
+        metrics.endings_count = cls._count_endings(data)
+
+        # Check for prologue
+        plot = data.get(&#34;plot&#34;, {})
+        metrics.has_prologue = &#34;prologue&#34; in plot
+
+        # Check for acts (act1, act2, act3, etc.)
+        metrics.has_acts = any(key.startswith(&#34;act&#34;) for key in plot.keys())
+
+        # Calculate word count
+        metrics.word_count = cls._calculate_word_count(data)
+
+        return metrics
+
+    @staticmethod
+    def _count_branching_paths(data: dict[str, Any]) -&gt; int:
+        &#34;&#34;&#34;
+        Count the number of branching paths in the plot.
+
+        Searches for &#34;Branching Path&#34; mentions in the plot structure
+        and validates them by checking for associated choice options.
+        &#34;&#34;&#34;
+        count = 0
+        plot = data.get(&#34;plot&#34;, {})
+
+        # Convert entire plot to string for searching
+        plot_str = str(plot)
+
+        # Count explicit &#34;Branching Path&#34; mentions (primary method)
+        # This is more reliable than counting option patterns
+        branching_path_count = plot_str.count(&#34;Branching Path&#34;)
+        count += branching_path_count
+
+        # If no explicit &#34;Branching Path&#34; mentions, look for structured choice patterns
+        # Only as a fallback, and with more careful validation
+        if branching_path_count == 0:
+            lines = plot_str.split(&#34;\n&#34;)
+            in_choice_block = False
+
+            for i, line in enumerate(lines):
+                line_stripped = line.strip()
+
+                # Look for &#34;A)&#34; at start of line, preceded by some context
+                # and followed by &#34;B)&#34; to confirm it&#39;s a real choice
+                if line_stripped.startswith(&#34;A)&#34;) and not in_choice_block:
+                    # Check if next few lines contain &#34;B)&#34; to validate this is a choice
+                    is_valid_choice = False
+                    for j in range(i + 1, min(i + 5, len(lines))):
+                        if lines[j].strip().startswith(&#34;B)&#34;):
+                            is_valid_choice = True
+                            break
+
+                    if is_valid_choice:
+                        count += 1
+                        in_choice_block = True
+                elif not line_stripped.startswith((&#34;A)&#34;, &#34;B)&#34;, &#34;C)&#34;, &#34;D)&#34;)):
+                    in_choice_block = False
+
+        return count
+
+    @staticmethod
+    def _count_endings(data: dict[str, Any]) -&gt; int:
+        &#34;&#34;&#34;
+        Count the number of defined endings.
+
+        Looks for &#39;endings&#39; key or ending-related content in the plot.
+        &#34;&#34;&#34;
+        # Check for explicit endings section
+        endings = data.get(&#34;endings&#34;)
+        if endings:
+            if isinstance(endings, list):
+                return len(endings)
+            elif isinstance(endings, dict):
+                return len(endings)
+
+        # Check within plot structure
+        plot = data.get(&#34;plot&#34;, {})
+        if &#34;endings&#34; in plot:
+            endings = plot[&#34;endings&#34;]
+            if isinstance(endings, list):
+                return len(endings)
+            elif isinstance(endings, dict):
+                return len(endings)
+
+        # Count ending-related mentions
+        plot_str = str(data).lower()
+        ending_keywords = [&#34;good ending&#34;, &#34;bad ending&#34;, &#34;ending:&#34;]
+        count = sum(plot_str.count(keyword) for keyword in ending_keywords)
+
+        return max(count, 0)
+
+    @staticmethod
+    def _calculate_word_count(data: dict[str, Any]) -&gt; int:
+        &#34;&#34;&#34;
+        Calculate total word count of the plot outline.
+
+        Counts all words in string values throughout the structure.
+        &#34;&#34;&#34;
+
+        def count_words_recursive(obj: Any) -&gt; int:
+            &#34;&#34;&#34;Recursively count words in nested structures.&#34;&#34;&#34;
+            if isinstance(obj, str):
+                return len(obj.split())
+            elif isinstance(obj, dict):
+                return sum(count_words_recursive(v) for v in obj.values())
+            elif isinstance(obj, list):
+                return sum(count_words_recursive(item) for item in obj)
+            else:
+                return 0
+
+        return count_words_recursive(data)
+
+    def passes_threshold(self) -&gt; bool:
+        &#34;&#34;&#34;
+        Check if the plot metrics pass all quality thresholds.
+
+        Returns:
+            True if all thresholds are met, False otherwise
+        &#34;&#34;&#34;
+        return (
+            self.has_clear_setting
+            and self.branching_paths_count &gt;= self.min_branching_paths
+            and self.endings_count &gt;= self.min_endings
+            and self.themes_defined
+            and self.word_count &gt;= self.min_word_count
+        )
+
+    def get_failures(self) -&gt; list[str]:
+        &#34;&#34;&#34;
+        Get list of failed quality checks.
+
+        Returns:
+            List of failure messages for metrics that don&#39;t meet thresholds
+        &#34;&#34;&#34;
+        failures = []
+
+        if not self.has_clear_setting:
+            failures.append(&#34;Plot lacks a clear setting description&#34;)
+
+        if self.branching_paths_count &lt; self.min_branching_paths:
+            failures.append(
+                f&#34;Insufficient branching paths: {self.branching_paths_count} &#34;
+                f&#34;(minimum: {self.min_branching_paths})&#34;
+            )
+
+        if self.endings_count &lt; self.min_endings:
+            failures.append(
+                f&#34;Insufficient endings: {self.endings_count} &#34; f&#34;(minimum: {self.min_endings})&#34;
+            )
+
+        if not self.themes_defined:
+            failures.append(&#34;Themes are not clearly defined&#34;)
+
+        if self.word_count &lt; self.min_word_count:
+            failures.append(
+                f&#34;Word count too low: {self.word_count} &#34; f&#34;(minimum: {self.min_word_count})&#34;
+            )
+
+        return failures
+
+    def get_score(self) -&gt; float:
+        &#34;&#34;&#34;
+        Calculate overall quality score (0.0 to 10.0).
+
+        Returns:
+            Quality score based on met criteria
+        &#34;&#34;&#34;
+        total_checks = 5  # Number of main quality checks
+        passed_checks = 0
+
+        if self.has_clear_setting:
+            passed_checks += 1
+        if self.branching_paths_count &gt;= self.min_branching_paths:
+            passed_checks += 1
+        if self.endings_count &gt;= self.min_endings:
+            passed_checks += 1
+        if self.themes_defined:
+            passed_checks += 1
+        if self.word_count &gt;= self.min_word_count:
+            passed_checks += 1
+
+        return (passed_checks / total_checks) * 10.0
+
+    def to_dict(self) -&gt; dict[str, Any]:
+        &#34;&#34;&#34;
+        Convert metrics to dictionary for serialization.
+
+        Returns:
+            Dictionary representation of metrics
+        &#34;&#34;&#34;
+        return {
+            &#34;has_clear_setting&#34;: self.has_clear_setting,
+            &#34;branching_paths_count&#34;: self.branching_paths_count,
+            &#34;endings_count&#34;: self.endings_count,
+            &#34;themes_defined&#34;: self.themes_defined,
+            &#34;word_count&#34;: self.word_count,
+            &#34;has_title&#34;: self.has_title,
+            &#34;has_prologue&#34;: self.has_prologue,
+            &#34;has_acts&#34;: self.has_acts,
+            &#34;passes_threshold&#34;: self.passes_threshold(),
+            &#34;score&#34;: self.get_score(),
+            &#34;failures&#34;: self.get_failures(),
+        }</code></pre>
+</details>
+<div class="desc"><p>Quality metrics for evaluating plot outline content.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>has_clear_setting</code></strong></dt>
+<dd>Whether the plot has a clearly defined setting (yes/no)</dd>
+<dt><strong><code>branching_paths_count</code></strong></dt>
+<dd>Number of branching paths in the plot (count)</dd>
+<dt><strong><code>endings_count</code></strong></dt>
+<dd>Number of defined endings (count)</dd>
+<dt><strong><code>themes_defined</code></strong></dt>
+<dd>Whether themes are clearly stated (yes/no)</dd>
+<dt><strong><code>word_count</code></strong></dt>
+<dd>Total word count of the plot outline (number)</dd>
+<dt><strong><code>has_title</code></strong></dt>
+<dd>Whether the plot has a title (yes/no)</dd>
+<dt><strong><code>has_prologue</code></strong></dt>
+<dd>Whether the plot includes a prologue (yes/no)</dd>
+<dt><strong><code>has_acts</code></strong></dt>
+<dd>Whether the plot is structured into acts (yes/no)</dd>
+<dt><strong><code>min_branching_paths</code></strong></dt>
+<dd>Minimum required branching paths (default: 2)</dd>
+<dt><strong><code>min_endings</code></strong></dt>
+<dd>Minimum required endings (default: 2)</dd>
+<dt><strong><code>min_word_count</code></strong></dt>
+<dd>Minimum required word count (default: 500)</dd>
+</dl></div>
+<h3>Static methods</h3>
+<dl>
+<dt id="space_hulk_game.quality.plot_metrics.PlotMetrics.from_dict"><code class="name flex">
+<span>def <span class="ident">from_dict</span></span>(<span>data: dict[str, typing.Any]) ‑> <a title="space_hulk_game.quality.plot_metrics.PlotMetrics" href="#space_hulk_game.quality.plot_metrics.PlotMetrics">PlotMetrics</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create PlotMetrics from a dictionary (parsed YAML).</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>data</code></strong></dt>
+<dd>Dictionary containing plot outline data</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>PlotMetrics instance with measured values</p></div>
+</dd>
+<dt id="space_hulk_game.quality.plot_metrics.PlotMetrics.from_yaml_content"><code class="name flex">
+<span>def <span class="ident">from_yaml_content</span></span>(<span>yaml_content: str) ‑> <a title="space_hulk_game.quality.plot_metrics.PlotMetrics" href="#space_hulk_game.quality.plot_metrics.PlotMetrics">PlotMetrics</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create PlotMetrics from YAML content string.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>yaml_content</code></strong></dt>
+<dd>YAML string containing plot outline data</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>PlotMetrics instance with measured values</p>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; metrics = PlotMetrics.from_yaml_content(yaml_string)
+&gt;&gt;&gt; print(metrics.passes_threshold())
+</code></pre></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="space_hulk_game.quality.plot_metrics.PlotMetrics.branching_paths_count"><code class="name">var <span class="ident">branching_paths_count</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.quality.plot_metrics.PlotMetrics.endings_count"><code class="name">var <span class="ident">endings_count</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.quality.plot_metrics.PlotMetrics.has_acts"><code class="name">var <span class="ident">has_acts</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.quality.plot_metrics.PlotMetrics.has_clear_setting"><code class="name">var <span class="ident">has_clear_setting</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.quality.plot_metrics.PlotMetrics.has_prologue"><code class="name">var <span class="ident">has_prologue</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.quality.plot_metrics.PlotMetrics.has_title"><code class="name">var <span class="ident">has_title</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.quality.plot_metrics.PlotMetrics.min_branching_paths"><code class="name">var <span class="ident">min_branching_paths</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.quality.plot_metrics.PlotMetrics.min_endings"><code class="name">var <span class="ident">min_endings</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.quality.plot_metrics.PlotMetrics.min_word_count"><code class="name">var <span class="ident">min_word_count</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.quality.plot_metrics.PlotMetrics.themes_defined"><code class="name">var <span class="ident">themes_defined</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.quality.plot_metrics.PlotMetrics.word_count"><code class="name">var <span class="ident">word_count</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="space_hulk_game.quality.plot_metrics.PlotMetrics.get_failures"><code class="name flex">
+<span>def <span class="ident">get_failures</span></span>(<span>self) ‑> list[str]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_failures(self) -&gt; list[str]:
+    &#34;&#34;&#34;
+    Get list of failed quality checks.
+
+    Returns:
+        List of failure messages for metrics that don&#39;t meet thresholds
+    &#34;&#34;&#34;
+    failures = []
+
+    if not self.has_clear_setting:
+        failures.append(&#34;Plot lacks a clear setting description&#34;)
+
+    if self.branching_paths_count &lt; self.min_branching_paths:
+        failures.append(
+            f&#34;Insufficient branching paths: {self.branching_paths_count} &#34;
+            f&#34;(minimum: {self.min_branching_paths})&#34;
+        )
+
+    if self.endings_count &lt; self.min_endings:
+        failures.append(
+            f&#34;Insufficient endings: {self.endings_count} &#34; f&#34;(minimum: {self.min_endings})&#34;
+        )
+
+    if not self.themes_defined:
+        failures.append(&#34;Themes are not clearly defined&#34;)
+
+    if self.word_count &lt; self.min_word_count:
+        failures.append(
+            f&#34;Word count too low: {self.word_count} &#34; f&#34;(minimum: {self.min_word_count})&#34;
+        )
+
+    return failures</code></pre>
+</details>
+<div class="desc"><p>Get list of failed quality checks.</p>
+<h2 id="returns">Returns</h2>
+<p>List of failure messages for metrics that don't meet thresholds</p></div>
+</dd>
+<dt id="space_hulk_game.quality.plot_metrics.PlotMetrics.get_score"><code class="name flex">
+<span>def <span class="ident">get_score</span></span>(<span>self) ‑> float</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_score(self) -&gt; float:
+    &#34;&#34;&#34;
+    Calculate overall quality score (0.0 to 10.0).
+
+    Returns:
+        Quality score based on met criteria
+    &#34;&#34;&#34;
+    total_checks = 5  # Number of main quality checks
+    passed_checks = 0
+
+    if self.has_clear_setting:
+        passed_checks += 1
+    if self.branching_paths_count &gt;= self.min_branching_paths:
+        passed_checks += 1
+    if self.endings_count &gt;= self.min_endings:
+        passed_checks += 1
+    if self.themes_defined:
+        passed_checks += 1
+    if self.word_count &gt;= self.min_word_count:
+        passed_checks += 1
+
+    return (passed_checks / total_checks) * 10.0</code></pre>
+</details>
+<div class="desc"><p>Calculate overall quality score (0.0 to 10.0).</p>
+<h2 id="returns">Returns</h2>
+<p>Quality score based on met criteria</p></div>
+</dd>
+<dt id="space_hulk_game.quality.plot_metrics.PlotMetrics.passes_threshold"><code class="name flex">
+<span>def <span class="ident">passes_threshold</span></span>(<span>self) ‑> bool</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def passes_threshold(self) -&gt; bool:
+    &#34;&#34;&#34;
+    Check if the plot metrics pass all quality thresholds.
+
+    Returns:
+        True if all thresholds are met, False otherwise
+    &#34;&#34;&#34;
+    return (
+        self.has_clear_setting
+        and self.branching_paths_count &gt;= self.min_branching_paths
+        and self.endings_count &gt;= self.min_endings
+        and self.themes_defined
+        and self.word_count &gt;= self.min_word_count
+    )</code></pre>
+</details>
+<div class="desc"><p>Check if the plot metrics pass all quality thresholds.</p>
+<h2 id="returns">Returns</h2>
+<p>True if all thresholds are met, False otherwise</p></div>
+</dd>
+<dt id="space_hulk_game.quality.plot_metrics.PlotMetrics.to_dict"><code class="name flex">
+<span>def <span class="ident">to_dict</span></span>(<span>self) ‑> dict[str, typing.Any]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def to_dict(self) -&gt; dict[str, Any]:
+    &#34;&#34;&#34;
+    Convert metrics to dictionary for serialization.
+
+    Returns:
+        Dictionary representation of metrics
+    &#34;&#34;&#34;
+    return {
+        &#34;has_clear_setting&#34;: self.has_clear_setting,
+        &#34;branching_paths_count&#34;: self.branching_paths_count,
+        &#34;endings_count&#34;: self.endings_count,
+        &#34;themes_defined&#34;: self.themes_defined,
+        &#34;word_count&#34;: self.word_count,
+        &#34;has_title&#34;: self.has_title,
+        &#34;has_prologue&#34;: self.has_prologue,
+        &#34;has_acts&#34;: self.has_acts,
+        &#34;passes_threshold&#34;: self.passes_threshold(),
+        &#34;score&#34;: self.get_score(),
+        &#34;failures&#34;: self.get_failures(),
+    }</code></pre>
+</details>
+<div class="desc"><p>Convert metrics to dictionary for serialization.</p>
+<h2 id="returns">Returns</h2>
+<p>Dictionary representation of metrics</p></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="space_hulk_game.quality" href="index.html">space_hulk_game.quality</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="space_hulk_game.quality.plot_metrics.PlotMetrics" href="#space_hulk_game.quality.plot_metrics.PlotMetrics">PlotMetrics</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.quality.plot_metrics.PlotMetrics.branching_paths_count" href="#space_hulk_game.quality.plot_metrics.PlotMetrics.branching_paths_count">branching_paths_count</a></code></li>
+<li><code><a title="space_hulk_game.quality.plot_metrics.PlotMetrics.endings_count" href="#space_hulk_game.quality.plot_metrics.PlotMetrics.endings_count">endings_count</a></code></li>
+<li><code><a title="space_hulk_game.quality.plot_metrics.PlotMetrics.from_dict" href="#space_hulk_game.quality.plot_metrics.PlotMetrics.from_dict">from_dict</a></code></li>
+<li><code><a title="space_hulk_game.quality.plot_metrics.PlotMetrics.from_yaml_content" href="#space_hulk_game.quality.plot_metrics.PlotMetrics.from_yaml_content">from_yaml_content</a></code></li>
+<li><code><a title="space_hulk_game.quality.plot_metrics.PlotMetrics.get_failures" href="#space_hulk_game.quality.plot_metrics.PlotMetrics.get_failures">get_failures</a></code></li>
+<li><code><a title="space_hulk_game.quality.plot_metrics.PlotMetrics.get_score" href="#space_hulk_game.quality.plot_metrics.PlotMetrics.get_score">get_score</a></code></li>
+<li><code><a title="space_hulk_game.quality.plot_metrics.PlotMetrics.has_acts" href="#space_hulk_game.quality.plot_metrics.PlotMetrics.has_acts">has_acts</a></code></li>
+<li><code><a title="space_hulk_game.quality.plot_metrics.PlotMetrics.has_clear_setting" href="#space_hulk_game.quality.plot_metrics.PlotMetrics.has_clear_setting">has_clear_setting</a></code></li>
+<li><code><a title="space_hulk_game.quality.plot_metrics.PlotMetrics.has_prologue" href="#space_hulk_game.quality.plot_metrics.PlotMetrics.has_prologue">has_prologue</a></code></li>
+<li><code><a title="space_hulk_game.quality.plot_metrics.PlotMetrics.has_title" href="#space_hulk_game.quality.plot_metrics.PlotMetrics.has_title">has_title</a></code></li>
+<li><code><a title="space_hulk_game.quality.plot_metrics.PlotMetrics.min_branching_paths" href="#space_hulk_game.quality.plot_metrics.PlotMetrics.min_branching_paths">min_branching_paths</a></code></li>
+<li><code><a title="space_hulk_game.quality.plot_metrics.PlotMetrics.min_endings" href="#space_hulk_game.quality.plot_metrics.PlotMetrics.min_endings">min_endings</a></code></li>
+<li><code><a title="space_hulk_game.quality.plot_metrics.PlotMetrics.min_word_count" href="#space_hulk_game.quality.plot_metrics.PlotMetrics.min_word_count">min_word_count</a></code></li>
+<li><code><a title="space_hulk_game.quality.plot_metrics.PlotMetrics.passes_threshold" href="#space_hulk_game.quality.plot_metrics.PlotMetrics.passes_threshold">passes_threshold</a></code></li>
+<li><code><a title="space_hulk_game.quality.plot_metrics.PlotMetrics.themes_defined" href="#space_hulk_game.quality.plot_metrics.PlotMetrics.themes_defined">themes_defined</a></code></li>
+<li><code><a title="space_hulk_game.quality.plot_metrics.PlotMetrics.to_dict" href="#space_hulk_game.quality.plot_metrics.PlotMetrics.to_dict">to_dict</a></code></li>
+<li><code><a title="space_hulk_game.quality.plot_metrics.PlotMetrics.word_count" href="#space_hulk_game.quality.plot_metrics.PlotMetrics.word_count">word_count</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>

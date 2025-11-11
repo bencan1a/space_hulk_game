@@ -1,0 +1,730 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>space_hulk_game.engine.actions API documentation</title>
+<meta name="description" content="Action Classes Module …">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>space_hulk_game.engine.actions</code></h1>
+</header>
+<section id="section-intro">
+<p>Action Classes Module</p>
+<p>Defines the action class hierarchy for representing player commands.
+Actions encapsulate player intent and are created by the CommandParser.</p>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import MoveAction, TakeAction
+&gt;&gt;&gt; move = MoveAction(direction=&quot;north&quot;)
+&gt;&gt;&gt; take = TakeAction(item_id=&quot;medkit&quot;)
+</code></pre>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="space_hulk_game.engine.actions.Action"><code class="flex name class">
+<span>class <span class="ident">Action</span></span>
+<span>(</span><span>raw_command: str = '')</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass(frozen=True)
+class Action:
+    &#34;&#34;&#34;
+    Base class for all player actions.
+
+    Actions represent the player&#39;s intent after parsing their command.
+    They are immutable and contain all information needed to execute
+    the action in the game engine.
+
+    This follows the Command Pattern from Gang of Four design patterns,
+    encapsulating requests as objects.
+
+    Attributes:
+        raw_command: The original text command from the player.
+
+    Examples:
+        Actions are typically created by CommandParser, not directly:
+        &gt;&gt;&gt; action = Action(raw_command=&#34;look around&#34;)
+        &gt;&gt;&gt; action.raw_command
+        &#39;look around&#39;
+    &#34;&#34;&#34;
+
+    raw_command: str = &#34;&#34;
+
+    def __str__(self) -&gt; str:
+        &#34;&#34;&#34;Return a string representation of the action.&#34;&#34;&#34;
+        return f&#34;{self.__class__.__name__}()&#34;</code></pre>
+</details>
+<div class="desc"><p>Base class for all player actions.</p>
+<p>Actions represent the player's intent after parsing their command.
+They are immutable and contain all information needed to execute
+the action in the game engine.</p>
+<p>This follows the Command Pattern from Gang of Four design patterns,
+encapsulating requests as objects.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>raw_command</code></strong></dt>
+<dd>The original text command from the player.</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<p>Actions are typically created by CommandParser, not directly:</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; action = Action(raw_command=&quot;look around&quot;)
+&gt;&gt;&gt; action.raw_command
+'look around'
+</code></pre></div>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="space_hulk_game.engine.actions.DropAction" href="#space_hulk_game.engine.actions.DropAction">DropAction</a></li>
+<li><a title="space_hulk_game.engine.actions.HelpAction" href="#space_hulk_game.engine.actions.HelpAction">HelpAction</a></li>
+<li><a title="space_hulk_game.engine.actions.InventoryAction" href="#space_hulk_game.engine.actions.InventoryAction">InventoryAction</a></li>
+<li><a title="space_hulk_game.engine.actions.LookAction" href="#space_hulk_game.engine.actions.LookAction">LookAction</a></li>
+<li><a title="space_hulk_game.engine.actions.MoveAction" href="#space_hulk_game.engine.actions.MoveAction">MoveAction</a></li>
+<li><a title="space_hulk_game.engine.actions.TakeAction" href="#space_hulk_game.engine.actions.TakeAction">TakeAction</a></li>
+<li><a title="space_hulk_game.engine.actions.TalkAction" href="#space_hulk_game.engine.actions.TalkAction">TalkAction</a></li>
+<li><a title="space_hulk_game.engine.actions.UnknownAction" href="#space_hulk_game.engine.actions.UnknownAction">UnknownAction</a></li>
+<li><a title="space_hulk_game.engine.actions.UseAction" href="#space_hulk_game.engine.actions.UseAction">UseAction</a></li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="space_hulk_game.engine.actions.Action.raw_command"><code class="name">var <span class="ident">raw_command</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="space_hulk_game.engine.actions.DropAction"><code class="flex name class">
+<span>class <span class="ident">DropAction</span></span>
+<span>(</span><span>raw_command: str = '', item_id: str = '')</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass(frozen=True)
+class DropAction(Action):
+    &#34;&#34;&#34;
+    Represents dropping an item from inventory.
+
+    Attributes:
+        item_id: The ID or name of the item to drop.
+        raw_command: The original text command from the player.
+
+    Examples:
+        &gt;&gt;&gt; action = DropAction(item_id=&#34;sword&#34;, raw_command=&#34;drop sword&#34;)
+        &gt;&gt;&gt; action.item_id
+        &#39;sword&#39;
+    &#34;&#34;&#34;
+
+    item_id: str = &#34;&#34;
+
+    def __str__(self) -&gt; str:
+        &#34;&#34;&#34;Return a string representation of the action.&#34;&#34;&#34;
+        return f&#34;DropAction(item_id=&#39;{self.item_id}&#39;)&#34;</code></pre>
+</details>
+<div class="desc"><p>Represents dropping an item from inventory.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>item_id</code></strong></dt>
+<dd>The ID or name of the item to drop.</dd>
+<dt><strong><code>raw_command</code></strong></dt>
+<dd>The original text command from the player.</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; action = DropAction(item_id=&quot;sword&quot;, raw_command=&quot;drop sword&quot;)
+&gt;&gt;&gt; action.item_id
+'sword'
+</code></pre></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="space_hulk_game.engine.actions.Action" href="#space_hulk_game.engine.actions.Action">Action</a></li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="space_hulk_game.engine.actions.DropAction.item_id"><code class="name">var <span class="ident">item_id</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="space_hulk_game.engine.actions.HelpAction"><code class="flex name class">
+<span>class <span class="ident">HelpAction</span></span>
+<span>(</span><span>raw_command: str = '')</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass(frozen=True)
+class HelpAction(Action):
+    &#34;&#34;&#34;
+    Represents requesting help or available commands.
+
+    Attributes:
+        raw_command: The original text command from the player.
+
+    Examples:
+        &gt;&gt;&gt; action = HelpAction(raw_command=&#34;help&#34;)
+        &gt;&gt;&gt; str(action)
+        &#39;HelpAction()&#39;
+    &#34;&#34;&#34;
+
+    def __str__(self) -&gt; str:
+        &#34;&#34;&#34;Return a string representation of the action.&#34;&#34;&#34;
+        return &#34;HelpAction()&#34;</code></pre>
+</details>
+<div class="desc"><p>Represents requesting help or available commands.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>raw_command</code></strong></dt>
+<dd>The original text command from the player.</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; action = HelpAction(raw_command=&quot;help&quot;)
+&gt;&gt;&gt; str(action)
+'HelpAction()'
+</code></pre></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="space_hulk_game.engine.actions.Action" href="#space_hulk_game.engine.actions.Action">Action</a></li>
+</ul>
+</dd>
+<dt id="space_hulk_game.engine.actions.InventoryAction"><code class="flex name class">
+<span>class <span class="ident">InventoryAction</span></span>
+<span>(</span><span>raw_command: str = '')</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass(frozen=True)
+class InventoryAction(Action):
+    &#34;&#34;&#34;
+    Represents checking the player&#39;s inventory.
+
+    Attributes:
+        raw_command: The original text command from the player.
+
+    Examples:
+        &gt;&gt;&gt; action = InventoryAction(raw_command=&#34;inventory&#34;)
+        &gt;&gt;&gt; str(action)
+        &#39;InventoryAction()&#39;
+    &#34;&#34;&#34;
+
+    def __str__(self) -&gt; str:
+        &#34;&#34;&#34;Return a string representation of the action.&#34;&#34;&#34;
+        return &#34;InventoryAction()&#34;</code></pre>
+</details>
+<div class="desc"><p>Represents checking the player's inventory.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>raw_command</code></strong></dt>
+<dd>The original text command from the player.</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; action = InventoryAction(raw_command=&quot;inventory&quot;)
+&gt;&gt;&gt; str(action)
+'InventoryAction()'
+</code></pre></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="space_hulk_game.engine.actions.Action" href="#space_hulk_game.engine.actions.Action">Action</a></li>
+</ul>
+</dd>
+<dt id="space_hulk_game.engine.actions.LookAction"><code class="flex name class">
+<span>class <span class="ident">LookAction</span></span>
+<span>(</span><span>raw_command: str = '', target: str | None = None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass(frozen=True)
+class LookAction(Action):
+    &#34;&#34;&#34;
+    Represents examining the scene or an object.
+
+    Attributes:
+        target: Optional target to examine (if None, examine current scene).
+        raw_command: The original text command from the player.
+
+    Examples:
+        &gt;&gt;&gt; action = LookAction(raw_command=&#34;look&#34;)
+        &gt;&gt;&gt; action.target is None
+        True
+
+        &gt;&gt;&gt; action2 = LookAction(target=&#34;console&#34;, raw_command=&#34;examine console&#34;)
+        &gt;&gt;&gt; action2.target
+        &#39;console&#39;
+    &#34;&#34;&#34;
+
+    target: Optional[str] = None
+
+    def __str__(self) -&gt; str:
+        &#34;&#34;&#34;Return a string representation of the action.&#34;&#34;&#34;
+        if self.target:
+            return f&#34;LookAction(target=&#39;{self.target}&#39;)&#34;
+        return &#34;LookAction()&#34;</code></pre>
+</details>
+<div class="desc"><p>Represents examining the scene or an object.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>target</code></strong></dt>
+<dd>Optional target to examine (if None, examine current scene).</dd>
+<dt><strong><code>raw_command</code></strong></dt>
+<dd>The original text command from the player.</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; action = LookAction(raw_command=&quot;look&quot;)
+&gt;&gt;&gt; action.target is None
+True
+</code></pre>
+<pre><code class="language-python-repl">&gt;&gt;&gt; action2 = LookAction(target=&quot;console&quot;, raw_command=&quot;examine console&quot;)
+&gt;&gt;&gt; action2.target
+'console'
+</code></pre></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="space_hulk_game.engine.actions.Action" href="#space_hulk_game.engine.actions.Action">Action</a></li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="space_hulk_game.engine.actions.LookAction.target"><code class="name">var <span class="ident">target</span> : str | None</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="space_hulk_game.engine.actions.MoveAction"><code class="flex name class">
+<span>class <span class="ident">MoveAction</span></span>
+<span>(</span><span>raw_command: str = '', direction: str = '')</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass(frozen=True)
+class MoveAction(Action):
+    &#34;&#34;&#34;
+    Represents a movement action to another scene.
+
+    Attributes:
+        direction: The direction to move (e.g., &#34;north&#34;, &#34;south&#34;, &#34;door&#34;).
+        raw_command: The original text command from the player.
+
+    Examples:
+        &gt;&gt;&gt; action = MoveAction(direction=&#34;north&#34;, raw_command=&#34;go north&#34;)
+        &gt;&gt;&gt; action.direction
+        &#39;north&#39;
+    &#34;&#34;&#34;
+
+    direction: str = &#34;&#34;
+
+    def __str__(self) -&gt; str:
+        &#34;&#34;&#34;Return a string representation of the action.&#34;&#34;&#34;
+        return f&#34;MoveAction(direction=&#39;{self.direction}&#39;)&#34;</code></pre>
+</details>
+<div class="desc"><p>Represents a movement action to another scene.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>direction</code></strong></dt>
+<dd>The direction to move (e.g., "north", "south", "door").</dd>
+<dt><strong><code>raw_command</code></strong></dt>
+<dd>The original text command from the player.</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; action = MoveAction(direction=&quot;north&quot;, raw_command=&quot;go north&quot;)
+&gt;&gt;&gt; action.direction
+'north'
+</code></pre></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="space_hulk_game.engine.actions.Action" href="#space_hulk_game.engine.actions.Action">Action</a></li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="space_hulk_game.engine.actions.MoveAction.direction"><code class="name">var <span class="ident">direction</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="space_hulk_game.engine.actions.TakeAction"><code class="flex name class">
+<span>class <span class="ident">TakeAction</span></span>
+<span>(</span><span>raw_command: str = '', item_id: str = '')</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass(frozen=True)
+class TakeAction(Action):
+    &#34;&#34;&#34;
+    Represents taking/picking up an item.
+
+    Attributes:
+        item_id: The ID or name of the item to take.
+        raw_command: The original text command from the player.
+
+    Examples:
+        &gt;&gt;&gt; action = TakeAction(item_id=&#34;medkit&#34;, raw_command=&#34;take medkit&#34;)
+        &gt;&gt;&gt; action.item_id
+        &#39;medkit&#39;
+    &#34;&#34;&#34;
+
+    item_id: str = &#34;&#34;
+
+    def __str__(self) -&gt; str:
+        &#34;&#34;&#34;Return a string representation of the action.&#34;&#34;&#34;
+        return f&#34;TakeAction(item_id=&#39;{self.item_id}&#39;)&#34;</code></pre>
+</details>
+<div class="desc"><p>Represents taking/picking up an item.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>item_id</code></strong></dt>
+<dd>The ID or name of the item to take.</dd>
+<dt><strong><code>raw_command</code></strong></dt>
+<dd>The original text command from the player.</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; action = TakeAction(item_id=&quot;medkit&quot;, raw_command=&quot;take medkit&quot;)
+&gt;&gt;&gt; action.item_id
+'medkit'
+</code></pre></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="space_hulk_game.engine.actions.Action" href="#space_hulk_game.engine.actions.Action">Action</a></li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="space_hulk_game.engine.actions.TakeAction.item_id"><code class="name">var <span class="ident">item_id</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="space_hulk_game.engine.actions.TalkAction"><code class="flex name class">
+<span>class <span class="ident">TalkAction</span></span>
+<span>(</span><span>raw_command: str = '', npc_id: str = '', topic: str | None = None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass(frozen=True)
+class TalkAction(Action):
+    &#34;&#34;&#34;
+    Represents talking to an NPC.
+
+    Attributes:
+        npc_id: The ID or name of the NPC to talk to.
+        topic: Optional dialogue topic or key.
+        raw_command: The original text command from the player.
+
+    Examples:
+        &gt;&gt;&gt; action = TalkAction(npc_id=&#34;guard&#34;, raw_command=&#34;talk to guard&#34;)
+        &gt;&gt;&gt; action.npc_id
+        &#39;guard&#39;
+
+        &gt;&gt;&gt; action2 = TalkAction(npc_id=&#34;guard&#34;, topic=&#34;quest&#34;, raw_command=&#34;ask guard about quest&#34;)
+        &gt;&gt;&gt; action2.topic
+        &#39;quest&#39;
+    &#34;&#34;&#34;
+
+    npc_id: str = &#34;&#34;
+    topic: Optional[str] = None
+
+    def __str__(self) -&gt; str:
+        &#34;&#34;&#34;Return a string representation of the action.&#34;&#34;&#34;
+        if self.topic:
+            return f&#34;TalkAction(npc_id=&#39;{self.npc_id}&#39;, topic=&#39;{self.topic}&#39;)&#34;
+        return f&#34;TalkAction(npc_id=&#39;{self.npc_id}&#39;)&#34;</code></pre>
+</details>
+<div class="desc"><p>Represents talking to an NPC.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>npc_id</code></strong></dt>
+<dd>The ID or name of the NPC to talk to.</dd>
+<dt><strong><code>topic</code></strong></dt>
+<dd>Optional dialogue topic or key.</dd>
+<dt><strong><code>raw_command</code></strong></dt>
+<dd>The original text command from the player.</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; action = TalkAction(npc_id=&quot;guard&quot;, raw_command=&quot;talk to guard&quot;)
+&gt;&gt;&gt; action.npc_id
+'guard'
+</code></pre>
+<pre><code class="language-python-repl">&gt;&gt;&gt; action2 = TalkAction(npc_id=&quot;guard&quot;, topic=&quot;quest&quot;, raw_command=&quot;ask guard about quest&quot;)
+&gt;&gt;&gt; action2.topic
+'quest'
+</code></pre></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="space_hulk_game.engine.actions.Action" href="#space_hulk_game.engine.actions.Action">Action</a></li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="space_hulk_game.engine.actions.TalkAction.npc_id"><code class="name">var <span class="ident">npc_id</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.actions.TalkAction.topic"><code class="name">var <span class="ident">topic</span> : str | None</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="space_hulk_game.engine.actions.UnknownAction"><code class="flex name class">
+<span>class <span class="ident">UnknownAction</span></span>
+<span>(</span><span>raw_command: str = '', suggestion: str | None = None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass(frozen=True)
+class UnknownAction(Action):
+    &#34;&#34;&#34;
+    Represents an unrecognized command.
+
+    Attributes:
+        raw_command: The original text command from the player.
+        suggestion: Optional suggestion for what the player might have meant.
+
+    Examples:
+        &gt;&gt;&gt; action = UnknownAction(raw_command=&#34;xyz&#34;, suggestion=&#34;examine&#34;)
+        &gt;&gt;&gt; action.suggestion
+        &#39;examine&#39;
+    &#34;&#34;&#34;
+
+    suggestion: Optional[str] = None
+
+    def __str__(self) -&gt; str:
+        &#34;&#34;&#34;Return a string representation of the action.&#34;&#34;&#34;
+        if self.suggestion:
+            return f&#34;UnknownAction(suggestion=&#39;{self.suggestion}&#39;)&#34;
+        return &#34;UnknownAction()&#34;</code></pre>
+</details>
+<div class="desc"><p>Represents an unrecognized command.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>raw_command</code></strong></dt>
+<dd>The original text command from the player.</dd>
+<dt><strong><code>suggestion</code></strong></dt>
+<dd>Optional suggestion for what the player might have meant.</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; action = UnknownAction(raw_command=&quot;xyz&quot;, suggestion=&quot;examine&quot;)
+&gt;&gt;&gt; action.suggestion
+'examine'
+</code></pre></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="space_hulk_game.engine.actions.Action" href="#space_hulk_game.engine.actions.Action">Action</a></li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="space_hulk_game.engine.actions.UnknownAction.suggestion"><code class="name">var <span class="ident">suggestion</span> : str | None</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="space_hulk_game.engine.actions.UseAction"><code class="flex name class">
+<span>class <span class="ident">UseAction</span></span>
+<span>(</span><span>raw_command: str = '', item_id: str = '', target_id: str | None = None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass(frozen=True)
+class UseAction(Action):
+    &#34;&#34;&#34;
+    Represents using an item.
+
+    Attributes:
+        item_id: The ID or name of the item to use.
+        target_id: Optional target for the item (e.g., &#34;use key on door&#34;).
+        raw_command: The original text command from the player.
+
+    Examples:
+        &gt;&gt;&gt; action = UseAction(item_id=&#34;medkit&#34;, raw_command=&#34;use medkit&#34;)
+        &gt;&gt;&gt; action.item_id
+        &#39;medkit&#39;
+
+        &gt;&gt;&gt; action2 = UseAction(item_id=&#34;key&#34;, target_id=&#34;door&#34;, raw_command=&#34;use key on door&#34;)
+        &gt;&gt;&gt; action2.target_id
+        &#39;door&#39;
+    &#34;&#34;&#34;
+
+    item_id: str = &#34;&#34;
+    target_id: Optional[str] = None
+
+    def __str__(self) -&gt; str:
+        &#34;&#34;&#34;Return a string representation of the action.&#34;&#34;&#34;
+        if self.target_id:
+            return f&#34;UseAction(item_id=&#39;{self.item_id}&#39;, target_id=&#39;{self.target_id}&#39;)&#34;
+        return f&#34;UseAction(item_id=&#39;{self.item_id}&#39;)&#34;</code></pre>
+</details>
+<div class="desc"><p>Represents using an item.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>item_id</code></strong></dt>
+<dd>The ID or name of the item to use.</dd>
+<dt><strong><code>target_id</code></strong></dt>
+<dd>Optional target for the item (e.g., "use key on door").</dd>
+<dt><strong><code>raw_command</code></strong></dt>
+<dd>The original text command from the player.</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; action = UseAction(item_id=&quot;medkit&quot;, raw_command=&quot;use medkit&quot;)
+&gt;&gt;&gt; action.item_id
+'medkit'
+</code></pre>
+<pre><code class="language-python-repl">&gt;&gt;&gt; action2 = UseAction(item_id=&quot;key&quot;, target_id=&quot;door&quot;, raw_command=&quot;use key on door&quot;)
+&gt;&gt;&gt; action2.target_id
+'door'
+</code></pre></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="space_hulk_game.engine.actions.Action" href="#space_hulk_game.engine.actions.Action">Action</a></li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="space_hulk_game.engine.actions.UseAction.item_id"><code class="name">var <span class="ident">item_id</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.actions.UseAction.target_id"><code class="name">var <span class="ident">target_id</span> : str | None</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="space_hulk_game.engine" href="index.html">space_hulk_game.engine</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="space_hulk_game.engine.actions.Action" href="#space_hulk_game.engine.actions.Action">Action</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.engine.actions.Action.raw_command" href="#space_hulk_game.engine.actions.Action.raw_command">raw_command</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="space_hulk_game.engine.actions.DropAction" href="#space_hulk_game.engine.actions.DropAction">DropAction</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.engine.actions.DropAction.item_id" href="#space_hulk_game.engine.actions.DropAction.item_id">item_id</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="space_hulk_game.engine.actions.HelpAction" href="#space_hulk_game.engine.actions.HelpAction">HelpAction</a></code></h4>
+</li>
+<li>
+<h4><code><a title="space_hulk_game.engine.actions.InventoryAction" href="#space_hulk_game.engine.actions.InventoryAction">InventoryAction</a></code></h4>
+</li>
+<li>
+<h4><code><a title="space_hulk_game.engine.actions.LookAction" href="#space_hulk_game.engine.actions.LookAction">LookAction</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.engine.actions.LookAction.target" href="#space_hulk_game.engine.actions.LookAction.target">target</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="space_hulk_game.engine.actions.MoveAction" href="#space_hulk_game.engine.actions.MoveAction">MoveAction</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.engine.actions.MoveAction.direction" href="#space_hulk_game.engine.actions.MoveAction.direction">direction</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="space_hulk_game.engine.actions.TakeAction" href="#space_hulk_game.engine.actions.TakeAction">TakeAction</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.engine.actions.TakeAction.item_id" href="#space_hulk_game.engine.actions.TakeAction.item_id">item_id</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="space_hulk_game.engine.actions.TalkAction" href="#space_hulk_game.engine.actions.TalkAction">TalkAction</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.engine.actions.TalkAction.npc_id" href="#space_hulk_game.engine.actions.TalkAction.npc_id">npc_id</a></code></li>
+<li><code><a title="space_hulk_game.engine.actions.TalkAction.topic" href="#space_hulk_game.engine.actions.TalkAction.topic">topic</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="space_hulk_game.engine.actions.UnknownAction" href="#space_hulk_game.engine.actions.UnknownAction">UnknownAction</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.engine.actions.UnknownAction.suggestion" href="#space_hulk_game.engine.actions.UnknownAction.suggestion">suggestion</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="space_hulk_game.engine.actions.UseAction" href="#space_hulk_game.engine.actions.UseAction">UseAction</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.engine.actions.UseAction.item_id" href="#space_hulk_game.engine.actions.UseAction.item_id">item_id</a></code></li>
+<li><code><a title="space_hulk_game.engine.actions.UseAction.target_id" href="#space_hulk_game.engine.actions.UseAction.target_id">target_id</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>

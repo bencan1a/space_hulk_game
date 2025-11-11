@@ -1,174 +1,246 @@
 ```yaml
 narrative_map:
-  start_scene: "pp_initial_contact"
+  start_scene: "scene_01_deployment"
   scenes:
-    pp_initial_contact:
-      name: "The Vanguard's Folly"
-      description: "The Thunderhawk breaches the Goliath's Maw. Initial intel proves gravely wrong as the Terminators are immediately swarmed by an overwhelming Genestealer force. The mission objective shifts instantly from rescue to desperate survival within the labyrinthine hulk. Oxygen flickers, lights falter, and the true scale of the infestation is brutally revealed."
+    scene_01_deployment:
+      name: "Deployment: Entry into the Maw"
+      description: "The roar of the Thunderhawk recedes as the Terminator squad, led by Brother-Captain Valerius, is deposited into a cavernous, debris-choked hangar bay within 'The Charon's Omen.' The air is stale, thick with the stench of industry, decay, and something else... something alien. Emergency lights flicker erratically, barely illuminating the colossal, twisted metal structures. Initial scans indicate heavy Tyranid infestation, but also anomalous energy signatures. Valerius asserts command, reminding the squad of their mission: investigate the distress beacon, recover archeotech, and cleanse the xenos."
       connections:
-        - target: "pp_first_objective"
-          condition: "Primary mission progression"
-          description: "Pushing deeper into the hulk to secure vital resources."
+        - target: "scene_02_first_contact"
+          description: "Proceed deeper into the Hulk."
       character_moments:
         - character: "Brother-Captain Valerius"
-          moment: "Upon breaching, Valerius's stoicism momentarily cracks, revealing the immense burden of command as he witnesses the immediate decimation of allied vessels and the true scale of the xenos threat. He barks orders, but internalizes the sudden shift from mission to massacre."
-        - character: "Brother-Sergeant Kaelen"
-          moment: "Kaelen's detailed tactical assessment is instantly rendered obsolete. He adapts rapidly, identifying immediate threats and calculating retreat vectors, his eyes scanning for any advantage in the chaotic ambush, a flicker of past failure in his gaze."
-        - character: "Brother-Heavy Bolter Theron"
-          moment: "Theron unleashes a sustained torrent of heavy bolter fire, his actions grim and efficient, masking a visceral revulsion and a deep, familiar dread as the Genestealers swarm, confirming his worst fears about their numbers."
-        - character: "Brother-Apothecary Tybor"
-          moment: "Tybor experiences dread as he sees the true, horrific nature of the Genestealer assault. He instinctively secures the Narthecium, grimly aware of the sacred duty likely to befall him soon, his faith momentarily shaken by the sheer, unholy profanity of the xenos."
+          moment: "Initial steadfastness and adherence to protocol, despite the oppressive environment."
+        - character: "Sergeant Titus"
+          moment: "Expresses zeal to purge the xenos, viewing the Hulk as a putrid abomination."
+        - character: "Apothecary Lyra"
+          moment: "Observes samples of unusual biological growth, noting their anomaly even for Tyranids."
+        - character: "Techmarine Kaelan"
+          moment: "Begins scanning for archeotech, prioritizing data over immediate combat unless necessary, his mechadendrites whirring."
+      decision_points: []
+    scene_02_first_contact:
+      name: "First Contact: Skittering Shadows"
+      description: "Moving through increasingly derelict corridors, the squad encounters their first pocket of Genestealers. The combat is swift and brutal, a grim reminder of their primary mission. After the immediate threat is neutralized, Lyra and Kaelan detect strange, non-Tyranid structural anomalies and faded pict-logs that suggest an ancient, non-Imperial human presence—a civilization that existed here long before the Imperium or even the Tyranid infestation."
+      connections:
+        - target: "scene_03_ancient_discovery"
+          condition: "Genestealers defeated"
+          description: "Follow the anomalous energy signature deeper."
+      character_moments:
+        - character: "Brother-Captain Valerius"
+          moment: "Briefly taken aback by evidence of ancient human presence, but quickly refocuses on the mission."
+        - character: "Sergeant Titus"
+          moment: "Dismisses the discovery as potential heresy or distraction, urging focus on the xenos threat."
+        - character: "Apothecary Lyra"
+          moment: "Enthusiastically researches the pict-logs, recognizing their pre-Imperial iconography."
+        - character: "Techmarine Kaelan"
+          moment: "Identifies unique energy patterns in the ancient technology, confirming its non-Imperial origin and high value."
+      decision_points: []
+    scene_03_ancient_discovery:
+      name: "Echoes of a Lost Era"
+      description: "The trail leads to vast, structurally intact sections of the Hulk, clearly not components of Imperial design. These appear to be the remnants of an ancient, pre-Imperial human settlement or research station, now partially overgrown by Tyranid bio-forms. The team finds more detailed archived data and artifacts. As they delve deeper, the pervasive sense of dread intensifies, and the anomaly signature grows stronger, leading to the distress beacon's source."
+      connections:
+        - target: "scene_04_beacon_chamber"
+          description: "Proceed to the distress beacon's origin."
+      character_moments:
+        - character: "Brother-Captain Valerius"
+          moment: "Grapples with the implications of an ancient human civilization; his faith in Imperial dogma is slightly shaken by these revelations."
+        - character: "Sergeant Titus"
+          moment: "Becomes increasingly suspicious and agitated, labeling the discoveries as potentially heretical."
+        - character: "Apothecary Lyra"
+          moment: "Driven by scientific curiosity, meticulously catalogues new species of flora and fauna unique to this environment, along with archaeological finds."
+        - character: "Techmarine Kaelan"
+          moment: "Begins piecing together data fragments, expressing excitement over the technological complexity."
+      decision_points: []
+    scene_04_beacon_chamber:
+      name: "The Primordial Warning"
+      description: "The squad battles its way into the heart of the anomaly—a colossal chamber housing a pristine, yet dormant, alien-human communication array. Kaelan manages to interface with it, activating the ancient distress beacon. It doesn't just broadcast a signal; it projects fragmented data logs and holographic warnings. These reveal an existential, galactic-level threat far beyond the Tyranids, a cosmic horror that the Hulk was designed to contain, or perhaps was even an ark for those fleeing it. The distress signal wasn't just a cry for help, but an ancient warning."
+      connections:
+        - target: "scene_05_the_schism"
+          condition: "Beacon activated"
+          description: "Discuss the implications of the discovery."
+      character_moments:
+        - character: "Brother-Captain Valerius"
+          moment: "The true weight of the discovery settles. The initial mission is now a minor detail compared to this larger galactic threat. His internal conflict grows."
+        - character: "Sergeant Titus"
+          moment: "Is horrified and demands immediate cleansing or destruction, fearing corruption."
+        - character: "Apothecary Lyra"
+          moment: "Sees a desperate plea and the potential for crucial knowledge, urging preservation and study of the data."
+        - character: "Techmarine Kaelan"
+          moment: "Confirms the data's authenticity and emphasizes its immense strategic value to the Imperium."
+      decision_points: []
+    scene_05_the_schism:
+      name: "Crossroads of Duty"
+      description: "The revelation of the 'greater threat' tears at the squad's cohesion. Titus demands immediate destruction of the Hulk to prevent the entity's escape, citing the danger of such knowledge falling into the wrong hands or further corruption. Lyra and Kaelan argue for the vital necessity of retrieving this warning data, stating it could be humanity's only defense against an unimaginable foe. Valerius must choose: prioritize Imperial purity and safety by destroying the data, or risk everything to retrieve a potentially galaxy-saving warning."
+      connections: []
+      character_moments:
+        - character: "Brother-Captain Valerius"
+          moment: "Faces his greatest challenge to the Codex Astartes and his personal beliefs. He feels the weight of command and the future of the Imperium rests on his shoulders."
+        - character: "Sergeant Titus"
+          moment: "Becomes increasingly dogmatic and insubordinate, seeing Valerius's hesitation as weakness or heresy."
+        - character: "Apothecary Lyra"
+          moment: "Pleads passionately for scientific inquiry and preservation of the data."
+        - character: "Techmarine Kaelan"
+          moment: "Presents logical arguments for data retrieval, highlighting its strategic value."
       decision_points:
-        - id: "initial_breach_tactics"
-          prompt: "The squad's initial entry point is overwhelmed. Which immediate tactical maneuver do you prioritize?"
+        - id: "pp_schism_choice"
+          prompt: "Brother-Captain Valerius, how do you proceed with the newly discovered knowledge?"
           options:
-            - choice: "Establish a defensive perimeter and push forward slowly."
-              outcome: "Slower progress, but potentially fewer initial losses. Risks being outmaneuvered by flanking Genestealers."
-            - choice: "Execute a rapid, aggressive thrust towards a known maintenance corridor."
-              outcome: "Faster penetration, but higher risk of being isolated or suffering heavy casualties in direct confrontations."
-
-    pp_first_objective:
-      name: "The Warp Core Retrieval"
-      description: "Navigating perilous, derelict corridors where gravity fluctuates wildly and debris forms impossible obstacles, the Terminators hunt for the dormant Warp Core Generator. Every shadow hides a chittering threat, and the hulk's environment itself becomes an enemy. Acquiring the core is paramount for any hope of escape or effective containment strategy."
+            - choice: "Prioritize Purity & Destruction: Destroy the archive, cleanse the Hulk."
+              outcome: "Titus approves, Lyra and Kaelan are dismayed. Leads to immediate pursuit of the threat for pure destruction. Connection: scene_06a_pursue_destruction"
+            - choice: "Prioritize Knowledge & Retrieval: Secure the archive, extract the data at all costs."
+              outcome: "Lyra and Kaelan approve, Titus is furious and feels betrayed. Leads to strategic efforts to secure the data while confronting the threat. Connection: scene_06b_pursue_retrieval"
+    scene_06a_pursue_destruction:
+      name: "Path of Anihilation"
+      description: "Having chosen to destroy the ancient archive, Valerius redirects the squad's efforts towards locating and eradicating the source of the insidious threat, viewing it as a contaminant to be purged immediately. Titus falls back into line, driven by grim zeal. Lyra and Kaelan are reluctant but follow orders. The path is direct, through heavily infested Tyranid territory, leading straight to the heart of the emerging entity. The whispers in their minds intensify, trying to dissuade or corrupt them, but Valerius's resolve is hardened by his choice."
       connections:
-        - target: "pp_unveiled_horror"
-          condition: "Warp core secured and path cleared"
-          description: "Proceeding deeper into the hulk, the signal leads to unexpected discoveries."
+        - target: "scene_07_confrontation"
+          description: "Advance to confrontation with the Prime Threat."
       character_moments:
         - character: "Brother-Captain Valerius"
-          moment: "Valerius navigates a zero-g section with precise, practiced movements, his resolve hardening. He finds strength in the physical struggle, momentarily pushing back the creeping despair of the mission's futility and focusing on the tangible goal."
-        - character: "Brother-Sergeant Kaelen"
-          moment: "Kaelen deftly bypasses a complex series of booby-trapped bulkheads, demonstrating his invaluable technical and tactical prowess, yet he continually updates scenarios for every contingency, a silent recognition of how quickly plans can unravel here."
-        - character: "Brother-Apothecary Tybor"
-          moment: "While moving through an oxygen-depleted zone, Tybor not only monitors his brothers' vital signs but also observes the alien fauna and spores, gathering silent data, his academic mind momentarily detached from the horror in the pursuit of knowledge."
-        - character: "Brother-Heavy Bolter Theron"
-          moment: "Theron holds a critical defensive position against a sustained Genestealer assault, his heavy bolter roaring. He is a rock, suppressing the xenos with terrifying efficiency, but the constant, close-quarters combat wears on his stoicism, glimpses of raw fatigue showing in his eyes."
-
-    pp_unveiled_horror:
-      name: "Whispers of the Hive Mind"
-      description: "Deep within the Hulk, a decaying pre-Imperial xenotech research facility is discovered. Horrific genetic experiments, mutated xenos forms, and evidence of a proto-Genestealer cult reveal the Goliath’s Maw is no accidental drift, but a deliberate, evolving 'gene-farm' by a higher Tyranid intelligence, continuously spawning new horrors and drawing in prey. The truth is far more insidious than imagined."
+          moment: "His resolve is firm, but a sense of unease lingers. He questions if he made the right choice for the Imperium's long-term survival, or merely for its immediate purity."
+        - character: "Sergeant Titus"
+          moment: "Renews his loyalty with grim satisfaction, eager to purge."
+        - character: "Apothecary Lyra"
+          moment: "Continues to silently collect new biological samples, driven by an unfulfilled scientific need."
+        - character: "Techmarine Kaelan"
+          moment: "Focuses on tactical analysis and maintaining equipment, his disappointment in the loss of data palpable."
+      decision_points: []
+    scene_06b_pursue_retrieval:
+      name: "Path of Illumination"
+      description: "Valerius decides to secure the ancient archive and extract its warning data. Titus is openly defiant, but ultimately, his oath to Valerius holds, though his loyalty is strained. Lyra and Kaelan are invigorated, providing crucial insights and technological assistance. The squad faces increased Tyranid resistance and more insidious psychic attacks from the nascent entity, which now actively attempts to corrupt their minds, knowing its secrets are being exposed. The path to the prime threat is fraught with psychological and physical dangers as they try to retrieve the data while fighting for survival."
       connections:
-        - target: "pp_moral_crossroads"
-          condition: "Discovery of the facility's archives and distress signal analysis"
-          description: "The horrifying revelations lead to another, unexpected discovery – a faint human signal."
-      character_moments:
-        - character: "Brother-Apothecary Tybor"
-          moment: "Tybor examines the xenos genetic records, his expertise allowing him to comprehend the full, horrifying scope of the 'gene-farm' experiments. He struggles to reconcile this calculated horror with his understanding of natural evolution, his faith being tested to its limits by such blasphemous bio-engineering."
-        - character: "Brother-Captain Valerius"
-          moment: "Valerius stands before a horrific display of mutated biomass, facing the existential dread of the discovery. He questions the very meaning of their struggle against an enemy that plans on such a terrifying scale, the Black Rage's whispers urging him to simply burn it all."
-        - character: "Brother-Sergeant Kaelen"
-          moment: "Kaelen meticulously maps the facility, integrating the new, dreadful intelligence into his tactical understanding. He sees the strategic implications – the Hulk is a breeding ground, not just a tomb – and the task seems exponentially more impossible."
-        - character: "Brother-Heavy Bolter Theron"
-          moment: "Theron maintains vigilance, providing cover as his brothers analyze data. He sees the twisted experiments and feels a cold, primal disgust, his silent determination to destroy such blasphemy strengthening, fueled by righteous hatred."
-
-    pp_moral_crossroads:
-      name: "The Sacrifice of the Innocent"
-      description: "A faint, broken distress signal leads the squad to a hidden pocket of long-lost Imperial citizens, trapped within the Hulk for centuries. They are a corrupted, dying community, unknowingly feeding the Genestealer biomass. The squad faces a dire choice: attempt a perilous, nearly impossible rescue that risks their mission and rapidly dwindling resources, or sacrifice these contaminated souls to preserve their mission's ultimate goal – containing the threat."
-      connections:
-        - target: "pp_the_brood_nest"
-          condition: "Choice: Sacrifice the innocents"
-          description: "With the agonizing decision made, the path to the Patriarch's nest seems clear, though heavier."
-        - target: "pp_the_brood_nest_diversion" # Placeholder if a rescue adds a scene/diversion
-          condition: "Choice: Attempt rescue"
-          description: "The rescue attempt draws a massive Genestealer response, but might weaken the main brood."
+        - target: "scene_07_confrontation"
+          description: "Advance to confrontation with the Prime Threat."
       character_moments:
         - character: "Brother-Captain Valerius"
-          moment: "Valerius grapples with the agonizing choice. His duty dictates one path, his humanity (what little remains) pulls him to another. The ghosts of his past victories and failures weigh heavily, threatening to ignite the Black Rage if he makes the 'wrong' choice."
-        - character: "Brother-Sergeant Kaelen"
-          moment: "Kaelen presents a cold, hard statistical analysis of both options, highlighting the low probability of successful rescue and the high risk to the overall mission. His pragmatism, though logical, feels utterly devoid of hope."
-        - character: "Brother-Apothecary Tybor"
-          moment: "Tybor is deeply conflicted. While recognizing the corruption and contamination, his oath to protect humanity struggles against the military expediency of sacrifice. He quietly offers a last prayer for the doomed souls, regardless of the choice."
-        - character: "Brother-Heavy Bolter Theron"
-          moment: "Theron remains largely silent, his face a mask of grim determination. He implicitly understands the impossible choice, his weapon held ready to execute whatever orders are given, regardless of the personal cost."
+          moment: "Feels the burden of a controversial decision, but is convinced of its long-term importance. His leadership is tested."
+        - character: "Sergeant Titus"
+          moment: "Remains sullen and distant, questioning Valerius's judgment and loyalty to the Emperor."
+        - character: "Apothecary Lyra"
+          moment: "Becomes a crucial asset, her knowledge of xeno-biology providing insights into the entity's nature and weaknesses."
+        - character: "Techmarine Kaelan"
+          moment: "Works feverishly to extract and encrypt the data, showcasing his expertise."
+      decision_points: []
+    scene_07_confrontation:
+      name: "The Heart of Oblivion"
+      description: "The squad finally reaches the source of the pervasive threat. It is not a single creature, but a vast, psychic miasma, coalescing into a nascent, trans-dimensional entity that suffuses this entire section of the Hulk. It feeds on fear and despair, subtly manipulating the Tyranids and attempting to break the minds of the Terminators. Its presence is overwhelming, distorting reality and testing the very limits of their sanity and faith. This is the entity that has been contained, and it is now attempting to escape."
+      connections:
+        - target: "scene_08_final_resolution"
+          description: "The entity becomes unstable, requiring immediate action."
+      character_moments:
+        - character: "Brother-Captain Valerius"
+          moment: "Faces the embodiment of cosmic horror; his faith and resilience are pushed to their absolute breaking point."
+        - character: "Sergeant Titus"
+          moment: "Fights with a desperate, self-destructive zeal against the perceived demonic presence."
+        - character: "Apothecary Lyra"
+          moment: "Attempts to discern the entity's weaknesses, even amidst the psychic assault, providing vital tactical information."
+        - character: "Techmarine Kaelan"
+          moment: "Struggles to maintain the integrity of his systems against the entity's corrupting influence, shielding the extracted data (if applicable)."
+      decision_points: []
+    scene_08_final_resolution:
+      name: "The Ultimate Sacrifice"
+      description: "The nascent entity is on the verge of fully manifesting and escaping 'The Charon's Omen,' which would spell galactic catastrophe. The Hulk itself is critically unstable, suffering from catastrophic structural failure due to the entity's awakening. Valerius has precious minutes to make a final, decisive action to ensure the threat is neutralized, whatever the cost. The fate of the Imperium and potentially the galaxy rests on this single choice."
+      connections: []
+      character_moments:
+        - character: "Brother-Captain Valerius"
+          moment: "The ultimate test of leadership and sacrifice. Facing an unwinnable situation, he must choose the 'least worst' option."
+        - character: "Sergeant Titus"
+          moment: "Stands ready to fight to the last, his faith now absolute in facing annihilation."
+        - character: "Apothecary Lyra"
+          moment: "Has recorded as much information as possible, prepared for any outcome."
+        - character: "Techmarine Kaelan"
+          moment: "Analyzes the Hulk's system failures, advising on the most effective means of destruction or displacement, especially concerning the data's integrity."
       decision_points:
-        - id: "rescue_imperial_civilians"
-          prompt: "The fate of the corrupted Imperial citizens hangs in the balance. What is the squad's directive?"
+        - id: "pp_final_choice"
+          prompt: "How will Brother-Captain Valerius deal with the escaping entity and the collapsing Space Hulk?"
           options:
-            - choice: "Abandon for the greater good: Prioritize containing the Genestealer threat."
-              outcome: "The squad bypasses the infected settlement. Emotional toll is high, but resources are preserved. The Patriarch's forces might be slightly stronger without a diversion."
-            - choice: "Attempt a desperate rescue: Drive a path through the Xenos to save the remaining innocents."
-              outcome: "The squad engages in a brutal, resource-draining battle to extract the citizens. Heavy casualties are likely. This action might draw away some of the Patriarch's brood, but the squad will be severely weakened for the final confrontation."
-
-    pp_the_brood_nest:
-      name: "Confronting the Patriarch"
-      description: "The path leads to the primary Genestealer brood nest: a pulsating, bio-luminescent cavern teeming with xenos. Here, the ancient Patriarch, progenitor of the Goliath's Maw's horrors and a psychic nexus to the nascent Hive Mind, awaits. This climactic battle determines the fate of the mission, the squad, and potentially countless star systems. It is a desperate, bloody struggle against an ancient, intelligent foe whose psychic presence crushes hope."
-      connections:
-        - target: "pp_desperate_escape_or_containment"
-          condition: "Patriarch defeated (or temporarily incapacitated)"
-          description: "The aftermath of the battle forces a final desperate act."
+            - choice: "Containment: Attempt to seal the threat within the Hulk and secure the warning data."
+              outcome: "Requires complex maneuvers; high risk to squad, but potential for warning the Imperium. Connection: scene_ending_containment"
+            - choice: "Self-Destruct: Initiate the Hulk's self-destruct sequence, sacrificing all."
+              outcome: "Guarantees destruction of the threat and squad; no warning for the Imperium. Connection: scene_ending_self_destruct"
+            - choice: "Warp Trajectory: Steer the Hulk into a nearby warp rift/black hole."
+              outcome: "Eternally banishes the threat and Hulk; loss of warning data; potential for unknown warp consequences. Connection: scene_ending_warp_rift"
+    scene_ending_containment:
+      name: "Ending: The Sealed Horror"
+      description: "Valerius, guided by Kaelan and Lyra, initiates a desperate, last-ditch effort to contain the entity by triggering ancient structural lock-downs and plasma conduits, essentially turning the Hulk into a prison. The data, if retrieved, is secured. The squad barely escapes as the sections seal off, the sound of the entity's wailing trapped behind them. The Space Hulk is rendered an eternal prison, its warning perhaps delivered to the Imperium, but at immense cost and with the knowledge of a lurking horror."
+      connections: []
       character_moments:
         - character: "Brother-Captain Valerius"
-          moment: "Valerius confronts the Patriarch, his fury unleashed. The psychic assault from the xenos warlord pushes him to the brink of the Black Rage, forcing him to fight not just for victory, but for control of his own soul against the curse. Every blow is laden with centuries of Chapter resentment."
-        - character: "Brother-Sergeant Kaelen"
-          moment: "Kaelen orchestrates the squad's movements through the chaotic battle, identifying the Patriarch's vulnerabilities and coordinating fire, his tactical mind pushed to its absolute limits against a foe that defies conventional strategy."
-        - character: "Brother-Apothecary Tybor"
-          moment: "Tybor, even amidst the battle, identifies new mutations and horrors spawned from the Patriarch's presence. He tends to the wounded, carrying out his sacred duty under fire, yet his face is grim with the knowledge of how deeply this enemy is entrenched."
-        - character: "Brother-Heavy Bolter Theron"
-          moment: "Theron unleashes the full might of his heavy bolter against the Patriarch and its numerous defenders, becoming an unmoving bastion of fire. His fear is transmuted into pure, righteous annihilation, his stoicism now a terrifying resolve."
-        - character: "The Brood Lord's Voice (The Patriarch)"
-          moment: "The Patriarch's psychic presence assaults the squad members' minds, showing them visions of their greatest fears and past failures, attempting to break their will before its monstrous claws can finish the task. Its chittering resonates with alien malice and ancient hunger."
-
-    pp_desperate_escape_or_containment:
-      name: "The Last Stand / The Doomed Warning"
-      description: "The Goliath's Maw begins to collapse, either from the battle's repercussions or from a planned overload. The final act involves either a frantic, barely successful escape from the dying hulk, carrying vital intelligence about the Tyranid threat, or a valiant last stand to detonate the entire Space Hulk with themselves inside. This ultimate sacrifice sends a dire warning to the Imperium about the true nature of the enemy, ensuring no trace of the horror escapes, though none survive to tell the tale."
-      connections: [] # This is an end state
+          moment: "Has successfully saved the wider galaxy, but his soul is forever scarred by the knowledge he now possesses and the close call with oblivion. He carries the weight of a horrific secret."
+        - character: "Sergeant Titus"
+          moment: "Relieved the threat is contained, but still wary of the data's potential for corruption."
+        - character: "Apothecary Lyra"
+          moment: "Triumphant in the retrieval of knowledge, but sobered by the raw power of the entity."
+        - character: "Techmarine Kaelan"
+          moment: "Has achieved his directive of archeotech recovery, but is profoundly changed by the scale of the threat."
+      decision_points: []
+    scene_ending_self_destruct:
+      name: "Ending: Ultimate Sacrifice"
+      description: "Valerius initiates the Hulk's antiquated self-destruct sequence. The entire Space Hulk becomes a cataclysmic bomb, consuming the entity and the squad in a blinding vortex of destruction. There is no escape, no warning passed on, only obliteration to ensure the threat's demise. The galaxy remains ignorant of the true nature of the cosmic horror that almost broke free, thanks to the ultimate sacrifice of the Ultramarines."
+      connections: []
       character_moments:
         - character: "Brother-Captain Valerius"
-          moment: "Valerius makes the final, gravest decision, accepting the consequences with grim resolve. Whether leading a desperate retreat or preparing for his final moments, he embraces his duty, his face a testament to the grim reality of the 41st Millennium."
-        - character: "Brother-Sergeant Kaelen"
-          moment: "Kaelen executes the final plan, whether optimizing an escape route or setting critical overload charges, his pragmatism serving the Emperor's will to the bitter end, never once questioning the statistics of their survival."
-        - character: "Brother-Apothecary Tybor"
-          moment: "Tybor prepares to record the last moments of the mission, meticulously archiving all data on the Tyranid threat for Imperial intelligence, or performing the sacred gene-seed retrieval for his fallen brothers, ensuring their sacrifice is not in vain, even as his own end approaches."
-        - character: "Brother-Heavy Bolter Theron"
-          moment: "Theron provides the last line of defense, covering retreat or making his final stand, his weapon roaring a defiant hymn against the xenos tide, his ultimate sacrifice a quiet, unwavering act of loyalty."
-      decision_points:
-        - id: "final_fate_of_the_hulk"
-          prompt: "The Hulk is dying, but the threat is too great to simply let it drift. What is the ultimate fate you pursue?"
-          options:
-            - choice: "Attempt critical data extraction and emergency escape."
-              outcome: "The squad risks everything for a chance to deliver the intel, potentially escaping with heavy losses but carrying a 'doomed warning' to the Imperium. The Hulk might still be a lingering threat."
-            - choice: "Initiate full self-destruct sequence, sacrificing the squad for galactic safety."
-              outcome: "The squad makes the ultimate sacrifice, detonating the Hulk and themselves, ensuring no trace of the 'gene-farm' escapes, sending a final, silent, desperate warning through their actions."
-
+          moment: "A final, unwavering act of duty, embodying the ultimate sacrifice for the Imperium, even if it means his efforts are never known."
+        - character: "Sergeant Titus"
+          moment: "Dies a loyal servant of the Emperor, cleansed of doubt, embraced by fire."
+        - character: "Apothecary Lyra"
+          moment: "Accepts her fate, lamenting the loss of knowledge, but understanding the necessity."
+        - character: "Techmarine Kaelan"
+          moment: "Ensures the self-destruct is absolute, fulfilling his duty to protect mankind, even without data retrieval."
+      decision_points: []
+    scene_ending_warp_rift:
+      name: "Ending: Consigned to Oblivion"
+      description: "Valerius, with Kaelan's help, manages to direct the failing Hulk towards a nearby, unstable warp rift or black hole. The gargantuan derelict is slowly pulled into the crushing maw of oblivion, taking the entity, the Tyranids, and the squad with it. The threat is gone, banished to another dimension or consumed by singularity, but the warning data is lost forever. The Imperium will never know what horrors they were spared from, nor what awaits them in the distant future."
+      connections: []
+      character_moments:
+        - character: "Brother-Captain Valerius"
+          moment: "His final act is one of tactical brilliance, but also of profound uncertainty, consigning secrets to the void."
+        - character: "Sergeant Titus"
+          moment: "Dies in the abyss, his faith tested by an unimaginable death, but still resolute."
+        - character: "Apothecary Lyra"
+          moment: "Her pursuit of knowledge ultimately ends in unknowable void, a tragic end for a scientific mind."
+        - character: "Techmarine Kaelan"
+          moment: "His final moments are spent manipulating complex gravitational equations, ensuring the Hulk's trajectory, his silent, logical sacrifice for mankind."
+      decision_points: []
   character_arcs:
     - character: "Brother-Captain Valerius"
       arc_stages:
         - stage: "Beginning"
-          description: "Stoic, duty-bound leader, burdened by command and the latent Black Rage. Believes in the Imperium's ultimate triumph, despite past horrors."
-        - stage: "Development"
-          description: "Confronted by the overwhelming, insidious nature of the Genestealer 'gene-farm' and the impossible moral choices, his resolve is tested, and the whispers of the Black Rage grow louder, threatening to consume his disciplined exterior."
-        - stage: "Climax/Resolution"
-          description: "Either embraces his fate as a martyr, finding solace in ultimate sacrifice, or carries the horrific truth and the indelible scars of the Goliath’s Maw, forever haunted by the sacrifices made and the enemy's true scale, perhaps closer than ever to the edge of madness."
-    - character: "Brother-Sergeant Kaelen"
+          description: "A stoic, by-the-book Ultramarine, utterly devoted to the Codex Astartes and the Imperium. Tactical and efficient, but perhaps rigid in his worldview."
+        - stage: "Challenge of Dogma"
+          description: "Encounters ancient human history and cosmic horror that defies Imperial doctrine, forcing him to question established truths and the purity of his mission."
+        - stage: "Burden of Command"
+          description: "Faces moral dilemmas that split his squad, forcing him to make choices with galaxy-altering consequences, testing his leadership and personal conviction."
+        - stage: "Transformation/Sacrifice"
+          description: "Emerges either as a visionary carrying a terrible truth, or a martyr making the ultimate, unknown sacrifice for humanity's survival. His worldview is irrevocably altered."
+    - character: "Sergeant Titus"
       arc_stages:
         - stage: "Beginning"
-          description: "Pragmatic, meticulous tactical specialist, relying on cold logic and calculated risk assessment. Haunted by a past failure, making him overly cautious but fiercely decisive."
-        - stage: "Development"
-          description: "His logical framework is shattered by the unpredictable, biological horror of the Hulk and the Genestealers. Forced to make impossible choices with no 'correct' tactical answer, challenging his reliance on empirical data and pushing him towards desperate, instinctual decisions."
-        - stage: "Climax/Resolution"
-          description: "His pragmatism solidifies into a grim acceptance of the Imperium's impossible war, valuing intelligence over heroism, or he becomes utterly broken by the futility, his logical mind short-circuited by the sheer scale of the horror, his last acts driven by despair."
-    - character: "Brother-Apothecary Tybor"
+          description: "Unwavering faith in the Emperor, zealous in purging xenos and heresy. Sees the world in stark black and white, good versus evil."
+        - stage: "Discomfort and Distrust"
+          description: "Struggles with the discoveries that contradict Imperial understanding, viewing them with suspicion and fear, bordering on insubordination."
+        - stage: "Zealous Fear"
+          description: "His faith is challenged, leading to either heightened, desperate zealotry or grim, resigned loyalty to Valerius despite disagreements."
+        - stage: "Redemption/Martyrdom"
+          description: "His ultimate fate solidifies his belief, either through grim satisfaction in purity (containment/self-destruct) or a desperate, final stand against the unknown (warp rift)."
+    - character: "Apothecary Lyra"
       arc_stages:
         - stage: "Beginning"
-          description: "Grim lore keeper and medic, his faith in the Emperor's righteousness tested but intact. Possesses extensive xenos knowledge but has never witnessed planetary-scale corruption manifesting in such a confined space."
-        - stage: "Development"
-          description: "Witnessing the horrific genetic degradation and engineered blasphemies within the hulk profoundly challenges his faith and understanding of life itself. The suffering of the corrupted innocents forces him to question the moral boundaries of his duties and the Emperor's will."
-        - stage: "Climax/Resolution"
-          description: "His faith is either utterly broken by the scale of the xenos corruption, leaving him a hollow shell, or grimly reaffirmed through acts of sacrifice and data preservation, seeing the fight as an eternal struggle against truly unholy forces, becoming a zealous, knowledge-burdened prophet of doom."
-    - character: "Brother-Heavy Bolter Theron"
+          description: "Pragmatic, scientifically curious, with a lean towards xenobotanical study, unusual for an Astartes. Seeks knowledge and understanding."
+        - stage: "Intellectual Revelation"
+          description: "Becomes invigorated by the ancient discoveries, seeing them as crucial knowledge for the Imperium, often clashing with Titus's zeal."
+        - stage: "Confrontation with the Unknown"
+          description: "Pushed to the limits of her scientific understanding by the cosmic entity, yet still attempts to logically analyze and exploit its weaknesses."
+        - stage: "Validated/Lost Knowledge"
+          description: "Her curiosity either leads to crucial data retrieval and validation (containment) or is tragically consumed by the unknown (self-destruct/warp rift), highlighting the fragility of knowledge."
+    - character: "Techmarine Kaelan"
       arc_stages:
         - stage: "Beginning"
-          description: "Stoic heavy weapons specialist, communicating primarily through his weapon. Beneath his calm exterior lies a deep, hidden fear of Genestealers from early, traumatizing encounters."
-        - stage: "Development"
-          description: "The overwhelming numbers and relentless assaults within the claustrophobic hulk force him to confront his latent fear head-on. He fights with increased brutality and less restraint, transforming his fear into a focused, unyielding rage against the enemy."
-        - stage: "Climax/Resolution"
-          description: "His arc culminates in an ultimate, unwavering act of defiance and destruction, becoming a pure engine of Imperial wrath against the xenos, his fear entirely consumed by duty and hatred, or in sacrificing himself in a silent, explosive last stand, his weapon roaring a final, defiant farewell."
-    - character: "The Brood Lord's Voice (The Patriarch)"
-      arc_stages:
-        - stage: "Beginning"
-          description: "An ancient, latent psychic malignity within the Goliath's Maw, slowly expanding its influence and 'digesting' the hulk, a quiet but potent threat at the core of the infestation."
-        - stage: "Development"
-          description: "As the Terminators approach its nest, the Patriarch becomes an active, terrifying psychic antagonist. It probes their minds, manipulates its spawned horrors, and asserts its dominance over the entire hulk, revealing its true intelligence and connection to the nascent Hive Mind."
-        - stage: "Climax/Resolution"
-          description: "Whether destroyed or merely wounded, the Patriarch's presence leaves an indelible scar on the galaxy. Its death signals a warning to the greater Hive Mind, or its survival ensures the 'gene-farm' continues its insidious work, representing the ever-present, evolving threat of the Tyranids."
+          description: "Logical, efficiency-driven, focused on archeotech recovery and data preservation, often detached from ideological debates."
+        - stage: "Technological Fascination"
+          description: "Deeply intrigued by the complex, ancient technology, prioritizing its function and data over other concerns, becoming invaluable."
+        - stage: "Systems Under Siege"
+          description: "Struggles to maintain the integrity of his systems and the extracted data against the entity's corrupting influence, his logic tested by the irrational horror."
+        - stage: "Data Secured/Sacrificed"
+          description: "Either successfully secures the invaluable data (containment) or makes a logical, necessary sacrifice of technology and self for the greater good (self-destruct/warp rift), his value defined by his function."
 ```

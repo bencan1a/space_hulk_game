@@ -1,0 +1,63 @@
+```yaml
+prd_document:
+  game_title: "Space Hulk: Echoes of Oblivion"
+  game_systems:
+    movement:
+      description: "Players control Brother-Captain Valerius and his Terminator squad through a top-down tactical movement system, navigating complex layouts of the Space Hulk. Movement is often slow and deliberate due to the heavy Terminator armor and hazardous environments. Environmental obstacles (debris, collapsed sections, xenos bio-mass) impede progress."
+      commands: ["move (directional)", "sprint (limited duration)", "climb/traverse obstacle", "breach door"]
+      narrative_purpose: "Reinforces the claustrophobic and oppressive atmosphere of the Space Hulk ('Man vs. Environment'). Slow, deliberate movement emphasizes the weight of Terminator armor and the constant threat of ambush, heightening tension. Limited sprint reflects character fatigue and the unforgiving nature of the environment. Breaching doors/clearing debris showcases the squad's stoic advance against overwhelming odds and mechanical efficiency (Kaelan)."
+    inventory:
+      description: "A shared squad inventory system focusing on essential equipment, limited consumables (ammo, med-packs), and mission-critical items (archeotech fragments, data drives). Capacity is limited, forcing strategic decisions on what to carry. Special item slots for unique wargear per character."
+      capacity: 10 # Example capacity for core items, excluding character-specific wargear
+      commands: ["take", "drop", "use", "transfer (between squad members)", "equip"]
+      narrative_purpose: "Emphasizes the 'Survival against overwhelming odds' theme and resource scarcity. Limited inventory forces players to prioritize, reflecting the grim choices faced by the squad. Archeotech fragments and data drives found populate inventory, directly linking to Lyra's and Kaelan's character arcs and the 'Technological Fascination' / 'Intellectual Revelation' plot points by providing tangible story progression and evidence of the ancient civilization."
+    combat:
+      description: "Real-time tactical combat with a 'pause-and-play' feature for issuing commands. Squad members have distinct abilities and weapon loadouts. Cover system, line-of-sight, and environmental hazards (e.g., exploding pipes, unstable floors) are critical. Psychic attacks from the cosmic entity overlay standard combat, causing debuffs and visual distortions."
+      mechanics:
+        - name: "Squad Tactical Commands"
+          rules: "Players can pause combat at any time to issue precise movement, attack, and ability orders to individual squad members. This includes targeting specific enemy body parts, using grenades, or activating character-specific abilities (e.g., Valerius's 'Inspiring Presence', Titus's 'Zealous Charge', Lyra's 'Chitin Analysis', Kaelan's 'System Overload')."
+        - name: "Morale & Corruption"
+          rules: "During combat and specific narrative sequences, characters' Morale stats will fluctuate. Taking heavy damage, witnessing squadmates fall, or prolonged exposure to the entity's psychic influence will decrease morale. Low morale can lead to combat effectiveness penalties (e.g., reduced accuracy, slower reloads) and eventually to 'Corruption' debuffs, reflecting the 'Cosmic Horror' theme and 'Internal Conflict.' Lyra can use 'Sanctified Stimulants' to boost morale, Kaelan can attempt 'System Purge' to counteract psychic interference."
+        - name: "Environmental Interaction"
+          rules: "Players can utilize environmental elements strategically during combat, such as collapsing unstable structures onto enemies, using vents for flank maneuvers, or targeting explosive barrels. Certain areas might have temporary atmospheric hazards (e.g., corrosive gas) providing tactical advantages/disadvantages."
+      narrative_purpose: "Real-time tactical combat with pause allows players to embody Valerius's role as a strategic commander, reinforcing his 'By-the-book Ultramarine' and 'Burden of Command' character arcs. Morale and Corruption heavily tie into the 'Internal Conflict (Squad Morale/Ideology)' and 'Cosmic Horror' themes, showing the tangible effects of the entity on the squad's sanity and cohesion. Environmental interaction reinforces the 'Man vs. Environment' conflict and rewards strategic thinking in a hostile setting."
+    interaction:
+      description: "Players interact with the environment, objects, and their squad members through context-sensitive commands. This includes examining points of interest, picking up items, activating devices, and engaging in dialogue with squadmates. Dialogue choices for Valerius impact character relationships and the overall narrative path."
+      commands: ["examine", "talk (to squadmate)", "activate/deactivate", "collect data", "repair"]
+      narrative_purpose: " 'Examine' and 'Collect Data' are crucial for discovering ancient lore and archeotech, directly driving Lyra's 'Intellectual Revelation' and Kaelan's 'Technological Fascination' arcs. 'Talk' commands allow Valerius to influence squad morale and ideological stances, particularly during the 'Schism among the Ranks' plot point, directly influencing the resolution of 'Internal Conflict.' 'Repair' commands highlight Kaelan's role and the constant degradation of the Hulk's systems."
+  game_state:
+    tracked_variables:
+      - variable: "Valerius_Morality_Scale"
+        purpose: "Tracks Valerius's leaning between 'Purity/Dogma' and 'Knowledge/Pragmatism,' influenced by player dialogue choices and critical decisions. Affects certain dialogue options and potential ending variations."
+      - variable: "Squad_Morale_Valerius"
+        purpose: "Overall squad morale, influenced by leadership decisions, combat performance, and environmental stressors. Affects combat efficiency and special abilities."
+      - variable: "Squad_Morale_Titus"
+        purpose: "Individual morale/loyalty for Titus; tracks his belief in Valerius's command versus Imperial dogma. Influences his combat performance and potential for insubordination ('Discomfort and Distrust')."
+      - variable: "Squad_Morale_Lyra"
+        purpose: "Individual morale/curiosity for Lyra; tracks her engagement with scientific discovery versus immediate threats. Influences her ability to provide insights and her willingness to follow orders contradicting her scientific instincts."
+      - variable: "Squad_Morale_Kaelan"
+        purpose: "Individual morale/logic for Kaelan; tracks his focus on data/archeotech recovery and his ability to maintain systems. Influences his technical assistance and resistance to psychic corruption."
+      - variable: "Archeotech_Collected"
+        purpose: "Count of unique archeotech artifacts or data fragments retrieved. Influences Kaelan's arc, potential for unique tech unlocks, and the value of warnings in certain endings."
+      - variable: "Knowledge_Data_Integrity"
+        purpose: "The completeness and integrity of the ancient warning data. Influenced by actions in 'scene_06b_pursue_retrieval' and Kaelan's efforts. Critical for the 'Containment' ending."
+      - variable: "Entity_Exposure_Level"
+        purpose: "Cumulative exposure of the squad to the cosmic entity's influence. High levels increase psychic attack frequency and intensity, affecting 'Morale & Corruption' mechanics."
+    win_conditions:
+      - condition: "Successfully neutralize the Prime Threat and survive the Space Hulk, achieving one of the designated story endings ('Containment', 'Self-Destruct', 'Warp Trajectory')."
+    lose_conditions:
+      - condition: "Brother-Captain Valerius falls in combat."
+      - condition: "The entire squad is incapacitated/destroyed."
+      - condition: "The Space Hulk is consumed by the Prime Threat before a decisive action can be taken, leading to a catastrophic galactic event (time limit failsafe)."
+  technical_requirements:
+    - requirement: "Robust AI system for Tyranid swarms with pathfinding adapted for dynamic, collapsing environments."
+      justification: "To create believable and challenging 'Man vs. Xenos' combat encounters, reflecting the 'overwhelming odds' theme and adapting to the changing Space Hulk geometry."
+    - requirement: "Dynamic environmental destruction and hazard system."
+      justification: "Essential for 'Man vs. Environment' conflict, providing tactical opportunities and constant threat, reinforcing the Hulk's instability and the claustrophobic tone."
+    - requirement: "Dialogue branching system with hidden morality/loyalty variables."
+      justification: "To support the 'Internal Conflict' and Valerius's 'Burden of Command' arc, allowing player choices to meaningfully impact squad dynamics and narrative outcomes. Directly links to 'Valerius_Morality_Scale' and individual 'Squad_Morale' variables."
+    - requirement: "Visual and audial feedback systems for cosmic horror effects (e.g., reality distortion, whispers, sanity effects)."
+      justification: "To effectively convey the 'Cosmic Horror' theme and the entity's psychological influence on the squad, tying into the 'Morale & Corruption' mechanic."
+    - requirement: "Save/load system that accurately captures all critical game state variables (morality, inventory, character status)."
+      justification: "Crucial for player progression and ensuring that past decisions and ongoing character development are preserved across play sessions, especially given the branching narrative."
+```

@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>space_hulk_game.quality.evaluator API documentation</title>
+<meta name="description" content="Base quality evaluator class for content evaluation …">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>space_hulk_game.quality.evaluator</code></h1>
+</header>
+<section id="section-intro">
+<p>Base quality evaluator class for content evaluation.</p>
+<p>This module defines the abstract base class for all content evaluators,
+providing common functionality for YAML parsing, error handling, and
+standardized evaluation interface.</p>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="space_hulk_game.quality.evaluator.QualityEvaluator"><code class="flex name class">
+<span>class <span class="ident">QualityEvaluator</span></span>
+<span>(</span><span>pass_threshold: float = 6.0)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class QualityEvaluator(ABC):
+    &#34;&#34;&#34;
+    Abstract base class for all quality evaluators.
+
+    All content-specific evaluators (Plot, Narrative, Puzzle, Scene, Mechanics)
+    should inherit from this class and implement the required methods.
+
+    Example:
+        &gt;&gt;&gt; class PlotEvaluator(QualityEvaluator):
+        ...     def evaluate(self, content: str) -&gt; QualityScore:
+        ...         # Implementation here
+        ...         pass
+    &#34;&#34;&#34;
+
+    def __init__(self, pass_threshold: float = 6.0):
+        &#34;&#34;&#34;
+        Initialize the evaluator.
+
+        Args:
+            pass_threshold: Minimum score required to pass (0.0-10.0)
+        &#34;&#34;&#34;
+        if not 0.0 &lt;= pass_threshold &lt;= 10.0:
+            raise ValueError(f&#34;Pass threshold must be between 0.0 and 10.0, got {pass_threshold}&#34;)
+
+        self.pass_threshold = pass_threshold
+        logger.debug(f&#34;{self.__class__.__name__} initialized with threshold {pass_threshold}&#34;)
+
+    @abstractmethod
+    def evaluate(self, content: str) -&gt; QualityScore:
+        &#34;&#34;&#34;
+        Evaluate content and return quality score.
+
+        Args:
+            content: Content to evaluate (usually YAML string)
+
+        Returns:
+            QualityScore with evaluation results
+
+        Raises:
+            ValueError: If content cannot be parsed or evaluated
+        &#34;&#34;&#34;
+        pass
+
+    def score(self, content: str) -&gt; float:
+        &#34;&#34;&#34;
+        Get numeric score for content (convenience method).
+
+        Args:
+            content: Content to evaluate
+
+        Returns:
+            Numeric score from 0.0 to 10.0
+        &#34;&#34;&#34;
+        result = self.evaluate(content)
+        return result.score
+
+    def generate_feedback(self, content: str) -&gt; str:
+        &#34;&#34;&#34;
+        Generate feedback message for content (convenience method).
+
+        Args:
+            content: Content to evaluate
+
+        Returns:
+            Human-readable feedback message
+        &#34;&#34;&#34;
+        result = self.evaluate(content)
+        return result.feedback
+
+    @staticmethod
+    def _fix_common_yaml_errors(content: str) -&gt; str:
+        &#34;&#34;&#34;
+        Attempt to fix common YAML syntax errors.
+
+        Args:
+            content: YAML string that may have syntax errors
+
+        Returns:
+            Fixed YAML string
+        &#34;&#34;&#34;
+        lines = content.split(&#34;\n&#34;)
+        fixed_lines = []
+
+        for line in lines:
+            # Fix unquoted values with colons (e.g., &#34;title: Space Hulk: Derelict&#34;)
+            # Match pattern: &#34;key: value with : colon&#34; where value is not quoted
+            if &#34;:&#34; in line and not line.strip().startswith(&#34;-&#34;):
+                parts = line.split(&#34;:&#34;, 1)
+                if len(parts) == 2:
+                    key_part = parts[0]
+                    value_part = parts[1].strip()
+
+                    # If value has a colon and is not already quoted
+                    if &#34;:&#34; in value_part and not (
+                        (value_part.startswith(&#39;&#34;&#39;) and value_part.endswith(&#39;&#34;&#39;))
+                        or (value_part.startswith(&#34;&#39;&#34;) and value_part.endswith(&#34;&#39;&#34;))
+                    ):
+                        # Quote the value
+                        fixed_line = f&#39;{key_part}: &#34;{value_part}&#34;&#39;
+                        fixed_lines.append(fixed_line)
+                        logger.debug(f&#34;Fixed YAML line: {line.strip()} -&gt; {fixed_line}&#34;)
+                        continue
+
+            fixed_lines.append(line)
+
+        return &#34;\n&#34;.join(fixed_lines)
+
+    @staticmethod
+    def parse_yaml(content: str) -&gt; dict[str, Any]:
+        &#34;&#34;&#34;
+        Parse YAML content, handling markdown-wrapped YAML and common syntax errors.
+
+        Args:
+            content: YAML string, optionally wrapped in markdown code fences
+
+        Returns:
+            Parsed YAML as dictionary
+
+        Raises:
+            ValueError: If YAML cannot be parsed
+        &#34;&#34;&#34;
+        try:
+            # Handle markdown-wrapped YAML
+            content_stripped = content.strip()
+            if content_stripped.startswith(&#34;```&#34;):
+                lines = content_stripped.split(&#34;\n&#34;)
+                # Remove first line (```yaml or ```) and last line (```)
+                content_stripped = &#34;\n&#34;.join(lines[1:-1])
+                logger.debug(&#34;Stripped markdown fences from YAML content&#34;)
+
+            # Try to parse as-is first
+            try:
+                data = yaml.safe_load(content_stripped)
+                if data is None:
+                    raise ValueError(&#34;YAML content is empty or invalid&#34;)
+                return data
+            except yaml.YAMLError as parse_error:
+                # Attempt to fix common YAML syntax errors and retry
+                logger.debug(
+                    f&#34;Initial YAML parse failed, attempting to fix common errors: {parse_error}&#34;
+                )
+                fixed_content = QualityEvaluator._fix_common_yaml_errors(content_stripped)
+                data = yaml.safe_load(fixed_content)
+                if data is None:
+                    raise ValueError(&#34;YAML content is empty or invalid&#34;) from parse_error
+                logger.info(&#34;Successfully parsed YAML after fixing common syntax errors&#34;)
+                return data
+
+        except yaml.YAMLError as e:
+            logger.error(f&#34;Failed to parse YAML: {e}&#34;)
+            raise ValueError(f&#34;Invalid YAML content: {e}&#34;) from e
+        except Exception as e:
+            logger.error(f&#34;Unexpected error parsing YAML: {e}&#34;)
+            raise ValueError(f&#34;Failed to parse content: {e}&#34;) from e
+
+    def _create_score(
+        self, score: float, passed: bool, feedback: str, details: dict[str, Any] | None = None
+    ) -&gt; QualityScore:
+        &#34;&#34;&#34;
+        Create a QualityScore instance (helper method).
+
+        Args:
+            score: Numeric score (0.0-10.0)
+            passed: Whether quality threshold was met
+            feedback: Feedback message
+            details: Optional detailed metrics
+
+        Returns:
+            QualityScore instance
+        &#34;&#34;&#34;
+        return QualityScore(score=score, passed=passed, feedback=feedback, details=details or {})
+
+    def _build_feedback(self, score: float, failures: list, successes: list | None = None) -&gt; str:
+        &#34;&#34;&#34;
+        Build feedback message from score and findings.
+
+        Args:
+            score: Numeric score
+            failures: List of failure messages
+            successes: Optional list of success messages
+
+        Returns:
+            Human-readable feedback message
+        &#34;&#34;&#34;
+        if score &gt;= 9.0:
+            base = &#34;Excellent quality&#34;
+        elif score &gt;= 7.0:
+            base = &#34;Good quality&#34;
+        elif score &gt;= 5.0:
+            base = &#34;Acceptable quality&#34;
+        elif score &gt;= 3.0:
+            base = &#34;Poor quality&#34;
+        else:
+            base = &#34;Very poor quality&#34;
+
+        if not failures:
+            return f&#34;{base} - all checks passed&#34;
+
+        if len(failures) == 1:
+            return f&#34;{base} - {failures[0]}&#34;
+
+        return f&#34;{base} - {len(failures)} issues found&#34;
+
+    def __repr__(self) -&gt; str:
+        &#34;&#34;&#34;String representation of evaluator.&#34;&#34;&#34;
+        return f&#34;{self.__class__.__name__}(threshold={self.pass_threshold})&#34;</code></pre>
+</details>
+<div class="desc"><p>Abstract base class for all quality evaluators.</p>
+<p>All content-specific evaluators (Plot, Narrative, Puzzle, Scene, Mechanics)
+should inherit from this class and implement the required methods.</p>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; class PlotEvaluator(QualityEvaluator):
+...     def evaluate(self, content: str) -&gt; QualityScore:
+...         # Implementation here
+...         pass
+</code></pre>
+<p>Initialize the evaluator.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>pass_threshold</code></strong></dt>
+<dd>Minimum score required to pass (0.0-10.0)</dd>
+</dl></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>abc.ABC</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="space_hulk_game.quality.mechanics_evaluator.MechanicsEvaluator" href="mechanics_evaluator.html#space_hulk_game.quality.mechanics_evaluator.MechanicsEvaluator">MechanicsEvaluator</a></li>
+<li><a title="space_hulk_game.quality.narrative_evaluator.NarrativeMapEvaluator" href="narrative_evaluator.html#space_hulk_game.quality.narrative_evaluator.NarrativeMapEvaluator">NarrativeMapEvaluator</a></li>
+<li><a title="space_hulk_game.quality.plot_evaluator.PlotEvaluator" href="plot_evaluator.html#space_hulk_game.quality.plot_evaluator.PlotEvaluator">PlotEvaluator</a></li>
+<li><a title="space_hulk_game.quality.puzzle_evaluator.PuzzleEvaluator" href="puzzle_evaluator.html#space_hulk_game.quality.puzzle_evaluator.PuzzleEvaluator">PuzzleEvaluator</a></li>
+<li><a title="space_hulk_game.quality.scene_evaluator.SceneEvaluator" href="scene_evaluator.html#space_hulk_game.quality.scene_evaluator.SceneEvaluator">SceneEvaluator</a></li>
+</ul>
+<h3>Static methods</h3>
+<dl>
+<dt id="space_hulk_game.quality.evaluator.QualityEvaluator.parse_yaml"><code class="name flex">
+<span>def <span class="ident">parse_yaml</span></span>(<span>content: str) ‑> dict[str, typing.Any]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def parse_yaml(content: str) -&gt; dict[str, Any]:
+    &#34;&#34;&#34;
+    Parse YAML content, handling markdown-wrapped YAML and common syntax errors.
+
+    Args:
+        content: YAML string, optionally wrapped in markdown code fences
+
+    Returns:
+        Parsed YAML as dictionary
+
+    Raises:
+        ValueError: If YAML cannot be parsed
+    &#34;&#34;&#34;
+    try:
+        # Handle markdown-wrapped YAML
+        content_stripped = content.strip()
+        if content_stripped.startswith(&#34;```&#34;):
+            lines = content_stripped.split(&#34;\n&#34;)
+            # Remove first line (```yaml or ```) and last line (```)
+            content_stripped = &#34;\n&#34;.join(lines[1:-1])
+            logger.debug(&#34;Stripped markdown fences from YAML content&#34;)
+
+        # Try to parse as-is first
+        try:
+            data = yaml.safe_load(content_stripped)
+            if data is None:
+                raise ValueError(&#34;YAML content is empty or invalid&#34;)
+            return data
+        except yaml.YAMLError as parse_error:
+            # Attempt to fix common YAML syntax errors and retry
+            logger.debug(
+                f&#34;Initial YAML parse failed, attempting to fix common errors: {parse_error}&#34;
+            )
+            fixed_content = QualityEvaluator._fix_common_yaml_errors(content_stripped)
+            data = yaml.safe_load(fixed_content)
+            if data is None:
+                raise ValueError(&#34;YAML content is empty or invalid&#34;) from parse_error
+            logger.info(&#34;Successfully parsed YAML after fixing common syntax errors&#34;)
+            return data
+
+    except yaml.YAMLError as e:
+        logger.error(f&#34;Failed to parse YAML: {e}&#34;)
+        raise ValueError(f&#34;Invalid YAML content: {e}&#34;) from e
+    except Exception as e:
+        logger.error(f&#34;Unexpected error parsing YAML: {e}&#34;)
+        raise ValueError(f&#34;Failed to parse content: {e}&#34;) from e</code></pre>
+</details>
+<div class="desc"><p>Parse YAML content, handling markdown-wrapped YAML and common syntax errors.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>content</code></strong></dt>
+<dd>YAML string, optionally wrapped in markdown code fences</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Parsed YAML as dictionary</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>ValueError</code></dt>
+<dd>If YAML cannot be parsed</dd>
+</dl></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="space_hulk_game.quality.evaluator.QualityEvaluator.evaluate"><code class="name flex">
+<span>def <span class="ident">evaluate</span></span>(<span>self, content: str) ‑> <a title="space_hulk_game.quality.score.QualityScore" href="score.html#space_hulk_game.quality.score.QualityScore">QualityScore</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def evaluate(self, content: str) -&gt; QualityScore:
+    &#34;&#34;&#34;
+    Evaluate content and return quality score.
+
+    Args:
+        content: Content to evaluate (usually YAML string)
+
+    Returns:
+        QualityScore with evaluation results
+
+    Raises:
+        ValueError: If content cannot be parsed or evaluated
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<div class="desc"><p>Evaluate content and return quality score.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>content</code></strong></dt>
+<dd>Content to evaluate (usually YAML string)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>QualityScore with evaluation results</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>ValueError</code></dt>
+<dd>If content cannot be parsed or evaluated</dd>
+</dl></div>
+</dd>
+<dt id="space_hulk_game.quality.evaluator.QualityEvaluator.generate_feedback"><code class="name flex">
+<span>def <span class="ident">generate_feedback</span></span>(<span>self, content: str) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_feedback(self, content: str) -&gt; str:
+    &#34;&#34;&#34;
+    Generate feedback message for content (convenience method).
+
+    Args:
+        content: Content to evaluate
+
+    Returns:
+        Human-readable feedback message
+    &#34;&#34;&#34;
+    result = self.evaluate(content)
+    return result.feedback</code></pre>
+</details>
+<div class="desc"><p>Generate feedback message for content (convenience method).</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>content</code></strong></dt>
+<dd>Content to evaluate</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Human-readable feedback message</p></div>
+</dd>
+<dt id="space_hulk_game.quality.evaluator.QualityEvaluator.score"><code class="name flex">
+<span>def <span class="ident">score</span></span>(<span>self, content: str) ‑> float</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def score(self, content: str) -&gt; float:
+    &#34;&#34;&#34;
+    Get numeric score for content (convenience method).
+
+    Args:
+        content: Content to evaluate
+
+    Returns:
+        Numeric score from 0.0 to 10.0
+    &#34;&#34;&#34;
+    result = self.evaluate(content)
+    return result.score</code></pre>
+</details>
+<div class="desc"><p>Get numeric score for content (convenience method).</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>content</code></strong></dt>
+<dd>Content to evaluate</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Numeric score from 0.0 to 10.0</p></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="space_hulk_game.quality" href="index.html">space_hulk_game.quality</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="space_hulk_game.quality.evaluator.QualityEvaluator" href="#space_hulk_game.quality.evaluator.QualityEvaluator">QualityEvaluator</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.quality.evaluator.QualityEvaluator.evaluate" href="#space_hulk_game.quality.evaluator.QualityEvaluator.evaluate">evaluate</a></code></li>
+<li><code><a title="space_hulk_game.quality.evaluator.QualityEvaluator.generate_feedback" href="#space_hulk_game.quality.evaluator.QualityEvaluator.generate_feedback">generate_feedback</a></code></li>
+<li><code><a title="space_hulk_game.quality.evaluator.QualityEvaluator.parse_yaml" href="#space_hulk_game.quality.evaluator.QualityEvaluator.parse_yaml">parse_yaml</a></code></li>
+<li><code><a title="space_hulk_game.quality.evaluator.QualityEvaluator.score" href="#space_hulk_game.quality.evaluator.QualityEvaluator.score">score</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>
