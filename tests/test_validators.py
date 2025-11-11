@@ -5,52 +5,51 @@ validates YAML outputs against Pydantic schemas.
 """
 
 import unittest
-from typing import Dict
 
-from space_hulk_game.validation import OutputValidator, ValidationResult
-from space_hulk_game.schemas.plot_outline import PlotOutline
+from space_hulk_game.schemas.game_mechanics import GameMechanics
 from space_hulk_game.schemas.narrative_map import NarrativeMap
+from space_hulk_game.schemas.plot_outline import PlotOutline
 from space_hulk_game.schemas.puzzle_design import PuzzleDesign
 from space_hulk_game.schemas.scene_text import SceneTexts
-from space_hulk_game.schemas.game_mechanics import GameMechanics
+from space_hulk_game.validation import OutputValidator, ValidationResult
 
 
 class TestOutputValidator(unittest.TestCase):
     """Test cases for OutputValidator class."""
-    
+
     def setUp(self):
         """Set up test fixtures."""
         self.validator = OutputValidator()
-    
+
     def test_validator_initialization(self):
         """Test that validator initializes correctly."""
         self.assertIsInstance(self.validator, OutputValidator)
-    
+
     def test_strip_markdown_fences_with_yaml_language(self):
         """Test stripping markdown fences with yaml language specifier."""
         yaml_with_fence = "```yaml\nkey: value\n```"
         result = self.validator._strip_markdown_fences(yaml_with_fence)
         self.assertEqual(result, "key: value")
-    
+
     def test_strip_markdown_fences_without_language(self):
         """Test stripping markdown fences without language specifier."""
         yaml_with_fence = "```\nkey: value\n```"
         result = self.validator._strip_markdown_fences(yaml_with_fence)
         self.assertEqual(result, "key: value")
-    
+
     def test_strip_markdown_fences_no_fences(self):
         """Test that content without fences is unchanged."""
         yaml_no_fence = "key: value"
         result = self.validator._strip_markdown_fences(yaml_no_fence)
         self.assertEqual(result, "key: value")
-    
+
     def test_parse_yaml_valid(self):
         """Test parsing valid YAML."""
         yaml_str = "key: value\nnumber: 42"
         data, errors = self.validator._parse_yaml(yaml_str)
         self.assertEqual(data, {"key": "value", "number": 42})
         self.assertEqual(errors, [])
-    
+
     def test_parse_yaml_empty(self):
         """Test parsing empty YAML."""
         yaml_str = ""
@@ -58,7 +57,7 @@ class TestOutputValidator(unittest.TestCase):
         self.assertIsNone(data)
         self.assertEqual(len(errors), 1)
         self.assertIn("empty", errors[0].lower())
-    
+
     def test_parse_yaml_invalid_syntax(self):
         """Test parsing YAML with syntax errors."""
         yaml_str = "key: value\n  bad indentation: here"
@@ -66,7 +65,7 @@ class TestOutputValidator(unittest.TestCase):
         self.assertIsNone(data)
         self.assertEqual(len(errors), 1)
         self.assertIn("parsing error", errors[0].lower())
-    
+
     def test_parse_yaml_not_dict(self):
         """Test parsing YAML that's not a dictionary."""
         yaml_str = "- item1\n- item2"
@@ -78,11 +77,11 @@ class TestOutputValidator(unittest.TestCase):
 
 class TestPlotOutlineValidation(unittest.TestCase):
     """Test cases for plot outline validation."""
-    
+
     def setUp(self):
         """Set up test fixtures."""
         self.validator = OutputValidator()
-    
+
     def test_validate_plot_valid_minimal(self):
         """Test validating a minimal valid plot outline."""
         yaml_str = """
@@ -115,7 +114,7 @@ conflicts:
         self.assertIsInstance(result.data, PlotOutline)
         self.assertEqual(result.data.title, "Test Plot")
         self.assertEqual(len(result.errors), 0)
-    
+
     def test_validate_plot_with_markdown_fences(self):
         """Test validating plot outline with markdown fences."""
         yaml_str = """```yaml
@@ -146,7 +145,7 @@ conflicts:
         self.assertTrue(result.valid)
         self.assertIsInstance(result.data, PlotOutline)
         self.assertEqual(len(result.errors), 0)
-    
+
     def test_validate_plot_missing_required_field(self):
         """Test validating plot outline with missing required field."""
         yaml_str = """
@@ -163,7 +162,7 @@ characters: []
         self.assertFalse(result.valid)
         self.assertIsNone(result.data)
         self.assertGreater(len(result.errors), 0)
-    
+
     def test_validate_plot_invalid_plot_point_id(self):
         """Test validating plot outline with invalid plot point ID."""
         yaml_str = """
@@ -197,7 +196,7 @@ conflicts:
         # Check that error mentions ID validation
         error_str = " ".join(result.errors).lower()
         self.assertTrue("alphanumeric" in error_str or "id" in error_str)
-    
+
     def test_validate_plot_duplicate_character_names(self):
         """Test validating plot outline with duplicate character names."""
         yaml_str = """
@@ -238,11 +237,11 @@ conflicts:
 
 class TestNarrativeMapValidation(unittest.TestCase):
     """Test cases for narrative map validation."""
-    
+
     def setUp(self):
         """Set up test fixtures."""
         self.validator = OutputValidator()
-    
+
     def test_validate_narrative_map_valid(self):
         """Test validating a valid narrative map."""
         yaml_str = """
@@ -265,7 +264,7 @@ scenes:
         self.assertEqual(result.data.start_scene, "scene_01")
         self.assertEqual(len(result.data.scenes), 2)
         self.assertEqual(len(result.errors), 0)
-    
+
     def test_validate_narrative_map_nonexistent_connection(self):
         """Test validating narrative map with connection to non-existent scene."""
         yaml_str = """
@@ -285,7 +284,7 @@ scenes:
         # Check that error mentions the non-existent scene
         error_str = " ".join(result.errors).lower()
         self.assertTrue("non-existent" in error_str or "nonexistent" in error_str)
-    
+
     def test_validate_narrative_map_with_decision_points(self):
         """Test validating narrative map with decision points."""
         yaml_str = """
@@ -318,11 +317,11 @@ scenes:
 
 class TestPuzzleDesignValidation(unittest.TestCase):
     """Test cases for puzzle design validation."""
-    
+
     def setUp(self):
         """Set up test fixtures."""
         self.validator = OutputValidator()
-    
+
     def test_validate_puzzle_design_valid(self):
         """Test validating a valid puzzle design."""
         yaml_str = """
@@ -376,7 +375,7 @@ npcs:
         self.assertEqual(len(result.data.monsters), 1)
         self.assertEqual(len(result.data.npcs), 1)
         self.assertEqual(len(result.errors), 0)
-    
+
     def test_validate_puzzle_design_invalid_difficulty(self):
         """Test validating puzzle design with invalid difficulty."""
         yaml_str = """
@@ -426,11 +425,11 @@ npcs:
 
 class TestSceneTextsValidation(unittest.TestCase):
     """Test cases for scene texts validation."""
-    
+
     def setUp(self):
         """Set up test fixtures."""
         self.validator = OutputValidator()
-    
+
     def test_validate_scene_texts_valid(self):
         """Test validating valid scene texts."""
         yaml_str = """
@@ -454,7 +453,7 @@ scenes:
         self.assertIsInstance(result.data, SceneTexts)
         self.assertEqual(len(result.data.scenes), 1)
         self.assertEqual(len(result.errors), 0)
-    
+
     def test_validate_scene_texts_description_too_short(self):
         """Test validating scene texts with description that's too short."""
         yaml_str = """
@@ -475,11 +474,11 @@ scenes:
 
 class TestGameMechanicsValidation(unittest.TestCase):
     """Test cases for game mechanics validation."""
-    
+
     def setUp(self):
         """Set up test fixtures."""
         self.validator = OutputValidator()
-    
+
     def test_validate_game_mechanics_valid(self):
         """Test validating valid game mechanics."""
         yaml_str = """
@@ -530,7 +529,7 @@ technical_requirements:
         self.assertIsInstance(result.data, GameMechanics)
         self.assertEqual(result.data.game_title, "Test Game")
         self.assertEqual(len(result.errors), 0)
-    
+
     def test_validate_game_mechanics_invalid_inventory_capacity(self):
         """Test validating game mechanics with invalid inventory capacity."""
         yaml_str = """
@@ -578,96 +577,110 @@ technical_requirements:
 
 class TestRealFileValidation(unittest.TestCase):
     """Test validation against real YAML files in game-config/."""
-    
+
     def setUp(self):
         """Set up test fixtures."""
         self.validator = OutputValidator()
-    
+
     def test_validate_real_plot_outline(self):
         """Test validation against real plot_outline.yaml file."""
         try:
-            with open('/home/runner/work/space_hulk_game/space_hulk_game/game-config/plot_outline.yaml', 'r') as f:
+            with open(
+                "/home/runner/work/space_hulk_game/space_hulk_game/game-config/plot_outline.yaml",
+            ) as f:
                 yaml_content = f.read()
-            
+
             # The real file has a 'narrative_foundation' wrapper, extract it
             import yaml
+
             data = yaml.safe_load(yaml_content)
-            if 'narrative_foundation' in data:
+            if "narrative_foundation" in data:
                 # Re-serialize just the narrative_foundation part
                 import yaml as yaml_module
-                yaml_content = yaml_module.dump(data['narrative_foundation'])
-            
+
+                yaml_content = yaml_module.dump(data["narrative_foundation"])
+
             result = self.validator.validate_plot(yaml_content)
-            
+
             # The file may not validate perfectly if it's a template
             # Just check that we can process it without crashing
             self.assertIsInstance(result, ValidationResult)
-            
+
             if not result.valid:
                 print(f"\nNote: Real plot_outline.yaml has {len(result.errors)} validation errors:")
                 for error in result.errors[:5]:  # Print first 5 errors
                     print(f"  - {error}")
-        
+
         except FileNotFoundError:
             self.skipTest("Real plot_outline.yaml file not found")
-    
+
     def test_validate_real_narrative_map(self):
         """Test validation against real narrative_map.yaml file."""
         try:
-            with open('/home/runner/work/space_hulk_game/space_hulk_game/game-config/narrative_map.yaml', 'r') as f:
+            with open(
+                "/home/runner/work/space_hulk_game/space_hulk_game/game-config/narrative_map.yaml",
+            ) as f:
                 yaml_content = f.read()
-            
+
             result = self.validator.validate_narrative_map(yaml_content)
-            
+
             # Just check that we can process it
             self.assertIsInstance(result, ValidationResult)
-            
+
             if not result.valid:
-                print(f"\nNote: Real narrative_map.yaml has {len(result.errors)} validation errors:")
+                print(
+                    f"\nNote: Real narrative_map.yaml has {len(result.errors)} validation errors:"
+                )
                 for error in result.errors[:5]:
                     print(f"  - {error}")
-        
+
         except FileNotFoundError:
             self.skipTest("Real narrative_map.yaml file not found")
-    
+
     def test_validate_real_puzzle_design(self):
         """Test validation against real puzzle_design.yaml file."""
         try:
-            with open('/home/runner/work/space_hulk_game/space_hulk_game/game-config/puzzle_design.yaml', 'r') as f:
+            with open(
+                "/home/runner/work/space_hulk_game/space_hulk_game/game-config/puzzle_design.yaml",
+            ) as f:
                 yaml_content = f.read()
-            
+
             result = self.validator.validate_puzzle_design(yaml_content)
-            
+
             # Just check that we can process it
             self.assertIsInstance(result, ValidationResult)
-            
+
             if not result.valid:
-                print(f"\nNote: Real puzzle_design.yaml has {len(result.errors)} validation errors:")
+                print(
+                    f"\nNote: Real puzzle_design.yaml has {len(result.errors)} validation errors:"
+                )
                 for error in result.errors[:5]:
                     print(f"  - {error}")
-        
+
         except FileNotFoundError:
             self.skipTest("Real puzzle_design.yaml file not found")
-    
+
     def test_validate_real_scene_texts(self):
         """Test validation against real scene_texts.yaml file."""
         try:
-            with open('/home/runner/work/space_hulk_game/space_hulk_game/game-config/scene_texts.yaml', 'r') as f:
+            with open(
+                "/home/runner/work/space_hulk_game/space_hulk_game/game-config/scene_texts.yaml",
+            ) as f:
                 yaml_content = f.read()
-            
+
             result = self.validator.validate_scene_texts(yaml_content)
-            
+
             # Just check that we can process it
             self.assertIsInstance(result, ValidationResult)
-            
+
             if not result.valid:
                 print(f"\nNote: Real scene_texts.yaml has {len(result.errors)} validation errors:")
                 for error in result.errors[:5]:
                     print(f"  - {error}")
-        
+
         except FileNotFoundError:
             self.skipTest("Real scene_texts.yaml file not found")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
