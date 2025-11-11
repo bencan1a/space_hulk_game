@@ -33,7 +33,7 @@ repos:
       # MyPy type checking (uses pyproject.toml config)
       - id: mypy
         name: MyPy type check
-        entry: bash -c 'source .venv/bin/activate && make type-check'
+        entry: bash -c 'source .venv/bin/activate && make type-check-pre-commit'
         language: system
         types: [python]
         pass_filenames: false

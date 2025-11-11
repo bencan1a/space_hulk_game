@@ -1,4 +1,4 @@
-.PHONY: help install install-dev dev test test-real-api coverage lint format format-check type-check security security-report check-yaml check-all fix run-crew validate-api validate-config clean
+.PHONY: help install install-dev dev test test-real-api coverage lint format format-check type-check type-check-pre-commit security security-report check-yaml check-all fix run-crew validate-api validate-config clean
 
 help:
 	@echo "Space Hulk Game - Development Commands"
@@ -73,6 +73,9 @@ format-check:
 
 type-check:
 	mypy src/space_hulk_game tests tools
+
+type-check-pre-commit:
+	mypy --cache-dir=/dev/null src/space_hulk_game tests tools
 
 security:
 	bandit -r src/ -c pyproject.toml
