@@ -50,7 +50,7 @@ dev: install-dev
 
 # Testing
 test:
-	python -m unittest discover -s tests -v
+	python -m unittest discover -b -q -s tests
 
 test-real-api:
 	RUN_REAL_API_TESTS=1 python -m unittest discover -s tests -v

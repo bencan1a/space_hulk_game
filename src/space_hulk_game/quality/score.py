@@ -5,9 +5,14 @@ This module defines the QualityScore data structure used by all evaluators
 to standardize evaluation results across different content types.
 """
 
+from __future__ import annotations
+
 import json
 from dataclasses import dataclass, field
-from typing import Any, cast
+from typing import TYPE_CHECKING, Any, cast
+
+if TYPE_CHECKING:
+    from space_hulk_game.validation.types import ProcessingResult
 
 
 @dataclass
@@ -82,7 +87,7 @@ class QualityScore:
         return json.dumps(self.to_dict(), indent=2)
 
     @classmethod
-    def from_dict(cls, data: dict[str, Any]) -> "QualityScore":
+    def from_dict(cls, data: dict[str, Any]) -> QualityScore:
         """
         Create QualityScore from dictionary.
 
@@ -135,7 +140,7 @@ class QualityScore:
 
         return "\n".join(lines)
 
-    def to_processing_result(self) -> "ProcessingResult":
+    def to_processing_result(self) -> ProcessingResult:
         """Convert to unified ProcessingResult type.
 
         Returns:
@@ -152,7 +157,7 @@ class QualityScore:
             >>> processing_result.metadata['score']
             8.5
         """
-        from space_hulk_game.validation.types import ProcessingResult
+        from space_hulk_game.validation.types import ProcessingResult  # noqa: PLC0415
 
         return ProcessingResult(
             success=self.passed,

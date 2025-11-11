@@ -69,6 +69,8 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               title: 'Nightly regression test failed',
-              body: `Nightly regression test failed on ${new Date().toISOString().split('T')[0]}\n\nSee workflow run: ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
+              body: `Nightly regression test failed on ${new Date().toISOString().split('T')[0]}\n\n` +
+                `See workflow run: ${context.serverUrl}/${context.repo.owner}/` +
+                `${context.repo.repo}/actions/runs/${context.runId}`,
               labels: ['automated', 'testing', 'bug']
             })

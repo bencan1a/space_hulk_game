@@ -5,14 +5,20 @@ errors in AI agent outputs. It attempts to fix missing fields, syntax errors,
 and format violations while preserving the intent of the original content.
 """
 
+from __future__ import annotations
+
 import logging
 import re
 from dataclasses import dataclass
+from typing import TYPE_CHECKING
 
 import yaml
 
 from space_hulk_game.utils.yaml_processor import strip_markdown_yaml_blocks
 from space_hulk_game.validation.validator import OutputValidator, ValidationResult
+
+if TYPE_CHECKING:
+    from space_hulk_game.validation.types import ProcessingResult
 
 logger = logging.getLogger(__name__)
 
@@ -44,7 +50,7 @@ class CorrectionResult:
     validation_result: ValidationResult
     success: bool
 
-    def to_processing_result(self) -> "ProcessingResult":
+    def to_processing_result(self) -> ProcessingResult:
         """Convert to unified ProcessingResult type.
 
         Returns:
@@ -61,7 +67,7 @@ class CorrectionResult:
             >>> processing_result.is_valid
             True
         """
-        from space_hulk_game.validation.types import ProcessingResult
+        from space_hulk_game.validation.types import ProcessingResult  # noqa: PLC0415
 
         return ProcessingResult(
             success=self.success,
@@ -103,7 +109,6 @@ class OutputCorrector:
         """Initialize the output corrector with a validator instance."""
         self.validator = OutputValidator()
         logger.info("OutputCorrector initialized")
-
 
     def _fix_id_format(self, id_value: str) -> str:
         """Fix ID format to match schema requirements.

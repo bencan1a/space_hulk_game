@@ -23,13 +23,11 @@ Example:
     # (with all required fields added and validated)
 """
 
+from __future__ import annotations
+
 import logging
-from typing import TYPE_CHECKING
 
 from space_hulk_game.utils.yaml_processor import strip_markdown_yaml_blocks
-
-if TYPE_CHECKING:
-    from space_hulk_game.validation.corrector import OutputCorrector
 
 logger = logging.getLogger(__name__)
 
@@ -75,7 +73,7 @@ class OutputSanitizer:
         for all five output types.
         """
         # Lazy import to avoid circular dependency
-        from space_hulk_game.validation.corrector import OutputCorrector
+        from space_hulk_game.validation.corrector import OutputCorrector  # noqa: PLC0415
 
         self.corrector = OutputCorrector()
         logger.info("OutputSanitizer initialized with OutputCorrector")

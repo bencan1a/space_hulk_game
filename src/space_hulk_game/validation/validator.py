@@ -4,10 +4,11 @@ This module provides validation functionality for parsing and validating
 YAML outputs from AI agents against Pydantic schemas.
 """
 
+from __future__ import annotations
+
 import logging
-import re
 from dataclasses import dataclass, field
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import yaml
 from pydantic import ValidationError
@@ -18,6 +19,9 @@ from space_hulk_game.schemas.plot_outline import PlotOutline
 from space_hulk_game.schemas.puzzle_design import PuzzleDesign
 from space_hulk_game.schemas.scene_text import SceneTexts
 from space_hulk_game.utils.yaml_processor import strip_markdown_yaml_blocks
+
+if TYPE_CHECKING:
+    from space_hulk_game.validation.types import ProcessingResult
 
 logger = logging.getLogger(__name__)
 
@@ -48,7 +52,7 @@ class ValidationResult:
     errors: list[str]
     warnings: list[str] = field(default_factory=list)
 
-    def to_processing_result(self) -> "ProcessingResult":
+    def to_processing_result(self) -> ProcessingResult:
         """Convert to unified ProcessingResult type.
 
         Returns:
@@ -60,7 +64,7 @@ class ValidationResult:
             >>> processing_result.is_valid
             True
         """
-        from space_hulk_game.validation.types import ProcessingResult
+        from space_hulk_game.validation.types import ProcessingResult  # noqa: PLC0415
 
         return ProcessingResult(
             success=self.valid,
@@ -96,7 +100,6 @@ class OutputValidator:
     def __init__(self):
         """Initialize the output validator."""
         logger.info("OutputValidator initialized")
-
 
     def _parse_yaml(self, raw_output: str) -> tuple[dict | None, list[str]]:
         """Parse YAML string into a dictionary.

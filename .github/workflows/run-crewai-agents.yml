@@ -148,8 +148,10 @@ jobs:
 
           echo "" >> execution_summary.md
           echo "## Artifacts" >> execution_summary.md
-          echo "- 📦 Game configuration files: \`game-config-${{ steps.run_crew.outputs.run_timestamp }}\`" >> execution_summary.md
-          echo "- 📋 Execution logs: \`execution-logs-${{ steps.run_crew.outputs.run_timestamp }}\`" >> execution_summary.md
+          echo "- 📦 Game configuration files: \`game-config-${{
+            steps.run_crew.outputs.run_timestamp }}\`" >> execution_summary.md
+          echo "- 📋 Execution logs: \`execution-logs-${{
+            steps.run_crew.outputs.run_timestamp }}\`" >> execution_summary.md
 
           cat execution_summary.md
 
