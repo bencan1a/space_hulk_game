@@ -1,6 +1,6 @@
 # Space Hulk Game - AI Agent Context
 
-Generated: 2025-11-11 17:10:44
+Generated: 2025-11-11 22:33:42
 
 ---
 
@@ -52,3 +52,4 @@ space_hulk_game/
 - **README.md** - Project overview and setup
 - **docs/SETUP.md** - Detailed installation guide
 - **docs/QUICKSTART.md** - Quick reference
+

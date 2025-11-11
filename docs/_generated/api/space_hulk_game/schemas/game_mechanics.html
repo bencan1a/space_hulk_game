@@ -72,17 +72,8 @@ game systems, state management, win/lose conditions, and technical requirements.
         ... )
     &#34;&#34;&#34;
 
-    name: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Mechanic name&#34;
-    )
-    rules: str = Field(
-        ...,
-        min_length=20,
-        description=&#34;Description of mechanic rules&#34;
-    )</code></pre>
+    name: str = Field(..., min_length=1, max_length=200, description=&#34;Mechanic name&#34;)
+    rules: str = Field(..., min_length=20, description=&#34;Description of mechanic rules&#34;)</code></pre>
 </details>
 <div class="desc"><p>A specific combat mechanic or rule.</p>
 <h2 id="attributes">Attributes</h2>
@@ -147,20 +138,12 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    description: str = Field(
-        ...,
-        min_length=50,
-        description=&#34;Description of combat system&#34;
-    )
+    description: str = Field(..., min_length=50, description=&#34;Description of combat system&#34;)
     mechanics: list[CombatMechanic] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Combat mechanics (at least 1)&#34;
+        ..., min_length=1, description=&#34;Combat mechanics (at least 1)&#34;
     )
     narrative_purpose: str = Field(
-        ...,
-        min_length=50,
-        description=&#34;Narrative purpose of combat system&#34;
+        ..., min_length=50, description=&#34;Narrative purpose of combat system&#34;
     )</code></pre>
 </details>
 <div class="desc"><p>Combat system configuration.</p>
@@ -238,24 +221,11 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    game_title: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Title of the game&#34;
-    )
-    game_systems: GameSystems = Field(
-        ...,
-        description=&#34;Game systems configuration&#34;
-    )
-    game_state: GameState = Field(
-        ...,
-        description=&#34;Game state management&#34;
-    )
+    game_title: str = Field(..., min_length=1, max_length=200, description=&#34;Title of the game&#34;)
+    game_systems: GameSystems = Field(..., description=&#34;Game systems configuration&#34;)
+    game_state: GameState = Field(..., description=&#34;Game state management&#34;)
     technical_requirements: list[TechnicalRequirement] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Technical requirements (at least 1)&#34;
+        ..., min_length=1, description=&#34;Technical requirements (at least 1)&#34;
     )</code></pre>
 </details>
 <div class="desc"><p>Complete game mechanics and design document.</p>
@@ -338,19 +308,13 @@ validated to form a valid model.</p>
     &#34;&#34;&#34;
 
     tracked_variables: list[TrackedVariable] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Tracked variables (at least 1)&#34;
+        ..., min_length=1, description=&#34;Tracked variables (at least 1)&#34;
     )
     win_conditions: list[WinCondition] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Win conditions (at least 1)&#34;
+        ..., min_length=1, description=&#34;Win conditions (at least 1)&#34;
     )
     lose_conditions: list[LoseCondition] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Lose conditions (at least 1)&#34;
+        ..., min_length=1, description=&#34;Lose conditions (at least 1)&#34;
     )</code></pre>
 </details>
 <div class="desc"><p>Game state management configuration.</p>
@@ -414,12 +378,10 @@ validated to form a valid model.</p>
     &#34;&#34;&#34;
 
     commands: list[str] = Field(
-        ...,
-        min_length=1,
-        description=&#34;List of available commands (at least 1)&#34;
+        ..., min_length=1, description=&#34;List of available commands (at least 1)&#34;
     )
 
-    @field_validator(&#39;commands&#39;)
+    @field_validator(&#34;commands&#34;)
     @classmethod
     def validate_commands_not_empty(cls, v: list[str]) -&gt; list[str]:
         &#34;&#34;&#34;Ensure all commands are non-empty strings.&#34;&#34;&#34;
@@ -567,20 +529,10 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    description: str = Field(
-        ...,
-        min_length=50,
-        description=&#34;Description of interaction system&#34;
-    )
-    commands: list[str] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Interaction commands (at least 1)&#34;
-    )
+    description: str = Field(..., min_length=50, description=&#34;Description of interaction system&#34;)
+    commands: list[str] = Field(..., min_length=1, description=&#34;Interaction commands (at least 1)&#34;)
     narrative_purpose: str = Field(
-        ...,
-        min_length=50,
-        description=&#34;Narrative purpose of interaction system&#34;
+        ..., min_length=50, description=&#34;Narrative purpose of interaction system&#34;
     )</code></pre>
 </details>
 <div class="desc"><p>Interaction system configuration.</p>
@@ -655,26 +607,11 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    description: str = Field(
-        ...,
-        min_length=50,
-        description=&#34;Description of inventory system&#34;
-    )
-    capacity: int = Field(
-        ...,
-        ge=1,
-        le=100,
-        description=&#34;Maximum inventory capacity (1-100)&#34;
-    )
-    commands: list[str] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Inventory commands (at least 1)&#34;
-    )
+    description: str = Field(..., min_length=50, description=&#34;Description of inventory system&#34;)
+    capacity: int = Field(..., ge=1, le=100, description=&#34;Maximum inventory capacity (1-100)&#34;)
+    commands: list[str] = Field(..., min_length=1, description=&#34;Inventory commands (at least 1)&#34;)
     narrative_purpose: str = Field(
-        ...,
-        min_length=50,
-        description=&#34;Narrative purpose of inventory system&#34;
+        ..., min_length=50, description=&#34;Narrative purpose of inventory system&#34;
     )</code></pre>
 </details>
 <div class="desc"><p>Inventory system configuration.</p>
@@ -750,11 +687,7 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    condition: str = Field(
-        ...,
-        min_length=20,
-        description=&#34;Description of the lose condition&#34;
-    )</code></pre>
+    condition: str = Field(..., min_length=20, description=&#34;Description of the lose condition&#34;)</code></pre>
 </details>
 <div class="desc"><p>A lose condition for the game.</p>
 <h2 id="attributes">Attributes</h2>
@@ -812,20 +745,10 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    description: str = Field(
-        ...,
-        min_length=50,
-        description=&#34;Description of movement system&#34;
-    )
-    commands: list[str] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Movement commands (at least 1)&#34;
-    )
+    description: str = Field(..., min_length=50, description=&#34;Description of movement system&#34;)
+    commands: list[str] = Field(..., min_length=1, description=&#34;Movement commands (at least 1)&#34;)
     narrative_purpose: str = Field(
-        ...,
-        min_length=50,
-        description=&#34;Narrative purpose of movement system&#34;
+        ..., min_length=50, description=&#34;Narrative purpose of movement system&#34;
     )</code></pre>
 </details>
 <div class="desc"><p>Movement system configuration.</p>
@@ -896,16 +819,8 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    requirement: str = Field(
-        ...,
-        min_length=20,
-        description=&#34;Technical requirement description&#34;
-    )
-    justification: str = Field(
-        ...,
-        min_length=20,
-        description=&#34;Justification for the requirement&#34;
-    )</code></pre>
+    requirement: str = Field(..., min_length=20, description=&#34;Technical requirement description&#34;)
+    justification: str = Field(..., min_length=20, description=&#34;Justification for the requirement&#34;)</code></pre>
 </details>
 <div class="desc"><p>A technical requirement for the game.</p>
 <h2 id="attributes">Attributes</h2>
@@ -968,17 +883,8 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    variable: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Variable name&#34;
-    )
-    purpose: str = Field(
-        ...,
-        min_length=20,
-        description=&#34;Purpose and impact of the variable&#34;
-    )</code></pre>
+    variable: str = Field(..., min_length=1, max_length=200, description=&#34;Variable name&#34;)
+    purpose: str = Field(..., min_length=20, description=&#34;Purpose and impact of the variable&#34;)</code></pre>
 </details>
 <div class="desc"><p>A tracked game state variable.</p>
 <h2 id="attributes">Attributes</h2>
@@ -1039,11 +945,7 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    condition: str = Field(
-        ...,
-        min_length=20,
-        description=&#34;Description of the win condition&#34;
-    )</code></pre>
+    condition: str = Field(..., min_length=20, description=&#34;Description of the win condition&#34;)</code></pre>
 </details>
 <div class="desc"><p>A win condition for the game.</p>
 <h2 id="attributes">Attributes</h2>

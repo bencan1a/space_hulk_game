@@ -4487,47 +4487,12 @@ class PuzzleMetrics:
         return result.feedback
 
     @staticmethod
-    def _fix_common_yaml_errors(content: str) -&gt; str:
-        &#34;&#34;&#34;
-        Attempt to fix common YAML syntax errors.
-
-        Args:
-            content: YAML string that may have syntax errors
-
-        Returns:
-            Fixed YAML string
-        &#34;&#34;&#34;
-        lines = content.split(&#34;\n&#34;)
-        fixed_lines = []
-
-        for line in lines:
-            # Fix unquoted values with colons (e.g., &#34;title: Space Hulk: Derelict&#34;)
-            # Match pattern: &#34;key: value with : colon&#34; where value is not quoted
-            if &#34;:&#34; in line and not line.strip().startswith(&#34;-&#34;):
-                parts = line.split(&#34;:&#34;, 1)
-                if len(parts) == 2:
-                    key_part = parts[0]
-                    value_part = parts[1].strip()
-
-                    # If value has a colon and is not already quoted
-                    if &#34;:&#34; in value_part and not (
-                        (value_part.startswith(&#39;&#34;&#39;) and value_part.endswith(&#39;&#34;&#39;))
-                        or (value_part.startswith(&#34;&#39;&#34;) and value_part.endswith(&#34;&#39;&#34;))
-                    ):
-                        # Quote the value
-                        fixed_line = f&#39;{key_part}: &#34;{value_part}&#34;&#39;
-                        fixed_lines.append(fixed_line)
-                        logger.debug(f&#34;Fixed YAML line: {line.strip()} -&gt; {fixed_line}&#34;)
-                        continue
-
-            fixed_lines.append(line)
-
-        return &#34;\n&#34;.join(fixed_lines)
-
-    @staticmethod
     def parse_yaml(content: str) -&gt; dict[str, Any]:
         &#34;&#34;&#34;
-        Parse YAML content, handling markdown-wrapped YAML and common syntax errors.
+        Parse YAML content, handling markdown-wrapped YAML.
+
+        NOTE: YAML sanitization happens in OutputSanitizer (Phase 1).
+        This method assumes YAML is already clean. If parsing fails, it&#39;s a real error.
 
         Args:
             content: YAML string, optionally wrapped in markdown code fences
@@ -4540,30 +4505,13 @@ class PuzzleMetrics:
         &#34;&#34;&#34;
         try:
             # Handle markdown-wrapped YAML
-            content_stripped = content.strip()
-            if content_stripped.startswith(&#34;```&#34;):
-                lines = content_stripped.split(&#34;\n&#34;)
-                # Remove first line (```yaml or ```) and last line (```)
-                content_stripped = &#34;\n&#34;.join(lines[1:-1])
-                logger.debug(&#34;Stripped markdown fences from YAML content&#34;)
+            content_stripped = strip_markdown_yaml_blocks(content.strip())
+            logger.debug(&#34;Stripped markdown fences from YAML content&#34;)
 
-            # Try to parse as-is first
-            try:
-                data = yaml.safe_load(content_stripped)
-                if data is None:
-                    raise ValueError(&#34;YAML content is empty or invalid&#34;)
-                return dict(data)
-            except yaml.YAMLError as parse_error:
-                # Attempt to fix common YAML syntax errors and retry
-                logger.debug(
-                    f&#34;Initial YAML parse failed, attempting to fix common errors: {parse_error}&#34;
-                )
-                fixed_content = QualityEvaluator._fix_common_yaml_errors(content_stripped)
-                data = yaml.safe_load(fixed_content)
-                if data is None:
-                    raise ValueError(&#34;YAML content is empty or invalid&#34;) from parse_error
-                logger.info(&#34;Successfully parsed YAML after fixing common syntax errors&#34;)
-                return dict(data)
+            data = yaml.safe_load(content_stripped)
+            if data is None:
+                raise ValueError(&#34;YAML content is empty or invalid&#34;)
+            return dict(data)
 
         except yaml.YAMLError as e:
             logger.error(f&#34;Failed to parse YAML: {e}&#34;)
@@ -4664,7 +4612,10 @@ should inherit from this class and implement the required methods.</p>
 <pre><code class="python">@staticmethod
 def parse_yaml(content: str) -&gt; dict[str, Any]:
     &#34;&#34;&#34;
-    Parse YAML content, handling markdown-wrapped YAML and common syntax errors.
+    Parse YAML content, handling markdown-wrapped YAML.
+
+    NOTE: YAML sanitization happens in OutputSanitizer (Phase 1).
+    This method assumes YAML is already clean. If parsing fails, it&#39;s a real error.
 
     Args:
         content: YAML string, optionally wrapped in markdown code fences
@@ -4677,30 +4628,13 @@ def parse_yaml(content: str) -&gt; dict[str, Any]:
     &#34;&#34;&#34;
     try:
         # Handle markdown-wrapped YAML
-        content_stripped = content.strip()
-        if content_stripped.startswith(&#34;```&#34;):
-            lines = content_stripped.split(&#34;\n&#34;)
-            # Remove first line (```yaml or ```) and last line (```)
-            content_stripped = &#34;\n&#34;.join(lines[1:-1])
-            logger.debug(&#34;Stripped markdown fences from YAML content&#34;)
+        content_stripped = strip_markdown_yaml_blocks(content.strip())
+        logger.debug(&#34;Stripped markdown fences from YAML content&#34;)
 
-        # Try to parse as-is first
-        try:
-            data = yaml.safe_load(content_stripped)
-            if data is None:
-                raise ValueError(&#34;YAML content is empty or invalid&#34;)
-            return dict(data)
-        except yaml.YAMLError as parse_error:
-            # Attempt to fix common YAML syntax errors and retry
-            logger.debug(
-                f&#34;Initial YAML parse failed, attempting to fix common errors: {parse_error}&#34;
-            )
-            fixed_content = QualityEvaluator._fix_common_yaml_errors(content_stripped)
-            data = yaml.safe_load(fixed_content)
-            if data is None:
-                raise ValueError(&#34;YAML content is empty or invalid&#34;) from parse_error
-            logger.info(&#34;Successfully parsed YAML after fixing common syntax errors&#34;)
-            return dict(data)
+        data = yaml.safe_load(content_stripped)
+        if data is None:
+            raise ValueError(&#34;YAML content is empty or invalid&#34;)
+        return dict(data)
 
     except yaml.YAMLError as e:
         logger.error(f&#34;Failed to parse YAML: {e}&#34;)
@@ -4709,7 +4643,9 @@ def parse_yaml(content: str) -&gt; dict[str, Any]:
         logger.error(f&#34;Unexpected error parsing YAML: {e}&#34;)
         raise ValueError(f&#34;Failed to parse content: {e}&#34;) from e</code></pre>
 </details>
-<div class="desc"><p>Parse YAML content, handling markdown-wrapped YAML and common syntax errors.</p>
+<div class="desc"><p>Parse YAML content, handling markdown-wrapped YAML.</p>
+<p>NOTE: YAML sanitization happens in OutputSanitizer (Phase 1).
+This method assumes YAML is already clean. If parsing fails, it's a real error.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>content</code></strong></dt>
@@ -4828,7 +4764,7 @@ def evaluate(self, content: str) -&gt; QualityScore:
 </dd>
 <dt id="space_hulk_game.quality.QualityScore"><code class="flex name class">
 <span>class <span class="ident">QualityScore</span></span>
-<span>(</span><span>score: float,<br>passed: bool,<br>feedback: str,<br>details: dict[str, typing.Any] = &lt;factory&gt;)</span>
+<span>(</span><span>score: float,<br>passed: bool,<br>feedback: str,<br>details: dict[str, Any] = &lt;factory&gt;)</span>
 </code></dt>
 <dd>
 <details class="source">
@@ -4839,6 +4775,9 @@ def evaluate(self, content: str) -&gt; QualityScore:
 class QualityScore:
     &#34;&#34;&#34;
     Standardized quality score returned by all evaluators.
+
+    NOTE: QualityScore is specialized for quality evaluation.
+    For general processing, use ProcessingResult from validation.types
 
     Attributes:
         score: Quality score from 0.0 to 10.0
@@ -4904,7 +4843,7 @@ class QualityScore:
         return json.dumps(self.to_dict(), indent=2)
 
     @classmethod
-    def from_dict(cls, data: dict[str, Any]) -&gt; &#34;QualityScore&#34;:
+    def from_dict(cls, data: dict[str, Any]) -&gt; QualityScore:
         &#34;&#34;&#34;
         Create QualityScore from dictionary.
 
@@ -4955,9 +4894,39 @@ class QualityScore:
             for failure in failures:
                 lines.append(f&#34;  - {failure}&#34;)
 
-        return &#34;\n&#34;.join(lines)</code></pre>
+        return &#34;\n&#34;.join(lines)
+
+    def to_processing_result(self) -&gt; ProcessingResult:
+        &#34;&#34;&#34;Convert to unified ProcessingResult type.
+
+        Returns:
+            ProcessingResult instance with equivalent data.
+
+        Example:
+            &gt;&gt;&gt; score = QualityScore(
+            ...     score=8.5,
+            ...     passed=True,
+            ...     feedback=&#34;Good quality&#34;,
+            ...     details={&#34;word_count&#34;: 650}
+            ... )
+            &gt;&gt;&gt; processing_result = score.to_processing_result()
+            &gt;&gt;&gt; processing_result.metadata[&#39;score&#39;]
+            8.5
+        &#34;&#34;&#34;
+        from space_hulk_game.validation.types import ProcessingResult  # noqa: PLC0415
+
+        return ProcessingResult(
+            success=self.passed,
+            data=None,
+            errors=[],
+            warnings=[],
+            corrections=[],
+            metadata={&#34;score&#34;: self.score, &#34;feedback&#34;: self.feedback, &#34;details&#34;: self.details},
+        )</code></pre>
 </details>
 <div class="desc"><p>Standardized quality score returned by all evaluators.</p>
+<p>NOTE: QualityScore is specialized for quality evaluation.
+For general processing, use ProcessingResult from validation.types</p>
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>score</code></strong></dt>
@@ -4982,7 +4951,7 @@ QualityScore(8.5/10, PASS)
 <h3>Static methods</h3>
 <dl>
 <dt id="space_hulk_game.quality.QualityScore.from_dict"><code class="name flex">
-<span>def <span class="ident">from_dict</span></span>(<span>data: dict[str, typing.Any]) ‑> <a title="space_hulk_game.quality.score.QualityScore" href="score.html#space_hulk_game.quality.score.QualityScore">QualityScore</a></span>
+<span>def <span class="ident">from_dict</span></span>(<span>data: dict[str, Any]) ‑> <a title="space_hulk_game.quality.score.QualityScore" href="score.html#space_hulk_game.quality.score.QualityScore">QualityScore</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Create QualityScore from dictionary.</p>
@@ -5122,6 +5091,57 @@ QualityScore(8.5/10, PASS)
 <div class="desc"><p>Convert quality score to JSON string.</p>
 <h2 id="returns">Returns</h2>
 <p>JSON string representation of the score</p></div>
+</dd>
+<dt id="space_hulk_game.quality.QualityScore.to_processing_result"><code class="name flex">
+<span>def <span class="ident">to_processing_result</span></span>(<span>self) ‑> ProcessingResult</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def to_processing_result(self) -&gt; ProcessingResult:
+    &#34;&#34;&#34;Convert to unified ProcessingResult type.
+
+    Returns:
+        ProcessingResult instance with equivalent data.
+
+    Example:
+        &gt;&gt;&gt; score = QualityScore(
+        ...     score=8.5,
+        ...     passed=True,
+        ...     feedback=&#34;Good quality&#34;,
+        ...     details={&#34;word_count&#34;: 650}
+        ... )
+        &gt;&gt;&gt; processing_result = score.to_processing_result()
+        &gt;&gt;&gt; processing_result.metadata[&#39;score&#39;]
+        8.5
+    &#34;&#34;&#34;
+    from space_hulk_game.validation.types import ProcessingResult  # noqa: PLC0415
+
+    return ProcessingResult(
+        success=self.passed,
+        data=None,
+        errors=[],
+        warnings=[],
+        corrections=[],
+        metadata={&#34;score&#34;: self.score, &#34;feedback&#34;: self.feedback, &#34;details&#34;: self.details},
+    )</code></pre>
+</details>
+<div class="desc"><p>Convert to unified ProcessingResult type.</p>
+<h2 id="returns">Returns</h2>
+<p>ProcessingResult instance with equivalent data.</p>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; score = QualityScore(
+...     score=8.5,
+...     passed=True,
+...     feedback=&quot;Good quality&quot;,
+...     details={&quot;word_count&quot;: 650}
+... )
+&gt;&gt;&gt; processing_result = score.to_processing_result()
+&gt;&gt;&gt; processing_result.metadata['score']
+8.5
+</code></pre></div>
 </dd>
 </dl>
 </dd>
@@ -6779,7 +6799,7 @@ implementing a retry loop that provides feedback for improvement.</p>
 </li>
 <li>
 <h4><code><a title="space_hulk_game.quality.QualityScore" href="#space_hulk_game.quality.QualityScore">QualityScore</a></code></h4>
-<ul class="two-column">
+<ul class="">
 <li><code><a title="space_hulk_game.quality.QualityScore.details" href="#space_hulk_game.quality.QualityScore.details">details</a></code></li>
 <li><code><a title="space_hulk_game.quality.QualityScore.feedback" href="#space_hulk_game.quality.QualityScore.feedback">feedback</a></code></li>
 <li><code><a title="space_hulk_game.quality.QualityScore.from_dict" href="#space_hulk_game.quality.QualityScore.from_dict">from_dict</a></code></li>
@@ -6789,6 +6809,7 @@ implementing a retry loop that provides feedback for improvement.</p>
 <li><code><a title="space_hulk_game.quality.QualityScore.score" href="#space_hulk_game.quality.QualityScore.score">score</a></code></li>
 <li><code><a title="space_hulk_game.quality.QualityScore.to_dict" href="#space_hulk_game.quality.QualityScore.to_dict">to_dict</a></code></li>
 <li><code><a title="space_hulk_game.quality.QualityScore.to_json" href="#space_hulk_game.quality.QualityScore.to_json">to_json</a></code></li>
+<li><code><a title="space_hulk_game.quality.QualityScore.to_processing_result" href="#space_hulk_game.quality.QualityScore.to_processing_result">to_processing_result</a></code></li>
 </ul>
 </li>
 <li>

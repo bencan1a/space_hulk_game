@@ -129,47 +129,12 @@ standardized evaluation interface.</p>
         return result.feedback
 
     @staticmethod
-    def _fix_common_yaml_errors(content: str) -&gt; str:
-        &#34;&#34;&#34;
-        Attempt to fix common YAML syntax errors.
-
-        Args:
-            content: YAML string that may have syntax errors
-
-        Returns:
-            Fixed YAML string
-        &#34;&#34;&#34;
-        lines = content.split(&#34;\n&#34;)
-        fixed_lines = []
-
-        for line in lines:
-            # Fix unquoted values with colons (e.g., &#34;title: Space Hulk: Derelict&#34;)
-            # Match pattern: &#34;key: value with : colon&#34; where value is not quoted
-            if &#34;:&#34; in line and not line.strip().startswith(&#34;-&#34;):
-                parts = line.split(&#34;:&#34;, 1)
-                if len(parts) == 2:
-                    key_part = parts[0]
-                    value_part = parts[1].strip()
-
-                    # If value has a colon and is not already quoted
-                    if &#34;:&#34; in value_part and not (
-                        (value_part.startswith(&#39;&#34;&#39;) and value_part.endswith(&#39;&#34;&#39;))
-                        or (value_part.startswith(&#34;&#39;&#34;) and value_part.endswith(&#34;&#39;&#34;))
-                    ):
-                        # Quote the value
-                        fixed_line = f&#39;{key_part}: &#34;{value_part}&#34;&#39;
-                        fixed_lines.append(fixed_line)
-                        logger.debug(f&#34;Fixed YAML line: {line.strip()} -&gt; {fixed_line}&#34;)
-                        continue
-
-            fixed_lines.append(line)
-
-        return &#34;\n&#34;.join(fixed_lines)
-
-    @staticmethod
     def parse_yaml(content: str) -&gt; dict[str, Any]:
         &#34;&#34;&#34;
-        Parse YAML content, handling markdown-wrapped YAML and common syntax errors.
+        Parse YAML content, handling markdown-wrapped YAML.
+
+        NOTE: YAML sanitization happens in OutputSanitizer (Phase 1).
+        This method assumes YAML is already clean. If parsing fails, it&#39;s a real error.
 
         Args:
             content: YAML string, optionally wrapped in markdown code fences
@@ -182,30 +147,13 @@ standardized evaluation interface.</p>
         &#34;&#34;&#34;
         try:
             # Handle markdown-wrapped YAML
-            content_stripped = content.strip()
-            if content_stripped.startswith(&#34;```&#34;):
-                lines = content_stripped.split(&#34;\n&#34;)
-                # Remove first line (```yaml or ```) and last line (```)
-                content_stripped = &#34;\n&#34;.join(lines[1:-1])
-                logger.debug(&#34;Stripped markdown fences from YAML content&#34;)
+            content_stripped = strip_markdown_yaml_blocks(content.strip())
+            logger.debug(&#34;Stripped markdown fences from YAML content&#34;)
 
-            # Try to parse as-is first
-            try:
-                data = yaml.safe_load(content_stripped)
-                if data is None:
-                    raise ValueError(&#34;YAML content is empty or invalid&#34;)
-                return dict(data)
-            except yaml.YAMLError as parse_error:
-                # Attempt to fix common YAML syntax errors and retry
-                logger.debug(
-                    f&#34;Initial YAML parse failed, attempting to fix common errors: {parse_error}&#34;
-                )
-                fixed_content = QualityEvaluator._fix_common_yaml_errors(content_stripped)
-                data = yaml.safe_load(fixed_content)
-                if data is None:
-                    raise ValueError(&#34;YAML content is empty or invalid&#34;) from parse_error
-                logger.info(&#34;Successfully parsed YAML after fixing common syntax errors&#34;)
-                return dict(data)
+            data = yaml.safe_load(content_stripped)
+            if data is None:
+                raise ValueError(&#34;YAML content is empty or invalid&#34;)
+            return dict(data)
 
         except yaml.YAMLError as e:
             logger.error(f&#34;Failed to parse YAML: {e}&#34;)
@@ -306,7 +254,10 @@ should inherit from this class and implement the required methods.</p>
 <pre><code class="python">@staticmethod
 def parse_yaml(content: str) -&gt; dict[str, Any]:
     &#34;&#34;&#34;
-    Parse YAML content, handling markdown-wrapped YAML and common syntax errors.
+    Parse YAML content, handling markdown-wrapped YAML.
+
+    NOTE: YAML sanitization happens in OutputSanitizer (Phase 1).
+    This method assumes YAML is already clean. If parsing fails, it&#39;s a real error.
 
     Args:
         content: YAML string, optionally wrapped in markdown code fences
@@ -319,30 +270,13 @@ def parse_yaml(content: str) -&gt; dict[str, Any]:
     &#34;&#34;&#34;
     try:
         # Handle markdown-wrapped YAML
-        content_stripped = content.strip()
-        if content_stripped.startswith(&#34;```&#34;):
-            lines = content_stripped.split(&#34;\n&#34;)
-            # Remove first line (```yaml or ```) and last line (```)
-            content_stripped = &#34;\n&#34;.join(lines[1:-1])
-            logger.debug(&#34;Stripped markdown fences from YAML content&#34;)
+        content_stripped = strip_markdown_yaml_blocks(content.strip())
+        logger.debug(&#34;Stripped markdown fences from YAML content&#34;)
 
-        # Try to parse as-is first
-        try:
-            data = yaml.safe_load(content_stripped)
-            if data is None:
-                raise ValueError(&#34;YAML content is empty or invalid&#34;)
-            return dict(data)
-        except yaml.YAMLError as parse_error:
-            # Attempt to fix common YAML syntax errors and retry
-            logger.debug(
-                f&#34;Initial YAML parse failed, attempting to fix common errors: {parse_error}&#34;
-            )
-            fixed_content = QualityEvaluator._fix_common_yaml_errors(content_stripped)
-            data = yaml.safe_load(fixed_content)
-            if data is None:
-                raise ValueError(&#34;YAML content is empty or invalid&#34;) from parse_error
-            logger.info(&#34;Successfully parsed YAML after fixing common syntax errors&#34;)
-            return dict(data)
+        data = yaml.safe_load(content_stripped)
+        if data is None:
+            raise ValueError(&#34;YAML content is empty or invalid&#34;)
+        return dict(data)
 
     except yaml.YAMLError as e:
         logger.error(f&#34;Failed to parse YAML: {e}&#34;)
@@ -351,7 +285,9 @@ def parse_yaml(content: str) -&gt; dict[str, Any]:
         logger.error(f&#34;Unexpected error parsing YAML: {e}&#34;)
         raise ValueError(f&#34;Failed to parse content: {e}&#34;) from e</code></pre>
 </details>
-<div class="desc"><p>Parse YAML content, handling markdown-wrapped YAML and common syntax errors.</p>
+<div class="desc"><p>Parse YAML content, handling markdown-wrapped YAML.</p>
+<p>NOTE: YAML sanitization happens in OutputSanitizer (Phase 1).
+This method assumes YAML is already clean. If parsing fails, it's a real error.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>content</code></strong></dt>

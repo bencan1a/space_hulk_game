@@ -80,45 +80,24 @@ puzzles, artifacts, monsters, NPCs, and overall puzzle design structure.</p>
         ... )
     &#34;&#34;&#34;
 
-    id: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Unique artifact identifier&#34;
-    )
-    name: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Human-readable artifact name&#34;
-    )
-    description: str = Field(
-        ...,
-        min_length=20,
-        description=&#34;Detailed artifact description&#34;
-    )
+    id: str = Field(..., min_length=1, max_length=200, description=&#34;Unique artifact identifier&#34;)
+    name: str = Field(..., min_length=1, max_length=200, description=&#34;Human-readable artifact name&#34;)
+    description: str = Field(..., min_length=20, description=&#34;Detailed artifact description&#34;)
     location: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Scene ID where artifact is located&#34;
+        ..., min_length=1, max_length=200, description=&#34;Scene ID where artifact is located&#34;
     )
     narrative_significance: str = Field(
-        ...,
-        min_length=20,
-        description=&#34;Narrative importance of this artifact&#34;
+        ..., min_length=20, description=&#34;Narrative importance of this artifact&#34;
     )
     properties: list[ArtifactProperty] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Artifact properties (at least 1)&#34;
+        ..., min_length=1, description=&#34;Artifact properties (at least 1)&#34;
     )
 
-    @field_validator(&#39;id&#39;)
+    @field_validator(&#34;id&#34;)
     @classmethod
     def validate_id_format(cls, v: str) -&gt; str:
         &#34;&#34;&#34;Ensure id follows naming convention.&#34;&#34;&#34;
-        if not v.replace(&#39;_&#39;, &#39;&#39;).replace(&#39;-&#39;, &#39;&#39;).isalnum():
+        if not v.replace(&#34;_&#34;, &#34;&#34;).replace(&#34;-&#34;, &#34;&#34;).isalnum():
             raise ValueError(
                 &#34;ID must contain only alphanumeric characters, underscores, and hyphens&#34;
             )
@@ -220,11 +199,7 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    property: str = Field(
-        ...,
-        min_length=5,
-        description=&#34;Artifact property description&#34;
-    )</code></pre>
+    property: str = Field(..., min_length=5, description=&#34;Artifact property description&#34;)</code></pre>
 </details>
 <div class="desc"><p>A property of an artifact.</p>
 <h2 id="attributes">Attributes</h2>
@@ -288,50 +263,26 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    id: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Unique monster identifier&#34;
-    )
-    name: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Human-readable monster name&#34;
-    )
-    description: str = Field(
-        ...,
-        min_length=20,
-        description=&#34;Detailed monster description&#34;
-    )
+    id: str = Field(..., min_length=1, max_length=200, description=&#34;Unique monster identifier&#34;)
+    name: str = Field(..., min_length=1, max_length=200, description=&#34;Human-readable monster name&#34;)
+    description: str = Field(..., min_length=20, description=&#34;Detailed monster description&#34;)
     locations: list[str] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Scene IDs where monster appears (at least 1)&#34;
+        ..., min_length=1, description=&#34;Scene IDs where monster appears (at least 1)&#34;
     )
-    narrative_role: str = Field(
-        ...,
-        min_length=20,
-        description=&#34;Monster&#39;s narrative role&#34;
-    )
-    abilities: list[str] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Monster abilities (at least 1)&#34;
-    )
+    narrative_role: str = Field(..., min_length=20, description=&#34;Monster&#39;s narrative role&#34;)
+    abilities: list[str] = Field(..., min_length=1, description=&#34;Monster abilities (at least 1)&#34;)
 
-    @field_validator(&#39;id&#39;)
+    @field_validator(&#34;id&#34;)
     @classmethod
     def validate_id_format(cls, v: str) -&gt; str:
         &#34;&#34;&#34;Ensure id follows naming convention.&#34;&#34;&#34;
-        if not v.replace(&#39;_&#39;, &#39;&#39;).replace(&#39;-&#39;, &#39;&#39;).isalnum():
+        if not v.replace(&#34;_&#34;, &#34;&#34;).replace(&#34;-&#34;, &#34;&#34;).isalnum():
             raise ValueError(
                 &#34;ID must contain only alphanumeric characters, underscores, and hyphens&#34;
             )
         return v
 
-    @field_validator(&#39;abilities&#39;)
+    @field_validator(&#34;abilities&#34;)
     @classmethod
     def validate_abilities_not_empty(cls, v: list[str]) -&gt; list[str]:
         &#34;&#34;&#34;Ensure all abilities are non-empty strings.&#34;&#34;&#34;
@@ -451,51 +402,28 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    id: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Unique NPC identifier&#34;
-    )
-    name: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Human-readable NPC name&#34;
-    )
-    role: str = Field(
-        ...,
-        min_length=1,
-        max_length=300,
-        description=&#34;NPC&#39;s role in the game&#34;
-    )
-    description: str = Field(
-        ...,
-        min_length=20,
-        description=&#34;Detailed NPC description&#34;
-    )
+    id: str = Field(..., min_length=1, max_length=200, description=&#34;Unique NPC identifier&#34;)
+    name: str = Field(..., min_length=1, max_length=200, description=&#34;Human-readable NPC name&#34;)
+    role: str = Field(..., min_length=1, max_length=300, description=&#34;NPC&#39;s role in the game&#34;)
+    description: str = Field(..., min_length=20, description=&#34;Detailed NPC description&#34;)
     locations: list[str] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Scene IDs where NPC appears (at least 1)&#34;
+        ..., min_length=1, description=&#34;Scene IDs where NPC appears (at least 1)&#34;
     )
     dialogue_themes: list[str] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Dialogue themes (at least 1)&#34;
+        ..., min_length=1, description=&#34;Dialogue themes (at least 1)&#34;
     )
 
-    @field_validator(&#39;id&#39;)
+    @field_validator(&#34;id&#34;)
     @classmethod
     def validate_id_format(cls, v: str) -&gt; str:
         &#34;&#34;&#34;Ensure id follows naming convention.&#34;&#34;&#34;
-        if not v.replace(&#39;_&#39;, &#39;&#39;).replace(&#39;-&#39;, &#39;&#39;).isalnum():
+        if not v.replace(&#34;_&#34;, &#34;&#34;).replace(&#34;-&#34;, &#34;&#34;).isalnum():
             raise ValueError(
                 &#34;ID must contain only alphanumeric characters, underscores, and hyphens&#34;
             )
         return v
 
-    @field_validator(&#39;dialogue_themes&#39;)
+    @field_validator(&#34;dialogue_themes&#34;)
     @classmethod
     def validate_themes_not_empty(cls, v: list[str]) -&gt; list[str]:
         &#34;&#34;&#34;Ensure all dialogue themes are non-empty strings.&#34;&#34;&#34;
@@ -617,49 +545,25 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    id: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Unique puzzle identifier&#34;
-    )
-    name: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Human-readable puzzle name&#34;
-    )
-    description: str = Field(
-        ...,
-        min_length=50,
-        description=&#34;Detailed puzzle description&#34;
-    )
+    id: str = Field(..., min_length=1, max_length=200, description=&#34;Unique puzzle identifier&#34;)
+    name: str = Field(..., min_length=1, max_length=200, description=&#34;Human-readable puzzle name&#34;)
+    description: str = Field(..., min_length=50, description=&#34;Detailed puzzle description&#34;)
     location: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Scene ID where puzzle is located&#34;
+        ..., min_length=1, max_length=200, description=&#34;Scene ID where puzzle is located&#34;
     )
     narrative_purpose: str = Field(
-        ...,
-        min_length=20,
-        description=&#34;Why this puzzle exists narratively&#34;
+        ..., min_length=20, description=&#34;Why this puzzle exists narratively&#34;
     )
-    solution: PuzzleSolution = Field(
-        ...,
-        description=&#34;Puzzle solution structure&#34;
-    )
+    solution: PuzzleSolution = Field(..., description=&#34;Puzzle solution structure&#34;)
     difficulty: str = Field(
-        ...,
-        pattern=&#34;^(easy|medium|hard)$&#34;,
-        description=&#34;Difficulty level: easy, medium, or hard&#34;
+        ..., pattern=&#34;^(easy|medium|hard)$&#34;, description=&#34;Difficulty level: easy, medium, or hard&#34;
     )
 
-    @field_validator(&#39;id&#39;)
+    @field_validator(&#34;id&#34;)
     @classmethod
     def validate_id_format(cls, v: str) -&gt; str:
         &#34;&#34;&#34;Ensure id follows naming convention.&#34;&#34;&#34;
-        if not v.replace(&#39;_&#39;, &#39;&#39;).replace(&#39;-&#39;, &#39;&#39;).isalnum():
+        if not v.replace(&#34;_&#34;, &#34;&#34;).replace(&#34;-&#34;, &#34;&#34;).isalnum():
             raise ValueError(
                 &#34;ID must contain only alphanumeric characters, underscores, and hyphens&#34;
             )
@@ -777,28 +681,16 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    puzzles: list[Puzzle] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Puzzles in the game (at least 1)&#34;
-    )
+    puzzles: list[Puzzle] = Field(..., min_length=1, description=&#34;Puzzles in the game (at least 1)&#34;)
     artifacts: list[Artifact] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Artifacts in the game (at least 1)&#34;
+        ..., min_length=1, description=&#34;Artifacts in the game (at least 1)&#34;
     )
     monsters: list[Monster] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Monsters in the game (at least 1)&#34;
+        ..., min_length=1, description=&#34;Monsters in the game (at least 1)&#34;
     )
-    npcs: list[NPC] = Field(
-        ...,
-        min_length=1,
-        description=&#34;NPCs in the game (at least 1)&#34;
-    )
+    npcs: list[NPC] = Field(..., min_length=1, description=&#34;NPCs in the game (at least 1)&#34;)
 
-    @field_validator(&#39;puzzles&#39;)
+    @field_validator(&#34;puzzles&#34;)
     @classmethod
     def validate_puzzle_ids_unique(cls, v: list[Puzzle]) -&gt; list[Puzzle]:
         &#34;&#34;&#34;Ensure all puzzle IDs are unique.&#34;&#34;&#34;
@@ -807,7 +699,7 @@ validated to form a valid model.</p>
             raise ValueError(&#34;All puzzle IDs must be unique&#34;)
         return v
 
-    @field_validator(&#39;artifacts&#39;)
+    @field_validator(&#34;artifacts&#34;)
     @classmethod
     def validate_artifact_ids_unique(cls, v: list[Artifact]) -&gt; list[Artifact]:
         &#34;&#34;&#34;Ensure all artifact IDs are unique.&#34;&#34;&#34;
@@ -816,7 +708,7 @@ validated to form a valid model.</p>
             raise ValueError(&#34;All artifact IDs must be unique&#34;)
         return v
 
-    @field_validator(&#39;monsters&#39;)
+    @field_validator(&#34;monsters&#34;)
     @classmethod
     def validate_monster_ids_unique(cls, v: list[Monster]) -&gt; list[Monster]:
         &#34;&#34;&#34;Ensure all monster IDs are unique.&#34;&#34;&#34;
@@ -825,7 +717,7 @@ validated to form a valid model.</p>
             raise ValueError(&#34;All monster IDs must be unique&#34;)
         return v
 
-    @field_validator(&#39;npcs&#39;)
+    @field_validator(&#34;npcs&#34;)
     @classmethod
     def validate_npc_ids_unique(cls, v: list[NPC]) -&gt; list[NPC]:
         &#34;&#34;&#34;Ensure all NPC IDs are unique.&#34;&#34;&#34;
@@ -938,19 +830,12 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    type: str = Field(
-        ...,
-        min_length=3,
-        max_length=200,
-        description=&#34;Type of puzzle solution&#34;
-    )
+    type: str = Field(..., min_length=3, max_length=200, description=&#34;Type of puzzle solution&#34;)
     steps: list[PuzzleStep] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Steps to solve the puzzle (at least 1)&#34;
+        ..., min_length=1, description=&#34;Steps to solve the puzzle (at least 1)&#34;
     )
 
-    @field_validator(&#39;steps&#39;, mode=&#39;before&#39;)
+    @field_validator(&#34;steps&#34;, mode=&#34;before&#34;)
     @classmethod
     def convert_string_steps(cls, v):
         &#34;&#34;&#34;Convert plain string steps to PuzzleStep objects.&#34;&#34;&#34;
@@ -1037,11 +922,7 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    step: str = Field(
-        ...,
-        min_length=10,
-        description=&#34;Description of the puzzle step&#34;
-    )</code></pre>
+    step: str = Field(..., min_length=10, description=&#34;Description of the puzzle step&#34;)</code></pre>
 </details>
 <div class="desc"><p>A single step in solving a puzzle.</p>
 <p>This model accepts either a plain string or a dict with 'step' key

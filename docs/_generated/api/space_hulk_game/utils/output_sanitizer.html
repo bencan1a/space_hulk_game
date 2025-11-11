@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 <meta name="generator" content="pdoc3 0.11.6">
-<title>space_hulk_game.utils API documentation</title>
-<meta name="description" content="">
+<title>space_hulk_game.utils.output_sanitizer API documentation</title>
+<meta name="description" content="Output Sanitization Pipeline …">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
@@ -33,240 +33,40 @@ el.replaceWith(d);
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>space_hulk_game.utils</code></h1>
+<h1 class="title">Module <code>space_hulk_game.utils.output_sanitizer</code></h1>
 </header>
 <section id="section-intro">
-</section>
-<section>
-<h2 class="section-title" id="header-submodules">Sub-modules</h2>
-<dl>
-<dt><code class="name"><a title="space_hulk_game.utils.output_sanitizer" href="output_sanitizer.html">space_hulk_game.utils.output_sanitizer</a></code></dt>
-<dd>
-<div class="desc"><p>Output Sanitization Pipeline …</p></div>
-</dd>
-<dt><code class="name"><a title="space_hulk_game.utils.yaml_processor" href="yaml_processor.html">space_hulk_game.utils.yaml_processor</a></code></dt>
-<dd>
-<div class="desc"><p>YAML Post-Processor Utility …</p></div>
-</dd>
-</dl>
-</section>
-<section>
-</section>
-<section>
-<h2 class="section-title" id="header-functions">Functions</h2>
-<dl>
-<dt id="space_hulk_game.utils.process_yaml_directory"><code class="name flex">
-<span>def <span class="ident">process_yaml_directory</span></span>(<span>directory: pathlib.Path, pattern: str = '*.yaml', backup: bool = True) ‑> dict</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def process_yaml_directory(directory: Path, pattern: str = &#34;*.yaml&#34;, backup: bool = True) -&gt; dict:
-    &#34;&#34;&#34;
-    Process all YAML files in a directory.
-
-    Args:
-        directory: Directory containing YAML files
-        pattern: Glob pattern for matching files
-        backup: Whether to create backup files
-
-    Returns:
-        Dictionary with processing statistics
-    &#34;&#34;&#34;
-    stats = {&#34;total&#34;: 0, &#34;processed&#34;: 0, &#34;failed&#34;: 0}
-
-    if not directory.exists():
-        logger.warning(f&#34;Directory does not exist: {directory}&#34;)
-        return stats
-
-    yaml_files = list(directory.glob(pattern))
-    stats[&#34;total&#34;] = len(yaml_files)
-
-    logger.info(f&#34;Processing {stats[&#39;total&#39;]} YAML files in {directory}&#34;)
-
-    for filepath in yaml_files:
-        try:
-            if process_yaml_file(filepath, backup=backup):
-                stats[&#34;processed&#34;] += 1
-            else:
-                stats[&#34;failed&#34;] += 1
-        except Exception as e:
-            logger.error(f&#34;Failed to process {filepath}: {e}&#34;)
-            stats[&#34;failed&#34;] += 1
-
-    logger.info(f&#34;Processing complete: {stats[&#39;processed&#39;]} processed, {stats[&#39;failed&#39;]} failed&#34;)
-    return stats</code></pre>
-</details>
-<div class="desc"><p>Process all YAML files in a directory.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>directory</code></strong></dt>
-<dd>Directory containing YAML files</dd>
-<dt><strong><code>pattern</code></strong></dt>
-<dd>Glob pattern for matching files</dd>
-<dt><strong><code>backup</code></strong></dt>
-<dd>Whether to create backup files</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<p>Dictionary with processing statistics</p></div>
-</dd>
-<dt id="space_hulk_game.utils.process_yaml_file"><code class="name flex">
-<span>def <span class="ident">process_yaml_file</span></span>(<span>filepath: pathlib.Path, backup: bool = True) ‑> bool</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def process_yaml_file(filepath: Path, backup: bool = True) -&gt; bool:
-    &#34;&#34;&#34;
-    Process a YAML file to remove markdown code block markers.
-
-    Args:
-        filepath: Path to the YAML file to process
-        backup: Whether to create a .bak backup file
-
-    Returns:
-        True if file was processed successfully, False otherwise
-    &#34;&#34;&#34;
-    try:
-        if not filepath.exists():
-            logger.warning(f&#34;File does not exist: {filepath}&#34;)
-            return False
-
-        # Read original content
-        original_content = filepath.read_text()
-
-        # Check if it needs processing (contains markdown markers)
-        if &#34;```&#34; not in original_content:
-            logger.debug(f&#34;File {filepath.name} does not contain markdown markers, skipping&#34;)
-            return True
-
-        # Process content
-        cleaned_content = strip_markdown_yaml_blocks(original_content)
-
-        # Create backup if requested
-        if backup and cleaned_content != original_content:
-            backup_path = filepath.with_suffix(filepath.suffix + &#34;.bak&#34;)
-            backup_path.write_text(original_content)
-            logger.info(f&#34;Created backup: {backup_path}&#34;)
-
-        # Write cleaned content
-        if cleaned_content != original_content:
-            filepath.write_text(cleaned_content)
-            logger.info(f&#34;Processed {filepath.name}: removed markdown markers&#34;)
-            return True
-        else:
-            logger.debug(f&#34;File {filepath.name} unchanged after processing&#34;)
-            return True
-
-    except Exception as e:
-        logger.error(f&#34;Error processing {filepath}: {e}&#34;)
-        return False</code></pre>
-</details>
-<div class="desc"><p>Process a YAML file to remove markdown code block markers.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>filepath</code></strong></dt>
-<dd>Path to the YAML file to process</dd>
-<dt><strong><code>backup</code></strong></dt>
-<dd>Whether to create a .bak backup file</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<p>True if file was processed successfully, False otherwise</p></div>
-</dd>
-<dt id="space_hulk_game.utils.strip_markdown_yaml_blocks"><code class="name flex">
-<span>def <span class="ident">strip_markdown_yaml_blocks</span></span>(<span>content: str) ‑> str</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def strip_markdown_yaml_blocks(content: str) -&gt; str:
-    &#34;&#34;&#34;
-    Strip markdown code block markers from YAML content.
-
-    LLMs often wrap YAML in markdown code blocks like:
-    ```yaml
-    content: here
-    ```
-
-    This function removes those markers to produce clean YAML.
-
-    Args:
-        content: Raw content that may contain markdown markers
-
-    Returns:
-        Clean YAML content without markdown markers
-    &#34;&#34;&#34;
-    # Remove leading ```yaml or ``` markers
-    content = re.sub(r&#34;^```ya?ml\s*\n&#34;, &#34;&#34;, content, flags=re.MULTILINE)
-    content = re.sub(r&#34;^```\s*\n&#34;, &#34;&#34;, content, flags=re.MULTILINE)
-
-    # Remove trailing ``` markers
-    content = re.sub(r&#34;\n```\s*$&#34;, &#34;&#34;, content, flags=re.MULTILINE)
-    content = re.sub(r&#34;^```\s*$&#34;, &#34;&#34;, content, flags=re.MULTILINE)
-
-    return content.strip()</code></pre>
-</details>
-<div class="desc"><p>Strip markdown code block markers from YAML content.</p>
-<p>LLMs often wrap YAML in markdown code blocks like:</p>
-<pre><code class="language-yaml">content: here
+<p>Output Sanitization Pipeline</p>
+<p>This module provides pre-write sanitization for YAML outputs from CrewAI agents.
+It orchestrates existing validation and correction layers to ensure clean YAML is
+written to disk, preventing common syntax errors like mixed quotes, invalid list
+markers, and unescaped apostrophes.</p>
+<p>The OutputSanitizer intercepts raw LLM output BEFORE it's written to disk, applying:
+1. Markdown fence stripping (removes ```yaml blocks)
+2. YAML syntax correction (fixes common errors)
+3. Schema validation and auto-correction (adds missing fields, fixes IDs)</p>
+<p>This solves the critical issue where CrewAI writes raw LLM output directly to disk,
+causing YAML syntax errors that break downstream processing.</p>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; sanitizer = OutputSanitizer()
+&gt;&gt;&gt; raw_output = &quot;```yaml\ntitle: My Plot\n```&quot;
+&gt;&gt;&gt; clean_yaml = sanitizer.sanitize(raw_output, 'plot')
+&gt;&gt;&gt; print(clean_yaml)
+title: My Plot
+setting: ...
+# (with all required fields added and validated)
 </code></pre>
-<p>This function removes those markers to produce clean YAML.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>content</code></strong></dt>
-<dd>Raw content that may contain markdown markers</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<p>Clean YAML content without markdown markers</p></div>
-</dd>
-<dt id="space_hulk_game.utils.validate_yaml_content"><code class="name flex">
-<span>def <span class="ident">validate_yaml_content</span></span>(<span>content: str) ‑> tuple[bool, str | None]</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def validate_yaml_content(content: str) -&gt; tuple[bool, str | None]:
-    &#34;&#34;&#34;
-    Validate that content is valid YAML (basic check).
-
-    Args:
-        content: YAML content to validate
-
-    Returns:
-        Tuple of (is_valid, error_message)
-    &#34;&#34;&#34;
-
-    try:
-        yaml.safe_load(content)
-        return True, None
-    except yaml.YAMLError as e:
-        return False, str(e)
-    except Exception as e:
-        return False, f&#34;Unexpected error: {e}&#34;</code></pre>
-</details>
-<div class="desc"><p>Validate that content is valid YAML (basic check).</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>content</code></strong></dt>
-<dd>YAML content to validate</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<p>Tuple of (is_valid, error_message)</p></div>
-</dd>
-</dl>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
 </section>
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
-<dt id="space_hulk_game.utils.OutputSanitizer"><code class="flex name class">
+<dt id="space_hulk_game.utils.output_sanitizer.OutputSanitizer"><code class="flex name class">
 <span>class <span class="ident">OutputSanitizer</span></span>
 </code></dt>
 <dd>
@@ -462,7 +262,7 @@ to disk. It ensures that YAML files are syntactically valid and schema-compliant
 for all five output types.</p></div>
 <h3>Methods</h3>
 <dl>
-<dt id="space_hulk_game.utils.OutputSanitizer.sanitize"><code class="name flex">
+<dt id="space_hulk_game.utils.output_sanitizer.OutputSanitizer.sanitize"><code class="name flex">
 <span>def <span class="ident">sanitize</span></span>(<span>self, raw_output: str, output_type: str) ‑> str</span>
 </code></dt>
 <dd>
@@ -626,29 +426,15 @@ logged.</p>
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="space_hulk_game" href="../index.html">space_hulk_game</a></code></li>
-</ul>
-</li>
-<li><h3><a href="#header-submodules">Sub-modules</a></h3>
-<ul>
-<li><code><a title="space_hulk_game.utils.output_sanitizer" href="output_sanitizer.html">space_hulk_game.utils.output_sanitizer</a></code></li>
-<li><code><a title="space_hulk_game.utils.yaml_processor" href="yaml_processor.html">space_hulk_game.utils.yaml_processor</a></code></li>
-</ul>
-</li>
-<li><h3><a href="#header-functions">Functions</a></h3>
-<ul class="">
-<li><code><a title="space_hulk_game.utils.process_yaml_directory" href="#space_hulk_game.utils.process_yaml_directory">process_yaml_directory</a></code></li>
-<li><code><a title="space_hulk_game.utils.process_yaml_file" href="#space_hulk_game.utils.process_yaml_file">process_yaml_file</a></code></li>
-<li><code><a title="space_hulk_game.utils.strip_markdown_yaml_blocks" href="#space_hulk_game.utils.strip_markdown_yaml_blocks">strip_markdown_yaml_blocks</a></code></li>
-<li><code><a title="space_hulk_game.utils.validate_yaml_content" href="#space_hulk_game.utils.validate_yaml_content">validate_yaml_content</a></code></li>
+<li><code><a title="space_hulk_game.utils" href="index.html">space_hulk_game.utils</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
-<h4><code><a title="space_hulk_game.utils.OutputSanitizer" href="#space_hulk_game.utils.OutputSanitizer">OutputSanitizer</a></code></h4>
+<h4><code><a title="space_hulk_game.utils.output_sanitizer.OutputSanitizer" href="#space_hulk_game.utils.output_sanitizer.OutputSanitizer">OutputSanitizer</a></code></h4>
 <ul class="">
-<li><code><a title="space_hulk_game.utils.OutputSanitizer.sanitize" href="#space_hulk_game.utils.OutputSanitizer.sanitize">sanitize</a></code></li>
+<li><code><a title="space_hulk_game.utils.output_sanitizer.OutputSanitizer.sanitize" href="#space_hulk_game.utils.output_sanitizer.OutputSanitizer.sanitize">sanitize</a></code></li>
 </ul>
 </li>
 </ul>

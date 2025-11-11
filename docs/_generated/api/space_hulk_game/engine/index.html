@@ -627,7 +627,7 @@ encapsulating requests as objects.</p>
 
         logger.debug(f&#34;CommandParser initialized with {len(self._command_map)} command synonyms&#34;)
 
-    def parse(  # noqa: PLR0911
+    def parse(
         self,
         command: str,
         game_state: GameState | None = None,
@@ -1292,7 +1292,7 @@ True
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def parse(  # noqa: PLR0911
+<pre><code class="python">def parse(
     self,
     command: str,
     game_state: GameState | None = None,

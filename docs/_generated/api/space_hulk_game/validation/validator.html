@@ -82,35 +82,6 @@ YAML outputs from AI agents against Pydantic schemas.</p>
         &#34;&#34;&#34;Initialize the output validator.&#34;&#34;&#34;
         logger.info(&#34;OutputValidator initialized&#34;)
 
-    def _strip_markdown_fences(self, raw_output: str) -&gt; str:
-        &#34;&#34;&#34;Strip markdown code fences from YAML output.
-
-        AI outputs often wrap YAML in markdown fences like:
-        ```yaml
-        content: here
-        ```
-
-        This method removes those fences to get clean YAML.
-
-        Args:
-            raw_output: Raw output string, potentially with markdown fences.
-
-        Returns:
-            Cleaned YAML string without markdown fences.
-
-        Example:
-            &gt;&gt;&gt; validator = OutputValidator()
-            &gt;&gt;&gt; yaml_with_fences = &#34;```yaml\\nkey: value\\n```&#34;
-            &gt;&gt;&gt; clean = validator._strip_markdown_fences(yaml_with_fences)
-            &gt;&gt;&gt; clean
-            &#39;key: value&#39;
-        &#34;&#34;&#34;
-        # Remove opening fence (```yaml or ```)
-        output = re.sub(r&#34;\A```(?:yaml)?\s*\n&#34;, &#34;&#34;, raw_output.strip())
-        # Remove closing fence (```)
-        output = re.sub(r&#34;\n```\s*$&#34;, &#34;&#34;, output, flags=re.MULTILINE)
-        return output.strip()
-
     def _parse_yaml(self, raw_output: str) -&gt; tuple[dict | None, list[str]]:
         &#34;&#34;&#34;Parse YAML string into a dictionary.
 
@@ -124,7 +95,7 @@ YAML outputs from AI agents against Pydantic schemas.</p>
         &#34;&#34;&#34;
         try:
             # Strip markdown fences first
-            clean_yaml = self._strip_markdown_fences(raw_output)
+            clean_yaml = strip_markdown_yaml_blocks(raw_output)
 
             # Parse YAML
             data = yaml.safe_load(clean_yaml)
@@ -165,8 +136,9 @@ YAML outputs from AI agents against Pydantic schemas.</p>
             error_type = error[&#34;type&#34;]
 
             # Create a detailed error message
-            if error.get(&#34;ctx&#34;):
-                ctx = &#34;, &#34;.join(f&#34;{k}={v}&#34; for k, v in error[&#34;ctx&#34;].items())
+            ctx_dict = error.get(&#34;ctx&#34;)
+            if ctx_dict:
+                ctx = &#34;, &#34;.join(f&#34;{k}={v}&#34; for k, v in ctx_dict.items())
                 error_msg = f&#34;Field &#39;{loc}&#39;: {msg} (type={error_type}, {ctx})&#34;
             else:
                 error_msg = f&#34;Field &#39;{loc}&#39;: {msg} (type={error_type})&#34;
@@ -873,7 +845,7 @@ and error messages if invalid.</p>
 </dd>
 <dt id="space_hulk_game.validation.validator.ValidationResult"><code class="flex name class">
 <span>class <span class="ident">ValidationResult</span></span>
-<span>(</span><span>valid: bool, data: typing.Any | None, errors: list[str])</span>
+<span>(</span><span>valid: bool,<br>data: Any | None,<br>errors: list[str],<br>warnings: list[str] = &lt;factory&gt;)</span>
 </code></dt>
 <dd>
 <details class="source">
@@ -884,10 +856,14 @@ and error messages if invalid.</p>
 class ValidationResult:
     &#34;&#34;&#34;Result of validating YAML output against a schema.
 
+    NOTE: ValidationResult is kept for backward compatibility.
+    New code should use ProcessingResult from validation.types
+
     Attributes:
         valid: Whether the validation succeeded.
         data: Parsed Pydantic model if validation succeeded, None otherwise.
         errors: List of error messages if validation failed, empty list otherwise.
+        warnings: List of warning messages (non-critical issues).
 
     Example:
         &gt;&gt;&gt; result = ValidationResult(valid=True, data=plot_outline, errors=[])
@@ -899,9 +875,35 @@ class ValidationResult:
 
     valid: bool
     data: Any | None
-    errors: list[str]</code></pre>
+    errors: list[str]
+    warnings: list[str] = field(default_factory=list)
+
+    def to_processing_result(self) -&gt; ProcessingResult:
+        &#34;&#34;&#34;Convert to unified ProcessingResult type.
+
+        Returns:
+            ProcessingResult instance with equivalent data.
+
+        Example:
+            &gt;&gt;&gt; result = ValidationResult(valid=True, data=plot, errors=[])
+            &gt;&gt;&gt; processing_result = result.to_processing_result()
+            &gt;&gt;&gt; processing_result.is_valid
+            True
+        &#34;&#34;&#34;
+        from space_hulk_game.validation.types import ProcessingResult  # noqa: PLC0415
+
+        return ProcessingResult(
+            success=self.valid,
+            data=self.data,
+            errors=self.errors,
+            warnings=self.warnings,
+            corrections=[],
+            metadata={},
+        )</code></pre>
 </details>
 <div class="desc"><p>Result of validating YAML output against a schema.</p>
+<p>NOTE: ValidationResult is kept for backward compatibility.
+New code should use ProcessingResult from validation.types</p>
 <h2 id="attributes">Attributes</h2>
 <dl>
 <dt><strong><code>valid</code></strong></dt>
@@ -910,6 +912,8 @@ class ValidationResult:
 <dd>Parsed Pydantic model if validation succeeded, None otherwise.</dd>
 <dt><strong><code>errors</code></strong></dt>
 <dd>List of error messages if validation failed, empty list otherwise.</dd>
+<dt><strong><code>warnings</code></strong></dt>
+<dd>List of warning messages (non-critical issues).</dd>
 </dl>
 <h2 id="example">Example</h2>
 <pre><code class="language-python-repl">&gt;&gt;&gt; result = ValidationResult(valid=True, data=plot_outline, errors=[])
@@ -931,6 +935,54 @@ class ValidationResult:
 <dt id="space_hulk_game.validation.validator.ValidationResult.valid"><code class="name">var <span class="ident">valid</span> : bool</code></dt>
 <dd>
 <div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.validation.validator.ValidationResult.warnings"><code class="name">var <span class="ident">warnings</span> : list[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="space_hulk_game.validation.validator.ValidationResult.to_processing_result"><code class="name flex">
+<span>def <span class="ident">to_processing_result</span></span>(<span>self) ‑> ProcessingResult</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def to_processing_result(self) -&gt; ProcessingResult:
+    &#34;&#34;&#34;Convert to unified ProcessingResult type.
+
+    Returns:
+        ProcessingResult instance with equivalent data.
+
+    Example:
+        &gt;&gt;&gt; result = ValidationResult(valid=True, data=plot, errors=[])
+        &gt;&gt;&gt; processing_result = result.to_processing_result()
+        &gt;&gt;&gt; processing_result.is_valid
+        True
+    &#34;&#34;&#34;
+    from space_hulk_game.validation.types import ProcessingResult  # noqa: PLC0415
+
+    return ProcessingResult(
+        success=self.valid,
+        data=self.data,
+        errors=self.errors,
+        warnings=self.warnings,
+        corrections=[],
+        metadata={},
+    )</code></pre>
+</details>
+<div class="desc"><p>Convert to unified ProcessingResult type.</p>
+<h2 id="returns">Returns</h2>
+<p>ProcessingResult instance with equivalent data.</p>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; result = ValidationResult(valid=True, data=plot, errors=[])
+&gt;&gt;&gt; processing_result = result.to_processing_result()
+&gt;&gt;&gt; processing_result.is_valid
+True
+</code></pre></div>
 </dd>
 </dl>
 </dd>
@@ -964,7 +1016,9 @@ class ValidationResult:
 <ul class="">
 <li><code><a title="space_hulk_game.validation.validator.ValidationResult.data" href="#space_hulk_game.validation.validator.ValidationResult.data">data</a></code></li>
 <li><code><a title="space_hulk_game.validation.validator.ValidationResult.errors" href="#space_hulk_game.validation.validator.ValidationResult.errors">errors</a></code></li>
+<li><code><a title="space_hulk_game.validation.validator.ValidationResult.to_processing_result" href="#space_hulk_game.validation.validator.ValidationResult.to_processing_result">to_processing_result</a></code></li>
 <li><code><a title="space_hulk_game.validation.validator.ValidationResult.valid" href="#space_hulk_game.validation.validator.ValidationResult.valid">valid</a></code></li>
+<li><code><a title="space_hulk_game.validation.validator.ValidationResult.warnings" href="#space_hulk_game.validation.validator.ValidationResult.warnings">warnings</a></code></li>
 </ul>
 </li>
 </ul>
