@@ -598,7 +598,7 @@ class TestRealFileValidation(unittest.TestCase):
         """Test validation against real plot_outline.yaml file."""
         try:
             plot_file = self.game_config_dir / "plot_outline.yaml"
-            with open(plot_file) as f:
+            with open(plot_file, encoding="utf-8") as f:
                 yaml_content = f.read()
 
             # The real file has a 'narrative_foundation' wrapper, extract it
@@ -625,7 +625,7 @@ class TestRealFileValidation(unittest.TestCase):
         """Test validation against real narrative_map.yaml file."""
         try:
             narrative_file = self.game_config_dir / "narrative_map.yaml"
-            with open(narrative_file) as f:
+            with open(narrative_file, encoding="utf-8") as f:
                 yaml_content = f.read()
 
             result = self.validator.validate_narrative_map(yaml_content)
@@ -647,7 +647,7 @@ class TestRealFileValidation(unittest.TestCase):
         """Test validation against real puzzle_design.yaml file."""
         try:
             puzzle_file = self.game_config_dir / "puzzle_design.yaml"
-            with open(puzzle_file) as f:
+            with open(puzzle_file, encoding="utf-8") as f:
                 yaml_content = f.read()
 
             result = self.validator.validate_puzzle_design(yaml_content)
@@ -669,7 +669,7 @@ class TestRealFileValidation(unittest.TestCase):
         """Test validation against real scene_texts.yaml file."""
         try:
             scene_file = self.game_config_dir / "scene_texts.yaml"
-            with open(scene_file) as f:
+            with open(scene_file, encoding="utf-8") as f:
                 yaml_content = f.read()
 
             result = self.validator.validate_scene_texts(yaml_content)

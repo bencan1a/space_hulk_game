@@ -143,7 +143,7 @@ class TestAPIValidation(unittest.TestCase):
 
         self.assertTrue(os.path.exists(env_example_path), ".env.example file should exist")
 
-        with open(env_example_path) as f:
+        with open(env_example_path, encoding="utf-8") as f:
             content = f.read()
 
             # Check for OpenRouter documentation

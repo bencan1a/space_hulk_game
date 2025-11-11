@@ -73,7 +73,7 @@ class TestKlocReport(unittest.TestCase):
 
     def test_script_has_flush_calls(self):
         """Test that the script contains sys.stdout.flush() calls."""
-        with open(self.script_path) as f:
+        with open(self.script_path, encoding="utf-8") as f:
             content = f.read()
 
         # Check for flush calls

@@ -23,7 +23,7 @@ from space_hulk_game.quality import (
 
 def load_file(filepath):
     """Load file content."""
-    with open(filepath) as f:
+    with open(filepath, encoding="utf-8") as f:
         return f.read()
 
 

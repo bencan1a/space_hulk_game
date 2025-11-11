@@ -118,7 +118,7 @@ def validate_output_files(output_dir):
             file_info["size"] = filepath.stat().st_size
 
             try:
-                with open(filepath) as f:
+                with open(filepath, encoding="utf-8") as f:
                     data = yaml.safe_load(f)
 
                 if data is None:

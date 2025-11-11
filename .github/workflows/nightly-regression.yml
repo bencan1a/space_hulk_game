@@ -27,6 +27,8 @@ jobs:
           uv pip install --system -e ".[dev]"
 
       - name: Run mock tests
+        env:
+          PYTHONUTF8: "1"
         run: |
           echo "Running tests in mock mode..."
           python -m unittest discover -s tests -v
@@ -34,6 +36,7 @@ jobs:
       - name: Run real API tests
         if: ${{ secrets.ANTHROPIC_API_KEY != '' || secrets.OPENROUTER_API_KEY != '' }}
         env:
+          PYTHONUTF8: "1"
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           RUN_REAL_API_TESTS: 1
@@ -49,6 +52,8 @@ jobs:
         run: python tools/validate_api.py
 
       - name: Generate comprehensive coverage
+        env:
+          PYTHONUTF8: "1"
         run: |
           coverage run -m unittest discover -s tests
           coverage html

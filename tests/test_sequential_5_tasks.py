@@ -205,7 +205,7 @@ class TestSequential5Tasks(unittest.TestCase):
         for filename in self.expected_files:
             filepath = self.output_dir / filename
             try:
-                with open(filepath) as f:
+                with open(filepath, encoding="utf-8") as f:
                     data = yaml.safe_load(f)
 
                 # Check for minimum content based on file type

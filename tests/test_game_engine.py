@@ -572,7 +572,7 @@ class TestPersistence(unittest.TestCase):
         # File should contain JSON
         import json
 
-        with open(self.save_path) as f:
+        with open(self.save_path, encoding="utf-8") as f:
             data = json.load(f)
 
         self.assertIn("game_state", data)
