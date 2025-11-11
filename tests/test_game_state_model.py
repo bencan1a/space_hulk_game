@@ -606,7 +606,7 @@ class TestScene(unittest.TestCase):
         )
 
         # Without flag
-        can_exit, reason = scene.can_exit("north", [], {})
+        can_exit, _reason = scene.can_exit("north", [], {})
         self.assertFalse(can_exit)
 
         # With flag

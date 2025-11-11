@@ -4,13 +4,13 @@ import pytest
 from pydantic import ValidationError
 
 from space_hulk_game.schemas.narrative_map import (
+    CharacterArc,
+    CharacterArcStage,
     Connection,
     DecisionOption,
     DecisionPoint,
-    Scene,
-    CharacterArcStage,
-    CharacterArc,
     NarrativeMap,
+    Scene,
 )
 
 

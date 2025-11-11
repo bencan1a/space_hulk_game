@@ -25,6 +25,7 @@ Example:
 import argparse
 import logging
 import os
+import subprocess  # nosec B404
 import sys
 from pathlib import Path
 
@@ -206,8 +207,6 @@ class DemoGameCLI:
 
     def clear_screen(self) -> None:
         """Clear the terminal screen."""
-        import subprocess  # nosec B404
-
         subprocess.call("cls" if os.name == "nt" else "clear", shell=True)  # nosec B602
 
     def print_title_screen(self) -> None:

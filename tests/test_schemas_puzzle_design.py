@@ -4,14 +4,14 @@ import pytest
 from pydantic import ValidationError
 
 from space_hulk_game.schemas.puzzle_design import (
-    PuzzleStep,
-    PuzzleSolution,
-    Puzzle,
-    ArtifactProperty,
-    Artifact,
-    Monster,
     NPC,
+    Artifact,
+    ArtifactProperty,
+    Monster,
+    Puzzle,
     PuzzleDesign,
+    PuzzleSolution,
+    PuzzleStep,
 )
 
 
