@@ -92,7 +92,7 @@ class OutputValidator:
             'key: value'
         """
         # Remove opening fence (```yaml or ```)
-        output = re.sub(r"^```(?:yaml)?\s*\n", "", raw_output, flags=re.MULTILINE)
+        output = re.sub(r"\A```(?:yaml)?\s*\n", "", raw_output.strip())
         # Remove closing fence (```)
         output = re.sub(r"\n```\s*$", "", output, flags=re.MULTILINE)
         return output.strip()

@@ -5,6 +5,9 @@ validates YAML outputs against Pydantic schemas.
 """
 
 import unittest
+from pathlib import Path
+
+import yaml
 
 from space_hulk_game.schemas.game_mechanics import GameMechanics
 from space_hulk_game.schemas.narrative_map import NarrativeMap
@@ -581,24 +584,22 @@ class TestRealFileValidation(unittest.TestCase):
     def setUp(self):
         """Set up test fixtures."""
         self.validator = OutputValidator()
+        # Get path to game-config directory relative to this test file
+        test_dir = Path(__file__).parent
+        self.game_config_dir = test_dir.parent / "game-config"
 
     def test_validate_real_plot_outline(self):
         """Test validation against real plot_outline.yaml file."""
         try:
-            with open(
-                "/home/runner/work/space_hulk_game/space_hulk_game/game-config/plot_outline.yaml",
-            ) as f:
+            plot_file = self.game_config_dir / "plot_outline.yaml"
+            with open(plot_file) as f:
                 yaml_content = f.read()
 
             # The real file has a 'narrative_foundation' wrapper, extract it
-            import yaml
-
             data = yaml.safe_load(yaml_content)
             if "narrative_foundation" in data:
                 # Re-serialize just the narrative_foundation part
-                import yaml as yaml_module
-
-                yaml_content = yaml_module.dump(data["narrative_foundation"])
+                yaml_content = yaml.dump(data["narrative_foundation"])
 
             result = self.validator.validate_plot(yaml_content)
 
@@ -617,9 +618,8 @@ class TestRealFileValidation(unittest.TestCase):
     def test_validate_real_narrative_map(self):
         """Test validation against real narrative_map.yaml file."""
         try:
-            with open(
-                "/home/runner/work/space_hulk_game/space_hulk_game/game-config/narrative_map.yaml",
-            ) as f:
+            narrative_file = self.game_config_dir / "narrative_map.yaml"
+            with open(narrative_file) as f:
                 yaml_content = f.read()
 
             result = self.validator.validate_narrative_map(yaml_content)
@@ -640,9 +640,8 @@ class TestRealFileValidation(unittest.TestCase):
     def test_validate_real_puzzle_design(self):
         """Test validation against real puzzle_design.yaml file."""
         try:
-            with open(
-                "/home/runner/work/space_hulk_game/space_hulk_game/game-config/puzzle_design.yaml",
-            ) as f:
+            puzzle_file = self.game_config_dir / "puzzle_design.yaml"
+            with open(puzzle_file) as f:
                 yaml_content = f.read()
 
             result = self.validator.validate_puzzle_design(yaml_content)
@@ -663,9 +662,8 @@ class TestRealFileValidation(unittest.TestCase):
     def test_validate_real_scene_texts(self):
         """Test validation against real scene_texts.yaml file."""
         try:
-            with open(
-                "/home/runner/work/space_hulk_game/space_hulk_game/game-config/scene_texts.yaml",
-            ) as f:
+            scene_file = self.game_config_dir / "scene_texts.yaml"
+            with open(scene_file) as f:
                 yaml_content = f.read()
 
             result = self.validator.validate_scene_texts(yaml_content)
