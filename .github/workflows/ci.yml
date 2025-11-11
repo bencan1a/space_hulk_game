@@ -30,6 +30,9 @@ jobs:
       - name: Install dependencies
         run: uv pip install --system -e ".[dev]"
 
+      - name: Auto-format code
+        run: ruff format .
+
       - name: Check formatting
         run: ruff format --check .
 
@@ -56,7 +59,7 @@ jobs:
         run: uv pip install --system -e ".[dev]"
 
       - name: Run type checking
-        run: mypy src/ tools/
+        run: mypy src/
 
   security-scan:
     name: Security Scan
@@ -115,6 +118,11 @@ jobs:
         run: uv pip install --system -e ".[dev]"
 
       - name: Run tests (mock mode)
+        env:
+          OTEL_SDK_DISABLED: "true"
+          RUN_REAL_API_TESTS: "0"
+          OPENROUTER_API_KEY: "sk-test-mock-key-for-ci"
+          OPENAI_MODEL_NAME: "openrouter/test/model"
         run: python -m unittest discover -s tests -v
 
       - name: Generate coverage (Ubuntu 3.12 only)

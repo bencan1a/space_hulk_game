@@ -155,11 +155,12 @@ make clean          # Clean cache and old files
 
 **Pre-commit Hooks** - 9 automatic quality checks before commit (see `.pre-commit-config.yaml`)
 
-**CI/CD Workflows** - 4 GitHub Actions workflows in `.github/workflows/`:
+**CI/CD Workflows** - 5 GitHub Actions workflows in `.github/workflows/`:
 - `ci.yml` - Multi-platform testing (Ubuntu, Windows, macOS) and PR validation
 - `nightly-regression.yml` - Daily comprehensive testing
 - `update-docs.yml` - Auto-generate documentation
-- Plus existing: `run-crewai-agents.yml`, `run-kloc-report.yml`
+- `run-crewai-agents.yml` - On-demand CrewAI agent execution
+- `run-kloc-report.yml` - KLOC reporting
 
 **Documentation Automation** - `tools/build_context.py` generates:
 - API documentation (HTML, in `docs/_generated/api/`)
