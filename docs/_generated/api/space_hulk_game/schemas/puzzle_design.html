@@ -60,7 +60,7 @@ puzzles, artifacts, monsters, NPCs, and overall puzzle design structure.</p>
 </summary>
 <pre><code class="python">class Artifact(BaseModel):
     &#34;&#34;&#34;An artifact that can be found in the game.
-    
+
     Attributes:
         id: Unique identifier for the artifact.
         name: Human-readable artifact name.
@@ -68,7 +68,7 @@ puzzles, artifacts, monsters, NPCs, and overall puzzle design structure.</p>
         location: Scene ID where the artifact is located.
         narrative_significance: Why this artifact is narratively important.
         properties: List of artifact properties or effects.
-    
+
     Example:
         &gt;&gt;&gt; artifact = Artifact(
         ...     id=&#34;artifact_blood_eagle_pendant&#34;,
@@ -79,7 +79,7 @@ puzzles, artifacts, monsters, NPCs, and overall puzzle design structure.</p>
         ...     properties=[ArtifactProperty(...)]
         ... )
     &#34;&#34;&#34;
-    
+
     id: str = Field(
         ...,
         min_length=1,
@@ -108,12 +108,12 @@ puzzles, artifacts, monsters, NPCs, and overall puzzle design structure.</p>
         min_length=20,
         description=&#34;Narrative importance of this artifact&#34;
     )
-    properties: List[ArtifactProperty] = Field(
+    properties: list[ArtifactProperty] = Field(
         ...,
         min_length=1,
         description=&#34;Artifact properties (at least 1)&#34;
     )
-    
+
     @field_validator(&#39;id&#39;)
     @classmethod
     def validate_id_format(cls, v: str) -&gt; str:
@@ -184,7 +184,7 @@ validated to form a valid model.</p>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="space_hulk_game.schemas.puzzle_design.Artifact.properties"><code class="name">var <span class="ident">properties</span> : List[<a title="space_hulk_game.schemas.puzzle_design.ArtifactProperty" href="#space_hulk_game.schemas.puzzle_design.ArtifactProperty">ArtifactProperty</a>]</code></dt>
+<dt id="space_hulk_game.schemas.puzzle_design.Artifact.properties"><code class="name">var <span class="ident">properties</span> : list[<a title="space_hulk_game.schemas.puzzle_design.ArtifactProperty" href="#space_hulk_game.schemas.puzzle_design.ArtifactProperty">ArtifactProperty</a>]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -210,16 +210,16 @@ validated to form a valid model.</p>
 </summary>
 <pre><code class="python">class ArtifactProperty(BaseModel):
     &#34;&#34;&#34;A property of an artifact.
-    
+
     Attributes:
         property: Description of the artifact property.
-    
+
     Example:
         &gt;&gt;&gt; prop = ArtifactProperty(
         ...     property=&#34;minor moral boost (if worn or kept)&#34;
         ... )
     &#34;&#34;&#34;
-    
+
     property: str = Field(
         ...,
         min_length=5,
@@ -268,7 +268,7 @@ validated to form a valid model.</p>
 </summary>
 <pre><code class="python">class Monster(BaseModel):
     &#34;&#34;&#34;A monster or enemy in the game.
-    
+
     Attributes:
         id: Unique identifier for the monster.
         name: Human-readable monster name.
@@ -276,7 +276,7 @@ validated to form a valid model.</p>
         locations: List of scene IDs where this monster appears.
         narrative_role: The monster&#39;s role in the narrative.
         abilities: List of the monster&#39;s special abilities.
-    
+
     Example:
         &gt;&gt;&gt; monster = Monster(
         ...     id=&#34;monster_feral_genestealer&#34;,
@@ -287,7 +287,7 @@ validated to form a valid model.</p>
         ...     abilities=[&#34;Fast Attack&#34;, &#34;Rending Claws&#34;]
         ... )
     &#34;&#34;&#34;
-    
+
     id: str = Field(
         ...,
         min_length=1,
@@ -305,7 +305,7 @@ validated to form a valid model.</p>
         min_length=20,
         description=&#34;Detailed monster description&#34;
     )
-    locations: List[str] = Field(
+    locations: list[str] = Field(
         ...,
         min_length=1,
         description=&#34;Scene IDs where monster appears (at least 1)&#34;
@@ -315,12 +315,12 @@ validated to form a valid model.</p>
         min_length=20,
         description=&#34;Monster&#39;s narrative role&#34;
     )
-    abilities: List[str] = Field(
+    abilities: list[str] = Field(
         ...,
         min_length=1,
         description=&#34;Monster abilities (at least 1)&#34;
     )
-    
+
     @field_validator(&#39;id&#39;)
     @classmethod
     def validate_id_format(cls, v: str) -&gt; str:
@@ -330,10 +330,10 @@ validated to form a valid model.</p>
                 &#34;ID must contain only alphanumeric characters, underscores, and hyphens&#34;
             )
         return v
-    
+
     @field_validator(&#39;abilities&#39;)
     @classmethod
-    def validate_abilities_not_empty(cls, v: List[str]) -&gt; List[str]:
+    def validate_abilities_not_empty(cls, v: list[str]) -&gt; list[str]:
         &#34;&#34;&#34;Ensure all abilities are non-empty strings.&#34;&#34;&#34;
         if not all(ability.strip() for ability in v):
             raise ValueError(&#34;All abilities must be non-empty strings&#34;)
@@ -375,7 +375,7 @@ validated to form a valid model.</p>
 </ul>
 <h3>Class variables</h3>
 <dl>
-<dt id="space_hulk_game.schemas.puzzle_design.Monster.abilities"><code class="name">var <span class="ident">abilities</span> : List[str]</code></dt>
+<dt id="space_hulk_game.schemas.puzzle_design.Monster.abilities"><code class="name">var <span class="ident">abilities</span> : list[str]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -387,7 +387,7 @@ validated to form a valid model.</p>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="space_hulk_game.schemas.puzzle_design.Monster.locations"><code class="name">var <span class="ident">locations</span> : List[str]</code></dt>
+<dt id="space_hulk_game.schemas.puzzle_design.Monster.locations"><code class="name">var <span class="ident">locations</span> : list[str]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -407,7 +407,7 @@ validated to form a valid model.</p>
 <h3>Static methods</h3>
 <dl>
 <dt id="space_hulk_game.schemas.puzzle_design.Monster.validate_abilities_not_empty"><code class="name flex">
-<span>def <span class="ident">validate_abilities_not_empty</span></span>(<span>v: List[str]) ‑> List[str]</span>
+<span>def <span class="ident">validate_abilities_not_empty</span></span>(<span>v: list[str]) ‑> list[str]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Ensure all abilities are non-empty strings.</p></div>
@@ -431,7 +431,7 @@ validated to form a valid model.</p>
 </summary>
 <pre><code class="python">class NPC(BaseModel):
     &#34;&#34;&#34;A non-player character in the game.
-    
+
     Attributes:
         id: Unique identifier for the NPC.
         name: Human-readable NPC name.
@@ -439,7 +439,7 @@ validated to form a valid model.</p>
         description: Detailed description of the NPC.
         locations: List of scene IDs where this NPC appears.
         dialogue_themes: List of themes or topics the NPC discusses.
-    
+
     Example:
         &gt;&gt;&gt; npc = NPC(
         ...     id=&#34;npc_brother_captain_tyberius&#34;,
@@ -450,7 +450,7 @@ validated to form a valid model.</p>
         ...     dialogue_themes=[&#34;Duty and Sacrifice&#34;, &#34;The Burden of Command&#34;]
         ... )
     &#34;&#34;&#34;
-    
+
     id: str = Field(
         ...,
         min_length=1,
@@ -474,17 +474,17 @@ validated to form a valid model.</p>
         min_length=20,
         description=&#34;Detailed NPC description&#34;
     )
-    locations: List[str] = Field(
+    locations: list[str] = Field(
         ...,
         min_length=1,
         description=&#34;Scene IDs where NPC appears (at least 1)&#34;
     )
-    dialogue_themes: List[str] = Field(
+    dialogue_themes: list[str] = Field(
         ...,
         min_length=1,
         description=&#34;Dialogue themes (at least 1)&#34;
     )
-    
+
     @field_validator(&#39;id&#39;)
     @classmethod
     def validate_id_format(cls, v: str) -&gt; str:
@@ -494,10 +494,10 @@ validated to form a valid model.</p>
                 &#34;ID must contain only alphanumeric characters, underscores, and hyphens&#34;
             )
         return v
-    
+
     @field_validator(&#39;dialogue_themes&#39;)
     @classmethod
-    def validate_themes_not_empty(cls, v: List[str]) -&gt; List[str]:
+    def validate_themes_not_empty(cls, v: list[str]) -&gt; list[str]:
         &#34;&#34;&#34;Ensure all dialogue themes are non-empty strings.&#34;&#34;&#34;
         if not all(theme.strip() for theme in v):
             raise ValueError(&#34;All dialogue themes must be non-empty strings&#34;)
@@ -543,7 +543,7 @@ validated to form a valid model.</p>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="space_hulk_game.schemas.puzzle_design.NPC.dialogue_themes"><code class="name">var <span class="ident">dialogue_themes</span> : List[str]</code></dt>
+<dt id="space_hulk_game.schemas.puzzle_design.NPC.dialogue_themes"><code class="name">var <span class="ident">dialogue_themes</span> : list[str]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -551,7 +551,7 @@ validated to form a valid model.</p>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="space_hulk_game.schemas.puzzle_design.NPC.locations"><code class="name">var <span class="ident">locations</span> : List[str]</code></dt>
+<dt id="space_hulk_game.schemas.puzzle_design.NPC.locations"><code class="name">var <span class="ident">locations</span> : list[str]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -577,7 +577,7 @@ validated to form a valid model.</p>
 <div class="desc"><p>Ensure id follows naming convention.</p></div>
 </dd>
 <dt id="space_hulk_game.schemas.puzzle_design.NPC.validate_themes_not_empty"><code class="name flex">
-<span>def <span class="ident">validate_themes_not_empty</span></span>(<span>v: List[str]) ‑> List[str]</span>
+<span>def <span class="ident">validate_themes_not_empty</span></span>(<span>v: list[str]) ‑> list[str]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Ensure all dialogue themes are non-empty strings.</p></div>
@@ -595,7 +595,7 @@ validated to form a valid model.</p>
 </summary>
 <pre><code class="python">class Puzzle(BaseModel):
     &#34;&#34;&#34;A puzzle in the game.
-    
+
     Attributes:
         id: Unique identifier for the puzzle.
         name: Human-readable puzzle name.
@@ -604,7 +604,7 @@ validated to form a valid model.</p>
         narrative_purpose: Why this puzzle exists narratively.
         solution: Solution structure for the puzzle.
         difficulty: Difficulty level (e.g., &#39;easy&#39;, &#39;medium&#39;, &#39;hard&#39;).
-    
+
     Example:
         &gt;&gt;&gt; puzzle = Puzzle(
         ...     id=&#34;puzzle_comm_relay_restore&#34;,
@@ -616,7 +616,7 @@ validated to form a valid model.</p>
         ...     difficulty=&#34;medium&#34;
         ... )
     &#34;&#34;&#34;
-    
+
     id: str = Field(
         ...,
         min_length=1,
@@ -654,7 +654,7 @@ validated to form a valid model.</p>
         pattern=&#34;^(easy|medium|hard)$&#34;,
         description=&#34;Difficulty level: easy, medium, or hard&#34;
     )
-    
+
     @field_validator(&#39;id&#39;)
     @classmethod
     def validate_id_format(cls, v: str) -&gt; str:
@@ -758,16 +758,16 @@ validated to form a valid model.</p>
 </summary>
 <pre><code class="python">class PuzzleDesign(BaseModel):
     &#34;&#34;&#34;Complete puzzle design for a game.
-    
+
     This is the top-level model representing all puzzles, artifacts,
     monsters, and NPCs in the game.
-    
+
     Attributes:
         puzzles: List of puzzles in the game.
         artifacts: List of artifacts that can be found.
         monsters: List of monsters/enemies in the game.
         npcs: List of non-player characters.
-    
+
     Example:
         &gt;&gt;&gt; puzzle_design = PuzzleDesign(
         ...     puzzles=[Puzzle(...), ...],
@@ -776,58 +776,58 @@ validated to form a valid model.</p>
         ...     npcs=[NPC(...), ...]
         ... )
     &#34;&#34;&#34;
-    
-    puzzles: List[Puzzle] = Field(
+
+    puzzles: list[Puzzle] = Field(
         ...,
         min_length=1,
         description=&#34;Puzzles in the game (at least 1)&#34;
     )
-    artifacts: List[Artifact] = Field(
+    artifacts: list[Artifact] = Field(
         ...,
         min_length=1,
         description=&#34;Artifacts in the game (at least 1)&#34;
     )
-    monsters: List[Monster] = Field(
+    monsters: list[Monster] = Field(
         ...,
         min_length=1,
         description=&#34;Monsters in the game (at least 1)&#34;
     )
-    npcs: List[NPC] = Field(
+    npcs: list[NPC] = Field(
         ...,
         min_length=1,
         description=&#34;NPCs in the game (at least 1)&#34;
     )
-    
+
     @field_validator(&#39;puzzles&#39;)
     @classmethod
-    def validate_puzzle_ids_unique(cls, v: List[Puzzle]) -&gt; List[Puzzle]:
+    def validate_puzzle_ids_unique(cls, v: list[Puzzle]) -&gt; list[Puzzle]:
         &#34;&#34;&#34;Ensure all puzzle IDs are unique.&#34;&#34;&#34;
         ids = [puzzle.id for puzzle in v]
         if len(ids) != len(set(ids)):
             raise ValueError(&#34;All puzzle IDs must be unique&#34;)
         return v
-    
+
     @field_validator(&#39;artifacts&#39;)
     @classmethod
-    def validate_artifact_ids_unique(cls, v: List[Artifact]) -&gt; List[Artifact]:
+    def validate_artifact_ids_unique(cls, v: list[Artifact]) -&gt; list[Artifact]:
         &#34;&#34;&#34;Ensure all artifact IDs are unique.&#34;&#34;&#34;
         ids = [artifact.id for artifact in v]
         if len(ids) != len(set(ids)):
             raise ValueError(&#34;All artifact IDs must be unique&#34;)
         return v
-    
+
     @field_validator(&#39;monsters&#39;)
     @classmethod
-    def validate_monster_ids_unique(cls, v: List[Monster]) -&gt; List[Monster]:
+    def validate_monster_ids_unique(cls, v: list[Monster]) -&gt; list[Monster]:
         &#34;&#34;&#34;Ensure all monster IDs are unique.&#34;&#34;&#34;
         ids = [monster.id for monster in v]
         if len(ids) != len(set(ids)):
             raise ValueError(&#34;All monster IDs must be unique&#34;)
         return v
-    
+
     @field_validator(&#39;npcs&#39;)
     @classmethod
-    def validate_npc_ids_unique(cls, v: List[NPC]) -&gt; List[NPC]:
+    def validate_npc_ids_unique(cls, v: list[NPC]) -&gt; list[NPC]:
         &#34;&#34;&#34;Ensure all NPC IDs are unique.&#34;&#34;&#34;
         ids = [npc.id for npc in v]
         if len(ids) != len(set(ids)):
@@ -866,7 +866,7 @@ validated to form a valid model.</p>
 </ul>
 <h3>Class variables</h3>
 <dl>
-<dt id="space_hulk_game.schemas.puzzle_design.PuzzleDesign.artifacts"><code class="name">var <span class="ident">artifacts</span> : List[<a title="space_hulk_game.schemas.puzzle_design.Artifact" href="#space_hulk_game.schemas.puzzle_design.Artifact">Artifact</a>]</code></dt>
+<dt id="space_hulk_game.schemas.puzzle_design.PuzzleDesign.artifacts"><code class="name">var <span class="ident">artifacts</span> : list[<a title="space_hulk_game.schemas.puzzle_design.Artifact" href="#space_hulk_game.schemas.puzzle_design.Artifact">Artifact</a>]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -874,15 +874,15 @@ validated to form a valid model.</p>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="space_hulk_game.schemas.puzzle_design.PuzzleDesign.monsters"><code class="name">var <span class="ident">monsters</span> : List[<a title="space_hulk_game.schemas.puzzle_design.Monster" href="#space_hulk_game.schemas.puzzle_design.Monster">Monster</a>]</code></dt>
+<dt id="space_hulk_game.schemas.puzzle_design.PuzzleDesign.monsters"><code class="name">var <span class="ident">monsters</span> : list[<a title="space_hulk_game.schemas.puzzle_design.Monster" href="#space_hulk_game.schemas.puzzle_design.Monster">Monster</a>]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="space_hulk_game.schemas.puzzle_design.PuzzleDesign.npcs"><code class="name">var <span class="ident">npcs</span> : List[<a title="space_hulk_game.schemas.puzzle_design.NPC" href="#space_hulk_game.schemas.puzzle_design.NPC">NPC</a>]</code></dt>
+<dt id="space_hulk_game.schemas.puzzle_design.PuzzleDesign.npcs"><code class="name">var <span class="ident">npcs</span> : list[<a title="space_hulk_game.schemas.puzzle_design.NPC" href="#space_hulk_game.schemas.puzzle_design.NPC">NPC</a>]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="space_hulk_game.schemas.puzzle_design.PuzzleDesign.puzzles"><code class="name">var <span class="ident">puzzles</span> : List[<a title="space_hulk_game.schemas.puzzle_design.Puzzle" href="#space_hulk_game.schemas.puzzle_design.Puzzle">Puzzle</a>]</code></dt>
+<dt id="space_hulk_game.schemas.puzzle_design.PuzzleDesign.puzzles"><code class="name">var <span class="ident">puzzles</span> : list[<a title="space_hulk_game.schemas.puzzle_design.Puzzle" href="#space_hulk_game.schemas.puzzle_design.Puzzle">Puzzle</a>]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -890,25 +890,25 @@ validated to form a valid model.</p>
 <h3>Static methods</h3>
 <dl>
 <dt id="space_hulk_game.schemas.puzzle_design.PuzzleDesign.validate_artifact_ids_unique"><code class="name flex">
-<span>def <span class="ident">validate_artifact_ids_unique</span></span>(<span>v: List[<a title="space_hulk_game.schemas.puzzle_design.Artifact" href="#space_hulk_game.schemas.puzzle_design.Artifact">Artifact</a>]) ‑> List[<a title="space_hulk_game.schemas.puzzle_design.Artifact" href="#space_hulk_game.schemas.puzzle_design.Artifact">Artifact</a>]</span>
+<span>def <span class="ident">validate_artifact_ids_unique</span></span>(<span>v: list[<a title="space_hulk_game.schemas.puzzle_design.Artifact" href="#space_hulk_game.schemas.puzzle_design.Artifact">Artifact</a>]) ‑> list[<a title="space_hulk_game.schemas.puzzle_design.Artifact" href="#space_hulk_game.schemas.puzzle_design.Artifact">Artifact</a>]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Ensure all artifact IDs are unique.</p></div>
 </dd>
 <dt id="space_hulk_game.schemas.puzzle_design.PuzzleDesign.validate_monster_ids_unique"><code class="name flex">
-<span>def <span class="ident">validate_monster_ids_unique</span></span>(<span>v: List[<a title="space_hulk_game.schemas.puzzle_design.Monster" href="#space_hulk_game.schemas.puzzle_design.Monster">Monster</a>]) ‑> List[<a title="space_hulk_game.schemas.puzzle_design.Monster" href="#space_hulk_game.schemas.puzzle_design.Monster">Monster</a>]</span>
+<span>def <span class="ident">validate_monster_ids_unique</span></span>(<span>v: list[<a title="space_hulk_game.schemas.puzzle_design.Monster" href="#space_hulk_game.schemas.puzzle_design.Monster">Monster</a>]) ‑> list[<a title="space_hulk_game.schemas.puzzle_design.Monster" href="#space_hulk_game.schemas.puzzle_design.Monster">Monster</a>]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Ensure all monster IDs are unique.</p></div>
 </dd>
 <dt id="space_hulk_game.schemas.puzzle_design.PuzzleDesign.validate_npc_ids_unique"><code class="name flex">
-<span>def <span class="ident">validate_npc_ids_unique</span></span>(<span>v: List[<a title="space_hulk_game.schemas.puzzle_design.NPC" href="#space_hulk_game.schemas.puzzle_design.NPC">NPC</a>]) ‑> List[<a title="space_hulk_game.schemas.puzzle_design.NPC" href="#space_hulk_game.schemas.puzzle_design.NPC">NPC</a>]</span>
+<span>def <span class="ident">validate_npc_ids_unique</span></span>(<span>v: list[<a title="space_hulk_game.schemas.puzzle_design.NPC" href="#space_hulk_game.schemas.puzzle_design.NPC">NPC</a>]) ‑> list[<a title="space_hulk_game.schemas.puzzle_design.NPC" href="#space_hulk_game.schemas.puzzle_design.NPC">NPC</a>]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Ensure all NPC IDs are unique.</p></div>
 </dd>
 <dt id="space_hulk_game.schemas.puzzle_design.PuzzleDesign.validate_puzzle_ids_unique"><code class="name flex">
-<span>def <span class="ident">validate_puzzle_ids_unique</span></span>(<span>v: List[<a title="space_hulk_game.schemas.puzzle_design.Puzzle" href="#space_hulk_game.schemas.puzzle_design.Puzzle">Puzzle</a>]) ‑> List[<a title="space_hulk_game.schemas.puzzle_design.Puzzle" href="#space_hulk_game.schemas.puzzle_design.Puzzle">Puzzle</a>]</span>
+<span>def <span class="ident">validate_puzzle_ids_unique</span></span>(<span>v: list[<a title="space_hulk_game.schemas.puzzle_design.Puzzle" href="#space_hulk_game.schemas.puzzle_design.Puzzle">Puzzle</a>]) ‑> list[<a title="space_hulk_game.schemas.puzzle_design.Puzzle" href="#space_hulk_game.schemas.puzzle_design.Puzzle">Puzzle</a>]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Ensure all puzzle IDs are unique.</p></div>
@@ -926,30 +926,30 @@ validated to form a valid model.</p>
 </summary>
 <pre><code class="python">class PuzzleSolution(BaseModel):
     &#34;&#34;&#34;Solution structure for a puzzle.
-    
+
     Attributes:
         type: Type of solution (e.g., &#39;multi-step&#39;, &#39;observation&#39;, &#39;timed&#39;).
         steps: List of steps to solve the puzzle.
-    
+
     Example:
         &gt;&gt;&gt; solution = PuzzleSolution(
         ...     type=&#34;multi-step_interaction_and_logic&#34;,
         ...     steps=[PuzzleStep(...), ...]
         ... )
     &#34;&#34;&#34;
-    
+
     type: str = Field(
         ...,
         min_length=3,
         max_length=200,
         description=&#34;Type of puzzle solution&#34;
     )
-    steps: List[PuzzleStep] = Field(
+    steps: list[PuzzleStep] = Field(
         ...,
         min_length=1,
         description=&#34;Steps to solve the puzzle (at least 1)&#34;
     )
-    
+
     @field_validator(&#39;steps&#39;, mode=&#39;before&#39;)
     @classmethod
     def convert_string_steps(cls, v):
@@ -994,7 +994,7 @@ validated to form a valid model.</p>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="space_hulk_game.schemas.puzzle_design.PuzzleSolution.steps"><code class="name">var <span class="ident">steps</span> : List[<a title="space_hulk_game.schemas.puzzle_design.PuzzleStep" href="#space_hulk_game.schemas.puzzle_design.PuzzleStep">PuzzleStep</a>]</code></dt>
+<dt id="space_hulk_game.schemas.puzzle_design.PuzzleSolution.steps"><code class="name">var <span class="ident">steps</span> : list[<a title="space_hulk_game.schemas.puzzle_design.PuzzleStep" href="#space_hulk_game.schemas.puzzle_design.PuzzleStep">PuzzleStep</a>]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -1024,19 +1024,19 @@ validated to form a valid model.</p>
 </summary>
 <pre><code class="python">class PuzzleStep(BaseModel):
     &#34;&#34;&#34;A single step in solving a puzzle.
-    
+
     This model accepts either a plain string or a dict with &#39;step&#39; key
     to match the YAML format.
-    
+
     Attributes:
         step: Description of the step to perform.
-    
+
     Example:
         &gt;&gt;&gt; step = PuzzleStep(
         ...     step=&#34;Locate the auxiliary power conduit junction...&#34;
         ... )
     &#34;&#34;&#34;
-    
+
     step: str = Field(
         ...,
         min_length=10,

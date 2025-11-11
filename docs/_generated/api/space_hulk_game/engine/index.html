@@ -7909,7 +7909,7 @@ class TalkAction(Action):
         self._output(f&#34;\nYou drop the {item.name}.\n&#34;)
         logger.info(f&#34;Dropped item: {item_id}&#34;)
 
-    def handle_use(self, item_id: str, target_id: str | None = None) -&gt; None:  # noqa: PLR0915
+    def handle_use(self, item_id: str, target_id: str | None = None) -&gt; None:
         &#34;&#34;&#34;
         Handle using an item.
 
@@ -8775,7 +8775,7 @@ Tips:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def handle_use(self, item_id: str, target_id: str | None = None) -&gt; None:  # noqa: PLR0915
+<pre><code class="python">def handle_use(self, item_id: str, target_id: str | None = None) -&gt; None:
     &#34;&#34;&#34;
     Handle using an item.
 

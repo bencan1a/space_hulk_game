@@ -60,13 +60,13 @@ scene descriptions, atmosphere, examination texts, dialogue, and narrative notes
 </summary>
 <pre><code class="python">class SceneDialogue(BaseModel):
     &#34;&#34;&#34;A dialogue line in a scene.
-    
+
     Attributes:
         speaker: Name of the character speaking.
         text: The dialogue text.
         emotion: Optional emotion or delivery style.
         context: Optional context for when this dialogue occurs.
-    
+
     Example:
         &gt;&gt;&gt; dialogue = SceneDialogue(
         ...     speaker=&#34;Brother-Captain Tyberius&#34;,
@@ -75,7 +75,7 @@ scene descriptions, atmosphere, examination texts, dialogue, and narrative notes
         ...     context=&#34;As the drop pod shudders violently...&#34;
         ... )
     &#34;&#34;&#34;
-    
+
     speaker: str = Field(
         ...,
         min_length=1,
@@ -87,12 +87,12 @@ scene descriptions, atmosphere, examination texts, dialogue, and narrative notes
         min_length=5,
         description=&#34;Dialogue text&#34;
     )
-    emotion: Optional[str] = Field(
+    emotion: str | None = Field(
         default=None,
         max_length=500,
         description=&#34;Optional emotion or delivery style&#34;
     )
-    context: Optional[str] = Field(
+    context: str | None = Field(
         default=None,
         description=&#34;Optional context for the dialogue&#34;
     )</code></pre>
@@ -160,10 +160,10 @@ validated to form a valid model.</p>
 </summary>
 <pre><code class="python">class SceneText(BaseModel):
     &#34;&#34;&#34;Text content for a single scene.
-    
+
     This includes all descriptive text, atmosphere, examination texts,
     dialogue, and narrative notes for a scene.
-    
+
     Attributes:
         name: Human-readable scene name.
         description: Main scene description.
@@ -172,7 +172,7 @@ validated to form a valid model.</p>
         examination_texts: Dictionary of object names to examination descriptions.
         dialogue: List of dialogue in this scene.
         narrative_notes: Optional notes about the scene&#39;s narrative purpose.
-    
+
     Example:
         &gt;&gt;&gt; scene_text = SceneText(
         ...     name=&#34;The Drop Pod Descent&#34;,
@@ -184,7 +184,7 @@ validated to form a valid model.</p>
         ...     narrative_notes=&#34;This scene establishes the immediate chaos...&#34;
         ... )
     &#34;&#34;&#34;
-    
+
     name: str = Field(
         ...,
         min_length=1,
@@ -207,23 +207,23 @@ validated to form a valid model.</p>
         min_length=10,
         description=&#34;Text shown when entering the scene&#34;
     )
-    examination_texts: Dict[str, str] = Field(
+    examination_texts: dict[str, str] = Field(
         default_factory=dict,
         description=&#34;Dictionary of examinable objects to descriptions&#34;
     )
-    dialogue: List[SceneDialogue] = Field(
+    dialogue: list[SceneDialogue] = Field(
         default_factory=list,
         description=&#34;List of dialogue in this scene&#34;
     )
-    narrative_notes: Optional[str] = Field(
+    narrative_notes: str | None = Field(
         default=None,
         min_length=20,
         description=&#34;Optional narrative purpose notes&#34;
     )
-    
+
     @field_validator(&#39;examination_texts&#39;)
     @classmethod
-    def validate_examination_texts(cls, v: Dict[str, str]) -&gt; Dict[str, str]:
+    def validate_examination_texts(cls, v: dict[str, str]) -&gt; dict[str, str]:
         &#34;&#34;&#34;Ensure all examination texts are non-empty.&#34;&#34;&#34;
         for key, value in v.items():
             if not key.strip():
@@ -283,11 +283,11 @@ validated to form a valid model.</p>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="space_hulk_game.schemas.scene_text.SceneText.dialogue"><code class="name">var <span class="ident">dialogue</span> : List[<a title="space_hulk_game.schemas.scene_text.SceneDialogue" href="#space_hulk_game.schemas.scene_text.SceneDialogue">SceneDialogue</a>]</code></dt>
+<dt id="space_hulk_game.schemas.scene_text.SceneText.dialogue"><code class="name">var <span class="ident">dialogue</span> : list[<a title="space_hulk_game.schemas.scene_text.SceneDialogue" href="#space_hulk_game.schemas.scene_text.SceneDialogue">SceneDialogue</a>]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="space_hulk_game.schemas.scene_text.SceneText.examination_texts"><code class="name">var <span class="ident">examination_texts</span> : Dict[str, str]</code></dt>
+<dt id="space_hulk_game.schemas.scene_text.SceneText.examination_texts"><code class="name">var <span class="ident">examination_texts</span> : dict[str, str]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -311,7 +311,7 @@ validated to form a valid model.</p>
 <h3>Static methods</h3>
 <dl>
 <dt id="space_hulk_game.schemas.scene_text.SceneText.validate_examination_texts"><code class="name flex">
-<span>def <span class="ident">validate_examination_texts</span></span>(<span>v: Dict[str, str]) ‑> Dict[str, str]</span>
+<span>def <span class="ident">validate_examination_texts</span></span>(<span>v: dict[str, str]) ‑> dict[str, str]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Ensure all examination texts are non-empty.</p></div>
@@ -329,13 +329,13 @@ validated to form a valid model.</p>
 </summary>
 <pre><code class="python">class SceneTexts(BaseModel):
     &#34;&#34;&#34;Collection of all scene texts in the game.
-    
+
     This is the top-level model representing all scene text content
     organized by scene ID.
-    
+
     Attributes:
         scenes: Dictionary mapping scene IDs to SceneText objects.
-    
+
     Example:
         &gt;&gt;&gt; scene_texts = SceneTexts(
         ...     scenes={
@@ -344,30 +344,30 @@ validated to form a valid model.</p>
         ...     }
         ... )
     &#34;&#34;&#34;
-    
-    scenes: Dict[str, SceneText] = Field(
+
+    scenes: dict[str, SceneText] = Field(
         ...,
         min_length=1,
         description=&#34;Dictionary of scene_id to SceneText (minimum 1 scene)&#34;
     )
-    
+
     @field_validator(&#39;scenes&#39;)
     @classmethod
-    def validate_scene_ids(cls, v: Dict[str, SceneText]) -&gt; Dict[str, SceneText]:
+    def validate_scene_ids(cls, v: dict[str, SceneText]) -&gt; dict[str, SceneText]:
         &#34;&#34;&#34;Ensure all scene IDs follow naming convention.&#34;&#34;&#34;
-        for scene_id in v.keys():
+        for scene_id in v:
             if not scene_id.replace(&#39;_&#39;, &#39;&#39;).replace(&#39;-&#39;, &#39;&#39;).isalnum():
                 raise ValueError(
                     f&#34;Scene ID &#39;{scene_id}&#39; must contain only alphanumeric characters, &#34;
                     f&#34;underscores, and hyphens&#34;
                 )
         return v
-    
+
     @field_validator(&#39;scenes&#39;)
     @classmethod
-    def validate_scene_names_match_keys(cls, v: Dict[str, SceneText]) -&gt; Dict[str, SceneText]:
+    def validate_scene_names_match_keys(cls, v: dict[str, SceneText]) -&gt; dict[str, SceneText]:
         &#34;&#34;&#34;Validate that scene texts are properly structured.
-        
+
         This ensures scenes have sufficient content and quality.
         &#34;&#34;&#34;
         for scene_id, scene_text in v.items():
@@ -376,13 +376,13 @@ validated to form a valid model.</p>
                 raise ValueError(
                     f&#34;Scene &#39;{scene_id}&#39; description should be at least 100 characters for immersion&#34;
                 )
-            
+
             # Ensure initial text is meaningful
             if len(scene_text.initial_text) &lt; 20:
                 raise ValueError(
                     f&#34;Scene &#39;{scene_id}&#39; initial_text should be at least 20 characters&#34;
                 )
-        
+
         return v</code></pre>
 </details>
 <div class="desc"><p>Collection of all scene texts in the game.</p>
@@ -415,7 +415,7 @@ validated to form a valid model.</p>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="space_hulk_game.schemas.scene_text.SceneTexts.scenes"><code class="name">var <span class="ident">scenes</span> : Dict[str, <a title="space_hulk_game.schemas.scene_text.SceneText" href="#space_hulk_game.schemas.scene_text.SceneText">SceneText</a>]</code></dt>
+<dt id="space_hulk_game.schemas.scene_text.SceneTexts.scenes"><code class="name">var <span class="ident">scenes</span> : dict[str, <a title="space_hulk_game.schemas.scene_text.SceneText" href="#space_hulk_game.schemas.scene_text.SceneText">SceneText</a>]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -423,13 +423,13 @@ validated to form a valid model.</p>
 <h3>Static methods</h3>
 <dl>
 <dt id="space_hulk_game.schemas.scene_text.SceneTexts.validate_scene_ids"><code class="name flex">
-<span>def <span class="ident">validate_scene_ids</span></span>(<span>v: Dict[str, <a title="space_hulk_game.schemas.scene_text.SceneText" href="#space_hulk_game.schemas.scene_text.SceneText">SceneText</a>]) ‑> Dict[str, <a title="space_hulk_game.schemas.scene_text.SceneText" href="#space_hulk_game.schemas.scene_text.SceneText">SceneText</a>]</span>
+<span>def <span class="ident">validate_scene_ids</span></span>(<span>v: dict[str, <a title="space_hulk_game.schemas.scene_text.SceneText" href="#space_hulk_game.schemas.scene_text.SceneText">SceneText</a>]) ‑> dict[str, <a title="space_hulk_game.schemas.scene_text.SceneText" href="#space_hulk_game.schemas.scene_text.SceneText">SceneText</a>]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Ensure all scene IDs follow naming convention.</p></div>
 </dd>
 <dt id="space_hulk_game.schemas.scene_text.SceneTexts.validate_scene_names_match_keys"><code class="name flex">
-<span>def <span class="ident">validate_scene_names_match_keys</span></span>(<span>v: Dict[str, <a title="space_hulk_game.schemas.scene_text.SceneText" href="#space_hulk_game.schemas.scene_text.SceneText">SceneText</a>]) ‑> Dict[str, <a title="space_hulk_game.schemas.scene_text.SceneText" href="#space_hulk_game.schemas.scene_text.SceneText">SceneText</a>]</span>
+<span>def <span class="ident">validate_scene_names_match_keys</span></span>(<span>v: dict[str, <a title="space_hulk_game.schemas.scene_text.SceneText" href="#space_hulk_game.schemas.scene_text.SceneText">SceneText</a>]) ‑> dict[str, <a title="space_hulk_game.schemas.scene_text.SceneText" href="#space_hulk_game.schemas.scene_text.SceneText">SceneText</a>]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Validate that scene texts are properly structured.</p>
