@@ -36,14 +36,14 @@ class TestAPIValidation(unittest.TestCase):
         """Set up class-level fixtures."""
         cls.api_key = os.getenv("OPENROUTER_API_KEY")
         cls.model_name = os.getenv("OPENAI_MODEL_NAME", "openrouter/anthropic/claude-3.5-sonnet")
-        cls.has_real_credentials = bool(cls.api_key)
+        cls.has_real_credentials = bool(cls.api_key) and os.getenv("RUN_REAL_API_TESTS") == "1"
 
         if cls.has_real_credentials:
             print("\n✓ Found OPENROUTER_API_KEY - running tests against real API")
             print(f"  Using model: {cls.model_name}")
         else:
-            print("\n⚠ OPENROUTER_API_KEY not found - running tests with mocks")
-            print("  Set OPENROUTER_API_KEY to test against real API")
+            print("\n⚠ Running tests with mocks (set RUN_REAL_API_TESTS=1 to use real API)")
+            print(f"  Mock model: {cls.model_name}")
 
     @unittest.skipUnless(CREWAI_AVAILABLE, "CrewAI not installed")
     def test_llm_initialization_with_openrouter(self):

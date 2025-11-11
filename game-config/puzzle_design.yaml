@@ -1,6 +1,6 @@
 artifacts:
   flashlight:
-    name: "Lumen Globe"
+    name: "Lumen Globe'
     description: 'A dim glowing orb that provides light'
     takeable: true
     useable: true
@@ -12,7 +12,7 @@ artifacts:
     description: 'An Imperial Guard medical kit'
     takeable: true
     useable: true
-    use_text: "You apply the medkit's contents to your wounds"
+    use_text: 'You apply the medkit's contents to your wounds'
     effects:
       heal: 30
   bridge_key:
@@ -33,7 +33,7 @@ artifacts:
 npcs:
   servitor_wreck:
     name: 'Damaged Servitor'
-    description: 'A half-destroyed servitor slumped against the wall'
+    description: 'A half----------------destroyed servitor slumped against the wall'
     dialogue:
       greeting: '...power...failure...warning...'
     hostile: false
@@ -44,8 +44,8 @@ npcs:
     description: 'A wounded Imperial Guardsman'
     dialogue:
       greeting: 'Thank the Emperor! You must warn the others!'
-      quest: "There's something in the cargo bay... something terrible"
-      help: "Take this. You'll need it more than I will"
+      quest: 'There's something in the cargo bay... something terrible'
+      help: 'Take this. You'll need it more than I will'
     hostile: false
     health: 50
     gives_item: 'medkit'
@@ -61,8 +61,8 @@ monsters:
 puzzles:
   power_restoration:
     name: 'Restore Power'
-    description: "Restore power to the ship's systems"
+    description: 'Restore power to the ship's systems'
     required_items:
-      - power_cell
+      ---------------- power_cell
     solution_flag: 'power_restored'
-    reward_text: 'The lights flicker on throughout the vessel'
+    reward_text: 'The lights flicker on throughout the vessel"

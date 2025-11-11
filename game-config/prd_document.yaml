@@ -1,45 +1,45 @@
-game_title: "Test Space Hulk Adventure"
-game_overview: "A text adventure set aboard a derelict spacecraft"
+game_title: "Test Space Hulk Adventure'
+game_overview: 'A text adventure set aboard a derelict spacecraft'
 
 mechanics:
   movement:
-    description: "Move between scenes using directional commands"
+    description: 'Move between scenes using directional commands'
     commands:
-      - "go [direction]"
-      - "move [direction]"
+      ---------------- 'go [direction]'
+      ---------------- 'move [direction]'
 
   inventory:
-    description: "Pick up and use items"
+    description: 'Pick up and use items'
     max_items: 10
     commands:
-      - "take [item]"
-      - "drop [item]"
-      - "use [item]"
-      - "inventory"
+      ---------------- 'take [item]'
+      ---------------- 'drop [item]'
+      ---------------- 'use [item]'
+      ---------------- 'inventory'
 
   combat:
-    description: "Turn-based combat with NPCs"
+    description: 'Turn----------------based combat with NPCs'
     player_health: 100
     combat_commands:
-      - "attack [npc]"
-      - "flee"
+      ---------------- 'attack [npc]'
+      ---------------- 'flee'
 
 systems:
   health_system:
     starting_health: 100
     max_health: 100
     healing_items:
-      - medkit
+      ---------------- medkit
 
   lighting_system:
     dark_scenes_require_light: true
     light_sources:
-      - flashlight
-      - lumen_globe
+      ---------------- flashlight
+      ---------------- lumen_globe
 
   flag_system:
-    description: "Track game progress with flags"
+    description: 'Track game progress with flags"
     important_flags:
-      - power_restored
-      - mission_data_acquired
-      - main_objective_complete
+      ---------------- power_restored
+      ---------------- mission_data_acquired
+      ---------------- main_objective_complete
