@@ -14,8 +14,8 @@ from space_hulk_game.validation.corrector import CorrectionResult, OutputCorrect
 from space_hulk_game.validation.validator import OutputValidator, ValidationResult
 
 __all__ = [
+    "CorrectionResult",
+    "OutputCorrector",
     "OutputValidator",
     "ValidationResult",
-    "OutputCorrector",
-    "CorrectionResult",
 ]
