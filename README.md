@@ -124,7 +124,8 @@ space_hulk_game/
 
 - **Python 3.10+** - Modern Python with type hints
 - **CrewAI** - Multi-agent AI collaboration framework
-- **Ollama** - Local LLM integration
+- **Cloud LLM Services** - Anthropic Claude, OpenRouter, OpenAI
+- **Ollama** - Optional local LLM integration
 - **Mem0** - Context retention across agent interactions
 - **Colorama** - Cross-platform terminal colors
 - **PyYAML** - Configuration and content management
