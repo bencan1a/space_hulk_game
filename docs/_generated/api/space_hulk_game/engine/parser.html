@@ -100,7 +100,7 @@ considering available items, NPCs, and exits in the current scene.</p>
     &#34;&#34;&#34;
 
     # Command synonyms mapping
-    COMMANDS: dict[str, list[str]] = {
+    COMMANDS: ClassVar[dict[str, list[str]]] = {
         &#34;move&#34;: [&#34;go&#34;, &#34;move&#34;, &#34;walk&#34;, &#34;run&#34;, &#34;travel&#34;, &#34;head&#34;, &#34;proceed&#34;, &#34;enter&#34;],
         &#34;take&#34;: [&#34;take&#34;, &#34;get&#34;, &#34;grab&#34;, &#34;pick&#34;, &#34;pickup&#34;, &#34;acquire&#34;, &#34;collect&#34;],
         &#34;drop&#34;: [&#34;drop&#34;, &#34;leave&#34;, &#34;discard&#34;, &#34;put down&#34;, &#34;release&#34;],
@@ -124,11 +124,11 @@ considering available items, NPCs, and exits in the current scene.</p>
 
         logger.debug(f&#34;CommandParser initialized with {len(self._command_map)} command synonyms&#34;)
 
-    def parse(
+    def parse(  # noqa: PLR0911
         self,
         command: str,
-        game_state: Optional[GameState] = None,
-        current_scene: Optional[Scene] = None,
+        game_state: GameState | None = None,
+        current_scene: Scene | None = None,
     ) -&gt; Action:
         &#34;&#34;&#34;
         Parse a text command into an Action object.
@@ -228,7 +228,7 @@ considering available items, NPCs, and exits in the current scene.</p>
         # Split on whitespace and filter empty strings
         return [token for token in command.split() if token]
 
-    def _identify_command(self, tokens: list[str]) -&gt; tuple[Optional[str], str, list[str]]:
+    def _identify_command(self, tokens: list[str]) -&gt; tuple[str | None, str, list[str]]:
         &#34;&#34;&#34;
         Identify the command type from tokens.
 
@@ -273,7 +273,7 @@ considering available items, NPCs, and exits in the current scene.</p>
 
         if matches:
             # If we have multiple matches, prefer certain command types
-            # Priority: take &gt; move &gt; use &gt; look &gt; talk &gt; drop &gt; inventory &gt; help
+            # (Priority order: take &gt; move &gt; use &gt; look &gt; talk &gt; drop &gt; inventory &gt; help)
             priority_order = [&#34;take&#34;, &#34;move&#34;, &#34;use&#34;, &#34;look&#34;, &#34;talk&#34;, &#34;drop&#34;, &#34;inventory&#34;, &#34;help&#34;]
 
             # Get action types for all matches
@@ -295,7 +295,7 @@ considering available items, NPCs, and exits in the current scene.</p>
 
         return None, first_word, tokens[1:]
 
-    def _suggest_command(self, word: str) -&gt; Optional[str]:
+    def _suggest_command(self, word: str) -&gt; str | None:
         &#34;&#34;&#34;
         Suggest a command based on fuzzy matching.
 
@@ -321,7 +321,7 @@ considering available items, NPCs, and exits in the current scene.</p>
 
         return matches[0] if matches else None
 
-    def _parse_move(self, command: str, tokens: list[str], scene: Optional[Scene]) -&gt; Action:
+    def _parse_move(self, command: str, tokens: list[str], scene: Scene | None) -&gt; Action:
         &#34;&#34;&#34;
         Parse a movement command.
 
@@ -364,7 +364,7 @@ considering available items, NPCs, and exits in the current scene.</p>
         # No context or no match, return as-is
         return MoveAction(direction=direction, raw_command=command)
 
-    def _parse_take(self, command: str, tokens: list[str], scene: Optional[Scene]) -&gt; Action:
+    def _parse_take(self, command: str, tokens: list[str], scene: Scene | None) -&gt; Action:
         &#34;&#34;&#34;
         Parse a take/get command.
 
@@ -397,9 +397,7 @@ considering available items, NPCs, and exits in the current scene.</p>
         # No context or no match, use the name as-is
         return TakeAction(item_id=item_name, raw_command=command)
 
-    def _parse_drop(
-        self, command: str, tokens: list[str], game_state: Optional[GameState]
-    ) -&gt; Action:
+    def _parse_drop(self, command: str, tokens: list[str], game_state: GameState | None) -&gt; Action:
         &#34;&#34;&#34;
         Parse a drop command.
 
@@ -440,8 +438,8 @@ considering available items, NPCs, and exits in the current scene.</p>
         self,
         command: str,
         tokens: list[str],
-        game_state: Optional[GameState],
-        scene: Optional[Scene],
+        game_state: GameState | None,
+        scene: Scene | None,
     ) -&gt; Action:
         &#34;&#34;&#34;
         Parse a use command.
@@ -517,7 +515,7 @@ considering available items, NPCs, and exits in the current scene.</p>
 
         return UseAction(item_id=item_id, target_id=target_id, raw_command=command)
 
-    def _parse_look(self, command: str, tokens: list[str], scene: Optional[Scene]) -&gt; Action:
+    def _parse_look(self, command: str, tokens: list[str], scene: Scene | None) -&gt; Action:
         &#34;&#34;&#34;
         Parse a look/examine command.
 
@@ -568,7 +566,7 @@ considering available items, NPCs, and exits in the current scene.</p>
 
         return LookAction(target=target_id, raw_command=command)
 
-    def _parse_talk(self, command: str, tokens: list[str], scene: Optional[Scene]) -&gt; Action:
+    def _parse_talk(self, command: str, tokens: list[str], scene: Scene | None) -&gt; Action:
         &#34;&#34;&#34;
         Parse a talk command.
 
@@ -614,7 +612,7 @@ considering available items, NPCs, and exits in the current scene.</p>
         found_about = False
 
         for i, token in enumerate(filtered_tokens):
-            if token == &#34;about&#34;:
+            if token == &#34;about&#34;:  # nosec B105
                 found_about = True
                 npc_tokens = filtered_tokens[:i]
                 topic_tokens = filtered_tokens[i + 1 :]
@@ -636,7 +634,7 @@ considering available items, NPCs, and exits in the current scene.</p>
 
         return TalkAction(npc_id=npc_id, topic=topic, raw_command=command)
 
-    def _find_item_in_scene(self, item_name: str, scene: Scene) -&gt; Optional[Item]:
+    def _find_item_in_scene(self, item_name: str, scene: Scene) -&gt; Item | None:
         &#34;&#34;&#34;
         Find an item in the scene by name or ID using fuzzy matching.
 
@@ -688,7 +686,7 @@ considering available items, NPCs, and exits in the current scene.</p>
 
         return None
 
-    def _find_npc_in_scene(self, npc_name: str, scene: Scene) -&gt; Optional[NPC]:
+    def _find_npc_in_scene(self, npc_name: str, scene: Scene) -&gt; NPC | None:
         &#34;&#34;&#34;
         Find an NPC in the scene by name or ID using fuzzy matching.
 
@@ -772,7 +770,7 @@ True
 <p>Initialize the command parser.</p></div>
 <h3>Class variables</h3>
 <dl>
-<dt id="space_hulk_game.engine.parser.CommandParser.COMMANDS"><code class="name">var <span class="ident">COMMANDS</span> : dict[str, list[str]]</code></dt>
+<dt id="space_hulk_game.engine.parser.CommandParser.COMMANDS"><code class="name">var <span class="ident">COMMANDS</span> : ClassVar[dict[str, list[str]]]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -791,11 +789,11 @@ True
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def parse(
+<pre><code class="python">def parse(  # noqa: PLR0911
     self,
     command: str,
-    game_state: Optional[GameState] = None,
-    current_scene: Optional[Scene] = None,
+    game_state: GameState | None = None,
+    current_scene: Scene | None = None,
 ) -&gt; Action:
     &#34;&#34;&#34;
     Parse a text command into an Action object.

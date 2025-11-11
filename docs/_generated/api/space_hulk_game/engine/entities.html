@@ -122,7 +122,7 @@ class Event:
     id: str
     description: str
     trigger_on_entry: bool = False
-    required_flag: Optional[str] = None
+    required_flag: str | None = None
     one_time: bool = True
     effects: dict[str, Any] = field(default_factory=dict)
     triggered: bool = False
@@ -543,8 +543,8 @@ class Item:
     description: str
     takeable: bool = False
     useable: bool = False
-    use_text: Optional[str] = None
-    required_flag: Optional[str] = None
+    use_text: str | None = None
+    required_flag: str | None = None
     effects: dict[str, Any] = field(default_factory=dict)
 
     def __post_init__(self):
@@ -879,8 +879,8 @@ class NPC:
     dialogue: dict[str, str] = field(default_factory=dict)
     hostile: bool = False
     health: int = 100
-    gives_item: Optional[str] = None
-    required_flag: Optional[str] = None
+    gives_item: str | None = None
+    required_flag: str | None = None
 
     def __post_init__(self):
         &#34;&#34;&#34;Validate the NPC after initialization.&#34;&#34;&#34;
@@ -915,7 +915,7 @@ class NPC:
             return game_flags.get(self.required_flag, False)
         return True
 
-    def get_dialogue(self, key: str, default: str = &#34;...&#34;) -&gt; str:
+    def get_dialogue(self, key: str, default: str | None = &#34;...&#34;) -&gt; str | None:
         &#34;&#34;&#34;
         Get dialogue text for a specific key.
 
@@ -924,7 +924,7 @@ class NPC:
             default: Default text if the key doesn&#39;t exist.
 
         Returns:
-            The dialogue text.
+            The dialogue text, or None if not found and default is None.
 
         Examples:
             &gt;&gt;&gt; npc = NPC(id=&#34;test&#34;, name=&#34;Test&#34;, description=&#34;Test&#34;,
@@ -1151,14 +1151,14 @@ True
 </code></pre></div>
 </dd>
 <dt id="space_hulk_game.engine.entities.NPC.get_dialogue"><code class="name flex">
-<span>def <span class="ident">get_dialogue</span></span>(<span>self, key: str, default: str = '...') ‑> str</span>
+<span>def <span class="ident">get_dialogue</span></span>(<span>self, key: str, default: str | None = '...') ‑> str | None</span>
 </code></dt>
 <dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def get_dialogue(self, key: str, default: str = &#34;...&#34;) -&gt; str:
+<pre><code class="python">def get_dialogue(self, key: str, default: str | None = &#34;...&#34;) -&gt; str | None:
     &#34;&#34;&#34;
     Get dialogue text for a specific key.
 
@@ -1167,7 +1167,7 @@ True
         default: Default text if the key doesn&#39;t exist.
 
     Returns:
-        The dialogue text.
+        The dialogue text, or None if not found and default is None.
 
     Examples:
         &gt;&gt;&gt; npc = NPC(id=&#34;test&#34;, name=&#34;Test&#34;, description=&#34;Test&#34;,
@@ -1188,7 +1188,7 @@ True
 <dd>Default text if the key doesn't exist.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>The dialogue text.</p>
+<p>The dialogue text, or None if not found and default is None.</p>
 <h2 id="examples">Examples</h2>
 <pre><code class="language-python-repl">&gt;&gt;&gt; npc = NPC(id=&quot;test&quot;, name=&quot;Test&quot;, description=&quot;Test&quot;,
 ...           dialogue={&quot;hello&quot;: &quot;Greetings!&quot;})

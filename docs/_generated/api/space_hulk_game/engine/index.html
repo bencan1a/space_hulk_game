@@ -175,7 +175,7 @@ a playable text adventure interface.</p>
         if not filepath_obj.exists():
             raise PersistenceError(f&#34;Save file not found: {filepath}&#34;)
 
-        with open(filepath, encoding=&#34;utf-8&#34;) as f:
+        with Path(filepath).open(encoding=&#34;utf-8&#34;) as f:
             save_data = json.load(f)
 
         metadata = {
@@ -315,7 +315,7 @@ saves/mysave.json
             raise PersistenceError(f&#34;Save file not found: {filepath}&#34;)
 
         # Read file
-        with open(filepath, encoding=&#34;utf-8&#34;) as f:
+        with Path(filepath).open(encoding=&#34;utf-8&#34;) as f:
             save_data = json.load(f)
 
         # Validate save file structure
@@ -382,7 +382,7 @@ invalid format, or data corruption.</dd>
 </code></pre></div>
 </dd>
 <dt id="space_hulk_game.engine.save_game"><code class="name flex">
-<span>def <span class="ident">save_game</span></span>(<span>filepath: str,<br>game_state: <a title="space_hulk_game.engine.game_state.GameState" href="game_state.html#space_hulk_game.engine.game_state.GameState">GameState</a>,<br>scenes: dict[str, <a title="space_hulk_game.engine.scene.Scene" href="scene.html#space_hulk_game.engine.scene.Scene">Scene</a>],<br>metadata: dict[str, typing.Any] = None) ‑> None</span>
+<span>def <span class="ident">save_game</span></span>(<span>filepath: str,<br>game_state: <a title="space_hulk_game.engine.game_state.GameState" href="game_state.html#space_hulk_game.engine.game_state.GameState">GameState</a>,<br>scenes: dict[str, <a title="space_hulk_game.engine.scene.Scene" href="scene.html#space_hulk_game.engine.scene.Scene">Scene</a>],<br>metadata: dict[str, typing.Any] | None = None) ‑> None</span>
 </code></dt>
 <dd>
 <details class="source">
@@ -390,7 +390,10 @@ invalid format, or data corruption.</dd>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def save_game(
-    filepath: str, game_state: GameState, scenes: dict[str, Scene], metadata: dict[str, Any] = None
+    filepath: str,
+    game_state: GameState,
+    scenes: dict[str, Scene],
+    metadata: dict[str, Any] | None = None,
 ) -&gt; None:
     &#34;&#34;&#34;
     Save the game state and scenes to a JSON file.
@@ -431,7 +434,7 @@ invalid format, or data corruption.</dd>
         filepath_obj.parent.mkdir(parents=True, exist_ok=True)
 
         # Write to file with pretty formatting
-        with open(filepath, &#34;w&#34;, encoding=&#34;utf-8&#34;) as f:
+        with Path(filepath).open(&#34;w&#34;, encoding=&#34;utf-8&#34;) as f:
             json.dump(save_data, f, indent=2, ensure_ascii=False)
 
         logger.info(f&#34;Game saved to: {filepath}&#34;)
@@ -600,7 +603,7 @@ encapsulating requests as objects.</p>
     &#34;&#34;&#34;
 
     # Command synonyms mapping
-    COMMANDS: dict[str, list[str]] = {
+    COMMANDS: ClassVar[dict[str, list[str]]] = {
         &#34;move&#34;: [&#34;go&#34;, &#34;move&#34;, &#34;walk&#34;, &#34;run&#34;, &#34;travel&#34;, &#34;head&#34;, &#34;proceed&#34;, &#34;enter&#34;],
         &#34;take&#34;: [&#34;take&#34;, &#34;get&#34;, &#34;grab&#34;, &#34;pick&#34;, &#34;pickup&#34;, &#34;acquire&#34;, &#34;collect&#34;],
         &#34;drop&#34;: [&#34;drop&#34;, &#34;leave&#34;, &#34;discard&#34;, &#34;put down&#34;, &#34;release&#34;],
@@ -624,11 +627,11 @@ encapsulating requests as objects.</p>
 
         logger.debug(f&#34;CommandParser initialized with {len(self._command_map)} command synonyms&#34;)
 
-    def parse(
+    def parse(  # noqa: PLR0911
         self,
         command: str,
-        game_state: Optional[GameState] = None,
-        current_scene: Optional[Scene] = None,
+        game_state: GameState | None = None,
+        current_scene: Scene | None = None,
     ) -&gt; Action:
         &#34;&#34;&#34;
         Parse a text command into an Action object.
@@ -728,7 +731,7 @@ encapsulating requests as objects.</p>
         # Split on whitespace and filter empty strings
         return [token for token in command.split() if token]
 
-    def _identify_command(self, tokens: list[str]) -&gt; tuple[Optional[str], str, list[str]]:
+    def _identify_command(self, tokens: list[str]) -&gt; tuple[str | None, str, list[str]]:
         &#34;&#34;&#34;
         Identify the command type from tokens.
 
@@ -773,7 +776,7 @@ encapsulating requests as objects.</p>
 
         if matches:
             # If we have multiple matches, prefer certain command types
-            # Priority: take &gt; move &gt; use &gt; look &gt; talk &gt; drop &gt; inventory &gt; help
+            # (Priority order: take &gt; move &gt; use &gt; look &gt; talk &gt; drop &gt; inventory &gt; help)
             priority_order = [&#34;take&#34;, &#34;move&#34;, &#34;use&#34;, &#34;look&#34;, &#34;talk&#34;, &#34;drop&#34;, &#34;inventory&#34;, &#34;help&#34;]
 
             # Get action types for all matches
@@ -795,7 +798,7 @@ encapsulating requests as objects.</p>
 
         return None, first_word, tokens[1:]
 
-    def _suggest_command(self, word: str) -&gt; Optional[str]:
+    def _suggest_command(self, word: str) -&gt; str | None:
         &#34;&#34;&#34;
         Suggest a command based on fuzzy matching.
 
@@ -821,7 +824,7 @@ encapsulating requests as objects.</p>
 
         return matches[0] if matches else None
 
-    def _parse_move(self, command: str, tokens: list[str], scene: Optional[Scene]) -&gt; Action:
+    def _parse_move(self, command: str, tokens: list[str], scene: Scene | None) -&gt; Action:
         &#34;&#34;&#34;
         Parse a movement command.
 
@@ -864,7 +867,7 @@ encapsulating requests as objects.</p>
         # No context or no match, return as-is
         return MoveAction(direction=direction, raw_command=command)
 
-    def _parse_take(self, command: str, tokens: list[str], scene: Optional[Scene]) -&gt; Action:
+    def _parse_take(self, command: str, tokens: list[str], scene: Scene | None) -&gt; Action:
         &#34;&#34;&#34;
         Parse a take/get command.
 
@@ -897,9 +900,7 @@ encapsulating requests as objects.</p>
         # No context or no match, use the name as-is
         return TakeAction(item_id=item_name, raw_command=command)
 
-    def _parse_drop(
-        self, command: str, tokens: list[str], game_state: Optional[GameState]
-    ) -&gt; Action:
+    def _parse_drop(self, command: str, tokens: list[str], game_state: GameState | None) -&gt; Action:
         &#34;&#34;&#34;
         Parse a drop command.
 
@@ -940,8 +941,8 @@ encapsulating requests as objects.</p>
         self,
         command: str,
         tokens: list[str],
-        game_state: Optional[GameState],
-        scene: Optional[Scene],
+        game_state: GameState | None,
+        scene: Scene | None,
     ) -&gt; Action:
         &#34;&#34;&#34;
         Parse a use command.
@@ -1017,7 +1018,7 @@ encapsulating requests as objects.</p>
 
         return UseAction(item_id=item_id, target_id=target_id, raw_command=command)
 
-    def _parse_look(self, command: str, tokens: list[str], scene: Optional[Scene]) -&gt; Action:
+    def _parse_look(self, command: str, tokens: list[str], scene: Scene | None) -&gt; Action:
         &#34;&#34;&#34;
         Parse a look/examine command.
 
@@ -1068,7 +1069,7 @@ encapsulating requests as objects.</p>
 
         return LookAction(target=target_id, raw_command=command)
 
-    def _parse_talk(self, command: str, tokens: list[str], scene: Optional[Scene]) -&gt; Action:
+    def _parse_talk(self, command: str, tokens: list[str], scene: Scene | None) -&gt; Action:
         &#34;&#34;&#34;
         Parse a talk command.
 
@@ -1114,7 +1115,7 @@ encapsulating requests as objects.</p>
         found_about = False
 
         for i, token in enumerate(filtered_tokens):
-            if token == &#34;about&#34;:
+            if token == &#34;about&#34;:  # nosec B105
                 found_about = True
                 npc_tokens = filtered_tokens[:i]
                 topic_tokens = filtered_tokens[i + 1 :]
@@ -1136,7 +1137,7 @@ encapsulating requests as objects.</p>
 
         return TalkAction(npc_id=npc_id, topic=topic, raw_command=command)
 
-    def _find_item_in_scene(self, item_name: str, scene: Scene) -&gt; Optional[Item]:
+    def _find_item_in_scene(self, item_name: str, scene: Scene) -&gt; Item | None:
         &#34;&#34;&#34;
         Find an item in the scene by name or ID using fuzzy matching.
 
@@ -1188,7 +1189,7 @@ encapsulating requests as objects.</p>
 
         return None
 
-    def _find_npc_in_scene(self, npc_name: str, scene: Scene) -&gt; Optional[NPC]:
+    def _find_npc_in_scene(self, npc_name: str, scene: Scene) -&gt; NPC | None:
         &#34;&#34;&#34;
         Find an NPC in the scene by name or ID using fuzzy matching.
 
@@ -1272,7 +1273,7 @@ True
 <p>Initialize the command parser.</p></div>
 <h3>Class variables</h3>
 <dl>
-<dt id="space_hulk_game.engine.CommandParser.COMMANDS"><code class="name">var <span class="ident">COMMANDS</span> : dict[str, list[str]]</code></dt>
+<dt id="space_hulk_game.engine.CommandParser.COMMANDS"><code class="name">var <span class="ident">COMMANDS</span> : ClassVar[dict[str, list[str]]]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -1291,11 +1292,11 @@ True
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def parse(
+<pre><code class="python">def parse(  # noqa: PLR0911
     self,
     command: str,
-    game_state: Optional[GameState] = None,
-    current_scene: Optional[Scene] = None,
+    game_state: GameState | None = None,
+    current_scene: Scene | None = None,
 ) -&gt; Action:
     &#34;&#34;&#34;
     Parse a text command into an Action object.
@@ -1482,11 +1483,12 @@ True
         logger.info(f&#34;Loading game from directory: {output_dir}&#34;)
 
         # Load all YAML files
-        plot = self.load_yaml(os.path.join(output_dir, &#34;plot_outline.yaml&#34;))
-        narrative = self.load_yaml(os.path.join(output_dir, &#34;narrative_map.yaml&#34;))
-        puzzles = self.load_yaml(os.path.join(output_dir, &#34;puzzle_design.yaml&#34;))
-        scenes = self.load_yaml(os.path.join(output_dir, &#34;scene_texts.yaml&#34;))
-        mechanics = self.load_yaml(os.path.join(output_dir, &#34;prd_document.yaml&#34;))
+        base_path = Path(output_dir)
+        plot = self.load_yaml(str(base_path / &#34;plot_outline.yaml&#34;))
+        narrative = self.load_yaml(str(base_path / &#34;narrative_map.yaml&#34;))
+        puzzles = self.load_yaml(str(base_path / &#34;puzzle_design.yaml&#34;))
+        scenes = self.load_yaml(str(base_path / &#34;scene_texts.yaml&#34;))
+        mechanics = self.load_yaml(str(base_path / &#34;prd_document.yaml&#34;))
 
         logger.info(&#34;All YAML files loaded successfully&#34;)
 
@@ -1524,7 +1526,7 @@ True
         logger.debug(f&#34;Loading YAML file: {filepath}&#34;)
 
         # Check if file exists
-        if not os.path.exists(filepath):
+        if not Path(filepath).exists():
             error_msg = f&#34;File not found: {filepath}&#34;
             logger.error(error_msg)
             if self.strict_mode:
@@ -1535,7 +1537,7 @@ True
 
         try:
             # Read file content
-            with open(filepath, encoding=&#34;utf-8&#34;) as f:
+            with Path(filepath).open(encoding=&#34;utf-8&#34;) as f:
                 content = f.read()
 
             # Clean up markdown wrapping (common AI output issue)
@@ -2024,7 +2026,7 @@ True
 
         if starting_scene and starting_scene in scenes:
             logger.debug(f&#34;Found starting scene: {starting_scene}&#34;)
-            return starting_scene
+            return str(starting_scene)
 
         # Fall back to first scene or &#39;start&#39;
         if &#34;start&#34; in scenes:
@@ -2108,11 +2110,12 @@ If False, log warnings and use defaults.</dd>
     logger.info(f&#34;Loading game from directory: {output_dir}&#34;)
 
     # Load all YAML files
-    plot = self.load_yaml(os.path.join(output_dir, &#34;plot_outline.yaml&#34;))
-    narrative = self.load_yaml(os.path.join(output_dir, &#34;narrative_map.yaml&#34;))
-    puzzles = self.load_yaml(os.path.join(output_dir, &#34;puzzle_design.yaml&#34;))
-    scenes = self.load_yaml(os.path.join(output_dir, &#34;scene_texts.yaml&#34;))
-    mechanics = self.load_yaml(os.path.join(output_dir, &#34;prd_document.yaml&#34;))
+    base_path = Path(output_dir)
+    plot = self.load_yaml(str(base_path / &#34;plot_outline.yaml&#34;))
+    narrative = self.load_yaml(str(base_path / &#34;narrative_map.yaml&#34;))
+    puzzles = self.load_yaml(str(base_path / &#34;puzzle_design.yaml&#34;))
+    scenes = self.load_yaml(str(base_path / &#34;scene_texts.yaml&#34;))
+    mechanics = self.load_yaml(str(base_path / &#34;prd_document.yaml&#34;))
 
     logger.info(&#34;All YAML files loaded successfully&#34;)
 
@@ -2181,7 +2184,7 @@ True
     logger.debug(f&#34;Loading YAML file: {filepath}&#34;)
 
     # Check if file exists
-    if not os.path.exists(filepath):
+    if not Path(filepath).exists():
         error_msg = f&#34;File not found: {filepath}&#34;
         logger.error(error_msg)
         if self.strict_mode:
@@ -2192,7 +2195,7 @@ True
 
     try:
         # Read file content
-        with open(filepath, encoding=&#34;utf-8&#34;) as f:
+        with Path(filepath).open(encoding=&#34;utf-8&#34;) as f:
             content = f.read()
 
         # Clean up markdown wrapping (common AI output issue)
@@ -2479,7 +2482,7 @@ class Event:
     id: str
     description: str
     trigger_on_entry: bool = False
-    required_flag: Optional[str] = None
+    required_flag: str | None = None
     one_time: bool = True
     effects: dict[str, Any] = field(default_factory=dict)
     triggered: bool = False
@@ -2916,7 +2919,7 @@ class GameData:
         if self.starting_scene not in self.scenes:
             raise ValueError(f&#34;Starting scene &#39;{self.starting_scene}&#39; not found in scenes&#34;)
 
-    def get_scene(self, scene_id: str) -&gt; Optional[Scene]:
+    def get_scene(self, scene_id: str) -&gt; Scene | None:
         &#34;&#34;&#34;
         Get a scene by its ID.
 
@@ -2968,7 +2971,7 @@ class GameData:
         &#34;&#34;&#34;
         return scene_id in self.scenes
 
-    def get_item_definition(self, item_id: str) -&gt; Optional[Item]:
+    def get_item_definition(self, item_id: str) -&gt; Item | None:
         &#34;&#34;&#34;
         Get a global item definition by ID.
 
@@ -2995,7 +2998,7 @@ class GameData:
         &#34;&#34;&#34;
         return self.global_items.get(item_id)
 
-    def get_npc_definition(self, npc_id: str) -&gt; Optional[NPC]:
+    def get_npc_definition(self, npc_id: str) -&gt; NPC | None:
         &#34;&#34;&#34;
         Get a global NPC definition by ID.
 
@@ -3205,7 +3208,7 @@ False
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def get_item_definition(self, item_id: str) -&gt; Optional[Item]:
+<pre><code class="python">def get_item_definition(self, item_id: str) -&gt; Item | None:
     &#34;&#34;&#34;
     Get a global item definition by ID.
 
@@ -3264,7 +3267,7 @@ False
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def get_npc_definition(self, npc_id: str) -&gt; Optional[NPC]:
+<pre><code class="python">def get_npc_definition(self, npc_id: str) -&gt; NPC | None:
     &#34;&#34;&#34;
     Get a global NPC definition by ID.
 
@@ -3323,7 +3326,7 @@ False
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def get_scene(self, scene_id: str) -&gt; Optional[Scene]:
+<pre><code class="python">def get_scene(self, scene_id: str) -&gt; Scene | None:
     &#34;&#34;&#34;
     Get a scene by its ID.
 
@@ -4445,7 +4448,7 @@ True
         )
 
         logger.info(
-            f&#34;Validation complete: {len(result.issues)} issues, &#34; f&#34;{len(result.warnings)} warnings&#34;
+            f&#34;Validation complete: {len(result.issues)} issues, {len(result.warnings)} warnings&#34;
         )
 
         # If strict_mode is enabled, treat warnings as errors
@@ -4516,14 +4519,14 @@ True
         unreachable = set(game_data.scenes.keys()) - reachable
 
         if unreachable:
-            unreachable_list = sorted(list(unreachable))
+            unreachable_list = sorted(unreachable)
             result.add_issue(f&#34;Unreachable scenes: {&#39;, &#39;.join(unreachable_list)}&#34;)
 
             # Suggest connections
             for scene_id in unreachable_list:
                 # Find closest reachable scene (simple heuristic: first reachable)
                 if reachable:
-                    closest = sorted(list(reachable))[0]
+                    closest = sorted(reachable)[0]
                     result.add_suggestion(closest, f&#34;Add exit to unreachable scene &#39;{scene_id}&#39;&#34;)
 
     def _check_invalid_exits(self, game_data: GameData, result: ValidationResult) -&gt; None:
@@ -4567,7 +4570,7 @@ True
 
         dead_ends = []
         for scene_id, scene in game_data.scenes.items():
-            if not scene.exits:
+            if not scene.exits:  # noqa: SIM102
                 # Check if this is a valid ending scene
                 if scene_id not in valid_endings:
                     dead_ends.append(scene_id)
@@ -4616,7 +4619,7 @@ True
             for direction, required_item in scene.locked_exits.items():
                 # Could be an item or a flag
                 # Only check if it looks like an item (not a flag pattern)
-                if required_item and not required_item.startswith(&#34;flag_&#34;):
+                if required_item and not required_item.startswith(&#34;flag_&#34;):  # noqa: SIM102
                     if required_item not in all_items:
                         result.add_warning(
                             f&#34;Scene &#39;{scene_id}&#39; exit &#39;{direction}&#39; requires &#34;
@@ -4640,7 +4643,7 @@ True
         for npc_id, npc in game_data.global_npcs.items():
             if npc.gives_item and npc.gives_item not in all_items:
                 result.add_issue(
-                    f&#34;Global NPC &#39;{npc_id}&#39; gives item &#39;{npc.gives_item}&#39; &#34; f&#34;which does not exist&#34;
+                    f&#34;Global NPC &#39;{npc_id}&#39; gives item &#39;{npc.gives_item}&#39; which does not exist&#34;
                 )
 
     def _check_npc_dialogues(self, game_data: GameData, result: ValidationResult) -&gt; None:
@@ -4711,10 +4714,10 @@ True
             scene = game_data.scenes[scene_id]
             for direction, required in scene.locked_exits.items():
                 target = scene.exits.get(direction)
-                if target and target not in reachable:
+                if target and target not in reachable:  # noqa: SIM102
                     # This exit leads to unreachable area
                     # Check if required item exists
-                    if required not in obtainable_items:
+                    if required not in obtainable_items:  # noqa: SIM102
                         # Could be a flag, not necessarily an error
                         if not required.startswith(&#34;flag_&#34;):
                             result.add_warning(
@@ -4824,7 +4827,7 @@ True
     )
 
     logger.info(
-        f&#34;Validation complete: {len(result.issues)} issues, &#34; f&#34;{len(result.warnings)} warnings&#34;
+        f&#34;Validation complete: {len(result.issues)} issues, {len(result.warnings)} warnings&#34;
     )
 
     # If strict_mode is enabled, treat warnings as errors
@@ -5014,8 +5017,8 @@ class Item:
     description: str
     takeable: bool = False
     useable: bool = False
-    use_text: Optional[str] = None
-    required_flag: Optional[str] = None
+    use_text: str | None = None
+    required_flag: str | None = None
     effects: dict[str, Any] = field(default_factory=dict)
 
     def __post_init__(self):
@@ -5335,7 +5338,7 @@ class LookAction(Action):
         &#39;console&#39;
     &#34;&#34;&#34;
 
-    target: Optional[str] = None
+    target: str | None = None
 
     def __str__(self) -&gt; str:
         &#34;&#34;&#34;Return a string representation of the action.&#34;&#34;&#34;
@@ -5496,8 +5499,8 @@ class NPC:
     dialogue: dict[str, str] = field(default_factory=dict)
     hostile: bool = False
     health: int = 100
-    gives_item: Optional[str] = None
-    required_flag: Optional[str] = None
+    gives_item: str | None = None
+    required_flag: str | None = None
 
     def __post_init__(self):
         &#34;&#34;&#34;Validate the NPC after initialization.&#34;&#34;&#34;
@@ -5532,7 +5535,7 @@ class NPC:
             return game_flags.get(self.required_flag, False)
         return True
 
-    def get_dialogue(self, key: str, default: str = &#34;...&#34;) -&gt; str:
+    def get_dialogue(self, key: str, default: str | None = &#34;...&#34;) -&gt; str | None:
         &#34;&#34;&#34;
         Get dialogue text for a specific key.
 
@@ -5541,7 +5544,7 @@ class NPC:
             default: Default text if the key doesn&#39;t exist.
 
         Returns:
-            The dialogue text.
+            The dialogue text, or None if not found and default is None.
 
         Examples:
             &gt;&gt;&gt; npc = NPC(id=&#34;test&#34;, name=&#34;Test&#34;, description=&#34;Test&#34;,
@@ -5768,14 +5771,14 @@ True
 </code></pre></div>
 </dd>
 <dt id="space_hulk_game.engine.NPC.get_dialogue"><code class="name flex">
-<span>def <span class="ident">get_dialogue</span></span>(<span>self, key: str, default: str = '...') ‑> str</span>
+<span>def <span class="ident">get_dialogue</span></span>(<span>self, key: str, default: str | None = '...') ‑> str | None</span>
 </code></dt>
 <dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def get_dialogue(self, key: str, default: str = &#34;...&#34;) -&gt; str:
+<pre><code class="python">def get_dialogue(self, key: str, default: str | None = &#34;...&#34;) -&gt; str | None:
     &#34;&#34;&#34;
     Get dialogue text for a specific key.
 
@@ -5784,7 +5787,7 @@ True
         default: Default text if the key doesn&#39;t exist.
 
     Returns:
-        The dialogue text.
+        The dialogue text, or None if not found and default is None.
 
     Examples:
         &gt;&gt;&gt; npc = NPC(id=&#34;test&#34;, name=&#34;Test&#34;, description=&#34;Test&#34;,
@@ -5805,7 +5808,7 @@ True
 <dd>Default text if the key doesn't exist.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>The dialogue text.</p>
+<p>The dialogue text, or None if not found and default is None.</p>
 <h2 id="examples">Examples</h2>
 <pre><code class="language-python-repl">&gt;&gt;&gt; npc = NPC(id=&quot;test&quot;, name=&quot;Test&quot;, description=&quot;Test&quot;,
 ...           dialogue={&quot;hello&quot;: &quot;Greetings!&quot;})
@@ -5947,8 +5950,8 @@ False
         self,
         game_state: GameState,
         save_name: str,
-        scenes: dict[str, Scene] = None,
-        metadata: dict[str, Any] = None,
+        scenes: dict[str, Scene] | None = None,
+        metadata: dict[str, Any] | None = None,
     ) -&gt; None:
         &#34;&#34;&#34;
         Save a game state.
@@ -5982,7 +5985,7 @@ False
             save_data[&#34;scenes&#34;] = {scene_id: scene.to_dict() for scene_id, scene in scenes.items()}
 
         try:
-            with open(filepath, &#34;w&#34;, encoding=&#34;utf-8&#34;) as f:
+            with Path(filepath).open(&#34;w&#34;, encoding=&#34;utf-8&#34;) as f:
                 json.dump(save_data, f, indent=2, ensure_ascii=False)
 
             logger.info(f&#34;Game saved to: {filepath}&#34;)
@@ -6012,7 +6015,7 @@ False
         filepath = self.save_dir / save_name
 
         try:
-            with open(filepath, encoding=&#34;utf-8&#34;) as f:
+            with Path(filepath).open(encoding=&#34;utf-8&#34;) as f:
                 save_data = json.load(f)
 
             # Validate basic structure
@@ -6026,7 +6029,7 @@ False
             return game_state
 
         except FileNotFoundError:
-            raise PersistenceError(f&#34;Save file not found: {save_name}&#34;)
+            raise PersistenceError(f&#34;Save file not found: {save_name}&#34;) from None
         except Exception as e:
             error_msg = f&#34;Failed to load game: {e}&#34;
             logger.error(error_msg)
@@ -6255,7 +6258,7 @@ functions, managing save directory and file naming conventions.</p>
     filepath = self.save_dir / save_name
 
     try:
-        with open(filepath, encoding=&#34;utf-8&#34;) as f:
+        with Path(filepath).open(encoding=&#34;utf-8&#34;) as f:
             save_data = json.load(f)
 
         # Validate basic structure
@@ -6269,7 +6272,7 @@ functions, managing save directory and file naming conventions.</p>
         return game_state
 
     except FileNotFoundError:
-        raise PersistenceError(f&#34;Save file not found: {save_name}&#34;)
+        raise PersistenceError(f&#34;Save file not found: {save_name}&#34;) from None
     except Exception as e:
         error_msg = f&#34;Failed to load game: {e}&#34;
         logger.error(error_msg)
@@ -6290,7 +6293,7 @@ functions, managing save directory and file naming conventions.</p>
 </dl></div>
 </dd>
 <dt id="space_hulk_game.engine.SaveSystem.save"><code class="name flex">
-<span>def <span class="ident">save</span></span>(<span>self,<br>game_state: <a title="space_hulk_game.engine.game_state.GameState" href="game_state.html#space_hulk_game.engine.game_state.GameState">GameState</a>,<br>save_name: str,<br>scenes: dict[str, <a title="space_hulk_game.engine.scene.Scene" href="scene.html#space_hulk_game.engine.scene.Scene">Scene</a>] = None,<br>metadata: dict[str, typing.Any] = None) ‑> None</span>
+<span>def <span class="ident">save</span></span>(<span>self,<br>game_state: <a title="space_hulk_game.engine.game_state.GameState" href="game_state.html#space_hulk_game.engine.game_state.GameState">GameState</a>,<br>save_name: str,<br>scenes: dict[str, <a title="space_hulk_game.engine.scene.Scene" href="scene.html#space_hulk_game.engine.scene.Scene">Scene</a>] | None = None,<br>metadata: dict[str, typing.Any] | None = None) ‑> None</span>
 </code></dt>
 <dd>
 <details class="source">
@@ -6301,8 +6304,8 @@ functions, managing save directory and file naming conventions.</p>
     self,
     game_state: GameState,
     save_name: str,
-    scenes: dict[str, Scene] = None,
-    metadata: dict[str, Any] = None,
+    scenes: dict[str, Scene] | None = None,
+    metadata: dict[str, Any] | None = None,
 ) -&gt; None:
     &#34;&#34;&#34;
     Save a game state.
@@ -6336,7 +6339,7 @@ functions, managing save directory and file naming conventions.</p>
         save_data[&#34;scenes&#34;] = {scene_id: scene.to_dict() for scene_id, scene in scenes.items()}
 
     try:
-        with open(filepath, &#34;w&#34;, encoding=&#34;utf-8&#34;) as f:
+        with Path(filepath).open(&#34;w&#34;, encoding=&#34;utf-8&#34;) as f:
             json.dump(save_data, f, indent=2, ensure_ascii=False)
 
         logger.info(f&#34;Game saved to: {filepath}&#34;)
@@ -6520,7 +6523,7 @@ class Scene:
 
     def can_exit(
         self, direction: str, inventory: list[str], game_flags: dict[str, bool]
-    ) -&gt; tuple[bool, Optional[str]]:
+    ) -&gt; tuple[bool, str | None]:
         &#34;&#34;&#34;
         Check if the player can use a specific exit.
 
@@ -6566,7 +6569,7 @@ class Scene:
 
         return True, None
 
-    def get_item(self, item_id: str) -&gt; Optional[Item]:
+    def get_item(self, item_id: str) -&gt; Item | None:
         &#34;&#34;&#34;
         Get an item from the scene by ID.
 
@@ -6641,7 +6644,7 @@ class Scene:
         &#34;&#34;&#34;
         self.items.append(item)
 
-    def get_npc(self, npc_id: str) -&gt; Optional[NPC]:
+    def get_npc(self, npc_id: str) -&gt; NPC | None:
         &#34;&#34;&#34;
         Get an NPC from the scene by ID.
 
@@ -6951,7 +6954,7 @@ Players navigate between scenes to progress through the story.</p>
 </summary>
 <pre><code class="python">def can_exit(
     self, direction: str, inventory: list[str], game_flags: dict[str, bool]
-) -&gt; tuple[bool, Optional[str]]:
+) -&gt; tuple[bool, str | None]:
     &#34;&#34;&#34;
     Check if the player can use a specific exit.
 
@@ -7205,7 +7208,7 @@ True
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def get_item(self, item_id: str) -&gt; Optional[Item]:
+<pre><code class="python">def get_item(self, item_id: str) -&gt; Item | None:
     &#34;&#34;&#34;
     Get an item from the scene by ID.
 
@@ -7263,7 +7266,7 @@ True
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def get_npc(self, npc_id: str) -&gt; Optional[NPC]:
+<pre><code class="python">def get_npc(self, npc_id: str) -&gt; NPC | None:
     &#34;&#34;&#34;
     Get an NPC from the scene by ID.
 
@@ -7551,7 +7554,7 @@ class TalkAction(Action):
     &#34;&#34;&#34;
 
     npc_id: str = &#34;&#34;
-    topic: Optional[str] = None
+    topic: str | None = None
 
     def __str__(self) -&gt; str:
         &#34;&#34;&#34;Return a string representation of the action.&#34;&#34;&#34;
@@ -7596,7 +7599,7 @@ class TalkAction(Action):
 </dd>
 <dt id="space_hulk_game.engine.TextAdventureEngine"><code class="flex name class">
 <span>class <span class="ident">TextAdventureEngine</span></span>
-<span>(</span><span>game_state: <a title="space_hulk_game.engine.game_state.GameState" href="game_state.html#space_hulk_game.engine.game_state.GameState">GameState</a>,<br>scenes: dict[str, <a title="space_hulk_game.engine.scene.Scene" href="scene.html#space_hulk_game.engine.scene.Scene">Scene</a>],<br>input_func: Callable[[], str] | None = None,<br>output_func: Callable[[str], None] | None = None,<br>victory_conditions: set | None = None,<br>defeat_conditions: set | None = None)</span>
+<span>(</span><span>game_state: <a title="space_hulk_game.engine.game_state.GameState" href="game_state.html#space_hulk_game.engine.game_state.GameState">GameState</a>,<br>scenes: dict[str, <a title="space_hulk_game.engine.scene.Scene" href="scene.html#space_hulk_game.engine.scene.Scene">Scene</a>],<br>input_func: collections.abc.Callable[[], str] | None = None,<br>output_func: collections.abc.Callable[[str], None] | None = None,<br>victory_conditions: set | None = None,<br>defeat_conditions: set | None = None)</span>
 </code></dt>
 <dd>
 <details class="source">
@@ -7654,10 +7657,10 @@ class TalkAction(Action):
         self,
         game_state: GameState,
         scenes: dict[str, Scene],
-        input_func: Optional[Callable[[], str]] = None,
-        output_func: Optional[Callable[[str], None]] = None,
-        victory_conditions: Optional[set] = None,
-        defeat_conditions: Optional[set] = None,
+        input_func: Callable[[], str] | None = None,
+        output_func: Callable[[str], None] | None = None,
+        victory_conditions: set | None = None,
+        defeat_conditions: set | None = None,
     ):
         &#34;&#34;&#34;
         Initialize the text adventure engine.
@@ -7906,7 +7909,7 @@ class TalkAction(Action):
         self._output(f&#34;\nYou drop the {item.name}.\n&#34;)
         logger.info(f&#34;Dropped item: {item_id}&#34;)
 
-    def handle_use(self, item_id: str, target_id: Optional[str] = None) -&gt; None:
+    def handle_use(self, item_id: str, target_id: str | None = None) -&gt; None:  # noqa: PLR0915
         &#34;&#34;&#34;
         Handle using an item.
 
@@ -7960,7 +7963,7 @@ class TalkAction(Action):
         # Handle unlock effect
         if &#34;unlock&#34; in item.effects:
             current_scene = self.scenes[self.game_state.current_scene]
-            unlock_target = item.effects[&#34;unlock&#34;]
+            item.effects[&#34;unlock&#34;]
 
             # Try to unlock the specified exit or any locked exit that requires this item
             unlocked = False
@@ -8002,7 +8005,7 @@ class TalkAction(Action):
             self._output(f&#34;\nYou use the {item.name}. Nothing happens.\n&#34;)
             logger.debug(f&#34;Used item with no effects: {item_id}&#34;)
 
-    def handle_look(self, target: Optional[str] = None) -&gt; None:
+    def handle_look(self, target: str | None = None) -&gt; None:
         &#34;&#34;&#34;
         Handle examining the scene or an object.
 
@@ -8035,7 +8038,7 @@ class TalkAction(Action):
         self._output(f&#34;\nYou don&#39;t see &#39;{target}&#39; here.\n&#34;)
         logger.debug(f&#34;Target not found: {target}&#34;)
 
-    def handle_talk(self, npc_id: str, topic: Optional[str] = None) -&gt; None:
+    def handle_talk(self, npc_id: str, topic: str | None = None) -&gt; None:
         &#34;&#34;&#34;
         Handle talking to an NPC.
 
@@ -8561,7 +8564,7 @@ Tips:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def handle_look(self, target: Optional[str] = None) -&gt; None:
+<pre><code class="python">def handle_look(self, target: str | None = None) -&gt; None:
     &#34;&#34;&#34;
     Handle examining the scene or an object.
 
@@ -8712,7 +8715,7 @@ Tips:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def handle_talk(self, npc_id: str, topic: Optional[str] = None) -&gt; None:
+<pre><code class="python">def handle_talk(self, npc_id: str, topic: str | None = None) -&gt; None:
     &#34;&#34;&#34;
     Handle talking to an NPC.
 
@@ -8772,7 +8775,7 @@ Tips:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def handle_use(self, item_id: str, target_id: Optional[str] = None) -&gt; None:
+<pre><code class="python">def handle_use(self, item_id: str, target_id: str | None = None) -&gt; None:  # noqa: PLR0915
     &#34;&#34;&#34;
     Handle using an item.
 
@@ -8826,7 +8829,7 @@ Tips:
     # Handle unlock effect
     if &#34;unlock&#34; in item.effects:
         current_scene = self.scenes[self.game_state.current_scene]
-        unlock_target = item.effects[&#34;unlock&#34;]
+        item.effects[&#34;unlock&#34;]
 
         # Try to unlock the specified exit or any locked exit that requires this item
         unlocked = False
@@ -8994,7 +8997,7 @@ class UnknownAction(Action):
         &#39;examine&#39;
     &#34;&#34;&#34;
 
-    suggestion: Optional[str] = None
+    suggestion: str | None = None
 
     def __str__(self) -&gt; str:
         &#34;&#34;&#34;Return a string representation of the action.&#34;&#34;&#34;
@@ -9057,7 +9060,7 @@ class UseAction(Action):
     &#34;&#34;&#34;
 
     item_id: str = &#34;&#34;
-    target_id: Optional[str] = None
+    target_id: str | None = None
 
     def __str__(self) -&gt; str:
         &#34;&#34;&#34;Return a string representation of the action.&#34;&#34;&#34;

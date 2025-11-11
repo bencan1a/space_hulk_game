@@ -60,11 +60,14 @@ el.replaceWith(d);
     description: str = &#34;Clear description for what this tool is useful for, your agent will need this information to use it.&#34;
     args_schema: type[BaseModel] = MyCustomToolInput
 
-    def _run(self, argument: str) -&gt; str:
+    def _run(self, argument: str) -&gt; str:  # noqa: ARG002
         # Implementation goes here
         return &#34;this is an example of a tool output, ignore it and move along.&#34;</code></pre>
 </details>
-<div class="desc"><p>Usage docs: <a href="https://docs.pydantic.dev/2.10/concepts/models/">https://docs.pydantic.dev/2.10/concepts/models/</a></p>
+<div class="desc"><div class="admonition abstract">
+<p class="admonition-title">Usage Documentation</p>
+<p><a href="../concepts/models.md">Models</a></p>
+</div>
 <p>A base class for creating Pydantic models.</p>
 <h2 id="attributes">Attributes</h2>
 <dl>

@@ -202,7 +202,7 @@ class MechanicsMetrics:
         for key, value in systems.items():
             if system_name.lower() in key.lower():
                 return True
-            if isinstance(value, str) and system_name.lower() in value.lower():
+            if isinstance(value, str) and system_name.lower() in value.lower():  # noqa: SIM102
                 # System mentioned in description
                 if len(value) &gt;= 50:  # Substantial mention
                     return True
@@ -242,13 +242,12 @@ class MechanicsMetrics:
             &#34;environment&#34;,
         ]
 
-        for key in systems.keys():
+        for key, value in systems.items():
             # Check if key contains a system keyword
             key_lower = key.lower()
-            if any(keyword in key_lower for keyword in system_keywords):
-                count += 1
-            # Or if it&#39;s a substantial section
-            elif isinstance(systems[key], (dict, list)):
+            if any(keyword in key_lower for keyword in system_keywords) or isinstance(
+                value, dict | list
+            ):
                 count += 1
 
         return count
@@ -268,7 +267,7 @@ class MechanicsMetrics:
         clarity_scores = []
 
         for _key, value in systems.items():
-            if not isinstance(value, (dict, str)):
+            if not isinstance(value, dict | str):
                 continue
 
             # Analyze this system
@@ -370,7 +369,7 @@ class MechanicsMetrics:
 
         if self.total_systems &lt; self.min_systems:
             failures.append(
-                f&#34;Insufficient game systems: {self.total_systems} &#34; f&#34;(minimum: {self.min_systems})&#34;
+                f&#34;Insufficient game systems: {self.total_systems} (minimum: {self.min_systems})&#34;
             )
 
         if self.completeness_percentage &lt; self.min_completeness:
@@ -583,7 +582,7 @@ class MechanicsMetrics:
 
     if self.total_systems &lt; self.min_systems:
         failures.append(
-            f&#34;Insufficient game systems: {self.total_systems} &#34; f&#34;(minimum: {self.min_systems})&#34;
+            f&#34;Insufficient game systems: {self.total_systems} (minimum: {self.min_systems})&#34;
         )
 
     if self.completeness_percentage &lt; self.min_completeness:

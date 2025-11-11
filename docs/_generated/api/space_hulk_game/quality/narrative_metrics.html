@@ -283,7 +283,7 @@ class NarrativeMetrics:
 
         if self.total_scenes &lt; self.min_scenes:
             failures.append(
-                f&#34;Insufficient scenes: {self.total_scenes} &#34; f&#34;(minimum: {self.min_scenes})&#34;
+                f&#34;Insufficient scenes: {self.total_scenes} (minimum: {self.min_scenes})&#34;
             )
 
         if self.completeness_percentage &lt; self.min_completeness:
@@ -467,7 +467,7 @@ class NarrativeMetrics:
 
     if self.total_scenes &lt; self.min_scenes:
         failures.append(
-            f&#34;Insufficient scenes: {self.total_scenes} &#34; f&#34;(minimum: {self.min_scenes})&#34;
+            f&#34;Insufficient scenes: {self.total_scenes} (minimum: {self.min_scenes})&#34;
         )
 
     if self.completeness_percentage &lt; self.min_completeness:

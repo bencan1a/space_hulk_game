@@ -70,7 +70,7 @@ play_game</p>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def main(args: Optional[list[str]] = None) -&gt; int:
+<pre><code class="python">def main(args: list[str] | None = None) -&gt; int:
     &#34;&#34;&#34;
     Main entry point for the demo game.
 
@@ -389,8 +389,8 @@ def warning(text: str) -&gt; str:
 
     def __init__(
         self,
-        game_dir: Optional[str] = None,
-        save_dir: Optional[str] = None,
+        game_dir: str | None = None,
+        save_dir: str | None = None,
     ):
         &#34;&#34;&#34;
         Initialize the demo game CLI.
@@ -419,14 +419,16 @@ def warning(text: str) -&gt; str:
         self.formatter = ColorFormatter()
 
         # Game state (initialized later)
-        self.engine: Optional[TextAdventureEngine] = None
-        self.game_data: Optional[GameData] = None
+        self.engine: TextAdventureEngine | None = None
+        self.game_data: GameData | None = None
 
         logger.info(f&#34;DemoGameCLI initialized (game_dir={self.game_dir})&#34;)
 
     def clear_screen(self) -&gt; None:
         &#34;&#34;&#34;Clear the terminal screen.&#34;&#34;&#34;
-        os.system(&#34;cls&#34; if os.name == &#34;nt&#34; else &#34;clear&#34;)
+        import subprocess  # nosec B404
+
+        subprocess.call(&#34;cls&#34; if os.name == &#34;nt&#34; else &#34;clear&#34;, shell=True)  # nosec B602
 
     def print_title_screen(self) -&gt; None:
         &#34;&#34;&#34;Display the ASCII art title screen.&#34;&#34;&#34;
@@ -557,12 +559,15 @@ def warning(text: str) -&gt; str:
         self.print_separator()
 
         # Load game data if not already loaded
-        if self.game_data is None:
-            if not self.load_game_data():
-                return False
+        if self.game_data is None and not self.load_game_data():
+            return False
 
         # Create initial game state
         try:
+            if self.game_data is None:
+                print(self.formatter.warning(&#34;\n✗ Error: Game data not loaded&#34;))
+                return False
+
             initial_state = GameState(
                 current_scene=self.game_data.starting_scene,
                 visited_scenes={self.game_data.starting_scene},
@@ -594,7 +599,7 @@ def warning(text: str) -&gt; str:
             logger.exception(&#34;Failed to start new game&#34;)
             return False
 
-    def show_save_menu(self) -&gt; Optional[str]:
+    def show_save_menu(self) -&gt; str | None:
         &#34;&#34;&#34;
         Show save game menu and get save slot.
 
@@ -610,18 +615,18 @@ def warning(text: str) -&gt; str:
         saves = self.save_system.list_saves()
         if saves:
             print(self.formatter.system(&#34;\nExisting saves:&#34;))
-            for i, save_name in enumerate(saves, 1):
-                print(f&#34;  {i}. {save_name}&#34;)
+            for i, save_item in enumerate(saves, 1):
+                print(f&#34;  {i}. {save_item}&#34;)
             print()
 
-        save_name = input(self.formatter.prompt(&#34;Enter save name (or &#39;cancel&#39;): &#34;)).strip()
+        save_name = str(input(self.formatter.prompt(&#34;Enter save name (or &#39;cancel&#39;): &#34;)).strip())
 
         if save_name.lower() in [&#34;cancel&#34;, &#34;c&#34;, &#34;&#34;]:
             return None
 
         return save_name
 
-    def show_load_menu(self) -&gt; Optional[str]:
+    def show_load_menu(self) -&gt; str | None:
         &#34;&#34;&#34;
         Show load game menu and get save slot.
 
@@ -645,7 +650,9 @@ def warning(text: str) -&gt; str:
             print(f&#34;  {i}. {save_name}&#34;)
         print()
 
-        choice = input(self.formatter.prompt(&#34;Enter save number or name (or &#39;cancel&#39;): &#34;)).strip()
+        choice = str(
+            input(self.formatter.prompt(&#34;Enter save number or name (or &#39;cancel&#39;): &#34;)).strip()
+        )
 
         if choice.lower() in [&#34;cancel&#34;, &#34;c&#34;, &#34;&#34;]:
             return None
@@ -654,7 +661,7 @@ def warning(text: str) -&gt; str:
         if choice.isdigit():
             idx = int(choice) - 1
             if 0 &lt;= idx &lt; len(saves):
-                return saves[idx]
+                return str(saves[idx])
 
         # Handle name choice
         if choice in saves:
@@ -677,15 +684,18 @@ def warning(text: str) -&gt; str:
 
         try:
             # Load game data if not already loaded
-            if self.game_data is None:
-                if not self.load_game_data():
-                    return False
+            if self.game_data is None and not self.load_game_data():
+                return False
 
             # Load saved state
             print(self.formatter.system(f&#34;\nLoading save: {save_name}...&#34;))
             saved_state = self.save_system.load(save_name)
 
             # Create engine with loaded state
+            if self.game_data is None:
+                print(self.formatter.warning(&#34;\n✗ Error: Game data not loaded&#34;))
+                return False
+
             # Extract victory/defeat conditions from game_rules if available
             victory_conditions = set()
             defeat_conditions = set()
@@ -759,11 +769,17 @@ def warning(text: str) -&gt; str:
             print(self.formatter.warning(&#34;\nNo game loaded!&#34;))
             return
 
+        if self.game_data is None:
+            print(self.formatter.warning(&#34;\nNo game data loaded!&#34;))
+            return
+
         # Override some engine output for better formatting
         original_display_welcome = self.engine._display_welcome
 
         def custom_welcome():
             &#34;&#34;&#34;Custom welcome message.&#34;&#34;&#34;
+            if self.game_data is None:
+                return
             print()
             self.print_separator()
             print(self.formatter.title(f&#34;\n    {self.game_data.title}&#34;))
@@ -772,7 +788,7 @@ def warning(text: str) -&gt; str:
             self.print_separator()
             print()
 
-        self.engine._display_welcome = custom_welcome
+        self.engine._display_welcome = custom_welcome  # type: ignore[method-assign]
 
         # Intercept save commands
         original_input = self.engine.input_func
@@ -797,7 +813,7 @@ def warning(text: str) -&gt; str:
             logger.exception(&#34;Game loop error&#34;)
         finally:
             # Restore original functions
-            self.engine._display_welcome = original_display_welcome
+            self.engine._display_welcome = original_display_welcome  # type: ignore[method-assign]
             self.engine.input_func = original_input
 
     def run(self) -&gt; int:
@@ -907,7 +923,9 @@ Defaults to "saves/" in current directory.</dd>
 </summary>
 <pre><code class="python">def clear_screen(self) -&gt; None:
     &#34;&#34;&#34;Clear the terminal screen.&#34;&#34;&#34;
-    os.system(&#34;cls&#34; if os.name == &#34;nt&#34; else &#34;clear&#34;)</code></pre>
+    import subprocess  # nosec B404
+
+    subprocess.call(&#34;cls&#34; if os.name == &#34;nt&#34; else &#34;clear&#34;, shell=True)  # nosec B602</code></pre>
 </details>
 <div class="desc"><p>Clear the terminal screen.</p></div>
 </dd>
@@ -993,15 +1011,18 @@ Defaults to "saves/" in current directory.</dd>
 
     try:
         # Load game data if not already loaded
-        if self.game_data is None:
-            if not self.load_game_data():
-                return False
+        if self.game_data is None and not self.load_game_data():
+            return False
 
         # Load saved state
         print(self.formatter.system(f&#34;\nLoading save: {save_name}...&#34;))
         saved_state = self.save_system.load(save_name)
 
         # Create engine with loaded state
+        if self.game_data is None:
+            print(self.formatter.warning(&#34;\n✗ Error: Game data not loaded&#34;))
+            return False
+
         # Extract victory/defeat conditions from game_rules if available
         victory_conditions = set()
         defeat_conditions = set()
@@ -1147,11 +1168,17 @@ shows the main menu, and handles user choices.</p>
         print(self.formatter.warning(&#34;\nNo game loaded!&#34;))
         return
 
+    if self.game_data is None:
+        print(self.formatter.warning(&#34;\nNo game data loaded!&#34;))
+        return
+
     # Override some engine output for better formatting
     original_display_welcome = self.engine._display_welcome
 
     def custom_welcome():
         &#34;&#34;&#34;Custom welcome message.&#34;&#34;&#34;
+        if self.game_data is None:
+            return
         print()
         self.print_separator()
         print(self.formatter.title(f&#34;\n    {self.game_data.title}&#34;))
@@ -1160,7 +1187,7 @@ shows the main menu, and handles user choices.</p>
         self.print_separator()
         print()
 
-    self.engine._display_welcome = custom_welcome
+    self.engine._display_welcome = custom_welcome  # type: ignore[method-assign]
 
     # Intercept save commands
     original_input = self.engine.input_func
@@ -1185,7 +1212,7 @@ shows the main menu, and handles user choices.</p>
         logger.exception(&#34;Game loop error&#34;)
     finally:
         # Restore original functions
-        self.engine._display_welcome = original_display_welcome
+        self.engine._display_welcome = original_display_welcome  # type: ignore[method-assign]
         self.engine.input_func = original_input</code></pre>
 </details>
 <div class="desc"><p>Run the main game loop with custom handling.</p></div>
@@ -1273,7 +1300,7 @@ shows the main menu, and handles user choices.</p>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def show_load_menu(self) -&gt; Optional[str]:
+<pre><code class="python">def show_load_menu(self) -&gt; str | None:
     &#34;&#34;&#34;
     Show load game menu and get save slot.
 
@@ -1297,7 +1324,9 @@ shows the main menu, and handles user choices.</p>
         print(f&#34;  {i}. {save_name}&#34;)
     print()
 
-    choice = input(self.formatter.prompt(&#34;Enter save number or name (or &#39;cancel&#39;): &#34;)).strip()
+    choice = str(
+        input(self.formatter.prompt(&#34;Enter save number or name (or &#39;cancel&#39;): &#34;)).strip()
+    )
 
     if choice.lower() in [&#34;cancel&#34;, &#34;c&#34;, &#34;&#34;]:
         return None
@@ -1306,7 +1335,7 @@ shows the main menu, and handles user choices.</p>
     if choice.isdigit():
         idx = int(choice) - 1
         if 0 &lt;= idx &lt; len(saves):
-            return saves[idx]
+            return str(saves[idx])
 
     # Handle name choice
     if choice in saves:
@@ -1359,7 +1388,7 @@ shows the main menu, and handles user choices.</p>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def show_save_menu(self) -&gt; Optional[str]:
+<pre><code class="python">def show_save_menu(self) -&gt; str | None:
     &#34;&#34;&#34;
     Show save game menu and get save slot.
 
@@ -1375,11 +1404,11 @@ shows the main menu, and handles user choices.</p>
     saves = self.save_system.list_saves()
     if saves:
         print(self.formatter.system(&#34;\nExisting saves:&#34;))
-        for i, save_name in enumerate(saves, 1):
-            print(f&#34;  {i}. {save_name}&#34;)
+        for i, save_item in enumerate(saves, 1):
+            print(f&#34;  {i}. {save_item}&#34;)
         print()
 
-    save_name = input(self.formatter.prompt(&#34;Enter save name (or &#39;cancel&#39;): &#34;)).strip()
+    save_name = str(input(self.formatter.prompt(&#34;Enter save name (or &#39;cancel&#39;): &#34;)).strip())
 
     if save_name.lower() in [&#34;cancel&#34;, &#34;c&#34;, &#34;&#34;]:
         return None
@@ -1411,12 +1440,15 @@ shows the main menu, and handles user choices.</p>
     self.print_separator()
 
     # Load game data if not already loaded
-    if self.game_data is None:
-        if not self.load_game_data():
-            return False
+    if self.game_data is None and not self.load_game_data():
+        return False
 
     # Create initial game state
     try:
+        if self.game_data is None:
+            print(self.formatter.warning(&#34;\n✗ Error: Game data not loaded&#34;))
+            return False
+
         initial_state = GameState(
             current_scene=self.game_data.starting_scene,
             visited_scenes={self.game_data.starting_scene},

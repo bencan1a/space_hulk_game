@@ -326,7 +326,7 @@ game content, including plot outlines, narrative maps, puzzles, scenes, and mech
     Returns:
         Default TaskExecutor instance
     &#34;&#34;&#34;
-    global _default_executor
+    global _default_executor  # noqa: PLW0603
     if _default_executor is None:
         _default_executor = TaskExecutor()
     return _default_executor</code></pre>
@@ -882,7 +882,7 @@ class MechanicsMetrics:
         for key, value in systems.items():
             if system_name.lower() in key.lower():
                 return True
-            if isinstance(value, str) and system_name.lower() in value.lower():
+            if isinstance(value, str) and system_name.lower() in value.lower():  # noqa: SIM102
                 # System mentioned in description
                 if len(value) &gt;= 50:  # Substantial mention
                     return True
@@ -922,13 +922,12 @@ class MechanicsMetrics:
             &#34;environment&#34;,
         ]
 
-        for key in systems.keys():
+        for key, value in systems.items():
             # Check if key contains a system keyword
             key_lower = key.lower()
-            if any(keyword in key_lower for keyword in system_keywords):
-                count += 1
-            # Or if it&#39;s a substantial section
-            elif isinstance(systems[key], (dict, list)):
+            if any(keyword in key_lower for keyword in system_keywords) or isinstance(
+                value, dict | list
+            ):
                 count += 1
 
         return count
@@ -948,7 +947,7 @@ class MechanicsMetrics:
         clarity_scores = []
 
         for _key, value in systems.items():
-            if not isinstance(value, (dict, str)):
+            if not isinstance(value, dict | str):
                 continue
 
             # Analyze this system
@@ -1050,7 +1049,7 @@ class MechanicsMetrics:
 
         if self.total_systems &lt; self.min_systems:
             failures.append(
-                f&#34;Insufficient game systems: {self.total_systems} &#34; f&#34;(minimum: {self.min_systems})&#34;
+                f&#34;Insufficient game systems: {self.total_systems} (minimum: {self.min_systems})&#34;
             )
 
         if self.completeness_percentage &lt; self.min_completeness:
@@ -1263,7 +1262,7 @@ class MechanicsMetrics:
 
     if self.total_systems &lt; self.min_systems:
         failures.append(
-            f&#34;Insufficient game systems: {self.total_systems} &#34; f&#34;(minimum: {self.min_systems})&#34;
+            f&#34;Insufficient game systems: {self.total_systems} (minimum: {self.min_systems})&#34;
         )
 
     if self.completeness_percentage &lt; self.min_completeness:
@@ -2005,7 +2004,7 @@ class NarrativeMetrics:
 
         if self.total_scenes &lt; self.min_scenes:
             failures.append(
-                f&#34;Insufficient scenes: {self.total_scenes} &#34; f&#34;(minimum: {self.min_scenes})&#34;
+                f&#34;Insufficient scenes: {self.total_scenes} (minimum: {self.min_scenes})&#34;
             )
 
         if self.completeness_percentage &lt; self.min_completeness:
@@ -2189,7 +2188,7 @@ class NarrativeMetrics:
 
     if self.total_scenes &lt; self.min_scenes:
         failures.append(
-            f&#34;Insufficient scenes: {self.total_scenes} &#34; f&#34;(minimum: {self.min_scenes})&#34;
+            f&#34;Insufficient scenes: {self.total_scenes} (minimum: {self.min_scenes})&#34;
         )
 
     if self.completeness_percentage &lt; self.min_completeness:
@@ -2834,7 +2833,7 @@ class PlotMetrics:
         metrics.has_prologue = &#34;prologue&#34; in plot
 
         # Check for acts (act1, act2, act3, etc.)
-        metrics.has_acts = any(key.startswith(&#34;act&#34;) for key in plot.keys())
+        metrics.has_acts = any(key.startswith(&#34;act&#34;) for key in plot)
 
         # Calculate word count
         metrics.word_count = cls._calculate_word_count(data)
@@ -2896,19 +2895,14 @@ class PlotMetrics:
         &#34;&#34;&#34;
         # Check for explicit endings section
         endings = data.get(&#34;endings&#34;)
-        if endings:
-            if isinstance(endings, list):
-                return len(endings)
-            elif isinstance(endings, dict):
-                return len(endings)
+        if endings and isinstance(endings, dict | list):
+            return len(endings)
 
         # Check within plot structure
         plot = data.get(&#34;plot&#34;, {})
         if &#34;endings&#34; in plot:
             endings = plot[&#34;endings&#34;]
-            if isinstance(endings, list):
-                return len(endings)
-            elif isinstance(endings, dict):
+            if isinstance(endings, dict | list):
                 return len(endings)
 
         # Count ending-related mentions
@@ -2974,7 +2968,7 @@ class PlotMetrics:
 
         if self.endings_count &lt; self.min_endings:
             failures.append(
-                f&#34;Insufficient endings: {self.endings_count} &#34; f&#34;(minimum: {self.min_endings})&#34;
+                f&#34;Insufficient endings: {self.endings_count} (minimum: {self.min_endings})&#34;
             )
 
         if not self.themes_defined:
@@ -2982,7 +2976,7 @@ class PlotMetrics:
 
         if self.word_count &lt; self.min_word_count:
             failures.append(
-                f&#34;Word count too low: {self.word_count} &#34; f&#34;(minimum: {self.min_word_count})&#34;
+                f&#34;Word count too low: {self.word_count} (minimum: {self.min_word_count})&#34;
             )
 
         return failures
@@ -3167,7 +3161,7 @@ class PlotMetrics:
 
     if self.endings_count &lt; self.min_endings:
         failures.append(
-            f&#34;Insufficient endings: {self.endings_count} &#34; f&#34;(minimum: {self.min_endings})&#34;
+            f&#34;Insufficient endings: {self.endings_count} (minimum: {self.min_endings})&#34;
         )
 
     if not self.themes_defined:
@@ -3175,7 +3169,7 @@ class PlotMetrics:
 
     if self.word_count &lt; self.min_word_count:
         failures.append(
-            f&#34;Word count too low: {self.word_count} &#34; f&#34;(minimum: {self.min_word_count})&#34;
+            f&#34;Word count too low: {self.word_count} (minimum: {self.min_word_count})&#34;
         )
 
     return failures</code></pre>
@@ -3818,10 +3812,7 @@ class PuzzleMetrics:
             return True
 
         # Check for location or scene references
-        if puzzle.get(&#34;location&#34;) or puzzle.get(&#34;scene&#34;):
-            return True
-
-        return False
+        return bool(puzzle.get(&#34;location&#34;) or puzzle.get(&#34;scene&#34;))
 
     @staticmethod
     def _has_difficulty(puzzle: dict[str, Any]) -&gt; bool:
@@ -3835,11 +3826,7 @@ class PuzzleMetrics:
             True if difficulty is stated
         &#34;&#34;&#34;
         difficulty_fields = [&#34;difficulty&#34;, &#34;challenge_level&#34;, &#34;complexity&#34;]
-        for field in difficulty_fields:
-            if puzzle.get(field):
-                return True
-
-        return False
+        return any(puzzle.get(field) for field in difficulty_fields)
 
     def passes_threshold(self) -&gt; bool:
         &#34;&#34;&#34;
@@ -3868,7 +3855,7 @@ class PuzzleMetrics:
 
         if self.total_puzzles &lt; self.min_puzzles:
             failures.append(
-                f&#34;Insufficient puzzles: {self.total_puzzles} &#34; f&#34;(minimum: {self.min_puzzles})&#34;
+                f&#34;Insufficient puzzles: {self.total_puzzles} (minimum: {self.min_puzzles})&#34;
             )
 
         solution_percentage = 0.0
@@ -3881,12 +3868,11 @@ class PuzzleMetrics:
                 f&#34;(minimum: {self.min_solution_percentage}%)&#34;
             )
 
-        # Warnings (not failures)
         if self.total_puzzles &gt; 0:
             narrative_percentage = (self.puzzles_with_narrative_ties / self.total_puzzles) * 100.0
             if narrative_percentage &lt; 50.0:
                 failures.append(
-                    f&#34;Warning: Only {narrative_percentage:.1f}% of puzzles &#34; f&#34;have narrative ties&#34;
+                    f&#34;Warning: Only {narrative_percentage:.1f}% of puzzles have narrative ties&#34;
                 )
 
         return failures
@@ -4056,7 +4042,7 @@ class PuzzleMetrics:
 
     if self.total_puzzles &lt; self.min_puzzles:
         failures.append(
-            f&#34;Insufficient puzzles: {self.total_puzzles} &#34; f&#34;(minimum: {self.min_puzzles})&#34;
+            f&#34;Insufficient puzzles: {self.total_puzzles} (minimum: {self.min_puzzles})&#34;
         )
 
     solution_percentage = 0.0
@@ -4069,12 +4055,11 @@ class PuzzleMetrics:
             f&#34;(minimum: {self.min_solution_percentage}%)&#34;
         )
 
-    # Warnings (not failures)
     if self.total_puzzles &gt; 0:
         narrative_percentage = (self.puzzles_with_narrative_ties / self.total_puzzles) * 100.0
         if narrative_percentage &lt; 50.0:
             failures.append(
-                f&#34;Warning: Only {narrative_percentage:.1f}% of puzzles &#34; f&#34;have narrative ties&#34;
+                f&#34;Warning: Only {narrative_percentage:.1f}% of puzzles have narrative ties&#34;
             )
 
     return failures</code></pre>
@@ -4235,10 +4220,10 @@ class PuzzleMetrics:
             config_path = module_dir / &#34;config&#34; / &#34;quality_config.yaml&#34;
 
         try:
-            with open(config_path) as f:
+            with Path(config_path).open() as f:
                 config = yaml.safe_load(f)
             logger.info(f&#34;Loaded quality configuration from {config_path}&#34;)
-            return config
+            return dict(config) if config else {}
         except FileNotFoundError:
             logger.warning(f&#34;Quality config file not found: {config_path}, using defaults&#34;)
             return self._default_config()
@@ -4337,7 +4322,7 @@ class PuzzleMetrics:
             return env_enabled.lower() in (&#34;true&#34;, &#34;1&#34;, &#34;yes&#34;)
 
         # Check config file
-        return self.config.get(&#34;global&#34;, {}).get(&#34;enabled&#34;, False)
+        return bool(self.config.get(&#34;global&#34;, {}).get(&#34;enabled&#34;, False))
 
     def get_task_config(self, task_type: TaskType) -&gt; dict[str, Any]:
         &#34;&#34;&#34;
@@ -4415,7 +4400,7 @@ class PuzzleMetrics:
         return env_enabled.lower() in (&#34;true&#34;, &#34;1&#34;, &#34;yes&#34;)
 
     # Check config file
-    return self.config.get(&#34;global&#34;, {}).get(&#34;enabled&#34;, False)</code></pre>
+    return bool(self.config.get(&#34;global&#34;, {}).get(&#34;enabled&#34;, False))</code></pre>
 </details>
 <div class="desc"><p>Check if quality checking is globally enabled.</p>
 <h2 id="returns">Returns</h2>
@@ -4567,7 +4552,7 @@ class PuzzleMetrics:
                 data = yaml.safe_load(content_stripped)
                 if data is None:
                     raise ValueError(&#34;YAML content is empty or invalid&#34;)
-                return data
+                return dict(data)
             except yaml.YAMLError as parse_error:
                 # Attempt to fix common YAML syntax errors and retry
                 logger.debug(
@@ -4578,7 +4563,7 @@ class PuzzleMetrics:
                 if data is None:
                     raise ValueError(&#34;YAML content is empty or invalid&#34;) from parse_error
                 logger.info(&#34;Successfully parsed YAML after fixing common syntax errors&#34;)
-                return data
+                return dict(data)
 
         except yaml.YAMLError as e:
             logger.error(f&#34;Failed to parse YAML: {e}&#34;)
@@ -4604,7 +4589,7 @@ class PuzzleMetrics:
         &#34;&#34;&#34;
         return QualityScore(score=score, passed=passed, feedback=feedback, details=details or {})
 
-    def _build_feedback(self, score: float, failures: list, successes: list | None = None) -&gt; str:
+    def _build_feedback(self, score: float, failures: list, successes: list | None = None) -&gt; str:  # noqa: ARG002
         &#34;&#34;&#34;
         Build feedback message from score and findings.
 
@@ -4704,7 +4689,7 @@ def parse_yaml(content: str) -&gt; dict[str, Any]:
             data = yaml.safe_load(content_stripped)
             if data is None:
                 raise ValueError(&#34;YAML content is empty or invalid&#34;)
-            return data
+            return dict(data)
         except yaml.YAMLError as parse_error:
             # Attempt to fix common YAML syntax errors and retry
             logger.debug(
@@ -4715,7 +4700,7 @@ def parse_yaml(content: str) -&gt; dict[str, Any]:
             if data is None:
                 raise ValueError(&#34;YAML content is empty or invalid&#34;) from parse_error
             logger.info(&#34;Successfully parsed YAML after fixing common syntax errors&#34;)
-            return data
+            return dict(data)
 
     except yaml.YAMLError as e:
         logger.error(f&#34;Failed to parse YAML: {e}&#34;)
@@ -4943,7 +4928,7 @@ class QualityScore:
         Returns:
             List of failure messages if present in details
         &#34;&#34;&#34;
-        return cast(list[str], self.details.get(&#34;failures&#34;, []))
+        return cast(&#34;list[str]&#34;, self.details.get(&#34;failures&#34;, []))
 
     def get_summary(self) -&gt; str:
         &#34;&#34;&#34;
@@ -5046,7 +5031,7 @@ QualityScore(8.5/10, PASS)
     Returns:
         List of failure messages if present in details
     &#34;&#34;&#34;
-    return cast(list[str], self.details.get(&#34;failures&#34;, []))</code></pre>
+    return cast(&#34;list[str]&#34;, self.details.get(&#34;failures&#34;, []))</code></pre>
 </details>
 <div class="desc"><p>Extract failure messages from details.</p>
 <h2 id="returns">Returns</h2>
@@ -5695,11 +5680,7 @@ class SceneMetrics:
 
         # Look for dialogue keywords (more specific patterns)
         desc_lower = description.lower()
-        for marker in [&#34;says&#34;, &#34;said&#34;, &#34;asks&#34;, &#34;asked&#34;]:
-            if marker in desc_lower:
-                return True
-
-        return False
+        return any(marker in desc_lower for marker in [&#34;says&#34;, &#34;said&#34;, &#34;asks&#34;, &#34;asked&#34;])
 
     @staticmethod
     def _has_sensory_details(description: str) -&gt; bool:
@@ -5788,7 +5769,7 @@ class SceneMetrics:
 
         if self.total_scenes &lt; self.min_scenes:
             failures.append(
-                f&#34;Insufficient scenes: {self.total_scenes} &#34; f&#34;(minimum: {self.min_scenes})&#34;
+                f&#34;Insufficient scenes: {self.total_scenes} (minimum: {self.min_scenes})&#34;
             )
 
         if self.average_description_length &lt; self.min_description_length:
@@ -5812,7 +5793,7 @@ class SceneMetrics:
             dialogue_percentage = (self.scenes_with_dialogue / self.total_scenes) * 100.0
             if dialogue_percentage &lt; 30.0:
                 failures.append(
-                    f&#34;Warning: Only {dialogue_percentage:.1f}% of scenes &#34; f&#34;contain dialogue&#34;
+                    f&#34;Warning: Only {dialogue_percentage:.1f}% of scenes contain dialogue&#34;
                 )
 
         return failures
@@ -5985,7 +5966,7 @@ class SceneMetrics:
 
     if self.total_scenes &lt; self.min_scenes:
         failures.append(
-            f&#34;Insufficient scenes: {self.total_scenes} &#34; f&#34;(minimum: {self.min_scenes})&#34;
+            f&#34;Insufficient scenes: {self.total_scenes} (minimum: {self.min_scenes})&#34;
         )
 
     if self.average_description_length &lt; self.min_description_length:
@@ -6009,7 +5990,7 @@ class SceneMetrics:
         dialogue_percentage = (self.scenes_with_dialogue / self.total_scenes) * 100.0
         if dialogue_percentage &lt; 30.0:
             failures.append(
-                f&#34;Warning: Only {dialogue_percentage:.1f}% of scenes &#34; f&#34;contain dialogue&#34;
+                f&#34;Warning: Only {dialogue_percentage:.1f}% of scenes contain dialogue&#34;
             )
 
     return failures</code></pre>
@@ -6406,7 +6387,7 @@ class SceneMetrics:
         }
 
         evaluator_class = evaluator_map[self.task_type]
-        return evaluator_class(pass_threshold=self.pass_threshold)
+        return evaluator_class(pass_threshold=self.pass_threshold)  # type: ignore[abstract]
 
     def execute(
         self, task_function: Callable[..., str], task_name: str = &#34;Task&#34;, **kwargs

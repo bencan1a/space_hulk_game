@@ -133,11 +133,12 @@ This is the bridge between CrewAI agent outputs and the game engine.</p>
         logger.info(f&#34;Loading game from directory: {output_dir}&#34;)
 
         # Load all YAML files
-        plot = self.load_yaml(os.path.join(output_dir, &#34;plot_outline.yaml&#34;))
-        narrative = self.load_yaml(os.path.join(output_dir, &#34;narrative_map.yaml&#34;))
-        puzzles = self.load_yaml(os.path.join(output_dir, &#34;puzzle_design.yaml&#34;))
-        scenes = self.load_yaml(os.path.join(output_dir, &#34;scene_texts.yaml&#34;))
-        mechanics = self.load_yaml(os.path.join(output_dir, &#34;prd_document.yaml&#34;))
+        base_path = Path(output_dir)
+        plot = self.load_yaml(str(base_path / &#34;plot_outline.yaml&#34;))
+        narrative = self.load_yaml(str(base_path / &#34;narrative_map.yaml&#34;))
+        puzzles = self.load_yaml(str(base_path / &#34;puzzle_design.yaml&#34;))
+        scenes = self.load_yaml(str(base_path / &#34;scene_texts.yaml&#34;))
+        mechanics = self.load_yaml(str(base_path / &#34;prd_document.yaml&#34;))
 
         logger.info(&#34;All YAML files loaded successfully&#34;)
 
@@ -175,7 +176,7 @@ This is the bridge between CrewAI agent outputs and the game engine.</p>
         logger.debug(f&#34;Loading YAML file: {filepath}&#34;)
 
         # Check if file exists
-        if not os.path.exists(filepath):
+        if not Path(filepath).exists():
             error_msg = f&#34;File not found: {filepath}&#34;
             logger.error(error_msg)
             if self.strict_mode:
@@ -186,7 +187,7 @@ This is the bridge between CrewAI agent outputs and the game engine.</p>
 
         try:
             # Read file content
-            with open(filepath, encoding=&#34;utf-8&#34;) as f:
+            with Path(filepath).open(encoding=&#34;utf-8&#34;) as f:
                 content = f.read()
 
             # Clean up markdown wrapping (common AI output issue)
@@ -675,7 +676,7 @@ This is the bridge between CrewAI agent outputs and the game engine.</p>
 
         if starting_scene and starting_scene in scenes:
             logger.debug(f&#34;Found starting scene: {starting_scene}&#34;)
-            return starting_scene
+            return str(starting_scene)
 
         # Fall back to first scene or &#39;start&#39;
         if &#34;start&#34; in scenes:
@@ -759,11 +760,12 @@ If False, log warnings and use defaults.</dd>
     logger.info(f&#34;Loading game from directory: {output_dir}&#34;)
 
     # Load all YAML files
-    plot = self.load_yaml(os.path.join(output_dir, &#34;plot_outline.yaml&#34;))
-    narrative = self.load_yaml(os.path.join(output_dir, &#34;narrative_map.yaml&#34;))
-    puzzles = self.load_yaml(os.path.join(output_dir, &#34;puzzle_design.yaml&#34;))
-    scenes = self.load_yaml(os.path.join(output_dir, &#34;scene_texts.yaml&#34;))
-    mechanics = self.load_yaml(os.path.join(output_dir, &#34;prd_document.yaml&#34;))
+    base_path = Path(output_dir)
+    plot = self.load_yaml(str(base_path / &#34;plot_outline.yaml&#34;))
+    narrative = self.load_yaml(str(base_path / &#34;narrative_map.yaml&#34;))
+    puzzles = self.load_yaml(str(base_path / &#34;puzzle_design.yaml&#34;))
+    scenes = self.load_yaml(str(base_path / &#34;scene_texts.yaml&#34;))
+    mechanics = self.load_yaml(str(base_path / &#34;prd_document.yaml&#34;))
 
     logger.info(&#34;All YAML files loaded successfully&#34;)
 
@@ -832,7 +834,7 @@ True
     logger.debug(f&#34;Loading YAML file: {filepath}&#34;)
 
     # Check if file exists
-    if not os.path.exists(filepath):
+    if not Path(filepath).exists():
         error_msg = f&#34;File not found: {filepath}&#34;
         logger.error(error_msg)
         if self.strict_mode:
@@ -843,7 +845,7 @@ True
 
     try:
         # Read file content
-        with open(filepath, encoding=&#34;utf-8&#34;) as f:
+        with Path(filepath).open(encoding=&#34;utf-8&#34;) as f:
             content = f.read()
 
         # Clean up markdown wrapping (common AI output issue)

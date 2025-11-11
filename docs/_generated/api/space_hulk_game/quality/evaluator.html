@@ -194,7 +194,7 @@ standardized evaluation interface.</p>
                 data = yaml.safe_load(content_stripped)
                 if data is None:
                     raise ValueError(&#34;YAML content is empty or invalid&#34;)
-                return data
+                return dict(data)
             except yaml.YAMLError as parse_error:
                 # Attempt to fix common YAML syntax errors and retry
                 logger.debug(
@@ -205,7 +205,7 @@ standardized evaluation interface.</p>
                 if data is None:
                     raise ValueError(&#34;YAML content is empty or invalid&#34;) from parse_error
                 logger.info(&#34;Successfully parsed YAML after fixing common syntax errors&#34;)
-                return data
+                return dict(data)
 
         except yaml.YAMLError as e:
             logger.error(f&#34;Failed to parse YAML: {e}&#34;)
@@ -231,7 +231,7 @@ standardized evaluation interface.</p>
         &#34;&#34;&#34;
         return QualityScore(score=score, passed=passed, feedback=feedback, details=details or {})
 
-    def _build_feedback(self, score: float, failures: list, successes: list | None = None) -&gt; str:
+    def _build_feedback(self, score: float, failures: list, successes: list | None = None) -&gt; str:  # noqa: ARG002
         &#34;&#34;&#34;
         Build feedback message from score and findings.
 
@@ -331,7 +331,7 @@ def parse_yaml(content: str) -&gt; dict[str, Any]:
             data = yaml.safe_load(content_stripped)
             if data is None:
                 raise ValueError(&#34;YAML content is empty or invalid&#34;)
-            return data
+            return dict(data)
         except yaml.YAMLError as parse_error:
             # Attempt to fix common YAML syntax errors and retry
             logger.debug(
@@ -342,7 +342,7 @@ def parse_yaml(content: str) -&gt; dict[str, Any]:
             if data is None:
                 raise ValueError(&#34;YAML content is empty or invalid&#34;) from parse_error
             logger.info(&#34;Successfully parsed YAML after fixing common syntax errors&#34;)
-            return data
+            return dict(data)
 
     except yaml.YAMLError as e:
         logger.error(f&#34;Failed to parse YAML: {e}&#34;)

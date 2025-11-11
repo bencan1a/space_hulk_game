@@ -58,7 +58,7 @@ Handles the game loop, action execution, state transitions, and player I/O.</p>
 <dl>
 <dt id="space_hulk_game.engine.engine.TextAdventureEngine"><code class="flex name class">
 <span>class <span class="ident">TextAdventureEngine</span></span>
-<span>(</span><span>game_state: <a title="space_hulk_game.engine.game_state.GameState" href="game_state.html#space_hulk_game.engine.game_state.GameState">GameState</a>,<br>scenes: dict[str, <a title="space_hulk_game.engine.scene.Scene" href="scene.html#space_hulk_game.engine.scene.Scene">Scene</a>],<br>input_func: Callable[[], str] | None = None,<br>output_func: Callable[[str], None] | None = None,<br>victory_conditions: set | None = None,<br>defeat_conditions: set | None = None)</span>
+<span>(</span><span>game_state: <a title="space_hulk_game.engine.game_state.GameState" href="game_state.html#space_hulk_game.engine.game_state.GameState">GameState</a>,<br>scenes: dict[str, <a title="space_hulk_game.engine.scene.Scene" href="scene.html#space_hulk_game.engine.scene.Scene">Scene</a>],<br>input_func: collections.abc.Callable[[], str] | None = None,<br>output_func: collections.abc.Callable[[str], None] | None = None,<br>victory_conditions: set | None = None,<br>defeat_conditions: set | None = None)</span>
 </code></dt>
 <dd>
 <details class="source">
@@ -116,10 +116,10 @@ Handles the game loop, action execution, state transitions, and player I/O.</p>
         self,
         game_state: GameState,
         scenes: dict[str, Scene],
-        input_func: Optional[Callable[[], str]] = None,
-        output_func: Optional[Callable[[str], None]] = None,
-        victory_conditions: Optional[set] = None,
-        defeat_conditions: Optional[set] = None,
+        input_func: Callable[[], str] | None = None,
+        output_func: Callable[[str], None] | None = None,
+        victory_conditions: set | None = None,
+        defeat_conditions: set | None = None,
     ):
         &#34;&#34;&#34;
         Initialize the text adventure engine.
@@ -368,7 +368,7 @@ Handles the game loop, action execution, state transitions, and player I/O.</p>
         self._output(f&#34;\nYou drop the {item.name}.\n&#34;)
         logger.info(f&#34;Dropped item: {item_id}&#34;)
 
-    def handle_use(self, item_id: str, target_id: Optional[str] = None) -&gt; None:
+    def handle_use(self, item_id: str, target_id: str | None = None) -&gt; None:  # noqa: PLR0915
         &#34;&#34;&#34;
         Handle using an item.
 
@@ -422,7 +422,7 @@ Handles the game loop, action execution, state transitions, and player I/O.</p>
         # Handle unlock effect
         if &#34;unlock&#34; in item.effects:
             current_scene = self.scenes[self.game_state.current_scene]
-            unlock_target = item.effects[&#34;unlock&#34;]
+            item.effects[&#34;unlock&#34;]
 
             # Try to unlock the specified exit or any locked exit that requires this item
             unlocked = False
@@ -464,7 +464,7 @@ Handles the game loop, action execution, state transitions, and player I/O.</p>
             self._output(f&#34;\nYou use the {item.name}. Nothing happens.\n&#34;)
             logger.debug(f&#34;Used item with no effects: {item_id}&#34;)
 
-    def handle_look(self, target: Optional[str] = None) -&gt; None:
+    def handle_look(self, target: str | None = None) -&gt; None:
         &#34;&#34;&#34;
         Handle examining the scene or an object.
 
@@ -497,7 +497,7 @@ Handles the game loop, action execution, state transitions, and player I/O.</p>
         self._output(f&#34;\nYou don&#39;t see &#39;{target}&#39; here.\n&#34;)
         logger.debug(f&#34;Target not found: {target}&#34;)
 
-    def handle_talk(self, npc_id: str, topic: Optional[str] = None) -&gt; None:
+    def handle_talk(self, npc_id: str, topic: str | None = None) -&gt; None:
         &#34;&#34;&#34;
         Handle talking to an NPC.
 
@@ -1023,7 +1023,7 @@ Tips:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def handle_look(self, target: Optional[str] = None) -&gt; None:
+<pre><code class="python">def handle_look(self, target: str | None = None) -&gt; None:
     &#34;&#34;&#34;
     Handle examining the scene or an object.
 
@@ -1174,7 +1174,7 @@ Tips:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def handle_talk(self, npc_id: str, topic: Optional[str] = None) -&gt; None:
+<pre><code class="python">def handle_talk(self, npc_id: str, topic: str | None = None) -&gt; None:
     &#34;&#34;&#34;
     Handle talking to an NPC.
 
@@ -1234,7 +1234,7 @@ Tips:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def handle_use(self, item_id: str, target_id: Optional[str] = None) -&gt; None:
+<pre><code class="python">def handle_use(self, item_id: str, target_id: str | None = None) -&gt; None:  # noqa: PLR0915
     &#34;&#34;&#34;
     Handle using an item.
 
@@ -1288,7 +1288,7 @@ Tips:
     # Handle unlock effect
     if &#34;unlock&#34; in item.effects:
         current_scene = self.scenes[self.game_state.current_scene]
-        unlock_target = item.effects[&#34;unlock&#34;]
+        item.effects[&#34;unlock&#34;]
 
         # Try to unlock the specified exit or any locked exit that requires this item
         unlocked = False

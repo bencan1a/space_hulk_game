@@ -173,7 +173,7 @@ el.replaceWith(d);
         )
 
         logger.info(
-            f&#34;Validation complete: {len(result.issues)} issues, &#34; f&#34;{len(result.warnings)} warnings&#34;
+            f&#34;Validation complete: {len(result.issues)} issues, {len(result.warnings)} warnings&#34;
         )
 
         # If strict_mode is enabled, treat warnings as errors
@@ -244,14 +244,14 @@ el.replaceWith(d);
         unreachable = set(game_data.scenes.keys()) - reachable
 
         if unreachable:
-            unreachable_list = sorted(list(unreachable))
+            unreachable_list = sorted(unreachable)
             result.add_issue(f&#34;Unreachable scenes: {&#39;, &#39;.join(unreachable_list)}&#34;)
 
             # Suggest connections
             for scene_id in unreachable_list:
                 # Find closest reachable scene (simple heuristic: first reachable)
                 if reachable:
-                    closest = sorted(list(reachable))[0]
+                    closest = sorted(reachable)[0]
                     result.add_suggestion(closest, f&#34;Add exit to unreachable scene &#39;{scene_id}&#39;&#34;)
 
     def _check_invalid_exits(self, game_data: GameData, result: ValidationResult) -&gt; None:
@@ -295,7 +295,7 @@ el.replaceWith(d);
 
         dead_ends = []
         for scene_id, scene in game_data.scenes.items():
-            if not scene.exits:
+            if not scene.exits:  # noqa: SIM102
                 # Check if this is a valid ending scene
                 if scene_id not in valid_endings:
                     dead_ends.append(scene_id)
@@ -344,7 +344,7 @@ el.replaceWith(d);
             for direction, required_item in scene.locked_exits.items():
                 # Could be an item or a flag
                 # Only check if it looks like an item (not a flag pattern)
-                if required_item and not required_item.startswith(&#34;flag_&#34;):
+                if required_item and not required_item.startswith(&#34;flag_&#34;):  # noqa: SIM102
                     if required_item not in all_items:
                         result.add_warning(
                             f&#34;Scene &#39;{scene_id}&#39; exit &#39;{direction}&#39; requires &#34;
@@ -368,7 +368,7 @@ el.replaceWith(d);
         for npc_id, npc in game_data.global_npcs.items():
             if npc.gives_item and npc.gives_item not in all_items:
                 result.add_issue(
-                    f&#34;Global NPC &#39;{npc_id}&#39; gives item &#39;{npc.gives_item}&#39; &#34; f&#34;which does not exist&#34;
+                    f&#34;Global NPC &#39;{npc_id}&#39; gives item &#39;{npc.gives_item}&#39; which does not exist&#34;
                 )
 
     def _check_npc_dialogues(self, game_data: GameData, result: ValidationResult) -&gt; None:
@@ -439,10 +439,10 @@ el.replaceWith(d);
             scene = game_data.scenes[scene_id]
             for direction, required in scene.locked_exits.items():
                 target = scene.exits.get(direction)
-                if target and target not in reachable:
+                if target and target not in reachable:  # noqa: SIM102
                     # This exit leads to unreachable area
                     # Check if required item exists
-                    if required not in obtainable_items:
+                    if required not in obtainable_items:  # noqa: SIM102
                         # Could be a flag, not necessarily an error
                         if not required.startswith(&#34;flag_&#34;):
                             result.add_warning(
@@ -552,7 +552,7 @@ True
     )
 
     logger.info(
-        f&#34;Validation complete: {len(result.issues)} issues, &#34; f&#34;{len(result.warnings)} warnings&#34;
+        f&#34;Validation complete: {len(result.issues)} issues, {len(result.warnings)} warnings&#34;
     )
 
     # If strict_mode is enabled, treat warnings as errors

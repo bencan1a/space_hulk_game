@@ -243,11 +243,7 @@ class SceneMetrics:
 
         # Look for dialogue keywords (more specific patterns)
         desc_lower = description.lower()
-        for marker in [&#34;says&#34;, &#34;said&#34;, &#34;asks&#34;, &#34;asked&#34;]:
-            if marker in desc_lower:
-                return True
-
-        return False
+        return any(marker in desc_lower for marker in [&#34;says&#34;, &#34;said&#34;, &#34;asks&#34;, &#34;asked&#34;])
 
     @staticmethod
     def _has_sensory_details(description: str) -&gt; bool:
@@ -336,7 +332,7 @@ class SceneMetrics:
 
         if self.total_scenes &lt; self.min_scenes:
             failures.append(
-                f&#34;Insufficient scenes: {self.total_scenes} &#34; f&#34;(minimum: {self.min_scenes})&#34;
+                f&#34;Insufficient scenes: {self.total_scenes} (minimum: {self.min_scenes})&#34;
             )
 
         if self.average_description_length &lt; self.min_description_length:
@@ -360,7 +356,7 @@ class SceneMetrics:
             dialogue_percentage = (self.scenes_with_dialogue / self.total_scenes) * 100.0
             if dialogue_percentage &lt; 30.0:
                 failures.append(
-                    f&#34;Warning: Only {dialogue_percentage:.1f}% of scenes &#34; f&#34;contain dialogue&#34;
+                    f&#34;Warning: Only {dialogue_percentage:.1f}% of scenes contain dialogue&#34;
                 )
 
         return failures
@@ -533,7 +529,7 @@ class SceneMetrics:
 
     if self.total_scenes &lt; self.min_scenes:
         failures.append(
-            f&#34;Insufficient scenes: {self.total_scenes} &#34; f&#34;(minimum: {self.min_scenes})&#34;
+            f&#34;Insufficient scenes: {self.total_scenes} (minimum: {self.min_scenes})&#34;
         )
 
     if self.average_description_length &lt; self.min_description_length:
@@ -557,7 +553,7 @@ class SceneMetrics:
         dialogue_percentage = (self.scenes_with_dialogue / self.total_scenes) * 100.0
         if dialogue_percentage &lt; 30.0:
             failures.append(
-                f&#34;Warning: Only {dialogue_percentage:.1f}% of scenes &#34; f&#34;contain dialogue&#34;
+                f&#34;Warning: Only {dialogue_percentage:.1f}% of scenes contain dialogue&#34;
             )
 
     return failures</code></pre>

@@ -297,7 +297,7 @@ class LookAction(Action):
         &#39;console&#39;
     &#34;&#34;&#34;
 
-    target: Optional[str] = None
+    target: str | None = None
 
     def __str__(self) -&gt; str:
         &#34;&#34;&#34;Return a string representation of the action.&#34;&#34;&#34;
@@ -474,7 +474,7 @@ class TalkAction(Action):
     &#34;&#34;&#34;
 
     npc_id: str = &#34;&#34;
-    topic: Optional[str] = None
+    topic: str | None = None
 
     def __str__(self) -&gt; str:
         &#34;&#34;&#34;Return a string representation of the action.&#34;&#34;&#34;
@@ -541,7 +541,7 @@ class UnknownAction(Action):
         &#39;examine&#39;
     &#34;&#34;&#34;
 
-    suggestion: Optional[str] = None
+    suggestion: str | None = None
 
     def __str__(self) -&gt; str:
         &#34;&#34;&#34;Return a string representation of the action.&#34;&#34;&#34;
@@ -604,7 +604,7 @@ class UseAction(Action):
     &#34;&#34;&#34;
 
     item_id: str = &#34;&#34;
-    target_id: Optional[str] = None
+    target_id: str | None = None
 
     def __str__(self) -&gt; str:
         &#34;&#34;&#34;Return a string representation of the action.&#34;&#34;&#34;

@@ -215,7 +215,7 @@ class Scene:
 
     def can_exit(
         self, direction: str, inventory: list[str], game_flags: dict[str, bool]
-    ) -&gt; tuple[bool, Optional[str]]:
+    ) -&gt; tuple[bool, str | None]:
         &#34;&#34;&#34;
         Check if the player can use a specific exit.
 
@@ -261,7 +261,7 @@ class Scene:
 
         return True, None
 
-    def get_item(self, item_id: str) -&gt; Optional[Item]:
+    def get_item(self, item_id: str) -&gt; Item | None:
         &#34;&#34;&#34;
         Get an item from the scene by ID.
 
@@ -336,7 +336,7 @@ class Scene:
         &#34;&#34;&#34;
         self.items.append(item)
 
-    def get_npc(self, npc_id: str) -&gt; Optional[NPC]:
+    def get_npc(self, npc_id: str) -&gt; NPC | None:
         &#34;&#34;&#34;
         Get an NPC from the scene by ID.
 
@@ -646,7 +646,7 @@ Players navigate between scenes to progress through the story.</p>
 </summary>
 <pre><code class="python">def can_exit(
     self, direction: str, inventory: list[str], game_flags: dict[str, bool]
-) -&gt; tuple[bool, Optional[str]]:
+) -&gt; tuple[bool, str | None]:
     &#34;&#34;&#34;
     Check if the player can use a specific exit.
 
@@ -900,7 +900,7 @@ True
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def get_item(self, item_id: str) -&gt; Optional[Item]:
+<pre><code class="python">def get_item(self, item_id: str) -&gt; Item | None:
     &#34;&#34;&#34;
     Get an item from the scene by ID.
 
@@ -958,7 +958,7 @@ True
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def get_npc(self, npc_id: str) -&gt; Optional[NPC]:
+<pre><code class="python">def get_npc(self, npc_id: str) -&gt; NPC | None:
     &#34;&#34;&#34;
     Get an NPC from the scene by ID.
 

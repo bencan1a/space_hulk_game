@@ -53,7 +53,7 @@ el.replaceWith(d);
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def getTopic():
-    with open(&#34;src/space_hulk_game/config/gamedesign.yaml&#34;, encoding=&#34;utf-8&#34;) as file:
+    with Path(&#34;src/space_hulk_game/config/gamedesign.yaml&#34;).open(encoding=&#34;utf-8&#34;) as file:
         examples = yaml.safe_load(file)
     return examples[&#34;example4_space_hulk&#34;]</code></pre>
 </details>
@@ -88,12 +88,8 @@ el.replaceWith(d);
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def run():
-    # litellm._turn_on_debug()
     print(&#34;## Welcome to the Space Hulk Game Crew&#34;)
     print(&#34;-------------------------------&#34;)
-
-    # with open(&#39;src/space_hulk_game/config/gamedesign.yaml&#39;, &#39;r&#39;, encoding=&#39;utf-8&#39;) as file:
-    #     examples = yaml.safe_load(file)
 
     inputs = {&#34;game&#34;: getTopic()}
 

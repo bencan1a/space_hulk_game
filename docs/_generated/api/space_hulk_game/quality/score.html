@@ -151,7 +151,7 @@ class QualityScore:
         Returns:
             List of failure messages if present in details
         &#34;&#34;&#34;
-        return cast(list[str], self.details.get(&#34;failures&#34;, []))
+        return cast(&#34;list[str]&#34;, self.details.get(&#34;failures&#34;, []))
 
     def get_summary(self) -&gt; str:
         &#34;&#34;&#34;
@@ -254,7 +254,7 @@ QualityScore(8.5/10, PASS)
     Returns:
         List of failure messages if present in details
     &#34;&#34;&#34;
-    return cast(list[str], self.details.get(&#34;failures&#34;, []))</code></pre>
+    return cast(&#34;list[str]&#34;, self.details.get(&#34;failures&#34;, []))</code></pre>
 </details>
 <div class="desc"><p>Extract failure messages from details.</p>
 <h2 id="returns">Returns</h2>

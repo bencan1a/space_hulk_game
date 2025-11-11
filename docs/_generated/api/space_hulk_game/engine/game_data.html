@@ -148,7 +148,7 @@ class GameData:
         if self.starting_scene not in self.scenes:
             raise ValueError(f&#34;Starting scene &#39;{self.starting_scene}&#39; not found in scenes&#34;)
 
-    def get_scene(self, scene_id: str) -&gt; Optional[Scene]:
+    def get_scene(self, scene_id: str) -&gt; Scene | None:
         &#34;&#34;&#34;
         Get a scene by its ID.
 
@@ -200,7 +200,7 @@ class GameData:
         &#34;&#34;&#34;
         return scene_id in self.scenes
 
-    def get_item_definition(self, item_id: str) -&gt; Optional[Item]:
+    def get_item_definition(self, item_id: str) -&gt; Item | None:
         &#34;&#34;&#34;
         Get a global item definition by ID.
 
@@ -227,7 +227,7 @@ class GameData:
         &#34;&#34;&#34;
         return self.global_items.get(item_id)
 
-    def get_npc_definition(self, npc_id: str) -&gt; Optional[NPC]:
+    def get_npc_definition(self, npc_id: str) -&gt; NPC | None:
         &#34;&#34;&#34;
         Get a global NPC definition by ID.
 
@@ -437,7 +437,7 @@ False
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def get_item_definition(self, item_id: str) -&gt; Optional[Item]:
+<pre><code class="python">def get_item_definition(self, item_id: str) -&gt; Item | None:
     &#34;&#34;&#34;
     Get a global item definition by ID.
 
@@ -496,7 +496,7 @@ False
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def get_npc_definition(self, npc_id: str) -&gt; Optional[NPC]:
+<pre><code class="python">def get_npc_definition(self, npc_id: str) -&gt; NPC | None:
     &#34;&#34;&#34;
     Get a global NPC definition by ID.
 
@@ -555,7 +555,7 @@ False
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def get_scene(self, scene_id: str) -&gt; Optional[Scene]:
+<pre><code class="python">def get_scene(self, scene_id: str) -&gt; Scene | None:
     &#34;&#34;&#34;
     Get a scene by its ID.
 

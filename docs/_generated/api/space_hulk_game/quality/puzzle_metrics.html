@@ -221,10 +221,7 @@ class PuzzleMetrics:
             return True
 
         # Check for location or scene references
-        if puzzle.get(&#34;location&#34;) or puzzle.get(&#34;scene&#34;):
-            return True
-
-        return False
+        return bool(puzzle.get(&#34;location&#34;) or puzzle.get(&#34;scene&#34;))
 
     @staticmethod
     def _has_difficulty(puzzle: dict[str, Any]) -&gt; bool:
@@ -238,11 +235,7 @@ class PuzzleMetrics:
             True if difficulty is stated
         &#34;&#34;&#34;
         difficulty_fields = [&#34;difficulty&#34;, &#34;challenge_level&#34;, &#34;complexity&#34;]
-        for field in difficulty_fields:
-            if puzzle.get(field):
-                return True
-
-        return False
+        return any(puzzle.get(field) for field in difficulty_fields)
 
     def passes_threshold(self) -&gt; bool:
         &#34;&#34;&#34;
@@ -271,7 +264,7 @@ class PuzzleMetrics:
 
         if self.total_puzzles &lt; self.min_puzzles:
             failures.append(
-                f&#34;Insufficient puzzles: {self.total_puzzles} &#34; f&#34;(minimum: {self.min_puzzles})&#34;
+                f&#34;Insufficient puzzles: {self.total_puzzles} (minimum: {self.min_puzzles})&#34;
             )
 
         solution_percentage = 0.0
@@ -284,12 +277,11 @@ class PuzzleMetrics:
                 f&#34;(minimum: {self.min_solution_percentage}%)&#34;
             )
 
-        # Warnings (not failures)
         if self.total_puzzles &gt; 0:
             narrative_percentage = (self.puzzles_with_narrative_ties / self.total_puzzles) * 100.0
             if narrative_percentage &lt; 50.0:
                 failures.append(
-                    f&#34;Warning: Only {narrative_percentage:.1f}% of puzzles &#34; f&#34;have narrative ties&#34;
+                    f&#34;Warning: Only {narrative_percentage:.1f}% of puzzles have narrative ties&#34;
                 )
 
         return failures
@@ -459,7 +451,7 @@ class PuzzleMetrics:
 
     if self.total_puzzles &lt; self.min_puzzles:
         failures.append(
-            f&#34;Insufficient puzzles: {self.total_puzzles} &#34; f&#34;(minimum: {self.min_puzzles})&#34;
+            f&#34;Insufficient puzzles: {self.total_puzzles} (minimum: {self.min_puzzles})&#34;
         )
 
     solution_percentage = 0.0
@@ -472,12 +464,11 @@ class PuzzleMetrics:
             f&#34;(minimum: {self.min_solution_percentage}%)&#34;
         )
 
-    # Warnings (not failures)
     if self.total_puzzles &gt; 0:
         narrative_percentage = (self.puzzles_with_narrative_ties / self.total_puzzles) * 100.0
         if narrative_percentage &lt; 50.0:
             failures.append(
-                f&#34;Warning: Only {narrative_percentage:.1f}% of puzzles &#34; f&#34;have narrative ties&#34;
+                f&#34;Warning: Only {narrative_percentage:.1f}% of puzzles have narrative ties&#34;
             )
 
     return failures</code></pre>

@@ -137,7 +137,7 @@ Provides validation and error handling for serialization.</p>
         if not filepath_obj.exists():
             raise PersistenceError(f&#34;Save file not found: {filepath}&#34;)
 
-        with open(filepath, encoding=&#34;utf-8&#34;) as f:
+        with Path(filepath).open(encoding=&#34;utf-8&#34;) as f:
             save_data = json.load(f)
 
         metadata = {
@@ -277,7 +277,7 @@ saves/mysave.json
             raise PersistenceError(f&#34;Save file not found: {filepath}&#34;)
 
         # Read file
-        with open(filepath, encoding=&#34;utf-8&#34;) as f:
+        with Path(filepath).open(encoding=&#34;utf-8&#34;) as f:
             save_data = json.load(f)
 
         # Validate save file structure
@@ -344,7 +344,7 @@ invalid format, or data corruption.</dd>
 </code></pre></div>
 </dd>
 <dt id="space_hulk_game.engine.persistence.save_game"><code class="name flex">
-<span>def <span class="ident">save_game</span></span>(<span>filepath: str,<br>game_state: <a title="space_hulk_game.engine.game_state.GameState" href="game_state.html#space_hulk_game.engine.game_state.GameState">GameState</a>,<br>scenes: dict[str, <a title="space_hulk_game.engine.scene.Scene" href="scene.html#space_hulk_game.engine.scene.Scene">Scene</a>],<br>metadata: dict[str, typing.Any] = None) ‑> None</span>
+<span>def <span class="ident">save_game</span></span>(<span>filepath: str,<br>game_state: <a title="space_hulk_game.engine.game_state.GameState" href="game_state.html#space_hulk_game.engine.game_state.GameState">GameState</a>,<br>scenes: dict[str, <a title="space_hulk_game.engine.scene.Scene" href="scene.html#space_hulk_game.engine.scene.Scene">Scene</a>],<br>metadata: dict[str, typing.Any] | None = None) ‑> None</span>
 </code></dt>
 <dd>
 <details class="source">
@@ -352,7 +352,10 @@ invalid format, or data corruption.</dd>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def save_game(
-    filepath: str, game_state: GameState, scenes: dict[str, Scene], metadata: dict[str, Any] = None
+    filepath: str,
+    game_state: GameState,
+    scenes: dict[str, Scene],
+    metadata: dict[str, Any] | None = None,
 ) -&gt; None:
     &#34;&#34;&#34;
     Save the game state and scenes to a JSON file.
@@ -393,7 +396,7 @@ invalid format, or data corruption.</dd>
         filepath_obj.parent.mkdir(parents=True, exist_ok=True)
 
         # Write to file with pretty formatting
-        with open(filepath, &#34;w&#34;, encoding=&#34;utf-8&#34;) as f:
+        with Path(filepath).open(&#34;w&#34;, encoding=&#34;utf-8&#34;) as f:
             json.dump(save_data, f, indent=2, ensure_ascii=False)
 
         logger.info(f&#34;Game saved to: {filepath}&#34;)
@@ -510,8 +513,8 @@ the save was created.</p>
         self,
         game_state: GameState,
         save_name: str,
-        scenes: dict[str, Scene] = None,
-        metadata: dict[str, Any] = None,
+        scenes: dict[str, Scene] | None = None,
+        metadata: dict[str, Any] | None = None,
     ) -&gt; None:
         &#34;&#34;&#34;
         Save a game state.
@@ -545,7 +548,7 @@ the save was created.</p>
             save_data[&#34;scenes&#34;] = {scene_id: scene.to_dict() for scene_id, scene in scenes.items()}
 
         try:
-            with open(filepath, &#34;w&#34;, encoding=&#34;utf-8&#34;) as f:
+            with Path(filepath).open(&#34;w&#34;, encoding=&#34;utf-8&#34;) as f:
                 json.dump(save_data, f, indent=2, ensure_ascii=False)
 
             logger.info(f&#34;Game saved to: {filepath}&#34;)
@@ -575,7 +578,7 @@ the save was created.</p>
         filepath = self.save_dir / save_name
 
         try:
-            with open(filepath, encoding=&#34;utf-8&#34;) as f:
+            with Path(filepath).open(encoding=&#34;utf-8&#34;) as f:
                 save_data = json.load(f)
 
             # Validate basic structure
@@ -589,7 +592,7 @@ the save was created.</p>
             return game_state
 
         except FileNotFoundError:
-            raise PersistenceError(f&#34;Save file not found: {save_name}&#34;)
+            raise PersistenceError(f&#34;Save file not found: {save_name}&#34;) from None
         except Exception as e:
             error_msg = f&#34;Failed to load game: {e}&#34;
             logger.error(error_msg)
@@ -818,7 +821,7 @@ functions, managing save directory and file naming conventions.</p>
     filepath = self.save_dir / save_name
 
     try:
-        with open(filepath, encoding=&#34;utf-8&#34;) as f:
+        with Path(filepath).open(encoding=&#34;utf-8&#34;) as f:
             save_data = json.load(f)
 
         # Validate basic structure
@@ -832,7 +835,7 @@ functions, managing save directory and file naming conventions.</p>
         return game_state
 
     except FileNotFoundError:
-        raise PersistenceError(f&#34;Save file not found: {save_name}&#34;)
+        raise PersistenceError(f&#34;Save file not found: {save_name}&#34;) from None
     except Exception as e:
         error_msg = f&#34;Failed to load game: {e}&#34;
         logger.error(error_msg)
@@ -853,7 +856,7 @@ functions, managing save directory and file naming conventions.</p>
 </dl></div>
 </dd>
 <dt id="space_hulk_game.engine.persistence.SaveSystem.save"><code class="name flex">
-<span>def <span class="ident">save</span></span>(<span>self,<br>game_state: <a title="space_hulk_game.engine.game_state.GameState" href="game_state.html#space_hulk_game.engine.game_state.GameState">GameState</a>,<br>save_name: str,<br>scenes: dict[str, <a title="space_hulk_game.engine.scene.Scene" href="scene.html#space_hulk_game.engine.scene.Scene">Scene</a>] = None,<br>metadata: dict[str, typing.Any] = None) ‑> None</span>
+<span>def <span class="ident">save</span></span>(<span>self,<br>game_state: <a title="space_hulk_game.engine.game_state.GameState" href="game_state.html#space_hulk_game.engine.game_state.GameState">GameState</a>,<br>save_name: str,<br>scenes: dict[str, <a title="space_hulk_game.engine.scene.Scene" href="scene.html#space_hulk_game.engine.scene.Scene">Scene</a>] | None = None,<br>metadata: dict[str, typing.Any] | None = None) ‑> None</span>
 </code></dt>
 <dd>
 <details class="source">
@@ -864,8 +867,8 @@ functions, managing save directory and file naming conventions.</p>
     self,
     game_state: GameState,
     save_name: str,
-    scenes: dict[str, Scene] = None,
-    metadata: dict[str, Any] = None,
+    scenes: dict[str, Scene] | None = None,
+    metadata: dict[str, Any] | None = None,
 ) -&gt; None:
     &#34;&#34;&#34;
     Save a game state.
@@ -899,7 +902,7 @@ functions, managing save directory and file naming conventions.</p>
         save_data[&#34;scenes&#34;] = {scene_id: scene.to_dict() for scene_id, scene in scenes.items()}
 
     try:
-        with open(filepath, &#34;w&#34;, encoding=&#34;utf-8&#34;) as f:
+        with Path(filepath).open(&#34;w&#34;, encoding=&#34;utf-8&#34;) as f:
             json.dump(save_data, f, indent=2, ensure_ascii=False)
 
         logger.info(f&#34;Game saved to: {filepath}&#34;)
