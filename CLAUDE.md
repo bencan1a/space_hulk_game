@@ -64,7 +64,7 @@ export RUN_REAL_API_TESTS=1
 python -m unittest tests.test_integration_sequential -v
 
 # Validate API connectivity
-python validate_api.py
+python tools/validate_api.py
 ```
 
 ### Setup & Dependencies
@@ -344,7 +344,7 @@ space_hulk_game/
    - Windows: `.venv\Scripts\activate`
 3. **Configure LLM provider**: Edit `.env` with your API key and model
 4. **Start Ollama** (if using local): `ollama serve`
-5. **Validate setup**: `python validate_api.py`
+5. **Validate setup**: `python tools/validate_api.py`
 
 **Important:** The setup script creates a `.venv` virtual environment containing all dependencies. Always activate it before running commands.
 

@@ -56,7 +56,7 @@ jobs:
           
           # Build the command with unbuffered output (using venv python)
           # Default to specific repos for faster execution
-          CMD=".venv/bin/python -u kloc-report.py --user bencan1a --verbose --repos CalendarBot space_hulk_game Azahar 3dsconv Python-template"
+          CMD=".venv/bin/python -u tools/kloc-report.py --user bencan1a --verbose --repos CalendarBot space_hulk_game Azahar 3dsconv Python-template"
           
           # Add date range if provided
           if [ -n "${{ inputs.since_date }}" ]; then

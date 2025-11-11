@@ -50,7 +50,7 @@ build-backend = "hatchling.build"
 type = "crew"
 
 [tool.pyright]
-include = ["src", "tests"]
+include = ["src", "tests", "tools"]  # Added tools
 exclude = [
     "venv",
     ".venv",
@@ -58,7 +58,8 @@ exclude = [
     "**/.pytest_cache",
     "**/node_modules",
     ".git",
-    "tmp"
+    "tmp",
+    "agent-tmp"  # Added
 ]
 pythonVersion = "3.10"
 typeCheckingMode = "basic"
@@ -77,6 +78,8 @@ exclude = [
     ".venv",
     "build",
     "dist",
+    "tmp",
+    "agent-tmp",  # Added
 ]
 
 # Ignore missing imports for specific third-party libraries without type stubs
