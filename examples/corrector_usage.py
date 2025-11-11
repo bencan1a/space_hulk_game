@@ -13,9 +13,9 @@ def example_plot_correction():
     print("\n" + "=" * 80)
     print("Example 1: Correcting Plot Outline with Missing Fields")
     print("=" * 80)
-    
+
     corrector = OutputCorrector()
-    
+
     # Invalid plot YAML - missing plot_points
     invalid_plot = """
 title: "The Lost Colony"
@@ -32,18 +32,18 @@ conflicts:
   - type: "Human vs. Unknown"
     description: "The crew must uncover what happened to the colony before it happens to them."
 """
-    
+
     print("\nOriginal YAML (invalid - missing plot_points):")
     print(invalid_plot[:200] + "...")
-    
+
     result = corrector.correct_plot(invalid_plot)
-    
-    print(f"\nCorrection Result:")
+
+    print("\nCorrection Result:")
     print(f"  Success: {result.success}")
     print(f"  Corrections Applied: {len(result.corrections)}")
     for correction in result.corrections:
         print(f"    • {correction}")
-    
+
     if result.success:
         print("\n✓ Plot outline successfully corrected!")
         print("\nCorrected YAML preview:")
@@ -59,9 +59,9 @@ def example_narrative_map_correction():
     print("\n" + "=" * 80)
     print("Example 2: Correcting Narrative Map with Invalid Scene IDs")
     print("=" * 80)
-    
+
     corrector = OutputCorrector()
-    
+
     # Invalid narrative map - scene IDs have spaces and special characters
     invalid_map = """
 start_scene: "Opening Scene!"
@@ -77,18 +77,18 @@ scenes:
     description: "A larger chamber filled with derelict machinery and strange alien artifacts scattered about."
     connections: []
 """
-    
+
     print("\nOriginal YAML (invalid - bad scene IDs):")
     print(invalid_map[:250] + "...")
-    
+
     result = corrector.correct_narrative_map(invalid_map)
-    
-    print(f"\nCorrection Result:")
+
+    print("\nCorrection Result:")
     print(f"  Success: {result.success}")
     print(f"  Corrections Applied: {len(result.corrections)}")
     for correction in result.corrections:
         print(f"    • {correction}")
-    
+
     if result.success:
         print("\n✓ Narrative map successfully corrected!")
 
@@ -98,23 +98,23 @@ def example_puzzle_design_correction():
     print("\n" + "=" * 80)
     print("Example 3: Correcting Empty Puzzle Design")
     print("=" * 80)
-    
+
     corrector = OutputCorrector()
-    
+
     # Completely empty puzzle design
     invalid_puzzle = "{}"
-    
+
     print("\nOriginal YAML (invalid - empty):")
     print(invalid_puzzle)
-    
+
     result = corrector.correct_puzzle_design(invalid_puzzle)
-    
-    print(f"\nCorrection Result:")
+
+    print("\nCorrection Result:")
     print(f"  Success: {result.success}")
     print(f"  Corrections Applied: {len(result.corrections)}")
     for correction in result.corrections:
         print(f"    • {correction}")
-    
+
     if result.success:
         print("\n✓ Puzzle design successfully corrected with defaults!")
         print("\nCorrected YAML preview:")
@@ -130,9 +130,9 @@ def example_scene_texts_correction():
     print("\n" + "=" * 80)
     print("Example 4: Correcting Scene Texts with Short Descriptions")
     print("=" * 80)
-    
+
     corrector = OutputCorrector()
-    
+
     # Scene texts with descriptions that are too short
     invalid_scene = """
 scenes:
@@ -145,18 +145,18 @@ scenes:
       door: "A door."
     dialogue: []
 """
-    
+
     print("\nOriginal YAML (invalid - descriptions too short):")
     print(invalid_scene)
-    
+
     result = corrector.correct_scene_texts(invalid_scene)
-    
-    print(f"\nCorrection Result:")
+
+    print("\nCorrection Result:")
     print(f"  Success: {result.success}")
     print(f"  Corrections Applied: {len(result.corrections)}")
     for correction in result.corrections:
         print(f"    • {correction}")
-    
+
     if result.success:
         print("\n✓ Scene texts successfully corrected!")
 
@@ -166,25 +166,25 @@ def example_game_mechanics_correction():
     print("\n" + "=" * 80)
     print("Example 5: Correcting Game Mechanics with Missing Systems")
     print("=" * 80)
-    
+
     corrector = OutputCorrector()
-    
+
     # Game mechanics with only a title
     invalid_mechanics = """
 game_title: "Space Adventure Game"
 """
-    
+
     print("\nOriginal YAML (invalid - missing all systems):")
     print(invalid_mechanics)
-    
+
     result = corrector.correct_game_mechanics(invalid_mechanics)
-    
-    print(f"\nCorrection Result:")
+
+    print("\nCorrection Result:")
     print(f"  Success: {result.success}")
     print(f"  Corrections Applied: {len(result.corrections)}")
     for correction in result.corrections:
         print(f"    • {correction}")
-    
+
     if result.success:
         print("\n✓ Game mechanics successfully corrected with all required systems!")
 
@@ -199,13 +199,13 @@ def main():
     print("  • Invalid ID formats")
     print("  • Descriptions too short")
     print("  • YAML syntax errors")
-    
+
     example_plot_correction()
     example_narrative_map_correction()
     example_puzzle_design_correction()
     example_scene_texts_correction()
     example_game_mechanics_correction()
-    
+
     print("\n" + "=" * 80)
     print("All examples completed!")
     print("=" * 80)
