@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>space_hulk_game.quality.puzzle_metrics API documentation</title>
+<meta name="description" content="Quality metrics for Puzzle evaluation …">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>space_hulk_game.quality.puzzle_metrics</code></h1>
+</header>
+<section id="section-intro">
+<p>Quality metrics for Puzzle evaluation.</p>
+<p>This module defines measurable quality criteria for puzzles generated
+by the Space Hulk Game crew, including solution clarity, narrative integration,
+and appropriate difficulty.</p>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics"><code class="flex name class">
+<span>class <span class="ident">PuzzleMetrics</span></span>
+<span>(</span><span>total_puzzles: int = 0,<br>puzzles_with_solutions: int = 0,<br>puzzles_with_narrative_ties: int = 0,<br>puzzles_with_difficulty: int = 0,<br>has_artifacts: bool = False,<br>has_monsters: bool = False,<br>has_npcs: bool = False,<br>min_puzzles: int = 2,<br>min_solution_percentage: float = 80.0)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
+class PuzzleMetrics:
+    &#34;&#34;&#34;
+    Quality metrics for evaluating puzzle and artifact content.
+
+    Attributes:
+        total_puzzles: Total number of puzzles defined
+        puzzles_with_solutions: Number of puzzles with clear solutions
+        puzzles_with_narrative_ties: Number of puzzles tied to narrative
+        puzzles_with_difficulty: Number of puzzles with difficulty ratings
+        has_artifacts: Whether artifacts are defined
+        has_monsters: Whether monsters/enemies are defined
+        has_npcs: Whether NPCs are defined
+        min_puzzles: Minimum required puzzles (default: 2)
+    &#34;&#34;&#34;
+
+    # Measured values
+    total_puzzles: int = 0
+    puzzles_with_solutions: int = 0
+    puzzles_with_narrative_ties: int = 0
+    puzzles_with_difficulty: int = 0
+    has_artifacts: bool = False
+    has_monsters: bool = False
+    has_npcs: bool = False
+
+    # Thresholds
+    min_puzzles: int = 2
+    min_solution_percentage: float = 80.0  # 80% should have clear solutions
+
+    @classmethod
+    def from_yaml_content(cls, yaml_content: str) -&gt; &#34;PuzzleMetrics&#34;:
+        &#34;&#34;&#34;
+        Create PuzzleMetrics from YAML content string.
+
+        Args:
+            yaml_content: YAML string containing puzzle design data
+
+        Returns:
+            PuzzleMetrics instance with measured values
+        &#34;&#34;&#34;
+        try:
+            # Handle markdown-wrapped YAML
+            content = yaml_content.strip()
+            if content.startswith(&#34;```&#34;):
+                lines = content.split(&#34;\n&#34;)
+                content = &#34;\n&#34;.join(lines[1:-1])
+
+            data = yaml.safe_load(content)
+            return cls.from_dict(data)
+        except Exception as e:
+            raise ValueError(f&#34;Failed to parse YAML content: {e}&#34;) from e
+
+    @classmethod
+    def from_dict(cls, data: dict[str, Any]) -&gt; &#34;PuzzleMetrics&#34;:
+        &#34;&#34;&#34;
+        Create PuzzleMetrics from a dictionary (parsed YAML).
+
+        Args:
+            data: Dictionary containing puzzle design data
+
+        Returns:
+            PuzzleMetrics instance with measured values
+        &#34;&#34;&#34;
+        metrics = cls()
+
+        # Check for artifacts
+        artifacts = data.get(&#34;artifacts&#34;, [])
+        metrics.has_artifacts = bool(artifacts) and len(artifacts) &gt; 0
+
+        # Check for monsters
+        monsters = data.get(&#34;monsters&#34;, [])
+        metrics.has_monsters = bool(monsters) and len(monsters) &gt; 0
+
+        # Check for NPCs
+        npcs = data.get(&#34;npcs&#34;, [])
+        metrics.has_npcs = bool(npcs) and len(npcs) &gt; 0
+
+        # Analyze puzzles
+        puzzles = data.get(&#34;puzzles&#34;, [])
+        if not puzzles:
+            # Try alternate key
+            puzzles = data.get(&#34;puzzle_design&#34;, {}).get(&#34;puzzles&#34;, [])
+
+        metrics.total_puzzles = len(puzzles) if isinstance(puzzles, list) else 0
+
+        if isinstance(puzzles, list):
+            for puzzle in puzzles:
+                if not isinstance(puzzle, dict):
+                    continue
+
+                # Check for solution
+                if cls._has_clear_solution(puzzle):
+                    metrics.puzzles_with_solutions += 1
+
+                # Check for narrative tie
+                if cls._has_narrative_tie(puzzle):
+                    metrics.puzzles_with_narrative_ties += 1
+
+                # Check for difficulty
+                if cls._has_difficulty(puzzle):
+                    metrics.puzzles_with_difficulty += 1
+
+        return metrics
+
+    @staticmethod
+    def _has_clear_solution(puzzle: dict[str, Any]) -&gt; bool:
+        &#34;&#34;&#34;
+        Check if puzzle has a clear solution described.
+
+        Args:
+            puzzle: Puzzle dictionary
+
+        Returns:
+            True if solution is clearly described
+        &#34;&#34;&#34;
+        # Check for explicit solution field
+        solution = puzzle.get(&#34;solution&#34;)
+        if solution:
+            if isinstance(solution, str):
+                return len(solution.strip()) &gt;= 20
+            return True
+
+        # Check for how_to_solve or similar fields
+        how_to_solve = puzzle.get(&#34;how_to_solve&#34;)
+        if how_to_solve:
+            if isinstance(how_to_solve, str):
+                return len(how_to_solve.strip()) &gt;= 20
+            return True
+
+        # Check description for solution hints
+        description = puzzle.get(&#34;description&#34;, &#34;&#34;)
+        if isinstance(description, str):
+            # Look for solution-related keywords
+            solution_keywords = [&#34;solve&#34;, &#34;answer&#34;, &#34;key&#34;, &#34;unlock&#34;, &#34;activate&#34;]
+            return any(keyword in description.lower() for keyword in solution_keywords)
+
+        return False
+
+    @staticmethod
+    def _has_narrative_tie(puzzle: dict[str, Any]) -&gt; bool:
+        &#34;&#34;&#34;
+        Check if puzzle is tied to the narrative.
+
+        Args:
+            puzzle: Puzzle dictionary
+
+        Returns:
+            True if puzzle has narrative integration
+        &#34;&#34;&#34;
+        # Check for explicit narrative fields
+        narrative_fields = [&#34;narrative_tie&#34;, &#34;story_connection&#34;, &#34;lore&#34;, &#34;backstory&#34;]
+        for field in narrative_fields:
+            if puzzle.get(field):
+                return True
+
+        # Check description for narrative elements
+        description = puzzle.get(&#34;description&#34;, &#34;&#34;)
+        if isinstance(description, str) and len(description) &gt;= 30:
+            # Descriptions with some detail likely include narrative context
+            return True
+
+        # Check for location or scene references
+        return bool(puzzle.get(&#34;location&#34;) or puzzle.get(&#34;scene&#34;))
+
+    @staticmethod
+    def _has_difficulty(puzzle: dict[str, Any]) -&gt; bool:
+        &#34;&#34;&#34;
+        Check if puzzle has difficulty rating.
+
+        Args:
+            puzzle: Puzzle dictionary
+
+        Returns:
+            True if difficulty is stated
+        &#34;&#34;&#34;
+        difficulty_fields = [&#34;difficulty&#34;, &#34;challenge_level&#34;, &#34;complexity&#34;]
+        return any(puzzle.get(field) for field in difficulty_fields)
+
+    def passes_threshold(self) -&gt; bool:
+        &#34;&#34;&#34;
+        Check if the puzzle metrics pass all quality thresholds.
+
+        Returns:
+            True if all thresholds are met, False otherwise
+        &#34;&#34;&#34;
+        solution_percentage = 0.0
+        if self.total_puzzles &gt; 0:
+            solution_percentage = (self.puzzles_with_solutions / self.total_puzzles) * 100.0
+
+        return (
+            self.total_puzzles &gt;= self.min_puzzles
+            and solution_percentage &gt;= self.min_solution_percentage
+        )
+
+    def get_failures(self) -&gt; list[str]:
+        &#34;&#34;&#34;
+        Get list of failed quality checks.
+
+        Returns:
+            List of failure messages for metrics that don&#39;t meet thresholds
+        &#34;&#34;&#34;
+        failures = []
+
+        if self.total_puzzles &lt; self.min_puzzles:
+            failures.append(
+                f&#34;Insufficient puzzles: {self.total_puzzles} (minimum: {self.min_puzzles})&#34;
+            )
+
+        solution_percentage = 0.0
+        if self.total_puzzles &gt; 0:
+            solution_percentage = (self.puzzles_with_solutions / self.total_puzzles) * 100.0
+
+        if solution_percentage &lt; self.min_solution_percentage:
+            failures.append(
+                f&#34;Too few puzzles with clear solutions: {solution_percentage:.1f}% &#34;
+                f&#34;(minimum: {self.min_solution_percentage}%)&#34;
+            )
+
+        if self.total_puzzles &gt; 0:
+            narrative_percentage = (self.puzzles_with_narrative_ties / self.total_puzzles) * 100.0
+            if narrative_percentage &lt; 50.0:
+                failures.append(
+                    f&#34;Warning: Only {narrative_percentage:.1f}% of puzzles have narrative ties&#34;
+                )
+
+        return failures
+
+    def get_score(self) -&gt; float:
+        &#34;&#34;&#34;
+        Calculate overall quality score (0.0 to 10.0).
+
+        Returns:
+            Quality score based on met criteria
+        &#34;&#34;&#34;
+        score = 0.0
+
+        # Minimum puzzles (3 points)
+        if self.total_puzzles &gt;= self.min_puzzles:
+            score += 3.0
+        elif self.total_puzzles &gt; 0:
+            score += 3.0 * (self.total_puzzles / self.min_puzzles)
+
+        # Solutions (3 points)
+        if self.total_puzzles &gt; 0:
+            solution_percentage = (self.puzzles_with_solutions / self.total_puzzles) * 100.0
+            score += 3.0 * (solution_percentage / 100.0)
+
+        # Narrative ties (2 points)
+        if self.total_puzzles &gt; 0:
+            narrative_percentage = (self.puzzles_with_narrative_ties / self.total_puzzles) * 100.0
+            score += 2.0 * (narrative_percentage / 100.0)
+
+        # Difficulty ratings (1 point)
+        if self.total_puzzles &gt; 0:
+            difficulty_percentage = (self.puzzles_with_difficulty / self.total_puzzles) * 100.0
+            score += 1.0 * (difficulty_percentage / 100.0)
+
+        # Bonus for having artifacts, monsters, NPCs (1 point)
+        bonus_items = sum([self.has_artifacts, self.has_monsters, self.has_npcs])
+        score += 1.0 * (bonus_items / 3.0)
+
+        return min(score, 10.0)
+
+    def to_dict(self) -&gt; dict[str, Any]:
+        &#34;&#34;&#34;
+        Convert metrics to dictionary for serialization.
+
+        Returns:
+            Dictionary representation of metrics
+        &#34;&#34;&#34;
+        return {
+            &#34;total_puzzles&#34;: self.total_puzzles,
+            &#34;puzzles_with_solutions&#34;: self.puzzles_with_solutions,
+            &#34;puzzles_with_narrative_ties&#34;: self.puzzles_with_narrative_ties,
+            &#34;puzzles_with_difficulty&#34;: self.puzzles_with_difficulty,
+            &#34;has_artifacts&#34;: self.has_artifacts,
+            &#34;has_monsters&#34;: self.has_monsters,
+            &#34;has_npcs&#34;: self.has_npcs,
+            &#34;passes_threshold&#34;: self.passes_threshold(),
+            &#34;score&#34;: self.get_score(),
+            &#34;failures&#34;: self.get_failures(),
+        }</code></pre>
+</details>
+<div class="desc"><p>Quality metrics for evaluating puzzle and artifact content.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>total_puzzles</code></strong></dt>
+<dd>Total number of puzzles defined</dd>
+<dt><strong><code>puzzles_with_solutions</code></strong></dt>
+<dd>Number of puzzles with clear solutions</dd>
+<dt><strong><code>puzzles_with_narrative_ties</code></strong></dt>
+<dd>Number of puzzles tied to narrative</dd>
+<dt><strong><code>puzzles_with_difficulty</code></strong></dt>
+<dd>Number of puzzles with difficulty ratings</dd>
+<dt><strong><code>has_artifacts</code></strong></dt>
+<dd>Whether artifacts are defined</dd>
+<dt><strong><code>has_monsters</code></strong></dt>
+<dd>Whether monsters/enemies are defined</dd>
+<dt><strong><code>has_npcs</code></strong></dt>
+<dd>Whether NPCs are defined</dd>
+<dt><strong><code>min_puzzles</code></strong></dt>
+<dd>Minimum required puzzles (default: 2)</dd>
+</dl></div>
+<h3>Static methods</h3>
+<dl>
+<dt id="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.from_dict"><code class="name flex">
+<span>def <span class="ident">from_dict</span></span>(<span>data: dict[str, typing.Any]) ‑> <a title="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics" href="#space_hulk_game.quality.puzzle_metrics.PuzzleMetrics">PuzzleMetrics</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create PuzzleMetrics from a dictionary (parsed YAML).</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>data</code></strong></dt>
+<dd>Dictionary containing puzzle design data</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>PuzzleMetrics instance with measured values</p></div>
+</dd>
+<dt id="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.from_yaml_content"><code class="name flex">
+<span>def <span class="ident">from_yaml_content</span></span>(<span>yaml_content: str) ‑> <a title="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics" href="#space_hulk_game.quality.puzzle_metrics.PuzzleMetrics">PuzzleMetrics</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create PuzzleMetrics from YAML content string.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>yaml_content</code></strong></dt>
+<dd>YAML string containing puzzle design data</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>PuzzleMetrics instance with measured values</p></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.has_artifacts"><code class="name">var <span class="ident">has_artifacts</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.has_monsters"><code class="name">var <span class="ident">has_monsters</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.has_npcs"><code class="name">var <span class="ident">has_npcs</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.min_puzzles"><code class="name">var <span class="ident">min_puzzles</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.min_solution_percentage"><code class="name">var <span class="ident">min_solution_percentage</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.puzzles_with_difficulty"><code class="name">var <span class="ident">puzzles_with_difficulty</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.puzzles_with_narrative_ties"><code class="name">var <span class="ident">puzzles_with_narrative_ties</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.puzzles_with_solutions"><code class="name">var <span class="ident">puzzles_with_solutions</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.total_puzzles"><code class="name">var <span class="ident">total_puzzles</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.get_failures"><code class="name flex">
+<span>def <span class="ident">get_failures</span></span>(<span>self) ‑> list[str]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_failures(self) -&gt; list[str]:
+    &#34;&#34;&#34;
+    Get list of failed quality checks.
+
+    Returns:
+        List of failure messages for metrics that don&#39;t meet thresholds
+    &#34;&#34;&#34;
+    failures = []
+
+    if self.total_puzzles &lt; self.min_puzzles:
+        failures.append(
+            f&#34;Insufficient puzzles: {self.total_puzzles} (minimum: {self.min_puzzles})&#34;
+        )
+
+    solution_percentage = 0.0
+    if self.total_puzzles &gt; 0:
+        solution_percentage = (self.puzzles_with_solutions / self.total_puzzles) * 100.0
+
+    if solution_percentage &lt; self.min_solution_percentage:
+        failures.append(
+            f&#34;Too few puzzles with clear solutions: {solution_percentage:.1f}% &#34;
+            f&#34;(minimum: {self.min_solution_percentage}%)&#34;
+        )
+
+    if self.total_puzzles &gt; 0:
+        narrative_percentage = (self.puzzles_with_narrative_ties / self.total_puzzles) * 100.0
+        if narrative_percentage &lt; 50.0:
+            failures.append(
+                f&#34;Warning: Only {narrative_percentage:.1f}% of puzzles have narrative ties&#34;
+            )
+
+    return failures</code></pre>
+</details>
+<div class="desc"><p>Get list of failed quality checks.</p>
+<h2 id="returns">Returns</h2>
+<p>List of failure messages for metrics that don't meet thresholds</p></div>
+</dd>
+<dt id="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.get_score"><code class="name flex">
+<span>def <span class="ident">get_score</span></span>(<span>self) ‑> float</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_score(self) -&gt; float:
+    &#34;&#34;&#34;
+    Calculate overall quality score (0.0 to 10.0).
+
+    Returns:
+        Quality score based on met criteria
+    &#34;&#34;&#34;
+    score = 0.0
+
+    # Minimum puzzles (3 points)
+    if self.total_puzzles &gt;= self.min_puzzles:
+        score += 3.0
+    elif self.total_puzzles &gt; 0:
+        score += 3.0 * (self.total_puzzles / self.min_puzzles)
+
+    # Solutions (3 points)
+    if self.total_puzzles &gt; 0:
+        solution_percentage = (self.puzzles_with_solutions / self.total_puzzles) * 100.0
+        score += 3.0 * (solution_percentage / 100.0)
+
+    # Narrative ties (2 points)
+    if self.total_puzzles &gt; 0:
+        narrative_percentage = (self.puzzles_with_narrative_ties / self.total_puzzles) * 100.0
+        score += 2.0 * (narrative_percentage / 100.0)
+
+    # Difficulty ratings (1 point)
+    if self.total_puzzles &gt; 0:
+        difficulty_percentage = (self.puzzles_with_difficulty / self.total_puzzles) * 100.0
+        score += 1.0 * (difficulty_percentage / 100.0)
+
+    # Bonus for having artifacts, monsters, NPCs (1 point)
+    bonus_items = sum([self.has_artifacts, self.has_monsters, self.has_npcs])
+    score += 1.0 * (bonus_items / 3.0)
+
+    return min(score, 10.0)</code></pre>
+</details>
+<div class="desc"><p>Calculate overall quality score (0.0 to 10.0).</p>
+<h2 id="returns">Returns</h2>
+<p>Quality score based on met criteria</p></div>
+</dd>
+<dt id="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.passes_threshold"><code class="name flex">
+<span>def <span class="ident">passes_threshold</span></span>(<span>self) ‑> bool</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def passes_threshold(self) -&gt; bool:
+    &#34;&#34;&#34;
+    Check if the puzzle metrics pass all quality thresholds.
+
+    Returns:
+        True if all thresholds are met, False otherwise
+    &#34;&#34;&#34;
+    solution_percentage = 0.0
+    if self.total_puzzles &gt; 0:
+        solution_percentage = (self.puzzles_with_solutions / self.total_puzzles) * 100.0
+
+    return (
+        self.total_puzzles &gt;= self.min_puzzles
+        and solution_percentage &gt;= self.min_solution_percentage
+    )</code></pre>
+</details>
+<div class="desc"><p>Check if the puzzle metrics pass all quality thresholds.</p>
+<h2 id="returns">Returns</h2>
+<p>True if all thresholds are met, False otherwise</p></div>
+</dd>
+<dt id="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.to_dict"><code class="name flex">
+<span>def <span class="ident">to_dict</span></span>(<span>self) ‑> dict[str, typing.Any]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def to_dict(self) -&gt; dict[str, Any]:
+    &#34;&#34;&#34;
+    Convert metrics to dictionary for serialization.
+
+    Returns:
+        Dictionary representation of metrics
+    &#34;&#34;&#34;
+    return {
+        &#34;total_puzzles&#34;: self.total_puzzles,
+        &#34;puzzles_with_solutions&#34;: self.puzzles_with_solutions,
+        &#34;puzzles_with_narrative_ties&#34;: self.puzzles_with_narrative_ties,
+        &#34;puzzles_with_difficulty&#34;: self.puzzles_with_difficulty,
+        &#34;has_artifacts&#34;: self.has_artifacts,
+        &#34;has_monsters&#34;: self.has_monsters,
+        &#34;has_npcs&#34;: self.has_npcs,
+        &#34;passes_threshold&#34;: self.passes_threshold(),
+        &#34;score&#34;: self.get_score(),
+        &#34;failures&#34;: self.get_failures(),
+    }</code></pre>
+</details>
+<div class="desc"><p>Convert metrics to dictionary for serialization.</p>
+<h2 id="returns">Returns</h2>
+<p>Dictionary representation of metrics</p></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="space_hulk_game.quality" href="index.html">space_hulk_game.quality</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics" href="#space_hulk_game.quality.puzzle_metrics.PuzzleMetrics">PuzzleMetrics</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.from_dict" href="#space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.from_dict">from_dict</a></code></li>
+<li><code><a title="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.from_yaml_content" href="#space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.from_yaml_content">from_yaml_content</a></code></li>
+<li><code><a title="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.get_failures" href="#space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.get_failures">get_failures</a></code></li>
+<li><code><a title="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.get_score" href="#space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.get_score">get_score</a></code></li>
+<li><code><a title="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.has_artifacts" href="#space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.has_artifacts">has_artifacts</a></code></li>
+<li><code><a title="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.has_monsters" href="#space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.has_monsters">has_monsters</a></code></li>
+<li><code><a title="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.has_npcs" href="#space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.has_npcs">has_npcs</a></code></li>
+<li><code><a title="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.min_puzzles" href="#space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.min_puzzles">min_puzzles</a></code></li>
+<li><code><a title="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.min_solution_percentage" href="#space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.min_solution_percentage">min_solution_percentage</a></code></li>
+<li><code><a title="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.passes_threshold" href="#space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.passes_threshold">passes_threshold</a></code></li>
+<li><code><a title="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.puzzles_with_difficulty" href="#space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.puzzles_with_difficulty">puzzles_with_difficulty</a></code></li>
+<li><code><a title="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.puzzles_with_narrative_ties" href="#space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.puzzles_with_narrative_ties">puzzles_with_narrative_ties</a></code></li>
+<li><code><a title="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.puzzles_with_solutions" href="#space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.puzzles_with_solutions">puzzles_with_solutions</a></code></li>
+<li><code><a title="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.to_dict" href="#space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.to_dict">to_dict</a></code></li>
+<li><code><a title="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.total_puzzles" href="#space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.total_puzzles">total_puzzles</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>

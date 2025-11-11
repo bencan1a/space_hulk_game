@@ -3,6 +3,7 @@ Pytest configuration file for test suite.
 
 This file is automatically loaded by pytest and configures test behavior.
 """
+
 import os
 from pathlib import Path
 
@@ -22,18 +23,18 @@ def pytest_configure(config):
         # Manually load .env file (without requiring python-dotenv)
         with open(env_file) as f:
             for line in f:
-                line = line.strip()
+                line = line.strip()  # noqa: PLW2901
                 # Skip empty lines and comments
-                if not line or line.startswith('#'):
+                if not line or line.startswith("#"):
                     continue
                 # Parse key=value pairs
-                if '=' in line:
+                if "=" in line:
                     # Split only on first =, in case value contains =
-                    key, value = line.split('=', 1)
+                    key, value = line.split("=", 1)
                     key = key.strip()
                     # Remove inline comments
-                    if '#' in value:
-                        value = value.split('#')[0]
+                    if "#" in value:
+                        value = value.split("#")[0]
                     value = value.strip()
                     # Only set if not already in environment (env vars take precedence)
                     if key not in os.environ:
@@ -42,11 +43,13 @@ def pytest_configure(config):
         print(f"\n✓ Loaded environment variables from {env_file}")
 
         # Display test configuration
-        if os.getenv('RUN_REAL_API_TESTS') == '1':
-            print(f"✓ Real API tests ENABLED")
-            print(f"  OPENROUTER_API_KEY: {'set' if os.getenv('OPENROUTER_API_KEY') else 'NOT SET'}")
+        if os.getenv("RUN_REAL_API_TESTS") == "1":
+            print("✓ Real API tests ENABLED")
+            print(
+                f"  OPENROUTER_API_KEY: {'set' if os.getenv('OPENROUTER_API_KEY') else 'NOT SET'}"
+            )
             print(f"  Model: {os.getenv('OPENAI_MODEL_NAME', 'not specified')}")
         else:
-            print(f"⚠ Real API tests DISABLED (set RUN_REAL_API_TESTS=1 to enable)")
+            print("⚠ Real API tests DISABLED (set RUN_REAL_API_TESTS=1 to enable)")
     else:
         print(f"\n⚠ No .env file found at {env_file}")

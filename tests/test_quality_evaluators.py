@@ -11,7 +11,7 @@ import sys
 import unittest
 
 # Add src to path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
 from space_hulk_game.quality import (
     MechanicsEvaluator,
@@ -29,16 +29,13 @@ class TestQualityScore(unittest.TestCase):
     def test_create_score(self):
         """Test creating a QualityScore."""
         score = QualityScore(
-            score=8.5,
-            passed=True,
-            feedback="Good quality",
-            details={'word_count': 650}
+            score=8.5, passed=True, feedback="Good quality", details={"word_count": 650}
         )
 
         self.assertEqual(score.score, 8.5)
         self.assertTrue(score.passed)
         self.assertEqual(score.feedback, "Good quality")
-        self.assertEqual(score.details['word_count'], 650)
+        self.assertEqual(score.details["word_count"], 650)
 
     def test_score_validation(self):
         """Test that score is validated to be in range 0-10."""
@@ -56,53 +53,42 @@ class TestQualityScore(unittest.TestCase):
 
     def test_to_dict(self):
         """Test converting score to dictionary."""
-        score = QualityScore(7.5, True, "Good", {'key': 'value'})
+        score = QualityScore(7.5, True, "Good", {"key": "value"})
         d = score.to_dict()
 
-        self.assertEqual(d['score'], 7.5)
-        self.assertEqual(d['passed'], True)
-        self.assertEqual(d['feedback'], "Good")
-        self.assertEqual(d['details']['key'], 'value')
+        self.assertEqual(d["score"], 7.5)
+        self.assertEqual(d["passed"], True)
+        self.assertEqual(d["feedback"], "Good")
+        self.assertEqual(d["details"]["key"], "value")
 
     def test_from_dict(self):
         """Test creating score from dictionary."""
-        data = {
-            'score': 6.0,
-            'passed': False,
-            'feedback': 'Needs work',
-            'details': {'issues': 3}
-        }
+        data = {"score": 6.0, "passed": False, "feedback": "Needs work", "details": {"issues": 3}}
         score = QualityScore.from_dict(data)
 
         self.assertEqual(score.score, 6.0)
         self.assertFalse(score.passed)
-        self.assertEqual(score.feedback, 'Needs work')
-        self.assertEqual(score.details['issues'], 3)
+        self.assertEqual(score.feedback, "Needs work")
+        self.assertEqual(score.details["issues"], 3)
 
     def test_get_failures(self):
         """Test extracting failures from details."""
-        score = QualityScore(
-            4.0, False, "Failed",
-            {'failures': ['Issue 1', 'Issue 2']}
-        )
+        score = QualityScore(4.0, False, "Failed", {"failures": ["Issue 1", "Issue 2"]})
         failures = score.get_failures()
 
         self.assertEqual(len(failures), 2)
-        self.assertIn('Issue 1', failures)
-        self.assertIn('Issue 2', failures)
+        self.assertIn("Issue 1", failures)
+        self.assertIn("Issue 2", failures)
 
     def test_get_summary(self):
         """Test getting formatted summary."""
-        score = QualityScore(
-            8.0, True, "Good",
-            {'word_count': 500, 'failures': []}
-        )
+        score = QualityScore(8.0, True, "Good", {"word_count": 500, "failures": []})
         summary = score.get_summary()
 
-        self.assertIn('8.0/10.0', summary)
-        self.assertIn('PASS', summary)
-        self.assertIn('Good', summary)
-        self.assertIn('word_count', summary)
+        self.assertIn("8.0/10.0", summary)
+        self.assertIn("PASS", summary)
+        self.assertIn("Good", summary)
+        self.assertIn("word_count", summary)
 
 
 class TestPlotEvaluator(unittest.TestCase):
@@ -175,7 +161,7 @@ endings:
         self.assertIsInstance(result, QualityScore)
         self.assertGreaterEqual(result.score, 6.0)
         self.assertTrue(result.passed)
-        self.assertIn('details', result.to_dict())
+        self.assertIn("details", result.to_dict())
 
     def test_evaluate_poor_plot(self):
         """Test evaluating a poor quality plot."""
@@ -200,7 +186,7 @@ plot:
 
         self.assertEqual(result.score, 0.0)
         self.assertFalse(result.passed)
-        self.assertIn('error', result.details)
+        self.assertIn("error", result.details)
 
     def test_evaluate_yaml_with_colon_in_value(self):
         """Test evaluating YAML with unquoted colons in values (common LLM output)."""
@@ -230,8 +216,8 @@ endings:
 
         self.assertIsInstance(result, QualityScore)
         self.assertGreater(result.score, 0.0)  # Should not be 0 (parse error)
-        self.assertTrue(result.details.get('has_title'))
-        self.assertEqual(result.details.get('branching_paths_count'), 2)
+        self.assertTrue(result.details.get("has_title"))
+        self.assertEqual(result.details.get("branching_paths_count"), 2)
 
     def test_generate_detailed_feedback(self):
         """Test generating detailed feedback."""
@@ -246,8 +232,8 @@ plot:
         feedback = self.evaluator.generate_detailed_feedback(plot_yaml)
 
         self.assertIsInstance(feedback, str)
-        self.assertIn('Quality Score', feedback)
-        self.assertIn('Status', feedback)
+        self.assertIn("Quality Score", feedback)
+        self.assertIn("Status", feedback)
 
 
 class TestNarrativeMapEvaluator(unittest.TestCase):
@@ -321,7 +307,7 @@ scenes:
         result = self.evaluator.evaluate(narrative_yaml)
 
         # May not pass due to orphaned scene
-        self.assertIn('orphaned_scenes', result.details)
+        self.assertIn("orphaned_scenes", result.details)
 
 
 class TestPuzzleEvaluator(unittest.TestCase):
@@ -457,7 +443,9 @@ class TestEvaluatorIntegration(unittest.TestCase):
         # Minimal valid content for each type
         plot_yaml = "title: Test\nsetting: Place\nthemes: [horror]\nplot: {act1: story}\nendings: [{name: end, type: victory}]"
         narrative_yaml = "scenes:\n  s1:\n    description: desc\n    connections: []"
-        puzzle_yaml = "puzzles:\n  - id: p1\n    solution: yes\n    narrative_tie: yes\n    difficulty: easy"
+        puzzle_yaml = (
+            "puzzles:\n  - id: p1\n    solution: yes\n    narrative_tie: yes\n    difficulty: easy"
+        )
         scene_yaml = "scenes:\n  s1:\n    description: A vivid description"
         mechanics_yaml = "systems:\n  combat:\n    description: How combat works"
 
@@ -497,8 +485,8 @@ endings:
 
         # Should parse successfully
         self.assertIsInstance(result, QualityScore)
-        self.assertNotIn('error', result.details)
+        self.assertNotIn("error", result.details)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

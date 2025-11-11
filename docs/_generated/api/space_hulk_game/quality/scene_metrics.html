@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>space_hulk_game.quality.scene_metrics API documentation</title>
+<meta name="description" content="Quality metrics for Scene evaluation …">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>space_hulk_game.quality.scene_metrics</code></h1>
+</header>
+<section id="section-intro">
+<p>Quality metrics for Scene evaluation.</p>
+<p>This module defines measurable quality criteria for scene texts generated
+by the Space Hulk Game crew, including vivid descriptions, consistent tone,
+and appropriate dialogue.</p>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="space_hulk_game.quality.scene_metrics.SceneMetrics"><code class="flex name class">
+<span>class <span class="ident">SceneMetrics</span></span>
+<span>(</span><span>total_scenes: int = 0,<br>scenes_with_vivid_descriptions: int = 0,<br>scenes_with_dialogue: int = 0,<br>average_description_length: float = 0.0,<br>tone_consistency_score: float = 0.0,<br>has_sensory_details: bool = False,<br>min_scenes: int = 5,<br>min_description_length: int = 50,<br>min_vivid_percentage: float = 70.0)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
+class SceneMetrics:
+    &#34;&#34;&#34;
+    Quality metrics for evaluating scene text content.
+
+    Attributes:
+        total_scenes: Total number of scenes
+        scenes_with_vivid_descriptions: Number of scenes with quality descriptions
+        scenes_with_dialogue: Number of scenes containing dialogue
+        average_description_length: Average length of scene descriptions (words)
+        tone_consistency_score: Score for tone consistency (0.0 to 10.0)
+        has_sensory_details: Whether scenes include sensory details
+        min_scenes: Minimum required scenes (default: 5)
+        min_description_length: Minimum description length in words (default: 50)
+    &#34;&#34;&#34;
+
+    # Measured values
+    total_scenes: int = 0
+    scenes_with_vivid_descriptions: int = 0
+    scenes_with_dialogue: int = 0
+    average_description_length: float = 0.0
+    tone_consistency_score: float = 0.0
+    has_sensory_details: bool = False
+
+    # Thresholds
+    min_scenes: int = 5
+    min_description_length: int = 50
+    min_vivid_percentage: float = 70.0  # 70% should be vivid
+
+    @classmethod
+    def from_yaml_content(cls, yaml_content: str) -&gt; &#34;SceneMetrics&#34;:
+        &#34;&#34;&#34;
+        Create SceneMetrics from YAML content string.
+
+        Args:
+            yaml_content: YAML string containing scene texts data
+
+        Returns:
+            SceneMetrics instance with measured values
+        &#34;&#34;&#34;
+        try:
+            # Handle markdown-wrapped YAML
+            content = yaml_content.strip()
+            if content.startswith(&#34;```&#34;):
+                lines = content.split(&#34;\n&#34;)
+                content = &#34;\n&#34;.join(lines[1:-1])
+
+            data = yaml.safe_load(content)
+            return cls.from_dict(data)
+        except Exception as e:
+            raise ValueError(f&#34;Failed to parse YAML content: {e}&#34;) from e
+
+    @classmethod
+    def from_dict(cls, data: dict[str, Any]) -&gt; &#34;SceneMetrics&#34;:
+        &#34;&#34;&#34;
+        Create SceneMetrics from a dictionary (parsed YAML).
+
+        Args:
+            data: Dictionary containing scene texts data
+
+        Returns:
+            SceneMetrics instance with measured values
+        &#34;&#34;&#34;
+        metrics = cls()
+
+        # Get scenes
+        scenes = data.get(&#34;scenes&#34;, {})
+        if not scenes:
+            # Try alternate structure
+            scenes = data.get(&#34;scene_texts&#34;, {})
+
+        metrics.total_scenes = len(scenes)
+
+        if metrics.total_scenes == 0:
+            return metrics
+
+        # Analyze each scene
+        total_description_length = 0
+        tones = []
+
+        for _scene_id, scene_data in scenes.items():
+            if not isinstance(scene_data, dict):
+                continue
+
+            # Get description
+            description = scene_data.get(&#34;description&#34;, &#34;&#34;)
+            if not description:
+                description = scene_data.get(&#34;text&#34;, &#34;&#34;)
+
+            # Check for vivid description
+            if cls._is_vivid_description(description):
+                metrics.scenes_with_vivid_descriptions += 1
+
+            # Check for dialogue
+            if cls._has_dialogue(description, scene_data):
+                metrics.scenes_with_dialogue += 1
+
+            # Track description length
+            desc_length = len(description.split()) if isinstance(description, str) else 0
+            total_description_length += desc_length
+
+            # Track tone
+            tone = scene_data.get(&#34;tone&#34;, &#34;&#34;)
+            if tone:
+                tones.append(tone)
+
+            # Check for sensory details
+            if cls._has_sensory_details(description):
+                metrics.has_sensory_details = True
+
+        # Calculate averages
+        metrics.average_description_length = total_description_length / metrics.total_scenes
+
+        # Calculate tone consistency
+        metrics.tone_consistency_score = cls._calculate_tone_consistency(tones)
+
+        return metrics
+
+    @staticmethod
+    def _is_vivid_description(description: str) -&gt; bool:
+        &#34;&#34;&#34;
+        Check if description is vivid and engaging.
+
+        A vivid description should:
+        - Be at least 50 words
+        - Contain descriptive adjectives
+        - Include specific details
+
+        Args:
+            description: Scene description text
+
+        Returns:
+            True if description is vivid
+        &#34;&#34;&#34;
+        if not isinstance(description, str):
+            return False
+
+        # Check length
+        words = description.split()
+        if len(words) &lt; 50:
+            return False
+
+        # Check for descriptive words (simple heuristic)
+        descriptive_patterns = [
+            r&#34;\b(dark|ancient|massive|twisted|corrupted|flickering|ominous)\b&#34;,
+            r&#34;\b(gleaming|rusted|broken|shattered|blood|shadows|decay)\b&#34;,
+            r&#34;\b(echoing|silent|screaming|whispering|rumbling)\b&#34;,
+        ]
+
+        has_descriptive = False
+        for pattern in descriptive_patterns:
+            if re.search(pattern, description.lower()):
+                has_descriptive = True
+                break
+
+        return has_descriptive
+
+    @staticmethod
+    def _has_dialogue(description: str, scene_data: dict[str, Any]) -&gt; bool:
+        &#34;&#34;&#34;
+        Check if scene contains dialogue.
+
+        Args:
+            description: Scene description text
+            scene_data: Full scene data dictionary
+
+        Returns:
+            True if dialogue is present
+        &#34;&#34;&#34;
+        # Check for explicit dialogue field
+        if scene_data.get(&#34;dialogue&#34;):
+            return True
+
+        if not isinstance(description, str):
+            return False
+
+        # Check for dialogue markers
+
+        # Look for quoted text (primary indicator)
+        if &#39;&#34;&#39; in description or &#34;&#39;&#34; in description:
+            return True
+
+        # Look for dialogue keywords (more specific patterns)
+        desc_lower = description.lower()
+        return any(marker in desc_lower for marker in [&#34;says&#34;, &#34;said&#34;, &#34;asks&#34;, &#34;asked&#34;])
+
+    @staticmethod
+    def _has_sensory_details(description: str) -&gt; bool:
+        &#34;&#34;&#34;
+        Check if description includes sensory details.
+
+        Args:
+            description: Scene description text
+
+        Returns:
+            True if sensory details are present
+        &#34;&#34;&#34;
+        if not isinstance(description, str):
+            return False
+
+        # Sensory detail patterns
+        sensory_patterns = [
+            # Visual
+            r&#34;\b(see|sees|saw|look|looks|glimpse|observe|witness)\b&#34;,
+            r&#34;\b(dark|bright|dim|glowing|shadowy|lit)\b&#34;,
+            # Auditory
+            r&#34;\b(hear|hears|heard|sound|noise|echo|silence)\b&#34;,
+            r&#34;\b(loud|quiet|whisper|scream|rumble)\b&#34;,
+            # Tactile
+            r&#34;\b(feel|feels|felt|touch|cold|hot|warm)\b&#34;,
+            # Olfactory
+            r&#34;\b(smell|smells|stench|odor|scent)\b&#34;,
+            # Other
+            r&#34;\b(taste|atmosphere|sense)\b&#34;,
+        ]
+
+        desc_lower = description.lower()
+        matches = sum(1 for pattern in sensory_patterns if re.search(pattern, desc_lower))
+
+        # At least 2 different sensory references
+        return matches &gt;= 2
+
+    @staticmethod
+    def _calculate_tone_consistency(tones: list[str]) -&gt; float:
+        &#34;&#34;&#34;
+        Calculate tone consistency score.
+
+        Args:
+            tones: List of tone descriptors from scenes
+
+        Returns:
+            Score from 0.0 to 10.0
+        &#34;&#34;&#34;
+        if not tones:
+            return 5.0  # Neutral score if no tones defined
+
+        # Count unique tones
+        unique_tones = {tone.lower() for tone in tones}
+
+        # More consistency = fewer unique tones relative to total
+        # Perfect consistency would be 1 unique tone
+        consistency_ratio = 1.0 - ((len(unique_tones) - 1) / max(len(tones), 1))
+
+        return consistency_ratio * 10.0
+
+    def passes_threshold(self) -&gt; bool:
+        &#34;&#34;&#34;
+        Check if the scene metrics pass all quality thresholds.
+
+        Returns:
+            True if all thresholds are met, False otherwise
+        &#34;&#34;&#34;
+        vivid_percentage = 0.0
+        if self.total_scenes &gt; 0:
+            vivid_percentage = (self.scenes_with_vivid_descriptions / self.total_scenes) * 100.0
+
+        return (
+            self.total_scenes &gt;= self.min_scenes
+            and self.average_description_length &gt;= self.min_description_length
+            and vivid_percentage &gt;= self.min_vivid_percentage
+        )
+
+    def get_failures(self) -&gt; list[str]:
+        &#34;&#34;&#34;
+        Get list of failed quality checks.
+
+        Returns:
+            List of failure messages for metrics that don&#39;t meet thresholds
+        &#34;&#34;&#34;
+        failures = []
+
+        if self.total_scenes &lt; self.min_scenes:
+            failures.append(
+                f&#34;Insufficient scenes: {self.total_scenes} (minimum: {self.min_scenes})&#34;
+            )
+
+        if self.average_description_length &lt; self.min_description_length:
+            failures.append(
+                f&#34;Descriptions too short: avg {self.average_description_length:.0f} words &#34;
+                f&#34;(minimum: {self.min_description_length})&#34;
+            )
+
+        vivid_percentage = 0.0
+        if self.total_scenes &gt; 0:
+            vivid_percentage = (self.scenes_with_vivid_descriptions / self.total_scenes) * 100.0
+
+        if vivid_percentage &lt; self.min_vivid_percentage:
+            failures.append(
+                f&#34;Too few vivid descriptions: {vivid_percentage:.1f}% &#34;
+                f&#34;(minimum: {self.min_vivid_percentage}%)&#34;
+            )
+
+        # Warnings
+        if self.total_scenes &gt; 0:
+            dialogue_percentage = (self.scenes_with_dialogue / self.total_scenes) * 100.0
+            if dialogue_percentage &lt; 30.0:
+                failures.append(
+                    f&#34;Warning: Only {dialogue_percentage:.1f}% of scenes contain dialogue&#34;
+                )
+
+        return failures
+
+    def get_score(self) -&gt; float:
+        &#34;&#34;&#34;
+        Calculate overall quality score (0.0 to 10.0).
+
+        Returns:
+            Quality score based on met criteria
+        &#34;&#34;&#34;
+        score = 0.0
+
+        # Minimum scenes (2 points)
+        if self.total_scenes &gt;= self.min_scenes:
+            score += 2.0
+        elif self.total_scenes &gt; 0:
+            score += 2.0 * (self.total_scenes / self.min_scenes)
+
+        # Description length (2 points)
+        if self.average_description_length &gt;= self.min_description_length:
+            score += 2.0
+        elif self.average_description_length &gt; 0:
+            score += 2.0 * (self.average_description_length / self.min_description_length)
+
+        # Vivid descriptions (3 points)
+        if self.total_scenes &gt; 0:
+            vivid_percentage = (self.scenes_with_vivid_descriptions / self.total_scenes) * 100.0
+            score += 3.0 * (vivid_percentage / 100.0)
+
+        # Dialogue (1 point)
+        if self.total_scenes &gt; 0:
+            dialogue_percentage = (self.scenes_with_dialogue / self.total_scenes) * 100.0
+            score += 1.0 * (dialogue_percentage / 100.0)
+
+        # Tone consistency (1 point)
+        score += self.tone_consistency_score / 10.0
+
+        # Sensory details (1 point)
+        if self.has_sensory_details:
+            score += 1.0
+
+        return min(score, 10.0)
+
+    def to_dict(self) -&gt; dict[str, Any]:
+        &#34;&#34;&#34;
+        Convert metrics to dictionary for serialization.
+
+        Returns:
+            Dictionary representation of metrics
+        &#34;&#34;&#34;
+        return {
+            &#34;total_scenes&#34;: self.total_scenes,
+            &#34;scenes_with_vivid_descriptions&#34;: self.scenes_with_vivid_descriptions,
+            &#34;scenes_with_dialogue&#34;: self.scenes_with_dialogue,
+            &#34;average_description_length&#34;: round(self.average_description_length, 1),
+            &#34;tone_consistency_score&#34;: round(self.tone_consistency_score, 2),
+            &#34;has_sensory_details&#34;: self.has_sensory_details,
+            &#34;passes_threshold&#34;: self.passes_threshold(),
+            &#34;score&#34;: self.get_score(),
+            &#34;failures&#34;: self.get_failures(),
+        }</code></pre>
+</details>
+<div class="desc"><p>Quality metrics for evaluating scene text content.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>total_scenes</code></strong></dt>
+<dd>Total number of scenes</dd>
+<dt><strong><code>scenes_with_vivid_descriptions</code></strong></dt>
+<dd>Number of scenes with quality descriptions</dd>
+<dt><strong><code>scenes_with_dialogue</code></strong></dt>
+<dd>Number of scenes containing dialogue</dd>
+<dt><strong><code>average_description_length</code></strong></dt>
+<dd>Average length of scene descriptions (words)</dd>
+<dt><strong><code>tone_consistency_score</code></strong></dt>
+<dd>Score for tone consistency (0.0 to 10.0)</dd>
+<dt><strong><code>has_sensory_details</code></strong></dt>
+<dd>Whether scenes include sensory details</dd>
+<dt><strong><code>min_scenes</code></strong></dt>
+<dd>Minimum required scenes (default: 5)</dd>
+<dt><strong><code>min_description_length</code></strong></dt>
+<dd>Minimum description length in words (default: 50)</dd>
+</dl></div>
+<h3>Static methods</h3>
+<dl>
+<dt id="space_hulk_game.quality.scene_metrics.SceneMetrics.from_dict"><code class="name flex">
+<span>def <span class="ident">from_dict</span></span>(<span>data: dict[str, typing.Any]) ‑> <a title="space_hulk_game.quality.scene_metrics.SceneMetrics" href="#space_hulk_game.quality.scene_metrics.SceneMetrics">SceneMetrics</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create SceneMetrics from a dictionary (parsed YAML).</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>data</code></strong></dt>
+<dd>Dictionary containing scene texts data</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>SceneMetrics instance with measured values</p></div>
+</dd>
+<dt id="space_hulk_game.quality.scene_metrics.SceneMetrics.from_yaml_content"><code class="name flex">
+<span>def <span class="ident">from_yaml_content</span></span>(<span>yaml_content: str) ‑> <a title="space_hulk_game.quality.scene_metrics.SceneMetrics" href="#space_hulk_game.quality.scene_metrics.SceneMetrics">SceneMetrics</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create SceneMetrics from YAML content string.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>yaml_content</code></strong></dt>
+<dd>YAML string containing scene texts data</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>SceneMetrics instance with measured values</p></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="space_hulk_game.quality.scene_metrics.SceneMetrics.average_description_length"><code class="name">var <span class="ident">average_description_length</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.quality.scene_metrics.SceneMetrics.has_sensory_details"><code class="name">var <span class="ident">has_sensory_details</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.quality.scene_metrics.SceneMetrics.min_description_length"><code class="name">var <span class="ident">min_description_length</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.quality.scene_metrics.SceneMetrics.min_scenes"><code class="name">var <span class="ident">min_scenes</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.quality.scene_metrics.SceneMetrics.min_vivid_percentage"><code class="name">var <span class="ident">min_vivid_percentage</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.quality.scene_metrics.SceneMetrics.scenes_with_dialogue"><code class="name">var <span class="ident">scenes_with_dialogue</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.quality.scene_metrics.SceneMetrics.scenes_with_vivid_descriptions"><code class="name">var <span class="ident">scenes_with_vivid_descriptions</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.quality.scene_metrics.SceneMetrics.tone_consistency_score"><code class="name">var <span class="ident">tone_consistency_score</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.quality.scene_metrics.SceneMetrics.total_scenes"><code class="name">var <span class="ident">total_scenes</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="space_hulk_game.quality.scene_metrics.SceneMetrics.get_failures"><code class="name flex">
+<span>def <span class="ident">get_failures</span></span>(<span>self) ‑> list[str]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_failures(self) -&gt; list[str]:
+    &#34;&#34;&#34;
+    Get list of failed quality checks.
+
+    Returns:
+        List of failure messages for metrics that don&#39;t meet thresholds
+    &#34;&#34;&#34;
+    failures = []
+
+    if self.total_scenes &lt; self.min_scenes:
+        failures.append(
+            f&#34;Insufficient scenes: {self.total_scenes} (minimum: {self.min_scenes})&#34;
+        )
+
+    if self.average_description_length &lt; self.min_description_length:
+        failures.append(
+            f&#34;Descriptions too short: avg {self.average_description_length:.0f} words &#34;
+            f&#34;(minimum: {self.min_description_length})&#34;
+        )
+
+    vivid_percentage = 0.0
+    if self.total_scenes &gt; 0:
+        vivid_percentage = (self.scenes_with_vivid_descriptions / self.total_scenes) * 100.0
+
+    if vivid_percentage &lt; self.min_vivid_percentage:
+        failures.append(
+            f&#34;Too few vivid descriptions: {vivid_percentage:.1f}% &#34;
+            f&#34;(minimum: {self.min_vivid_percentage}%)&#34;
+        )
+
+    # Warnings
+    if self.total_scenes &gt; 0:
+        dialogue_percentage = (self.scenes_with_dialogue / self.total_scenes) * 100.0
+        if dialogue_percentage &lt; 30.0:
+            failures.append(
+                f&#34;Warning: Only {dialogue_percentage:.1f}% of scenes contain dialogue&#34;
+            )
+
+    return failures</code></pre>
+</details>
+<div class="desc"><p>Get list of failed quality checks.</p>
+<h2 id="returns">Returns</h2>
+<p>List of failure messages for metrics that don't meet thresholds</p></div>
+</dd>
+<dt id="space_hulk_game.quality.scene_metrics.SceneMetrics.get_score"><code class="name flex">
+<span>def <span class="ident">get_score</span></span>(<span>self) ‑> float</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_score(self) -&gt; float:
+    &#34;&#34;&#34;
+    Calculate overall quality score (0.0 to 10.0).
+
+    Returns:
+        Quality score based on met criteria
+    &#34;&#34;&#34;
+    score = 0.0
+
+    # Minimum scenes (2 points)
+    if self.total_scenes &gt;= self.min_scenes:
+        score += 2.0
+    elif self.total_scenes &gt; 0:
+        score += 2.0 * (self.total_scenes / self.min_scenes)
+
+    # Description length (2 points)
+    if self.average_description_length &gt;= self.min_description_length:
+        score += 2.0
+    elif self.average_description_length &gt; 0:
+        score += 2.0 * (self.average_description_length / self.min_description_length)
+
+    # Vivid descriptions (3 points)
+    if self.total_scenes &gt; 0:
+        vivid_percentage = (self.scenes_with_vivid_descriptions / self.total_scenes) * 100.0
+        score += 3.0 * (vivid_percentage / 100.0)
+
+    # Dialogue (1 point)
+    if self.total_scenes &gt; 0:
+        dialogue_percentage = (self.scenes_with_dialogue / self.total_scenes) * 100.0
+        score += 1.0 * (dialogue_percentage / 100.0)
+
+    # Tone consistency (1 point)
+    score += self.tone_consistency_score / 10.0
+
+    # Sensory details (1 point)
+    if self.has_sensory_details:
+        score += 1.0
+
+    return min(score, 10.0)</code></pre>
+</details>
+<div class="desc"><p>Calculate overall quality score (0.0 to 10.0).</p>
+<h2 id="returns">Returns</h2>
+<p>Quality score based on met criteria</p></div>
+</dd>
+<dt id="space_hulk_game.quality.scene_metrics.SceneMetrics.passes_threshold"><code class="name flex">
+<span>def <span class="ident">passes_threshold</span></span>(<span>self) ‑> bool</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def passes_threshold(self) -&gt; bool:
+    &#34;&#34;&#34;
+    Check if the scene metrics pass all quality thresholds.
+
+    Returns:
+        True if all thresholds are met, False otherwise
+    &#34;&#34;&#34;
+    vivid_percentage = 0.0
+    if self.total_scenes &gt; 0:
+        vivid_percentage = (self.scenes_with_vivid_descriptions / self.total_scenes) * 100.0
+
+    return (
+        self.total_scenes &gt;= self.min_scenes
+        and self.average_description_length &gt;= self.min_description_length
+        and vivid_percentage &gt;= self.min_vivid_percentage
+    )</code></pre>
+</details>
+<div class="desc"><p>Check if the scene metrics pass all quality thresholds.</p>
+<h2 id="returns">Returns</h2>
+<p>True if all thresholds are met, False otherwise</p></div>
+</dd>
+<dt id="space_hulk_game.quality.scene_metrics.SceneMetrics.to_dict"><code class="name flex">
+<span>def <span class="ident">to_dict</span></span>(<span>self) ‑> dict[str, typing.Any]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def to_dict(self) -&gt; dict[str, Any]:
+    &#34;&#34;&#34;
+    Convert metrics to dictionary for serialization.
+
+    Returns:
+        Dictionary representation of metrics
+    &#34;&#34;&#34;
+    return {
+        &#34;total_scenes&#34;: self.total_scenes,
+        &#34;scenes_with_vivid_descriptions&#34;: self.scenes_with_vivid_descriptions,
+        &#34;scenes_with_dialogue&#34;: self.scenes_with_dialogue,
+        &#34;average_description_length&#34;: round(self.average_description_length, 1),
+        &#34;tone_consistency_score&#34;: round(self.tone_consistency_score, 2),
+        &#34;has_sensory_details&#34;: self.has_sensory_details,
+        &#34;passes_threshold&#34;: self.passes_threshold(),
+        &#34;score&#34;: self.get_score(),
+        &#34;failures&#34;: self.get_failures(),
+    }</code></pre>
+</details>
+<div class="desc"><p>Convert metrics to dictionary for serialization.</p>
+<h2 id="returns">Returns</h2>
+<p>Dictionary representation of metrics</p></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="space_hulk_game.quality" href="index.html">space_hulk_game.quality</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="space_hulk_game.quality.scene_metrics.SceneMetrics" href="#space_hulk_game.quality.scene_metrics.SceneMetrics">SceneMetrics</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.quality.scene_metrics.SceneMetrics.average_description_length" href="#space_hulk_game.quality.scene_metrics.SceneMetrics.average_description_length">average_description_length</a></code></li>
+<li><code><a title="space_hulk_game.quality.scene_metrics.SceneMetrics.from_dict" href="#space_hulk_game.quality.scene_metrics.SceneMetrics.from_dict">from_dict</a></code></li>
+<li><code><a title="space_hulk_game.quality.scene_metrics.SceneMetrics.from_yaml_content" href="#space_hulk_game.quality.scene_metrics.SceneMetrics.from_yaml_content">from_yaml_content</a></code></li>
+<li><code><a title="space_hulk_game.quality.scene_metrics.SceneMetrics.get_failures" href="#space_hulk_game.quality.scene_metrics.SceneMetrics.get_failures">get_failures</a></code></li>
+<li><code><a title="space_hulk_game.quality.scene_metrics.SceneMetrics.get_score" href="#space_hulk_game.quality.scene_metrics.SceneMetrics.get_score">get_score</a></code></li>
+<li><code><a title="space_hulk_game.quality.scene_metrics.SceneMetrics.has_sensory_details" href="#space_hulk_game.quality.scene_metrics.SceneMetrics.has_sensory_details">has_sensory_details</a></code></li>
+<li><code><a title="space_hulk_game.quality.scene_metrics.SceneMetrics.min_description_length" href="#space_hulk_game.quality.scene_metrics.SceneMetrics.min_description_length">min_description_length</a></code></li>
+<li><code><a title="space_hulk_game.quality.scene_metrics.SceneMetrics.min_scenes" href="#space_hulk_game.quality.scene_metrics.SceneMetrics.min_scenes">min_scenes</a></code></li>
+<li><code><a title="space_hulk_game.quality.scene_metrics.SceneMetrics.min_vivid_percentage" href="#space_hulk_game.quality.scene_metrics.SceneMetrics.min_vivid_percentage">min_vivid_percentage</a></code></li>
+<li><code><a title="space_hulk_game.quality.scene_metrics.SceneMetrics.passes_threshold" href="#space_hulk_game.quality.scene_metrics.SceneMetrics.passes_threshold">passes_threshold</a></code></li>
+<li><code><a title="space_hulk_game.quality.scene_metrics.SceneMetrics.scenes_with_dialogue" href="#space_hulk_game.quality.scene_metrics.SceneMetrics.scenes_with_dialogue">scenes_with_dialogue</a></code></li>
+<li><code><a title="space_hulk_game.quality.scene_metrics.SceneMetrics.scenes_with_vivid_descriptions" href="#space_hulk_game.quality.scene_metrics.SceneMetrics.scenes_with_vivid_descriptions">scenes_with_vivid_descriptions</a></code></li>
+<li><code><a title="space_hulk_game.quality.scene_metrics.SceneMetrics.to_dict" href="#space_hulk_game.quality.scene_metrics.SceneMetrics.to_dict">to_dict</a></code></li>
+<li><code><a title="space_hulk_game.quality.scene_metrics.SceneMetrics.tone_consistency_score" href="#space_hulk_game.quality.scene_metrics.SceneMetrics.tone_consistency_score">tone_consistency_score</a></code></li>
+<li><code><a title="space_hulk_game.quality.scene_metrics.SceneMetrics.total_scenes" href="#space_hulk_game.quality.scene_metrics.SceneMetrics.total_scenes">total_scenes</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>

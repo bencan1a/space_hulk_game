@@ -23,6 +23,7 @@ logger = logging.getLogger(__name__)
 
 class TaskType(Enum):
     """Enum for task types to map to appropriate evaluators."""
+
     PLOT = "plot"
     NARRATIVE = "narrative"
     PUZZLE = "puzzle"
@@ -46,12 +47,7 @@ class TaskWithQualityCheck:
         >>> result = task_wrapper.execute(task_function, task_name="Plot Generation")
     """
 
-    def __init__(
-        self,
-        task_type: TaskType,
-        pass_threshold: float = 6.0,
-        max_retries: int = 3
-    ):
+    def __init__(self, task_type: TaskType, pass_threshold: float = 6.0, max_retries: int = 3):
         """
         Initialize the task wrapper with quality checking.
 
@@ -94,13 +90,10 @@ class TaskWithQualityCheck:
         }
 
         evaluator_class = evaluator_map[self.task_type]
-        return evaluator_class(pass_threshold=self.pass_threshold)
+        return evaluator_class(pass_threshold=self.pass_threshold)  # type: ignore[abstract]
 
     def execute(
-        self,
-        task_function: Callable[..., str],
-        task_name: str = "Task",
-        **kwargs
+        self, task_function: Callable[..., str], task_name: str = "Task", **kwargs
     ) -> tuple[str, QualityScore, int]:
         """
         Execute task with quality checking and retry logic.
@@ -140,8 +133,8 @@ class TaskWithQualityCheck:
                 quality = QualityScore(
                     score=0.0,
                     passed=False,
-                    feedback=f"Failed to parse: {str(e)}",
-                    details={"evaluation_error": True}
+                    feedback=f"Failed to parse: {e!s}",
+                    details={"evaluation_error": True},
                 )
 
             # Check if quality threshold is met
@@ -161,14 +154,16 @@ class TaskWithQualityCheck:
                 )
 
                 # Add feedback to kwargs for next iteration
-                if 'feedback_history' not in kwargs:
-                    kwargs['feedback_history'] = []
-                kwargs['feedback_history'].append({
-                    'attempt': attempt,
-                    'score': quality.score,
-                    'feedback': quality.feedback,
-                    'details': quality.details
-                })
+                if "feedback_history" not in kwargs:
+                    kwargs["feedback_history"] = []
+                kwargs["feedback_history"].append(
+                    {
+                        "attempt": attempt,
+                        "score": quality.score,
+                        "feedback": quality.feedback,
+                        "details": quality.details,
+                    }
+                )
             else:
                 # Max retries reached
                 logger.warning(
@@ -187,7 +182,7 @@ def execute_with_quality_check(
     task_name: str = "Task",
     pass_threshold: float = 6.0,
     max_retries: int = 3,
-    **kwargs
+    **kwargs,
 ) -> tuple[str, QualityScore, int]:
     """
     Execute a task with quality checking and retry logic (functional interface).
@@ -220,9 +215,7 @@ def execute_with_quality_check(
         >>> print(f"Completed in {attempts} attempts with score {quality.score}")
     """
     wrapper = TaskWithQualityCheck(
-        task_type=task_type,
-        pass_threshold=pass_threshold,
-        max_retries=max_retries
+        task_type=task_type, pass_threshold=pass_threshold, max_retries=max_retries
     )
 
     return wrapper.execute(task_function, task_name=task_name, **kwargs)
@@ -234,7 +227,7 @@ def create_quality_config(
     puzzle_threshold: float = 6.0,
     scene_threshold: float = 6.0,
     mechanics_threshold: float = 6.0,
-    max_retries: int = 3
+    max_retries: int = 3,
 ) -> dict[TaskType, dict[str, Any]]:
     """
     Create a quality configuration dictionary for all task types.
@@ -260,24 +253,9 @@ def create_quality_config(
         >>> print(plot_config['pass_threshold'])  # 7.0
     """
     return {
-        TaskType.PLOT: {
-            'pass_threshold': plot_threshold,
-            'max_retries': max_retries
-        },
-        TaskType.NARRATIVE: {
-            'pass_threshold': narrative_threshold,
-            'max_retries': max_retries
-        },
-        TaskType.PUZZLE: {
-            'pass_threshold': puzzle_threshold,
-            'max_retries': max_retries
-        },
-        TaskType.SCENE: {
-            'pass_threshold': scene_threshold,
-            'max_retries': max_retries
-        },
-        TaskType.MECHANICS: {
-            'pass_threshold': mechanics_threshold,
-            'max_retries': max_retries
-        }
+        TaskType.PLOT: {"pass_threshold": plot_threshold, "max_retries": max_retries},
+        TaskType.NARRATIVE: {"pass_threshold": narrative_threshold, "max_retries": max_retries},
+        TaskType.PUZZLE: {"pass_threshold": puzzle_threshold, "max_retries": max_retries},
+        TaskType.SCENE: {"pass_threshold": scene_threshold, "max_retries": max_retries},
+        TaskType.MECHANICS: {"pass_threshold": mechanics_threshold, "max_retries": max_retries},
     }

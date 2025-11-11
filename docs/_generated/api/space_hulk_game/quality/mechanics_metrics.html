@@ -1,0 +1,775 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>space_hulk_game.quality.mechanics_metrics API documentation</title>
+<meta name="description" content="Quality metrics for GameMechanics evaluation …">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>space_hulk_game.quality.mechanics_metrics</code></h1>
+</header>
+<section id="section-intro">
+<p>Quality metrics for GameMechanics evaluation.</p>
+<p>This module defines measurable quality criteria for game mechanics (PRD) documents
+generated by the Space Hulk Game crew, including completeness, clarity, and balance.</p>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics"><code class="flex name class">
+<span>class <span class="ident">MechanicsMetrics</span></span>
+<span>(</span><span>has_combat_system: bool = False,<br>has_movement_system: bool = False,<br>has_inventory_system: bool = False,<br>has_progression_system: bool = False,<br>total_systems: int = 0,<br>systems_with_rules: int = 0,<br>completeness_percentage: float = 0.0,<br>average_rule_clarity: float = 0.0,<br>has_balance_notes: bool = False,<br>min_systems: int = 3,<br>min_completeness: float = 60.0,<br>min_clarity: float = 6.0)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
+class MechanicsMetrics:
+    &#34;&#34;&#34;
+    Quality metrics for evaluating game mechanics/PRD content.
+
+    Attributes:
+        has_combat_system: Whether combat mechanics are described
+        has_movement_system: Whether movement mechanics are described
+        has_inventory_system: Whether inventory mechanics are described
+        has_progression_system: Whether character progression is described
+        total_systems: Total number of game systems described
+        systems_with_rules: Number of systems with clear rules
+        completeness_percentage: Percentage of expected systems present
+        average_rule_clarity: Average clarity score for rules
+        has_balance_notes: Whether difficulty/balance is discussed
+        min_systems: Minimum required systems (default: 3)
+    &#34;&#34;&#34;
+
+    # Measured values
+    has_combat_system: bool = False
+    has_movement_system: bool = False
+    has_inventory_system: bool = False
+    has_progression_system: bool = False
+    total_systems: int = 0
+    systems_with_rules: int = 0
+    completeness_percentage: float = 0.0
+    average_rule_clarity: float = 0.0
+    has_balance_notes: bool = False
+
+    # Thresholds
+    min_systems: int = 3
+    min_completeness: float = 60.0  # 60% of expected systems
+    min_clarity: float = 6.0  # Out of 10.0
+
+    @classmethod
+    def from_yaml_content(cls, yaml_content: str) -&gt; &#34;MechanicsMetrics&#34;:
+        &#34;&#34;&#34;
+        Create MechanicsMetrics from YAML content string.
+
+        Args:
+            yaml_content: YAML string containing PRD/mechanics data
+
+        Returns:
+            MechanicsMetrics instance with measured values
+        &#34;&#34;&#34;
+        try:
+            # Handle markdown-wrapped YAML
+            content = yaml_content.strip()
+            if content.startswith(&#34;```&#34;):
+                lines = content.split(&#34;\n&#34;)
+                content = &#34;\n&#34;.join(lines[1:-1])
+
+            data = yaml.safe_load(content)
+            return cls.from_dict(data)
+        except Exception as e:
+            raise ValueError(f&#34;Failed to parse YAML content: {e}&#34;) from e
+
+    @classmethod
+    def from_dict(cls, data: dict[str, Any]) -&gt; &#34;MechanicsMetrics&#34;:
+        &#34;&#34;&#34;
+        Create MechanicsMetrics from a dictionary (parsed YAML).
+
+        Args:
+            data: Dictionary containing PRD/mechanics data
+
+        Returns:
+            MechanicsMetrics instance with measured values
+        &#34;&#34;&#34;
+        metrics = cls()
+
+        # Get mechanics/systems section
+        mechanics = data.get(&#34;mechanics&#34;, data)
+        systems = mechanics.get(&#34;systems&#34;, {})
+
+        # If no explicit systems section, analyze the entire document
+        if not systems:
+            systems = mechanics
+
+        # Check for specific core systems
+        metrics.has_combat_system = cls._has_system(systems, &#34;combat&#34;)
+        metrics.has_movement_system = cls._has_system(systems, &#34;movement&#34;)
+        metrics.has_inventory_system = cls._has_system(systems, &#34;inventory&#34;)
+        metrics.has_progression_system = cls._has_system(systems, &#34;progression&#34;)
+
+        # Count total systems
+        metrics.total_systems = cls._count_systems(systems)
+
+        # Count systems with clear rules
+        metrics.systems_with_rules, clarity_scores = cls._analyze_rule_clarity(systems)
+
+        # Calculate completeness (out of 5 expected core systems)
+        expected_systems = 5
+        present_systems = sum(
+            [
+                metrics.has_combat_system,
+                metrics.has_movement_system,
+                metrics.has_inventory_system,
+                metrics.has_progression_system,
+                metrics.total_systems &gt; 0,  # At least one other system
+            ]
+        )
+        metrics.completeness_percentage = (present_systems / expected_systems) * 100.0
+
+        # Calculate average clarity
+        if clarity_scores:
+            metrics.average_rule_clarity = sum(clarity_scores) / len(clarity_scores)
+
+        # Check for balance/difficulty notes
+        metrics.has_balance_notes = cls._has_balance_notes(mechanics)
+
+        return metrics
+
+    @staticmethod
+    def _has_system(systems: dict[str, Any], system_name: str) -&gt; bool:
+        &#34;&#34;&#34;
+        Check if a specific system is described.
+
+        Args:
+            systems: Dictionary of game systems
+            system_name: Name of system to check for
+
+        Returns:
+            True if system is present and described
+        &#34;&#34;&#34;
+        # Check for direct key
+        if system_name in systems:
+            return True
+
+        # Check for variations
+        variations = [
+            system_name,
+            f&#34;{system_name}_system&#34;,
+            f&#34;{system_name}_mechanics&#34;,
+            system_name.title(),
+        ]
+
+        for var in variations:
+            if var in systems:
+                return True
+
+        # Check in nested structures
+        for key, value in systems.items():
+            if system_name.lower() in key.lower():
+                return True
+            if isinstance(value, str) and system_name.lower() in value.lower():  # noqa: SIM102
+                # System mentioned in description
+                if len(value) &gt;= 50:  # Substantial mention
+                    return True
+
+        return False
+
+    @staticmethod
+    def _count_systems(systems: dict[str, Any]) -&gt; int:
+        &#34;&#34;&#34;
+        Count total number of game systems described.
+
+        Args:
+            systems: Dictionary of game systems
+
+        Returns:
+            Number of systems
+        &#34;&#34;&#34;
+        count = 0
+
+        # Count top-level system keys
+        system_keywords = [
+            &#34;combat&#34;,
+            &#34;movement&#34;,
+            &#34;inventory&#34;,
+            &#34;progression&#34;,
+            &#34;health&#34;,
+            &#34;stamina&#34;,
+            &#34;skill&#34;,
+            &#34;puzzle&#34;,
+            &#34;dialogue&#34;,
+            &#34;stealth&#34;,
+            &#34;resource&#34;,
+            &#34;crafting&#34;,
+            &#34;trading&#34;,
+            &#34;reputation&#34;,
+            &#34;time&#34;,
+            &#34;environment&#34;,
+        ]
+
+        for key, value in systems.items():
+            # Check if key contains a system keyword
+            key_lower = key.lower()
+            if any(keyword in key_lower for keyword in system_keywords) or isinstance(
+                value, dict | list
+            ):
+                count += 1
+
+        return count
+
+    @staticmethod
+    def _analyze_rule_clarity(systems: dict[str, Any]) -&gt; tuple:
+        &#34;&#34;&#34;
+        Analyze clarity of rules for each system.
+
+        Args:
+            systems: Dictionary of game systems
+
+        Returns:
+            Tuple of (count of systems with clear rules, list of clarity scores)
+        &#34;&#34;&#34;
+        clear_count = 0
+        clarity_scores = []
+
+        for _key, value in systems.items():
+            if not isinstance(value, dict | str):
+                continue
+
+            # Analyze this system
+            score = 0.0
+
+            if isinstance(value, dict):
+                # Check for rules/description
+                has_rules = &#34;rules&#34; in value or &#34;description&#34; in value
+                has_examples = &#34;example&#34; in value or &#34;examples&#34; in value
+
+                # Get text content
+                text = str(value)
+                word_count = len(text.split())
+
+                # Scoring (adjusted for realistic content)
+                if has_rules or has_examples:
+                    score += 4.0  # Having rules/description is most important
+                if word_count &gt;= 50:
+                    score += 3.0  # Decent length
+                elif word_count &gt;= 20:
+                    score += 2.0
+
+                # Structured data bonus
+                if len(value) &gt;= 2:
+                    score += 3.0
+
+            elif isinstance(value, str):
+                word_count = len(value.split())
+
+                # Scoring based on length
+                if word_count &gt;= 50:
+                    score += 7.0
+                elif word_count &gt;= 20:
+                    score += 5.0
+                elif word_count &gt;= 10:
+                    score += 3.0
+
+                # Check for structured language
+                if any(word in value.lower() for word in [&#34;must&#34;, &#34;should&#34;, &#34;can&#34;, &#34;when&#34;, &#34;if&#34;]):
+                    score += 2.0
+
+            clarity_scores.append(min(score, 10.0))
+
+            if score &gt;= 6.0:
+                clear_count += 1
+
+        return clear_count, clarity_scores
+
+    @staticmethod
+    def _has_balance_notes(mechanics: dict[str, Any]) -&gt; bool:
+        &#34;&#34;&#34;
+        Check if balance or difficulty is discussed.
+
+        Args:
+            mechanics: Mechanics dictionary
+
+        Returns:
+            True if balance is mentioned
+        &#34;&#34;&#34;
+        balance_keywords = [
+            &#34;balance&#34;,
+            &#34;difficulty&#34;,
+            &#34;challenge&#34;,
+            &#34;fair&#34;,
+            &#34;balanced&#34;,
+            &#34;easy&#34;,
+            &#34;hard&#34;,
+            &#34;moderate&#34;,
+            &#34;scaling&#34;,
+            &#34;progression curve&#34;,
+        ]
+
+        # Convert to string for searching
+        mechanics_str = str(mechanics).lower()
+
+        return any(keyword in mechanics_str for keyword in balance_keywords)
+
+    def passes_threshold(self) -&gt; bool:
+        &#34;&#34;&#34;
+        Check if the mechanics metrics pass all quality thresholds.
+
+        Returns:
+            True if all thresholds are met, False otherwise
+        &#34;&#34;&#34;
+        return (
+            self.total_systems &gt;= self.min_systems
+            and self.completeness_percentage &gt;= self.min_completeness
+            and self.average_rule_clarity &gt;= self.min_clarity
+        )
+
+    def get_failures(self) -&gt; list[str]:
+        &#34;&#34;&#34;
+        Get list of failed quality checks.
+
+        Returns:
+            List of failure messages for metrics that don&#39;t meet thresholds
+        &#34;&#34;&#34;
+        failures = []
+
+        if self.total_systems &lt; self.min_systems:
+            failures.append(
+                f&#34;Insufficient game systems: {self.total_systems} (minimum: {self.min_systems})&#34;
+            )
+
+        if self.completeness_percentage &lt; self.min_completeness:
+            failures.append(
+                f&#34;Core systems incomplete: {self.completeness_percentage:.1f}% &#34;
+                f&#34;(minimum: {self.min_completeness}%)&#34;
+            )
+
+        if self.average_rule_clarity &lt; self.min_clarity:
+            failures.append(
+                f&#34;Rules not clear enough: avg score {self.average_rule_clarity:.1f}/10 &#34;
+                f&#34;(minimum: {self.min_clarity})&#34;
+            )
+
+        # Warnings for missing core systems
+        missing_core = []
+        if not self.has_combat_system:
+            missing_core.append(&#34;combat&#34;)
+        if not self.has_movement_system:
+            missing_core.append(&#34;movement&#34;)
+        if not self.has_inventory_system:
+            missing_core.append(&#34;inventory&#34;)
+
+        if missing_core:
+            failures.append(f&#34;Warning: Missing core systems: {&#39;, &#39;.join(missing_core)}&#34;)
+
+        return failures
+
+    def get_score(self) -&gt; float:
+        &#34;&#34;&#34;
+        Calculate overall quality score (0.0 to 10.0).
+
+        Returns:
+            Quality score based on met criteria
+        &#34;&#34;&#34;
+        score = 0.0
+
+        # Total systems (2 points)
+        if self.total_systems &gt;= self.min_systems:
+            score += 2.0
+        elif self.total_systems &gt; 0:
+            score += 2.0 * (self.total_systems / self.min_systems)
+
+        # Completeness (3 points)
+        score += 3.0 * (self.completeness_percentage / 100.0)
+
+        # Rule clarity (3 points)
+        score += 3.0 * (self.average_rule_clarity / 10.0)
+
+        # Core systems (1.5 points total)
+        core_systems = sum(
+            [
+                self.has_combat_system,
+                self.has_movement_system,
+                self.has_inventory_system,
+            ]
+        )
+        score += 1.5 * (core_systems / 3.0)
+
+        # Balance notes (0.5 points)
+        if self.has_balance_notes:
+            score += 0.5
+
+        return min(score, 10.0)
+
+    def to_dict(self) -&gt; dict[str, Any]:
+        &#34;&#34;&#34;
+        Convert metrics to dictionary for serialization.
+
+        Returns:
+            Dictionary representation of metrics
+        &#34;&#34;&#34;
+        return {
+            &#34;has_combat_system&#34;: self.has_combat_system,
+            &#34;has_movement_system&#34;: self.has_movement_system,
+            &#34;has_inventory_system&#34;: self.has_inventory_system,
+            &#34;has_progression_system&#34;: self.has_progression_system,
+            &#34;total_systems&#34;: self.total_systems,
+            &#34;systems_with_rules&#34;: self.systems_with_rules,
+            &#34;completeness_percentage&#34;: round(self.completeness_percentage, 1),
+            &#34;average_rule_clarity&#34;: round(self.average_rule_clarity, 2),
+            &#34;has_balance_notes&#34;: self.has_balance_notes,
+            &#34;passes_threshold&#34;: self.passes_threshold(),
+            &#34;score&#34;: self.get_score(),
+            &#34;failures&#34;: self.get_failures(),
+        }</code></pre>
+</details>
+<div class="desc"><p>Quality metrics for evaluating game mechanics/PRD content.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>has_combat_system</code></strong></dt>
+<dd>Whether combat mechanics are described</dd>
+<dt><strong><code>has_movement_system</code></strong></dt>
+<dd>Whether movement mechanics are described</dd>
+<dt><strong><code>has_inventory_system</code></strong></dt>
+<dd>Whether inventory mechanics are described</dd>
+<dt><strong><code>has_progression_system</code></strong></dt>
+<dd>Whether character progression is described</dd>
+<dt><strong><code>total_systems</code></strong></dt>
+<dd>Total number of game systems described</dd>
+<dt><strong><code>systems_with_rules</code></strong></dt>
+<dd>Number of systems with clear rules</dd>
+<dt><strong><code>completeness_percentage</code></strong></dt>
+<dd>Percentage of expected systems present</dd>
+<dt><strong><code>average_rule_clarity</code></strong></dt>
+<dd>Average clarity score for rules</dd>
+<dt><strong><code>has_balance_notes</code></strong></dt>
+<dd>Whether difficulty/balance is discussed</dd>
+<dt><strong><code>min_systems</code></strong></dt>
+<dd>Minimum required systems (default: 3)</dd>
+</dl></div>
+<h3>Static methods</h3>
+<dl>
+<dt id="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.from_dict"><code class="name flex">
+<span>def <span class="ident">from_dict</span></span>(<span>data: dict[str, typing.Any]) ‑> <a title="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics" href="#space_hulk_game.quality.mechanics_metrics.MechanicsMetrics">MechanicsMetrics</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create MechanicsMetrics from a dictionary (parsed YAML).</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>data</code></strong></dt>
+<dd>Dictionary containing PRD/mechanics data</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>MechanicsMetrics instance with measured values</p></div>
+</dd>
+<dt id="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.from_yaml_content"><code class="name flex">
+<span>def <span class="ident">from_yaml_content</span></span>(<span>yaml_content: str) ‑> <a title="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics" href="#space_hulk_game.quality.mechanics_metrics.MechanicsMetrics">MechanicsMetrics</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create MechanicsMetrics from YAML content string.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>yaml_content</code></strong></dt>
+<dd>YAML string containing PRD/mechanics data</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>MechanicsMetrics instance with measured values</p></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.average_rule_clarity"><code class="name">var <span class="ident">average_rule_clarity</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.completeness_percentage"><code class="name">var <span class="ident">completeness_percentage</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.has_balance_notes"><code class="name">var <span class="ident">has_balance_notes</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.has_combat_system"><code class="name">var <span class="ident">has_combat_system</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.has_inventory_system"><code class="name">var <span class="ident">has_inventory_system</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.has_movement_system"><code class="name">var <span class="ident">has_movement_system</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.has_progression_system"><code class="name">var <span class="ident">has_progression_system</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.min_clarity"><code class="name">var <span class="ident">min_clarity</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.min_completeness"><code class="name">var <span class="ident">min_completeness</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.min_systems"><code class="name">var <span class="ident">min_systems</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.systems_with_rules"><code class="name">var <span class="ident">systems_with_rules</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.total_systems"><code class="name">var <span class="ident">total_systems</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.get_failures"><code class="name flex">
+<span>def <span class="ident">get_failures</span></span>(<span>self) ‑> list[str]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_failures(self) -&gt; list[str]:
+    &#34;&#34;&#34;
+    Get list of failed quality checks.
+
+    Returns:
+        List of failure messages for metrics that don&#39;t meet thresholds
+    &#34;&#34;&#34;
+    failures = []
+
+    if self.total_systems &lt; self.min_systems:
+        failures.append(
+            f&#34;Insufficient game systems: {self.total_systems} (minimum: {self.min_systems})&#34;
+        )
+
+    if self.completeness_percentage &lt; self.min_completeness:
+        failures.append(
+            f&#34;Core systems incomplete: {self.completeness_percentage:.1f}% &#34;
+            f&#34;(minimum: {self.min_completeness}%)&#34;
+        )
+
+    if self.average_rule_clarity &lt; self.min_clarity:
+        failures.append(
+            f&#34;Rules not clear enough: avg score {self.average_rule_clarity:.1f}/10 &#34;
+            f&#34;(minimum: {self.min_clarity})&#34;
+        )
+
+    # Warnings for missing core systems
+    missing_core = []
+    if not self.has_combat_system:
+        missing_core.append(&#34;combat&#34;)
+    if not self.has_movement_system:
+        missing_core.append(&#34;movement&#34;)
+    if not self.has_inventory_system:
+        missing_core.append(&#34;inventory&#34;)
+
+    if missing_core:
+        failures.append(f&#34;Warning: Missing core systems: {&#39;, &#39;.join(missing_core)}&#34;)
+
+    return failures</code></pre>
+</details>
+<div class="desc"><p>Get list of failed quality checks.</p>
+<h2 id="returns">Returns</h2>
+<p>List of failure messages for metrics that don't meet thresholds</p></div>
+</dd>
+<dt id="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.get_score"><code class="name flex">
+<span>def <span class="ident">get_score</span></span>(<span>self) ‑> float</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_score(self) -&gt; float:
+    &#34;&#34;&#34;
+    Calculate overall quality score (0.0 to 10.0).
+
+    Returns:
+        Quality score based on met criteria
+    &#34;&#34;&#34;
+    score = 0.0
+
+    # Total systems (2 points)
+    if self.total_systems &gt;= self.min_systems:
+        score += 2.0
+    elif self.total_systems &gt; 0:
+        score += 2.0 * (self.total_systems / self.min_systems)
+
+    # Completeness (3 points)
+    score += 3.0 * (self.completeness_percentage / 100.0)
+
+    # Rule clarity (3 points)
+    score += 3.0 * (self.average_rule_clarity / 10.0)
+
+    # Core systems (1.5 points total)
+    core_systems = sum(
+        [
+            self.has_combat_system,
+            self.has_movement_system,
+            self.has_inventory_system,
+        ]
+    )
+    score += 1.5 * (core_systems / 3.0)
+
+    # Balance notes (0.5 points)
+    if self.has_balance_notes:
+        score += 0.5
+
+    return min(score, 10.0)</code></pre>
+</details>
+<div class="desc"><p>Calculate overall quality score (0.0 to 10.0).</p>
+<h2 id="returns">Returns</h2>
+<p>Quality score based on met criteria</p></div>
+</dd>
+<dt id="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.passes_threshold"><code class="name flex">
+<span>def <span class="ident">passes_threshold</span></span>(<span>self) ‑> bool</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def passes_threshold(self) -&gt; bool:
+    &#34;&#34;&#34;
+    Check if the mechanics metrics pass all quality thresholds.
+
+    Returns:
+        True if all thresholds are met, False otherwise
+    &#34;&#34;&#34;
+    return (
+        self.total_systems &gt;= self.min_systems
+        and self.completeness_percentage &gt;= self.min_completeness
+        and self.average_rule_clarity &gt;= self.min_clarity
+    )</code></pre>
+</details>
+<div class="desc"><p>Check if the mechanics metrics pass all quality thresholds.</p>
+<h2 id="returns">Returns</h2>
+<p>True if all thresholds are met, False otherwise</p></div>
+</dd>
+<dt id="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.to_dict"><code class="name flex">
+<span>def <span class="ident">to_dict</span></span>(<span>self) ‑> dict[str, typing.Any]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def to_dict(self) -&gt; dict[str, Any]:
+    &#34;&#34;&#34;
+    Convert metrics to dictionary for serialization.
+
+    Returns:
+        Dictionary representation of metrics
+    &#34;&#34;&#34;
+    return {
+        &#34;has_combat_system&#34;: self.has_combat_system,
+        &#34;has_movement_system&#34;: self.has_movement_system,
+        &#34;has_inventory_system&#34;: self.has_inventory_system,
+        &#34;has_progression_system&#34;: self.has_progression_system,
+        &#34;total_systems&#34;: self.total_systems,
+        &#34;systems_with_rules&#34;: self.systems_with_rules,
+        &#34;completeness_percentage&#34;: round(self.completeness_percentage, 1),
+        &#34;average_rule_clarity&#34;: round(self.average_rule_clarity, 2),
+        &#34;has_balance_notes&#34;: self.has_balance_notes,
+        &#34;passes_threshold&#34;: self.passes_threshold(),
+        &#34;score&#34;: self.get_score(),
+        &#34;failures&#34;: self.get_failures(),
+    }</code></pre>
+</details>
+<div class="desc"><p>Convert metrics to dictionary for serialization.</p>
+<h2 id="returns">Returns</h2>
+<p>Dictionary representation of metrics</p></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="space_hulk_game.quality" href="index.html">space_hulk_game.quality</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics" href="#space_hulk_game.quality.mechanics_metrics.MechanicsMetrics">MechanicsMetrics</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.average_rule_clarity" href="#space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.average_rule_clarity">average_rule_clarity</a></code></li>
+<li><code><a title="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.completeness_percentage" href="#space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.completeness_percentage">completeness_percentage</a></code></li>
+<li><code><a title="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.from_dict" href="#space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.from_dict">from_dict</a></code></li>
+<li><code><a title="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.from_yaml_content" href="#space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.from_yaml_content">from_yaml_content</a></code></li>
+<li><code><a title="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.get_failures" href="#space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.get_failures">get_failures</a></code></li>
+<li><code><a title="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.get_score" href="#space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.get_score">get_score</a></code></li>
+<li><code><a title="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.has_balance_notes" href="#space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.has_balance_notes">has_balance_notes</a></code></li>
+<li><code><a title="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.has_combat_system" href="#space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.has_combat_system">has_combat_system</a></code></li>
+<li><code><a title="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.has_inventory_system" href="#space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.has_inventory_system">has_inventory_system</a></code></li>
+<li><code><a title="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.has_movement_system" href="#space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.has_movement_system">has_movement_system</a></code></li>
+<li><code><a title="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.has_progression_system" href="#space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.has_progression_system">has_progression_system</a></code></li>
+<li><code><a title="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.min_clarity" href="#space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.min_clarity">min_clarity</a></code></li>
+<li><code><a title="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.min_completeness" href="#space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.min_completeness">min_completeness</a></code></li>
+<li><code><a title="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.min_systems" href="#space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.min_systems">min_systems</a></code></li>
+<li><code><a title="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.passes_threshold" href="#space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.passes_threshold">passes_threshold</a></code></li>
+<li><code><a title="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.systems_with_rules" href="#space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.systems_with_rules">systems_with_rules</a></code></li>
+<li><code><a title="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.to_dict" href="#space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.to_dict">to_dict</a></code></li>
+<li><code><a title="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.total_systems" href="#space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.total_systems">total_systems</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>

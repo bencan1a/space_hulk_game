@@ -19,20 +19,20 @@ required_elements:
     - "Multiple hazardous environmental zones"
     - "Blocked or damaged escape routes"
     - "Limited safe areas that are temporary at best"
-  
+
   narrative_beats:
     - "Initial survival situation established"
     - "Discovery that situation is worsening"
     - "Race against time/resources begins"
     - "Difficult choices about what to sacrifice"
     - "Final desperate push to escape/survive"
-  
+
   survival_elements:
     - "Limited oxygen, ammunition, or medical supplies"
     - "Environmental hazards requiring resource expenditure"
     - "Time pressure from external threat (reactor meltdown, etc.)"
     - "Difficult resource allocation decisions"
-  
+
   mandatory_components:
     - "Clear survival meter or time limit"
     - "Multiple resource types to manage"
@@ -47,13 +47,13 @@ tone:
     - "Gritty"
     - "Desperate"
     - "Pragmatic"
-  
+
   avoid:
     - "Abundant resources or easy resupply"
     - "Clear safe areas to rest indefinitely"
     - "Simple escape routes without cost"
     - "Heroic sacrifice that solves everything"
-  
+
   emphasis:
     - "Every decision has trade-offs"
     - "Resources are precious and finite"
@@ -71,7 +71,7 @@ example_scenes:
       - "Hiss of escaping atmosphere"
       - "Suit oxygen counter ticking down"
       - "Metallic taste of fear"
-  
+
   middle:
     location: "Reactor control room, systems failing"
     description: "The reactor is past critical. You have maybe 90 minutes before it goes. The evacuation route you planned is blocked by the coolant leak - radiation levels are lethal. There's another way, through the genestealer nest, but you're almost out of ammunition. Or you could try to stabilize the reactor - but that means using your last radiation meds now, leaving nothing for the journey ahead."
@@ -81,7 +81,7 @@ example_scenes:
       - "Heat bleeding through armor"
       - "Sweat stinging eyes"
       - "Countdown timer burning in vision"
-  
+
   climax:
     location: "Final escape corridor to functioning shuttle"
     description: "The hull is tearing apart around you. 30 seconds of oxygen left. The shuttle is visible ahead, engines already warming. Between you and safety: a hundred meters of corridor buckling under stress. You can hear the genestealers behind you. Your weapon is empty. There's only forward now - run, and don't look back."
@@ -100,14 +100,14 @@ example_puzzles:
     solution_hint: "No perfect answer - choose survival priority or risk teammate for better chances"
     difficulty: "medium"
     survival_element: "Resource scarcity forces difficult moral choice"
-  
+
   path_choice:
     name: "The Three Routes"
     description: "Three paths to the escape ship. Fast route through vacuum (burns oxygen fast). Medium route through unstable sections (risk of cave-ins). Slow route around (safe but eats into time limit). Ship launches in 2 hours regardless."
     solution_hint: "Balance speed, safety, and resources based on current state"
     difficulty: "medium"
     survival_element: "Risk vs. reward calculation under pressure"
-  
+
   sacrifice:
     name: "The Airlock Sequence"
     description: "To open the path forward, someone must manually override the airlock from inside - meaning they'll be vented to space when it cycles. The controls are broken from your side. Team is already down to 4 members. Who makes the sacrifice?"
@@ -122,7 +122,7 @@ character_suggestions:
     - "Civilian survivor with no combat training"
     - "Ship's engineer trying to save anyone they can"
     - "Lone operative on botched extraction mission"
-  
+
   npc_types:
     - "Wounded teammate slowing the group"
     - "Panicked survivor making bad decisions"
@@ -136,14 +136,14 @@ story_structure:
     - "Initial resources and time limit defined"
     - "First environmental hazard encountered"
     - "Escape plan formed"
-  
+
   act_2_deterioration:
     - "Original escape plan fails or becomes impossible"
     - "Resources begin running critically low"
     - "Time pressure increases (reactor, air, etc.)"
     - "Difficult choice points force prioritization"
     - "Casualties or losses occur"
-  
+
   act_3_climax:
     - "Final desperate push to escape"
     - "Last resources expended"
@@ -159,28 +159,28 @@ resource_framework:
       depletion_rate: "constant over time"
       consequences: "Death when depleted"
       acquisition: "Very limited refills available"
-    
+
     ammunition:
       description: "Rounds for weapons against threats"
       scarcity_level: "medium"
       depletion_rate: "per combat encounter"
       consequences: "Must flee or use melee when empty"
       acquisition: "Occasional cache finds"
-    
+
     medical_supplies:
       description: "Trauma kits, radiation meds, stimms"
       scarcity_level: "high"
       depletion_rate: "per injury or hazard exposure"
       consequences: "Death from injuries or environmental damage"
       acquisition: "Rare finds in medicae areas"
-    
+
     time:
       description: "Countdown to catastrophic event"
       scarcity_level: "absolute"
       depletion_rate: "constant and unavoidable"
       consequences: "Complete failure/death at zero"
       acquisition: "Cannot be recovered, only spent wisely"
-  
+
   resource_tension_guidelines:
     - "Start with ~40% of ideal resources"
     - "Depletion should outpace acquisition"
@@ -195,19 +195,19 @@ environmental_hazards:
     - "Toxic atmosphere causing health damage"
     - "Fire consuming oxygen rapidly"
     - "Corrosive gas damaging equipment"
-  
+
   structural:
     - "Collapsing corridors requiring fast navigation"
     - "Explosive decompression events"
     - "Radiation leaks requiring protection/meds"
     - "Electrical hazards in damaged sections"
-  
+
   temporal:
     - "Reactor meltdown countdown"
     - "Warp jump imminent (will tear hulk apart)"
     - "Docking window closes at specific time"
     - "Infection/mutation spreading through team"
-  
+
   active_threats:
     - "Pursuing enemies forcing movement"
     - "Territorial creatures blocking paths"
@@ -223,7 +223,7 @@ mechanics_suggestions:
       - "Ammunition count by weapon type"
       - "Health/radiation exposure levels"
       - "Time remaining to deadline"
-  
+
   scavenging_system:
     description: "Search for resources in environment"
     features:
@@ -231,7 +231,7 @@ mechanics_suggestions:
       - "Risk vs. reward in dangerous areas"
       - "Diminishing returns in picked-over zones"
       - "Time cost for thorough searches"
-  
+
   encounter_avoidance:
     description: "Stealth/evasion as resource conservation"
     mechanics:
@@ -239,7 +239,7 @@ mechanics_suggestions:
       - "Alternate routes available at cost"
       - "Noise/detection management"
       - "Strategic retreat as valid option"
-  
+
   inventory_limits:
     description: "Cannot carry unlimited resources"
     constraints:
@@ -257,21 +257,21 @@ critical_decisions:
       - "Save those most useful to escape"
       - "Try to save everyone (high risk)"
       - "Save self first (pragmatic but dark)"
-  
+
   speed_vs_safety:
     situation: "Fast dangerous path or slow safe path"
     options:
       - "Risk immediate danger for time savings"
       - "Take safer route despite time cost"
       - "Split party (risky but balanced)"
-  
+
   resource_gambling:
     situation: "Use resources now for potential better reward"
     options:
       - "Spend resources to access cache (gamble)"
       - "Conserve resources for known needs"
       - "Partial investment (moderate both)"
-  
+
   sacrifice_play:
     situation: "Someone must pay a cost for progress"
     options:
@@ -289,7 +289,7 @@ ending_guidelines:
       - "Escape at last possible moment"
       - "Significant losses but some survive"
       - "Clear cost was paid for survival"
-  
+
   pyrrhic_victory:
     description: "Survive but at terrible cost"
     requirements:
@@ -297,7 +297,7 @@ ending_guidelines:
       - "Permanent injuries or trauma"
       - "Mission objective failed"
       - "Survival feels hollow"
-  
+
   last_stand:
     description: "No escape possible, fight to the end"
     requirements:
@@ -305,7 +305,7 @@ ending_guidelines:
       - "Heroic final moments"
       - "Legacy or message left behind"
       - "Defiant in face of death"
-  
+
   unexpected_salvation:
     description: "Last-minute rescue or escape opportunity"
     requirements:
@@ -320,7 +320,7 @@ pacing_structure:
   building_pressure: "35-40% of play time"
   peak_crisis: "30-35% of play time"
   climax_and_resolution: "15-20% of play time"
-  
+
   pressure_curve:
     - "Start with moderate pressure"
     - "Escalate steadily through middle"
@@ -353,17 +353,17 @@ scenario_templates:
     setup: "Reactor going critical, must escape before detonation"
     time_limit: "60-90 minutes"
     complications: "Radiation zones, damaged escape routes, pursuing enemies"
-    
+
   hull_breach:
     setup: "Progressive decompression, find and seal or escape"
     time_limit: "Oxygen depletion rate"
     complications: "Vacuum zones, limited suit patches, structural damage"
-  
+
   infestation:
     setup: "Genestealer hive awakening, must escape before overrun"
     time_limit: "Enemy spawning rate"
     complications: "Growing enemy numbers, blocked passages, limited ammunition"
-  
+
   warp_translation:
     setup: "Hulk exiting warp, will tear apart in realspace"
     time_limit: "Transition countdown"

@@ -50,7 +50,7 @@ class PlotMetrics:
     min_word_count: int = 500
 
     @classmethod
-    def from_yaml_content(cls, yaml_content: str) -> 'PlotMetrics':
+    def from_yaml_content(cls, yaml_content: str) -> "PlotMetrics":
         """
         Create PlotMetrics from YAML content string.
 
@@ -67,10 +67,10 @@ class PlotMetrics:
         try:
             # Handle markdown-wrapped YAML
             content = yaml_content.strip()
-            if content.startswith('```'):
-                lines = content.split('\n')
+            if content.startswith("```"):
+                lines = content.split("\n")
                 # Remove first and last lines (markdown fences)
-                content = '\n'.join(lines[1:-1])
+                content = "\n".join(lines[1:-1])
                 logger.debug("Stripped markdown fences from YAML content")
 
             # Try to parse as-is first
@@ -84,7 +84,9 @@ class PlotMetrics:
                 logger.info("Successfully parsed YAML after fixing syntax errors")
 
             metrics = cls.from_dict(data)
-            logger.info(f"PlotMetrics parsed: score={metrics.get_score():.1f}/10, passes={metrics.passes_threshold()}")
+            logger.info(
+                f"PlotMetrics parsed: score={metrics.get_score():.1f}/10, passes={metrics.passes_threshold()}"
+            )
             return metrics
         except Exception as e:
             logger.error(f"Failed to parse plot YAML content: {e}")
@@ -101,23 +103,27 @@ class PlotMetrics:
         Returns:
             Fixed YAML string
         """
-        lines = content.split('\n')
+        lines = content.split("\n")
         fixed_lines = []
 
         for line in lines:
             # Fix unquoted values with colons (e.g., "title: Space Hulk: Derelict")
-            if ':' in line and not line.strip().startswith('-'):
-                parts = line.split(':', 1)
+            if ":" in line and not line.strip().startswith("-"):
+                parts = line.split(":", 1)
                 if len(parts) == 2:
                     key_part = parts[0]
                     value_part = parts[1].strip()
 
                     # If value has a colon and is not already quoted or is a nested structure
-                    if ':' in value_part and value_part and not (
-                        (value_part.startswith('"') and value_part.endswith('"')) or
-                        (value_part.startswith("'") and value_part.endswith("'")) or
-                        value_part.startswith('[') or
-                        value_part.startswith('{')
+                    if (
+                        ":" in value_part
+                        and value_part
+                        and not (
+                            (value_part.startswith('"') and value_part.endswith('"'))
+                            or (value_part.startswith("'") and value_part.endswith("'"))
+                            or value_part.startswith("[")
+                            or value_part.startswith("{")
+                        )
                     ):
                         # Quote the value
                         fixed_line = f'{key_part}: "{value_part}"'
@@ -127,10 +133,10 @@ class PlotMetrics:
 
             fixed_lines.append(line)
 
-        return '\n'.join(fixed_lines)
+        return "\n".join(fixed_lines)
 
     @classmethod
-    def from_dict(cls, data: dict[str, Any]) -> 'PlotMetrics':
+    def from_dict(cls, data: dict[str, Any]) -> "PlotMetrics":
         """
         Create PlotMetrics from a dictionary (parsed YAML).
 
@@ -143,24 +149,22 @@ class PlotMetrics:
         metrics = cls()
 
         # Check for title
-        metrics.has_title = bool(data.get('title'))
+        metrics.has_title = bool(data.get("title"))
 
         # Check for clear setting
-        setting = data.get('setting')
+        setting = data.get("setting")
         if setting:
             if isinstance(setting, dict):
                 # Setting is a structured dict with location, time, environment
                 metrics.has_clear_setting = bool(
-                    setting.get('location') or
-                    setting.get('time') or
-                    setting.get('environment')
+                    setting.get("location") or setting.get("time") or setting.get("environment")
                 )
             elif isinstance(setting, str):
                 # Setting is a simple string - any non-empty string is valid
                 metrics.has_clear_setting = len(setting.strip()) > 0
 
         # Check for themes
-        themes = data.get('themes', [])
+        themes = data.get("themes", [])
         metrics.themes_defined = bool(themes) and len(themes) > 0
 
         # Count branching paths
@@ -170,11 +174,11 @@ class PlotMetrics:
         metrics.endings_count = cls._count_endings(data)
 
         # Check for prologue
-        plot = data.get('plot', {})
-        metrics.has_prologue = 'prologue' in plot
+        plot = data.get("plot", {})
+        metrics.has_prologue = "prologue" in plot
 
         # Check for acts (act1, act2, act3, etc.)
-        metrics.has_acts = any(key.startswith('act') for key in plot.keys())
+        metrics.has_acts = any(key.startswith("act") for key in plot)
 
         # Calculate word count
         metrics.word_count = cls._calculate_word_count(data)
@@ -190,20 +194,20 @@ class PlotMetrics:
         and validates them by checking for associated choice options.
         """
         count = 0
-        plot = data.get('plot', {})
+        plot = data.get("plot", {})
 
         # Convert entire plot to string for searching
         plot_str = str(plot)
 
         # Count explicit "Branching Path" mentions (primary method)
         # This is more reliable than counting option patterns
-        branching_path_count = plot_str.count('Branching Path')
+        branching_path_count = plot_str.count("Branching Path")
         count += branching_path_count
 
         # If no explicit "Branching Path" mentions, look for structured choice patterns
         # Only as a fallback, and with more careful validation
         if branching_path_count == 0:
-            lines = plot_str.split('\n')
+            lines = plot_str.split("\n")
             in_choice_block = False
 
             for i, line in enumerate(lines):
@@ -211,18 +215,18 @@ class PlotMetrics:
 
                 # Look for "A)" at start of line, preceded by some context
                 # and followed by "B)" to confirm it's a real choice
-                if line_stripped.startswith('A)') and not in_choice_block:
+                if line_stripped.startswith("A)") and not in_choice_block:
                     # Check if next few lines contain "B)" to validate this is a choice
                     is_valid_choice = False
                     for j in range(i + 1, min(i + 5, len(lines))):
-                        if lines[j].strip().startswith('B)'):
+                        if lines[j].strip().startswith("B)"):
                             is_valid_choice = True
                             break
 
                     if is_valid_choice:
                         count += 1
                         in_choice_block = True
-                elif not line_stripped.startswith(('A)', 'B)', 'C)', 'D)')):
+                elif not line_stripped.startswith(("A)", "B)", "C)", "D)")):
                     in_choice_block = False
 
         return count
@@ -235,25 +239,20 @@ class PlotMetrics:
         Looks for 'endings' key or ending-related content in the plot.
         """
         # Check for explicit endings section
-        endings = data.get('endings')
-        if endings:
-            if isinstance(endings, list):
-                return len(endings)
-            elif isinstance(endings, dict):
-                return len(endings)
+        endings = data.get("endings")
+        if endings and isinstance(endings, dict | list):
+            return len(endings)
 
         # Check within plot structure
-        plot = data.get('plot', {})
-        if 'endings' in plot:
-            endings = plot['endings']
-            if isinstance(endings, list):
-                return len(endings)
-            elif isinstance(endings, dict):
+        plot = data.get("plot", {})
+        if "endings" in plot:
+            endings = plot["endings"]
+            if isinstance(endings, dict | list):
                 return len(endings)
 
         # Count ending-related mentions
         plot_str = str(data).lower()
-        ending_keywords = ['good ending', 'bad ending', 'ending:']
+        ending_keywords = ["good ending", "bad ending", "ending:"]
         count = sum(plot_str.count(keyword) for keyword in ending_keywords)
 
         return max(count, 0)
@@ -265,6 +264,7 @@ class PlotMetrics:
 
         Counts all words in string values throughout the structure.
         """
+
         def count_words_recursive(obj: Any) -> int:
             """Recursively count words in nested structures."""
             if isinstance(obj, str):
@@ -286,11 +286,11 @@ class PlotMetrics:
             True if all thresholds are met, False otherwise
         """
         return (
-            self.has_clear_setting and
-            self.branching_paths_count >= self.min_branching_paths and
-            self.endings_count >= self.min_endings and
-            self.themes_defined and
-            self.word_count >= self.min_word_count
+            self.has_clear_setting
+            and self.branching_paths_count >= self.min_branching_paths
+            and self.endings_count >= self.min_endings
+            and self.themes_defined
+            and self.word_count >= self.min_word_count
         )
 
     def get_failures(self) -> list[str]:
@@ -313,8 +313,7 @@ class PlotMetrics:
 
         if self.endings_count < self.min_endings:
             failures.append(
-                f"Insufficient endings: {self.endings_count} "
-                f"(minimum: {self.min_endings})"
+                f"Insufficient endings: {self.endings_count} (minimum: {self.min_endings})"
             )
 
         if not self.themes_defined:
@@ -322,8 +321,7 @@ class PlotMetrics:
 
         if self.word_count < self.min_word_count:
             failures.append(
-                f"Word count too low: {self.word_count} "
-                f"(minimum: {self.min_word_count})"
+                f"Word count too low: {self.word_count} (minimum: {self.min_word_count})"
             )
 
         return failures
@@ -359,15 +357,15 @@ class PlotMetrics:
             Dictionary representation of metrics
         """
         return {
-            'has_clear_setting': self.has_clear_setting,
-            'branching_paths_count': self.branching_paths_count,
-            'endings_count': self.endings_count,
-            'themes_defined': self.themes_defined,
-            'word_count': self.word_count,
-            'has_title': self.has_title,
-            'has_prologue': self.has_prologue,
-            'has_acts': self.has_acts,
-            'passes_threshold': self.passes_threshold(),
-            'score': self.get_score(),
-            'failures': self.get_failures(),
+            "has_clear_setting": self.has_clear_setting,
+            "branching_paths_count": self.branching_paths_count,
+            "endings_count": self.endings_count,
+            "themes_defined": self.themes_defined,
+            "word_count": self.word_count,
+            "has_title": self.has_title,
+            "has_prologue": self.has_prologue,
+            "has_acts": self.has_acts,
+            "passes_threshold": self.passes_threshold(),
+            "score": self.get_score(),
+            "failures": self.get_failures(),
         }

@@ -190,7 +190,7 @@ cat > .vscode/tasks.json << EOF
             "label": "Lint Code",
             "type": "shell",
             "command": "uv run ruff check --fix src/ tests/",
-            "group": "build", 
+            "group": "build",
             "presentation": {
                 "echo": true,
                 "reveal": "always",
@@ -212,7 +212,7 @@ cat > .vscode/tasks.json << EOF
         },
         {
             "label": "Run CrewAI",
-            "type": "shell", 
+            "type": "shell",
             "command": "uv run crewai run",
             "group": "build",
             "presentation": {

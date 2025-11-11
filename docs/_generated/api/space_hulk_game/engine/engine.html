@@ -1,0 +1,1473 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>space_hulk_game.engine.engine API documentation</title>
+<meta name="description" content="Text Adventure Engine Module …">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>space_hulk_game.engine.engine</code></h1>
+</header>
+<section id="section-intro">
+<p>Text Adventure Engine Module</p>
+<p>Main game engine for the Space Hulk text-based adventure game.
+Handles the game loop, action execution, state transitions, and player I/O.</p>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import TextAdventureEngine, GameState, Scene
+&gt;&gt;&gt; state = GameState(current_scene=&quot;start&quot;)
+&gt;&gt;&gt; scenes = {&quot;start&quot;: Scene(id=&quot;start&quot;, name=&quot;Start&quot;, description=&quot;Begin.&quot;)}
+&gt;&gt;&gt; engine = TextAdventureEngine(state, scenes)
+&gt;&gt;&gt; # engine.run()  # Start the game loop
+</code></pre>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="space_hulk_game.engine.engine.TextAdventureEngine"><code class="flex name class">
+<span>class <span class="ident">TextAdventureEngine</span></span>
+<span>(</span><span>game_state: <a title="space_hulk_game.engine.game_state.GameState" href="game_state.html#space_hulk_game.engine.game_state.GameState">GameState</a>,<br>scenes: dict[str, <a title="space_hulk_game.engine.scene.Scene" href="scene.html#space_hulk_game.engine.scene.Scene">Scene</a>],<br>input_func: collections.abc.Callable[[], str] | None = None,<br>output_func: collections.abc.Callable[[str], None] | None = None,<br>victory_conditions: set | None = None,<br>defeat_conditions: set | None = None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TextAdventureEngine:
+    &#34;&#34;&#34;
+    Main game engine for text-based adventure games.
+
+    This class implements the core game loop and coordinates all game systems:
+    - Command parsing and action execution
+    - Scene management and state transitions
+    - Event processing and triggering
+    - Player input/output
+    - Victory/defeat condition checking
+
+    The engine follows the Facade pattern, providing a simple interface
+    to the complex subsystems of the game (parser, state, scenes, etc.).
+
+    Attributes:
+        game_state: The current game state (player location, inventory, etc.).
+        scenes: Dictionary mapping scene IDs to Scene objects.
+        parser: CommandParser instance for processing player commands.
+        running: Whether the game loop is currently running.
+        victory_conditions: Set of game flags that trigger victory.
+        defeat_conditions: Set of game flags that trigger defeat.
+        input_func: Function for getting player input (for testing).
+        output_func: Function for displaying output (for testing).
+
+    Examples:
+        Create and run a basic game:
+        &gt;&gt;&gt; from space_hulk_game.engine import (
+        ...     TextAdventureEngine, GameState, Scene, Item
+        ... )
+        &gt;&gt;&gt; state = GameState(current_scene=&#34;room1&#34;)
+        &gt;&gt;&gt; scenes = {
+        ...     &#34;room1&#34;: Scene(
+        ...         id=&#34;room1&#34;,
+        ...         name=&#34;Starting Room&#34;,
+        ...         description=&#34;A simple room.&#34;,
+        ...         exits={&#34;north&#34;: &#34;room2&#34;}
+        ...     ),
+        ...     &#34;room2&#34;: Scene(
+        ...         id=&#34;room2&#34;,
+        ...         name=&#34;Second Room&#34;,
+        ...         description=&#34;Another room.&#34;
+        ...     )
+        ... }
+        &gt;&gt;&gt; engine = TextAdventureEngine(state, scenes)
+        &gt;&gt;&gt; # engine.run()  # Start the interactive game loop
+    &#34;&#34;&#34;
+
+    def __init__(
+        self,
+        game_state: GameState,
+        scenes: dict[str, Scene],
+        input_func: Callable[[], str] | None = None,
+        output_func: Callable[[str], None] | None = None,
+        victory_conditions: set | None = None,
+        defeat_conditions: set | None = None,
+    ):
+        &#34;&#34;&#34;
+        Initialize the text adventure engine.
+
+        Args:
+            game_state: Initial game state.
+            scenes: Dictionary mapping scene IDs to Scene objects.
+            input_func: Optional custom input function (default: input()).
+            output_func: Optional custom output function (default: print()).
+            victory_conditions: Optional set of flags that trigger victory.
+            defeat_conditions: Optional set of flags that trigger defeat.
+
+        Raises:
+            ValueError: If current scene is not in scenes dict.
+        &#34;&#34;&#34;
+        self.game_state = game_state
+        self.scenes = scenes
+        self.parser = CommandParser()
+        self.running = False
+
+        # I/O functions (allow injection for testing)
+        self.input_func = input_func or input
+        self.output_func = output_func or print
+
+        # Win/loss conditions
+        self.victory_conditions = victory_conditions or set()
+        self.defeat_conditions = defeat_conditions or set()
+
+        # Build item registry from all scenes
+        self._item_registry: dict[str, Item] = {}
+        for scene in scenes.values():
+            for item in scene.items:
+                self._item_registry[item.id] = item
+
+        # Validate initial state
+        if game_state.current_scene not in scenes:
+            raise ValueError(f&#34;Initial scene &#39;{game_state.current_scene}&#39; not found in scenes&#34;)
+
+        logger.info(f&#34;TextAdventureEngine initialized with {len(scenes)} scenes&#34;)
+
+    def run(self) -&gt; None:
+        &#34;&#34;&#34;
+        Start the main game loop.
+
+        This method handles:
+        1. Initial scene display
+        2. Player input collection
+        3. Command parsing
+        4. Action execution
+        5. State updates
+        6. Victory/defeat checking
+
+        The loop continues until the player quits, wins, or loses.
+
+        Examples:
+            &gt;&gt;&gt; engine = TextAdventureEngine(state, scenes)
+            &gt;&gt;&gt; # engine.run()  # Starts interactive game
+        &#34;&#34;&#34;
+        self.running = True
+        logger.info(&#34;Game loop started&#34;)
+
+        # Display intro and current scene
+        self._display_welcome()
+        self._display_current_scene()
+        self._process_entry_events()
+
+        # Main game loop
+        while self.running:
+            try:
+                # Check win/loss conditions
+                if self._check_victory():
+                    self._display_victory()
+                    break
+
+                if self._check_defeat():
+                    self._display_defeat()
+                    break
+
+                # Get player input
+                try:
+                    command = self.input_func()
+                except (EOFError, KeyboardInterrupt):
+                    self._output(&#34;\n\nGoodbye!&#34;)
+                    break
+
+                if not command or not command.strip():
+                    continue
+
+                # Handle quit commands
+                if command.strip().lower() in [&#34;quit&#34;, &#34;exit&#34;, &#34;q&#34;]:
+                    if self._confirm_quit():
+                        self._output(&#34;\nThanks for playing!&#34;)
+                        break
+                    continue
+
+                # Parse and execute command
+                current_scene = self.scenes[self.game_state.current_scene]
+                action = self.parser.parse(command, self.game_state, current_scene)
+
+                self._execute_action(action)
+
+            except Exception as e:
+                logger.exception(&#34;Error in game loop&#34;)
+                self._output(f&#34;\nAn error occurred: {e}&#34;)
+                self._output(&#34;Please try another command.\n&#34;)
+
+        self.running = False
+        logger.info(&#34;Game loop ended&#34;)
+
+    def _execute_action(self, action: Action) -&gt; None:
+        &#34;&#34;&#34;
+        Execute a parsed action and update game state.
+
+        Args:
+            action: The Action object to execute.
+        &#34;&#34;&#34;
+        logger.debug(f&#34;Executing action: {action}&#34;)
+
+        # Route to appropriate handler
+        if isinstance(action, MoveAction):
+            self.handle_move(action.direction)
+        elif isinstance(action, TakeAction):
+            self.handle_take(action.item_id)
+        elif isinstance(action, DropAction):
+            self.handle_drop(action.item_id)
+        elif isinstance(action, UseAction):
+            self.handle_use(action.item_id, action.target_id)
+        elif isinstance(action, LookAction):
+            self.handle_look(action.target)
+        elif isinstance(action, InventoryAction):
+            self.handle_inventory()
+        elif isinstance(action, TalkAction):
+            self.handle_talk(action.npc_id, action.topic)
+        elif isinstance(action, HelpAction):
+            self.handle_help()
+        elif isinstance(action, UnknownAction):
+            self._handle_unknown(action)
+        else:
+            self._output(&#34;I don&#39;t understand that command.&#34;)
+            logger.warning(f&#34;Unknown action type: {type(action)}&#34;)
+
+    def handle_move(self, direction: str) -&gt; None:
+        &#34;&#34;&#34;
+        Handle movement to another scene.
+
+        Args:
+            direction: The direction or exit name to move through.
+        &#34;&#34;&#34;
+        current_scene = self.scenes[self.game_state.current_scene]
+
+        # Check if exit exists and is accessible
+        can_exit, reason = current_scene.can_exit(
+            direction, self.game_state.inventory, self.game_state.game_flags
+        )
+
+        if not can_exit:
+            self._output(f&#34;\n{reason}\n&#34;)
+            logger.debug(f&#34;Move blocked: {reason}&#34;)
+            return
+
+        # Get destination scene
+        destination_id = current_scene.exits[direction]
+
+        if destination_id not in self.scenes:
+            self._output(f&#34;\nError: Destination &#39;{destination_id}&#39; not found.\n&#34;)
+            logger.error(f&#34;Invalid destination: {destination_id}&#34;)
+            return
+
+        # Move to new scene
+        old_scene_id = self.game_state.current_scene
+        self.game_state.visit_scene(destination_id)
+        logger.info(f&#34;Moved from {old_scene_id} to {destination_id}&#34;)
+
+        # Display new scene
+        self._output(&#34;&#34;)  # Blank line
+        self._display_current_scene()
+
+        # Process entry events
+        self._process_entry_events()
+
+    def handle_take(self, item_id: str) -&gt; None:
+        &#34;&#34;&#34;
+        Handle taking an item from the current scene.
+
+        Args:
+            item_id: The ID or name of the item to take.
+        &#34;&#34;&#34;
+        current_scene = self.scenes[self.game_state.current_scene]
+
+        # Find the item in the scene
+        item = current_scene.get_item(item_id)
+
+        if not item:
+            self._output(f&#34;\nYou don&#39;t see &#39;{item_id}&#39; here.\n&#34;)
+            logger.debug(f&#34;Item not found: {item_id}&#34;)
+            return
+
+        # Check if item is takeable
+        if not item.takeable:
+            self._output(f&#34;\nYou can&#39;t take the {item.name}.\n&#34;)
+            logger.debug(f&#34;Item not takeable: {item_id}&#34;)
+            return
+
+        # Add to inventory and remove from scene
+        self.game_state.add_item(item.id)
+        current_scene.remove_item(item.id)
+
+        # Register item in registry if not already there
+        if item.id not in self._item_registry:
+            self._item_registry[item.id] = item
+
+        self._output(f&#34;\nYou take the {item.name}.\n&#34;)
+        logger.info(f&#34;Took item: {item.id}&#34;)
+
+    def handle_drop(self, item_id: str) -&gt; None:
+        &#34;&#34;&#34;
+        Handle dropping an item from inventory.
+
+        Args:
+            item_id: The ID or name of the item to drop.
+        &#34;&#34;&#34;
+        if not self.game_state.has_item(item_id):
+            self._output(f&#34;\nYou don&#39;t have &#39;{item_id}&#39;.\n&#34;)
+            logger.debug(f&#34;Item not in inventory: {item_id}&#34;)
+            return
+
+        # Get the item from registry
+        item = self._item_registry.get(item_id)
+        if item is None:
+            # Item not in registry - create a basic item as fallback
+            item = Item(
+                id=item_id,
+                name=item_id.replace(&#34;_&#34;, &#34; &#34;).title(),
+                description=f&#34;A {item_id.replace(&#39;_&#39;, &#39; &#39;)}.&#34;,
+                takeable=True,
+            )
+            self._item_registry[item_id] = item
+
+        # Remove from inventory
+        self.game_state.remove_item(item_id)
+
+        # Add to current scene
+        current_scene = self.scenes[self.game_state.current_scene]
+        current_scene.add_item(item)
+
+        self._output(f&#34;\nYou drop the {item.name}.\n&#34;)
+        logger.info(f&#34;Dropped item: {item_id}&#34;)
+
+    def handle_use(self, item_id: str, target_id: str | None = None) -&gt; None:  # noqa: PLR0915
+        &#34;&#34;&#34;
+        Handle using an item.
+
+        Args:
+            item_id: The ID of the item to use.
+            target_id: Optional target for the item.
+        &#34;&#34;&#34;
+        # Check if player has the item
+        if not self.game_state.has_item(item_id):
+            self._output(f&#34;\nYou don&#39;t have &#39;{item_id}&#39;.\n&#34;)
+            logger.debug(f&#34;Item not in inventory: {item_id}&#34;)
+            return
+
+        # Get the item from registry
+        item = self._item_registry.get(item_id)
+        if item is None:
+            self._output(f&#34;\nYou can&#39;t use the {item_id}.\n&#34;)
+            logger.warning(f&#34;Item not in registry: {item_id}&#34;)
+            return
+
+        # Check if item is useable
+        if not item.useable:
+            self._output(f&#34;\nYou can&#39;t use the {item.name}.\n&#34;)
+            logger.debug(f&#34;Item not useable: {item_id}&#34;)
+            return
+
+        # Check if item has required flag
+        if item.required_flag and not self.game_state.get_flag(item.required_flag):
+            self._output(f&#34;\nYou can&#39;t use the {item.name} right now.\n&#34;)
+            logger.debug(f&#34;Missing required flag for item: {item.required_flag}&#34;)
+            return
+
+        # Display use text if available
+        if item.use_text:
+            self._output(f&#34;\n{item.use_text}\n&#34;)
+
+        # Apply item effects
+        effects_applied = False
+
+        # Handle healing effect
+        if &#34;heal&#34; in item.effects:
+            heal_amount = item.effects[&#34;heal&#34;]
+            self.game_state.heal(heal_amount)
+            if not item.use_text:
+                self._output(f&#34;\nYou use the {item.name}. You feel better! (+{heal_amount} HP)\n&#34;)
+            effects_applied = True
+            # Remove consumable healing items
+            self.game_state.remove_item(item_id)
+            logger.info(f&#34;Used healing item: {item_id}, healed {heal_amount} HP&#34;)
+
+        # Handle unlock effect
+        if &#34;unlock&#34; in item.effects:
+            current_scene = self.scenes[self.game_state.current_scene]
+            item.effects[&#34;unlock&#34;]
+
+            # Try to unlock the specified exit or any locked exit that requires this item
+            unlocked = False
+            for direction, locked_item in list(current_scene.locked_exits.items()):
+                if locked_item == item_id or (target_id and direction == target_id):
+                    current_scene.unlock_exit(direction)
+                    if not item.use_text:
+                        self._output(
+                            f&#34;\nYou use the {item.name}. You hear a click as the lock opens.\n&#34;
+                        )
+                    logger.info(f&#34;Unlocked exit: {direction}&#34;)
+                    unlocked = True
+                    effects_applied = True
+                    break
+
+            if not unlocked and not item.use_text:
+                self._output(f&#34;\nThe {item.name} doesn&#39;t seem to unlock anything here.\n&#34;)
+
+        # Handle damage effect
+        if &#34;damage&#34; in item.effects:
+            damage_amount = item.effects[&#34;damage&#34;]
+            self.game_state.take_damage(damage_amount)
+            if not item.use_text:
+                self._output(f&#34;\nYou use the {item.name}. It hurts! (-{damage_amount} HP)\n&#34;)
+            effects_applied = True
+            logger.info(f&#34;Used damaging item: {item_id}, dealt {damage_amount} damage&#34;)
+
+        # Handle flag setting effect
+        if &#34;set_flag&#34; in item.effects:
+            flag_name = item.effects[&#34;set_flag&#34;]
+            self.game_state.set_flag(flag_name, True)
+            if not item.use_text:
+                self._output(f&#34;\nYou use the {item.name}.\n&#34;)
+            effects_applied = True
+            logger.info(f&#34;Set flag from item use: {flag_name}&#34;)
+
+        # If no effects were applied and no use_text, show generic message
+        if not effects_applied and not item.use_text:
+            self._output(f&#34;\nYou use the {item.name}. Nothing happens.\n&#34;)
+            logger.debug(f&#34;Used item with no effects: {item_id}&#34;)
+
+    def handle_look(self, target: str | None = None) -&gt; None:
+        &#34;&#34;&#34;
+        Handle examining the scene or an object.
+
+        Args:
+            target: Optional target to examine. If None, examine scene.
+        &#34;&#34;&#34;
+        current_scene = self.scenes[self.game_state.current_scene]
+
+        if not target:
+            # Look at the scene
+            self._output(&#34;&#34;)
+            self._display_current_scene()
+            return
+
+        # Look for item in scene
+        item = current_scene.get_item(target)
+        if item:
+            self._output(f&#34;\n{item.description}\n&#34;)
+            logger.debug(f&#34;Examined item: {target}&#34;)
+            return
+
+        # Look for NPC in scene
+        npc = current_scene.get_npc(target)
+        if npc:
+            self._output(f&#34;\n{npc.description}\n&#34;)
+            logger.debug(f&#34;Examined NPC: {target}&#34;)
+            return
+
+        # Not found
+        self._output(f&#34;\nYou don&#39;t see &#39;{target}&#39; here.\n&#34;)
+        logger.debug(f&#34;Target not found: {target}&#34;)
+
+    def handle_talk(self, npc_id: str, topic: str | None = None) -&gt; None:
+        &#34;&#34;&#34;
+        Handle talking to an NPC.
+
+        Args:
+            npc_id: The ID or name of the NPC to talk to.
+            topic: Optional dialogue topic.
+        &#34;&#34;&#34;
+        current_scene = self.scenes[self.game_state.current_scene]
+
+        # Find the NPC
+        npc = current_scene.get_npc(npc_id)
+
+        if not npc:
+            self._output(f&#34;\nYou don&#39;t see &#39;{npc_id}&#39; here.\n&#34;)
+            logger.debug(f&#34;NPC not found: {npc_id}&#34;)
+            return
+
+        # Check if can interact
+        if not npc.can_interact(self.game_state.game_flags):
+            self._output(f&#34;\nThe {npc.name} doesn&#39;t want to talk right now.\n&#34;)
+            logger.debug(f&#34;Cannot interact with NPC: {npc_id}&#34;)
+            return
+
+        # Get dialogue
+        if topic:
+            dialogue = npc.get_dialogue(topic, f&#34;The {npc.name} has nothing to say about that.&#34;)
+        else:
+            # Try default greetings
+            dialogue = npc.get_dialogue(&#34;greeting&#34;, None)
+            if not dialogue:
+                dialogue = npc.get_dialogue(&#34;default&#34;, f&#34;The {npc.name} nods at you.&#34;)
+
+        self._output(f&#39;\n{npc.name}: &#34;{dialogue}&#34;\n&#39;)
+
+        # Give item if configured
+        if npc.gives_item and not self.game_state.has_item(npc.gives_item):
+            self.game_state.add_item(npc.gives_item)
+            self._output(f&#34;The {npc.name} gives you: {npc.gives_item}\n&#34;)
+            logger.info(f&#34;Received item from NPC: {npc.gives_item}&#34;)
+
+        logger.debug(f&#34;Talked to NPC: {npc_id}, topic: {topic}&#34;)
+
+    def handle_inventory(self) -&gt; None:
+        &#34;&#34;&#34;
+        Display the player&#39;s inventory.
+        &#34;&#34;&#34;
+        if not self.game_state.inventory:
+            self._output(&#34;\nYour inventory is empty.\n&#34;)
+            return
+
+        self._output(&#34;\n=== INVENTORY ===&#34;)
+        for item_id in self.game_state.inventory:
+            # Format item name nicely
+            item_name = item_id.replace(&#34;_&#34;, &#34; &#34;).title()
+            self._output(f&#34;  - {item_name}&#34;)
+        self._output(&#34;&#34;)
+
+        logger.debug(&#34;Displayed inventory&#34;)
+
+    def handle_help(self) -&gt; None:
+        &#34;&#34;&#34;
+        Display available commands and help text.
+        &#34;&#34;&#34;
+        help_text = &#34;&#34;&#34;
+=== AVAILABLE COMMANDS ===
+
+Movement:
+  go &lt;direction&gt;     - Move in a direction (north, south, east, west, etc.)
+
+Interaction:
+  take &lt;item&gt;        - Pick up an item
+  drop &lt;item&gt;        - Drop an item from your inventory
+  use &lt;item&gt;         - Use an item
+  use &lt;item&gt; on &lt;target&gt; - Use an item on a target
+  look               - Look at the current scene
+  look at &lt;target&gt;   - Examine an object or NPC
+  talk to &lt;npc&gt;      - Talk to an NPC
+  ask &lt;npc&gt; about &lt;topic&gt; - Ask an NPC about something
+
+Inventory:
+  inventory          - Show your inventory (or &#39;inv&#39;, &#39;i&#39;)
+
+Other:
+  help               - Show this help text (or &#39;h&#39;, &#39;?&#39;)
+  quit               - Quit the game (or &#39;exit&#39;, &#39;q&#39;)
+
+Tips:
+  - You can use synonyms for most commands (e.g., &#39;get&#39; instead of &#39;take&#39;)
+  - The parser is forgiving with typos and variations
+  - Explore thoroughly and talk to everyone!
+&#34;&#34;&#34;
+        self._output(help_text)
+        logger.debug(&#34;Displayed help&#34;)
+
+    def _handle_unknown(self, action: UnknownAction) -&gt; None:
+        &#34;&#34;&#34;
+        Handle an unknown/unrecognized command.
+
+        Args:
+            action: The UnknownAction with optional suggestion.
+        &#34;&#34;&#34;
+        self._output(&#34;\nI don&#39;t understand that command.&#34;)
+
+        if action.suggestion:
+            self._output(f&#34;Did you mean &#39;{action.suggestion}&#39;?&#34;)
+
+        self._output(&#34;Type &#39;help&#39; for a list of commands.\n&#34;)
+        logger.debug(f&#34;Unknown command: {action.raw_command}&#34;)
+
+    def _display_welcome(self) -&gt; None:
+        &#34;&#34;&#34;Display welcome message.&#34;&#34;&#34;
+        welcome = &#34;&#34;&#34;
+╔═══════════════════════════════════════════════════════════╗
+║           SPACE HULK: DERELICT OF THE VOID                ║
+║                                                           ║
+║  A Text Adventure in the Warhammer 40,000 Universe       ║
+╚═══════════════════════════════════════════════════════════╝
+
+In the grim darkness of the far future, there is only war...
+
+Type &#39;help&#39; for a list of commands. Type &#39;quit&#39; to exit.
+&#34;&#34;&#34;
+        self._output(welcome)
+
+    def _display_current_scene(self) -&gt; None:
+        &#34;&#34;&#34;Display the current scene description.&#34;&#34;&#34;
+        current_scene = self.scenes[self.game_state.current_scene]
+
+        # Scene header
+        self._output(&#34;=&#34; * 60)
+        self._output(f&#34;{current_scene.name.upper()}&#34;)
+        self._output(&#34;=&#34; * 60)
+
+        # Scene description
+        description = current_scene.get_full_description()
+        self._output(f&#34;\n{description}\n&#34;)
+
+        # Available exits
+        exit_desc = current_scene.get_exit_description()
+        self._output(exit_desc)
+
+        # Health status
+        health_percent = (self.game_state.health / self.game_state.max_health) * 100
+        health_bar = self._get_health_bar(health_percent)
+        self._output(
+            f&#34;\nHealth: {health_bar} {self.game_state.health}/{self.game_state.max_health}&#34;
+        )
+        self._output(&#34;&#34;)
+
+        # Mark as visited
+        current_scene.visited = True
+
+    def _get_health_bar(self, percent: float) -&gt; str:
+        &#34;&#34;&#34;
+        Generate a visual health bar with status indicators.
+
+        Args:
+            percent: Health percentage (0-100).
+
+        Returns:
+            A string representing a health bar with status indicator.
+        &#34;&#34;&#34;
+        bar_length = 20
+        filled = int((percent / 100) * bar_length)
+        empty = bar_length - filled
+
+        bar = &#34;█&#34; * filled + &#34;░&#34; * empty
+
+        # Add status indicators based on health
+        if percent &gt; 75:
+            return f&#34;[{bar}] (Good)&#34;
+        elif percent &gt; 25:
+            return f&#34;[{bar}] (Warning)&#34;
+        else:
+            return f&#34;[{bar}] (CRITICAL)&#34;
+
+    def _process_entry_events(self) -&gt; None:
+        &#34;&#34;&#34;Process events that trigger on entering the current scene.&#34;&#34;&#34;
+        current_scene = self.scenes[self.game_state.current_scene]
+
+        entry_events = current_scene.get_entry_events(self.game_state.game_flags)
+
+        for event in entry_events:
+            self._trigger_event(event)
+
+    def _trigger_event(self, event: Event) -&gt; None:
+        &#34;&#34;&#34;
+        Trigger an event and apply its effects.
+
+        Args:
+            event: The Event to trigger.
+        &#34;&#34;&#34;
+        # Display event description
+        self._output(f&#34;\n&gt;&gt;&gt; {event.description}\n&#34;)
+
+        # Mark as triggered
+        event.trigger()
+
+        # Apply effects
+        effects = event.effects
+
+        if &#34;damage&#34; in effects:
+            damage = effects[&#34;damage&#34;]
+            self.game_state.take_damage(damage)
+            self._output(f&#34;You take {damage} damage!\n&#34;)
+            logger.info(f&#34;Event damage: {damage}&#34;)
+
+        if &#34;heal&#34; in effects:
+            heal = effects[&#34;heal&#34;]
+            self.game_state.heal(heal)
+            self._output(f&#34;You recover {heal} health!\n&#34;)
+            logger.info(f&#34;Event heal: {heal}&#34;)
+
+        if &#34;set_flag&#34; in effects:
+            flag = effects[&#34;set_flag&#34;]
+            self.game_state.set_flag(flag)
+            logger.info(f&#34;Event set flag: {flag}&#34;)
+
+        if &#34;give_item&#34; in effects:
+            item_id = effects[&#34;give_item&#34;]
+            self.game_state.add_item(item_id)
+            self._output(f&#34;You receive: {item_id}\n&#34;)
+            logger.info(f&#34;Event gave item: {item_id}&#34;)
+
+        logger.info(f&#34;Triggered event: {event.id}&#34;)
+
+    def _check_victory(self) -&gt; bool:
+        &#34;&#34;&#34;
+        Check if victory conditions are met.
+
+        Returns:
+            True if player has won, False otherwise.
+        &#34;&#34;&#34;
+        if not self.victory_conditions:
+            return False
+
+        for flag in self.victory_conditions:
+            if self.game_state.get_flag(flag):
+                logger.info(f&#34;Victory condition met: {flag}&#34;)
+                return True
+
+        return False
+
+    def _check_defeat(self) -&gt; bool:
+        &#34;&#34;&#34;
+        Check if defeat conditions are met.
+
+        Returns:
+            True if player has lost, False otherwise.
+        &#34;&#34;&#34;
+        # Check death
+        if not self.game_state.is_alive():
+            logger.info(&#34;Defeat: Player died&#34;)
+            return True
+
+        # Check defeat flags
+        for flag in self.defeat_conditions:
+            if self.game_state.get_flag(flag):
+                logger.info(f&#34;Defeat condition met: {flag}&#34;)
+                return True
+
+        return False
+
+    def _display_victory(self) -&gt; None:
+        &#34;&#34;&#34;Display victory message.&#34;&#34;&#34;
+        victory_text = &#34;&#34;&#34;
+╔═══════════════════════════════════════════════════════════╗
+║                       VICTORY!                            ║
+╚═══════════════════════════════════════════════════════════╝
+
+Against all odds, you have succeeded in your mission!
+The Emperor protects, and through your courage and skill,
+you have brought honor to the Imperium.
+
+May your name be remembered in the annals of history!
+&#34;&#34;&#34;
+        self._output(victory_text)
+
+    def _display_defeat(self) -&gt; None:
+        &#34;&#34;&#34;Display defeat message.&#34;&#34;&#34;
+        defeat_text = &#34;&#34;&#34;
+╔═══════════════════════════════════════════════════════════╗
+║                       DEFEAT                              ║
+╚═══════════════════════════════════════════════════════════╝
+
+Your mission has ended in failure...
+
+&#34;&#34;&#34;
+        if not self.game_state.is_alive():
+            defeat_text += &#34;You have fallen in battle.\n&#34;
+
+        defeat_text += &#34;&#34;&#34;
+In the grim darkness of the far future, there is only war,
+and not all battles can be won. Your sacrifice will be
+remembered by those who come after.
+
+Perhaps in another timeline, victory was possible...
+&#34;&#34;&#34;
+        self._output(defeat_text)
+
+    def _confirm_quit(self) -&gt; bool:
+        &#34;&#34;&#34;
+        Ask player to confirm they want to quit.
+
+        Returns:
+            True if player confirms quit, False otherwise.
+        &#34;&#34;&#34;
+        self._output(&#34;\nAre you sure you want to quit? (yes/no): &#34;)
+        try:
+            response = self.input_func()
+            return response.strip().lower() in [&#34;yes&#34;, &#34;y&#34;]
+        except (EOFError, KeyboardInterrupt):
+            return True
+
+    def _output(self, text: str) -&gt; None:
+        &#34;&#34;&#34;
+        Output text to the player.
+
+        Args:
+            text: The text to display.
+        &#34;&#34;&#34;
+        self.output_func(text)</code></pre>
+</details>
+<div class="desc"><p>Main game engine for text-based adventure games.</p>
+<p>This class implements the core game loop and coordinates all game systems:
+- Command parsing and action execution
+- Scene management and state transitions
+- Event processing and triggering
+- Player input/output
+- Victory/defeat condition checking</p>
+<p>The engine follows the Facade pattern, providing a simple interface
+to the complex subsystems of the game (parser, state, scenes, etc.).</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>game_state</code></strong></dt>
+<dd>The current game state (player location, inventory, etc.).</dd>
+<dt><strong><code>scenes</code></strong></dt>
+<dd>Dictionary mapping scene IDs to Scene objects.</dd>
+<dt><strong><code>parser</code></strong></dt>
+<dd>CommandParser instance for processing player commands.</dd>
+<dt><strong><code>running</code></strong></dt>
+<dd>Whether the game loop is currently running.</dd>
+<dt><strong><code>victory_conditions</code></strong></dt>
+<dd>Set of game flags that trigger victory.</dd>
+<dt><strong><code>defeat_conditions</code></strong></dt>
+<dd>Set of game flags that trigger defeat.</dd>
+<dt><strong><code>input_func</code></strong></dt>
+<dd>Function for getting player input (for testing).</dd>
+<dt><strong><code>output_func</code></strong></dt>
+<dd>Function for displaying output (for testing).</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<p>Create and run a basic game:</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import (
+...     TextAdventureEngine, GameState, Scene, Item
+... )
+&gt;&gt;&gt; state = GameState(current_scene=&quot;room1&quot;)
+&gt;&gt;&gt; scenes = {
+...     &quot;room1&quot;: Scene(
+...         id=&quot;room1&quot;,
+...         name=&quot;Starting Room&quot;,
+...         description=&quot;A simple room.&quot;,
+...         exits={&quot;north&quot;: &quot;room2&quot;}
+...     ),
+...     &quot;room2&quot;: Scene(
+...         id=&quot;room2&quot;,
+...         name=&quot;Second Room&quot;,
+...         description=&quot;Another room.&quot;
+...     )
+... }
+&gt;&gt;&gt; engine = TextAdventureEngine(state, scenes)
+&gt;&gt;&gt; # engine.run()  # Start the interactive game loop
+</code></pre>
+<p>Initialize the text adventure engine.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>game_state</code></strong></dt>
+<dd>Initial game state.</dd>
+<dt><strong><code>scenes</code></strong></dt>
+<dd>Dictionary mapping scene IDs to Scene objects.</dd>
+<dt><strong><code>input_func</code></strong></dt>
+<dd>Optional custom input function (default: input()).</dd>
+<dt><strong><code>output_func</code></strong></dt>
+<dd>Optional custom output function (default: print()).</dd>
+<dt><strong><code>victory_conditions</code></strong></dt>
+<dd>Optional set of flags that trigger victory.</dd>
+<dt><strong><code>defeat_conditions</code></strong></dt>
+<dd>Optional set of flags that trigger defeat.</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>ValueError</code></dt>
+<dd>If current scene is not in scenes dict.</dd>
+</dl></div>
+<h3>Methods</h3>
+<dl>
+<dt id="space_hulk_game.engine.engine.TextAdventureEngine.handle_drop"><code class="name flex">
+<span>def <span class="ident">handle_drop</span></span>(<span>self, item_id: str) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def handle_drop(self, item_id: str) -&gt; None:
+    &#34;&#34;&#34;
+    Handle dropping an item from inventory.
+
+    Args:
+        item_id: The ID or name of the item to drop.
+    &#34;&#34;&#34;
+    if not self.game_state.has_item(item_id):
+        self._output(f&#34;\nYou don&#39;t have &#39;{item_id}&#39;.\n&#34;)
+        logger.debug(f&#34;Item not in inventory: {item_id}&#34;)
+        return
+
+    # Get the item from registry
+    item = self._item_registry.get(item_id)
+    if item is None:
+        # Item not in registry - create a basic item as fallback
+        item = Item(
+            id=item_id,
+            name=item_id.replace(&#34;_&#34;, &#34; &#34;).title(),
+            description=f&#34;A {item_id.replace(&#39;_&#39;, &#39; &#39;)}.&#34;,
+            takeable=True,
+        )
+        self._item_registry[item_id] = item
+
+    # Remove from inventory
+    self.game_state.remove_item(item_id)
+
+    # Add to current scene
+    current_scene = self.scenes[self.game_state.current_scene]
+    current_scene.add_item(item)
+
+    self._output(f&#34;\nYou drop the {item.name}.\n&#34;)
+    logger.info(f&#34;Dropped item: {item_id}&#34;)</code></pre>
+</details>
+<div class="desc"><p>Handle dropping an item from inventory.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>item_id</code></strong></dt>
+<dd>The ID or name of the item to drop.</dd>
+</dl></div>
+</dd>
+<dt id="space_hulk_game.engine.engine.TextAdventureEngine.handle_help"><code class="name flex">
+<span>def <span class="ident">handle_help</span></span>(<span>self) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">    def handle_help(self) -&gt; None:
+        &#34;&#34;&#34;
+        Display available commands and help text.
+        &#34;&#34;&#34;
+        help_text = &#34;&#34;&#34;
+=== AVAILABLE COMMANDS ===
+
+Movement:
+  go &lt;direction&gt;     - Move in a direction (north, south, east, west, etc.)
+
+Interaction:
+  take &lt;item&gt;        - Pick up an item
+  drop &lt;item&gt;        - Drop an item from your inventory
+  use &lt;item&gt;         - Use an item
+  use &lt;item&gt; on &lt;target&gt; - Use an item on a target
+  look               - Look at the current scene
+  look at &lt;target&gt;   - Examine an object or NPC
+  talk to &lt;npc&gt;      - Talk to an NPC
+  ask &lt;npc&gt; about &lt;topic&gt; - Ask an NPC about something
+
+Inventory:
+  inventory          - Show your inventory (or &#39;inv&#39;, &#39;i&#39;)
+
+Other:
+  help               - Show this help text (or &#39;h&#39;, &#39;?&#39;)
+  quit               - Quit the game (or &#39;exit&#39;, &#39;q&#39;)
+
+Tips:
+  - You can use synonyms for most commands (e.g., &#39;get&#39; instead of &#39;take&#39;)
+  - The parser is forgiving with typos and variations
+  - Explore thoroughly and talk to everyone!
+&#34;&#34;&#34;
+        self._output(help_text)
+        logger.debug(&#34;Displayed help&#34;)</code></pre>
+</details>
+<div class="desc"><p>Display available commands and help text.</p></div>
+</dd>
+<dt id="space_hulk_game.engine.engine.TextAdventureEngine.handle_inventory"><code class="name flex">
+<span>def <span class="ident">handle_inventory</span></span>(<span>self) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def handle_inventory(self) -&gt; None:
+    &#34;&#34;&#34;
+    Display the player&#39;s inventory.
+    &#34;&#34;&#34;
+    if not self.game_state.inventory:
+        self._output(&#34;\nYour inventory is empty.\n&#34;)
+        return
+
+    self._output(&#34;\n=== INVENTORY ===&#34;)
+    for item_id in self.game_state.inventory:
+        # Format item name nicely
+        item_name = item_id.replace(&#34;_&#34;, &#34; &#34;).title()
+        self._output(f&#34;  - {item_name}&#34;)
+    self._output(&#34;&#34;)
+
+    logger.debug(&#34;Displayed inventory&#34;)</code></pre>
+</details>
+<div class="desc"><p>Display the player's inventory.</p></div>
+</dd>
+<dt id="space_hulk_game.engine.engine.TextAdventureEngine.handle_look"><code class="name flex">
+<span>def <span class="ident">handle_look</span></span>(<span>self, target: str | None = None) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def handle_look(self, target: str | None = None) -&gt; None:
+    &#34;&#34;&#34;
+    Handle examining the scene or an object.
+
+    Args:
+        target: Optional target to examine. If None, examine scene.
+    &#34;&#34;&#34;
+    current_scene = self.scenes[self.game_state.current_scene]
+
+    if not target:
+        # Look at the scene
+        self._output(&#34;&#34;)
+        self._display_current_scene()
+        return
+
+    # Look for item in scene
+    item = current_scene.get_item(target)
+    if item:
+        self._output(f&#34;\n{item.description}\n&#34;)
+        logger.debug(f&#34;Examined item: {target}&#34;)
+        return
+
+    # Look for NPC in scene
+    npc = current_scene.get_npc(target)
+    if npc:
+        self._output(f&#34;\n{npc.description}\n&#34;)
+        logger.debug(f&#34;Examined NPC: {target}&#34;)
+        return
+
+    # Not found
+    self._output(f&#34;\nYou don&#39;t see &#39;{target}&#39; here.\n&#34;)
+    logger.debug(f&#34;Target not found: {target}&#34;)</code></pre>
+</details>
+<div class="desc"><p>Handle examining the scene or an object.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>target</code></strong></dt>
+<dd>Optional target to examine. If None, examine scene.</dd>
+</dl></div>
+</dd>
+<dt id="space_hulk_game.engine.engine.TextAdventureEngine.handle_move"><code class="name flex">
+<span>def <span class="ident">handle_move</span></span>(<span>self, direction: str) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def handle_move(self, direction: str) -&gt; None:
+    &#34;&#34;&#34;
+    Handle movement to another scene.
+
+    Args:
+        direction: The direction or exit name to move through.
+    &#34;&#34;&#34;
+    current_scene = self.scenes[self.game_state.current_scene]
+
+    # Check if exit exists and is accessible
+    can_exit, reason = current_scene.can_exit(
+        direction, self.game_state.inventory, self.game_state.game_flags
+    )
+
+    if not can_exit:
+        self._output(f&#34;\n{reason}\n&#34;)
+        logger.debug(f&#34;Move blocked: {reason}&#34;)
+        return
+
+    # Get destination scene
+    destination_id = current_scene.exits[direction]
+
+    if destination_id not in self.scenes:
+        self._output(f&#34;\nError: Destination &#39;{destination_id}&#39; not found.\n&#34;)
+        logger.error(f&#34;Invalid destination: {destination_id}&#34;)
+        return
+
+    # Move to new scene
+    old_scene_id = self.game_state.current_scene
+    self.game_state.visit_scene(destination_id)
+    logger.info(f&#34;Moved from {old_scene_id} to {destination_id}&#34;)
+
+    # Display new scene
+    self._output(&#34;&#34;)  # Blank line
+    self._display_current_scene()
+
+    # Process entry events
+    self._process_entry_events()</code></pre>
+</details>
+<div class="desc"><p>Handle movement to another scene.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>direction</code></strong></dt>
+<dd>The direction or exit name to move through.</dd>
+</dl></div>
+</dd>
+<dt id="space_hulk_game.engine.engine.TextAdventureEngine.handle_take"><code class="name flex">
+<span>def <span class="ident">handle_take</span></span>(<span>self, item_id: str) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def handle_take(self, item_id: str) -&gt; None:
+    &#34;&#34;&#34;
+    Handle taking an item from the current scene.
+
+    Args:
+        item_id: The ID or name of the item to take.
+    &#34;&#34;&#34;
+    current_scene = self.scenes[self.game_state.current_scene]
+
+    # Find the item in the scene
+    item = current_scene.get_item(item_id)
+
+    if not item:
+        self._output(f&#34;\nYou don&#39;t see &#39;{item_id}&#39; here.\n&#34;)
+        logger.debug(f&#34;Item not found: {item_id}&#34;)
+        return
+
+    # Check if item is takeable
+    if not item.takeable:
+        self._output(f&#34;\nYou can&#39;t take the {item.name}.\n&#34;)
+        logger.debug(f&#34;Item not takeable: {item_id}&#34;)
+        return
+
+    # Add to inventory and remove from scene
+    self.game_state.add_item(item.id)
+    current_scene.remove_item(item.id)
+
+    # Register item in registry if not already there
+    if item.id not in self._item_registry:
+        self._item_registry[item.id] = item
+
+    self._output(f&#34;\nYou take the {item.name}.\n&#34;)
+    logger.info(f&#34;Took item: {item.id}&#34;)</code></pre>
+</details>
+<div class="desc"><p>Handle taking an item from the current scene.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>item_id</code></strong></dt>
+<dd>The ID or name of the item to take.</dd>
+</dl></div>
+</dd>
+<dt id="space_hulk_game.engine.engine.TextAdventureEngine.handle_talk"><code class="name flex">
+<span>def <span class="ident">handle_talk</span></span>(<span>self, npc_id: str, topic: str | None = None) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def handle_talk(self, npc_id: str, topic: str | None = None) -&gt; None:
+    &#34;&#34;&#34;
+    Handle talking to an NPC.
+
+    Args:
+        npc_id: The ID or name of the NPC to talk to.
+        topic: Optional dialogue topic.
+    &#34;&#34;&#34;
+    current_scene = self.scenes[self.game_state.current_scene]
+
+    # Find the NPC
+    npc = current_scene.get_npc(npc_id)
+
+    if not npc:
+        self._output(f&#34;\nYou don&#39;t see &#39;{npc_id}&#39; here.\n&#34;)
+        logger.debug(f&#34;NPC not found: {npc_id}&#34;)
+        return
+
+    # Check if can interact
+    if not npc.can_interact(self.game_state.game_flags):
+        self._output(f&#34;\nThe {npc.name} doesn&#39;t want to talk right now.\n&#34;)
+        logger.debug(f&#34;Cannot interact with NPC: {npc_id}&#34;)
+        return
+
+    # Get dialogue
+    if topic:
+        dialogue = npc.get_dialogue(topic, f&#34;The {npc.name} has nothing to say about that.&#34;)
+    else:
+        # Try default greetings
+        dialogue = npc.get_dialogue(&#34;greeting&#34;, None)
+        if not dialogue:
+            dialogue = npc.get_dialogue(&#34;default&#34;, f&#34;The {npc.name} nods at you.&#34;)
+
+    self._output(f&#39;\n{npc.name}: &#34;{dialogue}&#34;\n&#39;)
+
+    # Give item if configured
+    if npc.gives_item and not self.game_state.has_item(npc.gives_item):
+        self.game_state.add_item(npc.gives_item)
+        self._output(f&#34;The {npc.name} gives you: {npc.gives_item}\n&#34;)
+        logger.info(f&#34;Received item from NPC: {npc.gives_item}&#34;)
+
+    logger.debug(f&#34;Talked to NPC: {npc_id}, topic: {topic}&#34;)</code></pre>
+</details>
+<div class="desc"><p>Handle talking to an NPC.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>npc_id</code></strong></dt>
+<dd>The ID or name of the NPC to talk to.</dd>
+<dt><strong><code>topic</code></strong></dt>
+<dd>Optional dialogue topic.</dd>
+</dl></div>
+</dd>
+<dt id="space_hulk_game.engine.engine.TextAdventureEngine.handle_use"><code class="name flex">
+<span>def <span class="ident">handle_use</span></span>(<span>self, item_id: str, target_id: str | None = None) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def handle_use(self, item_id: str, target_id: str | None = None) -&gt; None:  # noqa: PLR0915
+    &#34;&#34;&#34;
+    Handle using an item.
+
+    Args:
+        item_id: The ID of the item to use.
+        target_id: Optional target for the item.
+    &#34;&#34;&#34;
+    # Check if player has the item
+    if not self.game_state.has_item(item_id):
+        self._output(f&#34;\nYou don&#39;t have &#39;{item_id}&#39;.\n&#34;)
+        logger.debug(f&#34;Item not in inventory: {item_id}&#34;)
+        return
+
+    # Get the item from registry
+    item = self._item_registry.get(item_id)
+    if item is None:
+        self._output(f&#34;\nYou can&#39;t use the {item_id}.\n&#34;)
+        logger.warning(f&#34;Item not in registry: {item_id}&#34;)
+        return
+
+    # Check if item is useable
+    if not item.useable:
+        self._output(f&#34;\nYou can&#39;t use the {item.name}.\n&#34;)
+        logger.debug(f&#34;Item not useable: {item_id}&#34;)
+        return
+
+    # Check if item has required flag
+    if item.required_flag and not self.game_state.get_flag(item.required_flag):
+        self._output(f&#34;\nYou can&#39;t use the {item.name} right now.\n&#34;)
+        logger.debug(f&#34;Missing required flag for item: {item.required_flag}&#34;)
+        return
+
+    # Display use text if available
+    if item.use_text:
+        self._output(f&#34;\n{item.use_text}\n&#34;)
+
+    # Apply item effects
+    effects_applied = False
+
+    # Handle healing effect
+    if &#34;heal&#34; in item.effects:
+        heal_amount = item.effects[&#34;heal&#34;]
+        self.game_state.heal(heal_amount)
+        if not item.use_text:
+            self._output(f&#34;\nYou use the {item.name}. You feel better! (+{heal_amount} HP)\n&#34;)
+        effects_applied = True
+        # Remove consumable healing items
+        self.game_state.remove_item(item_id)
+        logger.info(f&#34;Used healing item: {item_id}, healed {heal_amount} HP&#34;)
+
+    # Handle unlock effect
+    if &#34;unlock&#34; in item.effects:
+        current_scene = self.scenes[self.game_state.current_scene]
+        item.effects[&#34;unlock&#34;]
+
+        # Try to unlock the specified exit or any locked exit that requires this item
+        unlocked = False
+        for direction, locked_item in list(current_scene.locked_exits.items()):
+            if locked_item == item_id or (target_id and direction == target_id):
+                current_scene.unlock_exit(direction)
+                if not item.use_text:
+                    self._output(
+                        f&#34;\nYou use the {item.name}. You hear a click as the lock opens.\n&#34;
+                    )
+                logger.info(f&#34;Unlocked exit: {direction}&#34;)
+                unlocked = True
+                effects_applied = True
+                break
+
+        if not unlocked and not item.use_text:
+            self._output(f&#34;\nThe {item.name} doesn&#39;t seem to unlock anything here.\n&#34;)
+
+    # Handle damage effect
+    if &#34;damage&#34; in item.effects:
+        damage_amount = item.effects[&#34;damage&#34;]
+        self.game_state.take_damage(damage_amount)
+        if not item.use_text:
+            self._output(f&#34;\nYou use the {item.name}. It hurts! (-{damage_amount} HP)\n&#34;)
+        effects_applied = True
+        logger.info(f&#34;Used damaging item: {item_id}, dealt {damage_amount} damage&#34;)
+
+    # Handle flag setting effect
+    if &#34;set_flag&#34; in item.effects:
+        flag_name = item.effects[&#34;set_flag&#34;]
+        self.game_state.set_flag(flag_name, True)
+        if not item.use_text:
+            self._output(f&#34;\nYou use the {item.name}.\n&#34;)
+        effects_applied = True
+        logger.info(f&#34;Set flag from item use: {flag_name}&#34;)
+
+    # If no effects were applied and no use_text, show generic message
+    if not effects_applied and not item.use_text:
+        self._output(f&#34;\nYou use the {item.name}. Nothing happens.\n&#34;)
+        logger.debug(f&#34;Used item with no effects: {item_id}&#34;)</code></pre>
+</details>
+<div class="desc"><p>Handle using an item.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>item_id</code></strong></dt>
+<dd>The ID of the item to use.</dd>
+<dt><strong><code>target_id</code></strong></dt>
+<dd>Optional target for the item.</dd>
+</dl></div>
+</dd>
+<dt id="space_hulk_game.engine.engine.TextAdventureEngine.run"><code class="name flex">
+<span>def <span class="ident">run</span></span>(<span>self) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def run(self) -&gt; None:
+    &#34;&#34;&#34;
+    Start the main game loop.
+
+    This method handles:
+    1. Initial scene display
+    2. Player input collection
+    3. Command parsing
+    4. Action execution
+    5. State updates
+    6. Victory/defeat checking
+
+    The loop continues until the player quits, wins, or loses.
+
+    Examples:
+        &gt;&gt;&gt; engine = TextAdventureEngine(state, scenes)
+        &gt;&gt;&gt; # engine.run()  # Starts interactive game
+    &#34;&#34;&#34;
+    self.running = True
+    logger.info(&#34;Game loop started&#34;)
+
+    # Display intro and current scene
+    self._display_welcome()
+    self._display_current_scene()
+    self._process_entry_events()
+
+    # Main game loop
+    while self.running:
+        try:
+            # Check win/loss conditions
+            if self._check_victory():
+                self._display_victory()
+                break
+
+            if self._check_defeat():
+                self._display_defeat()
+                break
+
+            # Get player input
+            try:
+                command = self.input_func()
+            except (EOFError, KeyboardInterrupt):
+                self._output(&#34;\n\nGoodbye!&#34;)
+                break
+
+            if not command or not command.strip():
+                continue
+
+            # Handle quit commands
+            if command.strip().lower() in [&#34;quit&#34;, &#34;exit&#34;, &#34;q&#34;]:
+                if self._confirm_quit():
+                    self._output(&#34;\nThanks for playing!&#34;)
+                    break
+                continue
+
+            # Parse and execute command
+            current_scene = self.scenes[self.game_state.current_scene]
+            action = self.parser.parse(command, self.game_state, current_scene)
+
+            self._execute_action(action)
+
+        except Exception as e:
+            logger.exception(&#34;Error in game loop&#34;)
+            self._output(f&#34;\nAn error occurred: {e}&#34;)
+            self._output(&#34;Please try another command.\n&#34;)
+
+    self.running = False
+    logger.info(&#34;Game loop ended&#34;)</code></pre>
+</details>
+<div class="desc"><p>Start the main game loop.</p>
+<p>This method handles:
+1. Initial scene display
+2. Player input collection
+3. Command parsing
+4. Action execution
+5. State updates
+6. Victory/defeat checking</p>
+<p>The loop continues until the player quits, wins, or loses.</p>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; engine = TextAdventureEngine(state, scenes)
+&gt;&gt;&gt; # engine.run()  # Starts interactive game
+</code></pre></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="space_hulk_game.engine" href="index.html">space_hulk_game.engine</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="space_hulk_game.engine.engine.TextAdventureEngine" href="#space_hulk_game.engine.engine.TextAdventureEngine">TextAdventureEngine</a></code></h4>
+<ul class="two-column">
+<li><code><a title="space_hulk_game.engine.engine.TextAdventureEngine.handle_drop" href="#space_hulk_game.engine.engine.TextAdventureEngine.handle_drop">handle_drop</a></code></li>
+<li><code><a title="space_hulk_game.engine.engine.TextAdventureEngine.handle_help" href="#space_hulk_game.engine.engine.TextAdventureEngine.handle_help">handle_help</a></code></li>
+<li><code><a title="space_hulk_game.engine.engine.TextAdventureEngine.handle_inventory" href="#space_hulk_game.engine.engine.TextAdventureEngine.handle_inventory">handle_inventory</a></code></li>
+<li><code><a title="space_hulk_game.engine.engine.TextAdventureEngine.handle_look" href="#space_hulk_game.engine.engine.TextAdventureEngine.handle_look">handle_look</a></code></li>
+<li><code><a title="space_hulk_game.engine.engine.TextAdventureEngine.handle_move" href="#space_hulk_game.engine.engine.TextAdventureEngine.handle_move">handle_move</a></code></li>
+<li><code><a title="space_hulk_game.engine.engine.TextAdventureEngine.handle_take" href="#space_hulk_game.engine.engine.TextAdventureEngine.handle_take">handle_take</a></code></li>
+<li><code><a title="space_hulk_game.engine.engine.TextAdventureEngine.handle_talk" href="#space_hulk_game.engine.engine.TextAdventureEngine.handle_talk">handle_talk</a></code></li>
+<li><code><a title="space_hulk_game.engine.engine.TextAdventureEngine.handle_use" href="#space_hulk_game.engine.engine.TextAdventureEngine.handle_use">handle_use</a></code></li>
+<li><code><a title="space_hulk_game.engine.engine.TextAdventureEngine.run" href="#space_hulk_game.engine.engine.TextAdventureEngine.run">run</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>

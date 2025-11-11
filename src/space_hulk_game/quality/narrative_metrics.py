@@ -52,7 +52,7 @@ class NarrativeMetrics:
             self.orphaned_scenes = []
 
     @classmethod
-    def from_yaml_content(cls, yaml_content: str) -> 'NarrativeMetrics':
+    def from_yaml_content(cls, yaml_content: str) -> "NarrativeMetrics":
         """
         Create NarrativeMetrics from YAML content string.
 
@@ -65,25 +65,29 @@ class NarrativeMetrics:
         try:
             # Handle markdown-wrapped YAML
             content = yaml_content.strip()
-            if content.startswith('```'):
-                lines = content.split('\n')
-                content = '\n'.join(lines[1:-1])
+            if content.startswith("```"):
+                lines = content.split("\n")
+                content = "\n".join(lines[1:-1])
                 logger.debug("Stripped markdown fences from narrative YAML")
 
             data = yaml.safe_load(content)
             metrics = cls.from_dict(data)
 
             if metrics.has_orphaned_scenes:
-                logger.warning(f"NarrativeMetrics: Found {len(metrics.orphaned_scenes)} orphaned scenes: {metrics.orphaned_scenes}")
+                logger.warning(
+                    f"NarrativeMetrics: Found {len(metrics.orphaned_scenes)} orphaned scenes: {metrics.orphaned_scenes}"
+                )
 
-            logger.info(f"NarrativeMetrics parsed: score={metrics.get_score():.1f}/10, passes={metrics.passes_threshold()}")
+            logger.info(
+                f"NarrativeMetrics parsed: score={metrics.get_score():.1f}/10, passes={metrics.passes_threshold()}"
+            )
             return metrics
         except Exception as e:
             logger.error(f"Failed to parse narrative YAML content: {e}")
             raise ValueError(f"Failed to parse YAML content: {e}") from e
 
     @classmethod
-    def from_dict(cls, data: dict[str, Any]) -> 'NarrativeMetrics':
+    def from_dict(cls, data: dict[str, Any]) -> "NarrativeMetrics":
         """
         Create NarrativeMetrics from a dictionary (parsed YAML).
 
@@ -96,18 +100,18 @@ class NarrativeMetrics:
         metrics = cls()
 
         # Get narrative map structure
-        narrative_map = data.get('narrative_map', data)
+        narrative_map = data.get("narrative_map", data)
 
         # Check for start scene
-        metrics.has_start_scene = bool(narrative_map.get('start_scene'))
+        metrics.has_start_scene = bool(narrative_map.get("start_scene"))
 
         # Get scenes
-        scenes = narrative_map.get('scenes', {})
+        scenes = narrative_map.get("scenes", {})
         metrics.total_scenes = len(scenes)
 
         # Count scenes with descriptions
         for _scene_id, scene_data in scenes.items():
-            if scene_data and scene_data.get('description'):
+            if scene_data and scene_data.get("description"):
                 metrics.scenes_with_descriptions += 1
 
         # Calculate completeness percentage
@@ -121,8 +125,7 @@ class NarrativeMetrics:
 
         # Find orphaned scenes
         metrics.orphaned_scenes = cls._find_orphaned_scenes(
-            scenes,
-            narrative_map.get('start_scene')
+            scenes, narrative_map.get("start_scene")
         )
         metrics.has_orphaned_scenes = len(metrics.orphaned_scenes) > 0
 
@@ -145,13 +148,13 @@ class NarrativeMetrics:
             if not scene_data:
                 continue
 
-            connections = scene_data.get('connections', [])
+            connections = scene_data.get("connections", [])
             if not connections:
                 continue
 
             for connection in connections:
                 if isinstance(connection, dict):
-                    target = connection.get('target')
+                    target = connection.get("target")
                     if target and target not in scene_ids:
                         return False
                 elif isinstance(connection, str):
@@ -161,10 +164,7 @@ class NarrativeMetrics:
         return True
 
     @staticmethod
-    def _find_orphaned_scenes(
-        scenes: dict[str, Any],
-        start_scene: str | None
-    ) -> list[str]:
+    def _find_orphaned_scenes(scenes: dict[str, Any], start_scene: str | None) -> list[str]:
         """
         Find scenes that are not reachable from the start scene.
 
@@ -195,10 +195,10 @@ class NarrativeMetrics:
             if not scene_data:
                 continue
 
-            connections = scene_data.get('connections', [])
+            connections = scene_data.get("connections", [])
             for connection in connections:
                 if isinstance(connection, dict):
-                    target = connection.get('target')
+                    target = connection.get("target")
                     if target and target not in reachable:
                         to_visit.append(target)
                 elif isinstance(connection, str):
@@ -219,11 +219,11 @@ class NarrativeMetrics:
             True if all thresholds are met, False otherwise
         """
         return (
-            self.has_start_scene and
-            self.total_scenes >= self.min_scenes and
-            self.completeness_percentage >= self.min_completeness and
-            self.all_connections_valid and
-            not self.has_orphaned_scenes
+            self.has_start_scene
+            and self.total_scenes >= self.min_scenes
+            and self.completeness_percentage >= self.min_completeness
+            and self.all_connections_valid
+            and not self.has_orphaned_scenes
         )
 
     def get_failures(self) -> list[str]:
@@ -240,8 +240,7 @@ class NarrativeMetrics:
 
         if self.total_scenes < self.min_scenes:
             failures.append(
-                f"Insufficient scenes: {self.total_scenes} "
-                f"(minimum: {self.min_scenes})"
+                f"Insufficient scenes: {self.total_scenes} (minimum: {self.min_scenes})"
             )
 
         if self.completeness_percentage < self.min_completeness:
@@ -254,9 +253,7 @@ class NarrativeMetrics:
             failures.append("Some scene connections reference invalid scenes")
 
         if self.has_orphaned_scenes:
-            failures.append(
-                f"Orphaned scenes found: {', '.join(self.orphaned_scenes)}"
-            )
+            failures.append(f"Orphaned scenes found: {', '.join(self.orphaned_scenes)}")
 
         return failures
 
@@ -301,14 +298,14 @@ class NarrativeMetrics:
             Dictionary representation of metrics
         """
         return {
-            'total_scenes': self.total_scenes,
-            'scenes_with_descriptions': self.scenes_with_descriptions,
-            'completeness_percentage': round(self.completeness_percentage, 1),
-            'all_connections_valid': self.all_connections_valid,
-            'has_orphaned_scenes': self.has_orphaned_scenes,
-            'orphaned_scenes': self.orphaned_scenes,
-            'has_start_scene': self.has_start_scene,
-            'passes_threshold': self.passes_threshold(),
-            'score': self.get_score(),
-            'failures': self.get_failures(),
+            "total_scenes": self.total_scenes,
+            "scenes_with_descriptions": self.scenes_with_descriptions,
+            "completeness_percentage": round(self.completeness_percentage, 1),
+            "all_connections_valid": self.all_connections_valid,
+            "has_orphaned_scenes": self.has_orphaned_scenes,
+            "orphaned_scenes": self.orphaned_scenes,
+            "has_start_scene": self.has_start_scene,
+            "passes_threshold": self.passes_threshold(),
+            "score": self.get_score(),
+            "failures": self.get_failures(),
         }

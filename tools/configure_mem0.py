@@ -36,7 +36,7 @@ class Mem0Configurator:
         vector_store: str = "qdrant",
         crew_file: str = "src/space_hulk_game/crew.py",
         env_file: str = ".env",
-        validate_only: bool = False
+        validate_only: bool = False,
     ):
         """
         Initialize the configurator.
@@ -62,9 +62,9 @@ class Mem0Configurator:
         Returns:
             True if successful, False otherwise
         """
-        print(f"\n{'='*60}")
+        print(f"\n{'=' * 60}")
         print("Mem0 Configuration for Space Hulk Game")
-        print(f"{'='*60}\n")
+        print(f"{'=' * 60}\n")
         print(f"Mode: {self.mode}")
         print(f"Validate Only: {self.validate_only}")
         print()
@@ -82,17 +82,16 @@ class Mem0Configurator:
         self._display_configuration(config)
 
         # Step 4: Apply configuration (unless validate-only)
-        if not self.validate_only:
-            if not self._apply_configuration(config):
-                return False
+        if not self.validate_only and not self._apply_configuration(config):
+            return False
 
         # Step 5: Test configuration
         if not self.validate_only:
             self._test_configuration()
 
-        print("\n" + "="*60)
+        print("\n" + "=" * 60)
         print("Configuration complete!")
-        print("="*60 + "\n")
+        print("=" * 60 + "\n")
 
         if not self.validate_only:
             self._print_next_steps()
@@ -197,7 +196,7 @@ class Mem0Configurator:
             if response.status_code == 200:
                 models = response.json().get("models", [])
                 return any(m.get("name", "").startswith(model) for m in models)
-        except Exception:
+        except Exception:  # nosec B110
             pass
         return False
 
@@ -214,11 +213,12 @@ class Mem0Configurator:
         try:
             # Try to initialize client
             from mem0 import MemoryClient
+
             MemoryClient(api_key=api_key)
             # Test with a simple operation
             return True
         except Exception as e:
-            print(f"   Error: {str(e)}")
+            print(f"   Error: {e!s}")
             return False
 
     def _generate_configuration(self) -> dict | None:
@@ -239,10 +239,8 @@ class Mem0Configurator:
         """Generate basic memory configuration."""
         return {
             "mode": "basic",
-            "crew_config": {
-                "memory": True
-            },
-            "description": "Built-in CrewAI memory with ChromaDB and SQLite"
+            "crew_config": {"memory": True},
+            "description": "Built-in CrewAI memory with ChromaDB and SQLite",
         }
 
     def _generate_cloud_config(self) -> dict:
@@ -255,11 +253,11 @@ class Mem0Configurator:
                     "provider": "mem0",
                     "config": {
                         "user_id": "space_hulk_user",
-                        "run_id": "dynamic"  # Will be generated at runtime
-                    }
-                }
+                        "run_id": "dynamic",  # Will be generated at runtime
+                    },
+                },
             },
-            "description": "Cloud mem0 with managed infrastructure"
+            "description": "Cloud mem0 with managed infrastructure",
         }
 
     def _generate_local_config(self) -> dict:
@@ -272,16 +270,13 @@ class Mem0Configurator:
                     "collection_name": "space_hulk_narratives",
                     "host": "localhost",
                     "port": 6333,
-                    "embedding_model_dims": 1024
-                }
+                    "embedding_model_dims": 1024,
+                },
             }
         else:  # chroma
             vector_config = {
                 "provider": "chroma",
-                "config": {
-                    "collection_name": "space_hulk_narratives",
-                    "path": "./chroma_db"
-                }
+                "config": {"collection_name": "space_hulk_narratives", "path": "./chroma_db"},
             }
 
         local_mem0_config = {
@@ -291,17 +286,17 @@ class Mem0Configurator:
                     "model": "qwen2.5",
                     "temperature": 0.2,
                     "max_tokens": 2000,
-                    "base_url": "http://localhost:11434"
-                }
+                    "base_url": "http://localhost:11434",
+                },
             },
             "embedder": {
                 "provider": "ollama",
                 "config": {
                     "model": "mxbai-embed-large",
-                    "ollama_base_url": "http://localhost:11434"
-                }
+                    "ollama_base_url": "http://localhost:11434",
+                },
             },
-            "vector_store": vector_config
+            "vector_store": vector_config,
         }
 
         return {
@@ -312,12 +307,12 @@ class Mem0Configurator:
                     "provider": "mem0",
                     "config": {
                         "user_id": "space_hulk_user",
-                        "local_mem0_config": local_mem0_config
-                    }
-                }
+                        "local_mem0_config": local_mem0_config,
+                    },
+                },
             },
             "description": f"Local mem0 with {self.vector_store.capitalize()} vector store",
-            "local_config": local_mem0_config
+            "local_config": local_mem0_config,
         }
 
     def _display_configuration(self, config: dict) -> None:
@@ -328,13 +323,13 @@ class Mem0Configurator:
         print(f"Description: {config['description']}")
         print()
 
-        if config['mode'] == 'basic':
+        if config["mode"] == "basic":
             print("Settings:")
             print("  - memory: True")
             print("  - provider: Built-in CrewAI (ChromaDB + SQLite)")
         else:
             print("Memory Configuration:")
-            memory_config = config['crew_config'].get('memory_config', {})
+            memory_config = config["crew_config"].get("memory_config", {})
             self._print_dict(memory_config, indent=2)
 
         print()
@@ -354,32 +349,32 @@ class Mem0Configurator:
 
         try:
             # Read crew.py
-            with open(self.crew_file, encoding='utf-8') as f:
+            with open(self.crew_file, encoding="utf-8") as f:
                 crew_content = f.read()
 
             # Modify based on mode
-            if config['mode'] == 'basic':
+            if config["mode"] == "basic":
                 crew_content = self._apply_basic_config(crew_content)
-            elif config['mode'] == 'cloud':
+            elif config["mode"] == "cloud":
                 crew_content = self._apply_cloud_config(crew_content, config)
-            elif config['mode'] == 'local':
+            elif config["mode"] == "local":
                 crew_content = self._apply_local_config(crew_content, config)
 
             # Write back
-            with open(self.crew_file, 'w', encoding='utf-8') as f:
+            with open(self.crew_file, "w", encoding="utf-8") as f:
                 f.write(crew_content)
 
             print("✅ Successfully updated crew.py")
             return True
 
         except Exception as e:
-            print(f"❌ Error updating crew.py: {str(e)}")
+            print(f"❌ Error updating crew.py: {e!s}")
             return False
 
     def _apply_basic_config(self, content: str) -> str:
         """Apply basic memory configuration to crew.py."""
         # Find the crew() method and enable memory=True
-        pattern = r'(def crew\(self\) -> Crew:.*?return Crew\()(.*?)(\))'
+        pattern = r"(def crew\(self\) -> Crew:.*?return Crew\()(.*?)(\))"
 
         def replacer(match):
             before = match.group(1)
@@ -387,12 +382,12 @@ class Mem0Configurator:
             after = match.group(3)
 
             # Check if memory parameter exists
-            if 'memory=' in params:
+            if "memory=" in params:
                 # Replace existing memory parameter
-                params = re.sub(r'memory\s*=\s*\w+', 'memory=True', params)
+                params = re.sub(r"memory\s*=\s*\w+", "memory=True", params)
             else:
                 # Add memory parameter
-                params += ',\n            memory=True'
+                params += ",\n            memory=True"
 
             return before + params + after
 
@@ -402,7 +397,7 @@ class Mem0Configurator:
     def _apply_cloud_config(self, content: str, config: dict) -> str:
         """Apply cloud mem0 configuration to crew.py."""
         # Add memory_config in __init__ if not present
-        if 'self.memory_config' not in content:
+        if "self.memory_config" not in content:
             content = self._add_memory_config_to_init(content, config)
         else:
             content = self._update_memory_config_in_init(content, config)
@@ -415,7 +410,7 @@ class Mem0Configurator:
     def _apply_local_config(self, content: str, config: dict) -> str:
         """Apply local mem0 configuration to crew.py."""
         # Add local_mem0_config and memory_config in __init__
-        if 'self.local_mem0_config' not in content:
+        if "self.local_mem0_config" not in content:
             content = self._add_local_config_to_init(content, config)
         else:
             content = self._update_local_config_in_init(content, config)
@@ -428,9 +423,11 @@ class Mem0Configurator:
     def _add_memory_config_to_init(self, content: str, config: dict) -> str:
         """Add memory_config to __init__ method."""
         # Find the end of __init__ (before first @agent decorator)
-        init_end_pattern = r'(\s+)(# Will be used in the crew configuration\s+self\.shared_memory = None)'
+        init_end_pattern = (
+            r"(\s+)(# Will be used in the crew configuration\s+self\.shared_memory = None)"
+        )
 
-        memory_config_code = '''
+        memory_config_code = """
         # Memory configuration for cloud mem0
         self.memory_config = {
             "provider": "mem0",
@@ -439,59 +436,55 @@ class Mem0Configurator:
                 "run_id": f"session_{datetime.datetime.now().timestamp()}"
             }
         }
-'''
+"""
 
-        content = re.sub(
-            init_end_pattern,
-            memory_config_code + r'\1\2',
-            content
-        )
+        content = re.sub(init_end_pattern, memory_config_code + r"\1\2", content)
 
         return content
 
     def _update_memory_config_in_init(self, content: str, config: dict) -> str:
         """Update existing memory_config in __init__ method."""
         # Replace the existing memory_config
-        pattern = r'self\.memory_config = \{[^}]+\}'
+        pattern = r"self\.memory_config = \{[^}]+\}"
 
-        replacement = '''self.memory_config = {
+        replacement = """self.memory_config = {
             "provider": "mem0",
             "config": {
                 "user_id": "space_hulk_user",
                 "run_id": f"session_{datetime.datetime.now().timestamp()}"
             }
-        }'''
+        }"""
 
         content = re.sub(pattern, replacement, content, flags=re.DOTALL)
         return content
 
     def _add_local_config_to_init(self, content: str, config: dict) -> str:
         """Add local_mem0_config to __init__ method."""
-        local_config = config['local_config']
+        local_config = config["local_config"]
 
         # Generate config code
-        local_config_code = f'''
+        local_config_code = f"""
         # Local mem0 configuration
         self.local_mem0_config = {{
             "llm": {{
                 "provider": "ollama",
                 "config": {{
-                    "model": "{local_config['llm']['config']['model']}",
-                    "temperature": {local_config['llm']['config']['temperature']},
-                    "max_tokens": {local_config['llm']['config']['max_tokens']},
-                    "base_url": "{local_config['llm']['config']['base_url']}"
+                    "model": "{local_config["llm"]["config"]["model"]}",
+                    "temperature": {local_config["llm"]["config"]["temperature"]},
+                    "max_tokens": {local_config["llm"]["config"]["max_tokens"]},
+                    "base_url": "{local_config["llm"]["config"]["base_url"]}"
                 }}
             }},
             "embedder": {{
                 "provider": "ollama",
                 "config": {{
-                    "model": "{local_config['embedder']['config']['model']}",
-                    "ollama_base_url": "{local_config['embedder']['config']['ollama_base_url']}"
+                    "model": "{local_config["embedder"]["config"]["model"]}",
+                    "ollama_base_url": "{local_config["embedder"]["config"]["ollama_base_url"]}"
                 }}
             }},
             "vector_store": {{
-                "provider": "{local_config['vector_store']['provider']}",
-                "config": {local_config['vector_store']['config']}
+                "provider": "{local_config["vector_store"]["provider"]}",
+                "config": {local_config["vector_store"]["config"]}
             }}
         }}
 
@@ -503,16 +496,12 @@ class Mem0Configurator:
                 "local_mem0_config": self.local_mem0_config
             }}
         }}
-'''
+"""
 
         # Find location to insert (after shared_memory = None)
-        pattern = r'(\s+)(# Will be used in the crew configuration\s+self\.shared_memory = None)'
+        pattern = r"(\s+)(# Will be used in the crew configuration\s+self\.shared_memory = None)"
 
-        content = re.sub(
-            pattern,
-            local_config_code + r'\1\2',
-            content
-        )
+        content = re.sub(pattern, local_config_code + r"\1\2", content)
 
         return content
 
@@ -525,7 +514,7 @@ class Mem0Configurator:
     def _update_crew_method(self, content: str, use_memory_config: bool = False) -> str:
         """Update crew() method to enable memory."""
         # Find the Crew instantiation in crew() method
-        pattern = r'(@crew\s+def crew\(self\) -> Crew:.*?return Crew\()(.*?)(\s+\))'
+        pattern = r"(@crew\s+def crew\(self\) -> Crew:.*?return Crew\()(.*?)(\s+\))"
 
         def replacer(match):
             before = match.group(1)
@@ -533,15 +522,14 @@ class Mem0Configurator:
             after = match.group(3)
 
             # Ensure memory=True
-            if 'memory=' in params:
-                params = re.sub(r'memory\s*=\s*\w+', 'memory=True', params)
+            if "memory=" in params:
+                params = re.sub(r"memory\s*=\s*\w+", "memory=True", params)
             else:
-                params += ',\n            memory=True'
+                params += ",\n            memory=True"
 
             # Add memory_config if needed
-            if use_memory_config:
-                if 'memory_config=' not in params:
-                    params += ',\n            memory_config=self.memory_config'
+            if use_memory_config and "memory_config=" not in params:
+                params += ",\n            memory_config=self.memory_config"
 
             return before + params + after
 
@@ -564,11 +552,11 @@ class Mem0Configurator:
             crew_obj = crew.crew()
             print(f"✅ Memory enabled: {crew_obj.memory}")
 
-            if hasattr(crew, 'memory_config'):
+            if hasattr(crew, "memory_config"):
                 print(f"✅ Memory provider: {crew.memory_config.get('provider', 'default')}")
 
         except Exception as e:
-            print(f"⚠️  Warning: Could not test configuration: {str(e)}")
+            print(f"⚠️  Warning: Could not test configuration: {e!s}")
             print("   This may be normal if dependencies are not fully installed.")
 
     def _create_env_file(self) -> None:
@@ -576,11 +564,12 @@ class Mem0Configurator:
         env_example = self.project_root / ".env.example"
         if env_example.exists():
             import shutil
+
             shutil.copy(env_example, self.env_file)
             print("✅ Created .env from .env.example")
         else:
             # Create minimal .env
-            with open(self.env_file, 'w') as f:
+            with open(self.env_file, "w") as f:
                 f.write("# Space Hulk Game Environment Configuration\n")
                 f.write("OPENAI_MODEL_NAME=ollama/qwen2.5\n")
                 f.write("OLLAMA_BASE_URL=http://localhost:11434\n")
@@ -591,9 +580,9 @@ class Mem0Configurator:
         try:
             with open(self.env_file) as f:
                 for line in f:
-                    if line.strip().startswith(key + '='):
-                        return line.split('=', 1)[1].strip()
-        except Exception:
+                    if line.strip().startswith(key + "="):
+                        return line.split("=", 1)[1].strip()
+        except Exception:  # nosec B110
             pass
         return None
 
@@ -651,40 +640,36 @@ def main():
     """Main entry point."""
     parser = argparse.ArgumentParser(
         description="Configure mem0 memory integration for Space Hulk Game",
-        formatter_class=argparse.RawDescriptionHelpFormatter
+        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
 
     parser.add_argument(
         "--mode",
         choices=["basic", "cloud", "local"],
         default="basic",
-        help="Memory configuration mode (default: basic)"
+        help="Memory configuration mode (default: basic)",
     )
 
     parser.add_argument(
         "--vector-store",
         choices=["qdrant", "chroma"],
         default="qdrant",
-        help="Vector store for local mode (default: qdrant)"
+        help="Vector store for local mode (default: qdrant)",
     )
 
     parser.add_argument(
         "--validate-only",
         action="store_true",
-        help="Only validate prerequisites, don't modify files"
+        help="Only validate prerequisites, don't modify files",
     )
 
     parser.add_argument(
         "--crew-file",
         default="src/space_hulk_game/crew.py",
-        help="Path to crew.py (default: src/space_hulk_game/crew.py)"
+        help="Path to crew.py (default: src/space_hulk_game/crew.py)",
     )
 
-    parser.add_argument(
-        "--env-file",
-        default=".env",
-        help="Path to .env (default: .env)"
-    )
+    parser.add_argument("--env-file", default=".env", help="Path to .env (default: .env)")
 
     args = parser.parse_args()
 
@@ -694,7 +679,7 @@ def main():
         vector_store=args.vector_store,
         crew_file=args.crew_file,
         env_file=args.env_file,
-        validate_only=args.validate_only
+        validate_only=args.validate_only,
     )
 
     # Run configuration

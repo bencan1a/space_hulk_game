@@ -10,7 +10,7 @@ import os
 import sys
 
 # Add src to path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
 from space_hulk_game.quality import (
     MechanicsEvaluator,
@@ -31,15 +31,15 @@ def main():
     """Run validation against all real files."""
 
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    game_config_dir = os.path.join(base_dir, '../game-config')
+    game_config_dir = os.path.join(base_dir, "../game-config")
 
     # Define file mappings
     files = {
-        'plot_outline.yaml': PlotEvaluator(),
-        'narrative_map.yaml': NarrativeMapEvaluator(),
-        'puzzle_design.yaml': PuzzleEvaluator(),
-        'scene_texts.yaml': SceneEvaluator(),
-        'prd_document.yaml': MechanicsEvaluator(),
+        "plot_outline.yaml": PlotEvaluator(),
+        "narrative_map.yaml": NarrativeMapEvaluator(),
+        "puzzle_design.yaml": PuzzleEvaluator(),
+        "scene_texts.yaml": SceneEvaluator(),
+        "prd_document.yaml": MechanicsEvaluator(),
     }
 
     print("=" * 80)
@@ -84,12 +84,13 @@ def main():
             # Print key metrics
             print("\n  Details:")
             for key, value in result.details.items():
-                if key not in ['failures', 'threshold']:
+                if key not in ["failures", "threshold"]:
                     print(f"    - {key}: {value}")
 
         except Exception as e:
             print(f"  ❌ Error: {e}")
             import traceback
+
             traceback.print_exc()
 
         print()
@@ -115,5 +116,5 @@ def main():
     print("All evaluators tested successfully!")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

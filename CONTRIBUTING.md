@@ -325,12 +325,12 @@ class TestMyFeature(unittest.TestCase):
     def setUp(self):
         """Set up test fixtures"""
         self.test_data = {"key": "value"}
-    
+
     def test_feature_with_valid_input(self):
         """Test that feature works with valid input"""
         result = my_feature(self.test_data)
         self.assertEqual(result, expected_value)
-    
+
     def test_feature_handles_errors(self):
         """Test that feature handles errors gracefully"""
         with self.assertRaises(ValueError):

@@ -37,7 +37,7 @@ from pathlib import Path
 import yaml
 
 # Disable CrewAI telemetry to avoid firewall warnings
-os.environ['OTEL_SDK_DISABLED'] = 'true'
+os.environ["OTEL_SDK_DISABLED"] = "true"
 from datetime import datetime
 
 # Add src to path so we can import space_hulk_game
@@ -48,7 +48,7 @@ sys.path.insert(0, str(project_root / "src"))
 TEST_PROMPTS = [
     "A Space Marine boarding team discovers an ancient derelict vessel",
     "A lone Tech-Priest investigates strange signals from a hulk",
-    "A desperate escape from a Genestealer-infested hulk"
+    "A desperate escape from a Genestealer-infested hulk",
 ]
 
 # Expected output files
@@ -57,8 +57,9 @@ EXPECTED_FILES = [
     "narrative_map.yaml",
     "puzzle_design.yaml",
     "scene_texts.yaml",
-    "prd_document.yaml"
+    "prd_document.yaml",
 ]
+
 
 def save_run_results(run_number, prompt, results, output_dir):
     """Save results from a test run."""
@@ -72,13 +73,14 @@ def save_run_results(run_number, prompt, results, output_dir):
         "success": results.get("success", False),
         "error": results.get("error"),
         "files_generated": results.get("files_generated", {}),
-        "quality_metrics": results.get("quality_metrics", {})
+        "quality_metrics": results.get("quality_metrics", {}),
     }
 
-    with open(results_file, 'w') as f:
+    with open(results_file, "w") as f:
         json.dump(run_data, f, indent=2)
 
     print(f"  Saved results to: {results_file}")
+
 
 def backup_outputs(run_number, output_dir, backup_dir):
     """Backup output files from a run."""
@@ -97,24 +99,19 @@ def backup_outputs(run_number, output_dir, backup_dir):
         else:
             print(f"    ❌ Missing: {filename}")
 
+
 def validate_output_files(output_dir):
     """Validate that all expected output files exist and are valid YAML."""
     results = {
         "all_exist": True,
         "all_valid_yaml": True,
         "files_generated": {},
-        "quality_metrics": {}
+        "quality_metrics": {},
     }
 
     for filename in EXPECTED_FILES:
         filepath = output_dir / filename
-        file_info = {
-            "exists": False,
-            "valid_yaml": False,
-            "size": 0,
-            "keys": 0,
-            "error": None
-        }
+        file_info = {"exists": False, "valid_yaml": False, "size": 0, "keys": 0, "error": None}
 
         if filepath.exists():
             file_info["exists"] = True
@@ -151,23 +148,24 @@ def validate_output_files(output_dir):
     results["quality_metrics"] = {
         "total_size_bytes": total_size,
         "average_keys_per_file": avg_keys,
-        "files_with_content": sum(1 for f in results["files_generated"].values() if f["size"] > 0)
+        "files_with_content": sum(1 for f in results["files_generated"].values() if f["size"] > 0),
     }
 
     return results
 
+
 def run_single_test(run_number, prompt, output_dir):
     """Run a single test with the given prompt."""
-    print("\n" + "="*80)
+    print("\n" + "=" * 80)
     print(f"RUN #{run_number}: {prompt[:60]}...")
-    print("="*80)
+    print("=" * 80)
 
     results = {
         "success": False,
         "execution_time": 0,
         "error": None,
         "files_generated": {},
-        "quality_metrics": {}
+        "quality_metrics": {},
     }
 
     # Clean up old output files
@@ -190,10 +188,7 @@ def run_single_test(run_number, prompt, output_dir):
     try:
         print(f"\nStarting execution at {datetime.now().strftime('%H:%M:%S')}")
 
-        inputs = {
-            'prompt': prompt,
-            'game': prompt
-        }
+        inputs = {"prompt": prompt, "game": prompt}
 
         crew_instance = SpaceHulkGame()
         crew_instance.crew().kickoff(inputs=inputs)
@@ -210,6 +205,7 @@ def run_single_test(run_number, prompt, output_dir):
         results["error"] = str(e)
         print(f"\n❌ Execution failed: {e}")
         import traceback
+
         traceback.print_exc()
 
     # Validate outputs
@@ -219,23 +215,28 @@ def run_single_test(run_number, prompt, output_dir):
     results["quality_metrics"] = validation["quality_metrics"]
 
     # Print summary
-    print(f"\nFiles generated: {sum(1 for f in validation['files_generated'].values() if f['exists'])}/{len(EXPECTED_FILES)}")
-    print(f"Valid YAML: {sum(1 for f in validation['files_generated'].values() if f['valid_yaml'])}/{len(EXPECTED_FILES)}")
+    print(
+        f"\nFiles generated: {sum(1 for f in validation['files_generated'].values() if f['exists'])}/{len(EXPECTED_FILES)}"
+    )
+    print(
+        f"Valid YAML: {sum(1 for f in validation['files_generated'].values() if f['valid_yaml'])}/{len(EXPECTED_FILES)}"
+    )
     print(f"Total size: {validation['quality_metrics']['total_size_bytes']} bytes")
 
     return results
 
-def main():
+
+def main():  # noqa: PLR0915
     """Run Chunk 0.3 reliability testing."""
-    print("\n" + "="*80)
+    print("\n" + "=" * 80)
     print("CHUNK 0.3: RELIABILITY TESTING (3 CONSECUTIVE RUNS)")
-    print("="*80)
+    print("=" * 80)
     print("Per master_implementation_plan.md:")
     print("- Run sequential mode 3 times with different prompts")
     print("- Track success/failure for each run")
     print("- Measure average generation time")
     print("- Expected: 3/3 runs succeed, avg time < 10 minutes")
-    print("="*80 + "\n")
+    print("=" * 80 + "\n")
 
     output_dir = project_root / "game-config"
     backup_dir = project_root / "tmp" / "chunk_03_backups"
@@ -261,17 +262,17 @@ def main():
             time.sleep(5)
 
     # Analyze results
-    print("\n" + "="*80)
+    print("\n" + "=" * 80)
     print("RELIABILITY TEST RESULTS")
-    print("="*80)
+    print("=" * 80)
 
     successful_runs = sum(1 for r in all_results if r["success"])
     total_time = sum(r["execution_time"] for r in all_results)
     avg_time = total_time / len(all_results) if all_results else 0
 
     print(f"\nRuns Completed: {successful_runs}/{len(TEST_PROMPTS)}")
-    print(f"Total Time: {total_time:.2f} seconds ({total_time/60:.2f} minutes)")
-    print(f"Average Time: {avg_time:.2f} seconds ({avg_time/60:.2f} minutes)")
+    print(f"Total Time: {total_time:.2f} seconds ({total_time / 60:.2f} minutes)")
+    print(f"Average Time: {avg_time:.2f} seconds ({avg_time / 60:.2f} minutes)")
     print(f"Min Time: {min(r['execution_time'] for r in all_results):.2f} seconds")
     print(f"Max Time: {max(r['execution_time'] for r in all_results):.2f} seconds")
 
@@ -281,7 +282,9 @@ def main():
         status = "✅ PASSED" if results["success"] else "❌ FAILED"
         time_str = f"{results['execution_time']:.2f}s"
         files = sum(1 for f in results["files_generated"].values() if f.get("exists", False))
-        print(f"  Run {i}: {status} - {time_str} - {files}/{len(EXPECTED_FILES)} files - {prompt[:50]}...")
+        print(
+            f"  Run {i}: {status} - {time_str} - {files}/{len(EXPECTED_FILES)} files - {prompt[:50]}..."
+        )
         if results["error"]:
             print(f"         Error: {results['error']}")
 
@@ -295,9 +298,9 @@ def main():
                 print(f"  {metric}: avg={avg:.2f}, min={min(values):.2f}, max={max(values):.2f}")
 
     # Final verdict
-    print("\n" + "="*80)
+    print("\n" + "=" * 80)
     print("CHUNK 0.3 VALIDATION SUMMARY")
-    print("="*80)
+    print("=" * 80)
 
     if successful_runs == len(TEST_PROMPTS):
         print(f"✅ Reliability: ALL RUNS PASSED ({successful_runs}/{len(TEST_PROMPTS)})")
@@ -317,7 +320,7 @@ def main():
         else:
             print("✅ No Degradation: Consistent performance across runs")
 
-    print("="*80)
+    print("=" * 80)
 
     if successful_runs == len(TEST_PROMPTS) and avg_time < 600:
         print("\n✅ CHUNK 0.3 VALIDATION: PASSED")
@@ -329,10 +332,11 @@ def main():
         print("Review issues above and investigate failures")
         return_code = 1
 
-    print("="*80 + "\n")
+    print("=" * 80 + "\n")
     print(f"Results and backups saved to: {backup_dir}")
 
     return return_code
+
 
 if __name__ == "__main__":
     sys.exit(main())

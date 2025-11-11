@@ -44,7 +44,7 @@ Test and fix in stages, from simplest to most complex.
    ```bash
    # Backup current crew
    mv src/space_hulk_game/crew.py src/space_hulk_game/crew_hierarchical.py
-   
+
    # Use sequential version
    cp crew_sequential.py src/space_hulk_game/crew.py
    ```
@@ -83,7 +83,7 @@ Test and fix in stages, from simplest to most complex.
    ```bash
    # In terminal 1: Watch logs
    tail -f run_log.txt
-   
+
    # In terminal 2: Run test
    python test_crew_generation.py --mode hierarchical --timeout 600
    ```
@@ -143,7 +143,7 @@ def crew(self) -> Crew:
         self.WriteSceneDescriptionsAndDialogue(),
         self.CreateGameMechanicsPRD()
     ]
-    
+
     return Crew(
         agents=self.agents,
         tasks=core_tasks,  # Skip evaluation tasks

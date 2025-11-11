@@ -24,13 +24,32 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
+    # Testing
     "pytest>=7.0.0",
     "pytest-cov>=4.0.0",
+    "pytest-asyncio>=0.21.0",
+    "coverage>=7.0.0",
+
+    # Code Quality
     "black>=23.0.0",
     "ruff>=0.1.0",
     "mypy>=1.0.0",
     "bandit>=1.7.0",
-    "types-pyyaml>=6.0.0",  # Type stubs for PyYAML
+    "pre-commit>=3.0.0",
+
+    # Type Stubs
+    "types-pyyaml>=6.0.0",
+
+    # Advanced Testing
+    "hypothesis>=6.0.0",
+    "faker>=20.0.0",
+
+    # Development Tools
+    "ipython>=8.0.0",
+    "ipdb>=0.13.0",
+
+    # Documentation (for future)
+    "pdoc3>=0.10.0",
 ]
 
 [project.scripts]
@@ -50,7 +69,7 @@ build-backend = "hatchling.build"
 type = "crew"
 
 [tool.pyright]
-include = ["src", "tests"]
+include = ["src", "tests", "tools"]  # Added tools
 exclude = [
     "venv",
     ".venv",
@@ -58,7 +77,8 @@ exclude = [
     "**/.pytest_cache",
     "**/node_modules",
     ".git",
-    "tmp"
+    "tmp",
+    "agent-tmp"  # Added
 ]
 pythonVersion = "3.10"
 typeCheckingMode = "basic"
@@ -77,6 +97,8 @@ exclude = [
     ".venv",
     "build",
     "dist",
+    "tmp",
+    "agent-tmp",  # Added
 ]
 
 # Ignore missing imports for specific third-party libraries without type stubs
@@ -110,15 +132,41 @@ select = [
     "B",   # flake8-bugbear
     "C4",  # flake8-comprehensions
     "UP",  # pyupgrade
+    "ARG", # flake8-unused-arguments
+    "SIM", # flake8-simplify
+    "TCH", # flake8-type-checking
+    "PTH", # flake8-use-pathlib
+    "ERA", # eradicate (commented-out code)
+    "PL",  # pylint
+    "RUF", # ruff-specific rules
 ]
 ignore = [
-    "E501",  # line too long (handled by black)
-    "B008",  # do not perform function calls in argument defaults
-    "C901",  # too complex
+    "E501",    # line too long (handled by formatter)
+    "B008",    # do not perform function calls in argument defaults
+    "C901",    # too complex
+    "PLR0913", # too many arguments
+    "PLR0912", # too many branches
+    "PLR2004", # magic value comparison
 ]
 
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]  # unused imports in __init__.py files
+"tests/**/*.py" = [
+    "S101",    # asserts are standard in tests
+    "S105",    # hardcoded passwords in test fixtures are OK
+    "B017",    # assertRaises(Exception) is fine for testing error cases
+    "ARG001",  # unused args needed for mock/patch signatures
+    "E402",    # module imports after code sometimes needed for test setup
+    "PTH",     # pathlib not required for test code
+    "PLC0415", # imports inside functions are common in tests (lazy loading, mocking)
+    "ERA001",  # commented code for debugging/documentation is OK in tests
+]
+"tools/**/*.py" = [
+    "ARG002",  # unused method args in tools are often for interface compatibility
+    "PTH",     # pathlib not required for utility tools
+    "PLC0415", # imports inside functions are fine for utility scripts
+]
+"context_portal/**/*.py" = ["ALL"]  # External code, exclude from linting
 
 [tool.bandit]
 exclude_dirs = [
@@ -146,3 +194,48 @@ exclude = '''
   | tmp
 )/
 '''
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "--verbose",
+    "--strict-markers",
+    "--tb=short",
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+    "real_api: marks tests requiring real API access",
+]
+
+[tool.coverage.run]
+source = ["src"]
+omit = [
+    "*/tests/*",
+    "*/test_*.py",
+    "*/__pycache__/*",
+    "*/venv/*",
+    "*/.venv/*",
+]
+
+[tool.coverage.report]
+precision = 2
+show_missing = true
+skip_covered = false
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]
+
+[tool.coverage.html]
+directory = "htmlcov"

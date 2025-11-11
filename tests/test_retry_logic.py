@@ -33,11 +33,7 @@ class TestTaskWithQualityCheck(unittest.TestCase):
 
     def test_initialization(self):
         """Test wrapper initializes correctly."""
-        wrapper = TaskWithQualityCheck(
-            task_type=TaskType.PLOT,
-            pass_threshold=7.0,
-            max_retries=3
-        )
+        wrapper = TaskWithQualityCheck(task_type=TaskType.PLOT, pass_threshold=7.0, max_retries=3)
 
         self.assertEqual(wrapper.task_type, TaskType.PLOT)
         self.assertEqual(wrapper.pass_threshold, 7.0)
@@ -49,7 +45,7 @@ class TestTaskWithQualityCheck(unittest.TestCase):
         with self.assertRaises(ValueError) as context:
             TaskWithQualityCheck(
                 task_type=TaskType.PLOT,
-                pass_threshold=11.0  # Invalid: > 10.0
+                pass_threshold=11.0,  # Invalid: > 10.0
             )
         self.assertIn("Pass threshold must be between", str(context.exception))
 
@@ -58,7 +54,7 @@ class TestTaskWithQualityCheck(unittest.TestCase):
         with self.assertRaises(ValueError) as context:
             TaskWithQualityCheck(
                 task_type=TaskType.PLOT,
-                max_retries=0  # Invalid: must be >= 1
+                max_retries=0,  # Invalid: must be >= 1
             )
         self.assertIn("Max retries must be at least 1", str(context.exception))
 
@@ -84,6 +80,7 @@ class TestTaskWithQualityCheck(unittest.TestCase):
 
     def test_execute_passes_first_attempt(self):
         """Test successful execution on first attempt."""
+
         # Create a task function that returns good quality output
         def good_task(**kwargs):
             return """
@@ -113,16 +110,9 @@ endings:
     type: "neutral"
 """
 
-        wrapper = TaskWithQualityCheck(
-            task_type=TaskType.PLOT,
-            pass_threshold=6.0,
-            max_retries=3
-        )
+        wrapper = TaskWithQualityCheck(task_type=TaskType.PLOT, pass_threshold=6.0, max_retries=3)
 
-        output, quality, attempts = wrapper.execute(
-            task_function=good_task,
-            task_name="Test Plot"
-        )
+        output, quality, attempts = wrapper.execute(task_function=good_task, task_name="Test Plot")
 
         self.assertIn("Excellent Adventure", output)
         self.assertTrue(quality.passed)
@@ -162,15 +152,10 @@ endings:
     type: "defeat"
 """
 
-        wrapper = TaskWithQualityCheck(
-            task_type=TaskType.PLOT,
-            pass_threshold=6.0,
-            max_retries=3
-        )
+        wrapper = TaskWithQualityCheck(task_type=TaskType.PLOT, pass_threshold=6.0, max_retries=3)
 
         output, quality, attempts = wrapper.execute(
-            task_function=improving_task,
-            task_name="Test Plot"
+            task_function=improving_task, task_name="Test Plot"
         )
 
         self.assertIn("Improved Plot", output)
@@ -180,20 +165,16 @@ endings:
 
     def test_execute_reaches_max_retries(self):
         """Test that execution stops after max retries."""
+
         # Create a task that always fails quality checks
         def failing_task(**kwargs):
             return "title: Bad\nsetting: Poor"
 
-        wrapper = TaskWithQualityCheck(
-            task_type=TaskType.PLOT,
-            pass_threshold=6.0,
-            max_retries=3
-        )
+        wrapper = TaskWithQualityCheck(task_type=TaskType.PLOT, pass_threshold=6.0, max_retries=3)
 
         with self.assertLogs(level=logging.WARNING) as log:
             output, quality, attempts = wrapper.execute(
-                task_function=failing_task,
-                task_name="Test Plot"
+                task_function=failing_task, task_name="Test Plot"
             )
 
         # Should return output even if it doesn't pass
@@ -212,23 +193,16 @@ endings:
         def task_with_feedback(**kwargs):
             call_count[0] += 1
             # Store feedback from previous attempts
-            if 'feedback_history' in kwargs:
+            if "feedback_history" in kwargs:
                 # Make a copy to avoid reference issues
-                feedback_received.append(list(kwargs['feedback_history']))
+                feedback_received.append(list(kwargs["feedback_history"]))
 
             # Always return poor quality to test feedback accumulation
             return "title: Test\nsetting: Bad"
 
-        wrapper = TaskWithQualityCheck(
-            task_type=TaskType.PLOT,
-            pass_threshold=6.0,
-            max_retries=3
-        )
+        wrapper = TaskWithQualityCheck(task_type=TaskType.PLOT, pass_threshold=6.0, max_retries=3)
 
-        _, _, attempts = wrapper.execute(
-            task_function=task_with_feedback,
-            task_name="Test Plot"
-        )
+        _, _, _attempts = wrapper.execute(task_function=task_with_feedback, task_name="Test Plot")
 
         # Should have been called 3 times
         self.assertEqual(call_count[0], 3)
@@ -241,9 +215,9 @@ endings:
             # Each feedback item should have attempt number
             for feedback_list in feedback_received:
                 for feedback_item in feedback_list:
-                    self.assertIn('attempt', feedback_item)
-                    self.assertIn('score', feedback_item)
-                    self.assertIn('feedback', feedback_item)
+                    self.assertIn("attempt", feedback_item)
+                    self.assertIn("score", feedback_item)
+                    self.assertIn("feedback", feedback_item)
 
     def test_execute_handles_task_exception(self):
         """Test handling of exceptions during task execution."""
@@ -281,15 +255,10 @@ endings:
     type: "defeat"
 """
 
-        wrapper = TaskWithQualityCheck(
-            task_type=TaskType.PLOT,
-            pass_threshold=6.0,
-            max_retries=3
-        )
+        wrapper = TaskWithQualityCheck(task_type=TaskType.PLOT, pass_threshold=6.0, max_retries=3)
 
         output, quality, attempts = wrapper.execute(
-            task_function=failing_then_succeeding_task,
-            task_name="Test Plot"
+            task_function=failing_then_succeeding_task, task_name="Test Plot"
         )
 
         # Should succeed on second attempt
@@ -299,25 +268,20 @@ endings:
 
     def test_execute_raises_on_persistent_exception(self):
         """Test that persistent exceptions are raised after max retries."""
+
         def always_failing_task(**kwargs):
             raise RuntimeError("Persistent failure")
 
-        wrapper = TaskWithQualityCheck(
-            task_type=TaskType.PLOT,
-            pass_threshold=6.0,
-            max_retries=3
-        )
+        wrapper = TaskWithQualityCheck(task_type=TaskType.PLOT, pass_threshold=6.0, max_retries=3)
 
         with self.assertRaises(RuntimeError) as context:
-            wrapper.execute(
-                task_function=always_failing_task,
-                task_name="Test Plot"
-            )
+            wrapper.execute(task_function=always_failing_task, task_name="Test Plot")
 
         self.assertIn("Persistent failure", str(context.exception))
 
     def test_execute_handles_evaluation_exception(self):
         """Test handling of evaluation errors."""
+
         def task_with_bad_output(**kwargs):
             # Return output that causes evaluation error
             return "{ invalid yaml: [unclosed"
@@ -325,12 +289,11 @@ endings:
         wrapper = TaskWithQualityCheck(
             task_type=TaskType.PLOT,
             pass_threshold=6.0,
-            max_retries=1  # Only 1 attempt to speed up test
+            max_retries=1,  # Only 1 attempt to speed up test
         )
 
         output, quality, attempts = wrapper.execute(
-            task_function=task_with_bad_output,
-            task_name="Test Plot"
+            task_function=task_with_bad_output, task_name="Test Plot"
         )
 
         # Should return output even if evaluation fails
@@ -347,6 +310,7 @@ class TestExecuteWithQualityCheck(unittest.TestCase):
 
     def test_functional_interface(self):
         """Test that functional interface works correctly."""
+
         def good_task(**kwargs):
             return """
 title: "Good Plot"
@@ -373,7 +337,7 @@ endings:
             task_type=TaskType.PLOT,
             task_name="Test Plot",
             pass_threshold=6.0,
-            max_retries=3
+            max_retries=3,
         )
 
         self.assertIn("Good Plot", output)
@@ -383,6 +347,7 @@ endings:
 
     def test_functional_with_custom_threshold(self):
         """Test functional interface with custom threshold."""
+
         def average_task(**kwargs):
             return """
 title: "Average Plot"
@@ -400,12 +365,12 @@ endings:
 """
 
         # With higher threshold, might not pass
-        output, quality, attempts = execute_with_quality_check(
+        output, _quality, attempts = execute_with_quality_check(
             task_function=average_task,
             task_type=TaskType.PLOT,
             task_name="Test Plot",
             pass_threshold=8.0,  # Higher threshold
-            max_retries=1
+            max_retries=1,
         )
 
         self.assertIn("Average Plot", output)
@@ -430,8 +395,8 @@ class TestCreateQualityConfig(unittest.TestCase):
 
         # Check default values
         for _task_type, task_config in config.items():
-            self.assertEqual(task_config['pass_threshold'], 6.0)
-            self.assertEqual(task_config['max_retries'], 3)
+            self.assertEqual(task_config["pass_threshold"], 6.0)
+            self.assertEqual(task_config["max_retries"], 3)
 
     def test_creates_config_with_custom_values(self):
         """Test creating config with custom values."""
@@ -441,32 +406,29 @@ class TestCreateQualityConfig(unittest.TestCase):
             puzzle_threshold=6.5,
             scene_threshold=7.5,
             mechanics_threshold=6.0,
-            max_retries=5
+            max_retries=5,
         )
 
-        self.assertEqual(config[TaskType.PLOT]['pass_threshold'], 7.0)
-        self.assertEqual(config[TaskType.NARRATIVE]['pass_threshold'], 8.0)
-        self.assertEqual(config[TaskType.PUZZLE]['pass_threshold'], 6.5)
-        self.assertEqual(config[TaskType.SCENE]['pass_threshold'], 7.5)
-        self.assertEqual(config[TaskType.MECHANICS]['pass_threshold'], 6.0)
+        self.assertEqual(config[TaskType.PLOT]["pass_threshold"], 7.0)
+        self.assertEqual(config[TaskType.NARRATIVE]["pass_threshold"], 8.0)
+        self.assertEqual(config[TaskType.PUZZLE]["pass_threshold"], 6.5)
+        self.assertEqual(config[TaskType.SCENE]["pass_threshold"], 7.5)
+        self.assertEqual(config[TaskType.MECHANICS]["pass_threshold"], 6.0)
 
         # All should have same max_retries
         for task_config in config.values():
-            self.assertEqual(task_config['max_retries'], 5)
+            self.assertEqual(task_config["max_retries"], 5)
 
     def test_config_can_be_used_with_wrapper(self):
         """Test that generated config can be used with TaskWithQualityCheck."""
-        config = create_quality_config(
-            plot_threshold=7.5,
-            max_retries=2
-        )
+        config = create_quality_config(plot_threshold=7.5, max_retries=2)
 
         plot_config = config[TaskType.PLOT]
 
         wrapper = TaskWithQualityCheck(
             task_type=TaskType.PLOT,
-            pass_threshold=plot_config['pass_threshold'],
-            max_retries=plot_config['max_retries']
+            pass_threshold=plot_config["pass_threshold"],
+            max_retries=plot_config["max_retries"],
         )
 
         self.assertEqual(wrapper.pass_threshold, 7.5)
@@ -478,6 +440,7 @@ class TestRetryLoggingIntegration(unittest.TestCase):
 
     def test_logs_quality_scores(self):
         """Test that quality scores are logged."""
+
         def good_task(**kwargs):
             return """
 title: "Test"
@@ -494,19 +457,16 @@ endings:
     type: "victory"
 """
 
-        wrapper = TaskWithQualityCheck(
-            task_type=TaskType.PLOT,
-            pass_threshold=6.0,
-            max_retries=3
-        )
+        wrapper = TaskWithQualityCheck(task_type=TaskType.PLOT, pass_threshold=6.0, max_retries=3)
 
         with self.assertLogs(level=logging.INFO) as log:
             wrapper.execute(good_task, task_name="Test Plot")
 
         # Check that quality score was logged
         self.assertTrue(
-            any("Quality score" in message or "quality" in message.lower()
-                for message in log.output)
+            any(
+                "Quality score" in message or "quality" in message.lower() for message in log.output
+            )
         )
 
     def test_logs_retry_attempts(self):
@@ -532,11 +492,7 @@ endings:
     type: "victory"
 """
 
-        wrapper = TaskWithQualityCheck(
-            task_type=TaskType.PLOT,
-            pass_threshold=6.0,
-            max_retries=3
-        )
+        wrapper = TaskWithQualityCheck(task_type=TaskType.PLOT, pass_threshold=6.0, max_retries=3)
 
         with self.assertLogs(level=logging.INFO) as log:
             wrapper.execute(improving_task, task_name="Test Plot")
@@ -547,5 +503,5 @@ endings:
         self.assertIn("Attempt 2", log_output)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

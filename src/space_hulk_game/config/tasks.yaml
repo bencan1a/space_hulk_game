@@ -41,7 +41,7 @@
 #
 # For initial validation (per REVISED_RESTART_PLAN.md), test with just the 5 core tasks:
 # 1. GenerateOverarchingPlot
-# 2. CreateNarrativeMap  
+# 2. CreateNarrativeMap
 # 3. DesignArtifactsAndPuzzles
 # 4. WriteSceneDescriptionsAndDialogue
 # 5. CreateGameMechanicsPRD
@@ -52,11 +52,11 @@
 GenerateOverarchingPlot:
   name: "Generate Comprehensive Narrative Foundation"
   description: >
-    Create a comprehensive narrative foundation for the Space Hulk game. This foundation must be 
-    detailed enough to guide all subsequent development, establishing the setting, key plot points, 
-    themes, tone, and central conflicts. This narrative foundation is the critical first step that 
+    Create a comprehensive narrative foundation for the Space Hulk game. This foundation must be
+    detailed enough to guide all subsequent development, establishing the setting, key plot points,
+    themes, tone, and central conflicts. This narrative foundation is the critical first step that
     all other development will build upon.
-    
+
     **IMPORTANT: Output must be in valid YAML format with the following structure:**
     ```yaml
     narrative_foundation:
@@ -82,8 +82,8 @@ GenerateOverarchingPlot:
           description: "Conflict description"
     ```
   expected_output: >
-    A valid YAML document following the structure above that clearly defines the game's setting, 
-    core narrative themes, major plot points, key characters, central conflicts, and narrative 
+    A valid YAML document following the structure above that clearly defines the game's setting,
+    core narrative themes, major plot points, key characters, central conflicts, and narrative
     tone. The output MUST be parseable YAML, not markdown or plain text.
   agent: "PlotMasterAgent"
   output_file: "game-config/plot_outline.yaml"
@@ -93,7 +93,7 @@ EvaluateNarrativeFoundation:
   name: "Evaluate Narrative Foundation"
   description: >
     Thoroughly evaluate the narrative foundation to ensure it provides sufficient depth, clarity,
-    and direction for all subsequent development. This is a critical quality gate - subsequent 
+    and direction for all subsequent development. This is a critical quality gate - subsequent
     work cannot proceed until a strong narrative foundation is established.
   expected_output: >
     A comprehensive evaluation of the narrative foundation with specific feedback for improvement.
@@ -112,7 +112,7 @@ CreateNarrativeMap:
     Based on the approved narrative foundation, develop a detailed narrative map that defines
     all critical paths, character arcs, decision points, and narrative progression. This
     structure will direct all subsequent content creation by specialists.
-    
+
     **IMPORTANT: Output must be in valid YAML format with the following structure:**
     ```yaml
     narrative_map:
@@ -145,8 +145,8 @@ CreateNarrativeMap:
               description: "Character growth"
     ```
   expected_output: >
-    A valid YAML document following the structure above that clearly defines all scenes, 
-    connections, character moments, key decision points, and narrative progression. The output 
+    A valid YAML document following the structure above that clearly defines all scenes,
+    connections, character moments, key decision points, and narrative progression. The output
     MUST be parseable YAML, not markdown or plain text.
   agent: "NarrativeArchitectAgent"
   context:
@@ -161,9 +161,9 @@ CreateNarrativeMap:
 EvaluateNarrativeStructure:
   name: "Evaluate Narrative Structure"
   description: >
-    Thoroughly evaluate the narrative structure to ensure it adequately develops the approved 
-    foundation into an implementable blueprint for all specialized development. This is a 
-    critical quality gate - specialist work cannot fully proceed until the narrative structure 
+    Thoroughly evaluate the narrative structure to ensure it adequately develops the approved
+    foundation into an implementable blueprint for all specialized development. This is a
+    critical quality gate - specialist work cannot fully proceed until the narrative structure
     is approved.
   expected_output: >
     A detailed evaluation of the narrative structure with specific feedback. Include explicit
@@ -180,10 +180,10 @@ DesignArtifactsAndPuzzles:
   name: "Create Narrative-Integrated Puzzles and Artifacts"
   description: >
     Based on the approved narrative structure, design puzzles, artifacts, monsters, and NPCs
-    that directly serve and enhance the established narrative. Each element must have clear 
+    that directly serve and enhance the established narrative. Each element must have clear
     connections to the narrative themes, advance the story in meaningful ways, and maintain
     thematic consistency.
-    
+
     **IMPORTANT: Output must be in valid YAML format with the following structure:**
     ```yaml
     puzzle_design:
@@ -221,9 +221,9 @@ DesignArtifactsAndPuzzles:
           dialogue_themes: ["theme1", "theme2"]
     ```
   expected_output: >
-    A valid YAML document following the structure above with puzzle, artifact, monster, and NPC 
-    designs that are tightly integrated with the narrative. Each design must include explicit 
-    explanations of how it connects to and advances the established narrative. The output MUST be 
+    A valid YAML document following the structure above with puzzle, artifact, monster, and NPC
+    designs that are tightly integrated with the narrative. Each design must include explicit
+    explanations of how it connects to and advances the established narrative. The output MUST be
     parseable YAML, not markdown or plain text.
   agent: "PuzzleSmithAgent"
   context:
@@ -259,7 +259,7 @@ WriteSceneDescriptionsAndDialogue:
     that bring the narrative to life. Each scene must accurately reflect its place in
     the narrative structure, advance the story appropriately, and maintain consistent
     tone and themes.
-    
+
     **IMPORTANT: Output must be in valid YAML format with the following structure:**
     ```yaml
     scene_texts:
@@ -282,9 +282,9 @@ WriteSceneDescriptionsAndDialogue:
           narrative_notes: "How this scene advances the story"
     ```
   expected_output: >
-    A valid YAML document following the structure above with scene descriptions and dialogue 
-    that effectively translate the narrative structure into vivid, engaging content. Each scene 
-    must explicitly connect to its place in the narrative structure. The output MUST be parseable 
+    A valid YAML document following the structure above with scene descriptions and dialogue
+    that effectively translate the narrative structure into vivid, engaging content. Each scene
+    must explicitly connect to its place in the narrative structure. The output MUST be parseable
     YAML, not markdown or plain text.
   agent: "CreativeScribeAgent"
   context:
@@ -319,7 +319,7 @@ CreateGameMechanicsPRD:
     Based on the approved narrative structure, design game mechanics that directly
     support and enhance the narrative experience. Each mechanic must have a clear
     narrative purpose, enabling player engagement with the story in meaningful ways.
-    
+
     **IMPORTANT: Output must be in valid YAML format with the following structure:**
     ```yaml
     prd_document:
@@ -356,8 +356,8 @@ CreateGameMechanicsPRD:
           justification: "Why this is needed"
     ```
   expected_output: >
-    A valid YAML document following the structure above where each mechanic explicitly connects 
-    to and supports narrative elements. Include explanations of how each mechanic serves the 
+    A valid YAML document following the structure above where each mechanic explicitly connects
+    to and supports narrative elements. Include explanations of how each mechanic serves the
     narrative purpose. The output MUST be parseable YAML, not markdown or plain text.
   agent: "MechanicsGuruAgent"
   context:

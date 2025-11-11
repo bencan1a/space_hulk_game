@@ -19,20 +19,20 @@ required_elements:
     - "Tactical terrain features (cover, elevation, bottlenecks)"
     - "Multiple combat encounter areas"
     - "Strategic objectives requiring force to secure"
-  
+
   narrative_beats:
     - "Mission briefing and initial deployment"
     - "First contact with enemy forces"
     - "Tactical setback requiring adaptation"
     - "Major combat engagement or boss fight"
     - "Mission completion or extraction under fire"
-  
+
   combat_elements:
     - "Squad-based tactical gameplay"
     - "Varied enemy types requiring different tactics"
     - "Weapon and equipment choices"
     - "Positioning and terrain advantages"
-  
+
   mandatory_components:
     - "At least 3 distinct combat encounters"
     - "One tactical puzzle requiring strategy over firepower"
@@ -47,13 +47,13 @@ tone:
     - "Disciplined"
     - "Aggressive"
     - "Strategic"
-  
+
   avoid:
     - "Mindless combat without tactics"
     - "Invincible power fantasy"
     - "Combat solutions for all problems"
     - "Disposable enemies without threat"
-  
+
   emphasis:
     - "Tactics and strategy matter more than luck"
     - "Squad coordination is key to success"
@@ -71,7 +71,7 @@ example_scenes:
       - "Bolt gun weight in hands"
       - "Squad breathing in vox discipline"
       - "Auspex chirp of enemy signatures"
-  
+
   middle:
     location: "Hangar bay converted to defensive position"
     description: "The hangar is a fortress. Heavy bolter nests overlook the approach. Genestealers in the rafters. Your squad has one heavy weapon, limited grenades, and a narrow window before reinforcements arrive. Frontal assault is suicide. But the mission objective is on the far side. Time to show what tactical superiority means."
@@ -81,7 +81,7 @@ example_scenes:
       - "Enemy movement in shadows above"
       - "Squad leader's calm tactical commands"
       - "Weight of responsibility for squad survival"
-  
+
   climax:
     location: "Central reactor, enemy commander's position"
     description: "The broodlord rises to full height - three meters of bio-engineered death. Your squad is down to four effectives. Ammunition running low. But you have position, discipline, and the Emperor's blessing. The alien charges. Your squad opens fire as one. This is what you were made for. This is what Space Marines do."
@@ -100,14 +100,14 @@ example_puzzles:
     solution_hint: "Coordinate specialist abilities in sequence - suppress, flank, breach"
     difficulty: "high"
     combat_element: "Tactical coordination and sequencing"
-  
+
   defensive:
     name: "Hold the Chokepoint"
     description: "Waves of enemies approaching position. Must hold for 10 minutes while objective completes. Limited ammunition. Can sacrifice squad members to buy time, or use environment to multiply force effectiveness. Collapsing ceiling, explosive barrels, electrified deck plates."
     solution_hint: "Use environment to control enemy approach, conserve ammunition for critical moments"
     difficulty: "medium"
     combat_element: "Defensive tactics and resource management"
-  
+
   boss_encounter:
     name: "The Broodlord"
     description: "Massive enemy with armor too thick for standard weapons. Ultra-fast, hits like a dreadnought. Standard tactics won't work. Must identify weak points, coordinate fire on vulnerabilities, use environment (exposed conduits, structural supports) to create advantages."
@@ -122,7 +122,7 @@ character_suggestions:
     - "Space Marine in Terminator armor"
     - "Imperial Guard veteran with new recruits"
     - "Deathwatch kill-team leader"
-  
+
   squad_member_types:
     - "Heavy weapons specialist (suppression, anti-armor)"
     - "Scout/advance operative (reconnaissance, stealth)"
@@ -138,14 +138,14 @@ story_structure:
     - "Deployment and initial insertion"
     - "First contact establishes enemy capabilities"
     - "Initial objective secured or attempted"
-  
+
   act_2_engagement:
     - "Major combat encounters increase in difficulty"
     - "Tactical challenges require adaptation"
     - "Casualties occur, squad adapts"
     - "Enemy reveals new capabilities or reinforcements"
     - "Setback forces change in approach"
-  
+
   act_3_climax:
     - "Final assault on primary objective"
     - "Elite enemy forces or commander encountered"
@@ -160,44 +160,44 @@ combat_system:
       purpose: "Resource drain, tactical warmup"
       difficulty: "low to medium"
       duration: "Short (2-5 rounds)"
-    
+
     set_piece:
       description: "Planned defensive or assault scenario"
       purpose: "Major tactical challenge"
       difficulty: "medium to high"
       duration: "Medium (5-10 rounds)"
-    
+
     running_battle:
       description: "Mobile combat while pursuing objective"
       purpose: "Pressure and urgency"
       difficulty: "medium"
       duration: "Variable, position-based"
-    
+
     boss_fight:
       description: "Climactic encounter with elite enemy"
       purpose: "Major story moment and challenge"
       difficulty: "high"
       duration: "Extended (10-20 rounds)"
-  
+
   tactical_elements:
     cover_system:
       - "Full cover: -50% enemy hit chance"
       - "Partial cover: -25% enemy hit chance"
       - "No cover: standard hit chances"
       - "Cover can be destroyed by heavy weapons"
-    
+
     positioning:
       - "High ground: +10% hit chance, +1 range"
       - "Flanking: +20% hit chance, ignore partial cover"
       - "Rear attack: +40% hit chance, ignore cover"
       - "Point-blank: +20% hit chance, -10% defense"
-    
+
     suppression:
       - "Heavy fire forces enemies to cover"
       - "Suppressed enemies: -50% accuracy, limited actions"
       - "Breaks on squad movement or fire cessation"
       - "Costs significant ammunition"
-    
+
     squad_actions:
       - "Coordinated fire: multiple targets same round"
       - "Covering fire: protect movement of squadmate"
@@ -214,7 +214,7 @@ enemy_types:
       - "Cultists with autoguns"
       - "Minor daemons"
     tactics: "Swarm, overwhelm through numbers"
-  
+
   specialists:
     description: "Enemies requiring specific counters"
     purpose: "Tactical variety, force adaptation"
@@ -223,7 +223,7 @@ enemy_types:
       - "Snipers in concealment"
       - "Flamer units (area denial)"
     tactics: "Support role, force tactical decisions"
-  
+
   elites:
     description: "Powerful individual threats"
     purpose: "Serious danger, resource investment"
@@ -232,7 +232,7 @@ enemy_types:
       - "Chaos Space Marines"
       - "Warrior organisms"
     tactics: "Shock assault, force resource use"
-  
+
   boss:
     description: "Unique major threat"
     purpose: "Climactic challenge, story moment"
@@ -251,7 +251,7 @@ squad_mechanics:
       - "At least one close combat specialist"
       - "Medical/support capability"
       - "Technical/utility specialist"
-  
+
   squad_cohesion:
     description: "Measure of squad effectiveness"
     factors:
@@ -262,7 +262,7 @@ squad_mechanics:
     effects:
       - "High cohesion: accuracy bonus, better saves"
       - "Low cohesion: accuracy penalty, increased retreats"
-  
+
   orders_system:
     description: "Player directs squad in combat"
     order_types:
@@ -272,7 +272,7 @@ squad_mechanics:
       - "Hold position: defend current location"
       - "Focus fire: concentrate on single target"
       - "Breach: coordinated assault on position"
-  
+
   permadeath_optional:
     description: "Squad members can be permanently lost"
     impact:
@@ -291,7 +291,7 @@ mechanics_suggestions:
       - "Reload: 1 AP"
       - "Use item: 1 AP"
       - "Take cover: 1 AP"
-  
+
   weapon_variety:
     description: "Different weapons for different situations"
     weapon_types:
@@ -301,7 +301,7 @@ mechanics_suggestions:
       - "Plasma: high damage, overheats"
       - "Heavy bolter: suppression, anti-infantry"
       - "Power weapon: melee, armor-piercing"
-  
+
   ammunition_tracking:
     description: "Limited ammunition adds resource management"
     implementation:
@@ -309,7 +309,7 @@ mechanics_suggestions:
       - "Reload actions cost time"
       - "Scavenge from fallen enemies"
       - "Special ammunition types (kraken, hellfire)"
-  
+
   injury_system:
     description: "Wounds have mechanical effects"
     severity_levels:
@@ -328,7 +328,7 @@ scenario_templates:
       - "Overlapping fields of fire"
       - "Reinforcement waves"
       - "Time pressure"
-  
+
   defense:
     objective: "Hold position against waves"
     opposition: "Increasing enemy numbers"
@@ -337,7 +337,7 @@ scenario_templates:
       - "Ammunition depletion"
       - "Accumulating damage"
       - "Morale effects"
-  
+
   rescue:
     objective: "Extract friendly forces under siege"
     opposition: "Enemies between you and target"
@@ -346,7 +346,7 @@ scenario_templates:
       - "Protected non-combatants"
       - "Multiple threats"
       - "Collateral damage concerns"
-  
+
   assassination:
     objective: "Eliminate high-value target"
     opposition: "Elite guards and defenders"
@@ -365,7 +365,7 @@ ending_guidelines:
       - "Majority of squad survives"
       - "Enemy threat neutralized"
       - "Clean extraction"
-  
+
   costly_victory:
     description: "Success but at heavy price"
     requirements:
@@ -373,7 +373,7 @@ ending_guidelines:
       - "Significant casualties (50%+ squad)"
       - "Pyrrhic nature acknowledged"
       - "Bittersweet tone"
-  
+
   fighting_retreat:
     description: "Tactical withdrawal under pressure"
     requirements:
@@ -381,7 +381,7 @@ ending_guidelines:
       - "Secondary objective salvaged"
       - "Squad preserves combat effectiveness"
       - "Enemy denied total victory"
-  
+
   last_stand:
     description: "Death or glory moment"
     requirements:
@@ -416,12 +416,12 @@ imperial_tactics:
     approach: "Shock assault, overwhelming firepower"
     strengths: "Superior armor, weapons, training"
     weaknesses: "Limited numbers, pride"
-    
+
   imperial_guard:
     approach: "Combined arms, overwhelming numbers"
     strengths: "Artillery, armor support, manpower"
     weaknesses: "Individual fragility, morale"
-    
+
   deathwatch:
     approach: "Precision strikes, xenos specialists"
     strengths: "Elite training, specialized ammunition"
@@ -433,17 +433,17 @@ mission_templates:
     brief: "Eliminate all enemy forces in sector"
     primary: "100% enemy casualties"
     secondary: "No friendly casualties"
-    
+
   secure_and_hold:
     brief: "Take and defend strategic position"
     primary: "Hold position for duration"
     secondary: "Minimize damage to objective"
-    
+
   seek_and_retrieve:
     brief: "Recover asset and return"
     primary: "Secure asset"
     secondary: "Asset undamaged, no casualties"
-    
+
   sweep_and_clear:
     brief: "Clear hulk sector by sector"
     primary: "All sectors cleared"

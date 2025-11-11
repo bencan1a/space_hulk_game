@@ -19,19 +19,19 @@ required_elements:
     - "Ancient, decaying technology with machine spirits in distress"
     - "Isolated sections cut off from communication"
     - "Evidence of previous inhabitants who met terrible fates"
-  
+
   narrative_beats:
     - "Slow discovery of something deeply wrong with the hulk"
     - "Growing sense of being watched or hunted"
     - "Revelation of ancient evil or corruption"
     - "Desperate survival against overwhelming odds"
-  
+
   horror_elements:
     - "Body horror: mutations, parasites, or transformation"
     - "Psychological horror: madness, hallucinations, paranoia"
     - "Cosmic horror: entities beyond comprehension"
     - "Environmental horror: the hulk itself as threat"
-  
+
   mandatory_components:
     - "At least one segment of total darkness"
     - "Audio cues suggesting unseen threats"
@@ -46,13 +46,13 @@ tone:
     - "Foreboding"
     - "Despairing"
     - "Visceral"
-  
+
   avoid:
     - "Heroic victories without cost"
     - "Simple combat solutions"
     - "Comic relief or levity"
     - "Clear-cut good vs evil"
-  
+
   emphasis:
     - "No safe spaces - constant underlying threat"
     - "Resources are precious and scarce"
@@ -70,7 +70,7 @@ example_scenes:
       - "Distant, echoing drips"
       - "Creaking metal under pressure"
       - "Cold seeping through armor"
-  
+
   middle:
     location: "Ancient medicae bay with disturbing modifications"
     description: "Row upon row of surgical tables stretch into darkness. Most are empty. Some are not. The modifications to the equipment suggest purposes you don't want to contemplate. Fresh blood on one table - still warm. You are not alone here."
@@ -80,7 +80,7 @@ example_scenes:
       - "Hum of still-active machinery"
       - "Wet sounds from the darkness"
       - "Your own rapid breathing"
-  
+
   climax:
     location: "Corrupted ship's bridge, reality warping"
     description: "The bridge is wrong. Geometry bends in impossible ways. The viewscreens show places that cannot exist. At the captain's throne sits something wearing a human face like a mask. It smiles with too many teeth and speaks with a voice that makes your mind bleed. You must choose: destroy this abomination or learn the truth it offers."
@@ -99,14 +99,14 @@ example_puzzles:
     solution_hint: "Careful mapping, teamwork, accepting some contamination is unavoidable"
     difficulty: "high"
     horror_element: "Drowning fear, unknown threats in fluid"
-  
+
   psychological:
     name: "The Whispering Archives"
     description: "Ship's data-logs contain information needed to proceed. But exposure causes vivid hallucinations of crew's fears. Team members begin seeing things that aren't there - or are they?"
     solution_hint: "Limited exposure, cross-verification, accepting some mental contamination"
     difficulty: "medium"
     horror_element: "Unreliable reality, paranoia among team"
-  
+
   moral:
     name: "The Trapped Survivors"
     description: "Survivors from previous expedition found, but showing signs of infection/corruption. They beg for rescue. Saving them risks contamination spreading. Your mission parameters are clear: no one leaves infected."
@@ -121,7 +121,7 @@ character_suggestions:
     - "Tech-priest whose faith in the Machine God is tested"
     - "Young soldier experiencing true horror for first time"
     - "Desperate survivor from previous expedition"
-  
+
   npc_types:
     - "Unreliable survivor with partial madness"
     - "Servitor with disturbing glitches"
@@ -135,13 +135,13 @@ story_structure:
     - "First signs something is wrong"
     - "Discovery of disturbing evidence"
     - "Loss of escape route or communication"
-  
+
   act_2_escalation:
     - "True nature of threat begins revealing itself"
     - "Team members start showing effects of corruption/stress"
     - "Resources dwindle, situation worsens"
     - "Moral compromises become necessary"
-  
+
   act_3_resolution:
     - "Confrontation with source of horror"
     - "Terrible revelations about the hulk's history"
@@ -156,21 +156,21 @@ mechanics_suggestions:
       - "Hallucinations at low sanity"
       - "Unreliable narrator moments"
       - "Stress-induced mistakes"
-  
+
   corruption_tracker:
     description: "Physical and spiritual contamination builds over time"
     effects:
       - "Growing mutations or changes"
       - "Increasing susceptibility to influence"
       - "Difficult choices about accepting corruption for power"
-  
+
   resource_scarcity:
     description: "Limited ammunition, oxygen, medical supplies"
     effects:
       - "Must choose when to spend resources"
       - "Some threats must be avoided rather than fought"
       - "Desperation increases over time"
-  
+
   isolation_effects:
     description: "Cut off from help, communication, and hope"
     effects:
@@ -187,7 +187,7 @@ ending_guidelines:
       - "Lasting physical or psychological scars"
       - "Truth discovered is disturbing and incomplete"
       - "Implication that horror persists elsewhere"
-  
+
   defeat:
     description: "Overwhelming horror claims the team"
     types:
@@ -195,7 +195,7 @@ ending_guidelines:
       - "Corruption claims all, they become the threat"
       - "One survivor escapes with terrible knowledge"
       - "Ambiguous fate worse than death"
-  
+
   neutral:
     description: "Escape but at terrible cost or with grim implications"
     requirements:

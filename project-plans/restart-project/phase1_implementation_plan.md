@@ -58,7 +58,7 @@ def prepare_inputs(self, inputs):
         # Validate required inputs
         if "prompt" not in inputs:
             raise ValueError("Input must contain a 'prompt' key")
-            
+
         # Process inputs
         inputs["additional_data"] = "Some extra information for the first task."
         return inputs
@@ -84,7 +84,7 @@ def validate_task_input(self, task, input_data):
             if "plot_outline" not in input_data:
                 raise ValueError("Missing required 'plot_outline' in input data")
         # Add more task-specific validation as needed
-        
+
         return input_data  # Return validated input
     except Exception as e:
         # Log error
@@ -109,7 +109,7 @@ def validate_task_output(self, task, output_data):
             if "narrative_tree" not in output_data:
                 raise ValueError("Missing required 'narrative_tree' in output data")
         # Add more task-specific validation as needed
-        
+
         return output_data  # Return validated output
     except Exception as e:
         # Log error
@@ -126,7 +126,7 @@ def handle_task_failure(self, task, exception):
     """Handle task execution failures with appropriate recovery mechanisms"""
     error_message = f"Error executing task '{task.name}': {str(exception)}"
     print(error_message)
-    
+
     # Task-specific recovery mechanisms
     if task.name == "Generate Overarching Plot":
         # Return a basic default plot outline
@@ -145,7 +145,7 @@ def handle_task_failure(self, task, exception):
             }
         }
     # Add more task-specific recovery mechanisms
-    
+
     # Default fallback
     return {"error": error_message, "recovered": False}
 ```
@@ -176,13 +176,13 @@ def test_basic_functionality():
     result = game.kickoff({"prompt": "A simple space hulk exploration scenario"})
     assert result is not None
     assert "error" not in result
-    
+
 def test_input_validation():
     """Test input validation with missing prompt"""
     game = SpaceHulkGame()
     result = game.kickoff({})
     assert result is not None  # Should recover with default values
-    
+
 def test_error_recovery():
     """Test error recovery mechanisms"""
     # Intentionally cause an error and verify recovery

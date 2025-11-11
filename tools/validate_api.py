@@ -14,19 +14,20 @@ Usage:
     # Or with inline parameters:
     OPENROUTER_API_KEY=sk-or-v1-your-key python validate_api.py
 """
+
 import os
 import sys
 
 
 def validate_api_connection():
     """Validate OpenRouter API connection."""
-    print("="*70)
+    print("=" * 70)
     print("OpenRouter API Validation")
-    print("="*70)
+    print("=" * 70)
 
     # Check for API key
-    api_key = os.getenv('OPENROUTER_API_KEY')
-    model_name = os.getenv('OPENAI_MODEL_NAME', 'openrouter/anthropic/claude-3.5-sonnet')
+    api_key = os.getenv("OPENROUTER_API_KEY")
+    model_name = os.getenv("OPENAI_MODEL_NAME", "openrouter/anthropic/claude-3.5-sonnet")
 
     if not api_key:
         print("\n❌ ERROR: OPENROUTER_API_KEY environment variable not set")
@@ -45,6 +46,7 @@ def validate_api_connection():
     print("\nChecking dependencies...")
     try:
         from crewai import LLM
+
         print("✓ CrewAI installed")
     except ImportError as e:
         print(f"❌ ERROR: CrewAI not installed: {e}")
@@ -55,15 +57,14 @@ def validate_api_connection():
     # Try to make an API call
     print("\nTesting API connection...")
     try:
-        llm = LLM(
-            model=model_name,
-            api_key=api_key
-        )
+        llm = LLM(model=model_name, api_key=api_key)
         print("✓ LLM instance created successfully")
 
         # Simple test call
         print("\nMaking test API call...")
-        test_message = [{"role": "user", "content": "Say 'API validation successful' if you can read this."}]
+        test_message = [
+            {"role": "user", "content": "Say 'API validation successful' if you can read this."}
+        ]
 
         response = llm.call(test_message)
 
@@ -76,7 +77,7 @@ def validate_api_connection():
         return True
 
     except Exception as e:
-        print(f"\n❌ ERROR: API call failed: {str(e)}")
+        print(f"\n❌ ERROR: API call failed: {e!s}")
         print("\nPossible issues:")
         print("  1. Invalid API key")
         print("  2. Network connectivity issues")
@@ -90,7 +91,7 @@ def main():
     """Main entry point."""
     success = validate_api_connection()
 
-    print("\n" + "="*70)
+    print("\n" + "=" * 70)
     if success:
         print("✅ API VALIDATION SUCCESSFUL")
         print("\nYou can now run the Space Hulk Game with OpenRouter:")
@@ -100,10 +101,10 @@ def main():
     else:
         print("❌ API VALIDATION FAILED")
         print("\nPlease fix the issues above and try again.")
-    print("="*70)
+    print("=" * 70)
 
     return 0 if success else 1
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())

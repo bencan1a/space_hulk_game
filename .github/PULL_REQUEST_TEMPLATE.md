@@ -4,16 +4,18 @@
 
 ## Type of Change
 
-<!-- Mark the relevant option with an 'x' -->
+<!-- Check all that apply -->
 
 - [ ] Bug fix (non-breaking change that fixes an issue)
 - [ ] New feature (non-breaking change that adds functionality)
-- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
+- [ ] Breaking change (fix or feature that causes existing functionality to change)
 - [ ] Documentation update
-- [ ] Test improvement
 - [ ] Performance improvement
-- [ ] Code refactoring
-- [ ] Other (please describe):
+- [ ] Refactoring (no functional changes)
+- [ ] Tests (adding or updating tests)
+- [ ] CI/CD (changes to workflows or automation)
+- [ ] CrewAI agent/task configuration
+- [ ] Game mechanics or narrative content
 
 ## Related Issues
 
@@ -26,31 +28,34 @@ Related to #
 
 <!-- List the specific changes made in this PR -->
 
-- 
-- 
-- 
+-
+-
+-
 
-## Testing Performed
-
-<!-- Describe the testing you performed to verify your changes -->
+## Testing
 
 ### Test Coverage
-- [ ] Added unit tests
-- [ ] Added integration tests
-- [ ] Added e2e tests
-- [ ] Existing tests pass
-- [ ] Coverage maintained or improved
+- [ ] New unit tests added for new functionality
+- [ ] Existing unit tests updated as needed
+- [ ] All tests pass locally (`python -m unittest discover -s tests -v`)
+- [ ] Integration tests pass (if applicable)
+- [ ] Manual testing completed
 
-### Manual Testing
-<!-- Describe manual testing performed -->
+### Code Quality Checks
+- [ ] Code follows project style guide (PEP 8)
+- [ ] Linting passes (`ruff check .`)
+- [ ] Formatting is correct (`black --check src/`)
+- [ ] Type checking passes (`mypy src/`)
+- [ ] No debug code or console logs left in
+- [ ] Pre-commit hooks pass (if installed)
 
-```bash
-# Commands run to test changes
-
-```
-
-**Test Results:**
-- 
+### CrewAI Specific (if applicable)
+- [ ] Agent/task YAML configurations validated
+- [ ] Method names match YAML keys exactly (case-sensitive)
+- [ ] Crew executes without hanging (sequential mode tested)
+- [ ] Output files generated correctly (game-config/*.yaml)
+- [ ] LLM integration tested (mock or real API)
+- [ ] Configuration templates are properly formatted
 
 ### Test Cases Covered
 - [ ] CrewAI agent functionality
@@ -61,23 +66,38 @@ Related to #
 - [ ] Error handling
 - [ ] Edge cases
 
-## Checklist
+### Manual Testing
+<!-- Describe manual testing performed -->
+
+```bash
+# Commands run to test changes
+
+```
+
+**Test Results:**
+-
+
+## Documentation
+- [ ] Code includes appropriate docstrings (Google/NumPy style)
+- [ ] AGENTS.md updated (if development patterns changed)
+- [ ] CLAUDE.md updated (if technical details changed)
+- [ ] README.md updated (if user-facing changes)
+- [ ] Type hints added for new functions and parameters
+- [ ] Complex logic documented with inline comments
+- [ ] YAML configurations include helpful comments
+
+## Additional Checklist
 
 <!-- Ensure all items are completed before submitting -->
 
-- [ ] My code follows the project's code style (black, ruff)
-- [ ] I have run `uv run black src/` to format my code
-- [ ] I have run `uv run ruff check --fix src/` to fix linting issues
-- [ ] I have run `uv run mypy src/` to check types
-- [ ] I have added tests that prove my fix/feature works
-- [ ] All tests pass locally (`uv run pytest`)
-- [ ] I have updated relevant documentation (README.md, AGENTS.md, etc.)
-- [ ] I have added docstrings to new functions (Google/NumPy style)
+- [ ] My code follows the project's code style (PEP 8)
 - [ ] My changes are minimal and focused
 - [ ] I have reviewed my own code before submitting
 - [ ] I have checked for backward compatibility issues
-- [ ] I have updated YAML configurations if needed
-- [ ] I have validated CrewAI agent configurations
+- [ ] Branch is up-to-date with base branch
+- [ ] Commits are properly formatted and descriptive
+- [ ] No merge conflicts
+- [ ] Game content follows Warhammer 40K theme (if applicable)
 
 ## Breaking Changes
 

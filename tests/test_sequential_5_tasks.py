@@ -44,7 +44,7 @@ class TestSequential5Tasks(unittest.TestCase):
             "narrative_map.yaml",
             "puzzle_design.yaml",
             "scene_texts.yaml",
-            "prd_document.yaml"
+            "prd_document.yaml",
         ]
 
         # Clean up old output files before testing
@@ -56,13 +56,13 @@ class TestSequential5Tasks(unittest.TestCase):
 
     def test_01_crew_execution_completes(self):
         """Test that crew execution completes within timeout."""
-        print("\n" + "="*80)
+        print("\n" + "=" * 80)
         print("CHUNK 0.1: Testing Sequential Mode with 5 Core Tasks")
-        print("="*80)
+        print("=" * 80)
         print(f"Test Prompt: {self.test_prompt}")
         print("Timeout: 15 minutes (900 seconds)")
         print(f"Expected Output Files: {len(self.expected_files)}")
-        print("="*80 + "\n")
+        print("=" * 80 + "\n")
 
         # Record start time
         start_time = time.time()
@@ -76,7 +76,7 @@ class TestSequential5Tasks(unittest.TestCase):
                 "-m",
                 "space_hulk_game.main",
                 "--inputs",
-                f"prompt:{self.test_prompt}"
+                f"prompt:{self.test_prompt}",
             ]
 
             print(f"Executing command: {' '.join(cmd)}\n")
@@ -88,16 +88,19 @@ class TestSequential5Tasks(unittest.TestCase):
                 capture_output=True,
                 text=True,
                 timeout=900,  # 15 minutes
-                env={**os.environ, "PYTHONPATH": str(self.project_root)}
+                env={**os.environ, "PYTHONPATH": str(self.project_root)},
+                check=False,
             )
 
             # Record end time
             end_time = time.time()
             execution_time = end_time - start_time
 
-            print("\n" + "="*80)
-            print(f"Execution completed in {execution_time:.2f} seconds ({execution_time/60:.2f} minutes)")
-            print("="*80)
+            print("\n" + "=" * 80)
+            print(
+                f"Execution completed in {execution_time:.2f} seconds ({execution_time / 60:.2f} minutes)"
+            )
+            print("=" * 80)
 
             # Check if execution succeeded
             if result.returncode != 0:
@@ -109,9 +112,7 @@ class TestSequential5Tasks(unittest.TestCase):
 
             # Verify execution time is under 10 minutes (600 seconds)
             self.assertLess(
-                execution_time,
-                600,
-                f"Execution took {execution_time:.2f}s (>{600}s threshold)"
+                execution_time, 600, f"Execution took {execution_time:.2f}s (>{600}s threshold)"
             )
 
             print(f"✅ Execution completed successfully in {execution_time:.2f} seconds")
@@ -123,9 +124,9 @@ class TestSequential5Tasks(unittest.TestCase):
 
     def test_02_output_files_exist(self):
         """Test that all 5 expected output files were created."""
-        print("\n" + "="*80)
+        print("\n" + "=" * 80)
         print("Checking Output Files")
-        print("="*80)
+        print("=" * 80)
 
         missing_files = []
         for filename in self.expected_files:
@@ -140,14 +141,14 @@ class TestSequential5Tasks(unittest.TestCase):
         if missing_files:
             self.fail(f"Missing output files: {', '.join(missing_files)}")
 
-        print("="*80)
+        print("=" * 80)
         print(f"✅ All {len(self.expected_files)} output files created successfully")
 
     def test_03_output_files_valid_yaml(self):
         """Test that all output files contain valid YAML."""
-        print("\n" + "="*80)
+        print("\n" + "=" * 80)
         print("Validating YAML Syntax")
-        print("="*80)
+        print("=" * 80)
 
         invalid_files = []
         for filename in self.expected_files:
@@ -160,13 +161,12 @@ class TestSequential5Tasks(unittest.TestCase):
                 if data is None:
                     invalid_files.append((filename, "File is empty or contains only comments"))
                     print(f"❌ Invalid: {filename} - Empty file")
+                # Count keys for basic content validation
+                elif isinstance(data, dict):
+                    key_count = len(data.keys())
+                    print(f"✅ Valid: {filename} ({key_count} top-level keys)")
                 else:
-                    # Count keys for basic content validation
-                    if isinstance(data, dict):
-                        key_count = len(data.keys())
-                        print(f"✅ Valid: {filename} ({key_count} top-level keys)")
-                    else:
-                        print(f"✅ Valid: {filename} (non-dict data type)")
+                    print(f"✅ Valid: {filename} (non-dict data type)")
 
             except yaml.YAMLError as e:
                 invalid_files.append((filename, str(e)))
@@ -182,14 +182,14 @@ class TestSequential5Tasks(unittest.TestCase):
             error_msg = "\n".join([f"{f}: {e}" for f, e in invalid_files])
             self.fail(f"Invalid YAML files:\n{error_msg}")
 
-        print("="*80)
+        print("=" * 80)
         print(f"✅ All {len(self.expected_files)} output files contain valid YAML")
 
     def test_04_output_content_quality(self):
         """Test basic content quality of outputs."""
-        print("\n" + "="*80)
+        print("\n" + "=" * 80)
         print("Checking Output Content Quality")
-        print("="*80)
+        print("=" * 80)
 
         quality_issues = []
 
@@ -237,7 +237,7 @@ class TestSequential5Tasks(unittest.TestCase):
             error_msg = "\n".join(quality_issues)
             self.fail(f"Content quality issues:\n{error_msg}")
 
-        print("="*80)
+        print("=" * 80)
         print(f"✅ All {len(self.expected_files)} output files have acceptable content quality")
 
 
@@ -247,16 +247,16 @@ def run_chunk_01_test():
 
     This function is the main entry point for Chunk 0.1 validation.
     """
-    print("\n" + "="*80)
+    print("\n" + "=" * 80)
     print("CHUNK 0.1: SEQUENTIAL MODE VALIDATION (5 CORE TASKS)")
-    print("="*80)
+    print("=" * 80)
     print("Per master_implementation_plan.md:")
     print("- Testing sequential mode with 5 core tasks only")
     print("- Evaluation tasks are commented out in tasks.yaml and crew.py")
     print("- Expected: All 5 tasks complete without errors")
     print("- Expected: Generation time < 10 minutes")
     print("- Expected: All 5 output files are valid YAML")
-    print("="*80 + "\n")
+    print("=" * 80 + "\n")
 
     # Run the test suite
     loader = unittest.TestLoader()
@@ -265,9 +265,9 @@ def run_chunk_01_test():
     result = runner.run(suite)
 
     # Print summary
-    print("\n" + "="*80)
+    print("\n" + "=" * 80)
     print("TEST SUMMARY")
-    print("="*80)
+    print("=" * 80)
     print(f"Tests Run: {result.testsRun}")
     print(f"Successes: {result.testsRun - len(result.failures) - len(result.errors)}")
     print(f"Failures: {len(result.failures)}")
@@ -281,7 +281,7 @@ def run_chunk_01_test():
         print("\n❌ CHUNK 0.1 VALIDATION: FAILED")
         print("Issues detected. Review output above for details.")
 
-    print("="*80 + "\n")
+    print("=" * 80 + "\n")
 
     return 0 if result.wasSuccessful() else 1
 

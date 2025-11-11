@@ -25,7 +25,7 @@ framework_components:
       - tools: "List of tools available to the agent"
       - verbose: "Enable detailed logging"
       - allow_delegation: "Allow agent to delegate tasks"
-    
+
   tasks:
     definition: "@task decorator defines a task with description and expected output"
     key_parameters:
@@ -34,7 +34,7 @@ framework_components:
       - agent: "Agent assigned to execute the task"
       - context: "Previous tasks providing context"
       - output_file: "File to save task output"
-    
+
   crew:
     definition: "@crew decorator assembles agents and tasks"
     key_parameters:
@@ -53,18 +53,18 @@ project_patterns:
     - Puzzle Smith: Designs game mechanics and puzzles
     - Creative Scribe: Writes descriptions and dialogue
     - Mechanics Guru: Defines game systems and PRD
-  
+
   task_workflow:
     - Sequential process flow
     - Tasks depend on previous task outputs
     - Each task has clear expected output
     - Output files saved to project root
-  
+
   memory_integration:
     - Use Mem0 for context retention
     - Configure user_id for memory scope
     - Leverage memory across agent interactions
-  
+
   llm_configuration:
     - Ollama for local LLM (qwen2.5)
     - Base URL: http://localhost:11434
@@ -80,7 +80,7 @@ yaml_structure:
       - backstory: string
       - verbose: boolean
       - allow_delegation: boolean
-  
+
   tasks_yaml:
     location: src/space_hulk_game/config/tasks.yaml
     fields:
@@ -95,7 +95,7 @@ lifecycle_hooks:
   before_kickoff:
     purpose: Validate and prepare inputs before crew execution
     implementation: "@before_kickoff decorator on prepare_inputs method"
-  
+
   after_kickoff:
     purpose: Process and format output after crew execution
     implementation: "@after_kickoff decorator on process_output method"
@@ -117,7 +117,7 @@ patterns:
     example: |
       with open('config/agents.yaml', 'r') as file:
           self.agents_config = yaml.safe_load(file)
-  
+
   defining_llm:
     example: |
       from crewai import LLM
@@ -125,7 +125,7 @@ patterns:
           model="ollama/qwen2.5",
           base_url="http://localhost:11434"
       )
-  
+
   creating_agent:
     example: |
       @agent

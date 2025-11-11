@@ -2,7 +2,7 @@
 
 ###############################################################################
 # Space Hulk Game - Setup Script
-# 
+#
 # This script automates the installation of all dependencies required to run
 # the Space Hulk Game project, including:
 # - UV package manager
@@ -88,16 +88,16 @@ detect_os() {
 # Check Python version
 check_python() {
     print_header "Checking Python Installation"
-    
+
     if ! command_exists python3; then
         print_message "$RED" "Error: Python 3 is not installed."
         print_message "$YELLOW" "Please install Python 3.10, 3.11, or 3.12 first."
         exit 1
     fi
-    
+
     PYTHON_VERSION=$(python3 -c 'import sys; print(".".join(map(str, sys.version_info[:2])))')
     print_message "$GREEN" "✓ Python $PYTHON_VERSION detected"
-    
+
     # Check if version is in supported range
     if python3 -c 'import sys; exit(0 if (3, 10) <= sys.version_info[:2] < (3, 13) else 1)'; then
         print_message "$GREEN" "✓ Python version is compatible (>=3.10, <3.13)"
@@ -143,15 +143,15 @@ install_ollama() {
         print_message "$YELLOW" "Skipping Ollama installation (--skip-ollama flag set)"
         return
     fi
-    
+
     print_header "Installing Ollama"
-    
+
     if command_exists ollama; then
         print_message "$GREEN" "✓ Ollama is already installed"
         ollama --version
     else
         print_message "$YELLOW" "Installing Ollama..."
-        
+
         OS=$(detect_os)
         if [ "$OS" = "linux" ]; then
             curl -fsSL https://ollama.com/install.sh | sh
@@ -171,7 +171,7 @@ install_ollama() {
             print_message "$YELLOW" "Please install manually from: https://ollama.com/download"
             exit 1
         fi
-        
+
         if command_exists ollama; then
             print_message "$GREEN" "✓ Ollama installed successfully"
         else
@@ -179,7 +179,7 @@ install_ollama() {
             exit 1
         fi
     fi
-    
+
     # Start Ollama service if not running
     if ! pgrep -x "ollama" > /dev/null; then
         print_message "$YELLOW" "Starting Ollama service..."
@@ -197,16 +197,16 @@ pull_model() {
         print_message "$YELLOW" "Skipping model download (--skip-model flag set)"
         return
     fi
-    
+
     print_header "Downloading Qwen2.5 Model"
-    
+
     if ! command_exists ollama; then
         print_message "$YELLOW" "Ollama not found, skipping model download"
         return
     fi
-    
+
     print_message "$YELLOW" "This may take a while depending on your internet connection..."
-    
+
     if ollama list | grep -q "qwen2.5"; then
         print_message "$GREEN" "✓ Qwen2.5 model is already available"
     else

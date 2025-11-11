@@ -173,12 +173,12 @@ combat:
     - defend: "Reduce incoming damage"
     - use_item: "Use item from inventory"
     - flee: "Attempt to escape (may fail)"
-  
+
   enemy_ai:
     - aggressive: "Always attacks"
     - defensive: "Defends when low health"
     - smart: "Uses items and tactics"
-  
+
   damage_calculation:
     base_damage: "weapon.damage"
     modifiers: ["player.strength", "enemy.armor"]

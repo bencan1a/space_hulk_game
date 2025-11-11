@@ -1,31 +1,38 @@
 {
   "name": "Space Hulk Game Development",
   "image": "mcr.microsoft.com/devcontainers/python:1-3.11-bullseye",
-  
-  // Features to install
   "features": {
     "ghcr.io/devcontainers/features/git:1": {},
     "ghcr.io/devcontainers/features/github-cli:1": {},
     "ghcr.io/devcontainers/features/docker-in-docker:2": {},
     "ghcr.io/astral-sh/uv-devcontainer-feature/uv:latest": {}
   },
-
-  // Configure tool-specific properties
   "customizations": {
     "vscode": {
       "settings": {
-        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
         "python.linting.enabled": true,
         "python.linting.pylintEnabled": false,
         "python.linting.flake8Enabled": false,
-        "python.formatting.provider": "black",
-        "python.formatting.blackPath": "/usr/local/py-utils/bin/black",
+        "python.formatting.provider": "none",
         "python.linting.mypyEnabled": true,
-        "python.testing.pytestEnabled": true,
-        "python.testing.unittestEnabled": false,
-        "python.testing.pytestArgs": [
-          "tests"
+        "python.testing.pytestEnabled": false,
+        "python.testing.unittestEnabled": true,
+        "python.testing.unittestArgs": [
+          "-v",
+          "-s",
+          "./tests",
+          "-p",
+          "test_*.py"
         ],
+        "[python]": {
+          "editor.defaultFormatter": "charliermarsh.ruff",
+          "editor.formatOnSave": true,
+          "editor.codeActionsOnSave": {
+            "source.organizeImports": true,
+            "source.fixAll": true
+          }
+        },
         "files.associations": {
           "*.yaml": "yaml",
           "*.yml": "yaml"
@@ -40,36 +47,34 @@
         },
         "files.trimTrailingWhitespace": true,
         "files.insertFinalNewline": true,
+        "editor.rulers": [100],
         "terminal.integrated.defaultProfile.linux": "bash",
         "git.autofetch": true,
         "extensions.autoUpdate": false
       },
-      
-      // Extensions to install
       "extensions": [
         "ms-python.python",
-        "ms-python.black-formatter", 
+        "ms-python.vscode-pylance",
         "ms-python.mypy-type-checker",
-        "ms-python.pylint",
         "charliermarsh.ruff",
+        "ms-python.debugpy",
+        "github.copilot",
+        "github.copilot-chat",
+        "tamasfe.even-better-toml",
         "redhat.vscode-yaml",
+        "eamodio.gitlens",
         "yzhang.markdown-all-in-one",
         "davidanson.vscode-markdownlint",
         "ms-vscode.vscode-json",
-        "github.copilot",
-        "github.copilot-chat",
         "github.vscode-pull-request-github",
         "ms-vscode.test-adapter-converter",
         "littlefoxteam.vscode-python-test-adapter",
         "donjayamanne.githistory",
-        "eamodio.gitlens",
         "ms-vscode.powershell",
         "esbenp.prettier-vscode"
       ]
     }
   },
-
-  // Use 'forwardPorts' to make a list of ports inside the container available locally
   "forwardPorts": [
     11434
   ],
@@ -79,43 +84,25 @@
       "onAutoForward": "notify"
     }
   },
-
-  // Use 'postCreateCommand' to run commands after the container is created
-  "postCreateCommand": "bash .devcontainer/setup.sh",
-
-  // Use 'postStartCommand' to run commands after the container starts
+  "postCreateCommand": "bash -c 'cd /workspaces/space_hulk_game && python3 -m venv .venv && source .venv/bin/activate && pip install --upgrade pip && pip install uv && uv pip install -e \".[dev]\" && pre-commit install && echo \"✅ Dev environment ready! Pre-commit hooks installed.\"'",
   "postStartCommand": "echo 'Space Hulk Game development environment is ready! 🚀'",
-
-  // Set environment variables
   "containerEnv": {
     "PYTHONPATH": "/workspaces/space_hulk_game/src",
     "CREWAI_LOG_LEVEL": "INFO",
     "OLLAMA_HOST": "http://host.docker.internal:11434"
   },
-
-  // Mount the workspace and configure git
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/space_hulk_game,type=bind,consistency=cached",
   "workspaceFolder": "/workspaces/space_hulk_game",
-
-  // Configure remoteUser
   "remoteUser": "vscode",
-
-  // Configure container mounts for better performance
   "mounts": [
     "source=space-hulk-game-bashhistory,target=/home/vscode/.bash_history,type=volume",
     "source=space-hulk-game-vscode-extensions,target=/home/vscode/.vscode-server/extensions,type=volume"
   ],
-
-  // Configure lifecycle scripts
   "initializeCommand": "echo 'Initializing Space Hulk Game devcontainer...'",
   "onCreateCommand": "echo 'Creating Space Hulk Game development environment...'",
-  
-  // Security and performance settings
   "privileged": false,
   "capAdd": [],
   "securityOpt": ["seccomp=unconfined"],
-  
-  // Resource limits (optional)
   "hostRequirements": {
     "cpus": 2,
     "memory": "4gb",

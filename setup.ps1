@@ -47,16 +47,16 @@ function Test-CommandExists {
 # Check Python installation
 function Test-Python {
     Write-Header "Checking Python Installation"
-    
+
     if (-not (Test-CommandExists "python")) {
         Write-ColorOutput "Error: Python 3 is not installed." "Red"
         Write-ColorOutput "Please install Python 3.10, 3.11, or 3.12 from https://www.python.org/" "Yellow"
         exit 1
     }
-    
+
     $pythonVersion = python --version 2>&1
     Write-ColorOutput "✓ $pythonVersion detected" "Green"
-    
+
     # Check version compatibility
     $versionOutput = python -c "import sys; exit(0 if (3, 10) <= sys.version_info[:2] < (3, 13) else 1)" 2>&1
     if ($LASTEXITCODE -eq 0) {
@@ -115,9 +115,9 @@ function Install-Ollama {
         Write-ColorOutput "Skipping Ollama installation (-SkipOllama flag set)" "Yellow"
         return
     }
-    
+
     Write-Header "Installing Ollama"
-    
+
     if (Test-CommandExists "ollama") {
         Write-ColorOutput "✓ Ollama is already installed" "Green"
         ollama --version
@@ -129,16 +129,16 @@ function Install-Ollama {
         Write-ColorOutput "  2. Download and run the installer" "White"
         Write-ColorOutput "  3. Follow the installation wizard" "White"
         Write-ColorOutput "" "White"
-        
+
         $response = Read-Host "Have you installed Ollama? (y/n)"
         if ($response -notmatch "^[Yy]$") {
             Write-ColorOutput "Please install Ollama and run this script again." "Red"
             exit 1
         }
-        
+
         # Refresh environment
         $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
-        
+
         if (-not (Test-CommandExists "ollama")) {
             Write-ColorOutput "Ollama command not found. You may need to restart your terminal." "Yellow"
             Write-ColorOutput "After restarting, run: ollama pull qwen2.5" "Yellow"
@@ -152,16 +152,16 @@ function Install-Model {
         Write-ColorOutput "Skipping model download (-SkipModel flag set)" "Yellow"
         return
     }
-    
+
     Write-Header "Downloading Qwen2.5 Model"
-    
+
     if (-not (Test-CommandExists "ollama")) {
         Write-ColorOutput "Ollama not found, skipping model download" "Yellow"
         return
     }
-    
+
     Write-ColorOutput "This may take a while depending on your internet connection..." "Yellow"
-    
+
     $models = ollama list 2>&1
     if ($models -match "qwen2.5") {
         Write-ColorOutput "✓ Qwen2.5 model is already available" "Green"
@@ -201,12 +201,12 @@ function Install-PythonDeps {
 # Setup environment file
 function Setup-Environment {
     Write-Header "Setting Up Environment Configuration"
-    
+
     if (Test-Path .env) {
         Write-ColorOutput "✓ .env file already exists" "Green"
     } else {
         Write-ColorOutput "Creating .env file from template..." "Yellow"
-        
+
         $envContent = @"
 # Space Hulk Game Environment Configuration
 
@@ -225,7 +225,7 @@ OPENAI_MODEL_NAME=ollama/qwen2.5
 # Logging Level
 LOG_LEVEL=INFO
 "@
-        
+
         Set-Content -Path .env -Value $envContent
         Write-ColorOutput "✓ .env file created" "Green"
         Write-ColorOutput "Note: Edit .env file to configure API keys if needed" "Yellow"

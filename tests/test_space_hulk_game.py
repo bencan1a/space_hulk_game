@@ -2,13 +2,15 @@
 Tests for the Space Hulk Game implementation.
 These tests verify input validation, error handling, and output processing.
 """
+
 import datetime
 import os
 import sys
 import unittest
 
 # Add the src directory to the path so we can import the module
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../")))
+
 
 # Create mock classes to avoid loading real configuration
 class MockSpaceHulkGame:
@@ -29,7 +31,7 @@ class MockSpaceHulkGame:
             return inputs
         except Exception as e:
             # Log error and provide recovery mechanism
-            print(f"Error in prepare_inputs: {str(e)}")
+            print(f"Error in prepare_inputs: {e!s}")
             # Set default values if possible
             inputs["prompt"] = inputs.get("prompt", "Default space hulk exploration scenario")
             return inputs
@@ -39,7 +41,7 @@ class MockSpaceHulkGame:
         Handle task execution failures with appropriate recovery mechanisms.
         Provides task-specific fallback content to allow the process to continue.
         """
-        error_message = f"Error executing task '{task.name}': {str(exception)}"
+        error_message = f"Error executing task '{task.name}': {exception!s}"
         print(error_message)
 
         # Task-specific recovery mechanisms
@@ -51,12 +53,12 @@ class MockSpaceHulkGame:
                     "setting": "Derelict space vessel",
                     "main_branches": [
                         {"path": "Exploration", "description": "Explore the vessel cautiously"},
-                        {"path": "Combat", "description": "Fight through hostile entities"}
+                        {"path": "Combat", "description": "Fight through hostile entities"},
                     ],
                     "endings": [
                         {"name": "Escape", "description": "Successfully escape the vessel"},
-                        {"name": "Trapped", "description": "Become trapped in the vessel"}
-                    ]
+                        {"name": "Trapped", "description": "Become trapped in the vessel"},
+                    ],
                 }
             }
         elif task.name == "Create Narrative Map":
@@ -66,7 +68,7 @@ class MockSpaceHulkGame:
                     "start_scene": "entrance",
                     "scenes": {
                         "entrance": {"description": "The entrance", "connections": ["corridor"]}
-                    }
+                    },
                 }
             }
         elif task.name == "Design Artifacts, Puzzles, Monsters, and NPCs":
@@ -85,11 +87,7 @@ class MockSpaceHulkGame:
             }
         elif task.name == "Create Game Mechanics PRD":
             # Return basic PRD document
-            return {
-                "prd_document": {
-                    "game_title": "Space Hulk: Derelict Vessel"
-                }
-            }
+            return {"prd_document": {"game_title": "Space Hulk: Derelict Vessel"}}
 
         # Default fallback
         return {"error": error_message, "recovered": False}
@@ -104,23 +102,26 @@ class MockSpaceHulkGame:
             output.metadata = {
                 "processed_at": str(datetime.datetime.now()),
                 "validation_applied": True,
-                "error_handling_applied": True
+                "error_handling_applied": True,
             }
 
             # If your tasks produce text-based outputs, you might do formatting here
             output.raw += "\n\n[Final post-processing complete with validation and error handling.]"
 
             # Check if there were any errors during processing
-            if hasattr(output, 'errors') and output.errors:
-                output.raw += "\n\n[WARNING: Some errors occurred during processing. " \
-                             "Recovery mechanisms were applied, but you should review the content.]"
+            if hasattr(output, "errors") and output.errors:
+                output.raw += (
+                    "\n\n[WARNING: Some errors occurred during processing. "
+                    "Recovery mechanisms were applied, but you should review the content.]"
+                )
 
             return output
         except Exception as e:
             # Handle any errors in post-processing
-            print(f"Error in post-processing: {str(e)}")
+            print(f"Error in post-processing: {e!s}")
             # Return original output if post-processing fails
             return output
+
 
 class TestSpaceHulkGame(unittest.TestCase):
     """Test cases for the Space Hulk Game crew implementation."""
@@ -145,6 +146,7 @@ class TestSpaceHulkGame(unittest.TestCase):
 
     def test_handle_task_failure(self):
         """Test handle_task_failure with different task types."""
+
         # Test for Generate Overarching Plot
         class MockTask:
             name = "Generate Overarching Plot"
@@ -183,6 +185,7 @@ class TestSpaceHulkGame(unittest.TestCase):
 
     def test_process_output(self):
         """Test process_output method."""
+
         # Create a mock output object
         class MockOutput:
             def __init__(self):
@@ -193,8 +196,9 @@ class TestSpaceHulkGame(unittest.TestCase):
 
         # Verify the output was modified
         self.assertNotEqual(result.raw, "Test output")
-        self.assertTrue(hasattr(result, 'metadata'))
+        self.assertTrue(hasattr(result, "metadata"))
         self.assertIn("processed_at", result.metadata)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

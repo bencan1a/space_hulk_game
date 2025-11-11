@@ -10,7 +10,7 @@ import sys
 import unittest
 
 # Add src to path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
 from space_hulk_game.quality import (
     MechanicsMetrics,
@@ -27,18 +27,18 @@ class TestPlotMetrics(unittest.TestCase):
     def test_from_dict_basic(self):
         """Test creating PlotMetrics from a basic dictionary."""
         data = {
-            'title': 'Test Adventure',
-            'setting': 'A dark space hulk',
-            'themes': ['horror', 'survival'],
-            'plot': {
-                'prologue': ['Opening scene'],
-                'act1': ['First act with Branching Path 1: A) choice 1 B) choice 2'],
-                'act2': ['Second act with Branching Path 2: A) option A B) option B'],
+            "title": "Test Adventure",
+            "setting": "A dark space hulk",
+            "themes": ["horror", "survival"],
+            "plot": {
+                "prologue": ["Opening scene"],
+                "act1": ["First act with Branching Path 1: A) choice 1 B) choice 2"],
+                "act2": ["Second act with Branching Path 2: A) option A B) option B"],
             },
-            'endings': [
-                'Good Ending: Victory',
-                'Bad Ending: Defeat',
-            ]
+            "endings": [
+                "Good Ending: Victory",
+                "Bad Ending: Defeat",
+            ],
         }
 
         metrics = PlotMetrics.from_dict(data)
@@ -94,42 +94,49 @@ class TestPlotMetrics(unittest.TestCase):
         )
 
         data = {
-            'title': 'Space Hulk: The Emperor\'s Grace',
-            'setting': {
-                'location': 'Derelict space hulk "Emperor\'s Grace" drifting in Segmentum Obscurus',
-                'time': 'M41.998, over 300 years after the ship was lost in the warp',
-                'environment': 'Hostile vacuum environment, corrupted by Chaos and infested with Genestealers'
+            "title": "Space Hulk: The Emperor's Grace",
+            "setting": {
+                "location": 'Derelict space hulk "Emperor\'s Grace" drifting in Segmentum Obscurus',
+                "time": "M41.998, over 300 years after the ship was lost in the warp",
+                "environment": "Hostile vacuum environment, corrupted by Chaos and infested with Genestealers",
             },
-            'themes': ['survival against overwhelming odds', 'the horror of Chaos corruption',
-                      'brotherhood and loyalty to the Emperor', 'the terrible price of victory'],
-            'plot': {
-                'prologue': [prologue_text],
-                'act1': [act1_text, 'Branching Path 1: A) Investigate engine room signal source B) Secure command bridge first'],
-                'act2': [act2_text, 'Branching Path 2: A) Ally with Dark Angels B) Maintain independence'],
-                'act3': ['Final confrontation with the source of corruption deep within the hulk']
+            "themes": [
+                "survival against overwhelming odds",
+                "the horror of Chaos corruption",
+                "brotherhood and loyalty to the Emperor",
+                "the terrible price of victory",
+            ],
+            "plot": {
+                "prologue": [prologue_text],
+                "act1": [
+                    act1_text,
+                    "Branching Path 1: A) Investigate engine room signal source B) Secure command bridge first",
+                ],
+                "act2": [
+                    act2_text,
+                    "Branching Path 2: A) Ally with Dark Angels B) Maintain independence",
+                ],
+                "act3": ["Final confrontation with the source of corruption deep within the hulk"],
             },
-            'endings': [
-                'Victory Ending: Successfully purge the hulk and escape with valuable technology',
-                'Tragic Ending: Team sacrifices themselves to prevent corruption from spreading',
-                'Dark Ending: Some marines succumb to corruption, forcing difficult choices about brotherhood'
-            ]
+            "endings": [
+                "Victory Ending: Successfully purge the hulk and escape with valuable technology",
+                "Tragic Ending: Team sacrifices themselves to prevent corruption from spreading",
+                "Dark Ending: Some marines succumb to corruption, forcing difficult choices about brotherhood",
+            ],
         }
 
         metrics = PlotMetrics.from_dict(data)
 
-        self.assertTrue(metrics.passes_threshold(),
-                       f"Plot should pass threshold. Failures: {metrics.get_failures()}")
+        self.assertTrue(
+            metrics.passes_threshold(),
+            f"Plot should pass threshold. Failures: {metrics.get_failures()}",
+        )
         self.assertEqual(len(metrics.get_failures()), 0)
         self.assertGreaterEqual(metrics.get_score(), 8.0)
 
     def test_fails_insufficient_content(self):
         """Test that a minimal plot fails thresholds."""
-        data = {
-            'title': 'Short',
-            'plot': {
-                'act1': ['Brief']
-            }
-        }
+        data = {"title": "Short", "plot": {"act1": ["Brief"]}}
 
         metrics = PlotMetrics.from_dict(data)
 
@@ -145,40 +152,31 @@ class TestNarrativeMetrics(unittest.TestCase):
     def test_from_dict_basic(self):
         """Test creating NarrativeMetrics from a basic dictionary."""
         data = {
-            'narrative_map': {
-                'start_scene': 'intro',
-                'scenes': {
-                    'intro': {
-                        'name': 'Introduction',
-                        'description': 'The journey begins here.',
-                        'connections': [
-                            {'target': 'scene1', 'condition': 'Go forward'}
-                        ]
+            "narrative_map": {
+                "start_scene": "intro",
+                "scenes": {
+                    "intro": {
+                        "name": "Introduction",
+                        "description": "The journey begins here.",
+                        "connections": [{"target": "scene1", "condition": "Go forward"}],
                     },
-                    'scene1': {
-                        'name': 'First Scene',
-                        'description': 'A dark corridor.',
-                        'connections': [
-                            {'target': 'scene2'},
-                            {'target': 'scene3'}
-                        ]
+                    "scene1": {
+                        "name": "First Scene",
+                        "description": "A dark corridor.",
+                        "connections": [{"target": "scene2"}, {"target": "scene3"}],
                     },
-                    'scene2': {
-                        'name': 'Scene Two',
-                        'description': 'Left path.',
-                        'connections': [{'target': 'end'}]
+                    "scene2": {
+                        "name": "Scene Two",
+                        "description": "Left path.",
+                        "connections": [{"target": "end"}],
                     },
-                    'scene3': {
-                        'name': 'Scene Three',
-                        'description': 'Right path.',
-                        'connections': [{'target': 'end'}]
+                    "scene3": {
+                        "name": "Scene Three",
+                        "description": "Right path.",
+                        "connections": [{"target": "end"}],
                     },
-                    'end': {
-                        'name': 'Ending',
-                        'description': 'The end.',
-                        'connections': []
-                    }
-                }
+                    "end": {"name": "Ending", "description": "The end.", "connections": []},
+                },
             }
         }
 
@@ -194,44 +192,35 @@ class TestNarrativeMetrics(unittest.TestCase):
     def test_detects_orphaned_scenes(self):
         """Test detection of orphaned scenes."""
         data = {
-            'narrative_map': {
-                'start_scene': 'intro',
-                'scenes': {
-                    'intro': {
-                        'description': 'Start',
-                        'connections': [{'target': 'scene1'}]
-                    },
-                    'scene1': {
-                        'description': 'First',
-                        'connections': []
-                    },
-                    'orphan': {
-                        'description': 'Unreachable',
-                        'connections': []
-                    }
-                }
+            "narrative_map": {
+                "start_scene": "intro",
+                "scenes": {
+                    "intro": {"description": "Start", "connections": [{"target": "scene1"}]},
+                    "scene1": {"description": "First", "connections": []},
+                    "orphan": {"description": "Unreachable", "connections": []},
+                },
             }
         }
 
         metrics = NarrativeMetrics.from_dict(data)
 
         self.assertTrue(metrics.has_orphaned_scenes)
-        self.assertIn('orphan', metrics.orphaned_scenes)
+        self.assertIn("orphan", metrics.orphaned_scenes)
         self.assertFalse(metrics.passes_threshold())
 
     def test_passes_threshold_success(self):
         """Test that a good narrative map passes."""
         data = {
-            'narrative_map': {
-                'start_scene': 'start',
-                'scenes': {
-                    'start': {'description': 'Beginning', 'connections': [{'target': 's1'}]},
-                    's1': {'description': 'Scene 1', 'connections': [{'target': 's2'}]},
-                    's2': {'description': 'Scene 2', 'connections': [{'target': 's3'}]},
-                    's3': {'description': 'Scene 3', 'connections': [{'target': 's4'}]},
-                    's4': {'description': 'Scene 4', 'connections': [{'target': 'end'}]},
-                    'end': {'description': 'Ending', 'connections': []}
-                }
+            "narrative_map": {
+                "start_scene": "start",
+                "scenes": {
+                    "start": {"description": "Beginning", "connections": [{"target": "s1"}]},
+                    "s1": {"description": "Scene 1", "connections": [{"target": "s2"}]},
+                    "s2": {"description": "Scene 2", "connections": [{"target": "s3"}]},
+                    "s3": {"description": "Scene 3", "connections": [{"target": "s4"}]},
+                    "s4": {"description": "Scene 4", "connections": [{"target": "end"}]},
+                    "end": {"description": "Ending", "connections": []},
+                },
             }
         }
 
@@ -248,24 +237,24 @@ class TestPuzzleMetrics(unittest.TestCase):
     def test_from_dict_basic(self):
         """Test creating PuzzleMetrics from a basic dictionary."""
         data = {
-            'puzzles': [
+            "puzzles": [
                 {
-                    'name': 'Door Puzzle',
-                    'description': 'A locked door requiring a key',
-                    'solution': 'Find the key in the adjacent room and unlock',
-                    'difficulty': 'medium',
-                    'location': 'Main corridor'
+                    "name": "Door Puzzle",
+                    "description": "A locked door requiring a key",
+                    "solution": "Find the key in the adjacent room and unlock",
+                    "difficulty": "medium",
+                    "location": "Main corridor",
                 },
                 {
-                    'name': 'Code Lock',
-                    'description': 'A numerical code lock with hints scattered around',
-                    'how_to_solve': 'Collect the three numbers and enter them in order',
-                    'difficulty': 'hard'
-                }
+                    "name": "Code Lock",
+                    "description": "A numerical code lock with hints scattered around",
+                    "how_to_solve": "Collect the three numbers and enter them in order",
+                    "difficulty": "hard",
+                },
             ],
-            'artifacts': ['Ancient Key', 'Power Cell'],
-            'monsters': ['Genestealer'],
-            'npcs': ['Wounded Marine']
+            "artifacts": ["Ancient Key", "Power Cell"],
+            "monsters": ["Genestealer"],
+            "npcs": ["Wounded Marine"],
         }
 
         metrics = PuzzleMetrics.from_dict(data)
@@ -281,19 +270,19 @@ class TestPuzzleMetrics(unittest.TestCase):
     def test_passes_threshold_success(self):
         """Test that good puzzle design passes."""
         data = {
-            'puzzles': [
+            "puzzles": [
                 {
-                    'name': 'Puzzle 1',
-                    'description': 'A complex challenge',
-                    'solution': 'Use the artifact to unlock the door',
-                    'difficulty': 'medium'
+                    "name": "Puzzle 1",
+                    "description": "A complex challenge",
+                    "solution": "Use the artifact to unlock the door",
+                    "difficulty": "medium",
                 },
                 {
-                    'name': 'Puzzle 2',
-                    'description': 'Another challenge',
-                    'solution': 'Defeat the monster to proceed',
-                    'difficulty': 'hard'
-                }
+                    "name": "Puzzle 2",
+                    "description": "Another challenge",
+                    "solution": "Defeat the monster to proceed",
+                    "difficulty": "hard",
+                },
             ]
         }
 
@@ -318,32 +307,16 @@ class TestSceneMetrics(unittest.TestCase):
         )
 
         data = {
-            'scenes': {
-                'scene1': {
-                    'name': 'Corridor',
-                    'description': vivid_desc,
-                    'tone': 'dark horror'
+            "scenes": {
+                "scene1": {"name": "Corridor", "description": vivid_desc, "tone": "dark horror"},
+                "scene2": {
+                    "name": "Chamber",
+                    "description": vivid_desc + ' "Stay alert," the captain says.',
+                    "tone": "dark horror",
                 },
-                'scene2': {
-                    'name': 'Chamber',
-                    'description': vivid_desc + ' "Stay alert," the captain says.',
-                    'tone': 'dark horror'
-                },
-                'scene3': {
-                    'name': 'Bridge',
-                    'description': vivid_desc,
-                    'tone': 'dark horror'
-                },
-                'scene4': {
-                    'name': 'Engine Room',
-                    'description': vivid_desc,
-                    'tone': 'dark horror'
-                },
-                'scene5': {
-                    'name': 'Ending',
-                    'description': vivid_desc,
-                    'tone': 'dark horror'
-                }
+                "scene3": {"name": "Bridge", "description": vivid_desc, "tone": "dark horror"},
+                "scene4": {"name": "Engine Room", "description": vivid_desc, "tone": "dark horror"},
+                "scene5": {"name": "Ending", "description": vivid_desc, "tone": "dark horror"},
             }
         }
 
@@ -359,13 +332,7 @@ class TestSceneMetrics(unittest.TestCase):
         long_desc = " ".join(["A dark and twisted ancient corridor with flickering lights"] * 10)
 
         data = {
-            'scenes': {
-                f'scene{i}': {
-                    'description': long_desc,
-                    'tone': 'horror'
-                }
-                for i in range(6)
-            }
+            "scenes": {f"scene{i}": {"description": long_desc, "tone": "horror"} for i in range(6)}
         }
 
         metrics = SceneMetrics.from_dict(data)
@@ -380,27 +347,27 @@ class TestMechanicsMetrics(unittest.TestCase):
     def test_from_dict_basic(self):
         """Test creating MechanicsMetrics from a basic dictionary."""
         data = {
-            'mechanics': {
-                'systems': {
-                    'combat': {
-                        'description': 'Turn-based combat with dice rolls and modifiers',
-                        'rules': 'Roll 1d20 + modifiers vs target difficulty',
-                        'examples': 'Attack: 1d20 + 5 vs AC 15'
+            "mechanics": {
+                "systems": {
+                    "combat": {
+                        "description": "Turn-based combat with dice rolls and modifiers",
+                        "rules": "Roll 1d20 + modifiers vs target difficulty",
+                        "examples": "Attack: 1d20 + 5 vs AC 15",
                     },
-                    'movement': {
-                        'description': 'Grid-based movement with action points',
-                        'rules': 'Each character has 4 movement points per turn'
+                    "movement": {
+                        "description": "Grid-based movement with action points",
+                        "rules": "Each character has 4 movement points per turn",
                     },
-                    'inventory': {
-                        'description': 'Limited carry capacity with weight system',
-                        'rules': 'Max 20kg capacity, items have weight values'
+                    "inventory": {
+                        "description": "Limited carry capacity with weight system",
+                        "rules": "Max 20kg capacity, items have weight values",
                     },
-                    'progression': {
-                        'description': 'XP-based leveling system',
-                        'rules': 'Gain XP from combat and puzzles, level up at thresholds'
-                    }
+                    "progression": {
+                        "description": "XP-based leveling system",
+                        "rules": "Gain XP from combat and puzzles, level up at thresholds",
+                    },
                 },
-                'balance': 'Difficulty scales moderately, ensuring fair challenge'
+                "balance": "Difficulty scales moderately, ensuring fair challenge",
             }
         }
 
@@ -416,25 +383,25 @@ class TestMechanicsMetrics(unittest.TestCase):
     def test_passes_threshold_success(self):
         """Test that good mechanics pass."""
         data = {
-            'mechanics': {
-                'combat_system': {
-                    'description': 'Detailed combat with multiple phases and special abilities. '
-                                 'Players roll dice to determine hits and damage. '
-                                 'Critical hits occur on natural 20s.',
-                    'rules': 'Must roll higher than enemy AC to hit. Damage is weapon die + strength modifier.'
+            "mechanics": {
+                "combat_system": {
+                    "description": "Detailed combat with multiple phases and special abilities. "
+                    "Players roll dice to determine hits and damage. "
+                    "Critical hits occur on natural 20s.",
+                    "rules": "Must roll higher than enemy AC to hit. Damage is weapon die + strength modifier.",
                 },
-                'movement_system': {
-                    'description': 'Characters can move and take actions. Movement is measured in grid squares.',
-                    'rules': 'Standard move is 6 squares per turn. Difficult terrain costs double.'
+                "movement_system": {
+                    "description": "Characters can move and take actions. Movement is measured in grid squares.",
+                    "rules": "Standard move is 6 squares per turn. Difficult terrain costs double.",
                 },
-                'inventory_system': {
-                    'description': 'Limited slots for carrying items. Each item has a weight and size.',
-                    'rules': 'Maximum 10 item slots. Heavy items take 2 slots.'
+                "inventory_system": {
+                    "description": "Limited slots for carrying items. Each item has a weight and size.",
+                    "rules": "Maximum 10 item slots. Heavy items take 2 slots.",
                 },
-                'health_system': {
-                    'description': 'Hit points determine survivability. Healing is available via items.',
-                    'rules': 'Start with 20 HP. Medkits restore 1d6+2 HP.'
-                }
+                "health_system": {
+                    "description": "Hit points determine survivability. Healing is available via items.",
+                    "rules": "Start with 20 HP. Medkits restore 1d6+2 HP.",
+                },
             }
         }
 
@@ -462,14 +429,14 @@ class TestMetricsIntegration(unittest.TestCase):
             result = metrics.to_dict()
 
             # All metrics should have these keys
-            self.assertIn('passes_threshold', result)
-            self.assertIn('score', result)
-            self.assertIn('failures', result)
+            self.assertIn("passes_threshold", result)
+            self.assertIn("score", result)
+            self.assertIn("failures", result)
 
             # Check types
-            self.assertIsInstance(result['passes_threshold'], bool)
-            self.assertIsInstance(result['score'], float)
-            self.assertIsInstance(result['failures'], list)
+            self.assertIsInstance(result["passes_threshold"], bool)
+            self.assertIsInstance(result["score"], float)
+            self.assertIsInstance(result["failures"], list)
 
     def test_score_range(self):
         """Test that scores are always in valid range."""
@@ -489,5 +456,5 @@ class TestMetricsIntegration(unittest.TestCase):
             self.assertLessEqual(score, 10.0)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

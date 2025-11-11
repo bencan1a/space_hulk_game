@@ -1,0 +1,981 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>space_hulk_game.engine.persistence API documentation</title>
+<meta name="description" content="Persistence Module …">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>space_hulk_game.engine.persistence</code></h1>
+</header>
+<section id="section-intro">
+<p>Persistence Module</p>
+<p>Handles saving and loading game state to/from JSON files.
+Provides validation and error handling for serialization.</p>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import GameState, Scene
+&gt;&gt;&gt; from space_hulk_game.engine.persistence import save_game, load_game
+&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;)
+&gt;&gt;&gt; scenes = {&quot;test&quot;: Scene(id=&quot;test&quot;, name=&quot;Test&quot;, description=&quot;Test.&quot;)}
+&gt;&gt;&gt; save_game(&quot;savegame.json&quot;, state, scenes)
+&gt;&gt;&gt; loaded_state, loaded_scenes = load_game(&quot;savegame.json&quot;)
+</code></pre>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="space_hulk_game.engine.persistence.delete_save"><code class="name flex">
+<span>def <span class="ident">delete_save</span></span>(<span>filepath: str) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def delete_save(filepath: str) -&gt; None:
+    &#34;&#34;&#34;
+    Delete a save file.
+
+    Args:
+        filepath: Path to the save file to delete.
+
+    Raises:
+        PersistenceError: If deletion fails.
+
+    Examples:
+        &gt;&gt;&gt; delete_save(&#34;mysave.json&#34;)
+    &#34;&#34;&#34;
+    try:
+        filepath_obj = Path(filepath)
+        if filepath_obj.exists():
+            filepath_obj.unlink()
+            logger.info(f&#34;Deleted save file: {filepath}&#34;)
+        else:
+            raise PersistenceError(f&#34;Save file not found: {filepath}&#34;)
+
+    except Exception as e:
+        error_msg = f&#34;Failed to delete save file: {e}&#34;
+        logger.error(error_msg)
+        raise PersistenceError(error_msg) from e</code></pre>
+</details>
+<div class="desc"><p>Delete a save file.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>filepath</code></strong></dt>
+<dd>Path to the save file to delete.</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code><a title="space_hulk_game.engine.persistence.PersistenceError" href="#space_hulk_game.engine.persistence.PersistenceError">PersistenceError</a></code></dt>
+<dd>If deletion fails.</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; delete_save(&quot;mysave.json&quot;)
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.engine.persistence.get_save_metadata"><code class="name flex">
+<span>def <span class="ident">get_save_metadata</span></span>(<span>filepath: str) ‑> dict[str, typing.Any]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_save_metadata(filepath: str) -&gt; dict[str, Any]:
+    &#34;&#34;&#34;
+    Get metadata from a save file without loading the full game.
+
+    This is useful for displaying save file information in a load menu.
+
+    Args:
+        filepath: Path to the save file.
+
+    Returns:
+        Dictionary containing save metadata (timestamp, version, etc.).
+
+    Raises:
+        PersistenceError: If reading metadata fails.
+
+    Examples:
+        &gt;&gt;&gt; metadata = get_save_metadata(&#34;mysave.json&#34;)
+        &gt;&gt;&gt; print(metadata[&#39;timestamp&#39;])
+        &#39;2024-01-15T14:30:00&#39;
+    &#34;&#34;&#34;
+    try:
+        filepath_obj = Path(filepath)
+        if not filepath_obj.exists():
+            raise PersistenceError(f&#34;Save file not found: {filepath}&#34;)
+
+        with Path(filepath).open(encoding=&#34;utf-8&#34;) as f:
+            save_data = json.load(f)
+
+        metadata = {
+            &#34;version&#34;: save_data.get(&#34;version&#34;, &#34;unknown&#34;),
+            &#34;timestamp&#34;: save_data.get(&#34;timestamp&#34;, &#34;unknown&#34;),
+            &#34;current_scene&#34;: save_data.get(&#34;game_state&#34;, {}).get(&#34;current_scene&#34;, &#34;unknown&#34;),
+            &#34;health&#34;: save_data.get(&#34;game_state&#34;, {}).get(&#34;health&#34;, 0),
+            &#34;inventory_size&#34;: len(save_data.get(&#34;game_state&#34;, {}).get(&#34;inventory&#34;, [])),
+        }
+
+        # Include custom metadata if present
+        if &#34;metadata&#34; in save_data:
+            metadata.update(save_data[&#34;metadata&#34;])
+
+        return metadata
+
+    except Exception as e:
+        error_msg = f&#34;Failed to read save metadata: {e}&#34;
+        logger.error(error_msg)
+        raise PersistenceError(error_msg) from e</code></pre>
+</details>
+<div class="desc"><p>Get metadata from a save file without loading the full game.</p>
+<p>This is useful for displaying save file information in a load menu.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>filepath</code></strong></dt>
+<dd>Path to the save file.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Dictionary containing save metadata (timestamp, version, etc.).</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code><a title="space_hulk_game.engine.persistence.PersistenceError" href="#space_hulk_game.engine.persistence.PersistenceError">PersistenceError</a></code></dt>
+<dd>If reading metadata fails.</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; metadata = get_save_metadata(&quot;mysave.json&quot;)
+&gt;&gt;&gt; print(metadata['timestamp'])
+'2024-01-15T14:30:00'
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.engine.persistence.list_save_files"><code class="name flex">
+<span>def <span class="ident">list_save_files</span></span>(<span>save_directory: str = 'saves') ‑> list</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def list_save_files(save_directory: str = &#34;saves&#34;) -&gt; list:
+    &#34;&#34;&#34;
+    List all save files in a directory.
+
+    Args:
+        save_directory: Directory to search for save files.
+
+    Returns:
+        List of save file paths.
+
+    Examples:
+        &gt;&gt;&gt; saves = list_save_files(&#34;saves&#34;)
+        &gt;&gt;&gt; for save in saves:
+        ...     print(save)
+        saves/autosave.json
+        saves/mysave.json
+    &#34;&#34;&#34;
+    try:
+        save_dir = Path(save_directory)
+        if not save_dir.exists():
+            return []
+
+        # Use a list to avoid multiple stat() calls
+        save_files = []
+        for file_path in save_dir.glob(&#34;*.json&#34;):
+            save_files.append((file_path, file_path.stat().st_mtime))
+
+        # Sort by modification time (newest first)
+        save_files.sort(key=lambda x: x[1], reverse=True)
+
+        return [str(f[0]) for f in save_files]
+
+    except Exception as e:
+        logger.error(f&#34;Failed to list save files: {e}&#34;)
+        return []</code></pre>
+</details>
+<div class="desc"><p>List all save files in a directory.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>save_directory</code></strong></dt>
+<dd>Directory to search for save files.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>List of save file paths.</p>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; saves = list_save_files(&quot;saves&quot;)
+&gt;&gt;&gt; for save in saves:
+...     print(save)
+saves/autosave.json
+saves/mysave.json
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.engine.persistence.load_game"><code class="name flex">
+<span>def <span class="ident">load_game</span></span>(<span>filepath: str) ‑> tuple[<a title="space_hulk_game.engine.game_state.GameState" href="game_state.html#space_hulk_game.engine.game_state.GameState">GameState</a>, dict[str, <a title="space_hulk_game.engine.scene.Scene" href="scene.html#space_hulk_game.engine.scene.Scene">Scene</a>]]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def load_game(filepath: str) -&gt; tuple[GameState, dict[str, Scene]]:
+    &#34;&#34;&#34;
+    Load a game state and scenes from a JSON file.
+
+    This function deserializes a previously saved game, restoring the
+    game state and all scenes. It validates the save file format and
+    data integrity.
+
+    Args:
+        filepath: Path to the save file to load.
+
+    Returns:
+        A tuple of (GameState, scenes_dict).
+
+    Raises:
+        PersistenceError: If loading fails due to file not found,
+                         invalid format, or data corruption.
+
+    Examples:
+        &gt;&gt;&gt; state, scenes = load_game(&#34;mysave.json&#34;)
+        &gt;&gt;&gt; state.current_scene
+        &#39;room1&#39;
+    &#34;&#34;&#34;
+    try:
+        # Check if file exists
+        filepath_obj = Path(filepath)
+        if not filepath_obj.exists():
+            raise PersistenceError(f&#34;Save file not found: {filepath}&#34;)
+
+        # Read file
+        with Path(filepath).open(encoding=&#34;utf-8&#34;) as f:
+            save_data = json.load(f)
+
+        # Validate save file structure
+        _validate_save_data(save_data)
+
+        # Deserialize game state
+        game_state = GameState.from_dict(save_data[&#34;game_state&#34;])
+
+        # Deserialize scenes
+        scenes = {}
+        for scene_id, scene_data in save_data[&#34;scenes&#34;].items():
+            scenes[scene_id] = Scene.from_dict(scene_data)
+
+        logger.info(f&#34;Game loaded from: {filepath}&#34;)
+        logger.debug(f&#34;Loaded {len(scenes)} scenes&#34;)
+
+        return game_state, scenes
+
+    except PersistenceError:
+        # Re-raise our own exceptions
+        raise
+
+    except OSError as e:
+        error_msg = f&#34;Failed to load game: {e}&#34;
+        logger.error(error_msg)
+        raise PersistenceError(error_msg) from e
+
+    except (json.JSONDecodeError, ValueError) as e:
+        error_msg = f&#34;Invalid save file format: {e}&#34;
+        logger.error(error_msg)
+        raise PersistenceError(error_msg) from e
+
+    except KeyError as e:
+        error_msg = f&#34;Missing required data in save file: {e}&#34;
+        logger.error(error_msg)
+        raise PersistenceError(error_msg) from e
+
+    except Exception as e:
+        error_msg = f&#34;Unexpected error during load: {e}&#34;
+        logger.error(error_msg)
+        raise PersistenceError(error_msg) from e</code></pre>
+</details>
+<div class="desc"><p>Load a game state and scenes from a JSON file.</p>
+<p>This function deserializes a previously saved game, restoring the
+game state and all scenes. It validates the save file format and
+data integrity.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>filepath</code></strong></dt>
+<dd>Path to the save file to load.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>A tuple of (GameState, scenes_dict).</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code><a title="space_hulk_game.engine.persistence.PersistenceError" href="#space_hulk_game.engine.persistence.PersistenceError">PersistenceError</a></code></dt>
+<dd>If loading fails due to file not found,
+invalid format, or data corruption.</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; state, scenes = load_game(&quot;mysave.json&quot;)
+&gt;&gt;&gt; state.current_scene
+'room1'
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.engine.persistence.save_game"><code class="name flex">
+<span>def <span class="ident">save_game</span></span>(<span>filepath: str,<br>game_state: <a title="space_hulk_game.engine.game_state.GameState" href="game_state.html#space_hulk_game.engine.game_state.GameState">GameState</a>,<br>scenes: dict[str, <a title="space_hulk_game.engine.scene.Scene" href="scene.html#space_hulk_game.engine.scene.Scene">Scene</a>],<br>metadata: dict[str, typing.Any] | None = None) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def save_game(
+    filepath: str,
+    game_state: GameState,
+    scenes: dict[str, Scene],
+    metadata: dict[str, Any] | None = None,
+) -&gt; None:
+    &#34;&#34;&#34;
+    Save the game state and scenes to a JSON file.
+
+    This function serializes the game state and all scenes to a JSON file,
+    allowing the game to be resumed later. It includes metadata about when
+    the save was created.
+
+    Args:
+        filepath: Path to the save file.
+        game_state: The current game state to save.
+        scenes: Dictionary of all scenes in the game.
+        metadata: Optional additional metadata to save.
+
+    Raises:
+        PersistenceError: If saving fails due to serialization or I/O error.
+
+    Examples:
+        &gt;&gt;&gt; from space_hulk_game.engine import GameState, Scene
+        &gt;&gt;&gt; state = GameState(current_scene=&#34;room1&#34;)
+        &gt;&gt;&gt; scenes = {
+        ...     &#34;room1&#34;: Scene(id=&#34;room1&#34;, name=&#34;Room&#34;, description=&#34;A room.&#34;)
+        ... }
+        &gt;&gt;&gt; save_game(&#34;mysave.json&#34;, state, scenes)
+    &#34;&#34;&#34;
+    try:
+        # Prepare save data
+        save_data = {
+            &#34;version&#34;: &#34;1.0&#34;,
+            &#34;timestamp&#34;: datetime.now().isoformat(),
+            &#34;metadata&#34;: metadata or {},
+            &#34;game_state&#34;: game_state.to_dict(),
+            &#34;scenes&#34;: {scene_id: scene.to_dict() for scene_id, scene in scenes.items()},
+        }
+
+        # Ensure directory exists
+        filepath_obj = Path(filepath)
+        filepath_obj.parent.mkdir(parents=True, exist_ok=True)
+
+        # Write to file with pretty formatting
+        with Path(filepath).open(&#34;w&#34;, encoding=&#34;utf-8&#34;) as f:
+            json.dump(save_data, f, indent=2, ensure_ascii=False)
+
+        logger.info(f&#34;Game saved to: {filepath}&#34;)
+
+    except OSError as e:
+        error_msg = f&#34;Failed to save game: {e}&#34;
+        logger.error(error_msg)
+        raise PersistenceError(error_msg) from e
+
+    except (TypeError, ValueError) as e:
+        error_msg = f&#34;Failed to serialize game data: {e}&#34;
+        logger.error(error_msg)
+        raise PersistenceError(error_msg) from e
+
+    except Exception as e:
+        error_msg = f&#34;Unexpected error during save: {e}&#34;
+        logger.error(error_msg)
+        raise PersistenceError(error_msg) from e</code></pre>
+</details>
+<div class="desc"><p>Save the game state and scenes to a JSON file.</p>
+<p>This function serializes the game state and all scenes to a JSON file,
+allowing the game to be resumed later. It includes metadata about when
+the save was created.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>filepath</code></strong></dt>
+<dd>Path to the save file.</dd>
+<dt><strong><code>game_state</code></strong></dt>
+<dd>The current game state to save.</dd>
+<dt><strong><code>scenes</code></strong></dt>
+<dd>Dictionary of all scenes in the game.</dd>
+<dt><strong><code>metadata</code></strong></dt>
+<dd>Optional additional metadata to save.</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code><a title="space_hulk_game.engine.persistence.PersistenceError" href="#space_hulk_game.engine.persistence.PersistenceError">PersistenceError</a></code></dt>
+<dd>If saving fails due to serialization or I/O error.</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import GameState, Scene
+&gt;&gt;&gt; state = GameState(current_scene=&quot;room1&quot;)
+&gt;&gt;&gt; scenes = {
+...     &quot;room1&quot;: Scene(id=&quot;room1&quot;, name=&quot;Room&quot;, description=&quot;A room.&quot;)
+... }
+&gt;&gt;&gt; save_game(&quot;mysave.json&quot;, state, scenes)
+</code></pre></div>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="space_hulk_game.engine.persistence.PersistenceError"><code class="flex name class">
+<span>class <span class="ident">PersistenceError</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PersistenceError(Exception):
+    &#34;&#34;&#34;Exception raised for errors during save/load operations.&#34;&#34;&#34;
+
+    pass</code></pre>
+</details>
+<div class="desc"><p>Exception raised for errors during save/load operations.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>builtins.Exception</li>
+<li>builtins.BaseException</li>
+</ul>
+</dd>
+<dt id="space_hulk_game.engine.persistence.SaveSystem"><code class="flex name class">
+<span>class <span class="ident">SaveSystem</span></span>
+<span>(</span><span>save_dir: str = 'saves')</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class SaveSystem:
+    &#34;&#34;&#34;
+    High-level save/load system with simplified interface.
+
+    This class provides an object-oriented interface to the persistence
+    functions, managing save directory and file naming conventions.
+
+    Attributes:
+        save_dir: Directory where save files are stored.
+
+    Examples:
+        Create a save system:
+        &gt;&gt;&gt; save_system = SaveSystem(&#34;saves/&#34;)
+        &gt;&gt;&gt; save_system.save(game_state, &#34;mysave&#34;)
+        &gt;&gt;&gt; loaded_state = save_system.load(&#34;mysave&#34;)
+        &gt;&gt;&gt; saves = save_system.list_saves()
+    &#34;&#34;&#34;
+
+    def __init__(self, save_dir: str = &#34;saves&#34;):
+        &#34;&#34;&#34;
+        Initialize the save system.
+
+        Args:
+            save_dir: Directory for save files (created if it doesn&#39;t exist).
+        &#34;&#34;&#34;
+        self.save_dir = Path(save_dir)
+        self.save_dir.mkdir(parents=True, exist_ok=True)
+        logger.info(f&#34;SaveSystem initialized (save_dir={self.save_dir})&#34;)
+
+    def save(
+        self,
+        game_state: GameState,
+        save_name: str,
+        scenes: dict[str, Scene] | None = None,
+        metadata: dict[str, Any] | None = None,
+    ) -&gt; None:
+        &#34;&#34;&#34;
+        Save a game state.
+
+        Args:
+            game_state: Game state to save.
+            save_name: Name for the save (without .json extension).
+            scenes: Optional scenes dict (not needed for state-only saves).
+            metadata: Optional metadata to include.
+
+        Raises:
+            PersistenceError: If save fails.
+        &#34;&#34;&#34;
+        # Add .json extension if not present
+        if not save_name.endswith(&#34;.json&#34;):
+            save_name = f&#34;{save_name}.json&#34;
+
+        filepath = self.save_dir / save_name
+
+        # For simplified saves, we only save the game state
+        # Scenes will be loaded from the original game files
+        save_data = {
+            &#34;version&#34;: &#34;1.0&#34;,
+            &#34;timestamp&#34;: datetime.now().isoformat(),
+            &#34;metadata&#34;: metadata or {},
+            &#34;game_state&#34;: game_state.to_dict(),
+        }
+
+        # If scenes provided, save them too (for compatibility)
+        if scenes:
+            save_data[&#34;scenes&#34;] = {scene_id: scene.to_dict() for scene_id, scene in scenes.items()}
+
+        try:
+            with Path(filepath).open(&#34;w&#34;, encoding=&#34;utf-8&#34;) as f:
+                json.dump(save_data, f, indent=2, ensure_ascii=False)
+
+            logger.info(f&#34;Game saved to: {filepath}&#34;)
+
+        except Exception as e:
+            error_msg = f&#34;Failed to save game: {e}&#34;
+            logger.error(error_msg)
+            raise PersistenceError(error_msg) from e
+
+    def load(self, save_name: str) -&gt; GameState:
+        &#34;&#34;&#34;
+        Load a game state.
+
+        Args:
+            save_name: Name of the save to load (with or without .json).
+
+        Returns:
+            Loaded game state.
+
+        Raises:
+            PersistenceError: If load fails.
+        &#34;&#34;&#34;
+        # Add .json extension if not present
+        if not save_name.endswith(&#34;.json&#34;):
+            save_name = f&#34;{save_name}.json&#34;
+
+        filepath = self.save_dir / save_name
+
+        try:
+            with Path(filepath).open(encoding=&#34;utf-8&#34;) as f:
+                save_data = json.load(f)
+
+            # Validate basic structure
+            if &#34;game_state&#34; not in save_data:
+                raise PersistenceError(&#34;Invalid save file: missing game_state&#34;)
+
+            # Deserialize game state
+            game_state = GameState.from_dict(save_data[&#34;game_state&#34;])
+
+            logger.info(f&#34;Game loaded from: {filepath}&#34;)
+            return game_state
+
+        except FileNotFoundError:
+            raise PersistenceError(f&#34;Save file not found: {save_name}&#34;) from None
+        except Exception as e:
+            error_msg = f&#34;Failed to load game: {e}&#34;
+            logger.error(error_msg)
+            raise PersistenceError(error_msg) from e
+
+    def list_saves(self) -&gt; list:
+        &#34;&#34;&#34;
+        List all available save files.
+
+        Returns:
+            List of save names (without .json extension).
+        &#34;&#34;&#34;
+        try:
+            save_files = []
+            for file_path in self.save_dir.glob(&#34;*.json&#34;):
+                # Return just the stem (filename without extension)
+                save_files.append((file_path.stem, file_path.stat().st_mtime))
+
+            # Sort by modification time (newest first)
+            save_files.sort(key=lambda x: x[1], reverse=True)
+
+            return [f[0] for f in save_files]
+
+        except Exception as e:
+            logger.error(f&#34;Failed to list save files: {e}&#34;)
+            return []
+
+    def delete(self, save_name: str) -&gt; None:
+        &#34;&#34;&#34;
+        Delete a save file.
+
+        Args:
+            save_name: Name of the save to delete (with or without .json).
+
+        Raises:
+            PersistenceError: If deletion fails.
+        &#34;&#34;&#34;
+        # Add .json extension if not present
+        if not save_name.endswith(&#34;.json&#34;):
+            save_name = f&#34;{save_name}.json&#34;
+
+        filepath = self.save_dir / save_name
+        delete_save(str(filepath))
+
+    def get_metadata(self, save_name: str) -&gt; dict[str, Any]:
+        &#34;&#34;&#34;
+        Get metadata for a save file.
+
+        Args:
+            save_name: Name of the save (with or without .json).
+
+        Returns:
+            Dictionary of metadata.
+
+        Raises:
+            PersistenceError: If reading metadata fails.
+        &#34;&#34;&#34;
+        # Add .json extension if not present
+        if not save_name.endswith(&#34;.json&#34;):
+            save_name = f&#34;{save_name}.json&#34;
+
+        filepath = self.save_dir / save_name
+        return get_save_metadata(str(filepath))</code></pre>
+</details>
+<div class="desc"><p>High-level save/load system with simplified interface.</p>
+<p>This class provides an object-oriented interface to the persistence
+functions, managing save directory and file naming conventions.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>save_dir</code></strong></dt>
+<dd>Directory where save files are stored.</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<p>Create a save system:</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; save_system = SaveSystem(&quot;saves/&quot;)
+&gt;&gt;&gt; save_system.save(game_state, &quot;mysave&quot;)
+&gt;&gt;&gt; loaded_state = save_system.load(&quot;mysave&quot;)
+&gt;&gt;&gt; saves = save_system.list_saves()
+</code></pre>
+<p>Initialize the save system.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>save_dir</code></strong></dt>
+<dd>Directory for save files (created if it doesn't exist).</dd>
+</dl></div>
+<h3>Methods</h3>
+<dl>
+<dt id="space_hulk_game.engine.persistence.SaveSystem.delete"><code class="name flex">
+<span>def <span class="ident">delete</span></span>(<span>self, save_name: str) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def delete(self, save_name: str) -&gt; None:
+    &#34;&#34;&#34;
+    Delete a save file.
+
+    Args:
+        save_name: Name of the save to delete (with or without .json).
+
+    Raises:
+        PersistenceError: If deletion fails.
+    &#34;&#34;&#34;
+    # Add .json extension if not present
+    if not save_name.endswith(&#34;.json&#34;):
+        save_name = f&#34;{save_name}.json&#34;
+
+    filepath = self.save_dir / save_name
+    delete_save(str(filepath))</code></pre>
+</details>
+<div class="desc"><p>Delete a save file.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>save_name</code></strong></dt>
+<dd>Name of the save to delete (with or without .json).</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code><a title="space_hulk_game.engine.persistence.PersistenceError" href="#space_hulk_game.engine.persistence.PersistenceError">PersistenceError</a></code></dt>
+<dd>If deletion fails.</dd>
+</dl></div>
+</dd>
+<dt id="space_hulk_game.engine.persistence.SaveSystem.get_metadata"><code class="name flex">
+<span>def <span class="ident">get_metadata</span></span>(<span>self, save_name: str) ‑> dict[str, typing.Any]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_metadata(self, save_name: str) -&gt; dict[str, Any]:
+    &#34;&#34;&#34;
+    Get metadata for a save file.
+
+    Args:
+        save_name: Name of the save (with or without .json).
+
+    Returns:
+        Dictionary of metadata.
+
+    Raises:
+        PersistenceError: If reading metadata fails.
+    &#34;&#34;&#34;
+    # Add .json extension if not present
+    if not save_name.endswith(&#34;.json&#34;):
+        save_name = f&#34;{save_name}.json&#34;
+
+    filepath = self.save_dir / save_name
+    return get_save_metadata(str(filepath))</code></pre>
+</details>
+<div class="desc"><p>Get metadata for a save file.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>save_name</code></strong></dt>
+<dd>Name of the save (with or without .json).</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Dictionary of metadata.</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code><a title="space_hulk_game.engine.persistence.PersistenceError" href="#space_hulk_game.engine.persistence.PersistenceError">PersistenceError</a></code></dt>
+<dd>If reading metadata fails.</dd>
+</dl></div>
+</dd>
+<dt id="space_hulk_game.engine.persistence.SaveSystem.list_saves"><code class="name flex">
+<span>def <span class="ident">list_saves</span></span>(<span>self) ‑> list</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def list_saves(self) -&gt; list:
+    &#34;&#34;&#34;
+    List all available save files.
+
+    Returns:
+        List of save names (without .json extension).
+    &#34;&#34;&#34;
+    try:
+        save_files = []
+        for file_path in self.save_dir.glob(&#34;*.json&#34;):
+            # Return just the stem (filename without extension)
+            save_files.append((file_path.stem, file_path.stat().st_mtime))
+
+        # Sort by modification time (newest first)
+        save_files.sort(key=lambda x: x[1], reverse=True)
+
+        return [f[0] for f in save_files]
+
+    except Exception as e:
+        logger.error(f&#34;Failed to list save files: {e}&#34;)
+        return []</code></pre>
+</details>
+<div class="desc"><p>List all available save files.</p>
+<h2 id="returns">Returns</h2>
+<p>List of save names (without .json extension).</p></div>
+</dd>
+<dt id="space_hulk_game.engine.persistence.SaveSystem.load"><code class="name flex">
+<span>def <span class="ident">load</span></span>(<span>self, save_name: str) ‑> <a title="space_hulk_game.engine.game_state.GameState" href="game_state.html#space_hulk_game.engine.game_state.GameState">GameState</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def load(self, save_name: str) -&gt; GameState:
+    &#34;&#34;&#34;
+    Load a game state.
+
+    Args:
+        save_name: Name of the save to load (with or without .json).
+
+    Returns:
+        Loaded game state.
+
+    Raises:
+        PersistenceError: If load fails.
+    &#34;&#34;&#34;
+    # Add .json extension if not present
+    if not save_name.endswith(&#34;.json&#34;):
+        save_name = f&#34;{save_name}.json&#34;
+
+    filepath = self.save_dir / save_name
+
+    try:
+        with Path(filepath).open(encoding=&#34;utf-8&#34;) as f:
+            save_data = json.load(f)
+
+        # Validate basic structure
+        if &#34;game_state&#34; not in save_data:
+            raise PersistenceError(&#34;Invalid save file: missing game_state&#34;)
+
+        # Deserialize game state
+        game_state = GameState.from_dict(save_data[&#34;game_state&#34;])
+
+        logger.info(f&#34;Game loaded from: {filepath}&#34;)
+        return game_state
+
+    except FileNotFoundError:
+        raise PersistenceError(f&#34;Save file not found: {save_name}&#34;) from None
+    except Exception as e:
+        error_msg = f&#34;Failed to load game: {e}&#34;
+        logger.error(error_msg)
+        raise PersistenceError(error_msg) from e</code></pre>
+</details>
+<div class="desc"><p>Load a game state.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>save_name</code></strong></dt>
+<dd>Name of the save to load (with or without .json).</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Loaded game state.</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code><a title="space_hulk_game.engine.persistence.PersistenceError" href="#space_hulk_game.engine.persistence.PersistenceError">PersistenceError</a></code></dt>
+<dd>If load fails.</dd>
+</dl></div>
+</dd>
+<dt id="space_hulk_game.engine.persistence.SaveSystem.save"><code class="name flex">
+<span>def <span class="ident">save</span></span>(<span>self,<br>game_state: <a title="space_hulk_game.engine.game_state.GameState" href="game_state.html#space_hulk_game.engine.game_state.GameState">GameState</a>,<br>save_name: str,<br>scenes: dict[str, <a title="space_hulk_game.engine.scene.Scene" href="scene.html#space_hulk_game.engine.scene.Scene">Scene</a>] | None = None,<br>metadata: dict[str, typing.Any] | None = None) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def save(
+    self,
+    game_state: GameState,
+    save_name: str,
+    scenes: dict[str, Scene] | None = None,
+    metadata: dict[str, Any] | None = None,
+) -&gt; None:
+    &#34;&#34;&#34;
+    Save a game state.
+
+    Args:
+        game_state: Game state to save.
+        save_name: Name for the save (without .json extension).
+        scenes: Optional scenes dict (not needed for state-only saves).
+        metadata: Optional metadata to include.
+
+    Raises:
+        PersistenceError: If save fails.
+    &#34;&#34;&#34;
+    # Add .json extension if not present
+    if not save_name.endswith(&#34;.json&#34;):
+        save_name = f&#34;{save_name}.json&#34;
+
+    filepath = self.save_dir / save_name
+
+    # For simplified saves, we only save the game state
+    # Scenes will be loaded from the original game files
+    save_data = {
+        &#34;version&#34;: &#34;1.0&#34;,
+        &#34;timestamp&#34;: datetime.now().isoformat(),
+        &#34;metadata&#34;: metadata or {},
+        &#34;game_state&#34;: game_state.to_dict(),
+    }
+
+    # If scenes provided, save them too (for compatibility)
+    if scenes:
+        save_data[&#34;scenes&#34;] = {scene_id: scene.to_dict() for scene_id, scene in scenes.items()}
+
+    try:
+        with Path(filepath).open(&#34;w&#34;, encoding=&#34;utf-8&#34;) as f:
+            json.dump(save_data, f, indent=2, ensure_ascii=False)
+
+        logger.info(f&#34;Game saved to: {filepath}&#34;)
+
+    except Exception as e:
+        error_msg = f&#34;Failed to save game: {e}&#34;
+        logger.error(error_msg)
+        raise PersistenceError(error_msg) from e</code></pre>
+</details>
+<div class="desc"><p>Save a game state.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>game_state</code></strong></dt>
+<dd>Game state to save.</dd>
+<dt><strong><code>save_name</code></strong></dt>
+<dd>Name for the save (without .json extension).</dd>
+<dt><strong><code>scenes</code></strong></dt>
+<dd>Optional scenes dict (not needed for state-only saves).</dd>
+<dt><strong><code>metadata</code></strong></dt>
+<dd>Optional metadata to include.</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code><a title="space_hulk_game.engine.persistence.PersistenceError" href="#space_hulk_game.engine.persistence.PersistenceError">PersistenceError</a></code></dt>
+<dd>If save fails.</dd>
+</dl></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="space_hulk_game.engine" href="index.html">space_hulk_game.engine</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="space_hulk_game.engine.persistence.delete_save" href="#space_hulk_game.engine.persistence.delete_save">delete_save</a></code></li>
+<li><code><a title="space_hulk_game.engine.persistence.get_save_metadata" href="#space_hulk_game.engine.persistence.get_save_metadata">get_save_metadata</a></code></li>
+<li><code><a title="space_hulk_game.engine.persistence.list_save_files" href="#space_hulk_game.engine.persistence.list_save_files">list_save_files</a></code></li>
+<li><code><a title="space_hulk_game.engine.persistence.load_game" href="#space_hulk_game.engine.persistence.load_game">load_game</a></code></li>
+<li><code><a title="space_hulk_game.engine.persistence.save_game" href="#space_hulk_game.engine.persistence.save_game">save_game</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="space_hulk_game.engine.persistence.PersistenceError" href="#space_hulk_game.engine.persistence.PersistenceError">PersistenceError</a></code></h4>
+</li>
+<li>
+<h4><code><a title="space_hulk_game.engine.persistence.SaveSystem" href="#space_hulk_game.engine.persistence.SaveSystem">SaveSystem</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.engine.persistence.SaveSystem.delete" href="#space_hulk_game.engine.persistence.SaveSystem.delete">delete</a></code></li>
+<li><code><a title="space_hulk_game.engine.persistence.SaveSystem.get_metadata" href="#space_hulk_game.engine.persistence.SaveSystem.get_metadata">get_metadata</a></code></li>
+<li><code><a title="space_hulk_game.engine.persistence.SaveSystem.list_saves" href="#space_hulk_game.engine.persistence.SaveSystem.list_saves">list_saves</a></code></li>
+<li><code><a title="space_hulk_game.engine.persistence.SaveSystem.load" href="#space_hulk_game.engine.persistence.SaveSystem.load">load</a></code></li>
+<li><code><a title="space_hulk_game.engine.persistence.SaveSystem.save" href="#space_hulk_game.engine.persistence.SaveSystem.save">save</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>

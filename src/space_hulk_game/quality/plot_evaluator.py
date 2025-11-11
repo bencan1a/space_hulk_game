@@ -67,16 +67,16 @@ class PlotEvaluator(QualityEvaluator):
 
             # Build details dictionary
             details = {
-                'has_clear_setting': metrics.has_clear_setting,
-                'branching_paths_count': metrics.branching_paths_count,
-                'endings_count': metrics.endings_count,
-                'themes_defined': metrics.themes_defined,
-                'word_count': metrics.word_count,
-                'has_title': metrics.has_title,
-                'has_prologue': metrics.has_prologue,
-                'has_acts': metrics.has_acts,
-                'failures': failures,
-                'threshold': self.pass_threshold
+                "has_clear_setting": metrics.has_clear_setting,
+                "branching_paths_count": metrics.branching_paths_count,
+                "endings_count": metrics.endings_count,
+                "themes_defined": metrics.themes_defined,
+                "word_count": metrics.word_count,
+                "has_title": metrics.has_title,
+                "has_prologue": metrics.has_prologue,
+                "has_acts": metrics.has_acts,
+                "failures": failures,
+                "threshold": self.pass_threshold,
             }
 
             logger.info(
@@ -92,16 +92,16 @@ class PlotEvaluator(QualityEvaluator):
             return self._create_score(
                 score=0.0,
                 passed=False,
-                feedback=f"Failed to parse plot content: {str(e)}",
-                details={'error': str(e)}
+                feedback=f"Failed to parse plot content: {e!s}",
+                details={"error": str(e)},
             )
         except Exception as e:
             logger.exception(f"Unexpected error evaluating plot: {e}")
             return self._create_score(
                 score=0.0,
                 passed=False,
-                feedback=f"Unexpected error during evaluation: {str(e)}",
-                details={'error': str(e)}
+                feedback=f"Unexpected error during evaluation: {e!s}",
+                details={"error": str(e)},
             )
 
     def generate_detailed_feedback(self, content: str) -> str:
@@ -131,7 +131,7 @@ class PlotEvaluator(QualityEvaluator):
 
         # Add specific findings
         details = result.details
-        failures = details.get('failures', [])
+        failures = details.get("failures", [])
 
         if failures:
             lines.append("Issues to address:")
@@ -140,15 +140,15 @@ class PlotEvaluator(QualityEvaluator):
             lines.append("")
 
         # Add positive feedback
-        if details.get('has_clear_setting'):
+        if details.get("has_clear_setting"):
             lines.append("✓ Clear setting defined")
-        if details.get('has_title'):
+        if details.get("has_title"):
             lines.append("✓ Title present")
-        if details.get('themes_defined'):
+        if details.get("themes_defined"):
             lines.append("✓ Themes clearly stated")
-        if details.get('has_prologue'):
+        if details.get("has_prologue"):
             lines.append("✓ Prologue included")
-        if details.get('has_acts'):
+        if details.get("has_acts"):
             lines.append("✓ Structured into acts")
 
         lines.append("")

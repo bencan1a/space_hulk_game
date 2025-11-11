@@ -1,7 +1,7 @@
 # Planning Templates Usage Guide
 
-**Version:** 1.0  
-**Created:** November 9, 2025  
+**Version:** 1.0
+**Created:** November 9, 2025
 **Part of:** Phase 3 - Quality & Iteration System (Chunk 3.4)
 
 ---
@@ -26,12 +26,12 @@ Templates are automatically loaded based on keywords in your prompt, enriching t
 - Slow-burn tension and revelations
 - Grimdark 40K atmosphere
 
-**Trigger Keywords:** 
+**Trigger Keywords:**
 `horror`, `scary`, `terrifying`, `dread`, `fear`, `nightmare`, `corruption`
 
 **Example Prompt:**
 ```
-"Generate a terrifying horror scenario where a Space Marine squad investigates 
+"Generate a terrifying horror scenario where a Space Marine squad investigates
 disturbing reports of corruption aboard an ancient derelict."
 ```
 
@@ -59,7 +59,7 @@ disturbing reports of corruption aboard an ancient derelict."
 
 **Example Prompt:**
 ```
-"Create a mystery investigation where a tech-priest must solve the puzzle of 
+"Create a mystery investigation where a tech-priest must solve the puzzle of
 why an entire ship's crew died at their stations with no signs of violence."
 ```
 
@@ -87,7 +87,7 @@ why an entire ship's crew died at their stations with no signs of violence."
 
 **Example Prompt:**
 ```
-"Design a desperate survival scenario where the team must escape a Space Hulk 
+"Design a desperate survival scenario where the team must escape a Space Hulk
 before the reactor goes critical, with limited oxygen and ammunition."
 ```
 
@@ -115,7 +115,7 @@ before the reactor goes critical, with limited oxygen and ammunition."
 
 **Example Prompt:**
 ```
-"Create a tactical combat mission where a Space Marine squad must assault and 
+"Create a tactical combat mission where a Space Marine squad must assault and
 clear a genestealer-infested section of the hulk."
 ```
 
@@ -187,12 +187,12 @@ Once loaded, template content becomes available to all agents:
 
 **Prompt:**
 ```bash
-crewai run --inputs "prompt: A lone Tech-Priest investigates terrifying signals 
-from a Space Hulk, discovering evidence of daemonic corruption in the ship's 
+crewai run --inputs "prompt: A lone Tech-Priest investigates terrifying signals
+from a Space Hulk, discovering evidence of daemonic corruption in the ship's
 machine spirits."
 ```
 
-**Result:** 
+**Result:**
 - Loads `space_horror.yaml`
 - Generates gothic horror atmosphere
 - Includes body horror and corruption themes
@@ -204,8 +204,8 @@ machine spirits."
 
 **Prompt:**
 ```bash
-crewai run --inputs "prompt: Investigate the mysterious disappearance of an 
-entire crew, using clues scattered throughout the derelict to piece together 
+crewai run --inputs "prompt: Investigate the mysterious disappearance of an
+entire crew, using clues scattered throughout the derelict to piece together
 what happened in their final hours."
 ```
 
@@ -221,8 +221,8 @@ what happened in their final hours."
 
 **Prompt:**
 ```bash
-crewai run --inputs "prompt: Escape from a collapsing Space Hulk before the 
-reactor goes critical, managing limited oxygen and medical supplies while 
+crewai run --inputs "prompt: Escape from a collapsing Space Hulk before the
+reactor goes critical, managing limited oxygen and medical supplies while
 avoiding genestealer patrols."
 ```
 
@@ -238,8 +238,8 @@ avoiding genestealer patrols."
 
 **Prompt:**
 ```bash
-crewai run --inputs "prompt: Lead a Deathwatch kill-team in a tactical assault 
-to clear and secure a strategic sector of the hulk, coordinating squad members 
+crewai run --inputs "prompt: Lead a Deathwatch kill-team in a tactical assault
+to clear and secure a strategic sector of the hulk, coordinating squad members
 with different specialties."
 ```
 
@@ -262,7 +262,7 @@ Templates are selected based on the **first matching keyword set**. To blend sty
 "Survive a terrifying escape from a corrupted hulk section"
 # Loads: space_horror (horror keyword matched first)
 
-# Combat + Mystery elements  
+# Combat + Mystery elements
 "Investigate enemy positions and solve the tactical puzzle of assaulting their fortress"
 # Loads: mystery_investigation (investigate matched first)
 ```
@@ -402,7 +402,7 @@ Templates are currently loaded into `inputs["planning_template"]` and available 
 # Future task.yaml integration (not yet implemented):
 description: >
   Use the planning_template guidance if provided.
-  Focus on {planning_template.narrative_focus} and 
+  Focus on {planning_template.narrative_focus} and
   incorporate {planning_template.required_elements}.
 ```
 
@@ -517,6 +517,6 @@ For questions or issues:
 
 ---
 
-**Last Updated:** November 9, 2025  
-**Contributors:** Chunk 3.4 Implementation Team  
+**Last Updated:** November 9, 2025
+**Contributors:** Chunk 3.4 Implementation Team
 **Status:** Production Ready

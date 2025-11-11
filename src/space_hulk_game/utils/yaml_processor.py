@@ -32,12 +32,12 @@ def strip_markdown_yaml_blocks(content: str) -> str:
         Clean YAML content without markdown markers
     """
     # Remove leading ```yaml or ``` markers
-    content = re.sub(r'^```ya?ml\s*\n', '', content, flags=re.MULTILINE)
-    content = re.sub(r'^```\s*\n', '', content, flags=re.MULTILINE)
+    content = re.sub(r"^```ya?ml\s*\n", "", content, flags=re.MULTILINE)
+    content = re.sub(r"^```\s*\n", "", content, flags=re.MULTILINE)
 
     # Remove trailing ``` markers
-    content = re.sub(r'\n```\s*$', '', content, flags=re.MULTILINE)
-    content = re.sub(r'^```\s*$', '', content, flags=re.MULTILINE)
+    content = re.sub(r"\n```\s*$", "", content, flags=re.MULTILINE)
+    content = re.sub(r"^```\s*$", "", content, flags=re.MULTILINE)
 
     return content.strip()
 
@@ -62,7 +62,7 @@ def process_yaml_file(filepath: Path, backup: bool = True) -> bool:
         original_content = filepath.read_text()
 
         # Check if it needs processing (contains markdown markers)
-        if '```' not in original_content:
+        if "```" not in original_content:
             logger.debug(f"File {filepath.name} does not contain markdown markers, skipping")
             return True
 
@@ -71,7 +71,7 @@ def process_yaml_file(filepath: Path, backup: bool = True) -> bool:
 
         # Create backup if requested
         if backup and cleaned_content != original_content:
-            backup_path = filepath.with_suffix(filepath.suffix + '.bak')
+            backup_path = filepath.with_suffix(filepath.suffix + ".bak")
             backup_path.write_text(original_content)
             logger.info(f"Created backup: {backup_path}")
 
@@ -101,30 +101,26 @@ def process_yaml_directory(directory: Path, pattern: str = "*.yaml", backup: boo
     Returns:
         Dictionary with processing statistics
     """
-    stats = {
-        'total': 0,
-        'processed': 0,
-        'failed': 0
-    }
+    stats = {"total": 0, "processed": 0, "failed": 0}
 
     if not directory.exists():
         logger.warning(f"Directory does not exist: {directory}")
         return stats
 
     yaml_files = list(directory.glob(pattern))
-    stats['total'] = len(yaml_files)
+    stats["total"] = len(yaml_files)
 
     logger.info(f"Processing {stats['total']} YAML files in {directory}")
 
     for filepath in yaml_files:
         try:
             if process_yaml_file(filepath, backup=backup):
-                stats['processed'] += 1
+                stats["processed"] += 1
             else:
-                stats['failed'] += 1
+                stats["failed"] += 1
         except Exception as e:
             logger.error(f"Failed to process {filepath}: {e}")
-            stats['failed'] += 1
+            stats["failed"] += 1
 
     logger.info(f"Processing complete: {stats['processed']} processed, {stats['failed']} failed")
     return stats

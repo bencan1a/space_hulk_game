@@ -51,10 +51,10 @@ class QualityCheckConfig:
             config_path = module_dir / "config" / "quality_config.yaml"
 
         try:
-            with open(config_path) as f:
+            with Path(config_path).open() as f:
                 config = yaml.safe_load(f)
             logger.info(f"Loaded quality configuration from {config_path}")
-            return config
+            return dict(config) if config else {}
         except FileNotFoundError:
             logger.warning(f"Quality config file not found: {config_path}, using defaults")
             return self._default_config()
@@ -70,22 +70,15 @@ class QualityCheckConfig:
             Default configuration dictionary
         """
         return {
-            'global': {
-                'enabled': False,
-                'log_level': 'INFO',
-                'verbose_logging': True
+            "global": {"enabled": False, "log_level": "INFO", "verbose_logging": True},
+            "thresholds": {
+                "plot": {"enabled": True, "pass_threshold": 6.0, "max_retries": 3},
+                "narrative": {"enabled": True, "pass_threshold": 6.0, "max_retries": 3},
+                "puzzle": {"enabled": True, "pass_threshold": 6.0, "max_retries": 3},
+                "scene": {"enabled": True, "pass_threshold": 6.0, "max_retries": 3},
+                "mechanics": {"enabled": True, "pass_threshold": 6.0, "max_retries": 3},
             },
-            'thresholds': {
-                'plot': {'enabled': True, 'pass_threshold': 6.0, 'max_retries': 3},
-                'narrative': {'enabled': True, 'pass_threshold': 6.0, 'max_retries': 3},
-                'puzzle': {'enabled': True, 'pass_threshold': 6.0, 'max_retries': 3},
-                'scene': {'enabled': True, 'pass_threshold': 6.0, 'max_retries': 3},
-                'mechanics': {'enabled': True, 'pass_threshold': 6.0, 'max_retries': 3},
-            },
-            'retry': {
-                'provide_feedback': True,
-                'fail_on_evaluation_error': False
-            }
+            "retry": {"provide_feedback": True, "fail_on_evaluation_error": False},
         }
 
     def _create_task_configs(self) -> dict[TaskType, dict[str, Any]]:
@@ -95,30 +88,29 @@ class QualityCheckConfig:
         Returns:
             Dictionary mapping task types to their configurations
         """
-        thresholds = self.config.get('thresholds', {})
+        thresholds = self.config.get("thresholds", {})
 
         # Map YAML keys to TaskType enum
         task_map = {
-            'plot': TaskType.PLOT,
-            'narrative': TaskType.NARRATIVE,
-            'puzzle': TaskType.PUZZLE,
-            'scene': TaskType.SCENE,
-            'mechanics': TaskType.MECHANICS,
+            "plot": TaskType.PLOT,
+            "narrative": TaskType.NARRATIVE,
+            "puzzle": TaskType.PUZZLE,
+            "scene": TaskType.SCENE,
+            "mechanics": TaskType.MECHANICS,
         }
 
         configs = {}
         for yaml_key, task_type in task_map.items():
             threshold_config = thresholds.get(yaml_key, {})
             configs[task_type] = {
-                'enabled': threshold_config.get('enabled', True),
-                'pass_threshold': self._get_env_override(
-                    f'QUALITY_{yaml_key.upper()}_THRESHOLD',
-                    threshold_config.get('pass_threshold', 6.0)
+                "enabled": threshold_config.get("enabled", True),
+                "pass_threshold": self._get_env_override(
+                    f"QUALITY_{yaml_key.upper()}_THRESHOLD",
+                    threshold_config.get("pass_threshold", 6.0),
                 ),
-                'max_retries': self._get_env_override(
-                    'QUALITY_MAX_RETRIES',
-                    threshold_config.get('max_retries', 3)
-                )
+                "max_retries": self._get_env_override(
+                    "QUALITY_MAX_RETRIES", threshold_config.get("max_retries", 3)
+                ),
             }
 
         return configs
@@ -140,7 +132,7 @@ class QualityCheckConfig:
 
         # Try to convert to same type as default
         if isinstance(default, bool):
-            return value.lower() in ('true', '1', 'yes')
+            return value.lower() in ("true", "1", "yes")
         elif isinstance(default, int):
             return int(value)
         elif isinstance(default, float):
@@ -156,12 +148,12 @@ class QualityCheckConfig:
             True if quality checking is enabled
         """
         # Check environment variable first
-        env_enabled = os.getenv('QUALITY_CHECK_ENABLED')
+        env_enabled = os.getenv("QUALITY_CHECK_ENABLED")
         if env_enabled is not None:
-            return env_enabled.lower() in ('true', '1', 'yes')
+            return env_enabled.lower() in ("true", "1", "yes")
 
         # Check config file
-        return self.config.get('global', {}).get('enabled', False)
+        return bool(self.config.get("global", {}).get("enabled", False))
 
     def get_task_config(self, task_type: TaskType) -> dict[str, Any]:
         """
@@ -173,11 +165,9 @@ class QualityCheckConfig:
         Returns:
             Configuration dictionary for the task
         """
-        return self.task_configs.get(task_type, {
-            'enabled': True,
-            'pass_threshold': 6.0,
-            'max_retries': 3
-        })
+        return self.task_configs.get(
+            task_type, {"enabled": True, "pass_threshold": 6.0, "max_retries": 3}
+        )
 
 
 class TaskExecutor:
@@ -202,7 +192,7 @@ class TaskExecutor:
         task_function: Callable[..., str],
         task_type: TaskType,
         task_name: str = "Task",
-        **kwargs
+        **kwargs,
     ) -> str:
         """
         Execute task with optional quality checking.
@@ -222,7 +212,7 @@ class TaskExecutor:
             return task_function(**kwargs)
 
         task_config = self.config.get_task_config(task_type)
-        if not task_config.get('enabled', True):
+        if not task_config.get("enabled", True):
             logger.debug(f"{task_name}: Quality checking disabled for {task_type.value}")
             return task_function(**kwargs)
 
@@ -232,9 +222,9 @@ class TaskExecutor:
             task_function=task_function,
             task_type=task_type,
             task_name=task_name,
-            pass_threshold=task_config['pass_threshold'],
-            max_retries=task_config['max_retries'],
-            **kwargs
+            pass_threshold=task_config["pass_threshold"],
+            max_retries=task_config["max_retries"],
+            **kwargs,
         )
 
         # Log results
@@ -258,17 +248,14 @@ def get_default_executor() -> TaskExecutor:
     Returns:
         Default TaskExecutor instance
     """
-    global _default_executor
+    global _default_executor  # noqa: PLW0603
     if _default_executor is None:
         _default_executor = TaskExecutor()
     return _default_executor
 
 
 def execute_with_optional_quality_check(
-    task_function: Callable[..., str],
-    task_type: TaskType,
-    task_name: str = "Task",
-    **kwargs
+    task_function: Callable[..., str], task_type: TaskType, task_name: str = "Task", **kwargs
 ) -> str:
     """
     Convenience function to execute task with optional quality checking.
@@ -290,11 +277,11 @@ def execute_with_optional_quality_check(
 
 # Task type mapping for crew.py integration
 CREW_TASK_MAPPING = {
-    'GenerateOverarchingPlot': TaskType.PLOT,
-    'CreateNarrativeMap': TaskType.NARRATIVE,
-    'DesignArtifactsAndPuzzles': TaskType.PUZZLE,
-    'WriteSceneDescriptionsAndDialogue': TaskType.SCENE,
-    'CreateGameMechanicsPRD': TaskType.MECHANICS,
+    "GenerateOverarchingPlot": TaskType.PLOT,
+    "CreateNarrativeMap": TaskType.NARRATIVE,
+    "DesignArtifactsAndPuzzles": TaskType.PUZZLE,
+    "WriteSceneDescriptionsAndDialogue": TaskType.SCENE,
+    "CreateGameMechanicsPRD": TaskType.MECHANICS,
 }
 
 

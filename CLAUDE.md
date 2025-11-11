@@ -64,7 +64,21 @@ export RUN_REAL_API_TESTS=1
 python -m unittest tests.test_integration_sequential -v
 
 # Validate API connectivity
-python validate_api.py
+python tools/validate_api.py
+```
+
+### Pre-commit Hooks
+
+Automatic quality checks before commit:
+```bash
+# Install hooks (one-time setup)
+pre-commit install
+
+# Run manually on all files
+pre-commit run --all-files
+
+# Skip hooks for a commit (use sparingly)
+git commit --no-verify -m "message"
 ```
 
 ### Setup & Dependencies
@@ -112,6 +126,45 @@ python -m space_hulk_game.main replay <task_id>
 # Test crew
 python -m space_hulk_game.main test <iterations> <model_name>
 ```
+
+### Makefile Commands (New!)
+
+Quick command shortcuts (run after activating venv):
+```bash
+make help           # Show all available commands
+make test           # Run tests (mock mode)
+make check-all      # Run all quality checks
+make fix            # Auto-fix issues and format
+make lint           # Check code quality
+make format         # Auto-format code
+make type-check     # Run type checking
+make security       # Run security scan
+make coverage       # Generate coverage report
+make run-crew       # Run CrewAI crew
+make validate-api   # Validate API connectivity
+make clean          # Clean cache and old files
+```
+
+## New Tools and Automation
+
+**Makefile** - 18 command shortcuts (see `make help`)
+
+**Pre-commit Hooks** - 9 automatic quality checks before commit (see `.pre-commit-config.yaml`)
+
+**CI/CD Workflows** - 5 GitHub Actions workflows in `.github/workflows/`:
+- `ci.yml` - Multi-platform testing (Ubuntu, Windows, macOS)
+- `pr-validation.yml` - Fast PR checks
+- `nightly-regression.yml` - Daily comprehensive testing
+- `update-docs.yml` - Auto-generate documentation
+- Plus existing: `run-crewai-agents.yml`, `run-kloc-report.yml`
+
+**Documentation Automation** - `tools/build_context.py` generates:
+- API documentation (HTML, in `docs/_generated/api/`)
+- `CONTEXT.md` (unified context for AI agents)
+- `SUMMARY.md` (project quick stats)
+- Runs daily at 3 AM UTC via workflow
+
+For AI agent guidance, see **AGENTS.md** (START HERE when working with agent definitions).
 
 ## Architecture
 
@@ -321,6 +374,13 @@ When writing new features, add unit tests with mocks first, then optionally vali
 
 ```
 space_hulk_game/
+├── .github/
+│   ├── agents/              # Custom agent profiles
+│   └── workflows/           # CI/CD automation (5 workflows)
+├── agent-tmp/               # Temporary outputs (gitignored, 7-day cleanup)
+├── agent-projects/          # Active projects (committed, requires plan.md)
+├── docs/
+│   └── _generated/api/      # Auto-generated API docs
 ├── src/space_hulk_game/
 │   ├── crew.py              # Main CrewAI crew implementation
 │   ├── main.py              # Entry point with run/train/replay/test
@@ -330,10 +390,14 @@ space_hulk_game/
 │   │   └── gamedesign.yaml  # Game design examples
 │   └── tools/               # Custom tools (if needed)
 ├── tests/                   # Test suite (unittest)
-├── docs/                    # Product documentation
+├── tools/                   # Utility scripts (validate_api.py, build_context.py, etc.)
 ├── game-config/             # Game design templates for AI agents
-├── project-plans/           # Development plans and architectural docs
-└── tmp/                     # Temporary debug scripts (gitignored)
+├── AGENTS.md                # AI agent guidance (START HERE!)
+├── CONTEXT.md               # Auto-generated project context for AI
+├── SUMMARY.md               # Auto-generated project summary
+├── Makefile                 # Command shortcuts
+├── .pre-commit-config.yaml  # Quality check hooks
+└── project-plans/           # Development plans and architectural docs
 ```
 
 ## Environment Setup
@@ -344,7 +408,7 @@ space_hulk_game/
    - Windows: `.venv\Scripts\activate`
 3. **Configure LLM provider**: Edit `.env` with your API key and model
 4. **Start Ollama** (if using local): `ollama serve`
-5. **Validate setup**: `python validate_api.py`
+5. **Validate setup**: `python tools/validate_api.py`
 
 **Important:** The setup script creates a `.venv` virtual environment containing all dependencies. Always activate it before running commands.
 
@@ -362,10 +426,14 @@ When working on game content, maintain these themes:
 
 ## Additional Resources
 
+- **AGENTS.md**: AI agent guidance (start here when working with agent definitions)
+- **CONTEXT.md**: Auto-generated unified context for AI agents
+- **SUMMARY.md**: Auto-generated project summary and quick stats
 - **docs/SETUP.md**: Detailed installation instructions
 - **docs/QUICKSTART.md**: Quick reference guide
 - **docs/CONTRIBUTING.md**: Development guidelines
-- **docs/AGENTS.md**: Comprehensive agent documentation
 - **docs/crewai-api-reference.md**: CrewAI framework reference
 - **project-plans/REVISED_RESTART_PLAN.md**: Phase 0 debugging strategy
 - **.github/copilot-instructions.md**: Complete coding standards reference
+- **Makefile**: Run `make help` for all available commands
+- **.pre-commit-config.yaml**: Automatic quality checks configuration

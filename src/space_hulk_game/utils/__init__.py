@@ -8,8 +8,8 @@ from .yaml_processor import (
 )
 
 __all__ = [
-    "strip_markdown_yaml_blocks",
-    "process_yaml_file",
     "process_yaml_directory",
+    "process_yaml_file",
+    "strip_markdown_yaml_blocks",
     "validate_yaml_content",
 ]

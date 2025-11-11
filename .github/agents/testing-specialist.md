@@ -30,16 +30,16 @@ class TestSpaceHulkGame(unittest.TestCase):
     def setUp(self):
         """Run before each test method."""
         self.test_data = {"key": "value"}
-    
+
     def tearDown(self):
         """Run after each test method."""
         self.test_data = None
-    
+
     def test_something(self):
         """Test that something works correctly."""
         result = my_function(self.test_data)
         self.assertEqual(result, expected_value)
-    
+
     def test_error_handling(self):
         """Test that errors are handled properly."""
         with self.assertRaises(ValueError):
@@ -89,7 +89,7 @@ class TestAgentCreation(unittest.TestCase):
     def test_plot_master_agent_has_correct_role(self):
         """Test that PlotMasterAgent is created with correct role."""
         pass
-    
+
     def test_agent_creation_with_missing_config_raises_error(self):
         """Test that missing config raises KeyError."""
         pass
@@ -153,7 +153,7 @@ class TestWithMocks(unittest.TestCase):
         """Test using a mock object."""
         mock_llm = Mock()
         mock_llm.generate.return_value = "Generated text"
-        
+
         result = my_function(mock_llm)
         mock_llm.generate.assert_called_once()
         self.assertEqual(result, "Generated text")
@@ -167,12 +167,12 @@ class TestWithPatching(unittest.TestCase):
     def test_config_loading(self, mock_yaml_load):
         """Test configuration loading with mocked YAML."""
         mock_yaml_load.return_value = {'test': 'data'}
-        
+
         result = load_config('dummy_path')
-        
+
         mock_yaml_load.assert_called_once()
         self.assertEqual(result, {'test': 'data'})
-    
+
     def test_with_context_manager_patch(self):
         """Test using patch as context manager."""
         with patch('os.path.exists') as mock_exists:
@@ -190,7 +190,7 @@ def test_with_multiple_patches(self, mock_yaml, mock_llm):
     """Test with multiple patches (applied bottom-up)."""
     mock_yaml.return_value = {'agent': 'config'}
     mock_llm.return_value = Mock()
-    
+
     # Your test code here
     pass
 ```
@@ -210,15 +210,15 @@ class TestAgents(unittest.TestCase):
                 'backstory': 'Expert writer...'
             }
         }
-    
+
     @patch('space_hulk_game.crew.yaml.safe_load')
     def test_agent_creation(self, mock_yaml):
         """Test that agent is created with correct configuration."""
         mock_yaml.return_value = self.test_config
-        
+
         crew = SpaceHulkGame()
         agent = crew.PlotMasterAgent()
-        
+
         self.assertIsNotNone(agent)
         self.assertEqual(agent.role, 'Lead Plot Designer')
 ```
@@ -236,10 +236,10 @@ class TestTasks(unittest.TestCase):
                 'agent': 'PlotMasterAgent'
             }
         }
-        
+
         crew = SpaceHulkGame()
         task = crew.GenerateOverarchingPlot()
-        
+
         self.assertEqual(task.agent, 'PlotMasterAgent')
 ```
 
@@ -250,23 +250,23 @@ class TestLifecycleHooks(unittest.TestCase):
     def test_prepare_inputs_validates_prompt(self):
         """Test that prepare_inputs validates required fields."""
         crew = SpaceHulkGame()
-        
+
         # Test with missing prompt
         with self.assertRaises(ValueError):
             crew.prepare_inputs({})
-        
+
         # Test with valid prompt
         inputs = crew.prepare_inputs({'prompt': 'test'})
         self.assertIn('prompt', inputs)
-    
+
     def test_process_output_adds_metadata(self):
         """Test that process_output adds metadata."""
         crew = SpaceHulkGame()
         mock_output = Mock()
         mock_output.raw = "Test output"
-        
+
         result = crew.process_output(mock_output)
-        
+
         self.assertTrue(hasattr(result, 'metadata'))
 ```
 
@@ -295,23 +295,23 @@ class TestLifecycleHooks(unittest.TestCase):
 ```python
 class TestConfigLoading(unittest.TestCase):
     """Test configuration loading behavior."""
-    
+
     def test_loads_valid_yaml(self):
         """Test: loads valid YAML file successfully."""
         pass
-    
+
     def test_handles_missing_file(self):
         """Test: raises error when file missing."""
         pass
-    
+
     def test_handles_invalid_yaml(self):
         """Test: raises error when YAML is malformed."""
         pass
-    
+
     def test_handles_missing_required_keys(self):
         """Test: raises error when required keys missing."""
         pass
-    
+
     def test_handles_empty_file(self):
         """Test: handles empty YAML file."""
         pass
@@ -327,12 +327,12 @@ class TestIndependence(unittest.TestCase):
     def setUp(self):
         """Create fresh fixtures for each test."""
         self.data = {'key': 'value'}
-    
+
     def test_first(self):
         """First test modifies data."""
         self.data['key'] = 'modified'
         self.assertEqual(self.data['key'], 'modified')
-    
+
     def test_second(self):
         """Second test has fresh data (not affected by first)."""
         self.assertEqual(self.data['key'], 'value')
@@ -344,7 +344,7 @@ class TestIndependence(unittest.TestCase):
 def test_agent_creation_fails_when_config_missing_role(self):
     """
     Test that creating an agent without a role in config raises KeyError.
-    
+
     Given: Agent config without 'role' key
     When: Agent is created
     Then: KeyError is raised
@@ -382,9 +382,9 @@ class TestExternalDependencies(unittest.TestCase):
         """Test initialization without calling external services."""
         mock_llm.return_value = Mock()
         mock_mem.return_value = Mock()
-        
+
         crew = SpaceHulkGame()
-        
+
         # Verify initialization worked without real external calls
         self.assertIsNotNone(crew)
 ```
@@ -400,7 +400,7 @@ class TestFileIO(unittest.TestCase):
     def test_read_file(self):
         """Test reading from a file."""
         mock_file_content = "test: data"
-        
+
         with patch('builtins.open', mock_open(read_data=mock_file_content)):
             result = read_yaml_file('dummy.yaml')
             self.assertIsNotNone(result)
@@ -414,12 +414,12 @@ class TestWithFixtures(unittest.TestCase):
     def setUpClass(cls):
         """Run once before all tests in the class."""
         cls.shared_resource = create_expensive_resource()
-    
+
     @classmethod
     def tearDownClass(cls):
         """Run once after all tests in the class."""
         cls.shared_resource.cleanup()
-    
+
     def setUp(self):
         """Run before each test."""
         self.temp_data = {}
@@ -436,7 +436,7 @@ class TestParameterized(unittest.TestCase):
             (input2, expected2),
             (input3, expected3),
         ]
-        
+
         for input_val, expected in test_cases:
             with self.subTest(input=input_val):
                 result = function(input_val)

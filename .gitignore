@@ -70,3 +70,15 @@ tmp/
 # Additional Python tools
 .ruff_cache/
 .mypy_cache/
+
+# AI Agent outputs
+agent-tmp/
+
+# Coverage reports
+coverage.xml
+
+# Hypothesis testing
+.hypothesis/
+
+# Build artifacts
+*.egg

@@ -1,0 +1,1048 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>space_hulk_game.engine.validator API documentation</title>
+<meta name="description" content="Game Validator Module …">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>space_hulk_game.engine.validator</code></h1>
+</header>
+<section id="section-intro">
+<p>Game Validator Module</p>
+<p>Validates that generated game content is playable by checking for common issues:
+- Unreachable scenes (graph connectivity)
+- Dead ends (scenes with no exits)
+- Invalid exits (pointing to non-existent scenes)
+- Missing required items
+- Broken NPC dialogues
+- Puzzle solvability</p>
+<p>The validator provides actionable feedback to help fix content issues.</p>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import GameValidator, GameData
+&gt;&gt;&gt; validator = GameValidator()
+&gt;&gt;&gt; result = validator.validate_game(game_data)
+&gt;&gt;&gt; if not result.is_valid():
+...     for issue in result.issues:
+...         print(f&quot;Issue: {issue}&quot;)
+...     for scene_id, suggestions in result.suggestions.items():
+...         print(f&quot;Suggestions for {scene_id}: {suggestions}&quot;)
+</code></pre>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="space_hulk_game.engine.validator.GameValidator"><code class="flex name class">
+<span>class <span class="ident">GameValidator</span></span>
+<span>(</span><span>strict_mode: bool = False)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GameValidator:
+    &#34;&#34;&#34;
+    Validates game content for playability issues.
+
+    The GameValidator performs comprehensive checks on GameData to ensure:
+    - All scenes are reachable from the starting scene
+    - No dead ends exist (except intended endings)
+    - All scene exits point to valid scenes
+    - Required items for puzzles exist in the game
+    - NPCs have valid dialogue
+    - Puzzle prerequisites are satisfiable
+
+    Attributes:
+        strict_mode: If True, treats warnings as errors.
+
+    Examples:
+        Validate a game:
+        &gt;&gt;&gt; from space_hulk_game.engine import GameData, Scene
+        &gt;&gt;&gt; scene = Scene(id=&#34;start&#34;, name=&#34;Start&#34;, description=&#34;Begin here&#34;,
+        ...               exits={&#34;north&#34;: &#34;room2&#34;})
+        &gt;&gt;&gt; data = GameData(
+        ...     title=&#34;Test&#34;,
+        ...     description=&#34;Test game&#34;,
+        ...     scenes={&#34;start&#34;: scene},
+        ...     starting_scene=&#34;start&#34;
+        ... )
+        &gt;&gt;&gt; validator = GameValidator()
+        &gt;&gt;&gt; result = validator.validate_game(data)
+        &gt;&gt;&gt; # Should have issue about missing scene &#39;room2&#39;
+        &gt;&gt;&gt; len(result.issues) &gt; 0
+        True
+
+        Use strict mode:
+        &gt;&gt;&gt; validator = GameValidator(strict_mode=True)
+        &gt;&gt;&gt; result = validator.validate_game(data)
+    &#34;&#34;&#34;
+
+    def __init__(self, strict_mode: bool = False):
+        &#34;&#34;&#34;
+        Initialize the GameValidator.
+
+        Args:
+            strict_mode: If True, treats warnings as errors.
+        &#34;&#34;&#34;
+        self.strict_mode = strict_mode
+        logger.info(f&#34;GameValidator initialized (strict_mode={strict_mode})&#34;)
+
+    def validate_game(self, game_data: GameData) -&gt; ValidationResult:
+        &#34;&#34;&#34;
+        Validate a complete game for playability issues.
+
+        This is the main entry point for validation. It runs all validation
+        checks and returns a comprehensive report.
+
+        Args:
+            game_data: The GameData object to validate.
+
+        Returns:
+            ValidationResult containing all issues, warnings, and suggestions.
+
+        Examples:
+            &gt;&gt;&gt; from space_hulk_game.engine import GameData, Scene
+            &gt;&gt;&gt; scene = Scene(id=&#34;start&#34;, name=&#34;Start&#34;, description=&#34;Begin&#34;)
+            &gt;&gt;&gt; data = GameData(
+            ...     title=&#34;Test&#34;,
+            ...     description=&#34;Test&#34;,
+            ...     scenes={&#34;start&#34;: scene},
+            ...     starting_scene=&#34;start&#34;
+            ... )
+            &gt;&gt;&gt; validator = GameValidator()
+            &gt;&gt;&gt; result = validator.validate_game(data)
+            &gt;&gt;&gt; result.is_valid()
+            True
+        &#34;&#34;&#34;
+        logger.info(f&#34;Validating game: {game_data.title}&#34;)
+        result = ValidationResult()
+
+        # Collect statistics
+        result.stats = {
+            &#34;total_scenes&#34;: len(game_data.scenes),
+            &#34;total_items&#34;: len(game_data.global_items),
+            &#34;total_npcs&#34;: len(game_data.global_npcs),
+            &#34;starting_scene&#34;: game_data.starting_scene,
+        }
+
+        # Run all validation checks
+        self._check_scene_reachability(game_data, result)
+        self._check_invalid_exits(game_data, result)
+        self._check_dead_ends(game_data, result)
+        self._check_missing_items(game_data, result)
+        self._check_npc_dialogues(game_data, result)
+        self._check_locked_exits(game_data, result)
+
+        # Update statistics
+        result.stats[&#34;reachable_scenes&#34;] = len(
+            self._find_reachable_scenes(game_data.scenes, game_data.starting_scene)
+        )
+
+        logger.info(
+            f&#34;Validation complete: {len(result.issues)} issues, {len(result.warnings)} warnings&#34;
+        )
+
+        # If strict_mode is enabled, treat warnings as errors
+        if self.strict_mode:
+            result.issues.extend(result.warnings)
+            result.warnings.clear()
+
+        return result
+
+    def _find_reachable_scenes(self, scenes: dict[str, Scene], starting_scene: str) -&gt; set[str]:
+        &#34;&#34;&#34;
+        Find all scenes reachable from the starting scene using BFS.
+
+        Args:
+            scenes: Dictionary of all scenes.
+            starting_scene: ID of the starting scene.
+
+        Returns:
+            Set of scene IDs that are reachable.
+
+        Examples:
+            &gt;&gt;&gt; scene1 = Scene(id=&#34;s1&#34;, name=&#34;S1&#34;, description=&#34;First&#34;,
+            ...                exits={&#34;north&#34;: &#34;s2&#34;})
+            &gt;&gt;&gt; scene2 = Scene(id=&#34;s2&#34;, name=&#34;S2&#34;, description=&#34;Second&#34;)
+            &gt;&gt;&gt; scenes = {&#34;s1&#34;: scene1, &#34;s2&#34;: scene2}
+            &gt;&gt;&gt; validator = GameValidator()
+            &gt;&gt;&gt; reachable = validator._find_reachable_scenes(scenes, &#34;s1&#34;)
+            &gt;&gt;&gt; len(reachable)
+            2
+            &gt;&gt;&gt; &#34;s1&#34; in reachable and &#34;s2&#34; in reachable
+            True
+        &#34;&#34;&#34;
+        reachable = set()
+        queue = deque([starting_scene])
+
+        while queue:
+            current_id = queue.popleft()
+
+            if current_id in reachable:
+                continue
+
+            if current_id not in scenes:
+                # Invalid scene reference, but we&#39;ll handle this separately
+                continue
+
+            reachable.add(current_id)
+
+            # Add all connected scenes to queue
+            scene = scenes[current_id]
+            for exit_target in scene.exits.values():
+                if exit_target not in reachable:
+                    queue.append(exit_target)
+
+        return reachable
+
+    def _check_scene_reachability(self, game_data: GameData, result: ValidationResult) -&gt; None:
+        &#34;&#34;&#34;
+        Check that all scenes are reachable from the starting scene.
+
+        Args:
+            game_data: The game data to check.
+            result: ValidationResult to add issues to.
+        &#34;&#34;&#34;
+        logger.debug(&#34;Checking scene reachability&#34;)
+
+        reachable = self._find_reachable_scenes(game_data.scenes, game_data.starting_scene)
+
+        unreachable = set(game_data.scenes.keys()) - reachable
+
+        if unreachable:
+            unreachable_list = sorted(unreachable)
+            result.add_issue(f&#34;Unreachable scenes: {&#39;, &#39;.join(unreachable_list)}&#34;)
+
+            # Suggest connections
+            for scene_id in unreachable_list:
+                # Find closest reachable scene (simple heuristic: first reachable)
+                if reachable:
+                    closest = sorted(reachable)[0]
+                    result.add_suggestion(closest, f&#34;Add exit to unreachable scene &#39;{scene_id}&#39;&#34;)
+
+    def _check_invalid_exits(self, game_data: GameData, result: ValidationResult) -&gt; None:
+        &#34;&#34;&#34;
+        Check that all scene exits point to valid scenes.
+
+        Args:
+            game_data: The game data to check.
+            result: ValidationResult to add issues to.
+        &#34;&#34;&#34;
+        logger.debug(&#34;Checking invalid exits&#34;)
+
+        for scene_id, scene in game_data.scenes.items():
+            for direction, target_id in scene.exits.items():
+                if target_id not in game_data.scenes:
+                    result.add_issue(
+                        f&#34;Scene &#39;{scene_id}&#39; has invalid exit &#39;{direction}&#39; -&gt; &#34;
+                        f&#34;&#39;{target_id}&#39; (scene does not exist)&#34;
+                    )
+                    result.add_suggestion(
+                        scene_id, f&#34;Remove invalid exit &#39;{direction}&#39; or create scene &#39;{target_id}&#39;&#34;
+                    )
+
+    def _check_dead_ends(self, game_data: GameData, result: ValidationResult) -&gt; None:
+        &#34;&#34;&#34;
+        Check for dead ends (scenes with no exits).
+
+        Dead ends are only acceptable if they&#39;re designated as endings.
+
+        Args:
+            game_data: The game data to check.
+            result: ValidationResult to add issues to.
+        &#34;&#34;&#34;
+        logger.debug(&#34;Checking for dead ends&#34;)
+
+        # Get list of valid ending scenes from game data
+        valid_endings = set()
+        for ending in game_data.endings:
+            if isinstance(ending, dict) and &#34;scene_id&#34; in ending:
+                valid_endings.add(ending[&#34;scene_id&#34;])
+
+        dead_ends = []
+        for scene_id, scene in game_data.scenes.items():
+            if not scene.exits:  # noqa: SIM102
+                # Check if this is a valid ending scene
+                if scene_id not in valid_endings:
+                    dead_ends.append(scene_id)
+
+        if dead_ends:
+            # Check if there are ANY defined endings
+            if not game_data.endings:
+                # If no endings defined, warn about dead ends
+                result.add_warning(
+                    f&#34;Dead end scenes found (no exits): {&#39;, &#39;.join(sorted(dead_ends))}. &#34;
+                    f&#34;These should either have exits or be designated as ending scenes.&#34;
+                )
+            else:
+                # If endings exist but these aren&#39;t marked, that&#39;s an issue
+                result.add_issue(
+                    f&#34;Dead end scenes found (not marked as endings): {&#39;, &#39;.join(sorted(dead_ends))}&#34;
+                )
+
+            for scene_id in dead_ends:
+                result.add_suggestion(
+                    scene_id, &#34;Add exits to other scenes or mark as an ending scene&#34;
+                )
+
+    def _check_missing_items(self, game_data: GameData, result: ValidationResult) -&gt; None:
+        &#34;&#34;&#34;
+        Check for references to items that don&#39;t exist.
+
+        Checks:
+        - Locked exits requiring non-existent items
+        - NPCs giving non-existent items
+
+        Args:
+            game_data: The game data to check.
+            result: ValidationResult to add issues to.
+        &#34;&#34;&#34;
+        logger.debug(&#34;Checking for missing items&#34;)
+
+        # Build set of all available items
+        all_items = set(game_data.global_items.keys())
+        for scene in game_data.scenes.values():
+            for item in scene.items:
+                all_items.add(item.id)
+
+        # Check locked exits
+        for scene_id, scene in game_data.scenes.items():
+            for direction, required_item in scene.locked_exits.items():
+                # Could be an item or a flag
+                # Only check if it looks like an item (not a flag pattern)
+                if required_item and not required_item.startswith(&#34;flag_&#34;):  # noqa: SIM102
+                    if required_item not in all_items:
+                        result.add_warning(
+                            f&#34;Scene &#39;{scene_id}&#39; exit &#39;{direction}&#39; requires &#34;
+                            f&#34;&#39;{required_item}&#39; which may not exist as an item &#34;
+                            f&#34;(could be a flag)&#34;
+                        )
+
+        # Check NPCs giving items
+        for scene_id, scene in game_data.scenes.items():
+            for npc in scene.npcs:
+                if npc.gives_item and npc.gives_item not in all_items:
+                    result.add_issue(
+                        f&#34;NPC &#39;{npc.id}&#39; in scene &#39;{scene_id}&#39; gives item &#34;
+                        f&#34;&#39;{npc.gives_item}&#39; which does not exist&#34;
+                    )
+                    result.add_suggestion(
+                        scene_id, f&#34;Create item &#39;{npc.gives_item}&#39; or update NPC &#39;{npc.id}&#39;&#34;
+                    )
+
+        # Also check global NPCs
+        for npc_id, npc in game_data.global_npcs.items():
+            if npc.gives_item and npc.gives_item not in all_items:
+                result.add_issue(
+                    f&#34;Global NPC &#39;{npc_id}&#39; gives item &#39;{npc.gives_item}&#39; which does not exist&#34;
+                )
+
+    def _check_npc_dialogues(self, game_data: GameData, result: ValidationResult) -&gt; None:
+        &#34;&#34;&#34;
+        Check that NPCs have valid dialogue.
+
+        Warns about NPCs with no dialogue or empty dialogue.
+
+        Args:
+            game_data: The game data to check.
+            result: ValidationResult to add issues to.
+        &#34;&#34;&#34;
+        logger.debug(&#34;Checking NPC dialogues&#34;)
+
+        for scene_id, scene in game_data.scenes.items():
+            for npc in scene.npcs:
+                if not npc.dialogue:
+                    result.add_warning(f&#34;NPC &#39;{npc.id}&#39; in scene &#39;{scene_id}&#39; has no dialogue&#34;)
+                    result.add_suggestion(scene_id, f&#34;Add dialogue for NPC &#39;{npc.id}&#39;&#34;)
+                elif all(not v for v in npc.dialogue.values()):
+                    result.add_warning(f&#34;NPC &#39;{npc.id}&#39; in scene &#39;{scene_id}&#39; has empty dialogue&#34;)
+                    result.add_suggestion(scene_id, f&#34;Add dialogue content for NPC &#39;{npc.id}&#39;&#34;)
+
+        # Check global NPCs for dialogue issues
+        for npc_id, npc in game_data.global_npcs.items():
+            if not npc.dialogue:
+                result.add_warning(f&#34;Global NPC &#39;{npc_id}&#39; has no dialogue&#34;)
+            elif all(not v for v in npc.dialogue.values()):
+                result.add_warning(f&#34;Global NPC &#39;{npc_id}&#39; has empty dialogue&#34;)
+
+    def _check_locked_exits(self, game_data: GameData, result: ValidationResult) -&gt; None:
+        &#34;&#34;&#34;
+        Check that locked exits are solvable.
+
+        Verifies that:
+        - Required items/flags can be obtained
+        - No circular dependencies
+
+        Args:
+            game_data: The game data to check.
+            result: ValidationResult to add issues to.
+        &#34;&#34;&#34;
+        logger.debug(&#34;Checking locked exits&#34;)
+
+        # Build set of obtainable items and flags
+        obtainable_items = set(game_data.global_items.keys())
+
+        # Items in scenes are obtainable
+        for scene in game_data.scenes.values():
+            for item in scene.items:
+                if item.takeable:
+                    obtainable_items.add(item.id)
+
+        # Items given by NPCs are obtainable
+        for scene in game_data.scenes.values():
+            for npc in scene.npcs:
+                if npc.gives_item:
+                    obtainable_items.add(npc.gives_item)
+
+        for npc in game_data.global_npcs.values():
+            if npc.gives_item:
+                obtainable_items.add(npc.gives_item)
+
+        # Check locked exits in reachable scenes
+        reachable = self._find_reachable_scenes(game_data.scenes, game_data.starting_scene)
+
+        for scene_id in reachable:
+            scene = game_data.scenes[scene_id]
+            for direction, required in scene.locked_exits.items():
+                target = scene.exits.get(direction)
+                if target and target not in reachable:  # noqa: SIM102
+                    # This exit leads to unreachable area
+                    # Check if required item exists
+                    if required not in obtainable_items:  # noqa: SIM102
+                        # Could be a flag, not necessarily an error
+                        if not required.startswith(&#34;flag_&#34;):
+                            result.add_warning(
+                                f&#34;Scene &#39;{scene_id}&#39; has locked exit &#39;{direction}&#39; &#34;
+                                f&#34;requiring &#39;{required}&#39; which may not be obtainable&#34;
+                            )</code></pre>
+</details>
+<div class="desc"><p>Validates game content for playability issues.</p>
+<p>The GameValidator performs comprehensive checks on GameData to ensure:
+- All scenes are reachable from the starting scene
+- No dead ends exist (except intended endings)
+- All scene exits point to valid scenes
+- Required items for puzzles exist in the game
+- NPCs have valid dialogue
+- Puzzle prerequisites are satisfiable</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>strict_mode</code></strong></dt>
+<dd>If True, treats warnings as errors.</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<p>Validate a game:</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import GameData, Scene
+&gt;&gt;&gt; scene = Scene(id=&quot;start&quot;, name=&quot;Start&quot;, description=&quot;Begin here&quot;,
+...               exits={&quot;north&quot;: &quot;room2&quot;})
+&gt;&gt;&gt; data = GameData(
+...     title=&quot;Test&quot;,
+...     description=&quot;Test game&quot;,
+...     scenes={&quot;start&quot;: scene},
+...     starting_scene=&quot;start&quot;
+... )
+&gt;&gt;&gt; validator = GameValidator()
+&gt;&gt;&gt; result = validator.validate_game(data)
+&gt;&gt;&gt; # Should have issue about missing scene 'room2'
+&gt;&gt;&gt; len(result.issues) &gt; 0
+True
+</code></pre>
+<p>Use strict mode:</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; validator = GameValidator(strict_mode=True)
+&gt;&gt;&gt; result = validator.validate_game(data)
+</code></pre>
+<p>Initialize the GameValidator.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>strict_mode</code></strong></dt>
+<dd>If True, treats warnings as errors.</dd>
+</dl></div>
+<h3>Methods</h3>
+<dl>
+<dt id="space_hulk_game.engine.validator.GameValidator.validate_game"><code class="name flex">
+<span>def <span class="ident">validate_game</span></span>(<span>self,<br>game_data: <a title="space_hulk_game.engine.game_data.GameData" href="game_data.html#space_hulk_game.engine.game_data.GameData">GameData</a>) ‑> <a title="space_hulk_game.engine.validator.ValidationResult" href="#space_hulk_game.engine.validator.ValidationResult">ValidationResult</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def validate_game(self, game_data: GameData) -&gt; ValidationResult:
+    &#34;&#34;&#34;
+    Validate a complete game for playability issues.
+
+    This is the main entry point for validation. It runs all validation
+    checks and returns a comprehensive report.
+
+    Args:
+        game_data: The GameData object to validate.
+
+    Returns:
+        ValidationResult containing all issues, warnings, and suggestions.
+
+    Examples:
+        &gt;&gt;&gt; from space_hulk_game.engine import GameData, Scene
+        &gt;&gt;&gt; scene = Scene(id=&#34;start&#34;, name=&#34;Start&#34;, description=&#34;Begin&#34;)
+        &gt;&gt;&gt; data = GameData(
+        ...     title=&#34;Test&#34;,
+        ...     description=&#34;Test&#34;,
+        ...     scenes={&#34;start&#34;: scene},
+        ...     starting_scene=&#34;start&#34;
+        ... )
+        &gt;&gt;&gt; validator = GameValidator()
+        &gt;&gt;&gt; result = validator.validate_game(data)
+        &gt;&gt;&gt; result.is_valid()
+        True
+    &#34;&#34;&#34;
+    logger.info(f&#34;Validating game: {game_data.title}&#34;)
+    result = ValidationResult()
+
+    # Collect statistics
+    result.stats = {
+        &#34;total_scenes&#34;: len(game_data.scenes),
+        &#34;total_items&#34;: len(game_data.global_items),
+        &#34;total_npcs&#34;: len(game_data.global_npcs),
+        &#34;starting_scene&#34;: game_data.starting_scene,
+    }
+
+    # Run all validation checks
+    self._check_scene_reachability(game_data, result)
+    self._check_invalid_exits(game_data, result)
+    self._check_dead_ends(game_data, result)
+    self._check_missing_items(game_data, result)
+    self._check_npc_dialogues(game_data, result)
+    self._check_locked_exits(game_data, result)
+
+    # Update statistics
+    result.stats[&#34;reachable_scenes&#34;] = len(
+        self._find_reachable_scenes(game_data.scenes, game_data.starting_scene)
+    )
+
+    logger.info(
+        f&#34;Validation complete: {len(result.issues)} issues, {len(result.warnings)} warnings&#34;
+    )
+
+    # If strict_mode is enabled, treat warnings as errors
+    if self.strict_mode:
+        result.issues.extend(result.warnings)
+        result.warnings.clear()
+
+    return result</code></pre>
+</details>
+<div class="desc"><p>Validate a complete game for playability issues.</p>
+<p>This is the main entry point for validation. It runs all validation
+checks and returns a comprehensive report.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>game_data</code></strong></dt>
+<dd>The GameData object to validate.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>ValidationResult containing all issues, warnings, and suggestions.</p>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import GameData, Scene
+&gt;&gt;&gt; scene = Scene(id=&quot;start&quot;, name=&quot;Start&quot;, description=&quot;Begin&quot;)
+&gt;&gt;&gt; data = GameData(
+...     title=&quot;Test&quot;,
+...     description=&quot;Test&quot;,
+...     scenes={&quot;start&quot;: scene},
+...     starting_scene=&quot;start&quot;
+... )
+&gt;&gt;&gt; validator = GameValidator()
+&gt;&gt;&gt; result = validator.validate_game(data)
+&gt;&gt;&gt; result.is_valid()
+True
+</code></pre></div>
+</dd>
+</dl>
+</dd>
+<dt id="space_hulk_game.engine.validator.ValidationResult"><code class="flex name class">
+<span>class <span class="ident">ValidationResult</span></span>
+<span>(</span><span>issues: list[str] = &lt;factory&gt;,<br>suggestions: dict[str, list[str]] = &lt;factory&gt;,<br>warnings: list[str] = &lt;factory&gt;,<br>stats: dict[str, typing.Any] = &lt;factory&gt;)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
+class ValidationResult:
+    &#34;&#34;&#34;
+    Result of game validation containing issues and suggested fixes.
+
+    Attributes:
+        issues: List of validation issues found.
+        suggestions: Dictionary mapping scene IDs to suggested fixes.
+        warnings: List of non-critical warnings.
+        stats: Dictionary containing validation statistics.
+
+    Examples:
+        Create a validation result:
+        &gt;&gt;&gt; result = ValidationResult(
+        ...     issues=[&#34;Scene &#39;vault&#39; is unreachable&#34;],
+        ...     suggestions={&#34;entrance&#34;: [&#34;Add exit to &#39;vault&#39;&#34;]},
+        ...     warnings=[&#34;Scene &#39;dark_room&#39; has no description&#34;]
+        ... )
+        &gt;&gt;&gt; result.is_valid()
+        False
+        &gt;&gt;&gt; len(result.issues)
+        1
+    &#34;&#34;&#34;
+
+    issues: list[str] = field(default_factory=list)
+    suggestions: dict[str, list[str]] = field(default_factory=dict)
+    warnings: list[str] = field(default_factory=list)
+    stats: dict[str, Any] = field(default_factory=dict)
+
+    def is_valid(self) -&gt; bool:
+        &#34;&#34;&#34;
+        Check if the game passed validation (no critical issues).
+
+        Returns:
+            True if there are no critical issues, False otherwise.
+
+        Examples:
+            &gt;&gt;&gt; result = ValidationResult()
+            &gt;&gt;&gt; result.is_valid()
+            True
+            &gt;&gt;&gt; result.issues.append(&#34;Critical error&#34;)
+            &gt;&gt;&gt; result.is_valid()
+            False
+        &#34;&#34;&#34;
+        return len(self.issues) == 0
+
+    def add_issue(self, issue: str) -&gt; None:
+        &#34;&#34;&#34;
+        Add a critical issue to the validation result.
+
+        Args:
+            issue: Description of the issue.
+
+        Examples:
+            &gt;&gt;&gt; result = ValidationResult()
+            &gt;&gt;&gt; result.add_issue(&#34;Scene missing&#34;)
+            &gt;&gt;&gt; len(result.issues)
+            1
+        &#34;&#34;&#34;
+        self.issues.append(issue)
+        logger.warning(f&#34;Validation issue: {issue}&#34;)
+
+    def add_warning(self, warning: str) -&gt; None:
+        &#34;&#34;&#34;
+        Add a non-critical warning to the validation result.
+
+        Args:
+            warning: Description of the warning.
+
+        Examples:
+            &gt;&gt;&gt; result = ValidationResult()
+            &gt;&gt;&gt; result.add_warning(&#34;Minor issue&#34;)
+            &gt;&gt;&gt; len(result.warnings)
+            1
+        &#34;&#34;&#34;
+        self.warnings.append(warning)
+        logger.info(f&#34;Validation warning: {warning}&#34;)
+
+    def add_suggestion(self, scene_id: str, suggestion: str) -&gt; None:
+        &#34;&#34;&#34;
+        Add a suggested fix for a scene.
+
+        Args:
+            scene_id: The scene ID that needs fixing.
+            suggestion: Suggested action to fix the issue.
+
+        Examples:
+            &gt;&gt;&gt; result = ValidationResult()
+            &gt;&gt;&gt; result.add_suggestion(&#34;entrance&#34;, &#34;Add exit to corridor&#34;)
+            &gt;&gt;&gt; &#34;entrance&#34; in result.suggestions
+            True
+        &#34;&#34;&#34;
+        if scene_id not in self.suggestions:
+            self.suggestions[scene_id] = []
+        self.suggestions[scene_id].append(suggestion)
+        logger.debug(f&#34;Suggestion for {scene_id}: {suggestion}&#34;)
+
+    def get_summary(self) -&gt; str:
+        &#34;&#34;&#34;
+        Get a human-readable summary of the validation results.
+
+        Returns:
+            Formatted string summarizing the validation.
+
+        Examples:
+            &gt;&gt;&gt; result = ValidationResult(issues=[&#34;Error 1&#34;], warnings=[&#34;Warning 1&#34;])
+            &gt;&gt;&gt; summary = result.get_summary()
+            &gt;&gt;&gt; &#34;1 issue&#34; in summary
+            True
+        &#34;&#34;&#34;
+        lines = []
+        lines.append(&#34;Validation Summary:&#34;)
+        lines.append(f&#34;  Status: {&#39;PASSED&#39; if self.is_valid() else &#39;FAILED&#39;}&#34;)
+        lines.append(f&#34;  Critical Issues: {len(self.issues)}&#34;)
+        lines.append(f&#34;  Warnings: {len(self.warnings)}&#34;)
+        lines.append(f&#34;  Suggestions: {len(self.suggestions)}&#34;)
+
+        if self.stats:
+            lines.append(&#34;\nStatistics:&#34;)
+            for key, value in self.stats.items():
+                lines.append(f&#34;  {key}: {value}&#34;)
+
+        if self.issues:
+            lines.append(&#34;\nCritical Issues:&#34;)
+            for issue in self.issues:
+                lines.append(f&#34;  - {issue}&#34;)
+
+        if self.warnings:
+            lines.append(&#34;\nWarnings:&#34;)
+            for warning in self.warnings:
+                lines.append(f&#34;  - {warning}&#34;)
+
+        if self.suggestions:
+            lines.append(&#34;\nSuggested Fixes:&#34;)
+            for scene_id, suggestions in self.suggestions.items():
+                lines.append(f&#34;  {scene_id}:&#34;)
+                for suggestion in suggestions:
+                    lines.append(f&#34;    - {suggestion}&#34;)
+
+        return &#34;\n&#34;.join(lines)</code></pre>
+</details>
+<div class="desc"><p>Result of game validation containing issues and suggested fixes.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>issues</code></strong></dt>
+<dd>List of validation issues found.</dd>
+<dt><strong><code>suggestions</code></strong></dt>
+<dd>Dictionary mapping scene IDs to suggested fixes.</dd>
+<dt><strong><code>warnings</code></strong></dt>
+<dd>List of non-critical warnings.</dd>
+<dt><strong><code>stats</code></strong></dt>
+<dd>Dictionary containing validation statistics.</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<p>Create a validation result:</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; result = ValidationResult(
+...     issues=[&quot;Scene 'vault' is unreachable&quot;],
+...     suggestions={&quot;entrance&quot;: [&quot;Add exit to 'vault'&quot;]},
+...     warnings=[&quot;Scene 'dark_room' has no description&quot;]
+... )
+&gt;&gt;&gt; result.is_valid()
+False
+&gt;&gt;&gt; len(result.issues)
+1
+</code></pre></div>
+<h3>Instance variables</h3>
+<dl>
+<dt id="space_hulk_game.engine.validator.ValidationResult.issues"><code class="name">var <span class="ident">issues</span> : list[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.validator.ValidationResult.stats"><code class="name">var <span class="ident">stats</span> : dict[str, typing.Any]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.validator.ValidationResult.suggestions"><code class="name">var <span class="ident">suggestions</span> : dict[str, list[str]]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.validator.ValidationResult.warnings"><code class="name">var <span class="ident">warnings</span> : list[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="space_hulk_game.engine.validator.ValidationResult.add_issue"><code class="name flex">
+<span>def <span class="ident">add_issue</span></span>(<span>self, issue: str) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_issue(self, issue: str) -&gt; None:
+    &#34;&#34;&#34;
+    Add a critical issue to the validation result.
+
+    Args:
+        issue: Description of the issue.
+
+    Examples:
+        &gt;&gt;&gt; result = ValidationResult()
+        &gt;&gt;&gt; result.add_issue(&#34;Scene missing&#34;)
+        &gt;&gt;&gt; len(result.issues)
+        1
+    &#34;&#34;&#34;
+    self.issues.append(issue)
+    logger.warning(f&#34;Validation issue: {issue}&#34;)</code></pre>
+</details>
+<div class="desc"><p>Add a critical issue to the validation result.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>issue</code></strong></dt>
+<dd>Description of the issue.</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; result = ValidationResult()
+&gt;&gt;&gt; result.add_issue(&quot;Scene missing&quot;)
+&gt;&gt;&gt; len(result.issues)
+1
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.engine.validator.ValidationResult.add_suggestion"><code class="name flex">
+<span>def <span class="ident">add_suggestion</span></span>(<span>self, scene_id: str, suggestion: str) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_suggestion(self, scene_id: str, suggestion: str) -&gt; None:
+    &#34;&#34;&#34;
+    Add a suggested fix for a scene.
+
+    Args:
+        scene_id: The scene ID that needs fixing.
+        suggestion: Suggested action to fix the issue.
+
+    Examples:
+        &gt;&gt;&gt; result = ValidationResult()
+        &gt;&gt;&gt; result.add_suggestion(&#34;entrance&#34;, &#34;Add exit to corridor&#34;)
+        &gt;&gt;&gt; &#34;entrance&#34; in result.suggestions
+        True
+    &#34;&#34;&#34;
+    if scene_id not in self.suggestions:
+        self.suggestions[scene_id] = []
+    self.suggestions[scene_id].append(suggestion)
+    logger.debug(f&#34;Suggestion for {scene_id}: {suggestion}&#34;)</code></pre>
+</details>
+<div class="desc"><p>Add a suggested fix for a scene.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>scene_id</code></strong></dt>
+<dd>The scene ID that needs fixing.</dd>
+<dt><strong><code>suggestion</code></strong></dt>
+<dd>Suggested action to fix the issue.</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; result = ValidationResult()
+&gt;&gt;&gt; result.add_suggestion(&quot;entrance&quot;, &quot;Add exit to corridor&quot;)
+&gt;&gt;&gt; &quot;entrance&quot; in result.suggestions
+True
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.engine.validator.ValidationResult.add_warning"><code class="name flex">
+<span>def <span class="ident">add_warning</span></span>(<span>self, warning: str) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_warning(self, warning: str) -&gt; None:
+    &#34;&#34;&#34;
+    Add a non-critical warning to the validation result.
+
+    Args:
+        warning: Description of the warning.
+
+    Examples:
+        &gt;&gt;&gt; result = ValidationResult()
+        &gt;&gt;&gt; result.add_warning(&#34;Minor issue&#34;)
+        &gt;&gt;&gt; len(result.warnings)
+        1
+    &#34;&#34;&#34;
+    self.warnings.append(warning)
+    logger.info(f&#34;Validation warning: {warning}&#34;)</code></pre>
+</details>
+<div class="desc"><p>Add a non-critical warning to the validation result.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>warning</code></strong></dt>
+<dd>Description of the warning.</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; result = ValidationResult()
+&gt;&gt;&gt; result.add_warning(&quot;Minor issue&quot;)
+&gt;&gt;&gt; len(result.warnings)
+1
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.engine.validator.ValidationResult.get_summary"><code class="name flex">
+<span>def <span class="ident">get_summary</span></span>(<span>self) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_summary(self) -&gt; str:
+    &#34;&#34;&#34;
+    Get a human-readable summary of the validation results.
+
+    Returns:
+        Formatted string summarizing the validation.
+
+    Examples:
+        &gt;&gt;&gt; result = ValidationResult(issues=[&#34;Error 1&#34;], warnings=[&#34;Warning 1&#34;])
+        &gt;&gt;&gt; summary = result.get_summary()
+        &gt;&gt;&gt; &#34;1 issue&#34; in summary
+        True
+    &#34;&#34;&#34;
+    lines = []
+    lines.append(&#34;Validation Summary:&#34;)
+    lines.append(f&#34;  Status: {&#39;PASSED&#39; if self.is_valid() else &#39;FAILED&#39;}&#34;)
+    lines.append(f&#34;  Critical Issues: {len(self.issues)}&#34;)
+    lines.append(f&#34;  Warnings: {len(self.warnings)}&#34;)
+    lines.append(f&#34;  Suggestions: {len(self.suggestions)}&#34;)
+
+    if self.stats:
+        lines.append(&#34;\nStatistics:&#34;)
+        for key, value in self.stats.items():
+            lines.append(f&#34;  {key}: {value}&#34;)
+
+    if self.issues:
+        lines.append(&#34;\nCritical Issues:&#34;)
+        for issue in self.issues:
+            lines.append(f&#34;  - {issue}&#34;)
+
+    if self.warnings:
+        lines.append(&#34;\nWarnings:&#34;)
+        for warning in self.warnings:
+            lines.append(f&#34;  - {warning}&#34;)
+
+    if self.suggestions:
+        lines.append(&#34;\nSuggested Fixes:&#34;)
+        for scene_id, suggestions in self.suggestions.items():
+            lines.append(f&#34;  {scene_id}:&#34;)
+            for suggestion in suggestions:
+                lines.append(f&#34;    - {suggestion}&#34;)
+
+    return &#34;\n&#34;.join(lines)</code></pre>
+</details>
+<div class="desc"><p>Get a human-readable summary of the validation results.</p>
+<h2 id="returns">Returns</h2>
+<p>Formatted string summarizing the validation.</p>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; result = ValidationResult(issues=[&quot;Error 1&quot;], warnings=[&quot;Warning 1&quot;])
+&gt;&gt;&gt; summary = result.get_summary()
+&gt;&gt;&gt; &quot;1 issue&quot; in summary
+True
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.engine.validator.ValidationResult.is_valid"><code class="name flex">
+<span>def <span class="ident">is_valid</span></span>(<span>self) ‑> bool</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_valid(self) -&gt; bool:
+    &#34;&#34;&#34;
+    Check if the game passed validation (no critical issues).
+
+    Returns:
+        True if there are no critical issues, False otherwise.
+
+    Examples:
+        &gt;&gt;&gt; result = ValidationResult()
+        &gt;&gt;&gt; result.is_valid()
+        True
+        &gt;&gt;&gt; result.issues.append(&#34;Critical error&#34;)
+        &gt;&gt;&gt; result.is_valid()
+        False
+    &#34;&#34;&#34;
+    return len(self.issues) == 0</code></pre>
+</details>
+<div class="desc"><p>Check if the game passed validation (no critical issues).</p>
+<h2 id="returns">Returns</h2>
+<p>True if there are no critical issues, False otherwise.</p>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; result = ValidationResult()
+&gt;&gt;&gt; result.is_valid()
+True
+&gt;&gt;&gt; result.issues.append(&quot;Critical error&quot;)
+&gt;&gt;&gt; result.is_valid()
+False
+</code></pre></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="space_hulk_game.engine" href="index.html">space_hulk_game.engine</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="space_hulk_game.engine.validator.GameValidator" href="#space_hulk_game.engine.validator.GameValidator">GameValidator</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.engine.validator.GameValidator.validate_game" href="#space_hulk_game.engine.validator.GameValidator.validate_game">validate_game</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="space_hulk_game.engine.validator.ValidationResult" href="#space_hulk_game.engine.validator.ValidationResult">ValidationResult</a></code></h4>
+<ul class="two-column">
+<li><code><a title="space_hulk_game.engine.validator.ValidationResult.add_issue" href="#space_hulk_game.engine.validator.ValidationResult.add_issue">add_issue</a></code></li>
+<li><code><a title="space_hulk_game.engine.validator.ValidationResult.add_suggestion" href="#space_hulk_game.engine.validator.ValidationResult.add_suggestion">add_suggestion</a></code></li>
+<li><code><a title="space_hulk_game.engine.validator.ValidationResult.add_warning" href="#space_hulk_game.engine.validator.ValidationResult.add_warning">add_warning</a></code></li>
+<li><code><a title="space_hulk_game.engine.validator.ValidationResult.get_summary" href="#space_hulk_game.engine.validator.ValidationResult.get_summary">get_summary</a></code></li>
+<li><code><a title="space_hulk_game.engine.validator.ValidationResult.is_valid" href="#space_hulk_game.engine.validator.ValidationResult.is_valid">is_valid</a></code></li>
+<li><code><a title="space_hulk_game.engine.validator.ValidationResult.issues" href="#space_hulk_game.engine.validator.ValidationResult.issues">issues</a></code></li>
+<li><code><a title="space_hulk_game.engine.validator.ValidationResult.stats" href="#space_hulk_game.engine.validator.ValidationResult.stats">stats</a></code></li>
+<li><code><a title="space_hulk_game.engine.validator.ValidationResult.suggestions" href="#space_hulk_game.engine.validator.ValidationResult.suggestions">suggestions</a></code></li>
+<li><code><a title="space_hulk_game.engine.validator.ValidationResult.warnings" href="#space_hulk_game.engine.validator.ValidationResult.warnings">warnings</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>

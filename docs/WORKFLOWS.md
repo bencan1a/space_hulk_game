@@ -10,8 +10,8 @@ The Space Hulk Game project uses GitHub Actions to automate testing and agent ex
 
 ### Run CrewAI Agents
 
-**File**: `.github/workflows/run-crewai-agents.yml`  
-**Trigger**: Manual (workflow_dispatch)  
+**File**: `.github/workflows/run-crewai-agents.yml`
+**Trigger**: Manual (workflow_dispatch)
 **Purpose**: Execute the CrewAI agent crew and capture generated game content as artifacts
 
 #### Description
@@ -115,7 +115,7 @@ You can customize the workflow by:
    ```yaml
    OPENAI_MODEL_NAME=openrouter/anthropic/claude-3.5-sonnet
    ```
-   
+
    Other options:
    - `openrouter/openai/gpt-4-turbo`
    - `openrouter/meta-llama/llama-3.1-70b-instruct`

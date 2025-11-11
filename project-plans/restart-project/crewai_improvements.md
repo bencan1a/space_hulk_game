@@ -50,7 +50,7 @@ def create_hierarchical_crew(self) -> Crew:
     """
     manager = self.NarrativeDirectorAgent()
     worker_agents = [agent for agent in self.agents if agent.role != manager.role]
-    
+
     return Crew(
         agents=worker_agents,
         tasks=self.tasks,
@@ -81,7 +81,7 @@ def create_hierarchical_crew(self) -> Crew:
 # planning=True,
 ```
 
-**Rationale**: 
+**Rationale**:
 - Phase 0 requires proving basic generation works
 - Additional features add complexity and potential failure points
 - Re-enable incrementally after core stability achieved
@@ -98,11 +98,11 @@ def prepare_inputs(self, inputs):
     if "prompt" not in inputs:
         inputs["prompt"] = "A mysterious derelict space hulk..."
         logger.info(f"Using default prompt: {inputs['prompt']}")
-    
+
     # Add tracking metadata
     inputs["_timestamp"] = str(datetime.datetime.now())
     inputs["_process_mode"] = "sequential"
-    
+
     return inputs
 ```
 
@@ -117,10 +117,10 @@ def process_output(self, output):
         "total_tasks": len(self.tasks),
         "had_errors": hasattr(output, 'errors') and bool(output.errors)
     }
-    
+
     # Clear completion summary
     output.raw += completion_summary
-    
+
     return output
 ```
 
@@ -275,7 +275,7 @@ After Phase 0 success criteria are met:
 
 **Status**: To be monitored in actual runs
 
-**Mitigation**: 
+**Mitigation**:
 - Comprehensive logging to detect
 - Will add explicit timeout handling if observed
 - May need to adjust Ollama configuration

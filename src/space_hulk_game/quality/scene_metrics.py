@@ -46,7 +46,7 @@ class SceneMetrics:
     min_vivid_percentage: float = 70.0  # 70% should be vivid
 
     @classmethod
-    def from_yaml_content(cls, yaml_content: str) -> 'SceneMetrics':
+    def from_yaml_content(cls, yaml_content: str) -> "SceneMetrics":
         """
         Create SceneMetrics from YAML content string.
 
@@ -59,9 +59,9 @@ class SceneMetrics:
         try:
             # Handle markdown-wrapped YAML
             content = yaml_content.strip()
-            if content.startswith('```'):
-                lines = content.split('\n')
-                content = '\n'.join(lines[1:-1])
+            if content.startswith("```"):
+                lines = content.split("\n")
+                content = "\n".join(lines[1:-1])
 
             data = yaml.safe_load(content)
             return cls.from_dict(data)
@@ -69,7 +69,7 @@ class SceneMetrics:
             raise ValueError(f"Failed to parse YAML content: {e}") from e
 
     @classmethod
-    def from_dict(cls, data: dict[str, Any]) -> 'SceneMetrics':
+    def from_dict(cls, data: dict[str, Any]) -> "SceneMetrics":
         """
         Create SceneMetrics from a dictionary (parsed YAML).
 
@@ -82,10 +82,10 @@ class SceneMetrics:
         metrics = cls()
 
         # Get scenes
-        scenes = data.get('scenes', {})
+        scenes = data.get("scenes", {})
         if not scenes:
             # Try alternate structure
-            scenes = data.get('scene_texts', {})
+            scenes = data.get("scene_texts", {})
 
         metrics.total_scenes = len(scenes)
 
@@ -101,9 +101,9 @@ class SceneMetrics:
                 continue
 
             # Get description
-            description = scene_data.get('description', '')
+            description = scene_data.get("description", "")
             if not description:
-                description = scene_data.get('text', '')
+                description = scene_data.get("text", "")
 
             # Check for vivid description
             if cls._is_vivid_description(description):
@@ -118,7 +118,7 @@ class SceneMetrics:
             total_description_length += desc_length
 
             # Track tone
-            tone = scene_data.get('tone', '')
+            tone = scene_data.get("tone", "")
             if tone:
                 tones.append(tone)
 
@@ -127,9 +127,7 @@ class SceneMetrics:
                 metrics.has_sensory_details = True
 
         # Calculate averages
-        metrics.average_description_length = (
-            total_description_length / metrics.total_scenes
-        )
+        metrics.average_description_length = total_description_length / metrics.total_scenes
 
         # Calculate tone consistency
         metrics.tone_consistency_score = cls._calculate_tone_consistency(tones)
@@ -162,9 +160,9 @@ class SceneMetrics:
 
         # Check for descriptive words (simple heuristic)
         descriptive_patterns = [
-            r'\b(dark|ancient|massive|twisted|corrupted|flickering|ominous)\b',
-            r'\b(gleaming|rusted|broken|shattered|blood|shadows|decay)\b',
-            r'\b(echoing|silent|screaming|whispering|rumbling)\b',
+            r"\b(dark|ancient|massive|twisted|corrupted|flickering|ominous)\b",
+            r"\b(gleaming|rusted|broken|shattered|blood|shadows|decay)\b",
+            r"\b(echoing|silent|screaming|whispering|rumbling)\b",
         ]
 
         has_descriptive = False
@@ -188,7 +186,7 @@ class SceneMetrics:
             True if dialogue is present
         """
         # Check for explicit dialogue field
-        if scene_data.get('dialogue'):
+        if scene_data.get("dialogue"):
             return True
 
         if not isinstance(description, str):
@@ -202,11 +200,7 @@ class SceneMetrics:
 
         # Look for dialogue keywords (more specific patterns)
         desc_lower = description.lower()
-        for marker in ['says', 'said', 'asks', 'asked']:
-            if marker in desc_lower:
-                return True
-
-        return False
+        return any(marker in desc_lower for marker in ["says", "said", "asks", "asked"])
 
     @staticmethod
     def _has_sensory_details(description: str) -> bool:
@@ -225,17 +219,17 @@ class SceneMetrics:
         # Sensory detail patterns
         sensory_patterns = [
             # Visual
-            r'\b(see|sees|saw|look|looks|glimpse|observe|witness)\b',
-            r'\b(dark|bright|dim|glowing|shadowy|lit)\b',
+            r"\b(see|sees|saw|look|looks|glimpse|observe|witness)\b",
+            r"\b(dark|bright|dim|glowing|shadowy|lit)\b",
             # Auditory
-            r'\b(hear|hears|heard|sound|noise|echo|silence)\b',
-            r'\b(loud|quiet|whisper|scream|rumble)\b',
+            r"\b(hear|hears|heard|sound|noise|echo|silence)\b",
+            r"\b(loud|quiet|whisper|scream|rumble)\b",
             # Tactile
-            r'\b(feel|feels|felt|touch|cold|hot|warm)\b',
+            r"\b(feel|feels|felt|touch|cold|hot|warm)\b",
             # Olfactory
-            r'\b(smell|smells|stench|odor|scent)\b',
+            r"\b(smell|smells|stench|odor|scent)\b",
             # Other
-            r'\b(taste|atmosphere|sense)\b',
+            r"\b(taste|atmosphere|sense)\b",
         ]
 
         desc_lower = description.lower()
@@ -276,14 +270,12 @@ class SceneMetrics:
         """
         vivid_percentage = 0.0
         if self.total_scenes > 0:
-            vivid_percentage = (
-                self.scenes_with_vivid_descriptions / self.total_scenes
-            ) * 100.0
+            vivid_percentage = (self.scenes_with_vivid_descriptions / self.total_scenes) * 100.0
 
         return (
-            self.total_scenes >= self.min_scenes and
-            self.average_description_length >= self.min_description_length and
-            vivid_percentage >= self.min_vivid_percentage
+            self.total_scenes >= self.min_scenes
+            and self.average_description_length >= self.min_description_length
+            and vivid_percentage >= self.min_vivid_percentage
         )
 
     def get_failures(self) -> list[str]:
@@ -297,8 +289,7 @@ class SceneMetrics:
 
         if self.total_scenes < self.min_scenes:
             failures.append(
-                f"Insufficient scenes: {self.total_scenes} "
-                f"(minimum: {self.min_scenes})"
+                f"Insufficient scenes: {self.total_scenes} (minimum: {self.min_scenes})"
             )
 
         if self.average_description_length < self.min_description_length:
@@ -309,9 +300,7 @@ class SceneMetrics:
 
         vivid_percentage = 0.0
         if self.total_scenes > 0:
-            vivid_percentage = (
-                self.scenes_with_vivid_descriptions / self.total_scenes
-            ) * 100.0
+            vivid_percentage = (self.scenes_with_vivid_descriptions / self.total_scenes) * 100.0
 
         if vivid_percentage < self.min_vivid_percentage:
             failures.append(
@@ -321,13 +310,10 @@ class SceneMetrics:
 
         # Warnings
         if self.total_scenes > 0:
-            dialogue_percentage = (
-                self.scenes_with_dialogue / self.total_scenes
-            ) * 100.0
+            dialogue_percentage = (self.scenes_with_dialogue / self.total_scenes) * 100.0
             if dialogue_percentage < 30.0:
                 failures.append(
-                    f"Warning: Only {dialogue_percentage:.1f}% of scenes "
-                    f"contain dialogue"
+                    f"Warning: Only {dialogue_percentage:.1f}% of scenes contain dialogue"
                 )
 
         return failures
@@ -355,16 +341,12 @@ class SceneMetrics:
 
         # Vivid descriptions (3 points)
         if self.total_scenes > 0:
-            vivid_percentage = (
-                self.scenes_with_vivid_descriptions / self.total_scenes
-            ) * 100.0
+            vivid_percentage = (self.scenes_with_vivid_descriptions / self.total_scenes) * 100.0
             score += 3.0 * (vivid_percentage / 100.0)
 
         # Dialogue (1 point)
         if self.total_scenes > 0:
-            dialogue_percentage = (
-                self.scenes_with_dialogue / self.total_scenes
-            ) * 100.0
+            dialogue_percentage = (self.scenes_with_dialogue / self.total_scenes) * 100.0
             score += 1.0 * (dialogue_percentage / 100.0)
 
         # Tone consistency (1 point)
@@ -384,13 +366,13 @@ class SceneMetrics:
             Dictionary representation of metrics
         """
         return {
-            'total_scenes': self.total_scenes,
-            'scenes_with_vivid_descriptions': self.scenes_with_vivid_descriptions,
-            'scenes_with_dialogue': self.scenes_with_dialogue,
-            'average_description_length': round(self.average_description_length, 1),
-            'tone_consistency_score': round(self.tone_consistency_score, 2),
-            'has_sensory_details': self.has_sensory_details,
-            'passes_threshold': self.passes_threshold(),
-            'score': self.get_score(),
-            'failures': self.get_failures(),
+            "total_scenes": self.total_scenes,
+            "scenes_with_vivid_descriptions": self.scenes_with_vivid_descriptions,
+            "scenes_with_dialogue": self.scenes_with_dialogue,
+            "average_description_length": round(self.average_description_length, 1),
+            "tone_consistency_score": round(self.tone_consistency_score, 2),
+            "has_sensory_details": self.has_sensory_details,
+            "passes_threshold": self.passes_threshold(),
+            "score": self.get_score(),
+            "failures": self.get_failures(),
         }

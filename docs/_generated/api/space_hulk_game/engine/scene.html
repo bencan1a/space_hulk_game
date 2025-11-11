@@ -1,0 +1,1214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>space_hulk_game.engine.scene API documentation</title>
+<meta name="description" content="Scene Module …">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>space_hulk_game.engine.scene</code></h1>
+</header>
+<section id="section-intro">
+<p>Scene Module</p>
+<p>Defines the Scene class that represents a location in the game world.
+Scenes contain descriptions, exits to other scenes, items, NPCs, and events.</p>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import Scene, Item, NPC, Event
+&gt;&gt;&gt; scene = Scene(
+...     id=&quot;cargo_bay&quot;,
+...     name=&quot;Cargo Bay Alpha&quot;,
+...     description=&quot;A vast cargo hold filled with ancient crates.&quot;,
+...     exits={&quot;north&quot;: &quot;corridor_1&quot;, &quot;east&quot;: &quot;airlock&quot;},
+...     items=[],
+...     npcs=[],
+...     events=[]
+... )
+</code></pre>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="space_hulk_game.engine.scene.Scene"><code class="flex name class">
+<span>class <span class="ident">Scene</span></span>
+<span>(</span><span>id: str,<br>name: str,<br>description: str,<br>exits: dict[str, str] = &lt;factory&gt;,<br>items: list[<a title="space_hulk_game.engine.entities.Item" href="entities.html#space_hulk_game.engine.entities.Item">Item</a>] = &lt;factory&gt;,<br>npcs: list[<a title="space_hulk_game.engine.entities.NPC" href="entities.html#space_hulk_game.engine.entities.NPC">NPC</a>] = &lt;factory&gt;,<br>events: list[<a title="space_hulk_game.engine.entities.Event" href="entities.html#space_hulk_game.engine.entities.Event">Event</a>] = &lt;factory&gt;,<br>visited: bool = False,<br>dark: bool = False,<br>locked_exits: dict[str, str] = &lt;factory&gt;)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
+class Scene:
+    &#34;&#34;&#34;
+    Represents a location/room in the game world.
+
+    Scenes are the primary spatial units in the game. Each scene has a description,
+    connections to other scenes (exits), and can contain items, NPCs, and events.
+    Players navigate between scenes to progress through the story.
+
+    Attributes:
+        id: Unique identifier for the scene.
+        name: Display name of the scene.
+        description: Detailed text description of the scene.
+        exits: Dictionary mapping direction names to scene IDs
+              (e.g., {&#34;north&#34;: &#34;corridor_1&#34;, &#34;east&#34;: &#34;airlock&#34;}).
+        items: List of Item objects present in this scene.
+        npcs: List of NPC objects present in this scene.
+        events: List of Event objects that can trigger in this scene.
+        visited: Whether the player has visited this scene before.
+        dark: Whether the scene is dark (requires light source).
+        locked_exits: Dictionary of locked exits requiring items or flags
+                     (e.g., {&#34;north&#34;: &#34;brass_key&#34;}).
+
+    Examples:
+        Create a simple scene:
+        &gt;&gt;&gt; entrance = Scene(
+        ...     id=&#34;entrance_hall&#34;,
+        ...     name=&#34;Entrance Hall&#34;,
+        ...     description=&#34;A grand hall with vaulted ceilings.&#34;,
+        ...     exits={&#34;north&#34;: &#34;main_corridor&#34;, &#34;south&#34;: &#34;exterior&#34;}
+        ... )
+
+        Create a scene with items and NPCs:
+        &gt;&gt;&gt; from space_hulk_game.engine import Item, NPC
+        &gt;&gt;&gt; medkit = Item(id=&#34;medkit&#34;, name=&#34;Medkit&#34;, description=&#34;A medkit.&#34;)
+        &gt;&gt;&gt; guard = NPC(id=&#34;guard&#34;, name=&#34;Guard&#34;, description=&#34;A guard.&#34;)
+        &gt;&gt;&gt; armory = Scene(
+        ...     id=&#34;armory&#34;,
+        ...     name=&#34;Armory&#34;,
+        ...     description=&#34;Weapons line the walls.&#34;,
+        ...     exits={&#34;west&#34;: &#34;corridor&#34;},
+        ...     items=[medkit],
+        ...     npcs=[guard]
+        ... )
+
+        Create a scene with locked exits:
+        &gt;&gt;&gt; vault = Scene(
+        ...     id=&#34;vault&#34;,
+        ...     name=&#34;Secure Vault&#34;,
+        ...     description=&#34;A heavily secured vault.&#34;,
+        ...     exits={&#34;north&#34;: &#34;corridor&#34;, &#34;vault_door&#34;: &#34;treasure_room&#34;},
+        ...     locked_exits={&#34;vault_door&#34;: &#34;vault_key&#34;}
+        ... )
+
+        Create a dark scene:
+        &gt;&gt;&gt; dark_corridor = Scene(
+        ...     id=&#34;dark_corridor&#34;,
+        ...     name=&#34;Dark Corridor&#34;,
+        ...     description=&#34;A pitch-black corridor.&#34;,
+        ...     exits={&#34;east&#34;: &#34;light_room&#34;, &#34;west&#34;: &#34;another_room&#34;},
+        ...     dark=True
+        ... )
+    &#34;&#34;&#34;
+
+    id: str
+    name: str
+    description: str
+    exits: dict[str, str] = field(default_factory=dict)
+    items: list[Item] = field(default_factory=list)
+    npcs: list[NPC] = field(default_factory=list)
+    events: list[Event] = field(default_factory=list)
+    visited: bool = False
+    dark: bool = False
+    locked_exits: dict[str, str] = field(default_factory=dict)
+
+    def __post_init__(self):
+        &#34;&#34;&#34;Validate the scene after initialization.&#34;&#34;&#34;
+        if not self.id:
+            raise ValueError(&#34;Scene id cannot be empty&#34;)
+        if not self.name:
+            raise ValueError(&#34;Scene name cannot be empty&#34;)
+        if not self.description:
+            raise ValueError(&#34;Scene description cannot be empty&#34;)
+
+    def get_full_description(self) -&gt; str:
+        &#34;&#34;&#34;
+        Get the complete description of the scene, including items and NPCs.
+
+        Returns:
+            A formatted string describing the scene and its contents.
+
+        Examples:
+            &gt;&gt;&gt; item = Item(id=&#34;key&#34;, name=&#34;Brass Key&#34;, description=&#34;A key.&#34;)
+            &gt;&gt;&gt; scene = Scene(
+            ...     id=&#34;room&#34;,
+            ...     name=&#34;Test Room&#34;,
+            ...     description=&#34;A test room.&#34;,
+            ...     items=[item]
+            ... )
+            &gt;&gt;&gt; desc = scene.get_full_description()
+            &gt;&gt;&gt; &#34;Brass Key&#34; in desc
+            True
+        &#34;&#34;&#34;
+        parts = [self.description]
+
+        if self.items:
+            item_names = [item.name for item in self.items]
+            parts.append(f&#34;\n\nYou see: {&#39;, &#39;.join(item_names)}.&#34;)
+
+        if self.npcs:
+            npc_descriptions = [npc.description for npc in self.npcs]
+            parts.append(f&#34;\n\n{&#39; &#39;.join(npc_descriptions)}&#34;)
+
+        return &#34;&#34;.join(parts)
+
+    def get_exit_description(self) -&gt; str:
+        &#34;&#34;&#34;
+        Get a description of available exits.
+
+        Returns:
+            A formatted string describing available exits.
+
+        Examples:
+            &gt;&gt;&gt; scene = Scene(
+            ...     id=&#34;room&#34;,
+            ...     name=&#34;Room&#34;,
+            ...     description=&#34;A room.&#34;,
+            ...     exits={&#34;north&#34;: &#34;hallway&#34;, &#34;east&#34;: &#34;closet&#34;}
+            ... )
+            &gt;&gt;&gt; desc = scene.get_exit_description()
+            &gt;&gt;&gt; &#34;north&#34; in desc and &#34;east&#34; in desc
+            True
+        &#34;&#34;&#34;
+        if not self.exits:
+            return &#34;There are no obvious exits.&#34;
+
+        exit_names = list(self.exits.keys())
+        if len(exit_names) == 1:
+            return f&#34;There is an exit to the {exit_names[0]}.&#34;
+        else:
+            exits_str = &#34;, &#34;.join(exit_names[:-1]) + f&#34; and {exit_names[-1]}&#34;
+            return f&#34;There are exits to the {exits_str}.&#34;
+
+    def can_exit(
+        self, direction: str, inventory: list[str], game_flags: dict[str, bool]
+    ) -&gt; tuple[bool, str | None]:
+        &#34;&#34;&#34;
+        Check if the player can use a specific exit.
+
+        Args:
+            direction: The direction/exit name to check.
+            inventory: Player&#39;s current inventory.
+            game_flags: Current game flags.
+
+        Returns:
+            A tuple of (can_exit: bool, reason: Optional[str]).
+            If can_exit is False, reason contains an explanation.
+
+        Examples:
+            &gt;&gt;&gt; scene = Scene(
+            ...     id=&#34;room&#34;,
+            ...     name=&#34;Room&#34;,
+            ...     description=&#34;A room.&#34;,
+            ...     exits={&#34;north&#34;: &#34;hallway&#34;},
+            ...     locked_exits={&#34;north&#34;: &#34;key&#34;}
+            ... )
+            &gt;&gt;&gt; scene.can_exit(&#34;north&#34;, [], {})
+            (False, &#39;The exit to the north is locked. You need: key&#39;)
+            &gt;&gt;&gt; scene.can_exit(&#34;north&#34;, [&#34;key&#34;], {})
+            (True, None)
+            &gt;&gt;&gt; scene.can_exit(&#34;south&#34;, [&#34;key&#34;], {})
+            (False, &#39;There is no exit in that direction.&#39;)
+        &#34;&#34;&#34;
+        if direction not in self.exits:
+            return False, &#34;There is no exit in that direction.&#34;
+
+        if direction in self.locked_exits:
+            required = self.locked_exits[direction]
+
+            # Check if it&#39;s an item requirement
+            if required in inventory:
+                return True, None
+
+            # Check if it&#39;s a flag requirement
+            if game_flags.get(required, False):
+                return True, None
+
+            return False, f&#34;The exit to the {direction} is locked. You need: {required}&#34;
+
+        return True, None
+
+    def get_item(self, item_id: str) -&gt; Item | None:
+        &#34;&#34;&#34;
+        Get an item from the scene by ID.
+
+        Args:
+            item_id: The ID of the item to retrieve.
+
+        Returns:
+            The Item object if found, None otherwise.
+
+        Examples:
+            &gt;&gt;&gt; item = Item(id=&#34;key&#34;, name=&#34;Key&#34;, description=&#34;A key.&#34;)
+            &gt;&gt;&gt; scene = Scene(
+            ...     id=&#34;room&#34;,
+            ...     name=&#34;Room&#34;,
+            ...     description=&#34;A room.&#34;,
+            ...     items=[item]
+            ... )
+            &gt;&gt;&gt; found = scene.get_item(&#34;key&#34;)
+            &gt;&gt;&gt; found.name
+            &#39;Key&#39;
+            &gt;&gt;&gt; scene.get_item(&#34;missing&#34;)
+        &#34;&#34;&#34;
+        for item in self.items:
+            if item.id == item_id:
+                return item
+        return None
+
+    def remove_item(self, item_id: str) -&gt; bool:
+        &#34;&#34;&#34;
+        Remove an item from the scene.
+
+        Args:
+            item_id: The ID of the item to remove.
+
+        Returns:
+            True if the item was removed, False if not found.
+
+        Examples:
+            &gt;&gt;&gt; item = Item(id=&#34;key&#34;, name=&#34;Key&#34;, description=&#34;A key.&#34;)
+            &gt;&gt;&gt; scene = Scene(
+            ...     id=&#34;room&#34;,
+            ...     name=&#34;Room&#34;,
+            ...     description=&#34;A room.&#34;,
+            ...     items=[item]
+            ... )
+            &gt;&gt;&gt; scene.remove_item(&#34;key&#34;)
+            True
+            &gt;&gt;&gt; len(scene.items)
+            0
+            &gt;&gt;&gt; scene.remove_item(&#34;key&#34;)
+            False
+        &#34;&#34;&#34;
+        for i, item in enumerate(self.items):
+            if item.id == item_id:
+                self.items.pop(i)
+                return True
+        return False
+
+    def add_item(self, item: Item) -&gt; None:
+        &#34;&#34;&#34;
+        Add an item to the scene.
+
+        Args:
+            item: The Item object to add.
+
+        Examples:
+            &gt;&gt;&gt; item = Item(id=&#34;key&#34;, name=&#34;Key&#34;, description=&#34;A key.&#34;)
+            &gt;&gt;&gt; scene = Scene(id=&#34;room&#34;, name=&#34;Room&#34;, description=&#34;A room.&#34;)
+            &gt;&gt;&gt; scene.add_item(item)
+            &gt;&gt;&gt; len(scene.items)
+            1
+        &#34;&#34;&#34;
+        self.items.append(item)
+
+    def get_npc(self, npc_id: str) -&gt; NPC | None:
+        &#34;&#34;&#34;
+        Get an NPC from the scene by ID.
+
+        Args:
+            npc_id: The ID of the NPC to retrieve.
+
+        Returns:
+            The NPC object if found, None otherwise.
+
+        Examples:
+            &gt;&gt;&gt; npc = NPC(id=&#34;guard&#34;, name=&#34;Guard&#34;, description=&#34;A guard.&#34;)
+            &gt;&gt;&gt; scene = Scene(
+            ...     id=&#34;room&#34;,
+            ...     name=&#34;Room&#34;,
+            ...     description=&#34;A room.&#34;,
+            ...     npcs=[npc]
+            ... )
+            &gt;&gt;&gt; found = scene.get_npc(&#34;guard&#34;)
+            &gt;&gt;&gt; found.name
+            &#39;Guard&#39;
+        &#34;&#34;&#34;
+        for npc in self.npcs:
+            if npc.id == npc_id:
+                return npc
+        return None
+
+    def get_entry_events(self, game_flags: dict[str, bool]) -&gt; list[Event]:
+        &#34;&#34;&#34;
+        Get all events that should trigger when entering this scene.
+
+        Args:
+            game_flags: Current game flags.
+
+        Returns:
+            List of Event objects that can trigger.
+
+        Examples:
+            &gt;&gt;&gt; event = Event(
+            ...     id=&#34;ambush&#34;,
+            ...     description=&#34;An ambush!&#34;,
+            ...     trigger_on_entry=True
+            ... )
+            &gt;&gt;&gt; scene = Scene(
+            ...     id=&#34;room&#34;,
+            ...     name=&#34;Room&#34;,
+            ...     description=&#34;A room.&#34;,
+            ...     events=[event]
+            ... )
+            &gt;&gt;&gt; events = scene.get_entry_events({})
+            &gt;&gt;&gt; len(events)
+            1
+        &#34;&#34;&#34;
+        return [
+            event
+            for event in self.events
+            if event.trigger_on_entry and event.can_trigger(game_flags)
+        ]
+
+    def unlock_exit(self, direction: str) -&gt; bool:
+        &#34;&#34;&#34;
+        Unlock an exit, making it passable.
+
+        Args:
+            direction: The direction/exit to unlock.
+
+        Returns:
+            True if the exit was unlocked, False if it wasn&#39;t locked.
+
+        Examples:
+            &gt;&gt;&gt; scene = Scene(
+            ...     id=&#34;room&#34;,
+            ...     name=&#34;Room&#34;,
+            ...     description=&#34;A room.&#34;,
+            ...     exits={&#34;north&#34;: &#34;hallway&#34;},
+            ...     locked_exits={&#34;north&#34;: &#34;key&#34;}
+            ... )
+            &gt;&gt;&gt; scene.unlock_exit(&#34;north&#34;)
+            True
+            &gt;&gt;&gt; &#34;north&#34; in scene.locked_exits
+            False
+        &#34;&#34;&#34;
+        if direction in self.locked_exits:
+            del self.locked_exits[direction]
+            return True
+        return False
+
+    def to_dict(self) -&gt; dict:
+        &#34;&#34;&#34;
+        Convert the scene to a dictionary for serialization.
+
+        Returns:
+            Dictionary representation of the scene.
+        &#34;&#34;&#34;
+        return {
+            &#34;id&#34;: self.id,
+            &#34;name&#34;: self.name,
+            &#34;description&#34;: self.description,
+            &#34;exits&#34;: self.exits,
+            &#34;items&#34;: [item.to_dict() for item in self.items],
+            &#34;npcs&#34;: [npc.to_dict() for npc in self.npcs],
+            &#34;events&#34;: [event.to_dict() for event in self.events],
+            &#34;visited&#34;: self.visited,
+            &#34;dark&#34;: self.dark,
+            &#34;locked_exits&#34;: self.locked_exits,
+        }
+
+    @classmethod
+    def from_dict(cls, data: dict) -&gt; &#34;Scene&#34;:
+        &#34;&#34;&#34;
+        Create a Scene from a dictionary.
+
+        Args:
+            data: Dictionary containing scene data.
+
+        Returns:
+            A new Scene instance.
+        &#34;&#34;&#34;
+        scene = cls(
+            id=data[&#34;id&#34;],
+            name=data[&#34;name&#34;],
+            description=data[&#34;description&#34;],
+            exits=data.get(&#34;exits&#34;, {}),
+            items=[Item.from_dict(item_data) for item_data in data.get(&#34;items&#34;, [])],
+            npcs=[NPC.from_dict(npc_data) for npc_data in data.get(&#34;npcs&#34;, [])],
+            events=[Event.from_dict(event_data) for event_data in data.get(&#34;events&#34;, [])],
+            dark=data.get(&#34;dark&#34;, False),
+            locked_exits=data.get(&#34;locked_exits&#34;, {}),
+        )
+        scene.visited = data.get(&#34;visited&#34;, False)
+        return scene</code></pre>
+</details>
+<div class="desc"><p>Represents a location/room in the game world.</p>
+<p>Scenes are the primary spatial units in the game. Each scene has a description,
+connections to other scenes (exits), and can contain items, NPCs, and events.
+Players navigate between scenes to progress through the story.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>id</code></strong></dt>
+<dd>Unique identifier for the scene.</dd>
+<dt><strong><code>name</code></strong></dt>
+<dd>Display name of the scene.</dd>
+<dt><strong><code>description</code></strong></dt>
+<dd>Detailed text description of the scene.</dd>
+<dt><strong><code>exits</code></strong></dt>
+<dd>Dictionary mapping direction names to scene IDs
+(e.g., {"north": "corridor_1", "east": "airlock"}).</dd>
+<dt><strong><code>items</code></strong></dt>
+<dd>List of Item objects present in this scene.</dd>
+<dt><strong><code>npcs</code></strong></dt>
+<dd>List of NPC objects present in this scene.</dd>
+<dt><strong><code>events</code></strong></dt>
+<dd>List of Event objects that can trigger in this scene.</dd>
+<dt><strong><code>visited</code></strong></dt>
+<dd>Whether the player has visited this scene before.</dd>
+<dt><strong><code>dark</code></strong></dt>
+<dd>Whether the scene is dark (requires light source).</dd>
+<dt><strong><code>locked_exits</code></strong></dt>
+<dd>Dictionary of locked exits requiring items or flags
+(e.g., {"north": "brass_key"}).</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<p>Create a simple scene:</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; entrance = Scene(
+...     id=&quot;entrance_hall&quot;,
+...     name=&quot;Entrance Hall&quot;,
+...     description=&quot;A grand hall with vaulted ceilings.&quot;,
+...     exits={&quot;north&quot;: &quot;main_corridor&quot;, &quot;south&quot;: &quot;exterior&quot;}
+... )
+</code></pre>
+<p>Create a scene with items and NPCs:</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import Item, NPC
+&gt;&gt;&gt; medkit = Item(id=&quot;medkit&quot;, name=&quot;Medkit&quot;, description=&quot;A medkit.&quot;)
+&gt;&gt;&gt; guard = NPC(id=&quot;guard&quot;, name=&quot;Guard&quot;, description=&quot;A guard.&quot;)
+&gt;&gt;&gt; armory = Scene(
+...     id=&quot;armory&quot;,
+...     name=&quot;Armory&quot;,
+...     description=&quot;Weapons line the walls.&quot;,
+...     exits={&quot;west&quot;: &quot;corridor&quot;},
+...     items=[medkit],
+...     npcs=[guard]
+... )
+</code></pre>
+<p>Create a scene with locked exits:</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; vault = Scene(
+...     id=&quot;vault&quot;,
+...     name=&quot;Secure Vault&quot;,
+...     description=&quot;A heavily secured vault.&quot;,
+...     exits={&quot;north&quot;: &quot;corridor&quot;, &quot;vault_door&quot;: &quot;treasure_room&quot;},
+...     locked_exits={&quot;vault_door&quot;: &quot;vault_key&quot;}
+... )
+</code></pre>
+<p>Create a dark scene:</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; dark_corridor = Scene(
+...     id=&quot;dark_corridor&quot;,
+...     name=&quot;Dark Corridor&quot;,
+...     description=&quot;A pitch-black corridor.&quot;,
+...     exits={&quot;east&quot;: &quot;light_room&quot;, &quot;west&quot;: &quot;another_room&quot;},
+...     dark=True
+... )
+</code></pre></div>
+<h3>Static methods</h3>
+<dl>
+<dt id="space_hulk_game.engine.scene.Scene.from_dict"><code class="name flex">
+<span>def <span class="ident">from_dict</span></span>(<span>data: dict) ‑> <a title="space_hulk_game.engine.scene.Scene" href="#space_hulk_game.engine.scene.Scene">Scene</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create a Scene from a dictionary.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>data</code></strong></dt>
+<dd>Dictionary containing scene data.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>A new Scene instance.</p></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="space_hulk_game.engine.scene.Scene.dark"><code class="name">var <span class="ident">dark</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.scene.Scene.description"><code class="name">var <span class="ident">description</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.scene.Scene.events"><code class="name">var <span class="ident">events</span> : list[<a title="space_hulk_game.engine.entities.Event" href="entities.html#space_hulk_game.engine.entities.Event">Event</a>]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.scene.Scene.exits"><code class="name">var <span class="ident">exits</span> : dict[str, str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.scene.Scene.id"><code class="name">var <span class="ident">id</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.scene.Scene.items"><code class="name">var <span class="ident">items</span> : list[<a title="space_hulk_game.engine.entities.Item" href="entities.html#space_hulk_game.engine.entities.Item">Item</a>]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.scene.Scene.locked_exits"><code class="name">var <span class="ident">locked_exits</span> : dict[str, str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.scene.Scene.name"><code class="name">var <span class="ident">name</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.scene.Scene.npcs"><code class="name">var <span class="ident">npcs</span> : list[<a title="space_hulk_game.engine.entities.NPC" href="entities.html#space_hulk_game.engine.entities.NPC">NPC</a>]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.scene.Scene.visited"><code class="name">var <span class="ident">visited</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="space_hulk_game.engine.scene.Scene.add_item"><code class="name flex">
+<span>def <span class="ident">add_item</span></span>(<span>self,<br>item: <a title="space_hulk_game.engine.entities.Item" href="entities.html#space_hulk_game.engine.entities.Item">Item</a>) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_item(self, item: Item) -&gt; None:
+    &#34;&#34;&#34;
+    Add an item to the scene.
+
+    Args:
+        item: The Item object to add.
+
+    Examples:
+        &gt;&gt;&gt; item = Item(id=&#34;key&#34;, name=&#34;Key&#34;, description=&#34;A key.&#34;)
+        &gt;&gt;&gt; scene = Scene(id=&#34;room&#34;, name=&#34;Room&#34;, description=&#34;A room.&#34;)
+        &gt;&gt;&gt; scene.add_item(item)
+        &gt;&gt;&gt; len(scene.items)
+        1
+    &#34;&#34;&#34;
+    self.items.append(item)</code></pre>
+</details>
+<div class="desc"><p>Add an item to the scene.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>item</code></strong></dt>
+<dd>The Item object to add.</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; item = Item(id=&quot;key&quot;, name=&quot;Key&quot;, description=&quot;A key.&quot;)
+&gt;&gt;&gt; scene = Scene(id=&quot;room&quot;, name=&quot;Room&quot;, description=&quot;A room.&quot;)
+&gt;&gt;&gt; scene.add_item(item)
+&gt;&gt;&gt; len(scene.items)
+1
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.engine.scene.Scene.can_exit"><code class="name flex">
+<span>def <span class="ident">can_exit</span></span>(<span>self, direction: str, inventory: list[str], game_flags: dict[str, bool]) ‑> tuple[bool, str | None]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def can_exit(
+    self, direction: str, inventory: list[str], game_flags: dict[str, bool]
+) -&gt; tuple[bool, str | None]:
+    &#34;&#34;&#34;
+    Check if the player can use a specific exit.
+
+    Args:
+        direction: The direction/exit name to check.
+        inventory: Player&#39;s current inventory.
+        game_flags: Current game flags.
+
+    Returns:
+        A tuple of (can_exit: bool, reason: Optional[str]).
+        If can_exit is False, reason contains an explanation.
+
+    Examples:
+        &gt;&gt;&gt; scene = Scene(
+        ...     id=&#34;room&#34;,
+        ...     name=&#34;Room&#34;,
+        ...     description=&#34;A room.&#34;,
+        ...     exits={&#34;north&#34;: &#34;hallway&#34;},
+        ...     locked_exits={&#34;north&#34;: &#34;key&#34;}
+        ... )
+        &gt;&gt;&gt; scene.can_exit(&#34;north&#34;, [], {})
+        (False, &#39;The exit to the north is locked. You need: key&#39;)
+        &gt;&gt;&gt; scene.can_exit(&#34;north&#34;, [&#34;key&#34;], {})
+        (True, None)
+        &gt;&gt;&gt; scene.can_exit(&#34;south&#34;, [&#34;key&#34;], {})
+        (False, &#39;There is no exit in that direction.&#39;)
+    &#34;&#34;&#34;
+    if direction not in self.exits:
+        return False, &#34;There is no exit in that direction.&#34;
+
+    if direction in self.locked_exits:
+        required = self.locked_exits[direction]
+
+        # Check if it&#39;s an item requirement
+        if required in inventory:
+            return True, None
+
+        # Check if it&#39;s a flag requirement
+        if game_flags.get(required, False):
+            return True, None
+
+        return False, f&#34;The exit to the {direction} is locked. You need: {required}&#34;
+
+    return True, None</code></pre>
+</details>
+<div class="desc"><p>Check if the player can use a specific exit.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>direction</code></strong></dt>
+<dd>The direction/exit name to check.</dd>
+<dt><strong><code>inventory</code></strong></dt>
+<dd>Player's current inventory.</dd>
+<dt><strong><code>game_flags</code></strong></dt>
+<dd>Current game flags.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>A tuple of (can_exit: bool, reason: Optional[str]).
+If can_exit is False, reason contains an explanation.</p>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; scene = Scene(
+...     id=&quot;room&quot;,
+...     name=&quot;Room&quot;,
+...     description=&quot;A room.&quot;,
+...     exits={&quot;north&quot;: &quot;hallway&quot;},
+...     locked_exits={&quot;north&quot;: &quot;key&quot;}
+... )
+&gt;&gt;&gt; scene.can_exit(&quot;north&quot;, [], {})
+(False, 'The exit to the north is locked. You need: key')
+&gt;&gt;&gt; scene.can_exit(&quot;north&quot;, [&quot;key&quot;], {})
+(True, None)
+&gt;&gt;&gt; scene.can_exit(&quot;south&quot;, [&quot;key&quot;], {})
+(False, 'There is no exit in that direction.')
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.engine.scene.Scene.get_entry_events"><code class="name flex">
+<span>def <span class="ident">get_entry_events</span></span>(<span>self, game_flags: dict[str, bool]) ‑> list[<a title="space_hulk_game.engine.entities.Event" href="entities.html#space_hulk_game.engine.entities.Event">Event</a>]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_entry_events(self, game_flags: dict[str, bool]) -&gt; list[Event]:
+    &#34;&#34;&#34;
+    Get all events that should trigger when entering this scene.
+
+    Args:
+        game_flags: Current game flags.
+
+    Returns:
+        List of Event objects that can trigger.
+
+    Examples:
+        &gt;&gt;&gt; event = Event(
+        ...     id=&#34;ambush&#34;,
+        ...     description=&#34;An ambush!&#34;,
+        ...     trigger_on_entry=True
+        ... )
+        &gt;&gt;&gt; scene = Scene(
+        ...     id=&#34;room&#34;,
+        ...     name=&#34;Room&#34;,
+        ...     description=&#34;A room.&#34;,
+        ...     events=[event]
+        ... )
+        &gt;&gt;&gt; events = scene.get_entry_events({})
+        &gt;&gt;&gt; len(events)
+        1
+    &#34;&#34;&#34;
+    return [
+        event
+        for event in self.events
+        if event.trigger_on_entry and event.can_trigger(game_flags)
+    ]</code></pre>
+</details>
+<div class="desc"><p>Get all events that should trigger when entering this scene.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>game_flags</code></strong></dt>
+<dd>Current game flags.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>List of Event objects that can trigger.</p>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; event = Event(
+...     id=&quot;ambush&quot;,
+...     description=&quot;An ambush!&quot;,
+...     trigger_on_entry=True
+... )
+&gt;&gt;&gt; scene = Scene(
+...     id=&quot;room&quot;,
+...     name=&quot;Room&quot;,
+...     description=&quot;A room.&quot;,
+...     events=[event]
+... )
+&gt;&gt;&gt; events = scene.get_entry_events({})
+&gt;&gt;&gt; len(events)
+1
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.engine.scene.Scene.get_exit_description"><code class="name flex">
+<span>def <span class="ident">get_exit_description</span></span>(<span>self) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_exit_description(self) -&gt; str:
+    &#34;&#34;&#34;
+    Get a description of available exits.
+
+    Returns:
+        A formatted string describing available exits.
+
+    Examples:
+        &gt;&gt;&gt; scene = Scene(
+        ...     id=&#34;room&#34;,
+        ...     name=&#34;Room&#34;,
+        ...     description=&#34;A room.&#34;,
+        ...     exits={&#34;north&#34;: &#34;hallway&#34;, &#34;east&#34;: &#34;closet&#34;}
+        ... )
+        &gt;&gt;&gt; desc = scene.get_exit_description()
+        &gt;&gt;&gt; &#34;north&#34; in desc and &#34;east&#34; in desc
+        True
+    &#34;&#34;&#34;
+    if not self.exits:
+        return &#34;There are no obvious exits.&#34;
+
+    exit_names = list(self.exits.keys())
+    if len(exit_names) == 1:
+        return f&#34;There is an exit to the {exit_names[0]}.&#34;
+    else:
+        exits_str = &#34;, &#34;.join(exit_names[:-1]) + f&#34; and {exit_names[-1]}&#34;
+        return f&#34;There are exits to the {exits_str}.&#34;</code></pre>
+</details>
+<div class="desc"><p>Get a description of available exits.</p>
+<h2 id="returns">Returns</h2>
+<p>A formatted string describing available exits.</p>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; scene = Scene(
+...     id=&quot;room&quot;,
+...     name=&quot;Room&quot;,
+...     description=&quot;A room.&quot;,
+...     exits={&quot;north&quot;: &quot;hallway&quot;, &quot;east&quot;: &quot;closet&quot;}
+... )
+&gt;&gt;&gt; desc = scene.get_exit_description()
+&gt;&gt;&gt; &quot;north&quot; in desc and &quot;east&quot; in desc
+True
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.engine.scene.Scene.get_full_description"><code class="name flex">
+<span>def <span class="ident">get_full_description</span></span>(<span>self) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_full_description(self) -&gt; str:
+    &#34;&#34;&#34;
+    Get the complete description of the scene, including items and NPCs.
+
+    Returns:
+        A formatted string describing the scene and its contents.
+
+    Examples:
+        &gt;&gt;&gt; item = Item(id=&#34;key&#34;, name=&#34;Brass Key&#34;, description=&#34;A key.&#34;)
+        &gt;&gt;&gt; scene = Scene(
+        ...     id=&#34;room&#34;,
+        ...     name=&#34;Test Room&#34;,
+        ...     description=&#34;A test room.&#34;,
+        ...     items=[item]
+        ... )
+        &gt;&gt;&gt; desc = scene.get_full_description()
+        &gt;&gt;&gt; &#34;Brass Key&#34; in desc
+        True
+    &#34;&#34;&#34;
+    parts = [self.description]
+
+    if self.items:
+        item_names = [item.name for item in self.items]
+        parts.append(f&#34;\n\nYou see: {&#39;, &#39;.join(item_names)}.&#34;)
+
+    if self.npcs:
+        npc_descriptions = [npc.description for npc in self.npcs]
+        parts.append(f&#34;\n\n{&#39; &#39;.join(npc_descriptions)}&#34;)
+
+    return &#34;&#34;.join(parts)</code></pre>
+</details>
+<div class="desc"><p>Get the complete description of the scene, including items and NPCs.</p>
+<h2 id="returns">Returns</h2>
+<p>A formatted string describing the scene and its contents.</p>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; item = Item(id=&quot;key&quot;, name=&quot;Brass Key&quot;, description=&quot;A key.&quot;)
+&gt;&gt;&gt; scene = Scene(
+...     id=&quot;room&quot;,
+...     name=&quot;Test Room&quot;,
+...     description=&quot;A test room.&quot;,
+...     items=[item]
+... )
+&gt;&gt;&gt; desc = scene.get_full_description()
+&gt;&gt;&gt; &quot;Brass Key&quot; in desc
+True
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.engine.scene.Scene.get_item"><code class="name flex">
+<span>def <span class="ident">get_item</span></span>(<span>self, item_id: str) ‑> <a title="space_hulk_game.engine.entities.Item" href="entities.html#space_hulk_game.engine.entities.Item">Item</a> | None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_item(self, item_id: str) -&gt; Item | None:
+    &#34;&#34;&#34;
+    Get an item from the scene by ID.
+
+    Args:
+        item_id: The ID of the item to retrieve.
+
+    Returns:
+        The Item object if found, None otherwise.
+
+    Examples:
+        &gt;&gt;&gt; item = Item(id=&#34;key&#34;, name=&#34;Key&#34;, description=&#34;A key.&#34;)
+        &gt;&gt;&gt; scene = Scene(
+        ...     id=&#34;room&#34;,
+        ...     name=&#34;Room&#34;,
+        ...     description=&#34;A room.&#34;,
+        ...     items=[item]
+        ... )
+        &gt;&gt;&gt; found = scene.get_item(&#34;key&#34;)
+        &gt;&gt;&gt; found.name
+        &#39;Key&#39;
+        &gt;&gt;&gt; scene.get_item(&#34;missing&#34;)
+    &#34;&#34;&#34;
+    for item in self.items:
+        if item.id == item_id:
+            return item
+    return None</code></pre>
+</details>
+<div class="desc"><p>Get an item from the scene by ID.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>item_id</code></strong></dt>
+<dd>The ID of the item to retrieve.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>The Item object if found, None otherwise.</p>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; item = Item(id=&quot;key&quot;, name=&quot;Key&quot;, description=&quot;A key.&quot;)
+&gt;&gt;&gt; scene = Scene(
+...     id=&quot;room&quot;,
+...     name=&quot;Room&quot;,
+...     description=&quot;A room.&quot;,
+...     items=[item]
+... )
+&gt;&gt;&gt; found = scene.get_item(&quot;key&quot;)
+&gt;&gt;&gt; found.name
+'Key'
+&gt;&gt;&gt; scene.get_item(&quot;missing&quot;)
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.engine.scene.Scene.get_npc"><code class="name flex">
+<span>def <span class="ident">get_npc</span></span>(<span>self, npc_id: str) ‑> <a title="space_hulk_game.engine.entities.NPC" href="entities.html#space_hulk_game.engine.entities.NPC">NPC</a> | None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_npc(self, npc_id: str) -&gt; NPC | None:
+    &#34;&#34;&#34;
+    Get an NPC from the scene by ID.
+
+    Args:
+        npc_id: The ID of the NPC to retrieve.
+
+    Returns:
+        The NPC object if found, None otherwise.
+
+    Examples:
+        &gt;&gt;&gt; npc = NPC(id=&#34;guard&#34;, name=&#34;Guard&#34;, description=&#34;A guard.&#34;)
+        &gt;&gt;&gt; scene = Scene(
+        ...     id=&#34;room&#34;,
+        ...     name=&#34;Room&#34;,
+        ...     description=&#34;A room.&#34;,
+        ...     npcs=[npc]
+        ... )
+        &gt;&gt;&gt; found = scene.get_npc(&#34;guard&#34;)
+        &gt;&gt;&gt; found.name
+        &#39;Guard&#39;
+    &#34;&#34;&#34;
+    for npc in self.npcs:
+        if npc.id == npc_id:
+            return npc
+    return None</code></pre>
+</details>
+<div class="desc"><p>Get an NPC from the scene by ID.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>npc_id</code></strong></dt>
+<dd>The ID of the NPC to retrieve.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>The NPC object if found, None otherwise.</p>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; npc = NPC(id=&quot;guard&quot;, name=&quot;Guard&quot;, description=&quot;A guard.&quot;)
+&gt;&gt;&gt; scene = Scene(
+...     id=&quot;room&quot;,
+...     name=&quot;Room&quot;,
+...     description=&quot;A room.&quot;,
+...     npcs=[npc]
+... )
+&gt;&gt;&gt; found = scene.get_npc(&quot;guard&quot;)
+&gt;&gt;&gt; found.name
+'Guard'
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.engine.scene.Scene.remove_item"><code class="name flex">
+<span>def <span class="ident">remove_item</span></span>(<span>self, item_id: str) ‑> bool</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def remove_item(self, item_id: str) -&gt; bool:
+    &#34;&#34;&#34;
+    Remove an item from the scene.
+
+    Args:
+        item_id: The ID of the item to remove.
+
+    Returns:
+        True if the item was removed, False if not found.
+
+    Examples:
+        &gt;&gt;&gt; item = Item(id=&#34;key&#34;, name=&#34;Key&#34;, description=&#34;A key.&#34;)
+        &gt;&gt;&gt; scene = Scene(
+        ...     id=&#34;room&#34;,
+        ...     name=&#34;Room&#34;,
+        ...     description=&#34;A room.&#34;,
+        ...     items=[item]
+        ... )
+        &gt;&gt;&gt; scene.remove_item(&#34;key&#34;)
+        True
+        &gt;&gt;&gt; len(scene.items)
+        0
+        &gt;&gt;&gt; scene.remove_item(&#34;key&#34;)
+        False
+    &#34;&#34;&#34;
+    for i, item in enumerate(self.items):
+        if item.id == item_id:
+            self.items.pop(i)
+            return True
+    return False</code></pre>
+</details>
+<div class="desc"><p>Remove an item from the scene.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>item_id</code></strong></dt>
+<dd>The ID of the item to remove.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>True if the item was removed, False if not found.</p>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; item = Item(id=&quot;key&quot;, name=&quot;Key&quot;, description=&quot;A key.&quot;)
+&gt;&gt;&gt; scene = Scene(
+...     id=&quot;room&quot;,
+...     name=&quot;Room&quot;,
+...     description=&quot;A room.&quot;,
+...     items=[item]
+... )
+&gt;&gt;&gt; scene.remove_item(&quot;key&quot;)
+True
+&gt;&gt;&gt; len(scene.items)
+0
+&gt;&gt;&gt; scene.remove_item(&quot;key&quot;)
+False
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.engine.scene.Scene.to_dict"><code class="name flex">
+<span>def <span class="ident">to_dict</span></span>(<span>self) ‑> dict</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def to_dict(self) -&gt; dict:
+    &#34;&#34;&#34;
+    Convert the scene to a dictionary for serialization.
+
+    Returns:
+        Dictionary representation of the scene.
+    &#34;&#34;&#34;
+    return {
+        &#34;id&#34;: self.id,
+        &#34;name&#34;: self.name,
+        &#34;description&#34;: self.description,
+        &#34;exits&#34;: self.exits,
+        &#34;items&#34;: [item.to_dict() for item in self.items],
+        &#34;npcs&#34;: [npc.to_dict() for npc in self.npcs],
+        &#34;events&#34;: [event.to_dict() for event in self.events],
+        &#34;visited&#34;: self.visited,
+        &#34;dark&#34;: self.dark,
+        &#34;locked_exits&#34;: self.locked_exits,
+    }</code></pre>
+</details>
+<div class="desc"><p>Convert the scene to a dictionary for serialization.</p>
+<h2 id="returns">Returns</h2>
+<p>Dictionary representation of the scene.</p></div>
+</dd>
+<dt id="space_hulk_game.engine.scene.Scene.unlock_exit"><code class="name flex">
+<span>def <span class="ident">unlock_exit</span></span>(<span>self, direction: str) ‑> bool</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def unlock_exit(self, direction: str) -&gt; bool:
+    &#34;&#34;&#34;
+    Unlock an exit, making it passable.
+
+    Args:
+        direction: The direction/exit to unlock.
+
+    Returns:
+        True if the exit was unlocked, False if it wasn&#39;t locked.
+
+    Examples:
+        &gt;&gt;&gt; scene = Scene(
+        ...     id=&#34;room&#34;,
+        ...     name=&#34;Room&#34;,
+        ...     description=&#34;A room.&#34;,
+        ...     exits={&#34;north&#34;: &#34;hallway&#34;},
+        ...     locked_exits={&#34;north&#34;: &#34;key&#34;}
+        ... )
+        &gt;&gt;&gt; scene.unlock_exit(&#34;north&#34;)
+        True
+        &gt;&gt;&gt; &#34;north&#34; in scene.locked_exits
+        False
+    &#34;&#34;&#34;
+    if direction in self.locked_exits:
+        del self.locked_exits[direction]
+        return True
+    return False</code></pre>
+</details>
+<div class="desc"><p>Unlock an exit, making it passable.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>direction</code></strong></dt>
+<dd>The direction/exit to unlock.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>True if the exit was unlocked, False if it wasn't locked.</p>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; scene = Scene(
+...     id=&quot;room&quot;,
+...     name=&quot;Room&quot;,
+...     description=&quot;A room.&quot;,
+...     exits={&quot;north&quot;: &quot;hallway&quot;},
+...     locked_exits={&quot;north&quot;: &quot;key&quot;}
+... )
+&gt;&gt;&gt; scene.unlock_exit(&quot;north&quot;)
+True
+&gt;&gt;&gt; &quot;north&quot; in scene.locked_exits
+False
+</code></pre></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="space_hulk_game.engine" href="index.html">space_hulk_game.engine</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="space_hulk_game.engine.scene.Scene" href="#space_hulk_game.engine.scene.Scene">Scene</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.engine.scene.Scene.add_item" href="#space_hulk_game.engine.scene.Scene.add_item">add_item</a></code></li>
+<li><code><a title="space_hulk_game.engine.scene.Scene.can_exit" href="#space_hulk_game.engine.scene.Scene.can_exit">can_exit</a></code></li>
+<li><code><a title="space_hulk_game.engine.scene.Scene.dark" href="#space_hulk_game.engine.scene.Scene.dark">dark</a></code></li>
+<li><code><a title="space_hulk_game.engine.scene.Scene.description" href="#space_hulk_game.engine.scene.Scene.description">description</a></code></li>
+<li><code><a title="space_hulk_game.engine.scene.Scene.events" href="#space_hulk_game.engine.scene.Scene.events">events</a></code></li>
+<li><code><a title="space_hulk_game.engine.scene.Scene.exits" href="#space_hulk_game.engine.scene.Scene.exits">exits</a></code></li>
+<li><code><a title="space_hulk_game.engine.scene.Scene.from_dict" href="#space_hulk_game.engine.scene.Scene.from_dict">from_dict</a></code></li>
+<li><code><a title="space_hulk_game.engine.scene.Scene.get_entry_events" href="#space_hulk_game.engine.scene.Scene.get_entry_events">get_entry_events</a></code></li>
+<li><code><a title="space_hulk_game.engine.scene.Scene.get_exit_description" href="#space_hulk_game.engine.scene.Scene.get_exit_description">get_exit_description</a></code></li>
+<li><code><a title="space_hulk_game.engine.scene.Scene.get_full_description" href="#space_hulk_game.engine.scene.Scene.get_full_description">get_full_description</a></code></li>
+<li><code><a title="space_hulk_game.engine.scene.Scene.get_item" href="#space_hulk_game.engine.scene.Scene.get_item">get_item</a></code></li>
+<li><code><a title="space_hulk_game.engine.scene.Scene.get_npc" href="#space_hulk_game.engine.scene.Scene.get_npc">get_npc</a></code></li>
+<li><code><a title="space_hulk_game.engine.scene.Scene.id" href="#space_hulk_game.engine.scene.Scene.id">id</a></code></li>
+<li><code><a title="space_hulk_game.engine.scene.Scene.items" href="#space_hulk_game.engine.scene.Scene.items">items</a></code></li>
+<li><code><a title="space_hulk_game.engine.scene.Scene.locked_exits" href="#space_hulk_game.engine.scene.Scene.locked_exits">locked_exits</a></code></li>
+<li><code><a title="space_hulk_game.engine.scene.Scene.name" href="#space_hulk_game.engine.scene.Scene.name">name</a></code></li>
+<li><code><a title="space_hulk_game.engine.scene.Scene.npcs" href="#space_hulk_game.engine.scene.Scene.npcs">npcs</a></code></li>
+<li><code><a title="space_hulk_game.engine.scene.Scene.remove_item" href="#space_hulk_game.engine.scene.Scene.remove_item">remove_item</a></code></li>
+<li><code><a title="space_hulk_game.engine.scene.Scene.to_dict" href="#space_hulk_game.engine.scene.Scene.to_dict">to_dict</a></code></li>
+<li><code><a title="space_hulk_game.engine.scene.Scene.unlock_exit" href="#space_hulk_game.engine.scene.Scene.unlock_exit">unlock_exit</a></code></li>
+<li><code><a title="space_hulk_game.engine.scene.Scene.visited" href="#space_hulk_game.engine.scene.Scene.visited">visited</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>

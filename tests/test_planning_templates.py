@@ -14,7 +14,8 @@ import sys
 import yaml
 
 # Add src to path for imports
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
+
 
 def test_template_files():
     """Test that all template files exist and are valid YAML."""
@@ -22,12 +23,12 @@ def test_template_files():
     print("Testing Template Files")
     print("=" * 60)
 
-    template_dir = os.path.join(os.path.dirname(__file__), '..', 'planning_templates')
+    template_dir = os.path.join(os.path.dirname(__file__), "..", "planning_templates")
     templates = [
-        'space_horror.yaml',
-        'mystery_investigation.yaml',
-        'survival_escape.yaml',
-        'combat_focused.yaml'
+        "space_horror.yaml",
+        "mystery_investigation.yaml",
+        "survival_escape.yaml",
+        "combat_focused.yaml",
     ]
 
     all_valid = True
@@ -44,11 +45,11 @@ def test_template_files():
 
         # Check file can be loaded as YAML
         try:
-            with open(template_path, encoding='utf-8') as f:
+            with open(template_path, encoding="utf-8") as f:
                 content = yaml.safe_load(f)
 
             # Check required fields
-            required_fields = ['template_name', 'template_version', 'description']
+            required_fields = ["template_name", "template_version", "description"]
             missing_fields = [field for field in required_fields if field not in content]
 
             if missing_fields:
@@ -60,7 +61,7 @@ def test_template_files():
                 print(f"     Version: {content.get('template_version')}")
 
                 # Count main sections
-                sections = len([k for k in content.keys() if not k.startswith('_')])
+                sections = len([k for k in content if not k.startswith("_")])
                 print(f"     Sections: {sections}")
 
                 # Check file size
@@ -94,16 +95,41 @@ def test_keyword_detection():
 
     # Define keyword mapping (same as in crew.py)
     template_keywords = {
-        "space_horror": ["horror", "scary", "terrifying", "dread", "fear", "nightmare", "corruption"],
-        "mystery_investigation": ["mystery", "investigation", "investigate", "detective", "clue", "solve", "evidence", "discover"],
-        "survival_escape": ["survival", "escape", "desperate", "resource", "trapped", "flee", "running"],
-        "combat_focused": ["combat", "battle", "tactical", "squad", "fight", "warrior", "assault"]
+        "space_horror": [
+            "horror",
+            "scary",
+            "terrifying",
+            "dread",
+            "fear",
+            "nightmare",
+            "corruption",
+        ],
+        "mystery_investigation": [
+            "mystery",
+            "investigation",
+            "investigate",
+            "detective",
+            "clue",
+            "solve",
+            "evidence",
+            "discover",
+        ],
+        "survival_escape": [
+            "survival",
+            "escape",
+            "desperate",
+            "resource",
+            "trapped",
+            "flee",
+            "running",
+        ],
+        "combat_focused": ["combat", "battle", "tactical", "squad", "fight", "warrior", "assault"],
     }
 
     all_passed = True
 
     for prompt, expected_template in test_cases:
-        print(f"\n📝 Testing: \"{prompt}\"")
+        print(f'\n📝 Testing: "{prompt}"')
 
         # Detect template (simulating crew.py logic)
         prompt_lower = prompt.lower()
@@ -133,32 +159,32 @@ def test_template_content():
     print("Testing Template Content Structure")
     print("=" * 60)
 
-    template_dir = os.path.join(os.path.dirname(__file__), '..', 'planning_templates')
+    template_dir = os.path.join(os.path.dirname(__file__), "..", "planning_templates")
 
     # Expected sections (not all required, but good to have)
     recommended_sections = [
-        'narrative_focus',
-        'required_elements',
-        'tone',
-        'example_scenes',
-        'example_puzzles',
-        'character_suggestions',
-        'story_structure',
-        'mechanics_suggestions',
-        'ending_guidelines',
-        'quality_targets'
+        "narrative_focus",
+        "required_elements",
+        "tone",
+        "example_scenes",
+        "example_puzzles",
+        "character_suggestions",
+        "story_structure",
+        "mechanics_suggestions",
+        "ending_guidelines",
+        "quality_targets",
     ]
 
     all_templates_good = True
 
     for template_file in os.listdir(template_dir):
-        if not template_file.endswith('.yaml'):
+        if not template_file.endswith(".yaml"):
             continue
 
         print(f"\n📋 Analyzing {template_file}...")
 
         template_path = os.path.join(template_dir, template_file)
-        with open(template_path, encoding='utf-8') as f:
+        with open(template_path, encoding="utf-8") as f:
             content = yaml.safe_load(f)
 
         # Check for recommended sections
@@ -167,7 +193,9 @@ def test_template_content():
 
         coverage = len(present_sections) / len(recommended_sections) * 100
 
-        print(f"  Section coverage: {coverage:.0f}% ({len(present_sections)}/{len(recommended_sections)})")
+        print(
+            f"  Section coverage: {coverage:.0f}% ({len(present_sections)}/{len(recommended_sections)})"
+        )
 
         if coverage >= 80:
             print("  ✅ Good coverage")
@@ -192,7 +220,7 @@ def main():
     results = {
         "Template Files": test_template_files(),
         "Keyword Detection": test_keyword_detection(),
-        "Template Content": test_template_content()
+        "Template Content": test_template_content(),
     }
 
     # Summary

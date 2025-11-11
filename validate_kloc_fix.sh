@@ -8,7 +8,7 @@ echo ""
 
 # Test 1: Script help works quickly
 echo "Test 1: Script help works without hanging..."
-timeout 5 python -u kloc-report.py --help > /dev/null 2>&1
+timeout 5 python -u tools/kloc-report.py --help > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo "✓ PASS: Script help runs in under 5 seconds"
 else
@@ -19,7 +19,7 @@ echo ""
 
 # Test 2: Unbuffered mode works
 echo "Test 2: Unbuffered Python mode works..."
-output=$(python -u kloc-report.py --help 2>&1 | head -1)
+output=$(python -u tools/kloc-report.py --help 2>&1 | head -1)
 if [[ $output == *"Warning"* ]] || [[ $output == *"usage"* ]]; then
     echo "✓ PASS: Unbuffered output works"
 else
@@ -30,7 +30,7 @@ echo ""
 
 # Test 3: Flush calls exist
 echo "Test 3: Checking for stdout flush calls..."
-flush_count=$(grep -c "sys.stdout.flush()" kloc-report.py)
+flush_count=$(grep -c "sys.stdout.flush()" tools/kloc-report.py)
 if [ $flush_count -ge 3 ]; then
     echo "✓ PASS: Found $flush_count flush calls (expected >= 3)"
 else
@@ -107,7 +107,7 @@ echo ""
 
 # Test 10: --repos parameter works
 echo "Test 10: --repos parameter accepts repository names..."
-if grep -q "\-\-repos" kloc-report.py && python -u kloc-report.py --help 2>&1 | grep -q "\-\-repos"; then
+if grep -q "\-\-repos" tools/kloc-report.py && python -u tools/kloc-report.py --help 2>&1 | grep -q "\-\-repos"; then
     echo "✓ PASS: --repos parameter is available"
 else
     echo "✗ FAIL: --repos parameter not found"

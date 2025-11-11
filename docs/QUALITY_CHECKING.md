@@ -134,22 +134,22 @@ thresholds:
     enabled: true
     pass_threshold: 6.0   # Minimum score to pass (0.0-10.0)
     max_retries: 3        # Maximum retry attempts
-  
+
   narrative:              # Narrative map creation
     enabled: true
     pass_threshold: 6.0
     max_retries: 3
-  
+
   puzzle:                 # Puzzle and artifact design
     enabled: true
     pass_threshold: 6.0
     max_retries: 3
-  
+
   scene:                  # Scene text and dialogue
     enabled: true
     pass_threshold: 6.0
     max_retries: 3
-  
+
   mechanics:              # Game mechanics and PRD
     enabled: true
     pass_threshold: 6.0

@@ -8,7 +8,7 @@ standardized evaluation interface.
 
 import logging
 from abc import ABC, abstractmethod
-from typing import Any, cast
+from typing import Any
 
 import yaml
 
@@ -97,22 +97,22 @@ class QualityEvaluator(ABC):
         Returns:
             Fixed YAML string
         """
-        lines = content.split('\n')
+        lines = content.split("\n")
         fixed_lines = []
 
         for line in lines:
             # Fix unquoted values with colons (e.g., "title: Space Hulk: Derelict")
             # Match pattern: "key: value with : colon" where value is not quoted
-            if ':' in line and not line.strip().startswith('-'):
-                parts = line.split(':', 1)
+            if ":" in line and not line.strip().startswith("-"):
+                parts = line.split(":", 1)
                 if len(parts) == 2:
                     key_part = parts[0]
                     value_part = parts[1].strip()
 
                     # If value has a colon and is not already quoted
-                    if ':' in value_part and not (
-                        (value_part.startswith('"') and value_part.endswith('"')) or
-                        (value_part.startswith("'") and value_part.endswith("'"))
+                    if ":" in value_part and not (
+                        (value_part.startswith('"') and value_part.endswith('"'))
+                        or (value_part.startswith("'") and value_part.endswith("'"))
                     ):
                         # Quote the value
                         fixed_line = f'{key_part}: "{value_part}"'
@@ -122,7 +122,7 @@ class QualityEvaluator(ABC):
 
             fixed_lines.append(line)
 
-        return '\n'.join(fixed_lines)
+        return "\n".join(fixed_lines)
 
     @staticmethod
     def parse_yaml(content: str) -> dict[str, Any]:
@@ -141,10 +141,10 @@ class QualityEvaluator(ABC):
         try:
             # Handle markdown-wrapped YAML
             content_stripped = content.strip()
-            if content_stripped.startswith('```'):
-                lines = content_stripped.split('\n')
+            if content_stripped.startswith("```"):
+                lines = content_stripped.split("\n")
                 # Remove first line (```yaml or ```) and last line (```)
-                content_stripped = '\n'.join(lines[1:-1])
+                content_stripped = "\n".join(lines[1:-1])
                 logger.debug("Stripped markdown fences from YAML content")
 
             # Try to parse as-is first
@@ -152,16 +152,18 @@ class QualityEvaluator(ABC):
                 data = yaml.safe_load(content_stripped)
                 if data is None:
                     raise ValueError("YAML content is empty or invalid")
-                return data
+                return dict(data)
             except yaml.YAMLError as parse_error:
                 # Attempt to fix common YAML syntax errors and retry
-                logger.debug(f"Initial YAML parse failed, attempting to fix common errors: {parse_error}")
+                logger.debug(
+                    f"Initial YAML parse failed, attempting to fix common errors: {parse_error}"
+                )
                 fixed_content = QualityEvaluator._fix_common_yaml_errors(content_stripped)
                 data = yaml.safe_load(fixed_content)
                 if data is None:
                     raise ValueError("YAML content is empty or invalid") from parse_error
                 logger.info("Successfully parsed YAML after fixing common syntax errors")
-                return data
+                return dict(data)
 
         except yaml.YAMLError as e:
             logger.error(f"Failed to parse YAML: {e}")
@@ -171,11 +173,7 @@ class QualityEvaluator(ABC):
             raise ValueError(f"Failed to parse content: {e}") from e
 
     def _create_score(
-        self,
-        score: float,
-        passed: bool,
-        feedback: str,
-        details: dict[str, Any] | None = None
+        self, score: float, passed: bool, feedback: str, details: dict[str, Any] | None = None
     ) -> QualityScore:
         """
         Create a QualityScore instance (helper method).
@@ -189,14 +187,9 @@ class QualityEvaluator(ABC):
         Returns:
             QualityScore instance
         """
-        return QualityScore(
-            score=score,
-            passed=passed,
-            feedback=feedback,
-            details=details or {}
-        )
+        return QualityScore(score=score, passed=passed, feedback=feedback, details=details or {})
 
-    def _build_feedback(self, score: float, failures: list, successes: list | None = None) -> str:
+    def _build_feedback(self, score: float, failures: list, successes: list | None = None) -> str:  # noqa: ARG002
         """
         Build feedback message from score and findings.
 

@@ -11,28 +11,28 @@ Or install package first: pip install -e .
 
 from pathlib import Path
 
-from space_hulk_game.engine import ContentLoader, TextAdventureEngine, GameState
+from space_hulk_game.engine import ContentLoader, GameState
 
 
-def main():
+def main():  # noqa: PLR0915
     """Run the demo."""
     print("=" * 70)
     print("Space Hulk Game - Content Loader Demo")
     print("=" * 70)
     print()
-    
+
     # Load game data from fixtures
     fixtures_dir = Path(__file__).parent / "fixtures"
     print(f"Loading game content from: {fixtures_dir}")
     print()
-    
+
     loader = ContentLoader()
     try:
         game_data = loader.load_game(str(fixtures_dir))
     except Exception as e:
         print(f"Error loading game: {e}")
         return 1
-    
+
     # Display game information
     print("Game Loaded Successfully!")
     print("-" * 70)
@@ -52,16 +52,20 @@ def main():
     print(f"Global Items: {len(game_data.global_items)}")
     print(f"Global NPCs: {len(game_data.global_npcs)}")
     print()
-    
+
     # Show scene connectivity
     print("Scene Graph:")
     print("-" * 70)
-    for scene_id, scene in game_data.scenes.items():
-        exits_str = ", ".join(
-            f"{dir}->{target}" for dir, target in scene.exits.items()
-        ) if scene.exits else "none"
+    for _scene_id, scene in game_data.scenes.items():
+        exits_str = (
+            ", ".join(f"{dir}->{target}" for dir, target in scene.exits.items())
+            if scene.exits
+            else "none"
+        )
         dark_marker = " [DARK]" if scene.dark else ""
-        locked_marker = f" [LOCKED: {', '.join(scene.locked_exits.keys())}]" if scene.locked_exits else ""
+        locked_marker = (
+            f" [LOCKED: {', '.join(scene.locked_exits.keys())}]" if scene.locked_exits else ""
+        )
         print(f"{scene.name}{dark_marker}{locked_marker}")
         print(f"  Exits: {exits_str}")
         if scene.items:
@@ -71,29 +75,27 @@ def main():
             npcs_str = ", ".join(npc.name for npc in scene.npcs)
             print(f"  NPCs: {npcs_str}")
         print()
-    
+
     # Show that it integrates with TextAdventureEngine
     print("Integration with TextAdventureEngine:")
     print("-" * 70)
-    
+
     # Create initial game state
-    initial_state = GameState(
-        current_scene=game_data.starting_scene,
-        visited_scenes={game_data.starting_scene}
-    )
-    
+    GameState(current_scene=game_data.starting_scene, visited_scenes={game_data.starting_scene})
+
     print(f"Game can be initialized with {len(game_data.scenes)} scenes")
     print(f"Starting scene: {game_data.starting_scene}")
     print()
-    
+
     # Show starting scene description
     starting_scene = game_data.get_scene(game_data.starting_scene)
-    print("Starting Scene Description:")
-    print(starting_scene.get_full_description())
-    print()
-    print(starting_scene.get_exit_description())
-    print()
-    
+    if starting_scene is not None:
+        print("Starting Scene Description:")
+        print(starting_scene.get_full_description())
+        print()
+        print(starting_scene.get_exit_description())
+        print()
+
     print("=" * 70)
     print("Demo Complete!")
     print()
@@ -104,7 +106,9 @@ def main():
     print("  ✓ Integrated with TextAdventureEngine")
     print()
     print("Game Statistics:")
-    print(f"  - {len(game_data.scenes)} scenes with {sum(len(s.exits) for s in game_data.scenes.values())} connections")
+    print(
+        f"  - {len(game_data.scenes)} scenes with {sum(len(s.exits) for s in game_data.scenes.values())} connections"
+    )
     print(f"  - {len(game_data.global_items)} items")
     print(f"  - {len(game_data.global_npcs)} NPCs")
     print(f"  - {len(game_data.themes)} narrative themes")
@@ -115,7 +119,7 @@ def main():
     print("  - Load generated content with ContentLoader")
     print("  - Play the generated game with engine.run()!")
     print("=" * 70)
-    
+
     return 0
 
 

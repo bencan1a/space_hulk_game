@@ -1,68 +1,68 @@
-#Input examples for a game description 
+#Input examples for a game description
 
 example1_pacman: >
   """
   Game Overview:
 
-  Pac-Man is a classic arcade game where the player controls a character, Pac-Man, 
-  through a maze. The objective is to eat all the pellets in the maze while avoiding 
-  four ghosts that pursue Pac-Man. If Pac-Man eats a large power pellet, the ghosts 
-  turn blue, and Pac-Man can eat them for extra points. 
-  The game is over when Pac-Man is caught by a ghost or when the player runs out of 
+  Pac-Man is a classic arcade game where the player controls a character, Pac-Man,
+  through a maze. The objective is to eat all the pellets in the maze while avoiding
+  four ghosts that pursue Pac-Man. If Pac-Man eats a large power pellet, the ghosts
+  turn blue, and Pac-Man can eat them for extra points.
+  The game is over when Pac-Man is caught by a ghost or when the player runs out of
   lives.
   Core Game Elements:
 
       Maze Layout:
-          The game is set within a grid-like maze. The walls are solid, and Pac-Man 
+          The game is set within a grid-like maze. The walls are solid, and Pac-Man
           cannot pass through them.
-          The maze contains corridors where Pac-Man can move in four directions: up, 
+          The maze contains corridors where Pac-Man can move in four directions: up,
           down, left, and right. Some sections of the maze loop back on themselves.
           The maze contains two types of special tiles:
               Pellets: Small dots scattered throughout the maze, worth 10 points each.
-              Power Pellets: Larger dots placed in the four corners of the maze, 
-              worth 50 points each. Eating a Power Pellet allows Pac-Man to eat the 
+              Power Pellets: Larger dots placed in the four corners of the maze,
+              worth 50 points each. Eating a Power Pellet allows Pac-Man to eat the
               ghosts for a limited time.
 
       Player Controls:
-          The player controls Pac-Man's movement using arrow keys (or other 
+          The player controls Pac-Man's movement using arrow keys (or other
           directional inputs, such as WASD).
-          Pac-Man moves continuously in the chosen direction until blocked by a wall 
+          Pac-Man moves continuously in the chosen direction until blocked by a wall
           or until the player changes direction.
-          Pac-Man cannot stop moving, so the player must carefully time movements and 
+          Pac-Man cannot stop moving, so the player must carefully time movements and
           changes in direction.
 
       Pac-Man Mechanics:
           Movement: Pac-Man moves one tile at a time in a grid-based movement system.
-          Collision Detection: Pac-Man collides with walls, pellets, power pellets, 
+          Collision Detection: Pac-Man collides with walls, pellets, power pellets,
           and ghosts. Pac-Man cannot pass through walls.
-          Pellet Collection: When Pac-Man moves onto a tile containing a pellet, it 
+          Pellet Collection: When Pac-Man moves onto a tile containing a pellet, it
           is "eaten," and the pellet disappears.
-          Power Pellet Effects: Eating a Power Pellet allows Pac-Man to turn the 
-          ghosts blue for a short period (usually 7-10 seconds). During this time, 
-          Pac-Man can eat the ghosts for extra points. Ghosts revert to their regular 
+          Power Pellet Effects: Eating a Power Pellet allows Pac-Man to turn the
+          ghosts blue for a short period (usually 7-10 seconds). During this time,
+          Pac-Man can eat the ghosts for extra points. Ghosts revert to their regular
           form after the time limit.
 
       Ghosts:
-          There are four ghosts: Blinky, Pinky, Inky, and Clyde. Each has a distinct 
+          There are four ghosts: Blinky, Pinky, Inky, and Clyde. Each has a distinct
           behavior pattern:
-              Blinky (Red Ghost): Aggressively pursues Pac-Man, always targeting his 
+              Blinky (Red Ghost): Aggressively pursues Pac-Man, always targeting his
               current location.
-              Pinky (Pink Ghost): Attempts to ambush Pac-Man by aiming four tiles 
+              Pinky (Pink Ghost): Attempts to ambush Pac-Man by aiming four tiles
               ahead of Pac-Man's current direction.
-              Inky (Cyan Ghost): Has a more complex behavior, targeting an area 
+              Inky (Cyan Ghost): Has a more complex behavior, targeting an area
               between Pac-Man and Blinky's current location.
-              Clyde (Orange Ghost): Alternates between chasing Pac-Man and wandering 
+              Clyde (Orange Ghost): Alternates between chasing Pac-Man and wandering
               randomly when he gets too close to Pac-Man.
-          Ghost Movement: Ghosts move one tile at a time, just like Pac-Man, and they 
+          Ghost Movement: Ghosts move one tile at a time, just like Pac-Man, and they
           can change directions at intersections. Their goal is to catch Pac-Man.
           Ghost States:
-              Chase Mode: Ghosts actively pursue Pac-Man based on their unique 
+              Chase Mode: Ghosts actively pursue Pac-Man based on their unique
               behavior patterns.
-              Scatter Mode: Ghosts move to specific corners of the maze, where they 
+              Scatter Mode: Ghosts move to specific corners of the maze, where they
               "scatter" and remain for a brief period before returning to Chase mode.
-              Frightened Mode: After Pac-Man eats a Power Pellet, ghosts turn blue 
-              and flee from Pac-Man. In this mode, Pac-Man can eat them for extra 
-              points. When a ghost is eaten, it respawns at the center of the maze 
+              Frightened Mode: After Pac-Man eats a Power Pellet, ghosts turn blue
+              and flee from Pac-Man. In this mode, Pac-Man can eat them for extra
+              points. When a ghost is eaten, it respawns at the center of the maze
               and resumes chasing Pac-Man.
 
       Scoring System:
@@ -73,77 +73,77 @@ example1_pacman: >
               Second ghost: 400 points.
               Third ghost: 800 points.
               Fourth ghost: 1600 points.
-          Clearing a level (eating all the pellets): Bonus points for completing the 
+          Clearing a level (eating all the pellets): Bonus points for completing the
           level.
 
       Lives and Game Over:
           Pac-Man starts the game with 3 lives.
-          If a ghost touches Pac-Man while in its normal or chase mode, Pac-Man loses 
+          If a ghost touches Pac-Man while in its normal or chase mode, Pac-Man loses
           a life.
           When all lives are lost, the game ends.
 
       Level Progression:
-          After all pellets and Power Pellets are consumed in the maze, Pac-Man 
+          After all pellets and Power Pellets are consumed in the maze, Pac-Man
           progresses to the next level.
           Each new level increases the game difficulty, making the ghosts move faster.
-          At higher levels, the time that ghosts remain blue after eating a Power 
-          Pellet decreases, eventually reaching a point where they no longer turn 
+          At higher levels, the time that ghosts remain blue after eating a Power
+          Pellet decreases, eventually reaching a point where they no longer turn
           blue.
 
       Warp Tunnels:
-          The maze has two special tunnels on the left and right edges that act as 
+          The maze has two special tunnels on the left and right edges that act as
           "warp tunnels."
-          When Pac-Man or the ghosts enter one side, they instantly reappear on the 
+          When Pac-Man or the ghosts enter one side, they instantly reappear on the
           opposite side of the maze.
 
   Mechanics Used in the Game:
 
       Tile-Based Movement:
-          The entire game operates on a grid, where each movement happens from one 
-          tile to another. Both Pac-Man and the ghosts must follow the grid's 
+          The entire game operates on a grid, where each movement happens from one
+          tile to another. Both Pac-Man and the ghosts must follow the grid's
           structure.
 
       Pathfinding (Ghost AI):
-          The ghosts use basic pathfinding algorithms to chase Pac-Man. One common 
-          method for this is the A algorithm* or a simplified greedy algorithm to 
+          The ghosts use basic pathfinding algorithms to chase Pac-Man. One common
+          method for this is the A algorithm* or a simplified greedy algorithm to
           determine the shortest path toward Pac-Man.
-          Each ghost has its unique targeting behavior, ranging from direct pursuit 
+          Each ghost has its unique targeting behavior, ranging from direct pursuit
           to attempting ambush strategies.
 
       State Management:
-          Pac-Man's State: Handles whether Pac-Man is in a normal state, Power Pellet 
+          Pac-Man's State: Handles whether Pac-Man is in a normal state, Power Pellet
           state (can eat ghosts), or has collided with a ghost.
           Ghosts' State: Manages transitions between three ghost states:
               Chase State: Actively chasing Pac-Man.
               Scatter State: Retreats to their designated corners.
-              Frightened State: Turns blue and flees from Pac-Man, allowing Pac-Man 
+              Frightened State: Turns blue and flees from Pac-Man, allowing Pac-Man
               to eat them.
 
       Collision Detection:
-          Pellets and Pac-Man: When Pac-Man's position matches a pellet's position, 
+          Pellets and Pac-Man: When Pac-Man's position matches a pellet's position,
           the pellet is eaten.
           Ghosts and Pac-Man: When Pac-Man's position matches a ghost's position:
               If the ghost is in Frightened mode, Pac-Man eats the ghost.
               If the ghost is in Chase or Scatter mode, Pac-Man loses a life.
 
       Timer and Speed Control:
-          The game runs on a time-based loop where Pac-Man and the ghosts move at set 
+          The game runs on a time-based loop where Pac-Man and the ghosts move at set
           intervals.
           Ghosts' speeds increase over time, making higher levels more difficult.
 
       Level Design and Randomness:
-          While the layout of the maze stays the same, the randomness in ghost 
+          While the layout of the maze stays the same, the randomness in ghost
           behavior and increasing speed add variability to each playthrough.
 
       Game Over Conditions:
-          When Pac-Man has no remaining lives, the game ends, displaying a "Game 
+          When Pac-Man has no remaining lives, the game ends, displaying a "Game
           Over" screen.
           The players final score is shown"""
 
 example2_pacman: >
-  Build a Pacman game, where the pacman moves up, down, left, right with the use of 
+  Build a Pacman game, where the pacman moves up, down, left, right with the use of
   keyboard arrows. each food dot he eats, he gets a point. ghosts appear at random
-  times and move randomly and if they hit pacman, it loses a life, he has three lives, 
+  times and move randomly and if they hit pacman, it loses a life, he has three lives,
   then game over. if he finishes all food points in one level, he moves on to the next
   level, in which pacman moves faster, and more ghosts appear.
 
@@ -152,33 +152,33 @@ example3_snake: >
   """Snake Game Description
   Objective:
 
-  The objective of the Snake game is for the player to control a snake that moves 
-  across the game area, consuming food while avoiding obstacles, including its own 
-  tail. The snake grows longer each time it consumes food, and the game continues 
+  The objective of the Snake game is for the player to control a snake that moves
+  across the game area, consuming food while avoiding obstacles, including its own
+  tail. The snake grows longer each time it consumes food, and the game continues
   until the snake collides with the boundaries of the game area or its own body.
   Game Mechanics:
 
   Game Area:
-      The game takes place in a rectangular grid, typically represented as a 2D matrix 
+      The game takes place in a rectangular grid, typically represented as a 2D matrix
       or array.
       The grid contains cells, where the snake can move and food can spawn.
 
   Snake Movement:
-      The snake is controlled by the player, typically through arrow keys (Up, Down, 
+      The snake is controlled by the player, typically through arrow keys (Up, Down,
       Left, Right) or WASD keys.
-      The snake moves continuously in one direction until the player changes its 
+      The snake moves continuously in one direction until the player changes its
       direction.
       Movement is discrete, with the snake advancing one cell per frame or tick.
-      The snake's body consists of connected segments that follow the movement of the 
+      The snake's body consists of connected segments that follow the movement of the
       head, forming a continuous line.
 
   Growth Mechanism:
-      The snake starts with a default length (e.g., 3 segments) and grows longer by 
+      The snake starts with a default length (e.g., 3 segments) and grows longer by
       one segment every time it eats food.
       The new segment is added to the end of the snake's body after consuming food.
 
   Food:
-      Randomly spawns at an unoccupied position in the game area (i.e., not on the 
+      Randomly spawns at an unoccupied position in the game area (i.e., not on the
       snake's body).
       Each piece of food can only be consumed once.
       After being consumed, a new piece of food spawns at another random position.
@@ -191,17 +191,17 @@ example3_snake: >
   Game Rules:
 
   Movement:
-      The snake moves continuously, and the player can change its direction using 
+      The snake moves continuously, and the player can change its direction using
       input keys.
-      The snake cannot move in the opposite direction of its current movement (e.g., 
+      The snake cannot move in the opposite direction of its current movement (e.g.,
       if moving right, it cannot immediately move left).
 
   Boundaries:
-      The edges of the grid act as walls. If the snake crosses these boundaries, the 
+      The edges of the grid act as walls. If the snake crosses these boundaries, the
       game is over.
 
   Self-Collision:
-      The snake's body grows as it consumes food, but if the snake's head touches any 
+      The snake's body grows as it consumes food, but if the snake's head touches any
       part of its body, the game ends.
 
   Scoring System:
@@ -213,80 +213,80 @@ example3_snake: >
       The score increases with each successful food consumption.
 
   Time or Speed-Based Scoring (Optional):
-      Additional points can be awarded based on how long the player survives, or the 
+      Additional points can be awarded based on how long the player survives, or the
       game can speed up as the snake grows, increasing difficulty over time.
 
   High Score:
       The player's current score is displayed during gameplay.
-      A high-score system can be implemented to keep track of the highest score 
+      A high-score system can be implemented to keep track of the highest score
       achieved. """
 
 example4_space_hulk: >
   """
   Objective:
-    In Warhammer 40,000: Waking the Hulk, you awaken aboard a derelict Space Hulk 
-    adrift in the void—a labyrinth of ancient starship wrecks fused together over 
-    millennia. Dark whispers echo through rusted corridors, and faint, ragged chanting 
-    suggests a heretical cult may lurk in the shadows. As the protagonist, your goal is 
-    to uncover the Space Hulk's hidden horror, survive its warped denizens, and escape 
+    In Warhammer 40,000: Waking the Hulk, you awaken aboard a derelict Space Hulk
+    adrift in the void—a labyrinth of ancient starship wrecks fused together over
+    millennia. Dark whispers echo through rusted corridors, and faint, ragged chanting
+    suggests a heretical cult may lurk in the shadows. As the protagonist, your goal is
+    to uncover the Space Hulk's hidden horror, survive its warped denizens, and escape
     with your mind (and soul) intact.
 
   Story & Setting:
-    Gothic Horror in the 40k Universe: The environment is oppressive and claustrophobic, 
+    Gothic Horror in the 40k Universe: The environment is oppressive and claustrophobic,
     filled with rusted corridors and lingering warp corruption.
-    Overarching Mystery: Inconsistent sensor readings, half-burned logs, and cryptic 
-    runes suggest that a sinister force—possibly a Chaos entity—has been guiding events. 
+    Overarching Mystery: Inconsistent sensor readings, half-burned logs, and cryptic
+    runes suggest that a sinister force—possibly a Chaos entity—has been guiding events.
     To complete the game, you must gather clues and piece together this puzzle.
 
   Player Goals:
-    Survive the dangers (Genestealers, Chaos cultists, malfunctioning servitors) 
+    Survive the dangers (Genestealers, Chaos cultists, malfunctioning servitors)
     prowling in the dark.
-    Investigate hidden archives, shrines, and long-forgotten vaults to reveal the Space 
+    Investigate hidden archives, shrines, and long-forgotten vaults to reveal the Space
     Hulk's secret.
-    Decide your character's moral and spiritual path—champion the Emperor, embrace the 
+    Decide your character's moral and spiritual path—champion the Emperor, embrace the
     Ruinous Powers, or walk a perilous middle course.
-  
+
   Text Adventure Mechanics:
     Exploration:
-        Use commands like "GO EAST," "OPEN HATCH," and "SEARCH BODY" to 
+        Use commands like "GO EAST," "OPEN HATCH," and "SEARCH BODY" to
         navigate rooms, discover items, and encounter story elements.
-        Item Interaction: 
-            Acquire relics, dataslates, or damaged weapons. Combine or use 
-            them to bypass obstacles (e.g., repairing a laspistol to fight or a vox-unit to 
+        Item Interaction:
+            Acquire relics, dataslates, or damaged weapons. Combine or use
+            them to bypass obstacles (e.g., repairing a laspistol to fight or a vox-unit to
             call for aid).
     Puzzles:
-        Reroute power through decaying corridors, decode warded locks, or solve 
+        Reroute power through decaying corridors, decode warded locks, or solve
         heretical riddles. Each solution uncovers lore or essential tools.
-    Branching Choices: 
-        Dialogue prompts and moral decisions shape the narrative's 
+    Branching Choices:
+        Dialogue prompts and moral decisions shape the narrative's
         outcome, affecting alliances and future encounters.
 
     Combat & Healing
         Turn-Based Combat:
-            When enemies appear, you'll choose actions like "ATTACK WITH 
-            LASPISTOL," "DEFEND," or "USE STIM-PAK." Outcomes depend on your equipment, stats 
+            When enemies appear, you'll choose actions like "ATTACK WITH
+            LASPISTOL," "DEFEND," or "USE STIM-PAK." Outcomes depend on your equipment, stats
             (such as Faith or Corruption), and the enemy's type.
-            Weapon Reliability: Scavenged weapons may jam at critical moments, forcing creative 
+            Weapon Reliability: Scavenged weapons may jam at critical moments, forcing creative
             solutions or flight.
         Health & Trauma:
-            Each hit reduces health; horrifying encounters may also affect your 
-            Sanity. You recover health through med-kits, bionic repair stations, or rare healing 
-            relics. Some advanced items might restore both health and sanity—but risk drawing 
+            Each hit reduces health; horrifying encounters may also affect your
+            Sanity. You recover health through med-kits, bionic repair stations, or rare healing
+            relics. Some advanced items might restore both health and sanity—but risk drawing
             the attention of warp entities.
 
   Mystery & Multiple Endings:
     Central Mystery:
-        A creeping evil at the Hulk's core manipulates events. Locating its 
+        A creeping evil at the Hulk's core manipulates events. Locating its
         source and unveiling its plan is key to escaping.
     Moral Pathways:
-            Each path alters the final confrontation and dictates whether you depart the Hulk 
+            Each path alters the final confrontation and dictates whether you depart the Hulk
             purified, damned, or something in-between.
 
-        The Emperor's Light: 
+        The Emperor's Light:
             Destroy the corruption and remain steadfast in faith.
-        Ruinous Powers: 
+        Ruinous Powers:
             Embrace Chaos gifts for power at the cost of your humanity.
-        Middle Path: 
-            A precarious balance between survival and compromise, 
-            possibly angering both Imperium and Chaos forces.    
+        Middle Path:
+            A precarious balance between survival and compromise,
+            possibly angering both Imperium and Chaos forces.
   """

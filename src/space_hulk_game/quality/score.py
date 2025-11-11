@@ -49,9 +49,7 @@ class QualityScore:
 
     def __repr__(self) -> str:
         """Detailed representation of the quality score."""
-        feedback_display = (
-            self.feedback[:50] + "..." if len(self.feedback) > 50 else self.feedback
-        )
+        feedback_display = self.feedback[:50] + "..." if len(self.feedback) > 50 else self.feedback
         return (
             f"QualityScore(score={self.score:.1f}, passed={self.passed}, "
             f"feedback='{feedback_display}')"
@@ -65,10 +63,10 @@ class QualityScore:
             Dictionary representation of the score
         """
         return {
-            'score': self.score,
-            'passed': self.passed,
-            'feedback': self.feedback,
-            'details': self.details
+            "score": self.score,
+            "passed": self.passed,
+            "feedback": self.feedback,
+            "details": self.details,
         }
 
     def to_json(self) -> str:
@@ -81,7 +79,7 @@ class QualityScore:
         return json.dumps(self.to_dict(), indent=2)
 
     @classmethod
-    def from_dict(cls, data: dict[str, Any]) -> 'QualityScore':
+    def from_dict(cls, data: dict[str, Any]) -> "QualityScore":
         """
         Create QualityScore from dictionary.
 
@@ -92,10 +90,10 @@ class QualityScore:
             QualityScore instance
         """
         return cls(
-            score=data['score'],
-            passed=data['passed'],
-            feedback=data['feedback'],
-            details=data.get('details', {})
+            score=data["score"],
+            passed=data["passed"],
+            feedback=data["feedback"],
+            details=data.get("details", {}),
         )
 
     def get_failures(self) -> list[str]:
@@ -105,7 +103,7 @@ class QualityScore:
         Returns:
             List of failure messages if present in details
         """
-        return cast(list[str], self.details.get('failures', []))
+        return cast("list[str]", self.details.get("failures", []))
 
     def get_summary(self) -> str:
         """
@@ -123,7 +121,7 @@ class QualityScore:
         if self.details:
             lines.append("\nDetails:")
             for key, value in self.details.items():
-                if key != 'failures':  # Failures shown separately
+                if key != "failures":  # Failures shown separately
                     lines.append(f"  {key}: {value}")
 
         failures = self.get_failures()

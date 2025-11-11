@@ -23,20 +23,21 @@ Example:
 """
 
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Any
+from typing import Any
+
+from .entities import NPC, Item
 from .scene import Scene
-from .entities import Item, NPC
 
 
 @dataclass
 class GameData:
     """
     Holds all game content loaded from generated YAML files.
-    
+
     This is the complete game definition, including all scenes, items, NPCs,
     game mechanics, and narrative structure. The TextAdventureEngine uses
     GameData to run the game.
-    
+
     Attributes:
         title: The title of the game.
         description: Brief description of the game's premise.
@@ -49,7 +50,7 @@ class GameData:
         themes: List of narrative themes.
         plot_points: List of major plot points.
         metadata: Additional metadata from the YAML files.
-    
+
     Examples:
         Create minimal game data:
         >>> from space_hulk_game.engine import Scene
@@ -64,31 +65,31 @@ class GameData:
         ...     scenes={"entrance": start_scene},
         ...     starting_scene="entrance"
         ... )
-        
+
         Access scenes:
         >>> scene = data.get_scene("entrance")
         >>> scene.name
         'Entrance Hall'
-        
+
         Check for scenes:
         >>> data.has_scene("entrance")
         True
         >>> data.has_scene("unknown")
         False
     """
-    
+
     title: str
     description: str
-    scenes: Dict[str, Scene]
+    scenes: dict[str, Scene]
     starting_scene: str
-    global_items: Dict[str, Item] = field(default_factory=dict)
-    global_npcs: Dict[str, NPC] = field(default_factory=dict)
-    endings: List[Dict[str, Any]] = field(default_factory=list)
-    game_rules: Dict[str, Any] = field(default_factory=dict)
-    themes: List[str] = field(default_factory=list)
-    plot_points: List[Dict[str, Any]] = field(default_factory=list)
-    metadata: Dict[str, Any] = field(default_factory=dict)
-    
+    global_items: dict[str, Item] = field(default_factory=dict)
+    global_npcs: dict[str, NPC] = field(default_factory=dict)
+    endings: list[dict[str, Any]] = field(default_factory=list)
+    game_rules: dict[str, Any] = field(default_factory=dict)
+    themes: list[str] = field(default_factory=list)
+    plot_points: list[dict[str, Any]] = field(default_factory=list)
+    metadata: dict[str, Any] = field(default_factory=dict)
+
     def __post_init__(self):
         """Validate the game data after initialization."""
         if not self.title:
@@ -101,17 +102,17 @@ class GameData:
             raise ValueError("Starting scene must be specified")
         if self.starting_scene not in self.scenes:
             raise ValueError(f"Starting scene '{self.starting_scene}' not found in scenes")
-    
-    def get_scene(self, scene_id: str) -> Optional[Scene]:
+
+    def get_scene(self, scene_id: str) -> Scene | None:
         """
         Get a scene by its ID.
-        
+
         Args:
             scene_id: The ID of the scene to retrieve.
-            
+
         Returns:
             The Scene object if found, None otherwise.
-            
+
         Examples:
             >>> from space_hulk_game.engine import Scene
             >>> scene = Scene(id="test", name="Test", description="Test scene")
@@ -127,17 +128,17 @@ class GameData:
             >>> data.get_scene("missing")
         """
         return self.scenes.get(scene_id)
-    
+
     def has_scene(self, scene_id: str) -> bool:
         """
         Check if a scene exists.
-        
+
         Args:
             scene_id: The ID of the scene to check.
-            
+
         Returns:
             True if the scene exists, False otherwise.
-            
+
         Examples:
             >>> from space_hulk_game.engine import Scene
             >>> scene = Scene(id="test", name="Test", description="Test")
@@ -153,17 +154,17 @@ class GameData:
             False
         """
         return scene_id in self.scenes
-    
-    def get_item_definition(self, item_id: str) -> Optional[Item]:
+
+    def get_item_definition(self, item_id: str) -> Item | None:
         """
         Get a global item definition by ID.
-        
+
         Args:
             item_id: The ID of the item to retrieve.
-            
+
         Returns:
             The Item object if found, None otherwise.
-            
+
         Examples:
             >>> from space_hulk_game.engine import Item, Scene
             >>> item = Item(id="key", name="Key", description="A key")
@@ -180,17 +181,17 @@ class GameData:
             'Key'
         """
         return self.global_items.get(item_id)
-    
-    def get_npc_definition(self, npc_id: str) -> Optional[NPC]:
+
+    def get_npc_definition(self, npc_id: str) -> NPC | None:
         """
         Get a global NPC definition by ID.
-        
+
         Args:
             npc_id: The ID of the NPC to retrieve.
-            
+
         Returns:
             The NPC object if found, None otherwise.
-            
+
         Examples:
             >>> from space_hulk_game.engine import NPC, Scene
             >>> npc = NPC(id="guard", name="Guard", description="A guard")
@@ -207,58 +208,58 @@ class GameData:
             'Guard'
         """
         return self.global_npcs.get(npc_id)
-    
-    def to_dict(self) -> Dict:
+
+    def to_dict(self) -> dict:
         """
         Convert the game data to a dictionary for serialization.
-        
+
         Returns:
             Dictionary representation of the game data.
         """
         return {
-            'title': self.title,
-            'description': self.description,
-            'scenes': {sid: scene.to_dict() for sid, scene in self.scenes.items()},
-            'starting_scene': self.starting_scene,
-            'global_items': {iid: item.to_dict() for iid, item in self.global_items.items()},
-            'global_npcs': {nid: npc.to_dict() for nid, npc in self.global_npcs.items()},
-            'endings': self.endings,
-            'game_rules': self.game_rules,
-            'themes': self.themes,
-            'plot_points': self.plot_points,
-            'metadata': self.metadata,
+            "title": self.title,
+            "description": self.description,
+            "scenes": {sid: scene.to_dict() for sid, scene in self.scenes.items()},
+            "starting_scene": self.starting_scene,
+            "global_items": {iid: item.to_dict() for iid, item in self.global_items.items()},
+            "global_npcs": {nid: npc.to_dict() for nid, npc in self.global_npcs.items()},
+            "endings": self.endings,
+            "game_rules": self.game_rules,
+            "themes": self.themes,
+            "plot_points": self.plot_points,
+            "metadata": self.metadata,
         }
-    
+
     @classmethod
-    def from_dict(cls, data: Dict) -> 'GameData':
+    def from_dict(cls, data: dict) -> "GameData":
         """
         Create GameData from a dictionary.
-        
+
         Args:
             data: Dictionary containing game data.
-            
+
         Returns:
             A new GameData instance.
         """
         return cls(
-            title=data['title'],
-            description=data['description'],
+            title=data["title"],
+            description=data["description"],
             scenes={
                 sid: Scene.from_dict(scene_data)
-                for sid, scene_data in data.get('scenes', {}).items()
+                for sid, scene_data in data.get("scenes", {}).items()
             },
-            starting_scene=data['starting_scene'],
+            starting_scene=data["starting_scene"],
             global_items={
                 iid: Item.from_dict(item_data)
-                for iid, item_data in data.get('global_items', {}).items()
+                for iid, item_data in data.get("global_items", {}).items()
             },
             global_npcs={
                 nid: NPC.from_dict(npc_data)
-                for nid, npc_data in data.get('global_npcs', {}).items()
+                for nid, npc_data in data.get("global_npcs", {}).items()
             },
-            endings=data.get('endings', []),
-            game_rules=data.get('game_rules', {}),
-            themes=data.get('themes', []),
-            plot_points=data.get('plot_points', []),
-            metadata=data.get('metadata', {}),
+            endings=data.get("endings", []),
+            game_rules=data.get("game_rules", {}),
+            themes=data.get("themes", []),
+            plot_points=data.get("plot_points", []),
+            metadata=data.get("metadata", {}),
         )

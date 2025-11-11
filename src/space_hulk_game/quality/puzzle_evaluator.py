@@ -67,18 +67,18 @@ class PuzzleEvaluator(QualityEvaluator):
 
             # Build details dictionary
             details = {
-                'total_puzzles': metrics.total_puzzles,
-                'puzzles_with_solutions': metrics.puzzles_with_solutions,
-                'puzzles_with_narrative_ties': metrics.puzzles_with_narrative_ties,
-                'puzzles_with_difficulty': metrics.puzzles_with_difficulty,
-                'has_artifacts': metrics.has_artifacts,
-                'has_monsters': metrics.has_monsters,
-                'has_npcs': metrics.has_npcs,
-                'puzzles_without_solutions': [],  # Can be computed if needed
-                'puzzles_without_narrative_tie': [],
-                'puzzles_without_difficulty': [],
-                'failures': failures,
-                'threshold': self.pass_threshold
+                "total_puzzles": metrics.total_puzzles,
+                "puzzles_with_solutions": metrics.puzzles_with_solutions,
+                "puzzles_with_narrative_ties": metrics.puzzles_with_narrative_ties,
+                "puzzles_with_difficulty": metrics.puzzles_with_difficulty,
+                "has_artifacts": metrics.has_artifacts,
+                "has_monsters": metrics.has_monsters,
+                "has_npcs": metrics.has_npcs,
+                "puzzles_without_solutions": [],  # Can be computed if needed
+                "puzzles_without_narrative_tie": [],
+                "puzzles_without_difficulty": [],
+                "failures": failures,
+                "threshold": self.pass_threshold,
             }
 
             logger.info(
@@ -93,16 +93,16 @@ class PuzzleEvaluator(QualityEvaluator):
             return self._create_score(
                 score=0.0,
                 passed=False,
-                feedback=f"Failed to parse puzzle content: {str(e)}",
-                details={'error': str(e)}
+                feedback=f"Failed to parse puzzle content: {e!s}",
+                details={"error": str(e)},
             )
         except Exception as e:
             logger.exception(f"Unexpected error evaluating puzzle: {e}")
             return self._create_score(
                 score=0.0,
                 passed=False,
-                feedback=f"Unexpected error during evaluation: {str(e)}",
-                details={'error': str(e)}
+                feedback=f"Unexpected error during evaluation: {e!s}",
+                details={"error": str(e)},
             )
 
     def generate_detailed_feedback(self, content: str) -> str:
@@ -132,7 +132,7 @@ class PuzzleEvaluator(QualityEvaluator):
 
         # Add specific findings
         details = result.details
-        failures = details.get('failures', [])
+        failures = details.get("failures", [])
 
         if failures:
             lines.append("Issues to address:")
@@ -143,25 +143,27 @@ class PuzzleEvaluator(QualityEvaluator):
         # Add content statistics
         lines.append(f"Puzzle count: {details.get('total_puzzles', 0)} (min: 2)")
         lines.append(f"Puzzles with solutions: {details.get('puzzles_with_solutions', 0)}")
-        lines.append(f"Puzzles with narrative ties: {details.get('puzzles_with_narrative_ties', 0)}")
+        lines.append(
+            f"Puzzles with narrative ties: {details.get('puzzles_with_narrative_ties', 0)}"
+        )
         lines.append(f"Puzzles with difficulty: {details.get('puzzles_with_difficulty', 0)}")
 
         # Add positive feedback
         lines.append("")
-        if details.get('has_artifacts'):
+        if details.get("has_artifacts"):
             lines.append("✓ Artifacts defined")
-        if details.get('has_monsters'):
+        if details.get("has_monsters"):
             lines.append("✓ Monsters/enemies defined")
-        if details.get('has_npcs'):
+        if details.get("has_npcs"):
             lines.append("✓ NPCs defined")
 
-        total = details.get('total_puzzles', 0)
+        total = details.get("total_puzzles", 0)
         if total > 0:
-            if details.get('puzzles_with_solutions', 0) == total:
+            if details.get("puzzles_with_solutions", 0) == total:
                 lines.append("✓ All puzzles have clear solutions")
-            if details.get('puzzles_with_narrative_ties', 0) == total:
+            if details.get("puzzles_with_narrative_ties", 0) == total:
                 lines.append("✓ All puzzles tied to narrative")
-            if details.get('puzzles_with_difficulty', 0) == total:
+            if details.get("puzzles_with_difficulty", 0) == total:
                 lines.append("✓ All puzzles have difficulty ratings")
 
         return "\n".join(lines)

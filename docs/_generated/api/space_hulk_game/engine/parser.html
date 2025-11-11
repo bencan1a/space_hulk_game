@@ -1,0 +1,943 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>space_hulk_game.engine.parser API documentation</title>
+<meta name="description" content="Command Parser Module …">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>space_hulk_game.engine.parser</code></h1>
+</header>
+<section id="section-intro">
+<p>Command Parser Module</p>
+<p>Natural language command parser for text-based adventure game.
+Converts player text input into structured Action objects.</p>
+<p>The parser uses a dictionary of command synonyms and fuzzy matching
+to handle variations and typos in player input. It's context-aware,
+considering available items, NPCs, and exits in the current scene.</p>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import CommandParser, GameState, Scene
+&gt;&gt;&gt; parser = CommandParser()
+&gt;&gt;&gt; action = parser.parse(&quot;go north&quot;)
+&gt;&gt;&gt; action.direction
+'north'
+</code></pre>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="space_hulk_game.engine.parser.CommandParser"><code class="flex name class">
+<span>class <span class="ident">CommandParser</span></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CommandParser:
+    &#34;&#34;&#34;
+    Parses natural language commands into Action objects.
+
+    This class implements a facade pattern for command parsing, providing
+    a simple interface that hides the complexity of synonym matching,
+    fuzzy matching, and context-aware parsing.
+
+    The parser is designed to be forgiving and helpful, using fuzzy matching
+    for typos and providing suggestions when commands aren&#39;t recognized.
+
+    Attributes:
+        COMMANDS: Dictionary mapping action types to lists of synonyms.
+        CUTOFF: Minimum similarity score for fuzzy matching (0.0 to 1.0).
+
+    Examples:
+        Basic usage:
+        &gt;&gt;&gt; parser = CommandParser()
+        &gt;&gt;&gt; action = parser.parse(&#34;go north&#34;)
+        &gt;&gt;&gt; isinstance(action, MoveAction)
+        True
+
+        With context for better suggestions:
+        &gt;&gt;&gt; from space_hulk_game.engine import GameState, Scene
+        &gt;&gt;&gt; state = GameState(current_scene=&#34;room&#34;)
+        &gt;&gt;&gt; scene = Scene(id=&#34;room&#34;, name=&#34;Room&#34;, description=&#34;A room.&#34;,
+        ...               exits={&#34;north&#34;: &#34;hallway&#34;})
+        &gt;&gt;&gt; action = parser.parse(&#34;go nrth&#34;, state, scene)  # typo
+        &gt;&gt;&gt; isinstance(action, MoveAction)
+        True
+    &#34;&#34;&#34;
+
+    # Command synonyms mapping
+    COMMANDS: ClassVar[dict[str, list[str]]] = {
+        &#34;move&#34;: [&#34;go&#34;, &#34;move&#34;, &#34;walk&#34;, &#34;run&#34;, &#34;travel&#34;, &#34;head&#34;, &#34;proceed&#34;, &#34;enter&#34;],
+        &#34;take&#34;: [&#34;take&#34;, &#34;get&#34;, &#34;grab&#34;, &#34;pick&#34;, &#34;pickup&#34;, &#34;acquire&#34;, &#34;collect&#34;],
+        &#34;drop&#34;: [&#34;drop&#34;, &#34;leave&#34;, &#34;discard&#34;, &#34;put down&#34;, &#34;release&#34;],
+        &#34;use&#34;: [&#34;use&#34;, &#34;activate&#34;, &#34;apply&#34;, &#34;employ&#34;, &#34;utilize&#34;, &#34;engage&#34;],
+        &#34;look&#34;: [&#34;look&#34;, &#34;examine&#34;, &#34;inspect&#34;, &#34;check&#34;, &#34;observe&#34;, &#34;search&#34;, &#34;view&#34;, &#34;l&#34;, &#34;x&#34;],
+        &#34;inventory&#34;: [&#34;inventory&#34;, &#34;inv&#34;, &#34;i&#34;, &#34;items&#34;, &#34;possessions&#34;, &#34;backpack&#34;, &#34;bag&#34;],
+        &#34;talk&#34;: [&#34;talk&#34;, &#34;speak&#34;, &#34;chat&#34;, &#34;converse&#34;, &#34;ask&#34;, &#34;tell&#34;, &#34;discuss&#34;],
+        &#34;help&#34;: [&#34;help&#34;, &#34;h&#34;, &#34;?&#34;, &#34;commands&#34;, &#34;instructions&#34;],
+    }
+
+    # Fuzzy matching threshold
+    CUTOFF: float = 0.6
+
+    def __init__(self):
+        &#34;&#34;&#34;Initialize the command parser.&#34;&#34;&#34;
+        # Build reverse mapping for fast lookup
+        self._command_map: dict[str, str] = {}
+        for action_type, synonyms in self.COMMANDS.items():
+            for synonym in synonyms:
+                self._command_map[synonym.lower()] = action_type
+
+        logger.debug(f&#34;CommandParser initialized with {len(self._command_map)} command synonyms&#34;)
+
+    def parse(  # noqa: PLR0911
+        self,
+        command: str,
+        game_state: GameState | None = None,
+        current_scene: Scene | None = None,
+    ) -&gt; Action:
+        &#34;&#34;&#34;
+        Parse a text command into an Action object.
+
+        This is the main entry point for command parsing. It handles:
+        1. Text normalization and tokenization
+        2. Command word identification (with fuzzy matching)
+        3. Argument extraction
+        4. Context-aware parsing
+        5. Action object creation
+
+        Args:
+            command: The raw text command from the player.
+            game_state: Optional current game state for context.
+            current_scene: Optional current scene for context.
+
+        Returns:
+            An Action object representing the parsed command.
+
+        Examples:
+            &gt;&gt;&gt; parser = CommandParser()
+            &gt;&gt;&gt; action = parser.parse(&#34;go north&#34;)
+            &gt;&gt;&gt; action.direction
+            &#39;north&#39;
+
+            &gt;&gt;&gt; action = parser.parse(&#34;take medkit&#34;)
+            &gt;&gt;&gt; action.item_id
+            &#39;medkit&#39;
+
+            &gt;&gt;&gt; action = parser.parse(&#34;look&#34;)
+            &gt;&gt;&gt; isinstance(action, LookAction)
+            True
+        &#34;&#34;&#34;
+        # Normalize input
+        command = command.strip().lower()
+
+        if not command:
+            logger.debug(&#34;Empty command received&#34;)
+            return UnknownAction(raw_command=&#34;&#34;)
+
+        logger.debug(f&#34;Parsing command: &#39;{command}&#39;&#34;)
+
+        # Tokenize command
+        tokens = self._tokenize(command)
+
+        if not tokens:
+            return UnknownAction(raw_command=command)
+
+        # Identify command type
+        action_type, command_word, remaining_tokens = self._identify_command(tokens)
+
+        if not action_type:
+            # Try to find a close match
+            suggestion = self._suggest_command(command_word)
+            logger.debug(f&#34;Unknown command: &#39;{command_word}&#39;, suggestion: &#39;{suggestion}&#39;&#34;)
+            return UnknownAction(raw_command=command, suggestion=suggestion)
+
+        # Parse based on action type
+        logger.debug(f&#34;Identified action type: {action_type}&#34;)
+
+        if action_type == &#34;move&#34;:
+            return self._parse_move(command, remaining_tokens, current_scene)
+        elif action_type == &#34;take&#34;:
+            return self._parse_take(command, remaining_tokens, current_scene)
+        elif action_type == &#34;drop&#34;:
+            return self._parse_drop(command, remaining_tokens, game_state)
+        elif action_type == &#34;use&#34;:
+            return self._parse_use(command, remaining_tokens, game_state, current_scene)
+        elif action_type == &#34;look&#34;:
+            return self._parse_look(command, remaining_tokens, current_scene)
+        elif action_type == &#34;inventory&#34;:
+            return InventoryAction(raw_command=command)
+        elif action_type == &#34;talk&#34;:
+            return self._parse_talk(command, remaining_tokens, current_scene)
+        elif action_type == &#34;help&#34;:
+            return HelpAction(raw_command=command)
+        else:
+            return UnknownAction(raw_command=command)
+
+    def _tokenize(self, command: str) -&gt; list[str]:
+        &#34;&#34;&#34;
+        Tokenize a command into words.
+
+        Args:
+            command: The command string to tokenize.
+
+        Returns:
+            List of tokens (words).
+
+        Examples:
+            &gt;&gt;&gt; parser = CommandParser()
+            &gt;&gt;&gt; parser._tokenize(&#34;go north&#34;)
+            [&#39;go&#39;, &#39;north&#39;]
+            &gt;&gt;&gt; parser._tokenize(&#34;  take   medkit  &#34;)
+            [&#39;take&#39;, &#39;medkit&#39;]
+        &#34;&#34;&#34;
+        # Split on whitespace and filter empty strings
+        return [token for token in command.split() if token]
+
+    def _identify_command(self, tokens: list[str]) -&gt; tuple[str | None, str, list[str]]:
+        &#34;&#34;&#34;
+        Identify the command type from tokens.
+
+        This method handles multi-word commands (e.g., &#34;pick up&#34;) and
+        uses fuzzy matching for typos.
+
+        Args:
+            tokens: List of command tokens.
+
+        Returns:
+            Tuple of (action_type, command_word, remaining_tokens).
+            action_type is None if no match found.
+
+        Examples:
+            &gt;&gt;&gt; parser = CommandParser()
+            &gt;&gt;&gt; parser._identify_command([&#39;go&#39;, &#39;north&#39;])
+            (&#39;move&#39;, &#39;go&#39;, [&#39;north&#39;])
+            &gt;&gt;&gt; parser._identify_command([&#39;take&#39;, &#39;medkit&#39;])
+            (&#39;take&#39;, &#39;take&#39;, [&#39;medkit&#39;])
+        &#34;&#34;&#34;
+        if not tokens:
+            return None, &#34;&#34;, []
+
+        # Try exact match for first word
+        first_word = tokens[0]
+        if first_word in self._command_map:
+            return self._command_map[first_word], first_word, tokens[1:]
+
+        # Try multi-word commands (e.g., &#34;pick up&#34;, &#34;put down&#34;)
+        if len(tokens) &gt;= 2:
+            two_word = f&#34;{tokens[0]} {tokens[1]}&#34;
+            if two_word in self._command_map:
+                return self._command_map[two_word], two_word, tokens[2:]
+
+        # Try fuzzy matching
+        matches = difflib.get_close_matches(
+            first_word,
+            self._command_map.keys(),
+            n=5,  # Get multiple matches for prioritization
+            cutoff=self.CUTOFF,
+        )
+
+        if matches:
+            # If we have multiple matches, prefer certain command types
+            # (Priority order: take &gt; move &gt; use &gt; look &gt; talk &gt; drop &gt; inventory &gt; help)
+            priority_order = [&#34;take&#34;, &#34;move&#34;, &#34;use&#34;, &#34;look&#34;, &#34;talk&#34;, &#34;drop&#34;, &#34;inventory&#34;, &#34;help&#34;]
+
+            # Get action types for all matches
+            match_action_types = [(match, self._command_map[match]) for match in matches]
+
+            # Sort by priority
+            for priority_type in priority_order:
+                for match, action_type in match_action_types:
+                    if action_type == priority_type:
+                        logger.debug(
+                            f&#34;Fuzzy match: &#39;{first_word}&#39; -&gt; &#39;{match}&#39; (type: {action_type})&#34;
+                        )
+                        return action_type, first_word, tokens[1:]
+
+            # If no priority match, use first match
+            matched_word = matches[0]
+            logger.debug(f&#34;Fuzzy match: &#39;{first_word}&#39; -&gt; &#39;{matched_word}&#39;&#34;)
+            return self._command_map[matched_word], first_word, tokens[1:]
+
+        return None, first_word, tokens[1:]
+
+    def _suggest_command(self, word: str) -&gt; str | None:
+        &#34;&#34;&#34;
+        Suggest a command based on fuzzy matching.
+
+        Args:
+            word: The unrecognized word.
+
+        Returns:
+            A suggested command word, or None if no close match.
+
+        Examples:
+            &gt;&gt;&gt; parser = CommandParser()
+            &gt;&gt;&gt; parser._suggest_command(&#34;tak&#34;)
+            &#39;take&#39;
+            &gt;&gt;&gt; parser._suggest_command(&#34;examne&#34;)
+            &#39;examine&#39;
+        &#34;&#34;&#34;
+        matches = difflib.get_close_matches(
+            word,
+            self._command_map.keys(),
+            n=1,
+            cutoff=0.5,  # Lower cutoff for suggestions
+        )
+
+        return matches[0] if matches else None
+
+    def _parse_move(self, command: str, tokens: list[str], scene: Scene | None) -&gt; Action:
+        &#34;&#34;&#34;
+        Parse a movement command.
+
+        Args:
+            command: The raw command string.
+            tokens: Remaining tokens after command word.
+            scene: Optional current scene for context.
+
+        Returns:
+            A MoveAction or UnknownAction.
+
+        Examples:
+            &gt;&gt;&gt; parser = CommandParser()
+            &gt;&gt;&gt; action = parser._parse_move(&#34;go north&#34;, [&#34;north&#34;], None)
+            &gt;&gt;&gt; action.direction
+            &#39;north&#39;
+        &#34;&#34;&#34;
+        if not tokens:
+            logger.debug(&#34;Move command missing direction&#34;)
+            return UnknownAction(raw_command=command, suggestion=&#34;go &lt;direction&gt;&#34;)
+
+        direction = tokens[0]
+
+        # If we have scene context, validate and fuzzy match against available exits
+        if scene and scene.exits:
+            available_exits = list(scene.exits.keys())
+
+            # Exact match
+            if direction in available_exits:
+                return MoveAction(direction=direction, raw_command=command)
+
+            # Fuzzy match
+            matches = difflib.get_close_matches(direction, available_exits, n=1, cutoff=self.CUTOFF)
+
+            if matches:
+                matched_direction = matches[0]
+                logger.debug(f&#34;Fuzzy matched direction: &#39;{direction}&#39; -&gt; &#39;{matched_direction}&#39;&#34;)
+                return MoveAction(direction=matched_direction, raw_command=command)
+
+        # No context or no match, return as-is
+        return MoveAction(direction=direction, raw_command=command)
+
+    def _parse_take(self, command: str, tokens: list[str], scene: Scene | None) -&gt; Action:
+        &#34;&#34;&#34;
+        Parse a take/get command.
+
+        Args:
+            command: The raw command string.
+            tokens: Remaining tokens after command word.
+            scene: Optional current scene for context.
+
+        Returns:
+            A TakeAction or UnknownAction.
+
+        Examples:
+            &gt;&gt;&gt; parser = CommandParser()
+            &gt;&gt;&gt; action = parser._parse_take(&#34;take medkit&#34;, [&#34;medkit&#34;], None)
+            &gt;&gt;&gt; action.item_id
+            &#39;medkit&#39;
+        &#34;&#34;&#34;
+        if not tokens:
+            logger.debug(&#34;Take command missing item&#34;)
+            return UnknownAction(raw_command=command, suggestion=&#34;take &lt;item&gt;&#34;)
+
+        item_name = &#34; &#34;.join(tokens)
+
+        # If we have scene context, try to match against available items
+        if scene and scene.items:
+            item = self._find_item_in_scene(item_name, scene)
+            if item:
+                return TakeAction(item_id=item.id, raw_command=command)
+
+        # No context or no match, use the name as-is
+        return TakeAction(item_id=item_name, raw_command=command)
+
+    def _parse_drop(self, command: str, tokens: list[str], game_state: GameState | None) -&gt; Action:
+        &#34;&#34;&#34;
+        Parse a drop command.
+
+        Args:
+            command: The raw command string.
+            tokens: Remaining tokens after command word.
+            game_state: Optional game state for inventory context.
+
+        Returns:
+            A DropAction or UnknownAction.
+
+        Examples:
+            &gt;&gt;&gt; parser = CommandParser()
+            &gt;&gt;&gt; action = parser._parse_drop(&#34;drop sword&#34;, [&#34;sword&#34;], None)
+            &gt;&gt;&gt; action.item_id
+            &#39;sword&#39;
+        &#34;&#34;&#34;
+        if not tokens:
+            logger.debug(&#34;Drop command missing item&#34;)
+            return UnknownAction(raw_command=command, suggestion=&#34;drop &lt;item&gt;&#34;)
+
+        item_name = &#34; &#34;.join(tokens)
+
+        # If we have game state, try to match against inventory
+        if game_state and game_state.inventory:
+            matches = difflib.get_close_matches(
+                item_name, game_state.inventory, n=1, cutoff=self.CUTOFF
+            )
+            if matches:
+                matched_item = matches[0]
+                logger.debug(f&#34;Fuzzy matched inventory item: &#39;{item_name}&#39; -&gt; &#39;{matched_item}&#39;&#34;)
+                return DropAction(item_id=matched_item, raw_command=command)
+
+        # No context or no match, use the name as-is
+        return DropAction(item_id=item_name, raw_command=command)
+
+    def _parse_use(
+        self,
+        command: str,
+        tokens: list[str],
+        game_state: GameState | None,
+        scene: Scene | None,
+    ) -&gt; Action:
+        &#34;&#34;&#34;
+        Parse a use command.
+
+        Handles both &#34;use item&#34; and &#34;use item on target&#34; formats.
+
+        Args:
+            command: The raw command string.
+            tokens: Remaining tokens after command word.
+            game_state: Optional game state for inventory context.
+            scene: Optional current scene for context.
+
+        Returns:
+            A UseAction or UnknownAction.
+
+        Examples:
+            &gt;&gt;&gt; parser = CommandParser()
+            &gt;&gt;&gt; action = parser._parse_use(&#34;use medkit&#34;, [&#34;medkit&#34;], None, None)
+            &gt;&gt;&gt; action.item_id
+            &#39;medkit&#39;
+
+            &gt;&gt;&gt; action = parser._parse_use(&#34;use key on door&#34;, [&#34;key&#34;, &#34;on&#34;, &#34;door&#34;], None, None)
+            &gt;&gt;&gt; action.item_id
+            &#39;key&#39;
+            &gt;&gt;&gt; action.target_id
+            &#39;door&#39;
+        &#34;&#34;&#34;
+        if not tokens:
+            logger.debug(&#34;Use command missing item&#34;)
+            return UnknownAction(raw_command=command, suggestion=&#34;use &lt;item&gt; [on &lt;target&gt;]&#34;)
+
+        # Look for &#34;on&#34; or &#34;with&#34; to separate item from target
+        item_tokens = []
+        target_tokens = []
+        found_separator = False
+
+        for i, token in enumerate(tokens):
+            if token in [&#34;on&#34;, &#34;with&#34;, &#34;to&#34;]:
+                found_separator = True
+                item_tokens = tokens[:i]
+                target_tokens = tokens[i + 1 :]
+                break
+
+        if not found_separator:
+            item_tokens = tokens
+
+        item_name = &#34; &#34;.join(item_tokens)
+        target_name = &#34; &#34;.join(target_tokens) if target_tokens else None
+
+        # Try to match item against inventory if we have game state
+        item_id = item_name
+        if game_state and game_state.inventory:
+            matches = difflib.get_close_matches(
+                item_name, game_state.inventory, n=1, cutoff=self.CUTOFF
+            )
+            if matches:
+                item_id = matches[0]
+                logger.debug(f&#34;Fuzzy matched use item: &#39;{item_name}&#39; -&gt; &#39;{item_id}&#39;&#34;)
+
+        # Try to match target against scene items/NPCs if we have scene
+        target_id = target_name
+        if target_name and scene:
+            # Check items
+            if scene.items:
+                item = self._find_item_in_scene(target_name, scene)
+                if item:
+                    target_id = item.id
+            # Check NPCs
+            if scene.npcs and target_id == target_name:
+                npc = self._find_npc_in_scene(target_name, scene)
+                if npc:
+                    target_id = npc.id
+
+        return UseAction(item_id=item_id, target_id=target_id, raw_command=command)
+
+    def _parse_look(self, command: str, tokens: list[str], scene: Scene | None) -&gt; Action:
+        &#34;&#34;&#34;
+        Parse a look/examine command.
+
+        Args:
+            command: The raw command string.
+            tokens: Remaining tokens after command word.
+            scene: Optional current scene for context.
+
+        Returns:
+            A LookAction.
+
+        Examples:
+            &gt;&gt;&gt; parser = CommandParser()
+            &gt;&gt;&gt; action = parser._parse_look(&#34;look&#34;, [], None)
+            &gt;&gt;&gt; action.target is None
+            True
+
+            &gt;&gt;&gt; action = parser._parse_look(&#34;examine console&#34;, [&#34;console&#34;], None)
+            &gt;&gt;&gt; action.target
+            &#39;console&#39;
+        &#34;&#34;&#34;
+        if not tokens:
+            # Just &#34;look&#34; - examine the scene
+            return LookAction(raw_command=command)
+
+        # Filter out common words
+        filter_words = {&#34;at&#34;, &#34;the&#34;, &#34;a&#34;, &#34;an&#34;}
+        filtered_tokens = [t for t in tokens if t not in filter_words]
+
+        if not filtered_tokens:
+            return LookAction(raw_command=command)
+
+        target_name = &#34; &#34;.join(filtered_tokens)
+
+        # Try to match against scene items/NPCs if we have scene
+        target_id = target_name
+        if scene:
+            # Check items
+            if scene.items:
+                item = self._find_item_in_scene(target_name, scene)
+                if item:
+                    target_id = item.id
+            # Check NPCs
+            if scene.npcs and target_id == target_name:
+                npc = self._find_npc_in_scene(target_name, scene)
+                if npc:
+                    target_id = npc.id
+
+        return LookAction(target=target_id, raw_command=command)
+
+    def _parse_talk(self, command: str, tokens: list[str], scene: Scene | None) -&gt; Action:
+        &#34;&#34;&#34;
+        Parse a talk command.
+
+        Handles formats like:
+        - &#34;talk to guard&#34;
+        - &#34;ask guard about quest&#34;
+        - &#34;tell guard about problem&#34;
+
+        Args:
+            command: The raw command string.
+            tokens: Remaining tokens after command word.
+            scene: Optional current scene for context.
+
+        Returns:
+            A TalkAction or UnknownAction.
+
+        Examples:
+            &gt;&gt;&gt; parser = CommandParser()
+            &gt;&gt;&gt; action = parser._parse_talk(&#34;talk to guard&#34;, [&#34;to&#34;, &#34;guard&#34;], None)
+            &gt;&gt;&gt; action.npc_id
+            &#39;guard&#39;
+
+            &gt;&gt;&gt; action = parser._parse_talk(&#34;ask guard about quest&#34;, [&#34;guard&#34;, &#34;about&#34;, &#34;quest&#34;], None)
+            &gt;&gt;&gt; action.npc_id
+            &#39;guard&#39;
+            &gt;&gt;&gt; action.topic
+            &#39;quest&#39;
+        &#34;&#34;&#34;
+        if not tokens:
+            logger.debug(&#34;Talk command missing NPC&#34;)
+            return UnknownAction(raw_command=command, suggestion=&#34;talk to &lt;NPC&gt;&#34;)
+
+        # Remove common prepositions
+        filter_words = {&#34;to&#34;, &#34;with&#34;}
+        filtered_tokens = [t for t in tokens if t not in filter_words]
+
+        if not filtered_tokens:
+            return UnknownAction(raw_command=command, suggestion=&#34;talk to &lt;NPC&gt;&#34;)
+
+        # Look for &#34;about&#34; to separate NPC from topic
+        npc_tokens = []
+        topic_tokens = []
+        found_about = False
+
+        for i, token in enumerate(filtered_tokens):
+            if token == &#34;about&#34;:  # nosec B105
+                found_about = True
+                npc_tokens = filtered_tokens[:i]
+                topic_tokens = filtered_tokens[i + 1 :]
+                break
+
+        if not found_about:
+            npc_tokens = filtered_tokens
+
+        npc_name = &#34; &#34;.join(npc_tokens)
+        topic = &#34; &#34;.join(topic_tokens) if topic_tokens else None
+
+        # Try to match NPC against scene NPCs if we have scene
+        npc_id = npc_name
+        if scene and scene.npcs:
+            npc = self._find_npc_in_scene(npc_name, scene)
+            if npc:
+                npc_id = npc.id
+                logger.debug(f&#34;Matched NPC: &#39;{npc_name}&#39; -&gt; &#39;{npc_id}&#39;&#34;)
+
+        return TalkAction(npc_id=npc_id, topic=topic, raw_command=command)
+
+    def _find_item_in_scene(self, item_name: str, scene: Scene) -&gt; Item | None:
+        &#34;&#34;&#34;
+        Find an item in the scene by name or ID using fuzzy matching.
+
+        Args:
+            item_name: The name or ID to search for.
+            scene: The scene to search in.
+
+        Returns:
+            The matching Item object, or None if not found.
+
+        Examples:
+            &gt;&gt;&gt; from space_hulk_game.engine import Scene, Item
+            &gt;&gt;&gt; item = Item(id=&#34;medkit&#34;, name=&#34;Medical Kit&#34;, description=&#34;A medkit.&#34;)
+            &gt;&gt;&gt; scene = Scene(id=&#34;room&#34;, name=&#34;Room&#34;, description=&#34;A room.&#34;, items=[item])
+            &gt;&gt;&gt; parser = CommandParser()
+            &gt;&gt;&gt; found = parser._find_item_in_scene(&#34;medkit&#34;, scene)
+            &gt;&gt;&gt; found.id
+            &#39;medkit&#39;
+        &#34;&#34;&#34;
+        # Try exact match on ID first
+        for item in scene.items:
+            if item.id.lower() == item_name.lower():
+                return item
+
+        # Try exact match on name
+        for item in scene.items:
+            if item.name.lower() == item_name.lower():
+                return item
+
+        # Try fuzzy match on ID
+        item_ids = [item.id.lower() for item in scene.items]
+        matches = difflib.get_close_matches(item_name.lower(), item_ids, n=1, cutoff=self.CUTOFF)
+
+        if matches:
+            for item in scene.items:
+                if item.id.lower() == matches[0]:
+                    logger.debug(f&#34;Fuzzy matched item ID: &#39;{item_name}&#39; -&gt; &#39;{item.id}&#39;&#34;)
+                    return item
+
+        # Try fuzzy match on name
+        item_names = [item.name.lower() for item in scene.items]
+        matches = difflib.get_close_matches(item_name.lower(), item_names, n=1, cutoff=self.CUTOFF)
+
+        if matches:
+            for item in scene.items:
+                if item.name.lower() == matches[0]:
+                    logger.debug(f&#34;Fuzzy matched item name: &#39;{item_name}&#39; -&gt; &#39;{item.name}&#39;&#34;)
+                    return item
+
+        return None
+
+    def _find_npc_in_scene(self, npc_name: str, scene: Scene) -&gt; NPC | None:
+        &#34;&#34;&#34;
+        Find an NPC in the scene by name or ID using fuzzy matching.
+
+        Args:
+            npc_name: The name or ID to search for.
+            scene: The scene to search in.
+
+        Returns:
+            The matching NPC object, or None if not found.
+
+        Examples:
+            &gt;&gt;&gt; from space_hulk_game.engine import Scene, NPC
+            &gt;&gt;&gt; npc = NPC(id=&#34;guard&#34;, name=&#34;Imperial Guard&#34;, description=&#34;A guard.&#34;)
+            &gt;&gt;&gt; scene = Scene(id=&#34;room&#34;, name=&#34;Room&#34;, description=&#34;A room.&#34;, npcs=[npc])
+            &gt;&gt;&gt; parser = CommandParser()
+            &gt;&gt;&gt; found = parser._find_npc_in_scene(&#34;guard&#34;, scene)
+            &gt;&gt;&gt; found.id
+            &#39;guard&#39;
+        &#34;&#34;&#34;
+        # Try exact match on ID first
+        for npc in scene.npcs:
+            if npc.id.lower() == npc_name.lower():
+                return npc
+
+        # Try exact match on name
+        for npc in scene.npcs:
+            if npc.name.lower() == npc_name.lower():
+                return npc
+
+        # Try fuzzy match on ID
+        npc_ids = [npc.id.lower() for npc in scene.npcs]
+        matches = difflib.get_close_matches(npc_name.lower(), npc_ids, n=1, cutoff=self.CUTOFF)
+
+        if matches:
+            for npc in scene.npcs:
+                if npc.id.lower() == matches[0]:
+                    logger.debug(f&#34;Fuzzy matched NPC ID: &#39;{npc_name}&#39; -&gt; &#39;{npc.id}&#39;&#34;)
+                    return npc
+
+        # Try fuzzy match on name
+        npc_names = [npc.name.lower() for npc in scene.npcs]
+        matches = difflib.get_close_matches(npc_name.lower(), npc_names, n=1, cutoff=self.CUTOFF)
+
+        if matches:
+            for npc in scene.npcs:
+                if npc.name.lower() == matches[0]:
+                    logger.debug(f&#34;Fuzzy matched NPC name: &#39;{npc_name}&#39; -&gt; &#39;{npc.name}&#39;&#34;)
+                    return npc
+
+        return None</code></pre>
+</details>
+<div class="desc"><p>Parses natural language commands into Action objects.</p>
+<p>This class implements a facade pattern for command parsing, providing
+a simple interface that hides the complexity of synonym matching,
+fuzzy matching, and context-aware parsing.</p>
+<p>The parser is designed to be forgiving and helpful, using fuzzy matching
+for typos and providing suggestions when commands aren't recognized.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>COMMANDS</code></strong></dt>
+<dd>Dictionary mapping action types to lists of synonyms.</dd>
+<dt><strong><code>CUTOFF</code></strong></dt>
+<dd>Minimum similarity score for fuzzy matching (0.0 to 1.0).</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<p>Basic usage:</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; parser = CommandParser()
+&gt;&gt;&gt; action = parser.parse(&quot;go north&quot;)
+&gt;&gt;&gt; isinstance(action, MoveAction)
+True
+</code></pre>
+<p>With context for better suggestions:</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import GameState, Scene
+&gt;&gt;&gt; state = GameState(current_scene=&quot;room&quot;)
+&gt;&gt;&gt; scene = Scene(id=&quot;room&quot;, name=&quot;Room&quot;, description=&quot;A room.&quot;,
+...               exits={&quot;north&quot;: &quot;hallway&quot;})
+&gt;&gt;&gt; action = parser.parse(&quot;go nrth&quot;, state, scene)  # typo
+&gt;&gt;&gt; isinstance(action, MoveAction)
+True
+</code></pre>
+<p>Initialize the command parser.</p></div>
+<h3>Class variables</h3>
+<dl>
+<dt id="space_hulk_game.engine.parser.CommandParser.COMMANDS"><code class="name">var <span class="ident">COMMANDS</span> : ClassVar[dict[str, list[str]]]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.parser.CommandParser.CUTOFF"><code class="name">var <span class="ident">CUTOFF</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="space_hulk_game.engine.parser.CommandParser.parse"><code class="name flex">
+<span>def <span class="ident">parse</span></span>(<span>self,<br>command: str,<br>game_state: <a title="space_hulk_game.engine.game_state.GameState" href="game_state.html#space_hulk_game.engine.game_state.GameState">GameState</a> | None = None,<br>current_scene: <a title="space_hulk_game.engine.scene.Scene" href="scene.html#space_hulk_game.engine.scene.Scene">Scene</a> | None = None) ‑> <a title="space_hulk_game.engine.actions.Action" href="actions.html#space_hulk_game.engine.actions.Action">Action</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def parse(  # noqa: PLR0911
+    self,
+    command: str,
+    game_state: GameState | None = None,
+    current_scene: Scene | None = None,
+) -&gt; Action:
+    &#34;&#34;&#34;
+    Parse a text command into an Action object.
+
+    This is the main entry point for command parsing. It handles:
+    1. Text normalization and tokenization
+    2. Command word identification (with fuzzy matching)
+    3. Argument extraction
+    4. Context-aware parsing
+    5. Action object creation
+
+    Args:
+        command: The raw text command from the player.
+        game_state: Optional current game state for context.
+        current_scene: Optional current scene for context.
+
+    Returns:
+        An Action object representing the parsed command.
+
+    Examples:
+        &gt;&gt;&gt; parser = CommandParser()
+        &gt;&gt;&gt; action = parser.parse(&#34;go north&#34;)
+        &gt;&gt;&gt; action.direction
+        &#39;north&#39;
+
+        &gt;&gt;&gt; action = parser.parse(&#34;take medkit&#34;)
+        &gt;&gt;&gt; action.item_id
+        &#39;medkit&#39;
+
+        &gt;&gt;&gt; action = parser.parse(&#34;look&#34;)
+        &gt;&gt;&gt; isinstance(action, LookAction)
+        True
+    &#34;&#34;&#34;
+    # Normalize input
+    command = command.strip().lower()
+
+    if not command:
+        logger.debug(&#34;Empty command received&#34;)
+        return UnknownAction(raw_command=&#34;&#34;)
+
+    logger.debug(f&#34;Parsing command: &#39;{command}&#39;&#34;)
+
+    # Tokenize command
+    tokens = self._tokenize(command)
+
+    if not tokens:
+        return UnknownAction(raw_command=command)
+
+    # Identify command type
+    action_type, command_word, remaining_tokens = self._identify_command(tokens)
+
+    if not action_type:
+        # Try to find a close match
+        suggestion = self._suggest_command(command_word)
+        logger.debug(f&#34;Unknown command: &#39;{command_word}&#39;, suggestion: &#39;{suggestion}&#39;&#34;)
+        return UnknownAction(raw_command=command, suggestion=suggestion)
+
+    # Parse based on action type
+    logger.debug(f&#34;Identified action type: {action_type}&#34;)
+
+    if action_type == &#34;move&#34;:
+        return self._parse_move(command, remaining_tokens, current_scene)
+    elif action_type == &#34;take&#34;:
+        return self._parse_take(command, remaining_tokens, current_scene)
+    elif action_type == &#34;drop&#34;:
+        return self._parse_drop(command, remaining_tokens, game_state)
+    elif action_type == &#34;use&#34;:
+        return self._parse_use(command, remaining_tokens, game_state, current_scene)
+    elif action_type == &#34;look&#34;:
+        return self._parse_look(command, remaining_tokens, current_scene)
+    elif action_type == &#34;inventory&#34;:
+        return InventoryAction(raw_command=command)
+    elif action_type == &#34;talk&#34;:
+        return self._parse_talk(command, remaining_tokens, current_scene)
+    elif action_type == &#34;help&#34;:
+        return HelpAction(raw_command=command)
+    else:
+        return UnknownAction(raw_command=command)</code></pre>
+</details>
+<div class="desc"><p>Parse a text command into an Action object.</p>
+<p>This is the main entry point for command parsing. It handles:
+1. Text normalization and tokenization
+2. Command word identification (with fuzzy matching)
+3. Argument extraction
+4. Context-aware parsing
+5. Action object creation</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>command</code></strong></dt>
+<dd>The raw text command from the player.</dd>
+<dt><strong><code>game_state</code></strong></dt>
+<dd>Optional current game state for context.</dd>
+<dt><strong><code>current_scene</code></strong></dt>
+<dd>Optional current scene for context.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>An Action object representing the parsed command.</p>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; parser = CommandParser()
+&gt;&gt;&gt; action = parser.parse(&quot;go north&quot;)
+&gt;&gt;&gt; action.direction
+'north'
+</code></pre>
+<pre><code class="language-python-repl">&gt;&gt;&gt; action = parser.parse(&quot;take medkit&quot;)
+&gt;&gt;&gt; action.item_id
+'medkit'
+</code></pre>
+<pre><code class="language-python-repl">&gt;&gt;&gt; action = parser.parse(&quot;look&quot;)
+&gt;&gt;&gt; isinstance(action, LookAction)
+True
+</code></pre></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="space_hulk_game.engine" href="index.html">space_hulk_game.engine</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="space_hulk_game.engine.parser.CommandParser" href="#space_hulk_game.engine.parser.CommandParser">CommandParser</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.engine.parser.CommandParser.COMMANDS" href="#space_hulk_game.engine.parser.CommandParser.COMMANDS">COMMANDS</a></code></li>
+<li><code><a title="space_hulk_game.engine.parser.CommandParser.CUTOFF" href="#space_hulk_game.engine.parser.CommandParser.CUTOFF">CUTOFF</a></code></li>
+<li><code><a title="space_hulk_game.engine.parser.CommandParser.parse" href="#space_hulk_game.engine.parser.CommandParser.parse">parse</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>

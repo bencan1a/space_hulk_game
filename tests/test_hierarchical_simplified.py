@@ -14,14 +14,15 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-def test_simplified_hierarchical():
+
+def test_simplified_hierarchical():  # noqa: PLR0915
     """Test hierarchical mode with simplified tasks."""
-    print("\n" + "="*80)
+    print("\n" + "=" * 80)
     print("HIERARCHICAL MODE - SIMPLIFIED TASK DESCRIPTIONS")
-    print("="*80)
+    print("=" * 80)
     print(f"Start: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("Optimization: 90% shorter task descriptions")
-    print("="*80 + "\n")
+    print("=" * 80 + "\n")
 
     start_time = time.time()
 
@@ -44,21 +45,21 @@ def test_simplified_hierarchical():
 
         print("\n🚀 Starting execution...")
         print(f"   Prompt: {test_prompt}")
-        print("\n" + "-"*80)
+        print("\n" + "-" * 80)
 
         exec_start = time.time()
         hierarchical_crew.kickoff(inputs=inputs)
         exec_time = time.time() - exec_start
 
-        print("-"*80)
+        print("-" * 80)
         print("\n✅ SUCCESS!")
-        print(f"   Execution time: {exec_time:.2f}s ({exec_time/60:.2f} min)")
+        print(f"   Execution time: {exec_time:.2f}s ({exec_time / 60:.2f} min)")
 
         # Check output files
         output_files = [
             "game-config/plot_outline.yaml",
             "game-config/narrative_map.yaml",
-            "game-config/puzzle_design.yaml"
+            "game-config/puzzle_design.yaml",
         ]
 
         files_created = sum(1 for f in output_files if os.path.exists(f))
@@ -71,29 +72,30 @@ def test_simplified_hierarchical():
 
         total_time = time.time() - start_time
 
-        print("\n" + "="*80)
+        print("\n" + "=" * 80)
         print("SIMPLIFIED HIERARCHICAL MODE - SUCCESS!")
-        print("="*80)
+        print("=" * 80)
         print("✅ Hierarchical mode works with simplified tasks")
-        print(f"✅ Execution: {exec_time:.2f}s ({exec_time/60:.2f} min)")
+        print(f"✅ Execution: {exec_time:.2f}s ({exec_time / 60:.2f} min)")
         print(f"✅ Files: {files_created}/{len(output_files)}")
         print("\nKey fix: Simplified task descriptions (90% shorter)")
         print(f"Total time: {total_time:.2f}s")
         print(f"End: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-        print("="*80)
+        print("=" * 80)
 
         return True
 
     except Exception as e:
         error_time = time.time() - start_time
-        print("\n" + "="*80)
+        print("\n" + "=" * 80)
         print("❌ FAILED")
-        print("="*80)
-        print(f"Error: {str(e)}")
-        print(f"Time: {error_time:.2f}s ({error_time/60:.2f} min)")
-        print("="*80)
+        print("=" * 80)
+        print(f"Error: {e!s}")
+        print(f"Time: {error_time:.2f}s ({error_time / 60:.2f} min)")
+        print("=" * 80)
 
         import traceback
+
         traceback.print_exc()
 
         return False

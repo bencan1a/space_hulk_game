@@ -375,10 +375,10 @@ Load:
 ```python
 class ExamineAction(Action):
     """Action for examining items/NPCs closely."""
-    
+
     def __init__(self, target_id: str):
         self.target_id = target_id
-    
+
     def __str__(self) -> str:
         return f"ExamineAction(target={self.target_id})"
 ```
@@ -458,7 +458,7 @@ Extend `ContentLoader` for custom formats:
 ```python
 class CustomContentLoader(ContentLoader):
     """Loads game from custom format."""
-    
+
     def load_game(self, source: str) -> GameData:
         """Load from custom source."""
         # Custom loading logic
@@ -677,6 +677,6 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines and best pract
 
 ---
 
-**Last Updated**: 2024-11-10  
-**Version**: 1.0  
+**Last Updated**: 2024-11-10
+**Version**: 1.0
 **Authors**: Space Hulk Development Team
