@@ -1,6 +1,7 @@
 """
 Tests for kloc-report.py script to ensure it works correctly and doesn't hang.
 """
+
 import subprocess
 import sys
 import unittest

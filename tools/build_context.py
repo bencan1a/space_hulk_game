@@ -16,11 +16,11 @@ Environment Variables:
 """
 
 import os
-import subprocess
+import subprocess  # nosec B404
 import sys
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Optional
+from typing import Any
 
 # Configuration from environment or defaults
 CONTEXT_MAX_CHARS = int(os.getenv("CONTEXT_MAX_CHARS", "150000"))
@@ -44,7 +44,7 @@ def generate_api_docs() -> None:
 
     try:
         # Generate HTML documentation
-        subprocess.run(
+        subprocess.run(  # nosec B603, B607
             [
                 "pdoc",
                 "--html",
@@ -66,7 +66,7 @@ def generate_api_docs() -> None:
         print("⚠️  Warning: pdoc3 not found. Install with: pip install pdoc3")
 
 
-def parse_plan_metadata(plan_path: Path) -> Optional[dict[str, str]]:
+def parse_plan_metadata(plan_path: Path) -> dict[str, str] | None:
     """
     Parse YAML frontmatter from plan.md file.
 
@@ -92,12 +92,12 @@ def parse_plan_metadata(plan_path: Path) -> Optional[dict[str, str]]:
     return None
 
 
-def collect_active_plans() -> list[dict[str, any]]:
+def collect_active_plans() -> list[dict[str, Any]]:
     """Collect active project plans from agent-projects/."""
     print("Collecting active project plans...")
 
     if not AGENT_PROJECTS_DIR.exists():
-        print("ℹ️  No agent-projects/ directory found")
+        print("i  No agent-projects/ directory found")
         return []
 
     plans = []
@@ -142,7 +142,7 @@ def collect_active_plans() -> list[dict[str, any]]:
     return plans
 
 
-def build_context_file() -> None:
+def build_context_file() -> None:  # noqa: PLR0915
     """Assemble unified CONTEXT.md for AI agents."""
     print("Building CONTEXT.md...")
 
@@ -241,7 +241,7 @@ def clean_temp_files() -> None:
     print("Cleaning old temporary files...")
 
     if not AGENT_TMP_DIR.exists():
-        print("ℹ️  No agent-tmp/ directory found")
+        print("i  No agent-tmp/ directory found")
         return
 
     cutoff_date = datetime.now() - timedelta(days=CLEAN_TMP_AGE_DAYS)

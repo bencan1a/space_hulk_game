@@ -51,10 +51,10 @@ class QualityCheckConfig:
             config_path = module_dir / "config" / "quality_config.yaml"
 
         try:
-            with open(config_path) as f:
+            with Path(config_path).open() as f:
                 config = yaml.safe_load(f)
             logger.info(f"Loaded quality configuration from {config_path}")
-            return config
+            return dict(config) if config else {}
         except FileNotFoundError:
             logger.warning(f"Quality config file not found: {config_path}, using defaults")
             return self._default_config()
@@ -153,7 +153,7 @@ class QualityCheckConfig:
             return env_enabled.lower() in ("true", "1", "yes")
 
         # Check config file
-        return self.config.get("global", {}).get("enabled", False)
+        return bool(self.config.get("global", {}).get("enabled", False))
 
     def get_task_config(self, task_type: TaskType) -> dict[str, Any]:
         """
@@ -248,7 +248,7 @@ def get_default_executor() -> TaskExecutor:
     Returns:
         Default TaskExecutor instance
     """
-    global _default_executor
+    global _default_executor  # noqa: PLW0603
     if _default_executor is None:
         _default_executor = TaskExecutor()
     return _default_executor

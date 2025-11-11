@@ -11,6 +11,7 @@ This script runs a minimal test of the crew to verify:
 Usage:
     python test_crew_init.py
 """
+
 import os
 import sys
 import time
@@ -19,7 +20,7 @@ import time
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 
-def test_crew_initialization():
+def test_crew_initialization():  # noqa: PLR0915
     """Test that the crew can be initialized successfully."""
     print("=" * 70)
     print("Space Hulk Game - Crew Initialization Test")
@@ -40,7 +41,7 @@ def test_crew_initialization():
 
         print("3. Checking agents configuration...")
         print(f"   - Agents loaded: {len(game.agents_config)} agents")
-        for agent_name in game.agents_config.keys():
+        for agent_name in game.agents_config:
             print(f"     • {agent_name}")
         print()
 

@@ -111,7 +111,7 @@ class TestGameData(unittest.TestCase):
         )
 
         retrieved = data.get_scene("test")
-        self.assertIsNotNone(retrieved)
+        assert retrieved is not None
         self.assertEqual(retrieved.id, "test")
 
     def test_get_scene_nonexistent(self):
@@ -147,7 +147,7 @@ class TestGameData(unittest.TestCase):
         )
 
         retrieved = data.get_item_definition("sword")
-        self.assertIsNotNone(retrieved)
+        assert retrieved is not None
         self.assertEqual(retrieved.id, "sword")
 
         missing = data.get_item_definition("missing")
@@ -166,7 +166,7 @@ class TestGameData(unittest.TestCase):
         )
 
         retrieved = data.get_npc_definition("wizard")
-        self.assertIsNotNone(retrieved)
+        assert retrieved is not None
         self.assertEqual(retrieved.id, "wizard")
 
         missing = data.get_npc_definition("missing")
@@ -280,7 +280,7 @@ class TestContentLoaderIntegration(unittest.TestCase):
 
         # Verify scene details
         entrance = game_data.get_scene("entrance")
-        self.assertIsNotNone(entrance)
+        assert entrance is not None
         self.assertEqual(entrance.name, "Entrance Airlock")
         self.assertIn("north", entrance.exits)
         self.assertEqual(entrance.exits["north"], "corridor_1")
@@ -291,7 +291,7 @@ class TestContentLoaderIntegration(unittest.TestCase):
 
         # Check corridor scene
         corridor = game_data.get_scene("corridor_1")
-        self.assertIsNotNone(corridor)
+        assert corridor is not None
         self.assertEqual(corridor.name, "Main Corridor")
         self.assertTrue(corridor.dark)
         self.assertIn("north", corridor.locked_exits)
@@ -305,7 +305,7 @@ class TestContentLoaderIntegration(unittest.TestCase):
         self.assertGreater(len(game_data.global_items), 0)
 
         flashlight = game_data.get_item_definition("flashlight")
-        self.assertIsNotNone(flashlight)
+        assert flashlight is not None
         self.assertEqual(flashlight.name, "Lumen Globe")
         self.assertTrue(flashlight.takeable)
         self.assertTrue(flashlight.useable)
@@ -318,7 +318,7 @@ class TestContentLoaderIntegration(unittest.TestCase):
         self.assertGreater(len(game_data.global_npcs), 0)
 
         survivor = game_data.get_npc_definition("survivor")
-        self.assertIsNotNone(survivor)
+        assert survivor is not None
         self.assertEqual(survivor.name, "Guardsman Kane")
         self.assertFalse(survivor.hostile)
         self.assertIn("greeting", survivor.dialogue)
@@ -338,7 +338,7 @@ class TestContentLoaderIntegration(unittest.TestCase):
         self.assertGreater(len(game_data.plot_points), 0)
         # Find discovery plot point
         discovery = next((p for p in game_data.plot_points if p["id"] == "discovery"), None)
-        self.assertIsNotNone(discovery)
+        assert discovery is not None
         self.assertEqual(discovery["name"], "Discovery of the Hulk")
 
     def test_load_game_endings(self):
@@ -348,7 +348,7 @@ class TestContentLoaderIntegration(unittest.TestCase):
         self.assertGreater(len(game_data.endings), 0)
         # Find victory ending
         victory = next((e for e in game_data.endings if e["id"] == "victory"), None)
-        self.assertIsNotNone(victory)
+        assert victory is not None
         self.assertEqual(victory["name"], "Victorious Escape")
 
     def test_load_game_mechanics(self):

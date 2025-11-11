@@ -62,9 +62,9 @@ class Mem0Configurator:
         Returns:
             True if successful, False otherwise
         """
-        print(f"\n{'='*60}")
+        print(f"\n{'=' * 60}")
         print("Mem0 Configuration for Space Hulk Game")
-        print(f"{'='*60}\n")
+        print(f"{'=' * 60}\n")
         print(f"Mode: {self.mode}")
         print(f"Validate Only: {self.validate_only}")
         print()
@@ -82,9 +82,8 @@ class Mem0Configurator:
         self._display_configuration(config)
 
         # Step 4: Apply configuration (unless validate-only)
-        if not self.validate_only:
-            if not self._apply_configuration(config):
-                return False
+        if not self.validate_only and not self._apply_configuration(config):
+            return False
 
         # Step 5: Test configuration
         if not self.validate_only:
@@ -197,7 +196,7 @@ class Mem0Configurator:
             if response.status_code == 200:
                 models = response.json().get("models", [])
                 return any(m.get("name", "").startswith(model) for m in models)
-        except Exception:
+        except Exception:  # nosec B110
             pass
         return False
 
@@ -470,22 +469,22 @@ class Mem0Configurator:
             "llm": {{
                 "provider": "ollama",
                 "config": {{
-                    "model": "{local_config['llm']['config']['model']}",
-                    "temperature": {local_config['llm']['config']['temperature']},
-                    "max_tokens": {local_config['llm']['config']['max_tokens']},
-                    "base_url": "{local_config['llm']['config']['base_url']}"
+                    "model": "{local_config["llm"]["config"]["model"]}",
+                    "temperature": {local_config["llm"]["config"]["temperature"]},
+                    "max_tokens": {local_config["llm"]["config"]["max_tokens"]},
+                    "base_url": "{local_config["llm"]["config"]["base_url"]}"
                 }}
             }},
             "embedder": {{
                 "provider": "ollama",
                 "config": {{
-                    "model": "{local_config['embedder']['config']['model']}",
-                    "ollama_base_url": "{local_config['embedder']['config']['ollama_base_url']}"
+                    "model": "{local_config["embedder"]["config"]["model"]}",
+                    "ollama_base_url": "{local_config["embedder"]["config"]["ollama_base_url"]}"
                 }}
             }},
             "vector_store": {{
-                "provider": "{local_config['vector_store']['provider']}",
-                "config": {local_config['vector_store']['config']}
+                "provider": "{local_config["vector_store"]["provider"]}",
+                "config": {local_config["vector_store"]["config"]}
             }}
         }}
 
@@ -529,9 +528,8 @@ class Mem0Configurator:
                 params += ",\n            memory=True"
 
             # Add memory_config if needed
-            if use_memory_config:
-                if "memory_config=" not in params:
-                    params += ",\n            memory_config=self.memory_config"
+            if use_memory_config and "memory_config=" not in params:
+                params += ",\n            memory_config=self.memory_config"
 
             return before + params + after
 
@@ -584,7 +582,7 @@ class Mem0Configurator:
                 for line in f:
                     if line.strip().startswith(key + "="):
                         return line.split("=", 1)[1].strip()
-        except Exception:
+        except Exception:  # nosec B110
             pass
         return None
 

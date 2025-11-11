@@ -177,10 +177,7 @@ class PuzzleMetrics:
             return True
 
         # Check for location or scene references
-        if puzzle.get("location") or puzzle.get("scene"):
-            return True
-
-        return False
+        return bool(puzzle.get("location") or puzzle.get("scene"))
 
     @staticmethod
     def _has_difficulty(puzzle: dict[str, Any]) -> bool:
@@ -194,11 +191,7 @@ class PuzzleMetrics:
             True if difficulty is stated
         """
         difficulty_fields = ["difficulty", "challenge_level", "complexity"]
-        for field in difficulty_fields:
-            if puzzle.get(field):
-                return True
-
-        return False
+        return any(puzzle.get(field) for field in difficulty_fields)
 
     def passes_threshold(self) -> bool:
         """
@@ -227,7 +220,7 @@ class PuzzleMetrics:
 
         if self.total_puzzles < self.min_puzzles:
             failures.append(
-                f"Insufficient puzzles: {self.total_puzzles} " f"(minimum: {self.min_puzzles})"
+                f"Insufficient puzzles: {self.total_puzzles} (minimum: {self.min_puzzles})"
             )
 
         solution_percentage = 0.0
@@ -240,12 +233,11 @@ class PuzzleMetrics:
                 f"(minimum: {self.min_solution_percentage}%)"
             )
 
-        # Warnings (not failures)
         if self.total_puzzles > 0:
             narrative_percentage = (self.puzzles_with_narrative_ties / self.total_puzzles) * 100.0
             if narrative_percentage < 50.0:
                 failures.append(
-                    f"Warning: Only {narrative_percentage:.1f}% of puzzles " f"have narrative ties"
+                    f"Warning: Only {narrative_percentage:.1f}% of puzzles have narrative ties"
                 )
 
         return failures

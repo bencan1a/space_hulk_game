@@ -18,7 +18,6 @@ Example:
 """
 
 from dataclasses import dataclass, field
-from typing import Optional
 
 from .entities import NPC, Event, Item
 
@@ -168,7 +167,7 @@ class Scene:
 
     def can_exit(
         self, direction: str, inventory: list[str], game_flags: dict[str, bool]
-    ) -> tuple[bool, Optional[str]]:
+    ) -> tuple[bool, str | None]:
         """
         Check if the player can use a specific exit.
 
@@ -214,7 +213,7 @@ class Scene:
 
         return True, None
 
-    def get_item(self, item_id: str) -> Optional[Item]:
+    def get_item(self, item_id: str) -> Item | None:
         """
         Get an item from the scene by ID.
 
@@ -289,7 +288,7 @@ class Scene:
         """
         self.items.append(item)
 
-    def get_npc(self, npc_id: str) -> Optional[NPC]:
+    def get_npc(self, npc_id: str) -> NPC | None:
         """
         Get an NPC from the scene by ID.
 

@@ -275,7 +275,7 @@ class GameValidator:
         )
 
         logger.info(
-            f"Validation complete: {len(result.issues)} issues, " f"{len(result.warnings)} warnings"
+            f"Validation complete: {len(result.issues)} issues, {len(result.warnings)} warnings"
         )
 
         # If strict_mode is enabled, treat warnings as errors
@@ -346,14 +346,14 @@ class GameValidator:
         unreachable = set(game_data.scenes.keys()) - reachable
 
         if unreachable:
-            unreachable_list = sorted(list(unreachable))
+            unreachable_list = sorted(unreachable)
             result.add_issue(f"Unreachable scenes: {', '.join(unreachable_list)}")
 
             # Suggest connections
             for scene_id in unreachable_list:
                 # Find closest reachable scene (simple heuristic: first reachable)
                 if reachable:
-                    closest = sorted(list(reachable))[0]
+                    closest = sorted(reachable)[0]
                     result.add_suggestion(closest, f"Add exit to unreachable scene '{scene_id}'")
 
     def _check_invalid_exits(self, game_data: GameData, result: ValidationResult) -> None:
@@ -397,7 +397,7 @@ class GameValidator:
 
         dead_ends = []
         for scene_id, scene in game_data.scenes.items():
-            if not scene.exits:
+            if not scene.exits:  # noqa: SIM102
                 # Check if this is a valid ending scene
                 if scene_id not in valid_endings:
                     dead_ends.append(scene_id)
@@ -446,7 +446,7 @@ class GameValidator:
             for direction, required_item in scene.locked_exits.items():
                 # Could be an item or a flag
                 # Only check if it looks like an item (not a flag pattern)
-                if required_item and not required_item.startswith("flag_"):
+                if required_item and not required_item.startswith("flag_"):  # noqa: SIM102
                     if required_item not in all_items:
                         result.add_warning(
                             f"Scene '{scene_id}' exit '{direction}' requires "
@@ -470,7 +470,7 @@ class GameValidator:
         for npc_id, npc in game_data.global_npcs.items():
             if npc.gives_item and npc.gives_item not in all_items:
                 result.add_issue(
-                    f"Global NPC '{npc_id}' gives item '{npc.gives_item}' " f"which does not exist"
+                    f"Global NPC '{npc_id}' gives item '{npc.gives_item}' which does not exist"
                 )
 
     def _check_npc_dialogues(self, game_data: GameData, result: ValidationResult) -> None:
@@ -541,10 +541,10 @@ class GameValidator:
             scene = game_data.scenes[scene_id]
             for direction, required in scene.locked_exits.items():
                 target = scene.exits.get(direction)
-                if target and target not in reachable:
+                if target and target not in reachable:  # noqa: SIM102
                     # This exit leads to unreachable area
                     # Check if required item exists
-                    if required not in obtainable_items:
+                    if required not in obtainable_items:  # noqa: SIM102
                         # Could be a flag, not necessarily an error
                         if not required.startswith("flag_"):
                             result.add_warning(

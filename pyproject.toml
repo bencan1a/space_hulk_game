@@ -151,6 +151,22 @@ ignore = [
 
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]  # unused imports in __init__.py files
+"tests/**/*.py" = [
+    "S101",    # asserts are standard in tests
+    "S105",    # hardcoded passwords in test fixtures are OK
+    "B017",    # assertRaises(Exception) is fine for testing error cases
+    "ARG001",  # unused args needed for mock/patch signatures
+    "E402",    # module imports after code sometimes needed for test setup
+    "PTH",     # pathlib not required for test code
+    "PLC0415", # imports inside functions are common in tests (lazy loading, mocking)
+    "ERA001",  # commented code for debugging/documentation is OK in tests
+]
+"tools/**/*.py" = [
+    "ARG002",  # unused method args in tools are often for interface compatibility
+    "PTH",     # pathlib not required for utility tools
+    "PLC0415", # imports inside functions are fine for utility scripts
+]
+"context_portal/**/*.py" = ["ALL"]  # External code, exclude from linting
 
 [tool.bandit]
 exclude_dirs = [

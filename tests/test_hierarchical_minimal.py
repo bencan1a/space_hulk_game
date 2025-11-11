@@ -38,7 +38,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 
-def test_hierarchical_minimal():
+def test_hierarchical_minimal():  # noqa: PLR0915
     """
     Test hierarchical mode with minimal 3-task configuration.
     """
@@ -91,7 +91,7 @@ def test_hierarchical_minimal():
 
         # Create hierarchical crew
         hierarchical_crew = Crew(
-            agents=cast(list, worker_agents),
+            agents=cast("list", worker_agents),
             tasks=minimal_tasks,
             process=Process.hierarchical,
             manager_agent=manager,
@@ -116,7 +116,9 @@ def test_hierarchical_minimal():
 
         print("-" * 80)
         print("\n✅ HIERARCHICAL EXECUTION COMPLETED!")
-        print(f"   Execution time: {execution_time:.2f} seconds ({execution_time/60:.2f} minutes)")
+        print(
+            f"   Execution time: {execution_time:.2f} seconds ({execution_time / 60:.2f} minutes)"
+        )
 
         # Analyze results
         print("\n📊 RESULTS ANALYSIS")
@@ -149,7 +151,7 @@ def test_hierarchical_minimal():
         print("\n⚡ Performance Comparison:")
         print(f"   Hierarchical (3 tasks): {execution_time:.2f}s")
         print("   Sequential (5 tasks):   ~256s (from Chunk 0.1)")
-        print(f"   Per-task average:       {execution_time/3:.2f}s")
+        print(f"   Per-task average:       {execution_time / 3:.2f}s")
 
         # Overall assessment
         total_time = time.time() - start_time
@@ -159,7 +161,7 @@ def test_hierarchical_minimal():
         print("✅ Hierarchical mode WORKS with 3 tasks")
         print("✅ No hanging or blocking detected")
         print("✅ Manager delegation functional")
-        print(f"✅ Execution time: {execution_time:.2f}s ({execution_time/60:.2f} min)")
+        print(f"✅ Execution time: {execution_time:.2f}s ({execution_time / 60:.2f} min)")
         print(f"✅ Files created: {files_created}/{len(output_files)}")
         print(f"\nTotal test time: {total_time:.2f}s")
         print(f"End time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
@@ -182,7 +184,7 @@ def test_hierarchical_minimal():
         print("❌ HIERARCHICAL MODE FAILED")
         print("=" * 80)
         print(f"Error: {e!s}")
-        print(f"Time before failure: {error_time:.2f}s ({error_time/60:.2f} min)")
+        print(f"Time before failure: {error_time:.2f}s ({error_time / 60:.2f} min)")
         print("=" * 80)
 
         logger.error(f"Hierarchical mode failed: {e!s}", exc_info=True)
@@ -225,7 +227,7 @@ def write_results_file(success, execution_time, files_created, total_files, hang
         if success:
             f.write("**Status:** ✅ SUCCESS\n\n")
             f.write(
-                f"**Execution Time:** {execution_time:.2f}s ({execution_time/60:.2f} minutes)\n\n"
+                f"**Execution Time:** {execution_time:.2f}s ({execution_time / 60:.2f} minutes)\n\n"
             )
             f.write(f"**Files Created:** {files_created}/{total_files}\n\n")
             f.write("**Findings:**\n")
@@ -241,7 +243,7 @@ def write_results_file(success, execution_time, files_created, total_files, hang
         else:
             f.write("**Status:** ❌ FAILED\n\n")
             f.write(
-                f"**Time Before Failure:** {execution_time:.2f}s ({execution_time/60:.2f} minutes)\n\n"
+                f"**Time Before Failure:** {execution_time:.2f}s ({execution_time / 60:.2f} minutes)\n\n"
             )
             f.write(f"**Hang Point:** {hang_point}\n\n")
             f.write("**Findings:**\n")

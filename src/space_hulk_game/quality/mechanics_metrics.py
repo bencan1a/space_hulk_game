@@ -158,7 +158,7 @@ class MechanicsMetrics:
         for key, value in systems.items():
             if system_name.lower() in key.lower():
                 return True
-            if isinstance(value, str) and system_name.lower() in value.lower():
+            if isinstance(value, str) and system_name.lower() in value.lower():  # noqa: SIM102
                 # System mentioned in description
                 if len(value) >= 50:  # Substantial mention
                     return True
@@ -198,13 +198,12 @@ class MechanicsMetrics:
             "environment",
         ]
 
-        for key in systems.keys():
+        for key, value in systems.items():
             # Check if key contains a system keyword
             key_lower = key.lower()
-            if any(keyword in key_lower for keyword in system_keywords):
-                count += 1
-            # Or if it's a substantial section
-            elif isinstance(systems[key], (dict, list)):
+            if any(keyword in key_lower for keyword in system_keywords) or isinstance(
+                value, dict | list
+            ):
                 count += 1
 
         return count
@@ -224,7 +223,7 @@ class MechanicsMetrics:
         clarity_scores = []
 
         for _key, value in systems.items():
-            if not isinstance(value, (dict, str)):
+            if not isinstance(value, dict | str):
                 continue
 
             # Analyze this system
@@ -326,7 +325,7 @@ class MechanicsMetrics:
 
         if self.total_systems < self.min_systems:
             failures.append(
-                f"Insufficient game systems: {self.total_systems} " f"(minimum: {self.min_systems})"
+                f"Insufficient game systems: {self.total_systems} (minimum: {self.min_systems})"
             )
 
         if self.completeness_percentage < self.min_completeness:

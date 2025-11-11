@@ -14,6 +14,7 @@ Usage:
     # Or with inline parameters:
     OPENROUTER_API_KEY=sk-or-v1-your-key python validate_api.py
 """
+
 import os
 import sys
 

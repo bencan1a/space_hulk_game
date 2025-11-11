@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import sys
 import warnings
+from pathlib import Path
 
 import yaml
 
@@ -15,18 +16,14 @@ warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
 
 
 def getTopic():
-    with open("src/space_hulk_game/config/gamedesign.yaml", encoding="utf-8") as file:
+    with Path("src/space_hulk_game/config/gamedesign.yaml").open(encoding="utf-8") as file:
         examples = yaml.safe_load(file)
     return examples["example4_space_hulk"]
 
 
 def run():
-    # litellm._turn_on_debug()
     print("## Welcome to the Space Hulk Game Crew")
     print("-------------------------------")
-
-    # with open('src/space_hulk_game/config/gamedesign.yaml', 'r', encoding='utf-8') as file:
-    #     examples = yaml.safe_load(file)
 
     inputs = {"game": getTopic()}
 

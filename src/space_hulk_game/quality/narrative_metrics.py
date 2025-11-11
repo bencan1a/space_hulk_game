@@ -240,7 +240,7 @@ class NarrativeMetrics:
 
         if self.total_scenes < self.min_scenes:
             failures.append(
-                f"Insufficient scenes: {self.total_scenes} " f"(minimum: {self.min_scenes})"
+                f"Insufficient scenes: {self.total_scenes} (minimum: {self.min_scenes})"
             )
 
         if self.completeness_percentage < self.min_completeness:

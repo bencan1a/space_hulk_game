@@ -27,11 +27,11 @@ import logging
 import os
 import sys
 from pathlib import Path
-from typing import Optional
 
 try:
-    from colorama import Fore, Style
-    from colorama import init as colorama_init
+    from colorama import Fore, Style, init
+
+    colorama_init = init  # type: ignore
 except ImportError:
     # Fallback if colorama not available
     class _DummyColor:
@@ -40,7 +40,7 @@ except ImportError:
 
     Fore = Style = _DummyColor()
 
-    def colorama_init(**kwargs):
+    def colorama_init(**_kwargs) -> None:
         pass
 
 
@@ -169,8 +169,8 @@ class DemoGameCLI:
 
     def __init__(
         self,
-        game_dir: Optional[str] = None,
-        save_dir: Optional[str] = None,
+        game_dir: str | None = None,
+        save_dir: str | None = None,
     ):
         """
         Initialize the demo game CLI.
@@ -199,14 +199,16 @@ class DemoGameCLI:
         self.formatter = ColorFormatter()
 
         # Game state (initialized later)
-        self.engine: Optional[TextAdventureEngine] = None
-        self.game_data: Optional[GameData] = None
+        self.engine: TextAdventureEngine | None = None
+        self.game_data: GameData | None = None
 
         logger.info(f"DemoGameCLI initialized (game_dir={self.game_dir})")
 
     def clear_screen(self) -> None:
         """Clear the terminal screen."""
-        os.system("cls" if os.name == "nt" else "clear")
+        import subprocess  # nosec B404
+
+        subprocess.call("cls" if os.name == "nt" else "clear", shell=True)  # nosec B602
 
     def print_title_screen(self) -> None:
         """Display the ASCII art title screen."""
@@ -337,12 +339,15 @@ class DemoGameCLI:
         self.print_separator()
 
         # Load game data if not already loaded
-        if self.game_data is None:
-            if not self.load_game_data():
-                return False
+        if self.game_data is None and not self.load_game_data():
+            return False
 
         # Create initial game state
         try:
+            if self.game_data is None:
+                print(self.formatter.warning("\n✗ Error: Game data not loaded"))
+                return False
+
             initial_state = GameState(
                 current_scene=self.game_data.starting_scene,
                 visited_scenes={self.game_data.starting_scene},
@@ -374,7 +379,7 @@ class DemoGameCLI:
             logger.exception("Failed to start new game")
             return False
 
-    def show_save_menu(self) -> Optional[str]:
+    def show_save_menu(self) -> str | None:
         """
         Show save game menu and get save slot.
 
@@ -390,18 +395,18 @@ class DemoGameCLI:
         saves = self.save_system.list_saves()
         if saves:
             print(self.formatter.system("\nExisting saves:"))
-            for i, save_name in enumerate(saves, 1):
-                print(f"  {i}. {save_name}")
+            for i, save_item in enumerate(saves, 1):
+                print(f"  {i}. {save_item}")
             print()
 
-        save_name = input(self.formatter.prompt("Enter save name (or 'cancel'): ")).strip()
+        save_name = str(input(self.formatter.prompt("Enter save name (or 'cancel'): ")).strip())
 
         if save_name.lower() in ["cancel", "c", ""]:
             return None
 
         return save_name
 
-    def show_load_menu(self) -> Optional[str]:
+    def show_load_menu(self) -> str | None:
         """
         Show load game menu and get save slot.
 
@@ -425,7 +430,9 @@ class DemoGameCLI:
             print(f"  {i}. {save_name}")
         print()
 
-        choice = input(self.formatter.prompt("Enter save number or name (or 'cancel'): ")).strip()
+        choice = str(
+            input(self.formatter.prompt("Enter save number or name (or 'cancel'): ")).strip()
+        )
 
         if choice.lower() in ["cancel", "c", ""]:
             return None
@@ -434,7 +441,7 @@ class DemoGameCLI:
         if choice.isdigit():
             idx = int(choice) - 1
             if 0 <= idx < len(saves):
-                return saves[idx]
+                return str(saves[idx])
 
         # Handle name choice
         if choice in saves:
@@ -457,15 +464,18 @@ class DemoGameCLI:
 
         try:
             # Load game data if not already loaded
-            if self.game_data is None:
-                if not self.load_game_data():
-                    return False
+            if self.game_data is None and not self.load_game_data():
+                return False
 
             # Load saved state
             print(self.formatter.system(f"\nLoading save: {save_name}..."))
             saved_state = self.save_system.load(save_name)
 
             # Create engine with loaded state
+            if self.game_data is None:
+                print(self.formatter.warning("\n✗ Error: Game data not loaded"))
+                return False
+
             # Extract victory/defeat conditions from game_rules if available
             victory_conditions = set()
             defeat_conditions = set()
@@ -539,11 +549,17 @@ class DemoGameCLI:
             print(self.formatter.warning("\nNo game loaded!"))
             return
 
+        if self.game_data is None:
+            print(self.formatter.warning("\nNo game data loaded!"))
+            return
+
         # Override some engine output for better formatting
         original_display_welcome = self.engine._display_welcome
 
         def custom_welcome():
             """Custom welcome message."""
+            if self.game_data is None:
+                return
             print()
             self.print_separator()
             print(self.formatter.title(f"\n    {self.game_data.title}"))
@@ -552,7 +568,7 @@ class DemoGameCLI:
             self.print_separator()
             print()
 
-        self.engine._display_welcome = custom_welcome
+        self.engine._display_welcome = custom_welcome  # type: ignore[method-assign]
 
         # Intercept save commands
         original_input = self.engine.input_func
@@ -577,7 +593,7 @@ class DemoGameCLI:
             logger.exception("Game loop error")
         finally:
             # Restore original functions
-            self.engine._display_welcome = original_display_welcome
+            self.engine._display_welcome = original_display_welcome  # type: ignore[method-assign]
             self.engine.input_func = original_input
 
     def run(self) -> int:
@@ -633,7 +649,7 @@ class DemoGameCLI:
             return 1
 
 
-def main(args: Optional[list[str]] = None) -> int:
+def main(args: list[str] | None = None) -> int:
     """
     Main entry point for the demo game.
 

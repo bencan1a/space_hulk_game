@@ -1,4 +1,3 @@
-```yaml
 puzzle_design:
   puzzles:
     - id: "puzzle_01_collapsed_passage"
@@ -213,4 +212,3 @@ puzzle_design:
         - "Logical Analysis"
         - "Efficiency"
         - "Strategic Value"
-```

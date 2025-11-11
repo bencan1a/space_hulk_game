@@ -1,4 +1,3 @@
-```yaml
 scene_texts:
   scenes:
     scene_01_deployment:
@@ -79,7 +78,7 @@ scene_texts:
       narrative_notes: "Deepens the mystery and the internal conflict within Valerius and the squad. Directly confronts Imperial dogma with undeniable evidence of a lost human past. Lyra's scientific curiosity and Kaelan's analytical focus clash with Titus's zealous rejection, driving the character arcs."
     scene_04_beacon_chamber:
       name: "The Primordial Warning"
-      description: "A colossal, perfectly spherical chamber, its surface a seamless, dark obsidian that seems to drink the light. At its heart, a shimmering, crystalline pylon, many stories high, hums with contained energy. Woven into the obsidian walls are intricate, luminescent patterns that pulse in time with the pylon, depicting shifting, abstract forms that suggest colossal, eldritch entities and swirling nebulae. As Kaelan interfaces with the array, the chamber becomes saturated with light and sound – not a simple static signal, but a torrent of fragmented holographic projections and a cacophony of ancient human voices. These voices, filled with desperate urgency, speak of an "Unmaker," a "Cosmic Hunger," and a fate far worse than death, far beyond the reach of the Tyranids. The projections show unimaginable horrors stretching across the void, and the Hulk itself, depicted as a desperate, final ark."
+      description: "A colossal, perfectly spherical chamber, its surface a seamless, dark obsidian that seems to drink the light. At its heart, a shimmering, crystalline pylon, many stories high, hums with contained energy. Woven into the obsidian walls are intricate, luminescent patterns that pulse in time with the pylon, depicting shifting, abstract forms that suggest colossal, eldritch entities and swirling nebulae. As Kaelan interfaces with the array, the chamber becomes saturated with light and sound -- not a simple static signal, but a torrent of fragmented holographic projections and a cacophony of ancient human voices. These voices, filled with desperate urgency, speak of an 'Unmaker,' a 'Cosmic Hunger,' and a fate far worse than death, far beyond the reach of the Tyranids. The projections show unimaginable horrors stretching across the void, and the Hulk itself, depicted as a desperate, final ark."
       atmosphere: "Ominous, revelatory, and horrifying. The truth of the unknown threat finally unspools, provoking existential dread and a sense of overwhelming smallness."
       initial_text: "The sheer scale of the chamber is breathtaking, its purpose now chillingly clear. As Kaelan’s augury clicks, the air crackles with forgotten knowledge, and a truth too vast for mortal minds begins to unfold."
       examination_texts:
@@ -157,7 +156,7 @@ scene_texts:
           text: "The past is gone. Our future lies in cleansing this blight. Titus, lead the vanguard. Kaelan, track the entity's core. Lyra, maintain our combat effectiveness. For Humanity. For the Emperor."
           context: "Valerius's voice is firm, unwavering, yet a shadow of doubt flickers across his features as he contemplates the path of absolute destruction."
           emotion: "Firm, subtly conflicted"
-      narrative_notes: "This path reinforces Valerius's rigid adherence to Imperial dogma, showcasing the "purity over knowledge" theme. Titus regains his zeal, while Lyra and Kaelan express clear disappointment, further developing their character arcs and the internal squad dynamics. The narrative drives towards direct confrontation with the enemy."
+      narrative_notes: "This path reinforces Valerius's rigid adherence to Imperial dogma, showcasing the 'purity over knowledge' theme. Titus regains his zeal, while Lyra and Kaelan express clear disappointment, further developing their character arcs and the internal squad dynamics. The narrative drives towards direct confrontation with the enemy."
     scene_06b_pursue_retrieval:
       name: "Path of Illumination"
       description: "The decision reverberates through the chamber, splitting the squad with an invisible chasm. Titus stands apart, a radiating point of seething indignation. Yet, Valerius's voice, though burdened, holds authority. The ancient console, saved from destruction, now becomes the focal point for Kaelan's frenzied data extraction, a luminous beacon in the gloom. The path forward is no longer merely infested; it is actively hostile, writhing with a malevolent intelligence. The Tyranids seem driven to a desperate frenzy, their attacks more coordinated, their roars laced with a frustrated intelligence. Crucially, the psychic whispers are no longer simply warnings, but sharp, probing tendrils attempting to infiltrate their minds, promising power, offering escape, sowing discord, as if the nascent entity recognizes the theft of its secrets and seeks to reclaim them through psychological warfare."
@@ -320,4 +319,3 @@ scene_texts:
           context: "Kaelan's vox-cowl remains utterly devoid of emotion, his robotic efficiency continuing to the very last moment of his existence."
           emotion: "Logical, fatalistic"
       narrative_notes: "This ending offers a profoundly ambiguous resolution, highlighting themes of cosmic insignificance and the loss of vital information. Valerius makes a tactically brilliant but existentially horrifying decision. Titus faces ultimate fear, Lyra's intellectual pursuits end tragically, and Kaelan's logical efficiency finds its ultimate expression in self-annihilation. It's a true 'cosmic horror' ending."
-```

@@ -19,8 +19,8 @@ Example:
 """
 
 import logging
-import os
 import re
+from pathlib import Path
 from typing import Any
 
 import yaml
@@ -114,11 +114,12 @@ class ContentLoader:
         logger.info(f"Loading game from directory: {output_dir}")
 
         # Load all YAML files
-        plot = self.load_yaml(os.path.join(output_dir, "plot_outline.yaml"))
-        narrative = self.load_yaml(os.path.join(output_dir, "narrative_map.yaml"))
-        puzzles = self.load_yaml(os.path.join(output_dir, "puzzle_design.yaml"))
-        scenes = self.load_yaml(os.path.join(output_dir, "scene_texts.yaml"))
-        mechanics = self.load_yaml(os.path.join(output_dir, "prd_document.yaml"))
+        base_path = Path(output_dir)
+        plot = self.load_yaml(str(base_path / "plot_outline.yaml"))
+        narrative = self.load_yaml(str(base_path / "narrative_map.yaml"))
+        puzzles = self.load_yaml(str(base_path / "puzzle_design.yaml"))
+        scenes = self.load_yaml(str(base_path / "scene_texts.yaml"))
+        mechanics = self.load_yaml(str(base_path / "prd_document.yaml"))
 
         logger.info("All YAML files loaded successfully")
 
@@ -156,7 +157,7 @@ class ContentLoader:
         logger.debug(f"Loading YAML file: {filepath}")
 
         # Check if file exists
-        if not os.path.exists(filepath):
+        if not Path(filepath).exists():
             error_msg = f"File not found: {filepath}"
             logger.error(error_msg)
             if self.strict_mode:
@@ -167,7 +168,7 @@ class ContentLoader:
 
         try:
             # Read file content
-            with open(filepath, encoding="utf-8") as f:
+            with Path(filepath).open(encoding="utf-8") as f:
                 content = f.read()
 
             # Clean up markdown wrapping (common AI output issue)
@@ -656,7 +657,7 @@ class ContentLoader:
 
         if starting_scene and starting_scene in scenes:
             logger.debug(f"Found starting scene: {starting_scene}")
-            return starting_scene
+            return str(starting_scene)
 
         # Fall back to first scene or 'start'
         if "start" in scenes:

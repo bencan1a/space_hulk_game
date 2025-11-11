@@ -1,4 +1,3 @@
-```yaml
 narrative_map:
   start_scene: "scene_01_deployment"
   scenes:
@@ -243,4 +242,3 @@ narrative_map:
           description: "Struggles to maintain the integrity of his systems and the extracted data against the entity's corrupting influence, his logic tested by the irrational horror."
         - stage: "Data Secured/Sacrificed"
           description: "Either successfully secures the invaluable data (containment) or makes a logical, necessary sacrifice of technology and self for the greater good (self-destruct/warp rift), his value defined by his function."
-```

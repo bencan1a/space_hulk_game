@@ -70,6 +70,7 @@ Known Issues & Mitigations:
 - Evaluation tasks may create deadlocks: Add incrementally
 - LLM timeouts in Ollama: Add timeout detection in crew execution
 """
+
 import datetime
 import logging
 import os
@@ -139,13 +140,13 @@ class SpaceHulkGame:
             self.llm = LLM(model="ollama/qwen2.5", base_url="http://localhost:11434")
 
         # Determine the base directory for relative paths
-        base_dir = os.path.dirname(os.path.abspath(__file__))
+        base_dir = Path(__file__).resolve().parent
 
         # Load agents configuration
-        agents_path = os.path.join(base_dir, self.agents_config_path)
+        agents_path = base_dir / self.agents_config_path
         logger.info(f"Loading agents config from: {agents_path}")
         try:
-            with open(agents_path) as file:
+            with Path(agents_path).open() as file:
                 self.agents_config = yaml.safe_load(file)
             logger.info(f"Loaded agents: {list(self.agents_config.keys())}")
         except Exception as e:
@@ -153,10 +154,10 @@ class SpaceHulkGame:
             raise
 
         # Load tasks configuration
-        tasks_path = os.path.join(base_dir, self.tasks_config_path)
+        tasks_path = base_dir / self.tasks_config_path
         logger.info(f"Loading tasks config from: {tasks_path}")
         try:
-            with open(tasks_path) as file:
+            with Path(tasks_path).open() as file:
                 self.tasks_config = yaml.safe_load(file)
             logger.info(f"Loaded tasks: {list(self.tasks_config.keys())}")
         except Exception as e:
@@ -320,7 +321,7 @@ class SpaceHulkGame:
                 return {}
 
             # Load template YAML file
-            with open(template_path, encoding="utf-8") as f:
+            with Path(template_path).open(encoding="utf-8") as f:
                 template_content = yaml.safe_load(f)
 
             # Validate that loaded content is a dictionary
@@ -469,12 +470,17 @@ class SpaceHulkGame:
         # Default fallback
         return {"error": error_message, "recovered": False}
 
-    def clean_yaml_output_files(self):
+    def clean_yaml_output_files(self):  # noqa: PLR0915
         """
-        Post-process YAML output files to remove markdown code fences.
+        Post-process YAML output files to remove markdown code fences and fix common YAML issues.
 
-        The LLM sometimes wraps YAML content in markdown code blocks (```yml ... ```),
-        which makes the files unparseable. This method strips those fences.
+        The LLM sometimes:
+        1. Wraps YAML content in markdown code blocks (```yml ... ```)
+        2. Uses em dashes (-) instead of hyphens (--)
+        3. Creates improper line continuations in multiline strings
+        4. Generates numbered lists that break YAML syntax
+
+        This method cleans all these issues.
         """
         output_files = [
             "game-config/plot_outline.yaml",
@@ -484,43 +490,135 @@ class SpaceHulkGame:
             "game-config/prd_document.yaml",
         ]
 
+        import re
+
         cleaned_count = 0
         for filepath in output_files:
             try:
-                if not os.path.exists(filepath):
+                if not Path(filepath).exists():
                     logger.warning(f"Output file not found: {filepath}")
                     continue
 
-                with open(filepath, encoding="utf-8") as f:
+                with Path(filepath).open(encoding="utf-8") as f:
                     content = f.read()
 
-                # Check if file has code fences
-                if content.startswith("```") or "```yml" in content or "```yaml" in content:
-                    logger.info(f"Cleaning code fences from {filepath}")
+                original_content = content
+                needs_cleaning = False
 
-                    # Remove markdown code fence markers
-                    # Handle various formats: ```yml, ```yaml, ```
-                    cleaned = (
+                # 1. Remove markdown code fence markers
+                if content.startswith("```") or "```yml" in content or "```yaml" in content:
+                    logger.info(f"Removing code fences from {filepath}")
+                    content = (
                         content.replace("```yml\n", "")
                         .replace("```yaml\n", "")
                         .replace("```\n", "")
                     )
-                    cleaned = cleaned.replace("\n```", "").replace("```", "")
+                    content = content.replace("\n```", "").replace("```", "")
+                    needs_cleaning = True
 
-                    # Write cleaned content back
-                    with open(filepath, "w", encoding="utf-8") as f:
-                        f.write(cleaned)
+                # 2. Replace em dashes with double hyphens (for YAML compatibility)
+                if "-" in content or "-" in content:
+                    logger.info(f"Replacing em dashes in {filepath}")
+                    content = content.replace("-", "--").replace("-", "--")
+                    needs_cleaning = True
+
+                # 2b. Fix nested quotes in double-quoted strings
+                # Pattern: description: "text with "nested" quotes"
+                # Replace inner double quotes with single quotes
+                def fix_nested_quotes(match, fp=filepath):
+                    """Replace nested double quotes with single quotes inside YAML strings."""
+                    full_match = match.group(0)
+                    key = match.group(1)  # e.g., "description"
+                    value = match.group(2)  # The quoted string content
+
+                    # Check if there are nested double quotes
+                    if '"' in value:
+                        logger.info(f"Fixing nested quotes in {fp}")
+                        # Replace internal double quotes with single quotes
+                        fixed_value = value.replace('"', "'")
+                        return f'{key}: "{fixed_value}"'
+
+                    return full_match
+
+                # Match YAML key-value pairs with quoted strings
+                content = re.sub(
+                    r'(\w+):\s+"([^"]*(?:"[^"]*)*)"',
+                    fix_nested_quotes,
+                    content,
+                    flags=re.MULTILINE,
+                )
+
+                # 3. Fix improper line continuations in YAML strings
+                # Pattern: lines within a quoted string that have wrong indentation
+                # Find lines that continue a string but have incorrect indentation
+                # (e.g., line starting with more spaces than the parent)
+                lines = content.split("\n")
+                fixed_lines = []
+                i = 0
+                while i < len(lines):
+                    line = lines[i]
+                    # Check if this is a description line that's broken
+                    if (
+                        i + 1 < len(lines)
+                        and 'description: "' in line
+                        and not line.rstrip().endswith('"')
+                    ):
+                        # This line starts a description but doesn't end it
+                        # Check if next line is a continuation with wrong indentation
+                        next_line = lines[i + 1]
+                        current_indent = len(line) - len(line.lstrip())
+                        next_indent = len(next_line) - len(next_line.lstrip())
+
+                        # If next line has more indentation and isn't a YAML key
+                        if next_indent > current_indent and ":" not in next_line.lstrip()[:20]:
+                            logger.info(f"Fixing line continuation in {filepath} at line {i + 1}")
+                            # Merge the lines
+                            fixed_line = line.rstrip() + " " + next_line.lstrip()
+                            fixed_lines.append(fixed_line)
+                            i += 2  # Skip the next line since we merged it
+                            needs_cleaning = True
+                            continue
+
+                    fixed_lines.append(line)
+                    i += 1
+
+                content = "\n".join(fixed_lines)
+
+                # 4. Fix numbered lists inside quoted strings
+                # Pattern: description: "text:\n        1. item\n        2. item"
+                # Should be: description: "text: (1) item (2) item"
+                def fix_numbered_list(match, fp=filepath):
+                    text = match.group(0)
+                    # If there are numbered items on separate lines, inline them
+                    if re.search(r"\n\s+\d+\.", text):
+                        logger.info(f"Fixing numbered list in {fp}")
+                        # Convert multiline numbered list to inline
+                        fixed = re.sub(r"\n\s+(\d+)\.\s+", r" (\1) ", text)
+                        return fixed
+                    return text
+
+                content = re.sub(
+                    r'description: "[^"]*"',
+                    fix_numbered_list,
+                    content,
+                    flags=re.MULTILINE | re.DOTALL,
+                )
+
+                # Write cleaned content back if any changes were made
+                if needs_cleaning or content != original_content:
+                    with Path(filepath).open("w", encoding="utf-8") as f:
+                        f.write(content)
 
                     cleaned_count += 1
                     logger.info(f"✅ Cleaned {filepath}")
                 else:
-                    logger.debug(f"No code fences found in {filepath}")
+                    logger.debug(f"No issues found in {filepath}")
 
             except Exception as e:
                 logger.error(f"Error cleaning {filepath}: {e!s}")
 
         if cleaned_count > 0:
-            logger.info(f"Cleaned {cleaned_count} YAML file(s) by removing code fences")
+            logger.info(f"Cleaned {cleaned_count} YAML file(s)")
 
         return cleaned_count
 
@@ -601,8 +699,9 @@ class SpaceHulkGame:
                     output.metadata = {}
                 output.metadata["post_processing_error"] = str(e)
                 output.metadata["processed_at"] = str(datetime.datetime.now())
-            except Exception:
-                pass  # If even this fails, just return original output
+            except Exception:  # nosec B110
+                # Last resort: catch any exception to preserve crew output integrity
+                pass
 
             # Return original output to preserve crew results
             logger.warning("Returning output with minimal post-processing due to error")
@@ -973,11 +1072,12 @@ class SpaceHulkGame:
             "DesignArtifactsAndPuzzles",
         ]:
             task_config = HIERARCHICAL_TASKS[task_key]
+            agent_method = getattr(self, task_config["agent"])
             simplified_tasks.append(
                 Task(
                     description=task_config["description"],
                     expected_output=task_config["expected_output"],
-                    agent=eval(f'self.{task_config["agent"]}()'),
+                    agent=agent_method(),
                     output_file=task_config.get("output_file"),
                 )
             )
@@ -987,7 +1087,7 @@ class SpaceHulkGame:
         logger.info(f"Tasks: {len(simplified_tasks)} (simplified descriptions)")
 
         return Crew(
-            agents=cast(list, worker_agents),
+            agents=cast("list", worker_agents),
             tasks=simplified_tasks,
             process=Process.hierarchical,
             manager_agent=manager,
@@ -1061,10 +1161,6 @@ class SpaceHulkGame:
             process=Process.hierarchical,  # Hierarchical with manager delegation
             manager_agent=manager,  # Optimized manager for coordination
             verbose=True,  # Enable detailed logging
-            # Optional enhancements (test after basic hierarchical works):
-            # memory=True,
-            # memory_config=self.memory_config,
-            # planning=True,
         )
 
     @crew

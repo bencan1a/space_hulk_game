@@ -150,11 +150,11 @@ def local_dates_to_utc_range(since_local: str, until_local: str) -> tuple[str, s
     )
 
 
-def gh_paginated(url: str, params: dict[str, str]) -> Iterable[dict]:
+def gh_paginated(url: str | None, params: dict[str, str]) -> Iterable[dict]:
     """Yield all JSON items across pages for endpoints that return a list and use Link headers."""
     headers = gh_headers()
     while url:
-        resp = requests.get(url, headers=headers, params=params)
+        resp = requests.get(url, headers=headers, params=params, timeout=30)
         if resp.status_code == 403 and "rate limit" in resp.text.lower():
             reset = resp.headers.get("X-RateLimit-Reset")
             wait = max(5, int(reset) - int(time.time())) if reset and reset.isdigit() else 60
@@ -169,7 +169,7 @@ def gh_paginated(url: str, params: dict[str, str]) -> Iterable[dict]:
         yield from data
         # Parse Link header for next
         link = resp.headers.get("Link", "")
-        next_url = None
+        next_url: str | None = None
         for part in link.split(","):
             if 'rel="next"' in part:
                 next_url = part[part.find("<") + 1 : part.find(">")]
@@ -243,20 +243,20 @@ def list_commits_for_repo(
 
 def get_commit_detail(full_name: str, sha: str, sleep_s: float) -> dict:
     url = f"https://api.github.com/repos/{full_name}/commits/{sha}"
-    resp = requests.get(url, headers=gh_headers())
+    resp = requests.get(url, headers=gh_headers(), timeout=30)
     if resp.status_code == 403 and "rate limit" in resp.text.lower():
         reset = resp.headers.get("X-RateLimit-Reset")
         wait = max(5, int(reset) - int(time.time())) if reset and reset.isdigit() else 60
         print(f"Rate-limited. Sleeping {wait}s...", file=sys.stderr)
         time.sleep(wait)
-        resp = requests.get(url, headers=gh_headers())
+        resp = requests.get(url, headers=gh_headers(), timeout=30)
     resp.raise_for_status()
     if sleep_s:
         time.sleep(sleep_s)
     return resp.json()
 
 
-def main():
+def main():  # noqa: PLR0915
     args = parse_args()
 
     if args.owner_scope == "org" and not args.org:
@@ -299,7 +299,7 @@ def main():
     sys.stdout.flush()  # Ensure output is visible immediately
 
     # Open CSVs
-    files_out = open(args.out_files_csv, "w", newline="", encoding="utf-8")
+    files_out = open(args.out_files_csv, "w", newline="", encoding="utf-8")  # noqa: SIM115
     files_writer = csv.writer(files_out)
     files_writer.writerow(["repo", "sha", "file", "adds", "dels", "is_test"])
 
@@ -392,7 +392,7 @@ def main():
     pct_tests = ((total_add_tests + total_del_tests) * 100.0 / churn) if churn else 0.0
 
     print("\n=== Summary ===")
-    print(f"Churn (adds+deletes): {churn} lines (~{churn/1000:.1f} KLOC)")
+    print(f"Churn (adds+deletes): {churn} lines (~{churn / 1000:.1f} KLOC)")
     print(
         f"Tests churn: {total_add_tests + total_del_tests}   Impl churn: {total_add_impl + total_del_impl}"
     )

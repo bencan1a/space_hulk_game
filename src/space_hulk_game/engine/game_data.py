@@ -23,7 +23,7 @@ Example:
 """
 
 from dataclasses import dataclass, field
-from typing import Any, Optional
+from typing import Any
 
 from .entities import NPC, Item
 from .scene import Scene
@@ -103,7 +103,7 @@ class GameData:
         if self.starting_scene not in self.scenes:
             raise ValueError(f"Starting scene '{self.starting_scene}' not found in scenes")
 
-    def get_scene(self, scene_id: str) -> Optional[Scene]:
+    def get_scene(self, scene_id: str) -> Scene | None:
         """
         Get a scene by its ID.
 
@@ -155,7 +155,7 @@ class GameData:
         """
         return scene_id in self.scenes
 
-    def get_item_definition(self, item_id: str) -> Optional[Item]:
+    def get_item_definition(self, item_id: str) -> Item | None:
         """
         Get a global item definition by ID.
 
@@ -182,7 +182,7 @@ class GameData:
         """
         return self.global_items.get(item_id)
 
-    def get_npc_definition(self, npc_id: str) -> Optional[NPC]:
+    def get_npc_definition(self, npc_id: str) -> NPC | None:
         """
         Get a global NPC definition by ID.
 

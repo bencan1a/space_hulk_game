@@ -103,7 +103,7 @@ class QualityScore:
         Returns:
             List of failure messages if present in details
         """
-        return cast(list[str], self.details.get("failures", []))
+        return cast("list[str]", self.details.get("failures", []))
 
     def get_summary(self) -> str:
         """

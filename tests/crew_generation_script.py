@@ -34,7 +34,7 @@ def timeout_handler(signum, frame):
     raise TimeoutError("Operation timed out")
 
 
-def test_sequential_generation(timeout_seconds=600):
+def test_sequential_generation(timeout_seconds=600):  # noqa: PLR0915
     """
     Test crew in sequential mode (simplest configuration)
 
@@ -47,7 +47,7 @@ def test_sequential_generation(timeout_seconds=600):
     print("=" * 80)
     print("TEST 1: SEQUENTIAL MODE")
     print("=" * 80)
-    print(f"Timeout: {timeout_seconds} seconds ({timeout_seconds/60:.1f} minutes)")
+    print(f"Timeout: {timeout_seconds} seconds ({timeout_seconds / 60:.1f} minutes)")
     print()
 
     # Set up timeout
@@ -87,7 +87,7 @@ def test_sequential_generation(timeout_seconds=600):
 
         print()
         print(f"[{datetime.now().strftime('%H:%M:%S')}] Generation completed!")
-        print(f"Duration: {duration:.1f} seconds ({duration/60:.1f} minutes)")
+        print(f"Duration: {duration:.1f} seconds ({duration / 60:.1f} minutes)")
         print()
 
         # Check outputs
@@ -142,7 +142,7 @@ def test_sequential_generation(timeout_seconds=600):
     return results
 
 
-def test_hierarchical_generation(timeout_seconds=600):
+def test_hierarchical_generation(timeout_seconds=600):  # noqa: PLR0915
     """
     Test crew in hierarchical mode (current configuration)
 
@@ -155,7 +155,7 @@ def test_hierarchical_generation(timeout_seconds=600):
     print("=" * 80)
     print("TEST 2: HIERARCHICAL MODE")
     print("=" * 80)
-    print(f"Timeout: {timeout_seconds} seconds ({timeout_seconds/60:.1f} minutes)")
+    print(f"Timeout: {timeout_seconds} seconds ({timeout_seconds / 60:.1f} minutes)")
     print()
 
     # Set up timeout
@@ -193,7 +193,7 @@ def test_hierarchical_generation(timeout_seconds=600):
 
         print()
         print(f"[{datetime.now().strftime('%H:%M:%S')}] Generation completed!")
-        print(f"Duration: {duration:.1f} seconds ({duration/60:.1f} minutes)")
+        print(f"Duration: {duration:.1f} seconds ({duration / 60:.1f} minutes)")
         print()
 
         # Check outputs
@@ -273,7 +273,7 @@ def print_summary(results_list):
         print(f"{mode} Mode: {success}")
 
         if results["duration"]:
-            print(f"  Duration: {results['duration']:.1f}s ({results['duration']/60:.1f}m)")
+            print(f"  Duration: {results['duration']:.1f}s ({results['duration'] / 60:.1f}m)")
 
         if results["outputs_generated"]:
             print(f"  Outputs: {len(results['outputs_generated'])}/5 files")

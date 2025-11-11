@@ -1,6 +1,7 @@
 """
 Tests for GitHub Actions workflow files.
 """
+
 import unittest
 from pathlib import Path
 

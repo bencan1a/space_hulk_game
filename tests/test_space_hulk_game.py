@@ -2,6 +2,7 @@
 Tests for the Space Hulk Game implementation.
 These tests verify input validation, error handling, and output processing.
 """
+
 import datetime
 import os
 import sys

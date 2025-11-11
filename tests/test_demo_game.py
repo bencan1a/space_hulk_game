@@ -116,6 +116,7 @@ class TestDemoGameCLI(unittest.TestCase):
 
         self.assertTrue(result)
         self.assertIsNotNone(self.cli.game_data)
+        assert self.cli.game_data is not None
         self.assertGreater(len(self.cli.game_data.scenes), 0)
         self.assertIsNotNone(self.cli.game_data.starting_scene)
 
@@ -131,6 +132,7 @@ class TestDemoGameCLI(unittest.TestCase):
         # It should succeed but with minimal content
         self.assertTrue(result)
         self.assertIsNotNone(cli.game_data)
+        assert cli.game_data is not None
         # Should have at least the default start scene
         self.assertGreater(len(cli.game_data.scenes), 0)
 
@@ -141,6 +143,8 @@ class TestDemoGameCLI(unittest.TestCase):
         self.assertTrue(result)
         self.assertIsNotNone(self.cli.engine)
         self.assertIsNotNone(self.cli.game_data)
+        assert self.cli.engine is not None
+        assert self.cli.game_data is not None
         self.assertEqual(
             self.cli.engine.game_state.current_scene, self.cli.game_data.starting_scene
         )
@@ -172,6 +176,7 @@ class TestDemoGameCLI(unittest.TestCase):
         self.cli.start_new_game()
 
         # Modify game state
+        assert self.cli.engine is not None
         self.cli.engine.game_state.game_flags["test_flag"] = True
         self.cli.engine.game_state.game_flags[
             "test_var_42"
@@ -197,6 +202,7 @@ class TestDemoGameCLI(unittest.TestCase):
 
         self.assertTrue(result)
         self.assertIsNotNone(new_cli.engine)
+        assert new_cli.engine is not None
         self.assertTrue(new_cli.engine.game_state.game_flags.get("test_flag"))
         self.assertTrue(new_cli.engine.game_state.game_flags.get("test_var_42"))
 
@@ -331,6 +337,7 @@ class TestDemoGameIntegration(unittest.TestCase):
         success = cli.start_new_game()
         self.assertTrue(success, "Failed to start new game")
         self.assertIsNotNone(cli.engine)
+        assert cli.engine is not None
 
         # Step 2: Simulate some game actions
         starting_scene = cli.engine.game_state.current_scene
@@ -348,6 +355,7 @@ class TestDemoGameIntegration(unittest.TestCase):
         cli.engine._execute_action(inv_action)
 
         # Add some state changes
+        assert cli.engine is not None
         cli.engine.game_state.game_flags["explored_starting_area"] = True
         cli.engine.game_state.game_flags[
             "turn_count_5"
@@ -373,6 +381,7 @@ class TestDemoGameIntegration(unittest.TestCase):
 
         self.assertTrue(load_success, "Failed to load saved game")
         self.assertIsNotNone(new_cli.engine)
+        assert new_cli.engine is not None
 
         # Step 5: Verify loaded state matches saved state
         self.assertEqual(
@@ -396,6 +405,7 @@ class TestDemoGameIntegration(unittest.TestCase):
 
         # Verify engine is functional
         self.assertIsNotNone(new_cli.engine.game_state)
+        assert new_cli.engine is not None
         self.assertGreater(len(new_cli.engine.scenes), 0)
 
     def test_automated_playthrough(self):
@@ -420,6 +430,7 @@ class TestDemoGameIntegration(unittest.TestCase):
         ]
 
         # Add movement commands based on available exits
+        assert cli.engine is not None
         current_scene = cli.engine.scenes[cli.engine.game_state.current_scene]
         if current_scene.exits:
             first_exit = next(iter(current_scene.exits.keys()))
@@ -427,13 +438,22 @@ class TestDemoGameIntegration(unittest.TestCase):
             commands.append("look")
 
         # Mock input to return commands in sequence, then quit
-        with patch.object(cli.engine, "input_func", side_effect=commands + ["quit"]):
-            # Mock confirm quit to return True
-            with patch.object(cli.engine, "_confirm_quit", return_value=True):
-                # Run the engine (should process all commands then quit)
-                cli.engine.run()
+        with (
+            patch.object(
+                cli.engine,
+                "input_func",
+                side_effect=[
+                    *commands,
+                    "quit",
+                ],
+            ),
+            patch.object(cli.engine, "_confirm_quit", return_value=True),
+        ):
+            # Run the engine (should process all commands then quit)
+            cli.engine.run()
 
         # Verify game ran successfully
+        assert cli.engine is not None
         self.assertIsNotNone(cli.engine.game_state)
         # Should have visited starting scene
         self.assertGreater(len(cli.engine.game_state.visited_scenes), 0)
@@ -447,6 +467,7 @@ class TestDemoGameIntegration(unittest.TestCase):
 
         cli.start_new_game()
 
+        assert cli.engine is not None
         current_scene = cli.engine.scenes[cli.engine.game_state.current_scene]
 
         # Test item interactions if available
@@ -457,9 +478,11 @@ class TestDemoGameIntegration(unittest.TestCase):
             from space_hulk_game.engine.actions import TakeAction
 
             take_action = TakeAction(item_id=first_item.id)
+            assert cli.engine is not None
             cli.engine._execute_action(take_action)
 
             # Verify item handling works
+            assert cli.engine is not None
             self.assertIsNotNone(cli.engine.game_state)
 
         # Test NPC interactions if available
@@ -470,9 +493,11 @@ class TestDemoGameIntegration(unittest.TestCase):
             from space_hulk_game.engine.actions import TalkAction
 
             talk_action = TalkAction(npc_id=first_npc.id, topic=None)
+            assert cli.engine is not None
             cli.engine._execute_action(talk_action)
 
             # Verify NPC handling works
+            assert cli.engine is not None
             self.assertIsNotNone(cli.engine.game_state)
 
 
@@ -598,7 +623,7 @@ class TestErrorHandling(unittest.TestCase):
         cli.start_new_game()
 
         # Mock save_system.save to raise PermissionError
-        with patch.object(cli.save_system, "save", side_effect=PermissionError("Access denied")):
+        with patch.object(cli.save_system, "save", side_effect=PermissionError("Access denied")):  # noqa: SIM117
             with patch("builtins.input", return_value="test_save"):
                 # Should handle error gracefully
                 cli.save_game()

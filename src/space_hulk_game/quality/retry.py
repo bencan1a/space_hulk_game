@@ -90,7 +90,7 @@ class TaskWithQualityCheck:
         }
 
         evaluator_class = evaluator_map[self.task_type]
-        return evaluator_class(pass_threshold=self.pass_threshold)
+        return evaluator_class(pass_threshold=self.pass_threshold)  # type: ignore[abstract]
 
     def execute(
         self, task_function: Callable[..., str], task_name: str = "Task", **kwargs

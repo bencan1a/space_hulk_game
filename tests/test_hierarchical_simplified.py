@@ -15,7 +15,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 
-def test_simplified_hierarchical():
+def test_simplified_hierarchical():  # noqa: PLR0915
     """Test hierarchical mode with simplified tasks."""
     print("\n" + "=" * 80)
     print("HIERARCHICAL MODE - SIMPLIFIED TASK DESCRIPTIONS")
@@ -53,7 +53,7 @@ def test_simplified_hierarchical():
 
         print("-" * 80)
         print("\n✅ SUCCESS!")
-        print(f"   Execution time: {exec_time:.2f}s ({exec_time/60:.2f} min)")
+        print(f"   Execution time: {exec_time:.2f}s ({exec_time / 60:.2f} min)")
 
         # Check output files
         output_files = [
@@ -76,7 +76,7 @@ def test_simplified_hierarchical():
         print("SIMPLIFIED HIERARCHICAL MODE - SUCCESS!")
         print("=" * 80)
         print("✅ Hierarchical mode works with simplified tasks")
-        print(f"✅ Execution: {exec_time:.2f}s ({exec_time/60:.2f} min)")
+        print(f"✅ Execution: {exec_time:.2f}s ({exec_time / 60:.2f} min)")
         print(f"✅ Files: {files_created}/{len(output_files)}")
         print("\nKey fix: Simplified task descriptions (90% shorter)")
         print(f"Total time: {total_time:.2f}s")
@@ -91,7 +91,7 @@ def test_simplified_hierarchical():
         print("❌ FAILED")
         print("=" * 80)
         print(f"Error: {e!s}")
-        print(f"Time: {error_time:.2f}s ({error_time/60:.2f} min)")
+        print(f"Time: {error_time:.2f}s ({error_time / 60:.2f} min)")
         print("=" * 80)
 
         import traceback

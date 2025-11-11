@@ -11,7 +11,6 @@ Example:
 """
 
 from dataclasses import dataclass
-from typing import Optional
 
 
 @dataclass(frozen=True)
@@ -130,7 +129,7 @@ class UseAction(Action):
     """
 
     item_id: str = ""
-    target_id: Optional[str] = None
+    target_id: str | None = None
 
     def __str__(self) -> str:
         """Return a string representation of the action."""
@@ -158,7 +157,7 @@ class LookAction(Action):
         'console'
     """
 
-    target: Optional[str] = None
+    target: str | None = None
 
     def __str__(self) -> str:
         """Return a string representation of the action."""
@@ -207,7 +206,7 @@ class TalkAction(Action):
     """
 
     npc_id: str = ""
-    topic: Optional[str] = None
+    topic: str | None = None
 
     def __str__(self) -> str:
         """Return a string representation of the action."""
@@ -250,7 +249,7 @@ class UnknownAction(Action):
         'examine'
     """
 
-    suggestion: Optional[str] = None
+    suggestion: str | None = None
 
     def __str__(self) -> str:
         """Return a string representation of the action."""

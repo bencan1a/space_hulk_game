@@ -14,7 +14,9 @@
       "Bash(python -m pyright:*)",
       "Bash(python -m unittest:*)",
       "Bash(cat:*)",
-      "Bash(python -m pytest:*)"
+      "Bash(python -m pytest:*)",
+      "Bash(yamllint:*)",
+      "Bash(pre-commit run:*)"
     ],
     "deny": [],
     "ask": []

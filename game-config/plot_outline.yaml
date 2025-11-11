@@ -1,4 +1,3 @@
-```yaml
 narrative_foundation:
   title: "Space Hulk: Echoes of Oblivion"
   setting: "The grim dark future of the Warhammer 40,000 universe. The game primarily takes place within the confines of a derelict Space Hulk, designated 'The Charon's Omen,' a colossal, twisted amalgamation of starship wrecks, asteroids, and forgotten space stations. This leviathan of shattered technology drifts through the warp-scarred sector of Segmentum Pacificus, a region known for its unpredictable warp storms and ancient, malevolent entities. The interiors of the Hulk are a labyrinth of unstable gravity, atmospheric anomalies, and xenos infestation, bathed in perpetual, eerie twilight punctuated by flickering emergency lights and the gruesome bioluminescence of alien life. Ancient Imperial technology clashes with the organic horror of Tyranid growths, and the suffocating silence is routinely broken by skittering chitin and the guttural roars of unseen horrors."
@@ -19,20 +18,16 @@ narrative_foundation:
       description: "The Terminators encounter overwhelming Genestealer resistance. During the initial push, they discover not just Tyranid presence, but also evidence of an ancient, pre-Imperial human civilization that once inhabited parts of the Hulk, suggesting the distress beacon may have a more complex origin."
     - id: "pp_03_beacon_activation_lore"
       name: "Activating the Beacon and Unveiling its Purpose"
-      description: "Through harrowing combat and exploration, the squad reaches the source of the distress signal – an ancient human (perhaps even pre-human) archive/communication hub. Activating it
-        reveals fragmented data logs and holographic projections hinting at a primordial warning about a galactic-level threat far beyond the Tyranids, and suggesting the Hulk itself is a containing vessel or a forgotten ark."
+      description: "Through harrowing combat and exploration, the squad reaches the source of the distress signal -- an ancient human (perhaps even pre-human) archive/communication hub. Activating it reveals fragmented data logs and holographic projections hinting at a primordial warning about a galactic-level threat far beyond the Tyranids, and suggesting the Hulk itself is a containing vessel or a forgotten ark."
     - id: "pp_04_schism_among_the_ranks"
       name: "Schism and Moral Dilemma"
       description: "The discovery of the deeper threat and the true nature of the Hulk divides the squad. Some believe the information must be retrieved at all costs for the Imperium's survival, even if it means risking further corruption or diverting from standard protocol. Others argue for immediate destruction to prevent any potential catastrophic leakage of the 'true' threat's influence into the wider galaxy. Valerius faces a choice: prioritize recovery of the information or purity of purpose for the Imperium."
     - id: "pp_05_confrontation_with_the_prime"
       name: "Confrontation with the Prime Threat"
-      description: "Regardless of Valerius's choice, the path leads to a final confrontation with the embodiment of the greater threat – not a single entity, but a pervasive, psychic miasma or nascent entity that has been subtly influencing the Hulk's inhabitants (including, potentially, some of the squad members) and drawing the Tyranids. This entity seeks to escape the Hulk, and its full awakening means galactic catastrophe."
+      description: "Regardless of Valerius's choice, the path leads to a final confrontation with the embodiment of the greater threat -- not a single entity, but a pervasive, psychic miasma or nascent entity that has been subtly influencing the Hulk's inhabitants (including, potentially, some of the squad members) and drawing the Tyranids. This entity seeks to escape the Hulk, and its full awakening means galactic catastrophe."
     - id: "pp_06_final_resolution"
       name: "Final Resolution and Scuttling Options"
-      description: "Valerius must make a final, decisive action:
-        1. Attempt to contain and seal the threat within the Hulk, securing the enigmatic warning data.
-        2. Initiate the Hulk's self-destruct sequence, sacrificing the squad and the data to prevent the threat's escape.
-        3. Attempt to steer the Hulk into a warp rift or black hole, effectively consigning it to oblivion, but potentially losing a chance to warn the Imperium."
+      description: "Valerius must make a final, decisive action: (1) Attempt to contain and seal the threat within the Hulk, securing the enigmatic warning data. (2) Initiate the Hulk's self-destruct sequence, sacrificing the squad and the data to prevent the threat's escape. (3) Attempt to steer the Hulk into a warp rift or black hole, effectively consigning it to oblivion, but potentially losing a chance to warn the Imperium."
   characters:
     - name: "Brother-Captain Valerius"
       role: "Player Character. Commander of the Terminator Squad."
@@ -57,4 +52,3 @@ narrative_foundation:
       description: "The pervasive and existential dread caused by the ancient, non-corporeal entity or cosmic horror contained, or attempting to escape, the Space Hulk. This threat is subtle, insidious, and threatens not just physical life, but the very fabric of reality and sanity."
     - type: "Time vs. Objectives"
       description: "The Space Hulk is unstable and decaying, potentially on a course into a warp storm or a self-destruct cycle initiated long ago. There is a constant race against time to achieve objectives before the Hulk, or the threats within it, become unmanageable."
-```

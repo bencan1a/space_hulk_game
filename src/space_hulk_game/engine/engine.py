@@ -14,7 +14,6 @@ Example:
 
 import logging
 from collections.abc import Callable
-from typing import Optional
 
 from .actions import (
     Action,
@@ -88,10 +87,10 @@ class TextAdventureEngine:
         self,
         game_state: GameState,
         scenes: dict[str, Scene],
-        input_func: Optional[Callable[[], str]] = None,
-        output_func: Optional[Callable[[str], None]] = None,
-        victory_conditions: Optional[set] = None,
-        defeat_conditions: Optional[set] = None,
+        input_func: Callable[[], str] | None = None,
+        output_func: Callable[[str], None] | None = None,
+        victory_conditions: set | None = None,
+        defeat_conditions: set | None = None,
     ):
         """
         Initialize the text adventure engine.
@@ -340,7 +339,7 @@ class TextAdventureEngine:
         self._output(f"\nYou drop the {item.name}.\n")
         logger.info(f"Dropped item: {item_id}")
 
-    def handle_use(self, item_id: str, target_id: Optional[str] = None) -> None:
+    def handle_use(self, item_id: str, target_id: str | None = None) -> None:  # noqa: PLR0915
         """
         Handle using an item.
 
@@ -394,7 +393,7 @@ class TextAdventureEngine:
         # Handle unlock effect
         if "unlock" in item.effects:
             current_scene = self.scenes[self.game_state.current_scene]
-            unlock_target = item.effects["unlock"]
+            item.effects["unlock"]
 
             # Try to unlock the specified exit or any locked exit that requires this item
             unlocked = False
@@ -436,7 +435,7 @@ class TextAdventureEngine:
             self._output(f"\nYou use the {item.name}. Nothing happens.\n")
             logger.debug(f"Used item with no effects: {item_id}")
 
-    def handle_look(self, target: Optional[str] = None) -> None:
+    def handle_look(self, target: str | None = None) -> None:
         """
         Handle examining the scene or an object.
 
@@ -469,7 +468,7 @@ class TextAdventureEngine:
         self._output(f"\nYou don't see '{target}' here.\n")
         logger.debug(f"Target not found: {target}")
 
-    def handle_talk(self, npc_id: str, topic: Optional[str] = None) -> None:
+    def handle_talk(self, npc_id: str, topic: str | None = None) -> None:
         """
         Handle talking to an NPC.
 

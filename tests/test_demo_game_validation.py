@@ -36,7 +36,7 @@ class TestDemoGameValidation(unittest.TestCase):
 
             # Check that validation was run
             print_calls = [str(call) for call in mock_print.call_args_list]
-            validation_output = "\n".join(print_calls)
+            "\n".join(print_calls)
 
             # Should see validation message
             self.assertTrue(
@@ -75,7 +75,7 @@ class TestDemoGameValidation(unittest.TestCase):
         )
 
         # Mock the loader to return our invalid game
-        with patch.object(self.cli.loader, "load_game", return_value=invalid_game):
+        with patch.object(self.cli.loader, "load_game", return_value=invalid_game):  # noqa: SIM117
             with patch("builtins.print") as mock_print:
                 with patch("builtins.input", return_value="y"):  # Continue anyway
                     result = self.cli.load_game_data()
@@ -117,7 +117,7 @@ class TestDemoGameValidation(unittest.TestCase):
         )
 
         # Mock the loader and user input
-        with patch.object(self.cli.loader, "load_game", return_value=invalid_game):
+        with patch.object(self.cli.loader, "load_game", return_value=invalid_game):  # noqa: SIM117
             with patch("builtins.print"):
                 with patch("builtins.input", return_value="n"):  # Don't continue
                     result = self.cli.load_game_data()
@@ -131,7 +131,7 @@ class TestDemoGameValidation(unittest.TestCase):
             self.cli.load_game_data()
 
             print_calls = [str(call) for call in mock_print.call_args_list]
-            validation_output = "\n".join(print_calls)
+            "\n".join(print_calls)
 
             # Should show scene count and other stats
             # (exact format depends on game content, but validation should run)

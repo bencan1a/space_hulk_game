@@ -93,7 +93,7 @@ def validate_output_files(output_dir, expected_files):
     return results
 
 
-def main():
+def main():  # noqa: PLR0915
     """Run Chunk 0.1 validation test."""
     print("\n" + "=" * 80)
     print("CHUNK 0.1: SEQUENTIAL MODE VALIDATION (5 CORE TASKS)")
@@ -175,7 +175,7 @@ def main():
         print("\n" + "=" * 80)
         print("CREW EXECUTION COMPLETED")
         print("=" * 80)
-        print(f"Execution Time: {execution_time:.2f} seconds ({execution_time/60:.2f} minutes)")
+        print(f"Execution Time: {execution_time:.2f} seconds ({execution_time / 60:.2f} minutes)")
         print("=" * 80)
 
         success = True
@@ -210,14 +210,13 @@ def main():
 
     if not success:
         print(f"❌ Crew Execution: FAILED - {error_message}")
+    elif execution_time < 600:  # 10 minutes
+        print(f"✅ Crew Execution: SUCCESS ({execution_time:.2f}s < 600s threshold)")
     else:
-        if execution_time < 600:  # 10 minutes
-            print(f"✅ Crew Execution: SUCCESS ({execution_time:.2f}s < 600s threshold)")
-        else:
-            print(f"⚠️  Crew Execution: SUCCESS but SLOW ({execution_time:.2f}s > 600s threshold)")
+        print(f"⚠️  Crew Execution: SUCCESS but SLOW ({execution_time:.2f}s > 600s threshold)")
 
     if validation_results["all_exist"]:
-        print(f"✅ All Output Files: FOUND ({len(expected_files)}/{ len(expected_files)})")
+        print(f"✅ All Output Files: FOUND ({len(expected_files)}/{len(expected_files)})")
     else:
         missing = [f for f, s in validation_results["files_status"].items() if not s["exists"]]
         print(f"❌ Output Files: MISSING {len(missing)} files: {', '.join(missing)}")

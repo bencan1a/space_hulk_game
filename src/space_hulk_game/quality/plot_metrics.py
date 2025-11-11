@@ -178,7 +178,7 @@ class PlotMetrics:
         metrics.has_prologue = "prologue" in plot
 
         # Check for acts (act1, act2, act3, etc.)
-        metrics.has_acts = any(key.startswith("act") for key in plot.keys())
+        metrics.has_acts = any(key.startswith("act") for key in plot)
 
         # Calculate word count
         metrics.word_count = cls._calculate_word_count(data)
@@ -240,19 +240,14 @@ class PlotMetrics:
         """
         # Check for explicit endings section
         endings = data.get("endings")
-        if endings:
-            if isinstance(endings, list):
-                return len(endings)
-            elif isinstance(endings, dict):
-                return len(endings)
+        if endings and isinstance(endings, dict | list):
+            return len(endings)
 
         # Check within plot structure
         plot = data.get("plot", {})
         if "endings" in plot:
             endings = plot["endings"]
-            if isinstance(endings, list):
-                return len(endings)
-            elif isinstance(endings, dict):
+            if isinstance(endings, dict | list):
                 return len(endings)
 
         # Count ending-related mentions
@@ -318,7 +313,7 @@ class PlotMetrics:
 
         if self.endings_count < self.min_endings:
             failures.append(
-                f"Insufficient endings: {self.endings_count} " f"(minimum: {self.min_endings})"
+                f"Insufficient endings: {self.endings_count} (minimum: {self.min_endings})"
             )
 
         if not self.themes_defined:
@@ -326,7 +321,7 @@ class PlotMetrics:
 
         if self.word_count < self.min_word_count:
             failures.append(
-                f"Word count too low: {self.word_count} " f"(minimum: {self.min_word_count})"
+                f"Word count too low: {self.word_count} (minimum: {self.min_word_count})"
             )
 
         return failures

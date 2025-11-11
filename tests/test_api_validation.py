@@ -8,6 +8,7 @@ Tests can run in two modes:
 1. With real API credentials (OPENROUTER_API_KEY set) - makes actual API calls
 2. Without credentials (mocked) - uses mock responses for testing
 """
+
 import os
 import sys
 import unittest
@@ -186,15 +187,14 @@ class TestLLMConfiguration(unittest.TestCase):
         ]
 
         for model in test_models:
-            with self.subTest(model=model):
-                with patch("crewai.LLM") as mock_llm:
-                    mock_instance = MagicMock()
-                    mock_instance.model = model
-                    mock_llm.return_value = mock_instance
+            with self.subTest(model=model), patch("crewai.LLM") as mock_llm:
+                mock_instance = MagicMock()
+                mock_instance.model = model
+                mock_llm.return_value = mock_instance
 
-                    llm = LLM(model=model, api_key="test-key")
+                llm = LLM(model=model, api_key="test-key")
 
-                    self.assertIsNotNone(llm)
+                self.assertIsNotNone(llm)
 
     @unittest.skipUnless(CREWAI_AVAILABLE, "CrewAI not installed")
     def test_llm_fallback_to_ollama(self):

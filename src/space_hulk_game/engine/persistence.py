@@ -33,7 +33,10 @@ class PersistenceError(Exception):
 
 
 def save_game(
-    filepath: str, game_state: GameState, scenes: dict[str, Scene], metadata: dict[str, Any] = None
+    filepath: str,
+    game_state: GameState,
+    scenes: dict[str, Scene],
+    metadata: dict[str, Any] | None = None,
 ) -> None:
     """
     Save the game state and scenes to a JSON file.
@@ -74,7 +77,7 @@ def save_game(
         filepath_obj.parent.mkdir(parents=True, exist_ok=True)
 
         # Write to file with pretty formatting
-        with open(filepath, "w", encoding="utf-8") as f:
+        with Path(filepath).open("w", encoding="utf-8") as f:
             json.dump(save_data, f, indent=2, ensure_ascii=False)
 
         logger.info(f"Game saved to: {filepath}")
@@ -125,7 +128,7 @@ def load_game(filepath: str) -> tuple[GameState, dict[str, Scene]]:
             raise PersistenceError(f"Save file not found: {filepath}")
 
         # Read file
-        with open(filepath, encoding="utf-8") as f:
+        with Path(filepath).open(encoding="utf-8") as f:
             save_data = json.load(f)
 
         # Validate save file structure
@@ -239,7 +242,7 @@ def get_save_metadata(filepath: str) -> dict[str, Any]:
         if not filepath_obj.exists():
             raise PersistenceError(f"Save file not found: {filepath}")
 
-        with open(filepath, encoding="utf-8") as f:
+        with Path(filepath).open(encoding="utf-8") as f:
             save_data = json.load(f)
 
         metadata = {
@@ -359,8 +362,8 @@ class SaveSystem:
         self,
         game_state: GameState,
         save_name: str,
-        scenes: dict[str, Scene] = None,
-        metadata: dict[str, Any] = None,
+        scenes: dict[str, Scene] | None = None,
+        metadata: dict[str, Any] | None = None,
     ) -> None:
         """
         Save a game state.
@@ -394,7 +397,7 @@ class SaveSystem:
             save_data["scenes"] = {scene_id: scene.to_dict() for scene_id, scene in scenes.items()}
 
         try:
-            with open(filepath, "w", encoding="utf-8") as f:
+            with Path(filepath).open("w", encoding="utf-8") as f:
                 json.dump(save_data, f, indent=2, ensure_ascii=False)
 
             logger.info(f"Game saved to: {filepath}")
@@ -424,7 +427,7 @@ class SaveSystem:
         filepath = self.save_dir / save_name
 
         try:
-            with open(filepath, encoding="utf-8") as f:
+            with Path(filepath).open(encoding="utf-8") as f:
                 save_data = json.load(f)
 
             # Validate basic structure
@@ -438,7 +441,7 @@ class SaveSystem:
             return game_state
 
         except FileNotFoundError:
-            raise PersistenceError(f"Save file not found: {save_name}")
+            raise PersistenceError(f"Save file not found: {save_name}") from None
         except Exception as e:
             error_msg = f"Failed to load game: {e}"
             logger.error(error_msg)

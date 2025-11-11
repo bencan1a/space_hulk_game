@@ -18,7 +18,7 @@ Example:
 
 import difflib
 import logging
-from typing import Optional
+from typing import ClassVar
 
 from .actions import (
     Action,
@@ -73,7 +73,7 @@ class CommandParser:
     """
 
     # Command synonyms mapping
-    COMMANDS: dict[str, list[str]] = {
+    COMMANDS: ClassVar[dict[str, list[str]]] = {
         "move": ["go", "move", "walk", "run", "travel", "head", "proceed", "enter"],
         "take": ["take", "get", "grab", "pick", "pickup", "acquire", "collect"],
         "drop": ["drop", "leave", "discard", "put down", "release"],
@@ -97,11 +97,11 @@ class CommandParser:
 
         logger.debug(f"CommandParser initialized with {len(self._command_map)} command synonyms")
 
-    def parse(
+    def parse(  # noqa: PLR0911
         self,
         command: str,
-        game_state: Optional[GameState] = None,
-        current_scene: Optional[Scene] = None,
+        game_state: GameState | None = None,
+        current_scene: Scene | None = None,
     ) -> Action:
         """
         Parse a text command into an Action object.
@@ -201,7 +201,7 @@ class CommandParser:
         # Split on whitespace and filter empty strings
         return [token for token in command.split() if token]
 
-    def _identify_command(self, tokens: list[str]) -> tuple[Optional[str], str, list[str]]:
+    def _identify_command(self, tokens: list[str]) -> tuple[str | None, str, list[str]]:
         """
         Identify the command type from tokens.
 
@@ -246,7 +246,7 @@ class CommandParser:
 
         if matches:
             # If we have multiple matches, prefer certain command types
-            # Priority: take > move > use > look > talk > drop > inventory > help
+            # (Priority order: take > move > use > look > talk > drop > inventory > help)
             priority_order = ["take", "move", "use", "look", "talk", "drop", "inventory", "help"]
 
             # Get action types for all matches
@@ -268,7 +268,7 @@ class CommandParser:
 
         return None, first_word, tokens[1:]
 
-    def _suggest_command(self, word: str) -> Optional[str]:
+    def _suggest_command(self, word: str) -> str | None:
         """
         Suggest a command based on fuzzy matching.
 
@@ -294,7 +294,7 @@ class CommandParser:
 
         return matches[0] if matches else None
 
-    def _parse_move(self, command: str, tokens: list[str], scene: Optional[Scene]) -> Action:
+    def _parse_move(self, command: str, tokens: list[str], scene: Scene | None) -> Action:
         """
         Parse a movement command.
 
@@ -337,7 +337,7 @@ class CommandParser:
         # No context or no match, return as-is
         return MoveAction(direction=direction, raw_command=command)
 
-    def _parse_take(self, command: str, tokens: list[str], scene: Optional[Scene]) -> Action:
+    def _parse_take(self, command: str, tokens: list[str], scene: Scene | None) -> Action:
         """
         Parse a take/get command.
 
@@ -370,9 +370,7 @@ class CommandParser:
         # No context or no match, use the name as-is
         return TakeAction(item_id=item_name, raw_command=command)
 
-    def _parse_drop(
-        self, command: str, tokens: list[str], game_state: Optional[GameState]
-    ) -> Action:
+    def _parse_drop(self, command: str, tokens: list[str], game_state: GameState | None) -> Action:
         """
         Parse a drop command.
 
@@ -413,8 +411,8 @@ class CommandParser:
         self,
         command: str,
         tokens: list[str],
-        game_state: Optional[GameState],
-        scene: Optional[Scene],
+        game_state: GameState | None,
+        scene: Scene | None,
     ) -> Action:
         """
         Parse a use command.
@@ -490,7 +488,7 @@ class CommandParser:
 
         return UseAction(item_id=item_id, target_id=target_id, raw_command=command)
 
-    def _parse_look(self, command: str, tokens: list[str], scene: Optional[Scene]) -> Action:
+    def _parse_look(self, command: str, tokens: list[str], scene: Scene | None) -> Action:
         """
         Parse a look/examine command.
 
@@ -541,7 +539,7 @@ class CommandParser:
 
         return LookAction(target=target_id, raw_command=command)
 
-    def _parse_talk(self, command: str, tokens: list[str], scene: Optional[Scene]) -> Action:
+    def _parse_talk(self, command: str, tokens: list[str], scene: Scene | None) -> Action:
         """
         Parse a talk command.
 
@@ -587,7 +585,7 @@ class CommandParser:
         found_about = False
 
         for i, token in enumerate(filtered_tokens):
-            if token == "about":
+            if token == "about":  # nosec B105
                 found_about = True
                 npc_tokens = filtered_tokens[:i]
                 topic_tokens = filtered_tokens[i + 1 :]
@@ -609,7 +607,7 @@ class CommandParser:
 
         return TalkAction(npc_id=npc_id, topic=topic, raw_command=command)
 
-    def _find_item_in_scene(self, item_name: str, scene: Scene) -> Optional[Item]:
+    def _find_item_in_scene(self, item_name: str, scene: Scene) -> Item | None:
         """
         Find an item in the scene by name or ID using fuzzy matching.
 
@@ -661,7 +659,7 @@ class CommandParser:
 
         return None
 
-    def _find_npc_in_scene(self, npc_name: str, scene: Scene) -> Optional[NPC]:
+    def _find_npc_in_scene(self, npc_name: str, scene: Scene) -> NPC | None:
         """
         Find an NPC in the scene by name or ID using fuzzy matching.
 

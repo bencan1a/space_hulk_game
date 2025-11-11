@@ -22,7 +22,7 @@ Example:
 """
 
 from dataclasses import dataclass, field
-from typing import Any, Optional
+from typing import Any
 
 
 @dataclass
@@ -83,8 +83,8 @@ class Item:
     description: str
     takeable: bool = False
     useable: bool = False
-    use_text: Optional[str] = None
-    required_flag: Optional[str] = None
+    use_text: str | None = None
+    required_flag: str | None = None
     effects: dict[str, Any] = field(default_factory=dict)
 
     def __post_init__(self):
@@ -221,8 +221,8 @@ class NPC:
     dialogue: dict[str, str] = field(default_factory=dict)
     hostile: bool = False
     health: int = 100
-    gives_item: Optional[str] = None
-    required_flag: Optional[str] = None
+    gives_item: str | None = None
+    required_flag: str | None = None
 
     def __post_init__(self):
         """Validate the NPC after initialization."""
@@ -257,7 +257,7 @@ class NPC:
             return game_flags.get(self.required_flag, False)
         return True
 
-    def get_dialogue(self, key: str, default: str = "...") -> str:
+    def get_dialogue(self, key: str, default: str | None = "...") -> str | None:
         """
         Get dialogue text for a specific key.
 
@@ -266,7 +266,7 @@ class NPC:
             default: Default text if the key doesn't exist.
 
         Returns:
-            The dialogue text.
+            The dialogue text, or None if not found and default is None.
 
         Examples:
             >>> npc = NPC(id="test", name="Test", description="Test",
@@ -384,7 +384,7 @@ class Event:
     id: str
     description: str
     trigger_on_entry: bool = False
-    required_flag: Optional[str] = None
+    required_flag: str | None = None
     one_time: bool = True
     effects: dict[str, Any] = field(default_factory=dict)
     triggered: bool = False

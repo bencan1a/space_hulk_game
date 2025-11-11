@@ -61,7 +61,7 @@ def test_template_files():
                 print(f"     Version: {content.get('template_version')}")
 
                 # Count main sections
-                sections = len([k for k in content.keys() if not k.startswith("_")])
+                sections = len([k for k in content if not k.startswith("_")])
                 print(f"     Sections: {sections}")
 
                 # Check file size

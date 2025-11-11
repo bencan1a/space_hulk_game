@@ -40,7 +40,7 @@ from typing import cast
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 
-def test_hierarchical_with_gemini():
+def test_hierarchical_with_gemini():  # noqa: PLR0915
     """Test hierarchical mode with Gemini 2.5 Flash."""
     print("\n" + "=" * 80)
     print("HIERARCHICAL MODE TEST - GEMINI 2.5 FLASH")
@@ -135,7 +135,7 @@ def test_hierarchical_with_gemini():
 
         # Create hierarchical crew
         hierarchical_crew = Crew(
-            agents=cast(list, worker_agents),
+            agents=cast("list", worker_agents),
             tasks=minimal_tasks,
             process=Process.hierarchical,
             manager_agent=manager,
@@ -159,7 +159,7 @@ def test_hierarchical_with_gemini():
 
         print("-" * 80)
         print("\n✅ HIERARCHICAL EXECUTION COMPLETED SUCCESSFULLY!")
-        print(f"   Execution time: {exec_time:.2f}s ({exec_time/60:.2f} min)")
+        print(f"   Execution time: {exec_time:.2f}s ({exec_time / 60:.2f} min)")
 
         # Check output files
         output_files = [
@@ -184,11 +184,11 @@ def test_hierarchical_with_gemini():
         print("🎉 BREAKTHROUGH: HIERARCHICAL MODE WORKS WITH GEMINI!")
         print("=" * 80)
         print(f"✅ Hierarchical mode SUCCESSFUL with Gemini {gemini_model}")
-        print(f"✅ Execution time: {exec_time:.2f}s ({exec_time/60:.2f} min)")
+        print(f"✅ Execution time: {exec_time:.2f}s ({exec_time / 60:.2f} min)")
         print(f"✅ Files created: {files_created}/{len(output_files)}")
         print("✅ No delegation failures or LLM errors")
         print("\n🔑 Key finding: Gemini handles delegation much better than Llama")
-        print(f"📊 Performance: {exec_time/60:.2f} min vs ~2-6 min failures with Llama")
+        print(f"📊 Performance: {exec_time / 60:.2f} min vs ~2-6 min failures with Llama")
         print("\n💡 Recommendation for production:")
         print("   - Use Gemini for hierarchical mode manager")
         print("   - Can use Ollama for workers (cost savings)")
@@ -205,7 +205,7 @@ def test_hierarchical_with_gemini():
         print("❌ HIERARCHICAL MODE FAILED WITH GEMINI")
         print("=" * 80)
         print(f"Error: {e!s}")
-        print(f"Time before failure: {error_time:.2f}s ({error_time/60:.2f} min)")
+        print(f"Time before failure: {error_time:.2f}s ({error_time / 60:.2f} min)")
 
         # Check if it's the same delegation error
         if "Invalid response from LLM call" in str(e):

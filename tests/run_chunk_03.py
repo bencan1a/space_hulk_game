@@ -226,7 +226,7 @@ def run_single_test(run_number, prompt, output_dir):
     return results
 
 
-def main():
+def main():  # noqa: PLR0915
     """Run Chunk 0.3 reliability testing."""
     print("\n" + "=" * 80)
     print("CHUNK 0.3: RELIABILITY TESTING (3 CONSECUTIVE RUNS)")
@@ -271,8 +271,8 @@ def main():
     avg_time = total_time / len(all_results) if all_results else 0
 
     print(f"\nRuns Completed: {successful_runs}/{len(TEST_PROMPTS)}")
-    print(f"Total Time: {total_time:.2f} seconds ({total_time/60:.2f} minutes)")
-    print(f"Average Time: {avg_time:.2f} seconds ({avg_time/60:.2f} minutes)")
+    print(f"Total Time: {total_time:.2f} seconds ({total_time / 60:.2f} minutes)")
+    print(f"Average Time: {avg_time:.2f} seconds ({avg_time / 60:.2f} minutes)")
     print(f"Min Time: {min(r['execution_time'] for r in all_results):.2f} seconds")
     print(f"Max Time: {max(r['execution_time'] for r in all_results):.2f} seconds")
 

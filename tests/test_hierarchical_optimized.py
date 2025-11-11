@@ -23,7 +23,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 
-def test_optimized_hierarchical():
+def test_optimized_hierarchical():  # noqa: PLR0915
     """
     Test hierarchical mode with optimized configuration.
     """
@@ -99,7 +99,7 @@ def test_optimized_hierarchical():
 
         # Create hierarchical crew with optimizations
         hierarchical_crew = Crew(
-            agents=cast(list, worker_agents),
+            agents=cast("list", worker_agents),
             tasks=minimal_tasks,
             process=Process.hierarchical,
             manager_agent=manager,
@@ -123,7 +123,9 @@ def test_optimized_hierarchical():
 
         print("-" * 80)
         print("\n✅ HIERARCHICAL EXECUTION COMPLETED!")
-        print(f"   Execution time: {execution_time:.2f} seconds ({execution_time/60:.2f} minutes)")
+        print(
+            f"   Execution time: {execution_time:.2f} seconds ({execution_time / 60:.2f} minutes)"
+        )
 
         # Check output files
         print("\n📁 Checking Output Files:")
@@ -148,7 +150,7 @@ def test_optimized_hierarchical():
         print("OPTIMIZED HIERARCHICAL MODE TEST RESULTS")
         print("=" * 80)
         print("✅ Hierarchical mode SUCCEEDED with optimizations")
-        print(f"✅ Execution time: {execution_time:.2f}s ({execution_time/60:.2f} min)")
+        print(f"✅ Execution time: {execution_time:.2f}s ({execution_time / 60:.2f} min)")
         print(f"✅ Files created: {files_created}/{len(output_files)}")
         print("\nOptimizations applied:")
         print("  - Manager max_iter: 10 (prevents excessive delegation)")
@@ -166,7 +168,7 @@ def test_optimized_hierarchical():
         print("❌ OPTIMIZED HIERARCHICAL MODE FAILED")
         print("=" * 80)
         print(f"Error: {e!s}")
-        print(f"Time before failure: {error_time:.2f}s ({error_time/60:.2f} min)")
+        print(f"Time before failure: {error_time:.2f}s ({error_time / 60:.2f} min)")
         print("=" * 80)
 
         logger.error(f"Optimized hierarchical mode failed: {e!s}", exc_info=True)

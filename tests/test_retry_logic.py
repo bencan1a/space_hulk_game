@@ -202,7 +202,7 @@ endings:
 
         wrapper = TaskWithQualityCheck(task_type=TaskType.PLOT, pass_threshold=6.0, max_retries=3)
 
-        _, _, attempts = wrapper.execute(task_function=task_with_feedback, task_name="Test Plot")
+        _, _, _attempts = wrapper.execute(task_function=task_with_feedback, task_name="Test Plot")
 
         # Should have been called 3 times
         self.assertEqual(call_count[0], 3)
@@ -365,7 +365,7 @@ endings:
 """
 
         # With higher threshold, might not pass
-        output, quality, attempts = execute_with_quality_check(
+        output, _quality, attempts = execute_with_quality_check(
             task_function=average_task,
             task_type=TaskType.PLOT,
             task_name="Test Plot",

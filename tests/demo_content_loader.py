@@ -14,7 +14,7 @@ from pathlib import Path
 from space_hulk_game.engine import ContentLoader, GameState
 
 
-def main():
+def main():  # noqa: PLR0915
     """Run the demo."""
     print("=" * 70)
     print("Space Hulk Game - Content Loader Demo")
@@ -56,7 +56,7 @@ def main():
     # Show scene connectivity
     print("Scene Graph:")
     print("-" * 70)
-    for scene_id, scene in game_data.scenes.items():
+    for _scene_id, scene in game_data.scenes.items():
         exits_str = (
             ", ".join(f"{dir}->{target}" for dir, target in scene.exits.items())
             if scene.exits
@@ -81,9 +81,7 @@ def main():
     print("-" * 70)
 
     # Create initial game state
-    initial_state = GameState(
-        current_scene=game_data.starting_scene, visited_scenes={game_data.starting_scene}
-    )
+    GameState(current_scene=game_data.starting_scene, visited_scenes={game_data.starting_scene})
 
     print(f"Game can be initialized with {len(game_data.scenes)} scenes")
     print(f"Starting scene: {game_data.starting_scene}")
@@ -91,11 +89,12 @@ def main():
 
     # Show starting scene description
     starting_scene = game_data.get_scene(game_data.starting_scene)
-    print("Starting Scene Description:")
-    print(starting_scene.get_full_description())
-    print()
-    print(starting_scene.get_exit_description())
-    print()
+    if starting_scene is not None:
+        print("Starting Scene Description:")
+        print(starting_scene.get_full_description())
+        print()
+        print(starting_scene.get_exit_description())
+        print()
 
     print("=" * 70)
     print("Demo Complete!")

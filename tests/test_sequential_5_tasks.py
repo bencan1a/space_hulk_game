@@ -98,7 +98,7 @@ class TestSequential5Tasks(unittest.TestCase):
 
             print("\n" + "=" * 80)
             print(
-                f"Execution completed in {execution_time:.2f} seconds ({execution_time/60:.2f} minutes)"
+                f"Execution completed in {execution_time:.2f} seconds ({execution_time / 60:.2f} minutes)"
             )
             print("=" * 80)
 
@@ -161,13 +161,12 @@ class TestSequential5Tasks(unittest.TestCase):
                 if data is None:
                     invalid_files.append((filename, "File is empty or contains only comments"))
                     print(f"❌ Invalid: {filename} - Empty file")
+                # Count keys for basic content validation
+                elif isinstance(data, dict):
+                    key_count = len(data.keys())
+                    print(f"✅ Valid: {filename} ({key_count} top-level keys)")
                 else:
-                    # Count keys for basic content validation
-                    if isinstance(data, dict):
-                        key_count = len(data.keys())
-                        print(f"✅ Valid: {filename} ({key_count} top-level keys)")
-                    else:
-                        print(f"✅ Valid: {filename} (non-dict data type)")
+                    print(f"✅ Valid: {filename} (non-dict data type)")
 
             except yaml.YAMLError as e:
                 invalid_files.append((filename, str(e)))

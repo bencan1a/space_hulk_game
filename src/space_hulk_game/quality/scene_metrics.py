@@ -200,11 +200,7 @@ class SceneMetrics:
 
         # Look for dialogue keywords (more specific patterns)
         desc_lower = description.lower()
-        for marker in ["says", "said", "asks", "asked"]:
-            if marker in desc_lower:
-                return True
-
-        return False
+        return any(marker in desc_lower for marker in ["says", "said", "asks", "asked"])
 
     @staticmethod
     def _has_sensory_details(description: str) -> bool:
@@ -293,7 +289,7 @@ class SceneMetrics:
 
         if self.total_scenes < self.min_scenes:
             failures.append(
-                f"Insufficient scenes: {self.total_scenes} " f"(minimum: {self.min_scenes})"
+                f"Insufficient scenes: {self.total_scenes} (minimum: {self.min_scenes})"
             )
 
         if self.average_description_length < self.min_description_length:
@@ -317,7 +313,7 @@ class SceneMetrics:
             dialogue_percentage = (self.scenes_with_dialogue / self.total_scenes) * 100.0
             if dialogue_percentage < 30.0:
                 failures.append(
-                    f"Warning: Only {dialogue_percentage:.1f}% of scenes " f"contain dialogue"
+                    f"Warning: Only {dialogue_percentage:.1f}% of scenes contain dialogue"
                 )
 
         return failures

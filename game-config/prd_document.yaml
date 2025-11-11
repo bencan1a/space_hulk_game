@@ -1,4 +1,3 @@
-```yaml
 prd_document:
   game_title: "Space Hulk: Echoes of Oblivion"
   game_systems:
@@ -60,4 +59,3 @@ prd_document:
       justification: "To effectively convey the 'Cosmic Horror' theme and the entity's psychological influence on the squad, tying into the 'Morale & Corruption' mechanic."
     - requirement: "Save/load system that accurately captures all critical game state variables (morality, inventory, character status)."
       justification: "Crucial for player progression and ensuring that past decisions and ongoing character development are preserved across play sessions, especially given the branching narrative."
-```

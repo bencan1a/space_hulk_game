@@ -8,6 +8,7 @@ These tests validate:
 4. Error handling and recovery mechanisms function
 5. Timeout detection and handling
 """
+
 import os
 import sys
 import unittest
@@ -204,7 +205,7 @@ class TestTaskConfiguration(unittest.TestCase):
             return False
 
         visited = set()
-        for task_name in tasks.keys():
+        for task_name in tasks:
             if task_name not in visited:
                 self.assertFalse(
                     has_cycle(task_name, visited, set()),

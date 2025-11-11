@@ -5,6 +5,7 @@ Tests the CommandParser class and all Action subclasses to ensure they
 work correctly and handle various command formats, edge cases, and typos.
 """
 
+import dataclasses
 import unittest
 
 from space_hulk_game.engine import (
@@ -38,8 +39,13 @@ class TestActionClasses(unittest.TestCase):
     def test_action_immutability(self):
         """Test that Action objects are immutable."""
         action = Action(raw_command="test")
-        with self.assertRaises(Exception):  # FrozenInstanceError
-            action.raw_command = "changed"
+        # Verify original value
+        self.assertEqual(action.raw_command, "test")
+        # Verify we must use dataclasses.replace() to create a modified copy
+        modified = dataclasses.replace(action, raw_command="changed")
+        self.assertEqual(modified.raw_command, "changed")
+        # Original is unchanged
+        self.assertEqual(action.raw_command, "test")
 
     def test_move_action(self):
         """Test MoveAction creation."""
@@ -168,6 +174,7 @@ class TestCommandParserMove(unittest.TestCase):
         """Test 'go north' command."""
         action = self.parser.parse("go north")
         self.assertIsInstance(action, MoveAction)
+        assert isinstance(action, MoveAction)
         self.assertEqual(action.direction, "north")
 
     def test_move_synonyms(self):
@@ -183,6 +190,7 @@ class TestCommandParserMove(unittest.TestCase):
         for cmd in commands:
             action = self.parser.parse(cmd)
             self.assertIsInstance(action, MoveAction, f"Failed for: {cmd}")
+            assert isinstance(action, MoveAction)
 
     def test_move_no_direction(self):
         """Test move command without direction."""
@@ -200,6 +208,7 @@ class TestCommandParserMove(unittest.TestCase):
 
         action = self.parser.parse("go north", current_scene=scene)
         self.assertIsInstance(action, MoveAction)
+        assert isinstance(action, MoveAction)
         self.assertEqual(action.direction, "north")
 
     def test_move_fuzzy_match_with_context(self):
@@ -214,6 +223,7 @@ class TestCommandParserMove(unittest.TestCase):
         # Test typo in direction
         action = self.parser.parse("go nrth", current_scene=scene)
         self.assertIsInstance(action, MoveAction)
+        assert isinstance(action, MoveAction)
         self.assertEqual(action.direction, "north")
 
 
@@ -228,6 +238,7 @@ class TestCommandParserTake(unittest.TestCase):
         """Test 'take medkit' command."""
         action = self.parser.parse("take medkit")
         self.assertIsInstance(action, TakeAction)
+        assert isinstance(action, TakeAction)
         self.assertEqual(action.item_id, "medkit")
 
     def test_take_synonyms(self):
@@ -242,11 +253,13 @@ class TestCommandParserTake(unittest.TestCase):
         for cmd in commands:
             action = self.parser.parse(cmd)
             self.assertIsInstance(action, TakeAction, f"Failed for: {cmd}")
+            assert isinstance(action, TakeAction)
 
     def test_take_multi_word_item(self):
         """Test taking item with multi-word name."""
         action = self.parser.parse("take medical kit")
         self.assertIsInstance(action, TakeAction)
+        assert isinstance(action, TakeAction)
         self.assertEqual(action.item_id, "medical kit")
 
     def test_take_no_item(self):
@@ -263,6 +276,7 @@ class TestCommandParserTake(unittest.TestCase):
 
         action = self.parser.parse("take medical kit", current_scene=scene)
         self.assertIsInstance(action, TakeAction)
+        assert isinstance(action, TakeAction)
         self.assertEqual(action.item_id, "medkit_01")
 
     def test_take_fuzzy_match_with_context(self):
@@ -273,6 +287,7 @@ class TestCommandParserTake(unittest.TestCase):
         # Test typo in item name
         action = self.parser.parse("take medkt", current_scene=scene)
         self.assertIsInstance(action, TakeAction)
+        assert isinstance(action, TakeAction)
         self.assertEqual(action.item_id, "medkit")
 
 
@@ -287,6 +302,7 @@ class TestCommandParserDrop(unittest.TestCase):
         """Test 'drop sword' command."""
         action = self.parser.parse("drop sword")
         self.assertIsInstance(action, DropAction)
+        assert isinstance(action, DropAction)
         self.assertEqual(action.item_id, "sword")
 
     def test_drop_synonyms(self):
@@ -300,6 +316,7 @@ class TestCommandParserDrop(unittest.TestCase):
         for cmd in commands:
             action = self.parser.parse(cmd)
             self.assertIsInstance(action, DropAction, f"Failed for: {cmd}")
+            assert isinstance(action, DropAction)
 
     def test_drop_no_item(self):
         """Test drop command without item."""
@@ -312,6 +329,7 @@ class TestCommandParserDrop(unittest.TestCase):
 
         action = self.parser.parse("drop sword", game_state=state)
         self.assertIsInstance(action, DropAction)
+        assert isinstance(action, DropAction)
         self.assertEqual(action.item_id, "sword")
 
     def test_drop_fuzzy_match_with_context(self):
@@ -321,6 +339,7 @@ class TestCommandParserDrop(unittest.TestCase):
         # Test typo in item name
         action = self.parser.parse("drop medkt", game_state=state)
         self.assertIsInstance(action, DropAction)
+        assert isinstance(action, DropAction)
         self.assertEqual(action.item_id, "medkit")
 
 
@@ -335,6 +354,7 @@ class TestCommandParserUse(unittest.TestCase):
         """Test 'use medkit' command."""
         action = self.parser.parse("use medkit")
         self.assertIsInstance(action, UseAction)
+        assert isinstance(action, UseAction)
         self.assertEqual(action.item_id, "medkit")
         self.assertIsNone(action.target_id)
 
@@ -342,6 +362,7 @@ class TestCommandParserUse(unittest.TestCase):
         """Test 'use key on door' command."""
         action = self.parser.parse("use key on door")
         self.assertIsInstance(action, UseAction)
+        assert isinstance(action, UseAction)
         self.assertEqual(action.item_id, "key")
         self.assertEqual(action.target_id, "door")
 
@@ -349,6 +370,7 @@ class TestCommandParserUse(unittest.TestCase):
         """Test 'use rope with hook' command."""
         action = self.parser.parse("use rope with hook")
         self.assertIsInstance(action, UseAction)
+        assert isinstance(action, UseAction)
         self.assertEqual(action.item_id, "rope")
         self.assertEqual(action.target_id, "hook")
 
@@ -363,6 +385,7 @@ class TestCommandParserUse(unittest.TestCase):
         for cmd in commands:
             action = self.parser.parse(cmd)
             self.assertIsInstance(action, UseAction, f"Failed for: {cmd}")
+            assert isinstance(action, UseAction)
 
     def test_use_no_item(self):
         """Test use command without item."""
@@ -380,6 +403,7 @@ class TestCommandParserUse(unittest.TestCase):
             "use brass key on vault door", game_state=state, current_scene=scene
         )
         self.assertIsInstance(action, UseAction)
+        assert isinstance(action, UseAction)
         self.assertEqual(action.item_id, "brass_key")
         self.assertEqual(action.target_id, "vault_door")
 
@@ -395,18 +419,21 @@ class TestCommandParserLook(unittest.TestCase):
         """Test simple 'look' command."""
         action = self.parser.parse("look")
         self.assertIsInstance(action, LookAction)
+        assert isinstance(action, LookAction)
         self.assertIsNone(action.target)
 
     def test_look_at_object(self):
         """Test 'look at console' command."""
         action = self.parser.parse("look at console")
         self.assertIsInstance(action, LookAction)
+        assert isinstance(action, LookAction)
         self.assertEqual(action.target, "console")
 
     def test_examine_object(self):
         """Test 'examine console' command."""
         action = self.parser.parse("examine console")
         self.assertIsInstance(action, LookAction)
+        assert isinstance(action, LookAction)
         self.assertEqual(action.target, "console")
 
     def test_look_synonyms(self):
@@ -422,11 +449,13 @@ class TestCommandParserLook(unittest.TestCase):
         for cmd in commands:
             action = self.parser.parse(cmd)
             self.assertIsInstance(action, LookAction, f"Failed for: {cmd}")
+            assert isinstance(action, LookAction)
 
     def test_look_with_articles(self):
         """Test look command with articles."""
         action = self.parser.parse("look at the console")
         self.assertIsInstance(action, LookAction)
+        assert isinstance(action, LookAction)
         self.assertEqual(action.target, "console")
 
     def test_look_with_scene_context(self):
@@ -438,6 +467,7 @@ class TestCommandParserLook(unittest.TestCase):
 
         action = self.parser.parse("examine control console", current_scene=scene)
         self.assertIsInstance(action, LookAction)
+        assert isinstance(action, LookAction)
         self.assertEqual(action.target, "control_console")
 
 
@@ -473,6 +503,7 @@ class TestCommandParserTalk(unittest.TestCase):
         """Test 'talk to guard' command."""
         action = self.parser.parse("talk to guard")
         self.assertIsInstance(action, TalkAction)
+        assert isinstance(action, TalkAction)
         self.assertEqual(action.npc_id, "guard")
         self.assertIsNone(action.topic)
 
@@ -487,11 +518,13 @@ class TestCommandParserTalk(unittest.TestCase):
         for cmd in commands:
             action = self.parser.parse(cmd)
             self.assertIsInstance(action, TalkAction, f"Failed for: {cmd}")
+            assert isinstance(action, TalkAction)
 
     def test_ask_about_topic(self):
         """Test 'ask guard about quest' command."""
         action = self.parser.parse("ask guard about quest")
         self.assertIsInstance(action, TalkAction)
+        assert isinstance(action, TalkAction)
         self.assertEqual(action.npc_id, "guard")
         self.assertEqual(action.topic, "quest")
 
@@ -512,6 +545,7 @@ class TestCommandParserTalk(unittest.TestCase):
 
         action = self.parser.parse("talk to imperial guard", current_scene=scene)
         self.assertIsInstance(action, TalkAction)
+        assert isinstance(action, TalkAction)
         self.assertEqual(action.npc_id, "imperial_guard")
 
     def test_talk_fuzzy_match_with_context(self):
@@ -522,6 +556,7 @@ class TestCommandParserTalk(unittest.TestCase):
         # Test typo in NPC name
         action = self.parser.parse("talk to gard", current_scene=scene)
         self.assertIsInstance(action, TalkAction)
+        assert isinstance(action, TalkAction)
         self.assertEqual(action.npc_id, "guard")
 
 
@@ -558,6 +593,7 @@ class TestCommandParserFuzzyMatching(unittest.TestCase):
         # "tak" should match "take"
         action = self.parser.parse("tak medkit")
         self.assertIsInstance(action, TakeAction)
+        assert isinstance(action, TakeAction)
 
     def test_fuzzy_match_with_low_cutoff(self):
         """Test that very different words don't match."""
@@ -569,6 +605,7 @@ class TestCommandParserFuzzyMatching(unittest.TestCase):
         # "examne" is close enough to "examine" that we auto-correct it
         action = self.parser.parse("examne")
         self.assertIsInstance(action, LookAction)  # examine is a look synonym
+        assert isinstance(action, LookAction)
 
         # Very different words should still be unknown with suggestions
         action2 = self.parser.parse("exzzz")
@@ -580,6 +617,7 @@ class TestCommandParserFuzzyMatching(unittest.TestCase):
         # "pik up" should match "pick up"
         action = self.parser.parse("pickup medkit")
         self.assertIsInstance(action, TakeAction)
+        assert isinstance(action, TakeAction)
 
 
 class TestCommandParserEdgeCases(unittest.TestCase):
@@ -601,12 +639,14 @@ class TestCommandParserEdgeCases(unittest.TestCase):
         for cmd in commands:
             action = self.parser.parse(cmd)
             self.assertIsInstance(action, MoveAction, f"Failed for: {cmd}")
+            assert isinstance(action, MoveAction)
             self.assertEqual(action.direction, "north")
 
     def test_extra_whitespace(self):
         """Test handling of extra whitespace."""
         action = self.parser.parse("  go    north  ")
         self.assertIsInstance(action, MoveAction)
+        assert isinstance(action, MoveAction)
         self.assertEqual(action.direction, "north")
 
     def test_command_with_punctuation(self):
@@ -620,6 +660,7 @@ class TestCommandParserEdgeCases(unittest.TestCase):
         long_item = "this is a very long item name with many words"
         action = self.parser.parse(f"take {long_item}")
         self.assertIsInstance(action, TakeAction)
+        assert isinstance(action, TakeAction)
         self.assertEqual(action.item_id, long_item)
 
     def test_tokenize_method(self):
@@ -710,24 +751,28 @@ class TestCommandParserIntegration(unittest.TestCase):
         """Test movement with full game context."""
         action = self.parser.parse("go north", self.state, self.scene)
         self.assertIsInstance(action, MoveAction)
+        assert isinstance(action, MoveAction)
         self.assertEqual(action.direction, "north")
 
     def test_take_item_from_scene(self):
         """Test taking an item that exists in the scene."""
         action = self.parser.parse("take medical kit", self.state, self.scene)
         self.assertIsInstance(action, TakeAction)
+        assert isinstance(action, TakeAction)
         self.assertEqual(action.item_id, "medkit_01")
 
     def test_drop_item_from_inventory(self):
         """Test dropping an item from inventory."""
         action = self.parser.parse("drop flashlight", self.state, self.scene)
         self.assertIsInstance(action, DropAction)
+        assert isinstance(action, DropAction)
         self.assertEqual(action.item_id, "flashlight")
 
     def test_use_item_from_inventory_on_scene_item(self):
         """Test using an inventory item on a scene item."""
         action = self.parser.parse("use brass key on control console", self.state, self.scene)
         self.assertIsInstance(action, UseAction)
+        assert isinstance(action, UseAction)
         self.assertEqual(action.item_id, "brass_key")
         self.assertEqual(action.target_id, "control_console")
 
@@ -735,12 +780,14 @@ class TestCommandParserIntegration(unittest.TestCase):
         """Test examining an item in the scene."""
         action = self.parser.parse("examine control console", self.state, self.scene)
         self.assertIsInstance(action, LookAction)
+        assert isinstance(action, LookAction)
         self.assertEqual(action.target, "control_console")
 
     def test_talk_to_npc_in_scene(self):
         """Test talking to an NPC in the scene."""
         action = self.parser.parse("talk to imperial guard", self.state, self.scene)
         self.assertIsInstance(action, TalkAction)
+        assert isinstance(action, TalkAction)
         self.assertEqual(action.npc_id, "imperial_guard")
 
     def test_multiple_commands_sequence(self):
@@ -763,16 +810,19 @@ class TestCommandParserIntegration(unittest.TestCase):
         # Typo in direction
         action = self.parser.parse("go nrth", self.state, self.scene)
         self.assertIsInstance(action, MoveAction)
+        assert isinstance(action, MoveAction)
         self.assertEqual(action.direction, "north")
 
         # Typo in item name
         action = self.parser.parse("take medcal kit", self.state, self.scene)
         self.assertIsInstance(action, TakeAction)
+        assert isinstance(action, TakeAction)
         self.assertEqual(action.item_id, "medkit_01")
 
         # Typo in NPC name
         action = self.parser.parse("talk to imperil guard", self.state, self.scene)
         self.assertIsInstance(action, TalkAction)
+        assert isinstance(action, TalkAction)
         self.assertEqual(action.npc_id, "imperial_guard")
 
 
@@ -797,6 +847,7 @@ class TestCommandParserNaturalLanguage(unittest.TestCase):
         for cmd in commands:
             action = self.parser.parse(cmd)
             self.assertIsInstance(action, MoveAction, f"Failed for: {cmd}")
+            assert isinstance(action, MoveAction)
             self.assertEqual(action.direction, "north")
 
     def test_natural_variations_take(self):
@@ -812,6 +863,7 @@ class TestCommandParserNaturalLanguage(unittest.TestCase):
         for cmd in commands:
             action = self.parser.parse(cmd)
             self.assertIsInstance(action, TakeAction, f"Failed for: {cmd}")
+            assert isinstance(action, TakeAction)
 
     def test_natural_variations_look(self):
         """Test natural language variations for looking."""
@@ -826,6 +878,7 @@ class TestCommandParserNaturalLanguage(unittest.TestCase):
         for cmd in commands:
             action = self.parser.parse(cmd)
             self.assertIsInstance(action, LookAction, f"Failed for: {cmd}")
+            assert isinstance(action, LookAction)
             self.assertEqual(action.target, "console")
 
 

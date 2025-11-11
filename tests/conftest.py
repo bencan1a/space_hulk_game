@@ -3,6 +3,7 @@ Pytest configuration file for test suite.
 
 This file is automatically loaded by pytest and configures test behavior.
 """
+
 import os
 from pathlib import Path
 
@@ -22,7 +23,7 @@ def pytest_configure(config):
         # Manually load .env file (without requiring python-dotenv)
         with open(env_file) as f:
             for line in f:
-                line = line.strip()
+                line = line.strip()  # noqa: PLW2901
                 # Skip empty lines and comments
                 if not line or line.startswith("#"):
                     continue

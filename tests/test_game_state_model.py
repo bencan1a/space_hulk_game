@@ -569,6 +569,8 @@ class TestScene(unittest.TestCase):
 
         can_exit, reason = scene.can_exit("south", [], {})
         self.assertFalse(can_exit)
+        self.assertIsNotNone(reason)
+        assert reason is not None  # Type narrowing for Pylance
         self.assertIn("no exit", reason)
 
     def test_can_exit_locked_with_item(self):
@@ -584,6 +586,8 @@ class TestScene(unittest.TestCase):
         # Without key
         can_exit, reason = scene.can_exit("north", [], {})
         self.assertFalse(can_exit)
+        self.assertIsNotNone(reason)
+        assert reason is not None  # Type narrowing for Pylance
         self.assertIn("locked", reason)
 
         # With key
@@ -606,7 +610,7 @@ class TestScene(unittest.TestCase):
         self.assertFalse(can_exit)
 
         # With flag
-        can_exit, reason = scene.can_exit("north", [], {"door_unlocked": True})
+        can_exit, _reason = scene.can_exit("north", [], {"door_unlocked": True})
         self.assertTrue(can_exit)
 
     def test_get_item(self):
@@ -616,6 +620,7 @@ class TestScene(unittest.TestCase):
 
         found = scene.get_item("key")
         self.assertIsNotNone(found)
+        assert found is not None
         self.assertEqual(found.name, "Key")
 
         not_found = scene.get_item("missing")
@@ -649,6 +654,7 @@ class TestScene(unittest.TestCase):
 
         found = scene.get_npc("guard")
         self.assertIsNotNone(found)
+        assert found is not None
         self.assertEqual(found.name, "Guard")
 
         not_found = scene.get_npc("missing")
@@ -809,7 +815,10 @@ class TestIntegration(unittest.TestCase):
         # 2. Player talks to guard
         guard_npc = entrance.get_npc("guard")
         self.assertIsNotNone(guard_npc)
+        assert guard_npc is not None  # Type narrowing for Pylance
         greeting = guard_npc.get_dialogue("greeting")
+        self.assertIsNotNone(greeting)
+        assert greeting is not None  # Type narrowing for Pylance
         self.assertIn("Halt", greeting)
 
         # 3. Player moves to armory
@@ -834,6 +843,8 @@ class TestIntegration(unittest.TestCase):
         state.add_item("brass_key")
 
         medkit_item = armory.get_item("medkit")
+        self.assertIsNotNone(medkit_item)
+        assert medkit_item is not None
         armory.remove_item("medkit")
         state.add_item("medkit")
 
@@ -847,7 +858,7 @@ class TestIntegration(unittest.TestCase):
         state.visit_scene("entrance")
 
         # 8. Player tries to enter vault
-        can_exit, reason = entrance.can_exit("vault", state.inventory, state.game_flags)
+        can_exit, _reason = entrance.can_exit("vault", state.inventory, state.game_flags)
         self.assertTrue(can_exit)
 
         # Verify complete state

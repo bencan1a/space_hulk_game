@@ -152,7 +152,7 @@ class QualityEvaluator(ABC):
                 data = yaml.safe_load(content_stripped)
                 if data is None:
                     raise ValueError("YAML content is empty or invalid")
-                return data
+                return dict(data)
             except yaml.YAMLError as parse_error:
                 # Attempt to fix common YAML syntax errors and retry
                 logger.debug(
@@ -163,7 +163,7 @@ class QualityEvaluator(ABC):
                 if data is None:
                     raise ValueError("YAML content is empty or invalid") from parse_error
                 logger.info("Successfully parsed YAML after fixing common syntax errors")
-                return data
+                return dict(data)
 
         except yaml.YAMLError as e:
             logger.error(f"Failed to parse YAML: {e}")
@@ -189,7 +189,7 @@ class QualityEvaluator(ABC):
         """
         return QualityScore(score=score, passed=passed, feedback=feedback, details=details or {})
 
-    def _build_feedback(self, score: float, failures: list, successes: list | None = None) -> str:
+    def _build_feedback(self, score: float, failures: list, successes: list | None = None) -> str:  # noqa: ARG002
         """
         Build feedback message from score and findings.
 

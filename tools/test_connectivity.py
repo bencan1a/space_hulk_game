@@ -5,11 +5,12 @@ Connectivity Test Report for OpenRouter API and CrewAI Dependencies
 This script tests network connectivity to required services after firewall
 rule updates.
 """
+
 import os
 import sys
 
 
-def main():
+def main():  # noqa: PLR0915
     print("\n" + "=" * 70)
     print("CONNECTIVITY TEST REPORT")
     print("=" * 70)
