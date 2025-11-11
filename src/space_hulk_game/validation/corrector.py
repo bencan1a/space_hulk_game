@@ -130,7 +130,10 @@ class OutputCorrector:
             return description
 
         # Add generic filler text to meet minimum length
-        filler = " Additional details and context will be developed further during the narrative design process."
+        filler = (
+            " Additional details and context will be developed further "
+            "during the narrative design process."
+        )
         extended = description + filler
 
         # If still not long enough, add more filler
@@ -274,7 +277,9 @@ class OutputCorrector:
         elif len(data["setting"]) < 50:
             original_setting = data["setting"]
             data["setting"] = self._extend_short_description(data["setting"], 50)
-            corrections.append(f"Extended short 'setting' field (was {len(original_setting)} chars)")
+            corrections.append(
+                f"Extended short 'setting' field (was {len(original_setting)} chars)"
+            )
             logger.info("Extended 'setting' field")
 
         if "themes" not in data or not data["themes"]:
@@ -354,15 +359,23 @@ class OutputCorrector:
                         fixed_id = self._fix_id_format(original_id)
                         if original_id != fixed_id:
                             pp["id"] = fixed_id
-                            corrections.append(f"Fixed plot point ID format: '{original_id}' -> '{fixed_id}'")
+                            corrections.append(
+                                f"Fixed plot point ID format: '{original_id}' -> '{fixed_id}'"
+                            )
                             logger.info(f"Fixed plot point ID: {original_id} -> {fixed_id}")
 
                     # Extend short descriptions
                     if "description" in pp and len(pp["description"]) < 50:
                         original_desc = pp["description"]
                         pp["description"] = self._extend_short_description(pp["description"], 50)
-                        corrections.append(f"Extended short plot point description (was {len(original_desc)} chars)")
-                        logger.info(f"Extended plot point description from {len(original_desc)} to {len(pp['description'])} chars")
+                        corrections.append(
+                            f"Extended short plot point description "
+                            f"(was {len(original_desc)} chars)"
+                        )
+                        logger.info(
+                            f"Extended plot point description from {len(original_desc)} "
+                            f"to {len(pp['description'])} chars"
+                        )
 
         # Fix character backstories
         if "characters" in data and isinstance(data["characters"], list):
@@ -370,21 +383,39 @@ class OutputCorrector:
                 if isinstance(char, dict) and "backstory" in char and len(char["backstory"]) < 50:
                     original_backstory = char["backstory"]
                     char["backstory"] = self._extend_short_description(char["backstory"], 50)
-                    corrections.append(f"Extended short character backstory (was {len(original_backstory)} chars)")
-                    logger.info(f"Extended character backstory from {len(original_backstory)} to {len(char['backstory'])} chars")
+                    corrections.append(
+                        f"Extended short character backstory (was {len(original_backstory)} chars)"
+                    )
+                    logger.info(
+                        f"Extended character backstory from {len(original_backstory)} "
+                        f"to {len(char['backstory'])} chars"
+                    )
 
         # Fix conflict descriptions
         if "conflicts" in data and isinstance(data["conflicts"], list):
             for conflict in data["conflicts"]:
-                if isinstance(conflict, dict) and "description" in conflict and len(conflict["description"]) < 50:
+                if (
+                    isinstance(conflict, dict)
+                    and "description" in conflict
+                    and len(conflict["description"]) < 50
+                ):
                     original_desc = conflict["description"]
-                    conflict["description"] = self._extend_short_description(conflict["description"], 50)
-                    corrections.append(f"Extended short conflict description (was {len(original_desc)} chars)")
-                    logger.info(f"Extended conflict description from {len(original_desc)} to {len(conflict['description'])} chars")
+                    conflict["description"] = self._extend_short_description(
+                        conflict["description"], 50
+                    )
+                    corrections.append(
+                        f"Extended short conflict description (was {len(original_desc)} chars)"
+                    )
+                    logger.info(
+                        f"Extended conflict description from {len(original_desc)} "
+                        f"to {len(conflict['description'])} chars"
+                    )
 
         # Convert back to YAML
         try:
-            corrected_yaml = yaml.dump(data, default_flow_style=False, sort_keys=False, allow_unicode=True)
+            corrected_yaml = yaml.dump(
+                data, default_flow_style=False, sort_keys=False, allow_unicode=True
+            )
         except Exception as e:
             logger.error(f"Error converting corrected data to YAML: {e}")
             validation_result = ValidationResult(
@@ -494,14 +525,24 @@ class OutputCorrector:
                     # Extend short descriptions
                     if "description" in scene and len(scene["description"]) < 50:
                         original_desc = scene["description"]
-                        scene["description"] = self._extend_short_description(scene["description"], 50)
-                        corrections.append(f"Extended short scene description (was {len(original_desc)} chars)")
-                        logger.info(f"Extended scene description from {len(original_desc)} to {len(scene['description'])} chars")
+                        scene["description"] = self._extend_short_description(
+                            scene["description"], 50
+                        )
+                        corrections.append(
+                            f"Extended short scene description "
+                            f"(was {len(original_desc)} chars)"
+                        )
+                        logger.info(
+                            f"Extended scene description from {len(original_desc)} "
+                            f"to {len(scene['description'])} chars"
+                        )
 
                     # Ensure connections is a list
                     if "connections" not in scene:
                         scene["connections"] = []
-                        corrections.append(f"Added missing 'connections' field to scene '{fixed_id}'")
+                        corrections.append(
+                            f"Added missing 'connections' field to scene '{fixed_id}'"
+                        )
 
                     # Fix connection target IDs
                     if "connections" in scene and isinstance(scene["connections"], list):
@@ -511,7 +552,10 @@ class OutputCorrector:
                                 fixed_target = self._fix_id_format(original_target)
                                 if original_target != fixed_target:
                                     conn["target"] = fixed_target
-                                    corrections.append(f"Fixed connection target ID: '{original_target}' -> '{fixed_target}'")
+                                    corrections.append(
+                                        f"Fixed connection target ID: "
+                                        f"'{original_target}' -> '{fixed_target}'"
+                                    )
 
                 fixed_scenes[fixed_id] = scene
 
@@ -519,7 +563,9 @@ class OutputCorrector:
 
         # Convert back to YAML
         try:
-            corrected_yaml = yaml.dump(data, default_flow_style=False, sort_keys=False, allow_unicode=True)
+            corrected_yaml = yaml.dump(
+                data, default_flow_style=False, sort_keys=False, allow_unicode=True
+            )
         except Exception as e:
             logger.error(f"Error converting corrected data to YAML: {e}")
             validation_result = ValidationResult(
@@ -658,14 +704,20 @@ class OutputCorrector:
                         fixed_id = self._fix_id_format(original_id)
                         if original_id != fixed_id:
                             puzzle["id"] = fixed_id
-                            corrections.append(f"Fixed puzzle ID format: '{original_id}' -> '{fixed_id}'")
+                            corrections.append(
+                                f"Fixed puzzle ID format: '{original_id}' -> '{fixed_id}'"
+                            )
                             logger.info(f"Fixed puzzle ID: {original_id} -> {fixed_id}")
 
                     # Extend short descriptions
                     if "description" in puzzle and len(puzzle["description"]) < 50:
                         original_desc = puzzle["description"]
-                        puzzle["description"] = self._extend_short_description(puzzle["description"], 50)
-                        corrections.append(f"Extended short puzzle description (was {len(original_desc)} chars)")
+                        puzzle["description"] = self._extend_short_description(
+                            puzzle["description"], 50
+                        )
+                        corrections.append(
+                            f"Extended short puzzle description (was {len(original_desc)} chars)"
+                        )
 
         # Fix artifact IDs
         if "artifacts" in data and isinstance(data["artifacts"], list):
@@ -675,7 +727,9 @@ class OutputCorrector:
                     fixed_id = self._fix_id_format(original_id)
                     if original_id != fixed_id:
                         artifact["id"] = fixed_id
-                        corrections.append(f"Fixed artifact ID format: '{original_id}' -> '{fixed_id}'")
+                        corrections.append(
+                            f"Fixed artifact ID format: '{original_id}' -> '{fixed_id}'"
+                        )
                         logger.info(f"Fixed artifact ID: {original_id} -> {fixed_id}")
 
         # Fix monster IDs
@@ -686,7 +740,9 @@ class OutputCorrector:
                     fixed_id = self._fix_id_format(original_id)
                     if original_id != fixed_id:
                         monster["id"] = fixed_id
-                        corrections.append(f"Fixed monster ID format: '{original_id}' -> '{fixed_id}'")
+                        corrections.append(
+                            f"Fixed monster ID format: '{original_id}' -> '{fixed_id}'"
+                        )
                         logger.info(f"Fixed monster ID: {original_id} -> {fixed_id}")
 
         # Fix NPC IDs
@@ -702,7 +758,9 @@ class OutputCorrector:
 
         # Convert back to YAML
         try:
-            corrected_yaml = yaml.dump(data, default_flow_style=False, sort_keys=False, allow_unicode=True)
+            corrected_yaml = yaml.dump(
+                data, default_flow_style=False, sort_keys=False, allow_unicode=True
+            )
         except Exception as e:
             logger.error(f"Error converting corrected data to YAML: {e}")
             validation_result = ValidationResult(
@@ -774,7 +832,8 @@ class OutputCorrector:
                 "scene_default": {
                     "name": "Default Scene",
                     "description": self._extend_short_description(
-                        "A detailed description of this scene in the narrative, providing context and atmosphere for the player.",
+                        "A detailed description of this scene in the narrative, "
+                        "providing context and atmosphere for the player.",
                         100,
                     ),
                     "atmosphere": "Atmospheric and immersive",
@@ -800,30 +859,54 @@ class OutputCorrector:
                     # Extend short descriptions (scene texts require 100 chars minimum)
                     if "description" in scene and len(scene["description"]) < 100:
                         original_desc = scene["description"]
-                        scene["description"] = self._extend_short_description(scene["description"], 100)
-                        corrections.append(f"Extended short scene description (was {len(original_desc)} chars)")
-                        logger.info(f"Extended scene description from {len(original_desc)} to {len(scene['description'])} chars")
+                        scene["description"] = self._extend_short_description(
+                            scene["description"], 100
+                        )
+                        corrections.append(
+                            f"Extended short scene description "
+                            f"(was {len(original_desc)} chars)"
+                        )
+                        logger.info(
+                            f"Extended scene description from {len(original_desc)} "
+                            f"to {len(scene['description'])} chars"
+                        )
 
                     # Ensure required fields exist
                     if "atmosphere" not in scene:
                         scene["atmosphere"] = "Atmospheric and immersive"
-                        corrections.append(f"Added missing 'atmosphere' field to scene '{fixed_id}'")
+                        corrections.append(
+                            f"Added missing 'atmosphere' field to scene '{fixed_id}'"
+                        )
                     elif len(scene["atmosphere"]) < 10:
                         original_atmo = scene["atmosphere"]
-                        scene["atmosphere"] = self._extend_short_description(scene["atmosphere"], 10)
-                        corrections.append(f"Extended short 'atmosphere' field in scene '{fixed_id}' (was {len(original_atmo)} chars)")
+                        scene["atmosphere"] = self._extend_short_description(
+                            scene["atmosphere"], 10
+                        )
+                        corrections.append(
+                            f"Extended short 'atmosphere' field in scene '{fixed_id}' "
+                            f"(was {len(original_atmo)} chars)"
+                        )
 
                     if "initial_text" not in scene:
                         scene["initial_text"] = "You find yourself in this scene."
-                        corrections.append(f"Added missing 'initial_text' field to scene '{fixed_id}'")
+                        corrections.append(
+                            f"Added missing 'initial_text' field to scene '{fixed_id}'"
+                        )
                     elif len(scene["initial_text"]) < 20:
                         original_text = scene["initial_text"]
-                        scene["initial_text"] = self._extend_short_description(scene["initial_text"], 20)
-                        corrections.append(f"Extended short 'initial_text' field in scene '{fixed_id}' (was {len(original_text)} chars)")
+                        scene["initial_text"] = self._extend_short_description(
+                            scene["initial_text"], 20
+                        )
+                        corrections.append(
+                            f"Extended short 'initial_text' field in scene '{fixed_id}' "
+                            f"(was {len(original_text)} chars)"
+                        )
 
                     if "examination_texts" not in scene:
                         scene["examination_texts"] = {}
-                        corrections.append(f"Added missing 'examination_texts' field to scene '{fixed_id}'")
+                        corrections.append(
+                            f"Added missing 'examination_texts' field to scene '{fixed_id}'"
+                        )
 
                     if "dialogue" not in scene:
                         scene["dialogue"] = []
@@ -835,7 +918,9 @@ class OutputCorrector:
 
         # Convert back to YAML
         try:
-            corrected_yaml = yaml.dump(data, default_flow_style=False, sort_keys=False, allow_unicode=True)
+            corrected_yaml = yaml.dump(
+                data, default_flow_style=False, sort_keys=False, allow_unicode=True
+            )
         except Exception as e:
             logger.error(f"Error converting corrected data to YAML: {e}")
             validation_result = ValidationResult(
@@ -984,9 +1069,7 @@ class OutputCorrector:
                         "purpose": "Tracks player progress through the game.",
                     }
                 ],
-                "win_conditions": [
-                    {"condition": "Successfully complete the primary objective."}
-                ],
+                "win_conditions": [{"condition": "Successfully complete the primary objective."}],
                 "lose_conditions": [
                     {"condition": "Player character is defeated or incapacitated."}
                 ],
@@ -997,7 +1080,10 @@ class OutputCorrector:
         if "technical_requirements" not in data or not data["technical_requirements"]:
             data["technical_requirements"] = [
                 {
-                    "requirement": "Basic game engine functionality for managing game state and logic.",
+                    "requirement": (
+                        "Basic game engine functionality for managing "
+                        "game state and logic."
+                    ),
                     "justification": "Required for the game to function properly.",
                 }
             ]
@@ -1006,7 +1092,9 @@ class OutputCorrector:
 
         # Convert back to YAML
         try:
-            corrected_yaml = yaml.dump(data, default_flow_style=False, sort_keys=False, allow_unicode=True)
+            corrected_yaml = yaml.dump(
+                data, default_flow_style=False, sort_keys=False, allow_unicode=True
+            )
         except Exception as e:
             logger.error(f"Error converting corrected data to YAML: {e}")
             validation_result = ValidationResult(

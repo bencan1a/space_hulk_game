@@ -68,13 +68,17 @@ start_scene: "Opening Scene!"
 scenes:
   "Opening Scene!":
     name: "Opening Scene"
-    description: "The player awakens in a dark corridor with flickering emergency lights casting eerie shadows."
+    description: >
+      The player awakens in a dark corridor with flickering emergency lights
+      casting eerie shadows.
     connections:
       - target: "Second Scene #2"
         description: "Proceed down the corridor"
   "Second Scene #2":
     name: "Second Scene"
-    description: "A larger chamber filled with derelict machinery and strange alien artifacts scattered about."
+    description: >
+      A larger chamber filled with derelict machinery and strange alien
+      artifacts scattered about.
     connections: []
 """
 
@@ -118,7 +122,7 @@ def example_puzzle_design_correction():
     if result.success:
         print("\n✓ Puzzle design successfully corrected with defaults!")
         print("\nCorrected YAML preview:")
-        lines = result.corrected_yaml.split('\n')
+        lines = result.corrected_yaml.split("\n")
         for line in lines[:20]:
             print(f"  {line}")
         if len(lines) > 20:
