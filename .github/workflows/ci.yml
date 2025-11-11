@@ -31,19 +31,18 @@ jobs:
       - name: Install dependencies
         run: uv pip install --system -e ".[dev]"
 
-      - name: Auto-fix linting issues
-        run: ruff check . --fix
-        continue-on-error: true
-
-      - name: Auto-format code
-        run: ruff format .
+      - name: Auto-fix linting issues and format
+        run: make fix
         continue-on-error: true
 
       - name: Check formatting
-        run: ruff format --check .
+        run: make format-check
 
       - name: Verify no linting errors
-        run: ruff check .
+        run: make lint
+
+      - name: Check YAML files
+        run: make check-yaml
 
   type-check:
     name: Type Check
@@ -65,13 +64,7 @@ jobs:
         run: uv pip install --system -e ".[dev]"
 
       - name: Run type checking
-        run: |
-          echo "Type checking src/ (strict)..."
-          mypy src/
-          echo "Type checking tests/ (relaxed)..."
-          mypy tests/ || true
-          echo "Type checking tools/ (relaxed)..."
-          mypy tools/ || true
+        run: make type-check
 
   security-scan:
     name: Security Scan
@@ -93,9 +86,7 @@ jobs:
         run: uv pip install --system -e ".[dev]"
 
       - name: Run security scan
-        run: |
-          bandit -r src/ -c pyproject.toml -f json -o bandit-report.json || true
-          bandit -r src/ -c pyproject.toml
+        run: make security-report
 
       - name: Upload security report
         uses: actions/upload-artifact@v4
@@ -135,7 +126,7 @@ jobs:
           RUN_REAL_API_TESTS: "0"
           OPENROUTER_API_KEY: "sk-test-mock-key-for-ci"
           OPENAI_MODEL_NAME: "openrouter/test/model"
-        run: python -m unittest discover -s tests -v
+        run: make test
 
       - name: Generate coverage (Ubuntu 3.12 only)
         if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.12'

@@ -11,7 +11,6 @@ repos:
         exclude: '^game-config/.*\.yaml$'
       - id: end-of-file-fixer
         exclude: '^game-config/.*\.yaml$'
-      - id: check-yaml
       - id: check-toml
       - id: check-json
       - id: check-added-large-files
@@ -20,29 +19,37 @@ repos:
       - id: check-case-conflict
       - id: detect-private-key
 
-  # Ruff linting and formatting
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.14.4
+  # Use Makefile commands for consistency with CI and local dev
+  - repo: local
     hooks:
-      - id: ruff
-        args: [--fix, --exit-non-zero-on-fix]
-      - id: ruff-format
+      # Ruff auto-fix and format
+      - id: ruff-fix
+        name: Ruff auto-fix
+        entry: bash -c 'source .venv/bin/activate && make fix'
+        language: system
+        pass_filenames: false
+        always_run: true
 
-  # MyPy type checking
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.8.0
-    hooks:
+      # MyPy type checking (uses pyproject.toml config)
       - id: mypy
-        additional_dependencies: [types-pyyaml]
-        args: [--ignore-missing-imports]
-        # Relax checks for tests and tools
-        exclude: '^(tests|tools)/'
+        name: MyPy type check
+        entry: bash -c 'source .venv/bin/activate && make type-check'
+        language: system
+        types: [python]
+        pass_filenames: false
 
-  # Bandit security scanning
-  - repo: https://github.com/PyCQA/bandit
-    rev: 1.7.6
-    hooks:
+      # Bandit security scanning (uses pyproject.toml config)
       - id: bandit
-        args: [-c, pyproject.toml]
-        additional_dependencies: ["bandit[toml]"]
-        exclude: '^tests/'
+        name: Bandit security scan
+        entry: bash -c 'source .venv/bin/activate && make security'
+        language: system
+        types: [python]
+        pass_filenames: false
+
+      # YAML validation (uses .yamllint config)
+      - id: yamllint
+        name: YAML validation
+        entry: bash -c 'source .venv/bin/activate && make check-yaml'
+        language: system
+        types: [yaml]
+        pass_filenames: false

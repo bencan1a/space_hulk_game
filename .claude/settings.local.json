@@ -17,7 +17,9 @@
       "Bash(python -m pytest:*)",
       "Bash(yamllint:*)",
       "Bash(pre-commit run:*)",
-      "Bash(python -c:*)"
+      "Bash(python -c:*)",
+      "Bash(mypy:*)",
+      "Bash(make security:*)"
     ],
     "deny": [],
     "ask": []

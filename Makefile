@@ -1,4 +1,4 @@
-.PHONY: help install install-dev dev test test-real-api coverage lint format format-check type-check security check-all fix run-crew validate-api validate-config clean
+.PHONY: help install install-dev dev test test-real-api coverage lint format format-check type-check security security-report check-yaml check-all fix run-crew validate-api validate-config clean
 
 help:
 	@echo "Space Hulk Game - Development Commands"
@@ -19,6 +19,8 @@ help:
 	@echo "  make format-check    - Verify formatting without modifications"
 	@echo "  make type-check      - Run MyPy type validation"
 	@echo "  make security        - Execute Bandit security scanning"
+	@echo "  make security-report - Generate JSON security report (for CI)"
+	@echo "  make check-yaml      - Validate YAML files with yamllint"
 	@echo "  make check-all       - Run all checks sequentially"
 	@echo "  make fix             - Auto-fix linting issues and reformat"
 	@echo ""
@@ -70,12 +72,18 @@ format-check:
 	ruff format --check .
 
 type-check:
-	mypy tests tools
+	mypy src/space_hulk_game tests tools
 
 security:
 	bandit -r src/ -c pyproject.toml
 
-check-all: format-check lint type-check security test
+security-report:
+	bandit -r src/ -c pyproject.toml -f json -o bandit-report.json
+
+check-yaml:
+	yamllint .
+
+check-all: format-check lint type-check security check-yaml test
 	@echo "✅ All checks passed!"
 
 fix:
