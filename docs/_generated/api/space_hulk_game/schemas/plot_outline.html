@@ -61,13 +61,13 @@ and overall story structure.</p>
 </summary>
 <pre><code class="python">class Character(BaseModel):
     &#34;&#34;&#34;A character in the narrative.
-    
+
     Attributes:
         name: Full name of the character.
         role: The character&#39;s role or position in the story.
         backstory: Background and history of the character.
         conflicts: Optional list of internal or external conflicts.
-    
+
     Example:
         &gt;&gt;&gt; character = Character(
         ...     name=&#34;Brother-Captain Tyberius&#34;,
@@ -75,7 +75,7 @@ and overall story structure.</p>
         ...     backstory=&#34;Tyberius has seen entire worlds fall...&#34;
         ... )
     &#34;&#34;&#34;
-    
+
     name: str = Field(
         ...,
         min_length=1,
@@ -93,7 +93,7 @@ and overall story structure.</p>
         min_length=50,
         description=&#34;Character background and history&#34;
     )
-    conflicts: Optional[List[str]] = Field(
+    conflicts: list[str] | None = Field(
         default=None,
         description=&#34;Optional character-specific conflicts&#34;
     )</code></pre>
@@ -131,7 +131,7 @@ validated to form a valid model.</p>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="space_hulk_game.schemas.plot_outline.Character.conflicts"><code class="name">var <span class="ident">conflicts</span> : List[str] | None</code></dt>
+<dt id="space_hulk_game.schemas.plot_outline.Character.conflicts"><code class="name">var <span class="ident">conflicts</span> : list[str] | None</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -160,18 +160,18 @@ validated to form a valid model.</p>
 </summary>
 <pre><code class="python">class Conflict(BaseModel):
     &#34;&#34;&#34;A conflict or tension in the narrative.
-    
+
     Attributes:
         type: Type of conflict (e.g., &#39;Man vs. Xenos&#39;, &#39;Man vs. Self&#39;).
         description: Detailed description of the conflict.
-    
+
     Example:
         &gt;&gt;&gt; conflict = Conflict(
         ...     type=&#34;Man vs. Xenos&#34;,
         ...     description=&#34;The primary and most immediate conflict...&#34;
         ... )
     &#34;&#34;&#34;
-    
+
     type: str = Field(
         ...,
         min_length=1,
@@ -233,15 +233,15 @@ validated to form a valid model.</p>
 </summary>
 <pre><code class="python">class PlotBranch(BaseModel):
     &#34;&#34;&#34;A branching path in the narrative structure.
-    
+
     This represents a decision point or alternative story path that
     diverges from the main narrative.
-    
+
     Attributes:
         path: Identifier for the branch path.
         description: Description of what happens on this branch.
         decision_point: Optional plot point ID where the branch occurs.
-    
+
     Example:
         &gt;&gt;&gt; branch = PlotBranch(
         ...     path=&#34;heroic_sacrifice&#34;,
@@ -249,7 +249,7 @@ validated to form a valid model.</p>
         ...     decision_point=&#34;decision_hulk_fate&#34;
         ... )
     &#34;&#34;&#34;
-    
+
     path: str = Field(
         ...,
         min_length=1,
@@ -261,7 +261,7 @@ validated to form a valid model.</p>
         min_length=50,
         description=&#34;Description of the branch narrative&#34;
     )
-    decision_point: Optional[str] = Field(
+    decision_point: str | None = Field(
         default=None,
         description=&#34;ID of the plot point where this branch occurs&#34;
     )</code></pre>
@@ -324,10 +324,10 @@ validated to form a valid model.</p>
 </summary>
 <pre><code class="python">class PlotOutline(BaseModel):
     &#34;&#34;&#34;Complete plot outline for a narrative.
-    
+
     This is the top-level model representing the entire narrative foundation
     including title, setting, themes, plot points, characters, and conflicts.
-    
+
     Attributes:
         title: Title of the narrative.
         setting: Description of the setting/world.
@@ -337,7 +337,7 @@ validated to form a valid model.</p>
         characters: List of major characters.
         conflicts: List of major conflicts in the narrative.
         plot_branches: Optional list of alternative narrative paths.
-    
+
     Example:
         &gt;&gt;&gt; outline = PlotOutline(
         ...     title=&#34;Space Hulk: Echoes of the Void&#34;,
@@ -349,7 +349,7 @@ validated to form a valid model.</p>
         ...     conflicts=[...]
         ... )
     &#34;&#34;&#34;
-    
+
     title: str = Field(
         ...,
         min_length=1,
@@ -361,7 +361,7 @@ validated to form a valid model.</p>
         min_length=50,
         description=&#34;Detailed description of the setting and world&#34;
     )
-    themes: List[str] = Field(
+    themes: list[str] = Field(
         ...,
         min_length=1,
         description=&#34;List of major themes (at least 1 required)&#34;
@@ -372,46 +372,46 @@ validated to form a valid model.</p>
         max_length=500,
         description=&#34;Overall tone and atmosphere&#34;
     )
-    plot_points: List[PlotPoint] = Field(
+    plot_points: list[PlotPoint] = Field(
         ...,
         min_length=3,
         description=&#34;Chronological list of major plot events (minimum 3)&#34;
     )
-    characters: List[Character] = Field(
+    characters: list[Character] = Field(
         ...,
         min_length=1,
         description=&#34;List of major characters (at least 1 required)&#34;
     )
-    conflicts: List[Conflict] = Field(
+    conflicts: list[Conflict] = Field(
         ...,
         min_length=1,
         description=&#34;List of major conflicts (at least 1 required)&#34;
     )
-    plot_branches: Optional[List[PlotBranch]] = Field(
+    plot_branches: list[PlotBranch] | None = Field(
         default=None,
         description=&#34;Optional alternative narrative paths&#34;
     )
-    
+
     @field_validator(&#39;themes&#39;)
     @classmethod
-    def validate_themes_not_empty(cls, v: List[str]) -&gt; List[str]:
+    def validate_themes_not_empty(cls, v: list[str]) -&gt; list[str]:
         &#34;&#34;&#34;Ensure all themes are non-empty strings.&#34;&#34;&#34;
         if not all(theme.strip() for theme in v):
             raise ValueError(&#34;All themes must be non-empty strings&#34;)
         return v
-    
+
     @field_validator(&#39;plot_points&#39;)
     @classmethod
-    def validate_plot_point_ids_unique(cls, v: List[PlotPoint]) -&gt; List[PlotPoint]:
+    def validate_plot_point_ids_unique(cls, v: list[PlotPoint]) -&gt; list[PlotPoint]:
         &#34;&#34;&#34;Ensure all plot point IDs are unique.&#34;&#34;&#34;
         ids = [pp.id for pp in v]
         if len(ids) != len(set(ids)):
             raise ValueError(&#34;All plot point IDs must be unique&#34;)
         return v
-    
+
     @field_validator(&#39;characters&#39;)
     @classmethod
-    def validate_character_names_unique(cls, v: List[Character]) -&gt; List[Character]:
+    def validate_character_names_unique(cls, v: list[Character]) -&gt; list[Character]:
         &#34;&#34;&#34;Ensure all character names are unique.&#34;&#34;&#34;
         names = [char.name for char in v]
         if len(names) != len(set(names)):
@@ -461,11 +461,11 @@ validated to form a valid model.</p>
 </ul>
 <h3>Class variables</h3>
 <dl>
-<dt id="space_hulk_game.schemas.plot_outline.PlotOutline.characters"><code class="name">var <span class="ident">characters</span> : List[<a title="space_hulk_game.schemas.plot_outline.Character" href="#space_hulk_game.schemas.plot_outline.Character">Character</a>]</code></dt>
+<dt id="space_hulk_game.schemas.plot_outline.PlotOutline.characters"><code class="name">var <span class="ident">characters</span> : list[<a title="space_hulk_game.schemas.plot_outline.Character" href="#space_hulk_game.schemas.plot_outline.Character">Character</a>]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="space_hulk_game.schemas.plot_outline.PlotOutline.conflicts"><code class="name">var <span class="ident">conflicts</span> : List[<a title="space_hulk_game.schemas.plot_outline.Conflict" href="#space_hulk_game.schemas.plot_outline.Conflict">Conflict</a>]</code></dt>
+<dt id="space_hulk_game.schemas.plot_outline.PlotOutline.conflicts"><code class="name">var <span class="ident">conflicts</span> : list[<a title="space_hulk_game.schemas.plot_outline.Conflict" href="#space_hulk_game.schemas.plot_outline.Conflict">Conflict</a>]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -473,11 +473,11 @@ validated to form a valid model.</p>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="space_hulk_game.schemas.plot_outline.PlotOutline.plot_branches"><code class="name">var <span class="ident">plot_branches</span> : List[<a title="space_hulk_game.schemas.plot_outline.PlotBranch" href="#space_hulk_game.schemas.plot_outline.PlotBranch">PlotBranch</a>] | None</code></dt>
+<dt id="space_hulk_game.schemas.plot_outline.PlotOutline.plot_branches"><code class="name">var <span class="ident">plot_branches</span> : list[<a title="space_hulk_game.schemas.plot_outline.PlotBranch" href="#space_hulk_game.schemas.plot_outline.PlotBranch">PlotBranch</a>] | None</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="space_hulk_game.schemas.plot_outline.PlotOutline.plot_points"><code class="name">var <span class="ident">plot_points</span> : List[<a title="space_hulk_game.schemas.plot_outline.PlotPoint" href="#space_hulk_game.schemas.plot_outline.PlotPoint">PlotPoint</a>]</code></dt>
+<dt id="space_hulk_game.schemas.plot_outline.PlotOutline.plot_points"><code class="name">var <span class="ident">plot_points</span> : list[<a title="space_hulk_game.schemas.plot_outline.PlotPoint" href="#space_hulk_game.schemas.plot_outline.PlotPoint">PlotPoint</a>]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -485,7 +485,7 @@ validated to form a valid model.</p>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="space_hulk_game.schemas.plot_outline.PlotOutline.themes"><code class="name">var <span class="ident">themes</span> : List[str]</code></dt>
+<dt id="space_hulk_game.schemas.plot_outline.PlotOutline.themes"><code class="name">var <span class="ident">themes</span> : list[str]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -501,19 +501,19 @@ validated to form a valid model.</p>
 <h3>Static methods</h3>
 <dl>
 <dt id="space_hulk_game.schemas.plot_outline.PlotOutline.validate_character_names_unique"><code class="name flex">
-<span>def <span class="ident">validate_character_names_unique</span></span>(<span>v: List[<a title="space_hulk_game.schemas.plot_outline.Character" href="#space_hulk_game.schemas.plot_outline.Character">Character</a>]) ‑> List[<a title="space_hulk_game.schemas.plot_outline.Character" href="#space_hulk_game.schemas.plot_outline.Character">Character</a>]</span>
+<span>def <span class="ident">validate_character_names_unique</span></span>(<span>v: list[<a title="space_hulk_game.schemas.plot_outline.Character" href="#space_hulk_game.schemas.plot_outline.Character">Character</a>]) ‑> list[<a title="space_hulk_game.schemas.plot_outline.Character" href="#space_hulk_game.schemas.plot_outline.Character">Character</a>]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Ensure all character names are unique.</p></div>
 </dd>
 <dt id="space_hulk_game.schemas.plot_outline.PlotOutline.validate_plot_point_ids_unique"><code class="name flex">
-<span>def <span class="ident">validate_plot_point_ids_unique</span></span>(<span>v: List[<a title="space_hulk_game.schemas.plot_outline.PlotPoint" href="#space_hulk_game.schemas.plot_outline.PlotPoint">PlotPoint</a>]) ‑> List[<a title="space_hulk_game.schemas.plot_outline.PlotPoint" href="#space_hulk_game.schemas.plot_outline.PlotPoint">PlotPoint</a>]</span>
+<span>def <span class="ident">validate_plot_point_ids_unique</span></span>(<span>v: list[<a title="space_hulk_game.schemas.plot_outline.PlotPoint" href="#space_hulk_game.schemas.plot_outline.PlotPoint">PlotPoint</a>]) ‑> list[<a title="space_hulk_game.schemas.plot_outline.PlotPoint" href="#space_hulk_game.schemas.plot_outline.PlotPoint">PlotPoint</a>]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Ensure all plot point IDs are unique.</p></div>
 </dd>
 <dt id="space_hulk_game.schemas.plot_outline.PlotOutline.validate_themes_not_empty"><code class="name flex">
-<span>def <span class="ident">validate_themes_not_empty</span></span>(<span>v: List[str]) ‑> List[str]</span>
+<span>def <span class="ident">validate_themes_not_empty</span></span>(<span>v: list[str]) ‑> list[str]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Ensure all themes are non-empty strings.</p></div>
@@ -531,12 +531,12 @@ validated to form a valid model.</p>
 </summary>
 <pre><code class="python">class PlotPoint(BaseModel):
     &#34;&#34;&#34;A significant event or milestone in the narrative.
-    
+
     Attributes:
         id: Unique identifier for the plot point (e.g., &#39;pp_01_insertion&#39;).
         name: Short, descriptive name for the plot point.
         description: Detailed description of what happens in this plot point.
-    
+
     Example:
         &gt;&gt;&gt; plot_point = PlotPoint(
         ...     id=&#34;pp_01_insertion&#34;,
@@ -544,7 +544,7 @@ validated to form a valid model.</p>
         ...     description=&#34;A squad of elite Space Marine Terminators...&#34;
         ... )
     &#34;&#34;&#34;
-    
+
     id: str = Field(
         ...,
         min_length=1,
@@ -562,7 +562,7 @@ validated to form a valid model.</p>
         min_length=50,
         description=&#34;Detailed description of the plot point&#34;
     )
-    
+
     @field_validator(&#39;id&#39;)
     @classmethod
     def validate_id_format(cls, v: str) -&gt; str:

@@ -60,25 +60,25 @@ scenes, connections, character moments, decision points, and character arcs.</p>
 </summary>
 <pre><code class="python">class CharacterArc(BaseModel):
     &#34;&#34;&#34;Complete arc for a character across the narrative.
-    
+
     Attributes:
         character: Name of the character.
         arc_stages: List of stages in the character&#39;s development.
-    
+
     Example:
         &gt;&gt;&gt; arc = CharacterArc(
         ...     character=&#34;Brother-Captain Tyberius&#34;,
         ...     arc_stages=[...]
         ... )
     &#34;&#34;&#34;
-    
+
     character: str = Field(
         ...,
         min_length=1,
         max_length=200,
         description=&#34;Character name&#34;
     )
-    arc_stages: List[CharacterArcStage] = Field(
+    arc_stages: list[CharacterArcStage] = Field(
         ...,
         min_length=1,
         description=&#34;Stages in the character&#39;s arc (at least 1)&#34;
@@ -108,7 +108,7 @@ validated to form a valid model.</p>
 </ul>
 <h3>Class variables</h3>
 <dl>
-<dt id="space_hulk_game.schemas.narrative_map.CharacterArc.arc_stages"><code class="name">var <span class="ident">arc_stages</span> : List[<a title="space_hulk_game.schemas.narrative_map.CharacterArcStage" href="#space_hulk_game.schemas.narrative_map.CharacterArcStage">CharacterArcStage</a>]</code></dt>
+<dt id="space_hulk_game.schemas.narrative_map.CharacterArc.arc_stages"><code class="name">var <span class="ident">arc_stages</span> : list[<a title="space_hulk_game.schemas.narrative_map.CharacterArcStage" href="#space_hulk_game.schemas.narrative_map.CharacterArcStage">CharacterArcStage</a>]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -133,18 +133,18 @@ validated to form a valid model.</p>
 </summary>
 <pre><code class="python">class CharacterArcStage(BaseModel):
     &#34;&#34;&#34;A stage in a character&#39;s narrative arc.
-    
+
     Attributes:
         stage: Name of the arc stage (e.g., &#39;Beginning&#39;, &#39;Development&#39;, &#39;Climax/Resolution&#39;).
         description: Description of the character&#39;s state at this stage.
-    
+
     Example:
         &gt;&gt;&gt; stage = CharacterArcStage(
         ...     stage=&#34;Beginning&#34;,
         ...     description=&#34;Jaded but fiercely loyal, carries the burden of command...&#34;
         ... )
     &#34;&#34;&#34;
-    
+
     stage: str = Field(
         ...,
         min_length=1,
@@ -206,18 +206,18 @@ validated to form a valid model.</p>
 </summary>
 <pre><code class="python">class CharacterMoment(BaseModel):
     &#34;&#34;&#34;A significant character moment within a scene.
-    
+
     Attributes:
         character: Name of the character experiencing the moment.
         moment: Description of what happens to the character in this scene.
-    
+
     Example:
         &gt;&gt;&gt; moment = CharacterMoment(
         ...     character=&#34;Brother-Captain Tyberius&#34;,
         ...     moment=&#34;Struggles to re-establish comms and locate his dispersed squad...&#34;
         ... )
     &#34;&#34;&#34;
-    
+
     character: str = Field(
         ...,
         min_length=1,
@@ -279,12 +279,12 @@ validated to form a valid model.</p>
 </summary>
 <pre><code class="python">class Connection(BaseModel):
     &#34;&#34;&#34;A connection from one scene to another.
-    
+
     Attributes:
         target: ID of the target scene.
         description: Description of why/how the player transitions.
         condition: Optional condition that must be met for this connection.
-    
+
     Example:
         &gt;&gt;&gt; conn = Connection(
         ...     target=&#34;scene_whispers_in_the_dark&#34;,
@@ -292,7 +292,7 @@ validated to form a valid model.</p>
         ...     condition=None
         ... )
     &#34;&#34;&#34;
-    
+
     target: str = Field(
         ...,
         min_length=1,
@@ -304,7 +304,7 @@ validated to form a valid model.</p>
         min_length=20,
         description=&#34;Description of the transition&#34;
     )
-    condition: Optional[str] = Field(
+    condition: str | None = Field(
         default=None,
         max_length=500,
         description=&#34;Optional condition for this connection&#34;
@@ -366,12 +366,12 @@ validated to form a valid model.</p>
 </summary>
 <pre><code class="python">class DecisionOption(BaseModel):
     &#34;&#34;&#34;An option in a decision point.
-    
+
     Attributes:
         choice: The text of the decision choice.
         outcome: What happens if this choice is selected.
         target_scene: The scene ID this choice leads to.
-    
+
     Example:
         &gt;&gt;&gt; option = DecisionOption(
         ...     choice=&#34;Initiate self-destruct sequence on the alien core&#34;,
@@ -379,7 +379,7 @@ validated to form a valid model.</p>
         ...     target_scene=&#34;scene_climax_core_overload&#34;
         ... )
     &#34;&#34;&#34;
-    
+
     choice: str = Field(
         ...,
         min_length=10,
@@ -453,12 +453,12 @@ validated to form a valid model.</p>
 </summary>
 <pre><code class="python">class DecisionPoint(BaseModel):
     &#34;&#34;&#34;A decision point in the narrative.
-    
+
     Attributes:
         id: Unique identifier for the decision point.
         prompt: The decision prompt presented to the player.
         options: List of available choices.
-    
+
     Example:
         &gt;&gt;&gt; decision = DecisionPoint(
         ...     id=&#34;decision_hulk_fate&#34;,
@@ -466,7 +466,7 @@ validated to form a valid model.</p>
         ...     options=[...]
         ... )
     &#34;&#34;&#34;
-    
+
     id: str = Field(
         ...,
         min_length=1,
@@ -478,12 +478,12 @@ validated to form a valid model.</p>
         min_length=20,
         description=&#34;The decision prompt text&#34;
     )
-    options: List[DecisionOption] = Field(
+    options: list[DecisionOption] = Field(
         ...,
         min_length=2,
         description=&#34;Available decision options (minimum 2)&#34;
     )
-    
+
     @field_validator(&#39;id&#39;)
     @classmethod
     def validate_id_format(cls, v: str) -&gt; str:
@@ -529,7 +529,7 @@ validated to form a valid model.</p>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="space_hulk_game.schemas.narrative_map.DecisionPoint.options"><code class="name">var <span class="ident">options</span> : List[<a title="space_hulk_game.schemas.narrative_map.DecisionOption" href="#space_hulk_game.schemas.narrative_map.DecisionOption">DecisionOption</a>]</code></dt>
+<dt id="space_hulk_game.schemas.narrative_map.DecisionPoint.options"><code class="name">var <span class="ident">options</span> : list[<a title="space_hulk_game.schemas.narrative_map.DecisionOption" href="#space_hulk_game.schemas.narrative_map.DecisionOption">DecisionOption</a>]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -559,15 +559,15 @@ validated to form a valid model.</p>
 </summary>
 <pre><code class="python">class NarrativeMap(BaseModel):
     &#34;&#34;&#34;Complete narrative map for a story.
-    
+
     This is the top-level model representing the entire narrative structure
     including all scenes, connections, and character arcs.
-    
+
     Attributes:
         start_scene: ID of the starting scene.
         scenes: Dictionary mapping scene IDs to Scene objects.
         character_arcs: Optional list of character development arcs.
-    
+
     Example:
         &gt;&gt;&gt; narrative_map = NarrativeMap(
         ...     start_scene=&#34;scene_drop_pod_descent&#34;,
@@ -578,28 +578,28 @@ validated to form a valid model.</p>
         ...     character_arcs=[...]
         ... )
     &#34;&#34;&#34;
-    
+
     start_scene: str = Field(
         ...,
         min_length=1,
         max_length=200,
         description=&#34;ID of the starting scene&#34;
     )
-    scenes: Dict[str, Scene] = Field(
+    scenes: dict[str, Scene] = Field(
         ...,
         min_length=1,
         description=&#34;Dictionary of scene_id to Scene (minimum 1 scene)&#34;
     )
-    character_arcs: Optional[List[CharacterArc]] = Field(
+    character_arcs: list[CharacterArc] | None = Field(
         default=None,
         description=&#34;Optional character development arcs&#34;
     )
-    
+
     @field_validator(&#39;start_scene&#39;)
     @classmethod
-    def validate_start_scene_exists(cls, v: str, info) -&gt; str:
+    def validate_start_scene_exists(cls, v: str, _info) -&gt; str:
         &#34;&#34;&#34;Ensure start_scene exists in scenes dictionary.
-        
+
         Note: This validator runs before &#39;scenes&#39; field is populated in Pydantic v2,
         so we can only do basic format validation here. Cross-field validation
         should be done via model_validator.
@@ -609,19 +609,19 @@ validated to form a valid model.</p>
                 &#34;start_scene must contain only alphanumeric characters, underscores, and hyphens&#34;
             )
         return v
-    
+
     @field_validator(&#39;scenes&#39;)
     @classmethod
-    def validate_scene_ids(cls, v: Dict[str, Scene]) -&gt; Dict[str, Scene]:
+    def validate_scene_ids(cls, v: dict[str, Scene]) -&gt; dict[str, Scene]:
         &#34;&#34;&#34;Ensure all scene IDs are valid and all connections reference existing scenes.&#34;&#34;&#34;
         # Validate scene ID format
-        for scene_id in v.keys():
+        for scene_id in v:
             if not scene_id.replace(&#39;_&#39;, &#39;&#39;).replace(&#39;-&#39;, &#39;&#39;).isalnum():
                 raise ValueError(
                     f&#34;Scene ID &#39;{scene_id}&#39; must contain only alphanumeric characters, &#34;
                     f&#34;underscores, and hyphens&#34;
                 )
-        
+
         # Validate all connection targets exist
         all_scene_ids = set(v.keys())
         for scene_id, scene in v.items():
@@ -630,7 +630,7 @@ validated to form a valid model.</p>
                     raise ValueError(
                         f&#34;Scene &#39;{scene_id}&#39; has connection to non-existent scene &#39;{connection.target}&#39;&#34;
                     )
-            
+
             # Validate decision point targets exist
             if scene.decision_points:
                 for decision in scene.decision_points:
@@ -640,7 +640,7 @@ validated to form a valid model.</p>
                                 f&#34;Decision point &#39;{decision.id}&#39; in scene &#39;{scene_id}&#39; &#34;
                                 f&#34;has option leading to non-existent scene &#39;{option.target_scene}&#39;&#34;
                             )
-        
+
         return v</code></pre>
 </details>
 <div class="desc"><p>Complete narrative map for a story.</p>
@@ -675,7 +675,7 @@ validated to form a valid model.</p>
 </ul>
 <h3>Class variables</h3>
 <dl>
-<dt id="space_hulk_game.schemas.narrative_map.NarrativeMap.character_arcs"><code class="name">var <span class="ident">character_arcs</span> : List[<a title="space_hulk_game.schemas.narrative_map.CharacterArc" href="#space_hulk_game.schemas.narrative_map.CharacterArc">CharacterArc</a>] | None</code></dt>
+<dt id="space_hulk_game.schemas.narrative_map.NarrativeMap.character_arcs"><code class="name">var <span class="ident">character_arcs</span> : list[<a title="space_hulk_game.schemas.narrative_map.CharacterArc" href="#space_hulk_game.schemas.narrative_map.CharacterArc">CharacterArc</a>] | None</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -683,7 +683,7 @@ validated to form a valid model.</p>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="space_hulk_game.schemas.narrative_map.NarrativeMap.scenes"><code class="name">var <span class="ident">scenes</span> : Dict[str, <a title="space_hulk_game.schemas.narrative_map.Scene" href="#space_hulk_game.schemas.narrative_map.Scene">Scene</a>]</code></dt>
+<dt id="space_hulk_game.schemas.narrative_map.NarrativeMap.scenes"><code class="name">var <span class="ident">scenes</span> : dict[str, <a title="space_hulk_game.schemas.narrative_map.Scene" href="#space_hulk_game.schemas.narrative_map.Scene">Scene</a>]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -695,13 +695,13 @@ validated to form a valid model.</p>
 <h3>Static methods</h3>
 <dl>
 <dt id="space_hulk_game.schemas.narrative_map.NarrativeMap.validate_scene_ids"><code class="name flex">
-<span>def <span class="ident">validate_scene_ids</span></span>(<span>v: Dict[str, <a title="space_hulk_game.schemas.narrative_map.Scene" href="#space_hulk_game.schemas.narrative_map.Scene">Scene</a>]) ‑> Dict[str, <a title="space_hulk_game.schemas.narrative_map.Scene" href="#space_hulk_game.schemas.narrative_map.Scene">Scene</a>]</span>
+<span>def <span class="ident">validate_scene_ids</span></span>(<span>v: dict[str, <a title="space_hulk_game.schemas.narrative_map.Scene" href="#space_hulk_game.schemas.narrative_map.Scene">Scene</a>]) ‑> dict[str, <a title="space_hulk_game.schemas.narrative_map.Scene" href="#space_hulk_game.schemas.narrative_map.Scene">Scene</a>]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Ensure all scene IDs are valid and all connections reference existing scenes.</p></div>
 </dd>
 <dt id="space_hulk_game.schemas.narrative_map.NarrativeMap.validate_start_scene_exists"><code class="name flex">
-<span>def <span class="ident">validate_start_scene_exists</span></span>(<span>v: str, info) ‑> str</span>
+<span>def <span class="ident">validate_start_scene_exists</span></span>(<span>v: str, _info) ‑> str</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Ensure start_scene exists in scenes dictionary.</p>
@@ -722,14 +722,14 @@ should be done via model_validator.</p></div>
 </summary>
 <pre><code class="python">class Scene(BaseModel):
     &#34;&#34;&#34;A scene in the narrative map.
-    
+
     Attributes:
         name: Human-readable scene name.
         description: Detailed description of what happens in the scene.
         connections: List of connections to other scenes.
         character_moments: Optional list of character moments in this scene.
         decision_points: Optional list of decision points in this scene.
-    
+
     Example:
         &gt;&gt;&gt; scene = Scene(
         ...     name=&#34;The Drop Pod Descent&#34;,
@@ -738,7 +738,7 @@ should be done via model_validator.</p></div>
         ...     character_moments=[...]
         ... )
     &#34;&#34;&#34;
-    
+
     name: str = Field(
         ...,
         min_length=1,
@@ -750,15 +750,15 @@ should be done via model_validator.</p></div>
         min_length=50,
         description=&#34;Detailed scene description&#34;
     )
-    connections: List[Connection] = Field(
+    connections: list[Connection] = Field(
         default_factory=list,
         description=&#34;Connections to other scenes&#34;
     )
-    character_moments: Optional[List[CharacterMoment]] = Field(
+    character_moments: list[CharacterMoment] | None = Field(
         default=None,
         description=&#34;Character moments in this scene&#34;
     )
-    decision_points: Optional[List[DecisionPoint]] = Field(
+    decision_points: list[DecisionPoint] | None = Field(
         default=None,
         description=&#34;Decision points in this scene&#34;
     )</code></pre>
@@ -795,15 +795,15 @@ validated to form a valid model.</p>
 </ul>
 <h3>Class variables</h3>
 <dl>
-<dt id="space_hulk_game.schemas.narrative_map.Scene.character_moments"><code class="name">var <span class="ident">character_moments</span> : List[<a title="space_hulk_game.schemas.narrative_map.CharacterMoment" href="#space_hulk_game.schemas.narrative_map.CharacterMoment">CharacterMoment</a>] | None</code></dt>
+<dt id="space_hulk_game.schemas.narrative_map.Scene.character_moments"><code class="name">var <span class="ident">character_moments</span> : list[<a title="space_hulk_game.schemas.narrative_map.CharacterMoment" href="#space_hulk_game.schemas.narrative_map.CharacterMoment">CharacterMoment</a>] | None</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="space_hulk_game.schemas.narrative_map.Scene.connections"><code class="name">var <span class="ident">connections</span> : List[<a title="space_hulk_game.schemas.narrative_map.Connection" href="#space_hulk_game.schemas.narrative_map.Connection">Connection</a>]</code></dt>
+<dt id="space_hulk_game.schemas.narrative_map.Scene.connections"><code class="name">var <span class="ident">connections</span> : list[<a title="space_hulk_game.schemas.narrative_map.Connection" href="#space_hulk_game.schemas.narrative_map.Connection">Connection</a>]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="space_hulk_game.schemas.narrative_map.Scene.decision_points"><code class="name">var <span class="ident">decision_points</span> : List[<a title="space_hulk_game.schemas.narrative_map.DecisionPoint" href="#space_hulk_game.schemas.narrative_map.DecisionPoint">DecisionPoint</a>] | None</code></dt>
+<dt id="space_hulk_game.schemas.narrative_map.Scene.decision_points"><code class="name">var <span class="ident">decision_points</span> : list[<a title="space_hulk_game.schemas.narrative_map.DecisionPoint" href="#space_hulk_game.schemas.narrative_map.DecisionPoint">DecisionPoint</a>] | None</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>

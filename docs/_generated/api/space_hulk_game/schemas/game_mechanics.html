@@ -60,18 +60,18 @@ game systems, state management, win/lose conditions, and technical requirements.
 </summary>
 <pre><code class="python">class CombatMechanic(BaseModel):
     &#34;&#34;&#34;A specific combat mechanic or rule.
-    
+
     Attributes:
         name: Name of the combat mechanic.
         rules: Description of how the mechanic works.
-    
+
     Example:
         &gt;&gt;&gt; mechanic = CombatMechanic(
         ...     name=&#34;Overwatch&#34;,
         ...     rules=&#34;Set a character to fire upon enemies entering their line of sight...&#34;
         ... )
     &#34;&#34;&#34;
-    
+
     name: str = Field(
         ...,
         min_length=1,
@@ -133,12 +133,12 @@ validated to form a valid model.</p>
 </summary>
 <pre><code class="python">class CombatSystem(BaseModel):
     &#34;&#34;&#34;Combat system configuration.
-    
+
     Attributes:
         description: Description of how combat works.
         mechanics: List of specific combat mechanics.
         narrative_purpose: Why this system exists narratively.
-    
+
     Example:
         &gt;&gt;&gt; combat = CombatSystem(
         ...     description=&#34;Turn-based tactical combat. Features cover systems...&#34;,
@@ -146,13 +146,13 @@ validated to form a valid model.</p>
         ...     narrative_purpose=&#34;The tactical, turn-based nature supports survival theme...&#34;
         ... )
     &#34;&#34;&#34;
-    
+
     description: str = Field(
         ...,
         min_length=50,
         description=&#34;Description of combat system&#34;
     )
-    mechanics: List[CombatMechanic] = Field(
+    mechanics: list[CombatMechanic] = Field(
         ...,
         min_length=1,
         description=&#34;Combat mechanics (at least 1)&#34;
@@ -194,7 +194,7 @@ validated to form a valid model.</p>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="space_hulk_game.schemas.game_mechanics.CombatSystem.mechanics"><code class="name">var <span class="ident">mechanics</span> : List[<a title="space_hulk_game.schemas.game_mechanics.CombatMechanic" href="#space_hulk_game.schemas.game_mechanics.CombatMechanic">CombatMechanic</a>]</code></dt>
+<dt id="space_hulk_game.schemas.game_mechanics.CombatSystem.mechanics"><code class="name">var <span class="ident">mechanics</span> : list[<a title="space_hulk_game.schemas.game_mechanics.CombatMechanic" href="#space_hulk_game.schemas.game_mechanics.CombatMechanic">CombatMechanic</a>]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -219,16 +219,16 @@ validated to form a valid model.</p>
 </summary>
 <pre><code class="python">class GameMechanics(BaseModel):
     &#34;&#34;&#34;Complete game mechanics and design document.
-    
+
     This is the top-level model representing the entire game mechanics
     specification including systems, state management, and technical requirements.
-    
+
     Attributes:
         game_title: Title of the game.
         game_systems: All game systems configuration.
         game_state: Game state management configuration.
         technical_requirements: List of technical requirements.
-    
+
     Example:
         &gt;&gt;&gt; mechanics = GameMechanics(
         ...     game_title=&#34;Space Hulk: Echoes of the Void&#34;,
@@ -237,7 +237,7 @@ validated to form a valid model.</p>
         ...     technical_requirements=[TechnicalRequirement(...), ...]
         ... )
     &#34;&#34;&#34;
-    
+
     game_title: str = Field(
         ...,
         min_length=1,
@@ -252,7 +252,7 @@ validated to form a valid model.</p>
         ...,
         description=&#34;Game state management&#34;
     )
-    technical_requirements: List[TechnicalRequirement] = Field(
+    technical_requirements: list[TechnicalRequirement] = Field(
         ...,
         min_length=1,
         description=&#34;Technical requirements (at least 1)&#34;
@@ -306,7 +306,7 @@ validated to form a valid model.</p>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="space_hulk_game.schemas.game_mechanics.GameMechanics.technical_requirements"><code class="name">var <span class="ident">technical_requirements</span> : List[<a title="space_hulk_game.schemas.game_mechanics.TechnicalRequirement" href="#space_hulk_game.schemas.game_mechanics.TechnicalRequirement">TechnicalRequirement</a>]</code></dt>
+<dt id="space_hulk_game.schemas.game_mechanics.GameMechanics.technical_requirements"><code class="name">var <span class="ident">technical_requirements</span> : list[<a title="space_hulk_game.schemas.game_mechanics.TechnicalRequirement" href="#space_hulk_game.schemas.game_mechanics.TechnicalRequirement">TechnicalRequirement</a>]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -323,12 +323,12 @@ validated to form a valid model.</p>
 </summary>
 <pre><code class="python">class GameState(BaseModel):
     &#34;&#34;&#34;Game state management configuration.
-    
+
     Attributes:
         tracked_variables: List of variables being tracked.
         win_conditions: List of win conditions.
         lose_conditions: List of lose conditions.
-    
+
     Example:
         &gt;&gt;&gt; state = GameState(
         ...     tracked_variables=[TrackedVariable(...), ...],
@@ -336,18 +336,18 @@ validated to form a valid model.</p>
         ...     lose_conditions=[LoseCondition(...), ...]
         ... )
     &#34;&#34;&#34;
-    
-    tracked_variables: List[TrackedVariable] = Field(
+
+    tracked_variables: list[TrackedVariable] = Field(
         ...,
         min_length=1,
         description=&#34;Tracked variables (at least 1)&#34;
     )
-    win_conditions: List[WinCondition] = Field(
+    win_conditions: list[WinCondition] = Field(
         ...,
         min_length=1,
         description=&#34;Win conditions (at least 1)&#34;
     )
-    lose_conditions: List[LoseCondition] = Field(
+    lose_conditions: list[LoseCondition] = Field(
         ...,
         min_length=1,
         description=&#34;Lose conditions (at least 1)&#34;
@@ -380,7 +380,7 @@ validated to form a valid model.</p>
 </ul>
 <h3>Class variables</h3>
 <dl>
-<dt id="space_hulk_game.schemas.game_mechanics.GameState.lose_conditions"><code class="name">var <span class="ident">lose_conditions</span> : List[<a title="space_hulk_game.schemas.game_mechanics.LoseCondition" href="#space_hulk_game.schemas.game_mechanics.LoseCondition">LoseCondition</a>]</code></dt>
+<dt id="space_hulk_game.schemas.game_mechanics.GameState.lose_conditions"><code class="name">var <span class="ident">lose_conditions</span> : list[<a title="space_hulk_game.schemas.game_mechanics.LoseCondition" href="#space_hulk_game.schemas.game_mechanics.LoseCondition">LoseCondition</a>]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -388,11 +388,11 @@ validated to form a valid model.</p>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="space_hulk_game.schemas.game_mechanics.GameState.tracked_variables"><code class="name">var <span class="ident">tracked_variables</span> : List[<a title="space_hulk_game.schemas.game_mechanics.TrackedVariable" href="#space_hulk_game.schemas.game_mechanics.TrackedVariable">TrackedVariable</a>]</code></dt>
+<dt id="space_hulk_game.schemas.game_mechanics.GameState.tracked_variables"><code class="name">var <span class="ident">tracked_variables</span> : list[<a title="space_hulk_game.schemas.game_mechanics.TrackedVariable" href="#space_hulk_game.schemas.game_mechanics.TrackedVariable">TrackedVariable</a>]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="space_hulk_game.schemas.game_mechanics.GameState.win_conditions"><code class="name">var <span class="ident">win_conditions</span> : List[<a title="space_hulk_game.schemas.game_mechanics.WinCondition" href="#space_hulk_game.schemas.game_mechanics.WinCondition">WinCondition</a>]</code></dt>
+<dt id="space_hulk_game.schemas.game_mechanics.GameState.win_conditions"><code class="name">var <span class="ident">win_conditions</span> : list[<a title="space_hulk_game.schemas.game_mechanics.WinCondition" href="#space_hulk_game.schemas.game_mechanics.WinCondition">WinCondition</a>]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -409,19 +409,19 @@ validated to form a valid model.</p>
 </summary>
 <pre><code class="python">class GameSystemCommands(BaseModel):
     &#34;&#34;&#34;Commands available in a game system.
-    
+
     This is a simple wrapper to ensure commands are valid.
     &#34;&#34;&#34;
-    
-    commands: List[str] = Field(
+
+    commands: list[str] = Field(
         ...,
         min_length=1,
         description=&#34;List of available commands (at least 1)&#34;
     )
-    
+
     @field_validator(&#39;commands&#39;)
     @classmethod
-    def validate_commands_not_empty(cls, v: List[str]) -&gt; List[str]:
+    def validate_commands_not_empty(cls, v: list[str]) -&gt; list[str]:
         &#34;&#34;&#34;Ensure all commands are non-empty strings.&#34;&#34;&#34;
         if not all(cmd.strip() for cmd in v):
             raise ValueError(&#34;All commands must be non-empty strings&#34;)
@@ -439,7 +439,7 @@ validated to form a valid model.</p>
 </ul>
 <h3>Class variables</h3>
 <dl>
-<dt id="space_hulk_game.schemas.game_mechanics.GameSystemCommands.commands"><code class="name">var <span class="ident">commands</span> : List[str]</code></dt>
+<dt id="space_hulk_game.schemas.game_mechanics.GameSystemCommands.commands"><code class="name">var <span class="ident">commands</span> : list[str]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -451,7 +451,7 @@ validated to form a valid model.</p>
 <h3>Static methods</h3>
 <dl>
 <dt id="space_hulk_game.schemas.game_mechanics.GameSystemCommands.validate_commands_not_empty"><code class="name flex">
-<span>def <span class="ident">validate_commands_not_empty</span></span>(<span>v: List[str]) ‑> List[str]</span>
+<span>def <span class="ident">validate_commands_not_empty</span></span>(<span>v: list[str]) ‑> list[str]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Ensure all commands are non-empty strings.</p></div>
@@ -469,13 +469,13 @@ validated to form a valid model.</p>
 </summary>
 <pre><code class="python">class GameSystems(BaseModel):
     &#34;&#34;&#34;All game systems configuration.
-    
+
     Attributes:
         movement: Movement system configuration.
         inventory: Inventory system configuration.
         combat: Combat system configuration.
         interaction: Interaction system configuration.
-    
+
     Example:
         &gt;&gt;&gt; systems = GameSystems(
         ...     movement=MovementSystem(...),
@@ -484,7 +484,7 @@ validated to form a valid model.</p>
         ...     interaction=InteractionSystem(...)
         ... )
     &#34;&#34;&#34;
-    
+
     movement: MovementSystem = Field(..., description=&#34;Movement system&#34;)
     inventory: InventorySystem = Field(..., description=&#34;Inventory system&#34;)
     combat: CombatSystem = Field(..., description=&#34;Combat system&#34;)
@@ -553,12 +553,12 @@ validated to form a valid model.</p>
 </summary>
 <pre><code class="python">class InteractionSystem(BaseModel):
     &#34;&#34;&#34;Interaction system configuration.
-    
+
     Attributes:
         description: Description of how interaction works.
         commands: List of interaction commands.
         narrative_purpose: Why this system exists narratively.
-    
+
     Example:
         &gt;&gt;&gt; interaction = InteractionSystem(
         ...     description=&#34;Allows players to interact with objects, environments...&#34;,
@@ -566,13 +566,13 @@ validated to form a valid model.</p>
         ...     narrative_purpose=&#34;&#39;Examine&#39; allows players to uncover crucial lore...&#34;
         ... )
     &#34;&#34;&#34;
-    
+
     description: str = Field(
         ...,
         min_length=50,
         description=&#34;Description of interaction system&#34;
     )
-    commands: List[str] = Field(
+    commands: list[str] = Field(
         ...,
         min_length=1,
         description=&#34;Interaction commands (at least 1)&#34;
@@ -610,7 +610,7 @@ validated to form a valid model.</p>
 </ul>
 <h3>Class variables</h3>
 <dl>
-<dt id="space_hulk_game.schemas.game_mechanics.InteractionSystem.commands"><code class="name">var <span class="ident">commands</span> : List[str]</code></dt>
+<dt id="space_hulk_game.schemas.game_mechanics.InteractionSystem.commands"><code class="name">var <span class="ident">commands</span> : list[str]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -639,13 +639,13 @@ validated to form a valid model.</p>
 </summary>
 <pre><code class="python">class InventorySystem(BaseModel):
     &#34;&#34;&#34;Inventory system configuration.
-    
+
     Attributes:
         description: Description of how inventory works.
         capacity: Maximum number of items that can be carried.
         commands: List of inventory commands.
         narrative_purpose: Why this system exists narratively.
-    
+
     Example:
         &gt;&gt;&gt; inventory = InventorySystem(
         ...     description=&#34;Limited capacity inventory for each Space Marine...&#34;,
@@ -654,7 +654,7 @@ validated to form a valid model.</p>
         ...     narrative_purpose=&#34;Scarcity of resources drives the survival theme...&#34;
         ... )
     &#34;&#34;&#34;
-    
+
     description: str = Field(
         ...,
         min_length=50,
@@ -666,7 +666,7 @@ validated to form a valid model.</p>
         le=100,
         description=&#34;Maximum inventory capacity (1-100)&#34;
     )
-    commands: List[str] = Field(
+    commands: list[str] = Field(
         ...,
         min_length=1,
         description=&#34;Inventory commands (at least 1)&#34;
@@ -711,7 +711,7 @@ validated to form a valid model.</p>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="space_hulk_game.schemas.game_mechanics.InventorySystem.commands"><code class="name">var <span class="ident">commands</span> : List[str]</code></dt>
+<dt id="space_hulk_game.schemas.game_mechanics.InventorySystem.commands"><code class="name">var <span class="ident">commands</span> : list[str]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -740,16 +740,16 @@ validated to form a valid model.</p>
 </summary>
 <pre><code class="python">class LoseCondition(BaseModel):
     &#34;&#34;&#34;A lose condition for the game.
-    
+
     Attributes:
         condition: Description of the lose condition.
-    
+
     Example:
         &gt;&gt;&gt; lose = LoseCondition(
         ...     condition=&#34;All squad members are incapacitated or killed in combat.&#34;
         ... )
     &#34;&#34;&#34;
-    
+
     condition: str = Field(
         ...,
         min_length=20,
@@ -798,12 +798,12 @@ validated to form a valid model.</p>
 </summary>
 <pre><code class="python">class MovementSystem(BaseModel):
     &#34;&#34;&#34;Movement system configuration.
-    
+
     Attributes:
         description: Description of how movement works.
         commands: List of movement commands.
         narrative_purpose: Why this system exists narratively.
-    
+
     Example:
         &gt;&gt;&gt; movement = MovementSystem(
         ...     description=&#34;Tactical grid-based movement with limited action points...&#34;,
@@ -811,13 +811,13 @@ validated to form a valid model.</p>
         ...     narrative_purpose=&#34;Reinforces the claustrophobic and dangerous environment...&#34;
         ... )
     &#34;&#34;&#34;
-    
+
     description: str = Field(
         ...,
         min_length=50,
         description=&#34;Description of movement system&#34;
     )
-    commands: List[str] = Field(
+    commands: list[str] = Field(
         ...,
         min_length=1,
         description=&#34;Movement commands (at least 1)&#34;
@@ -855,7 +855,7 @@ validated to form a valid model.</p>
 </ul>
 <h3>Class variables</h3>
 <dl>
-<dt id="space_hulk_game.schemas.game_mechanics.MovementSystem.commands"><code class="name">var <span class="ident">commands</span> : List[str]</code></dt>
+<dt id="space_hulk_game.schemas.game_mechanics.MovementSystem.commands"><code class="name">var <span class="ident">commands</span> : list[str]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -884,18 +884,18 @@ validated to form a valid model.</p>
 </summary>
 <pre><code class="python">class TechnicalRequirement(BaseModel):
     &#34;&#34;&#34;A technical requirement for the game.
-    
+
     Attributes:
         requirement: Description of the technical requirement.
         justification: Why this requirement is necessary.
-    
+
     Example:
         &gt;&gt;&gt; req = TechnicalRequirement(
         ...     requirement=&#34;Robust AI for diverse enemy types...&#34;,
         ...     justification=&#34;Crucial for making combat challenging and varied...&#34;
         ... )
     &#34;&#34;&#34;
-    
+
     requirement: str = Field(
         ...,
         min_length=20,
@@ -956,18 +956,18 @@ validated to form a valid model.</p>
 </summary>
 <pre><code class="python">class TrackedVariable(BaseModel):
     &#34;&#34;&#34;A tracked game state variable.
-    
+
     Attributes:
         variable: Name of the variable being tracked.
         purpose: Description of what the variable tracks and why.
-    
+
     Example:
         &gt;&gt;&gt; var = TrackedVariable(
         ...     variable=&#34;squad_morale&#34;,
         ...     purpose=&#34;Tracks the overall mental state of the squad...&#34;
         ... )
     &#34;&#34;&#34;
-    
+
     variable: str = Field(
         ...,
         min_length=1,
@@ -1029,16 +1029,16 @@ validated to form a valid model.</p>
 </summary>
 <pre><code class="python">class WinCondition(BaseModel):
     &#34;&#34;&#34;A win condition for the game.
-    
+
     Attributes:
         condition: Description of the win condition.
-    
+
     Example:
         &gt;&gt;&gt; win = WinCondition(
         ...     condition=&#34;Successfully neutralize the threat posed by &#39;The Serpent&#39;s Coil&#39;...&#34;
         ... )
     &#34;&#34;&#34;
-    
+
     condition: str = Field(
         ...,
         min_length=20,
