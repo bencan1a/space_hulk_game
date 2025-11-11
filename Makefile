@@ -1,4 +1,4 @@
-.PHONY: help install install-dev dev test test-real-api coverage lint format format-check type-check type-check-pre-commit security security-report check-yaml check-all fix run-crew validate-api validate-config clean
+.PHONY: help install install-dev dev test test-real-api coverage lint format format-check type-check type-check-pre-commit security security-report check-yaml check-all fix lint-files format-files type-check-files security-files check-yaml-files fix-files run-crew validate-api validate-config clean
 
 help:
 	@echo "Space Hulk Game - Development Commands"
@@ -63,7 +63,7 @@ coverage:
 
 # Code Quality
 lint:
-	ruff check .
+	ruff check . --fix
 
 format:
 	ruff format .
@@ -86,12 +86,59 @@ security-report:
 check-yaml:
 	yamllint .
 
-check-all: format-check lint type-check security check-yaml test
+check-all: format lint type-check security check-yaml test
 	@echo "✅ All checks passed!"
 
 fix:
 	ruff check --fix .
 	ruff format .
+	@echo "✅ Code fixed and formatted!"
+
+# Code Quality - File-specific targets (for pre-commit hooks)
+# Usage: make lint-files FILES="file1.py file2.py"
+lint-files:
+	@if [ -n "$(FILES)" ]; then \
+		ruff check --fix $(FILES); \
+	else \
+		ruff check --fix .; \
+	fi
+
+format-files:
+	@if [ -n "$(FILES)" ]; then \
+		ruff format $(FILES); \
+	else \
+		ruff format .; \
+	fi
+
+type-check-files:
+	@if [ -n "$(FILES)" ]; then \
+		mypy --cache-dir=/dev/null $(FILES); \
+	else \
+		mypy --cache-dir=/dev/null src/space_hulk_game tests tools; \
+	fi
+
+security-files:
+	@if [ -n "$(FILES)" ]; then \
+		bandit -c pyproject.toml $(FILES); \
+	else \
+		bandit -r src/ -c pyproject.toml; \
+	fi
+
+check-yaml-files:
+	@if [ -n "$(FILES)" ]; then \
+		yamllint $(FILES); \
+	else \
+		yamllint .; \
+	fi
+
+fix-files:
+	@if [ -n "$(FILES)" ]; then \
+		ruff check --fix $(FILES); \
+		ruff format $(FILES); \
+	else \
+		ruff check --fix .; \
+		ruff format .; \
+	fi
 	@echo "✅ Code fixed and formatted!"
 
 # CrewAI Specific

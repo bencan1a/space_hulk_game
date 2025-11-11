@@ -19,7 +19,8 @@
       "Bash(pre-commit run:*)",
       "Bash(python -c:*)",
       "Bash(mypy:*)",
-      "Bash(make security:*)"
+      "Bash(make security:*)",
+      "Bash(make check-all:*)"
     ],
     "deny": [],
     "ask": []

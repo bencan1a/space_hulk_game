@@ -20,36 +20,40 @@ repos:
       - id: detect-private-key
 
   # Use Makefile commands for consistency with CI and local dev
+  # These run only on staged files during commit, but same commands as CI/make
   - repo: local
     hooks:
-      # Ruff auto-fix and format
-      - id: ruff-fix
-        name: Ruff auto-fix
-        entry: bash -c 'source .venv/bin/activate && make fix'
+      # Ruff linting with auto-fix
+      - id: ruff-check
+        name: Ruff linting
+        entry: bash -c 'source .venv/bin/activate && make lint-files FILES="$*"'
         language: system
-        pass_filenames: false
-        always_run: true
+        types: [python]
+
+      # Ruff formatting
+      - id: ruff-format
+        name: Ruff formatting
+        entry: bash -c 'source .venv/bin/activate && make format-files FILES="$*"'
+        language: system
+        types: [python]
 
       # MyPy type checking (uses pyproject.toml config)
       - id: mypy
         name: MyPy type check
-        entry: bash -c 'source .venv/bin/activate && make type-check-pre-commit'
+        entry: bash -c 'source .venv/bin/activate && make type-check-files FILES="$*"'
         language: system
         types: [python]
-        pass_filenames: false
 
       # Bandit security scanning (uses pyproject.toml config)
       - id: bandit
         name: Bandit security scan
-        entry: bash -c 'source .venv/bin/activate && make security'
+        entry: bash -c 'source .venv/bin/activate && make security-files FILES="$*"'
         language: system
         types: [python]
-        pass_filenames: false
 
       # YAML validation (uses .yamllint config)
       - id: yamllint
         name: YAML validation
-        entry: bash -c 'source .venv/bin/activate && make check-yaml'
+        entry: bash -c 'source .venv/bin/activate && make check-yaml-files FILES="$*"'
         language: system
         types: [yaml]
-        pass_filenames: false
