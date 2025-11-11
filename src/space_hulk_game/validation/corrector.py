@@ -8,16 +8,9 @@ and format violations while preserving the intent of the original content.
 import logging
 import re
 from dataclasses import dataclass
-from typing import Any
 
 import yaml
-from pydantic import ValidationError
 
-from space_hulk_game.schemas.game_mechanics import GameMechanics
-from space_hulk_game.schemas.narrative_map import NarrativeMap
-from space_hulk_game.schemas.plot_outline import PlotOutline
-from space_hulk_game.schemas.puzzle_design import PuzzleDesign
-from space_hulk_game.schemas.scene_text import SceneTexts
 from space_hulk_game.validation.validator import OutputValidator, ValidationResult
 
 logger = logging.getLogger(__name__)
@@ -139,11 +132,11 @@ class OutputCorrector:
         # Add generic filler text to meet minimum length
         filler = " Additional details and context will be developed further during the narrative design process."
         extended = description + filler
-        
+
         # If still not long enough, add more filler
         while len(extended) < min_length:
             extended += " Further elaboration and refinement will enhance this element."
-        
+
         return extended
 
     def _parse_yaml_safe(self, raw_output: str) -> tuple[dict | None, list[str]]:
@@ -249,7 +242,7 @@ class OutputCorrector:
             ...     print(f"Plot corrected with {len(result.corrections)} changes")
         """
         logger.info("Attempting to correct plot outline YAML")
-        corrections = []
+        corrections: list[str] = []
 
         # Parse YAML
         data, parse_errors = self._parse_yaml_safe(raw_output)
@@ -282,7 +275,7 @@ class OutputCorrector:
             original_setting = data["setting"]
             data["setting"] = self._extend_short_description(data["setting"], 50)
             corrections.append(f"Extended short 'setting' field (was {len(original_setting)} chars)")
-            logger.info(f"Extended 'setting' field")
+            logger.info("Extended 'setting' field")
 
         if "themes" not in data or not data["themes"]:
             data["themes"] = ["survival", "conflict"]
@@ -297,7 +290,7 @@ class OutputCorrector:
             original_tone = data["tone"]
             data["tone"] = self._extend_short_description(data["tone"], 10)
             corrections.append(f"Extended short 'tone' field (was {len(original_tone)} chars)")
-            logger.info(f"Extended 'tone' field")
+            logger.info("Extended 'tone' field")
 
         if "plot_points" not in data or not data["plot_points"]:
             data["plot_points"] = [
@@ -353,7 +346,7 @@ class OutputCorrector:
 
         # Fix plot point IDs and descriptions
         if "plot_points" in data and isinstance(data["plot_points"], list):
-            for i, pp in enumerate(data["plot_points"]):
+            for _i, pp in enumerate(data["plot_points"]):
                 if isinstance(pp, dict):
                     # Fix ID format
                     if "id" in pp:
@@ -442,7 +435,7 @@ class OutputCorrector:
             ...     print(f"Map corrected with {len(result.corrections)} changes")
         """
         logger.info("Attempting to correct narrative map YAML")
-        corrections = []
+        corrections: list[str] = []
 
         # Parse YAML
         data, parse_errors = self._parse_yaml_safe(raw_output)
@@ -577,7 +570,7 @@ class OutputCorrector:
             ...     print(f"Puzzle design corrected with {len(result.corrections)} changes")
         """
         logger.info("Attempting to correct puzzle design YAML")
-        corrections = []
+        corrections: list[str] = []
 
         # Parse YAML
         data, parse_errors = self._parse_yaml_safe(raw_output)
@@ -760,7 +753,7 @@ class OutputCorrector:
             ...     print(f"Scene texts corrected with {len(result.corrections)} changes")
         """
         logger.info("Attempting to correct scene texts YAML")
-        corrections = []
+        corrections: list[str] = []
 
         # Parse YAML
         data, parse_errors = self._parse_yaml_safe(raw_output)
@@ -892,7 +885,7 @@ class OutputCorrector:
             ...     print(f"Game mechanics corrected with {len(result.corrections)} changes")
         """
         logger.info("Attempting to correct game mechanics YAML")
-        corrections = []
+        corrections: list[str] = []
 
         # Parse YAML
         data, parse_errors = self._parse_yaml_safe(raw_output)
