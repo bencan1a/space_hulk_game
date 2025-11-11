@@ -1,12 +1,23 @@
 # Space Hulk Game - AI Agent Context
 
-Generated: 2025-11-11 06:25:31
+Generated: 2025-11-11 06:54:37
 
 ---
 
 ## Project Overview
 
 A text-based adventure game set in the Warhammer 40K universe, powered by CrewAI multi-agent system.
+
+## Active Projects
+
+### python-template-adoption
+
+- **Status:** active
+- **Owner:** AI Agent / Development Team
+- **Created:** 2025-11-10
+- **Priority:** high
+- **Location:** `agent-projects/python-template-adoption/plan.md`
+
 
 ## API Documentation
 
