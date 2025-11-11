@@ -115,6 +115,7 @@ conflicts:
         result = self.validator.validate_plot(yaml_str)
         self.assertTrue(result.valid)
         self.assertIsInstance(result.data, PlotOutline)
+        assert result.data is not None  # Type narrowing for mypy/pyright
         self.assertEqual(result.data.title, "Test Plot")
         self.assertEqual(len(result.errors), 0)
 
@@ -264,6 +265,7 @@ scenes:
         result = self.validator.validate_narrative_map(yaml_str)
         self.assertTrue(result.valid)
         self.assertIsInstance(result.data, NarrativeMap)
+        assert result.data is not None  # Type narrowing for mypy/pyright
         self.assertEqual(result.data.start_scene, "scene_01")
         self.assertEqual(len(result.data.scenes), 2)
         self.assertEqual(len(result.errors), 0)
@@ -373,6 +375,7 @@ npcs:
         result = self.validator.validate_puzzle_design(yaml_str)
         self.assertTrue(result.valid)
         self.assertIsInstance(result.data, PuzzleDesign)
+        assert result.data is not None  # Type narrowing for mypy/pyright
         self.assertEqual(len(result.data.puzzles), 1)
         self.assertEqual(len(result.data.artifacts), 1)
         self.assertEqual(len(result.data.monsters), 1)
@@ -454,6 +457,7 @@ scenes:
         result = self.validator.validate_scene_texts(yaml_str)
         self.assertTrue(result.valid)
         self.assertIsInstance(result.data, SceneTexts)
+        assert result.data is not None  # Type narrowing for mypy/pyright
         self.assertEqual(len(result.data.scenes), 1)
         self.assertEqual(len(result.errors), 0)
 
@@ -530,6 +534,7 @@ technical_requirements:
         result = self.validator.validate_game_mechanics(yaml_str)
         self.assertTrue(result.valid)
         self.assertIsInstance(result.data, GameMechanics)
+        assert result.data is not None  # Type narrowing for mypy/pyright
         self.assertEqual(result.data.game_title, "Test Game")
         self.assertEqual(len(result.errors), 0)
 

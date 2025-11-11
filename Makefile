@@ -70,7 +70,7 @@ format-check:
 	ruff format --check .
 
 type-check:
-	mypy src/ tools/
+	mypy tests tools
 
 security:
 	bandit -r src/ -c pyproject.toml

@@ -100,6 +100,7 @@ exclude = [
     "dist",
     "tmp",
     "agent-tmp",  # Added
+    "src",  # Exclude src dir itself, use installed package
 ]
 
 # Ignore missing imports for specific third-party libraries without type stubs
@@ -158,6 +159,7 @@ ignore = [
     "C901",    # too complex
     "PLR0913", # too many arguments
     "PLR0912", # too many branches
+    "PLR0911", # too many return statements
     "PLR0915", # too many statements
     "PLR2004", # magic value comparison
 ]

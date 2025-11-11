@@ -61,7 +61,7 @@ class TestSequential5Tasks(unittest.TestCase):
 
     @unittest.skipUnless(
         os.getenv("RUN_REAL_API_TESTS") == "1",
-        "Skipping crew execution test - requires RUN_REAL_API_TESTS=1"
+        "Skipping crew execution test - requires RUN_REAL_API_TESTS=1",
     )
     def test_01_crew_execution_completes(self):
         """Test that crew execution completes within timeout."""
@@ -163,7 +163,7 @@ class TestSequential5Tasks(unittest.TestCase):
         for filename in self.expected_files:
             filepath = self.output_dir / filename
             try:
-                with open(filepath, 'r', encoding='utf-8') as f:
+                with open(filepath, encoding="utf-8") as f:
                     data = yaml.safe_load(f)
 
                 # Check that file is not empty

@@ -20,7 +20,7 @@ class TestPlotPoint:
         pp = PlotPoint(
             id="pp_01_test",
             name="Test Plot Point",
-            description="A" * 50  # Min length 50
+            description="A" * 50,  # Min length 50
         )
         assert pp.id == "pp_01_test"
         assert pp.name == "Test Plot Point"
@@ -50,7 +50,7 @@ class TestCharacter:
         char = Character(
             name="Brother-Captain Tyberius",
             role="Squad Leader",
-            backstory="A" * 50  # Min length 50
+            backstory="A" * 50,  # Min length 50
         )
         assert char.name == "Brother-Captain Tyberius"
         assert char.role == "Squad Leader"
@@ -62,8 +62,9 @@ class TestCharacter:
             name="Test Character",
             role="Test Role",
             backstory="A" * 50,
-            conflicts=["Internal conflict", "External conflict"]
+            conflicts=["Internal conflict", "External conflict"],
         )
+        assert char.conflicts is not None
         assert len(char.conflicts) == 2
 
 
@@ -74,7 +75,7 @@ class TestConflict:
         """Test creating a valid conflict."""
         conflict = Conflict(
             type="Man vs. Xenos",
-            description="A" * 50  # Min length 50
+            description="A" * 50,  # Min length 50
         )
         assert conflict.type == "Man vs. Xenos"
 
@@ -86,18 +87,14 @@ class TestPlotBranch:
         """Test creating a valid plot branch."""
         branch = PlotBranch(
             path="heroic_sacrifice",
-            description="A" * 50  # Min length 50
+            description="A" * 50,  # Min length 50
         )
         assert branch.path == "heroic_sacrifice"
         assert branch.decision_point is None
 
     def test_plot_branch_with_decision_point(self):
         """Test branch with decision point."""
-        branch = PlotBranch(
-            path="test_path",
-            description="A" * 50,
-            decision_point="decision_01"
-        )
+        branch = PlotBranch(path="test_path", description="A" * 50, decision_point="decision_01")
         assert branch.decision_point == "decision_01"
 
 
@@ -116,12 +113,8 @@ class TestPlotOutline:
                 PlotPoint(id="pp_02", name="Point 2", description="A" * 50),
                 PlotPoint(id="pp_03", name="Point 3", description="A" * 50),
             ],
-            characters=[
-                Character(name="Char 1", role="Role 1", backstory="A" * 50)
-            ],
-            conflicts=[
-                Conflict(type="Type 1", description="A" * 50)
-            ]
+            characters=[Character(name="Char 1", role="Role 1", backstory="A" * 50)],
+            conflicts=[Conflict(type="Type 1", description="A" * 50)],
         )
         assert outline.title == "Test Title"
         assert len(outline.plot_points) == 3
@@ -141,7 +134,7 @@ class TestPlotOutline:
                     PlotPoint(id="pp_02", name="Point 2", description="A" * 50),
                 ],
                 characters=[Character(name="C1", role="R1", backstory="A" * 50)],
-                conflicts=[Conflict(type="T1", description="A" * 50)]
+                conflicts=[Conflict(type="T1", description="A" * 50)],
             )
 
     def test_unique_plot_point_ids(self):
@@ -158,7 +151,7 @@ class TestPlotOutline:
                     PlotPoint(id="pp_03", name="Point 3", description="A" * 50),
                 ],
                 characters=[Character(name="C1", role="R1", backstory="A" * 50)],
-                conflicts=[Conflict(type="T1", description="A" * 50)]
+                conflicts=[Conflict(type="T1", description="A" * 50)],
             )
 
     def test_unique_character_names(self):
@@ -178,7 +171,7 @@ class TestPlotOutline:
                     Character(name="Duplicate", role="R1", backstory="A" * 50),
                     Character(name="Duplicate", role="R2", backstory="A" * 50),  # Duplicate name
                 ],
-                conflicts=[Conflict(type="T1", description="A" * 50)]
+                conflicts=[Conflict(type="T1", description="A" * 50)],
             )
 
     def test_empty_themes_validation(self):
@@ -195,7 +188,7 @@ class TestPlotOutline:
                     PlotPoint(id="pp_03", name="Point 3", description="A" * 50),
                 ],
                 characters=[Character(name="C1", role="R1", backstory="A" * 50)],
-                conflicts=[Conflict(type="T1", description="A" * 50)]
+                conflicts=[Conflict(type="T1", description="A" * 50)],
             )
 
     def test_optional_plot_branches(self):
@@ -212,8 +205,7 @@ class TestPlotOutline:
             ],
             characters=[Character(name="C1", role="R1", backstory="A" * 50)],
             conflicts=[Conflict(type="T1", description="A" * 50)],
-            plot_branches=[
-                PlotBranch(path="branch_1", description="A" * 50)
-            ]
+            plot_branches=[PlotBranch(path="branch_1", description="A" * 50)],
         )
+        assert outline.plot_branches is not None
         assert len(outline.plot_branches) == 1

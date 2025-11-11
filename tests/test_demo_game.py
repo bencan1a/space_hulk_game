@@ -178,9 +178,9 @@ class TestDemoGameCLI(unittest.TestCase):
         # Modify game state
         assert self.cli.engine is not None
         self.cli.engine.game_state.game_flags["test_flag"] = True
-        self.cli.engine.game_state.game_flags[
-            "test_var_42"
-        ] = True  # Store as boolean flag for testing
+        self.cli.engine.game_state.game_flags["test_var_42"] = (
+            True  # Store as boolean flag for testing
+        )
 
         # Save the game
         save_name = "test_save"
@@ -357,9 +357,9 @@ class TestDemoGameIntegration(unittest.TestCase):
         # Add some state changes
         assert cli.engine is not None
         cli.engine.game_state.game_flags["explored_starting_area"] = True
-        cli.engine.game_state.game_flags[
-            "turn_count_5"
-        ] = True  # Flag to indicate turn 5 has been reached (not tracking turn count numerically)
+        cli.engine.game_state.game_flags["turn_count_5"] = (
+            True  # Flag to indicate turn 5 has been reached (not tracking turn count numerically)
+        )
 
         # Step 3: Save the game
         save_name = "integration_test_save"

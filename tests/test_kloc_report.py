@@ -13,7 +13,7 @@ class TestKlocReport(unittest.TestCase):
 
     def setUp(self):
         """Set up test fixtures."""
-        self.script_path = Path(__file__).parent.parent / "kloc-report.py"
+        self.script_path = Path(__file__).parent.parent / "tools" / "kloc-report.py"
         self.assertTrue(self.script_path.exists(), f"Script not found: {self.script_path}")
 
     def test_script_help_runs_without_hanging(self):

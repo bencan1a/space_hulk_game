@@ -4,7 +4,6 @@ This module defines the schema for validating game mechanics outputs including
 game systems, state management, win/lose conditions, and technical requirements.
 """
 
-
 from pydantic import BaseModel, Field, field_validator
 
 
@@ -15,12 +14,10 @@ class GameSystemCommands(BaseModel):
     """
 
     commands: list[str] = Field(
-        ...,
-        min_length=1,
-        description="List of available commands (at least 1)"
+        ..., min_length=1, description="List of available commands (at least 1)"
     )
 
-    @field_validator('commands')
+    @field_validator("commands")
     @classmethod
     def validate_commands_not_empty(cls, v: list[str]) -> list[str]:
         """Ensure all commands are non-empty strings."""
@@ -43,17 +40,8 @@ class CombatMechanic(BaseModel):
         ... )
     """
 
-    name: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description="Mechanic name"
-    )
-    rules: str = Field(
-        ...,
-        min_length=20,
-        description="Description of mechanic rules"
-    )
+    name: str = Field(..., min_length=1, max_length=200, description="Mechanic name")
+    rules: str = Field(..., min_length=20, description="Description of mechanic rules")
 
 
 class MovementSystem(BaseModel):
@@ -72,20 +60,10 @@ class MovementSystem(BaseModel):
         ... )
     """
 
-    description: str = Field(
-        ...,
-        min_length=50,
-        description="Description of movement system"
-    )
-    commands: list[str] = Field(
-        ...,
-        min_length=1,
-        description="Movement commands (at least 1)"
-    )
+    description: str = Field(..., min_length=50, description="Description of movement system")
+    commands: list[str] = Field(..., min_length=1, description="Movement commands (at least 1)")
     narrative_purpose: str = Field(
-        ...,
-        min_length=50,
-        description="Narrative purpose of movement system"
+        ..., min_length=50, description="Narrative purpose of movement system"
     )
 
 
@@ -107,26 +85,11 @@ class InventorySystem(BaseModel):
         ... )
     """
 
-    description: str = Field(
-        ...,
-        min_length=50,
-        description="Description of inventory system"
-    )
-    capacity: int = Field(
-        ...,
-        ge=1,
-        le=100,
-        description="Maximum inventory capacity (1-100)"
-    )
-    commands: list[str] = Field(
-        ...,
-        min_length=1,
-        description="Inventory commands (at least 1)"
-    )
+    description: str = Field(..., min_length=50, description="Description of inventory system")
+    capacity: int = Field(..., ge=1, le=100, description="Maximum inventory capacity (1-100)")
+    commands: list[str] = Field(..., min_length=1, description="Inventory commands (at least 1)")
     narrative_purpose: str = Field(
-        ...,
-        min_length=50,
-        description="Narrative purpose of inventory system"
+        ..., min_length=50, description="Narrative purpose of inventory system"
     )
 
 
@@ -146,20 +109,12 @@ class CombatSystem(BaseModel):
         ... )
     """
 
-    description: str = Field(
-        ...,
-        min_length=50,
-        description="Description of combat system"
-    )
+    description: str = Field(..., min_length=50, description="Description of combat system")
     mechanics: list[CombatMechanic] = Field(
-        ...,
-        min_length=1,
-        description="Combat mechanics (at least 1)"
+        ..., min_length=1, description="Combat mechanics (at least 1)"
     )
     narrative_purpose: str = Field(
-        ...,
-        min_length=50,
-        description="Narrative purpose of combat system"
+        ..., min_length=50, description="Narrative purpose of combat system"
     )
 
 
@@ -179,20 +134,10 @@ class InteractionSystem(BaseModel):
         ... )
     """
 
-    description: str = Field(
-        ...,
-        min_length=50,
-        description="Description of interaction system"
-    )
-    commands: list[str] = Field(
-        ...,
-        min_length=1,
-        description="Interaction commands (at least 1)"
-    )
+    description: str = Field(..., min_length=50, description="Description of interaction system")
+    commands: list[str] = Field(..., min_length=1, description="Interaction commands (at least 1)")
     narrative_purpose: str = Field(
-        ...,
-        min_length=50,
-        description="Narrative purpose of interaction system"
+        ..., min_length=50, description="Narrative purpose of interaction system"
     )
 
 
@@ -234,17 +179,8 @@ class TrackedVariable(BaseModel):
         ... )
     """
 
-    variable: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description="Variable name"
-    )
-    purpose: str = Field(
-        ...,
-        min_length=20,
-        description="Purpose and impact of the variable"
-    )
+    variable: str = Field(..., min_length=1, max_length=200, description="Variable name")
+    purpose: str = Field(..., min_length=20, description="Purpose and impact of the variable")
 
 
 class WinCondition(BaseModel):
@@ -259,11 +195,7 @@ class WinCondition(BaseModel):
         ... )
     """
 
-    condition: str = Field(
-        ...,
-        min_length=20,
-        description="Description of the win condition"
-    )
+    condition: str = Field(..., min_length=20, description="Description of the win condition")
 
 
 class LoseCondition(BaseModel):
@@ -278,11 +210,7 @@ class LoseCondition(BaseModel):
         ... )
     """
 
-    condition: str = Field(
-        ...,
-        min_length=20,
-        description="Description of the lose condition"
-    )
+    condition: str = Field(..., min_length=20, description="Description of the lose condition")
 
 
 class GameState(BaseModel):
@@ -302,19 +230,13 @@ class GameState(BaseModel):
     """
 
     tracked_variables: list[TrackedVariable] = Field(
-        ...,
-        min_length=1,
-        description="Tracked variables (at least 1)"
+        ..., min_length=1, description="Tracked variables (at least 1)"
     )
     win_conditions: list[WinCondition] = Field(
-        ...,
-        min_length=1,
-        description="Win conditions (at least 1)"
+        ..., min_length=1, description="Win conditions (at least 1)"
     )
     lose_conditions: list[LoseCondition] = Field(
-        ...,
-        min_length=1,
-        description="Lose conditions (at least 1)"
+        ..., min_length=1, description="Lose conditions (at least 1)"
     )
 
 
@@ -332,16 +254,8 @@ class TechnicalRequirement(BaseModel):
         ... )
     """
 
-    requirement: str = Field(
-        ...,
-        min_length=20,
-        description="Technical requirement description"
-    )
-    justification: str = Field(
-        ...,
-        min_length=20,
-        description="Justification for the requirement"
-    )
+    requirement: str = Field(..., min_length=20, description="Technical requirement description")
+    justification: str = Field(..., min_length=20, description="Justification for the requirement")
 
 
 class GameMechanics(BaseModel):
@@ -365,24 +279,11 @@ class GameMechanics(BaseModel):
         ... )
     """
 
-    game_title: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description="Title of the game"
-    )
-    game_systems: GameSystems = Field(
-        ...,
-        description="Game systems configuration"
-    )
-    game_state: GameState = Field(
-        ...,
-        description="Game state management"
-    )
+    game_title: str = Field(..., min_length=1, max_length=200, description="Title of the game")
+    game_systems: GameSystems = Field(..., description="Game systems configuration")
+    game_state: GameState = Field(..., description="Game state management")
     technical_requirements: list[TechnicalRequirement] = Field(
-        ...,
-        min_length=1,
-        description="Technical requirements (at least 1)"
+        ..., min_length=1, description="Technical requirements (at least 1)"
     )
 
 
@@ -395,35 +296,35 @@ if __name__ == "__main__":
             movement=MovementSystem(
                 description="Tactical grid-based movement with limited action points per turn. Incorporates environmental hazards...",
                 commands=["move", "brace", "breach"],
-                narrative_purpose="Reinforces the claustrophobic and dangerous environment of the Space Hulk..."
+                narrative_purpose="Reinforces the claustrophobic and dangerous environment of the Space Hulk...",
             ),
             inventory=InventorySystem(
                 description="Limited capacity inventory for each Space Marine, reflecting their Terminator armor's storage...",
                 capacity=5,
                 commands=["take", "drop", "use"],
-                narrative_purpose="Scarcity of resources (ammo, medkits) drives the 'Survival against overwhelming odds'..."
+                narrative_purpose="Scarcity of resources (ammo, medkits) drives the 'Survival against overwhelming odds'...",
             ),
             combat=CombatSystem(
                 description="Turn-based tactical combat. Features cover systems, line of sight...",
                 mechanics=[
                     CombatMechanic(
                         name="Overwatch",
-                        rules="Set a character to fire upon enemies entering their line of sight during the enemy turn..."
+                        rules="Set a character to fire upon enemies entering their line of sight during the enemy turn...",
                     )
                 ],
-                narrative_purpose="The tactical, turn-based nature, coupled with overwhelming odds..."
+                narrative_purpose="The tactical, turn-based nature, coupled with overwhelming odds...",
             ),
             interaction=InteractionSystem(
                 description="Allows players to interact with objects, environments, and even character-specific internal thoughts...",
                 commands=["examine", "talk", "use", "analyze"],
-                narrative_purpose="'Examine' and 'Analyze' allow players to uncover crucial lore..."
-            )
+                narrative_purpose="'Examine' and 'Analyze' allow players to uncover crucial lore...",
+            ),
         ),
         game_state=GameState(
             tracked_variables=[
                 TrackedVariable(
                     variable="squad_morale",
-                    purpose="Tracks the overall mental state of the squad, influenced by combat outcomes..."
+                    purpose="Tracks the overall mental state of the squad, influenced by combat outcomes...",
                 )
             ],
             win_conditions=[
@@ -432,17 +333,15 @@ if __name__ == "__main__":
                 )
             ],
             lose_conditions=[
-                LoseCondition(
-                    condition="All squad members are incapacitated or killed in combat."
-                )
-            ]
+                LoseCondition(condition="All squad members are incapacitated or killed in combat.")
+            ],
         ),
         technical_requirements=[
             TechnicalRequirement(
                 requirement="Robust AI for diverse enemy types with distinct attack patterns...",
-                justification="Crucial for making combat challenging and varied, reinforcing themes..."
+                justification="Crucial for making combat challenging and varied, reinforcing themes...",
             )
-        ]
+        ],
     )
 
     print(f"✅ Game mechanics validation successful: {example_game_mechanics.game_title}")

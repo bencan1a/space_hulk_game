@@ -31,7 +31,7 @@ class TestConnection:
         conn = Connection(
             target="scene_test",
             description="Proceed if condition met",
-            condition="Broodlord defeated"
+            condition="Broodlord defeated",
         )
         assert conn.condition == "Broodlord defeated"
 
@@ -48,14 +48,14 @@ class TestDecisionPoint:
                 DecisionOption(
                     choice="Option 1 text here",
                     outcome="Outcome 1 text here",
-                    target_scene="scene_1"
+                    target_scene="scene_1",
                 ),
                 DecisionOption(
                     choice="Option 2 text here",
                     outcome="Outcome 2 text here",
-                    target_scene="scene_2"
+                    target_scene="scene_2",
                 ),
-            ]
+            ],
         )
         assert dp.id == "decision_test"
         assert len(dp.options) == 2
@@ -68,11 +68,9 @@ class TestDecisionPoint:
                 prompt="What do you choose?" * 2,
                 options=[
                     DecisionOption(
-                        choice="Only option",
-                        outcome="Only outcome",
-                        target_scene="scene_1"
+                        choice="Only option", outcome="Only outcome", target_scene="scene_1"
                     )
-                ]
+                ],
             )
 
 
@@ -87,16 +85,10 @@ class TestNarrativeMap:
                 "scene_start": Scene(
                     name="Start Scene",
                     description="A" * 50,
-                    connections=[
-                        Connection(target="scene_end", description="Go to end")
-                    ]
+                    connections=[Connection(target="scene_end", description="Go to end")],
                 ),
-                "scene_end": Scene(
-                    name="End Scene",
-                    description="A" * 50,
-                    connections=[]
-                )
-            }
+                "scene_end": Scene(name="End Scene", description="A" * 50, connections=[]),
+            },
         )
         assert nm.start_scene == "scene_start"
         assert len(nm.scenes) == 2
@@ -110,11 +102,9 @@ class TestNarrativeMap:
                     "scene_start": Scene(
                         name="Start",
                         description="A" * 50,
-                        connections=[
-                            Connection(target="scene_nonexistent", description="Invalid")
-                        ]
+                        connections=[Connection(target="scene_nonexistent", description="Invalid")],
                     )
-                }
+                },
             )
 
     def test_decision_target_validation(self):
@@ -135,46 +125,35 @@ class TestNarrativeMap:
                                     DecisionOption(
                                         choice="Option 1",
                                         outcome="Outcome 1",
-                                        target_scene="scene_nonexistent"  # Invalid
+                                        target_scene="scene_nonexistent",  # Invalid
                                     ),
                                     DecisionOption(
                                         choice="Option 2",
                                         outcome="Outcome 2",
-                                        target_scene="scene_start"
+                                        target_scene="scene_start",
                                     ),
-                                ]
+                                ],
                             )
-                        ]
+                        ],
                     )
-                }
+                },
             )
 
     def test_character_arcs(self):
         """Test narrative map with character arcs."""
         nm = NarrativeMap(
             start_scene="scene_start",
-            scenes={
-                "scene_start": Scene(
-                    name="Start",
-                    description="A" * 50,
-                    connections=[]
-                )
-            },
+            scenes={"scene_start": Scene(name="Start", description="A" * 50, connections=[])},
             character_arcs=[
                 CharacterArc(
                     character="Test Character",
                     arc_stages=[
-                        CharacterArcStage(
-                            stage="Beginning",
-                            description="Starting state"
-                        ),
-                        CharacterArcStage(
-                            stage="Development",
-                            description="Character grows"
-                        )
-                    ]
+                        CharacterArcStage(stage="Beginning", description="Starting state"),
+                        CharacterArcStage(stage="Development", description="Character grows"),
+                    ],
                 )
-            ]
+            ],
         )
+        assert nm.character_arcs is not None
         assert len(nm.character_arcs) == 1
         assert len(nm.character_arcs[0].arc_stages) == 2

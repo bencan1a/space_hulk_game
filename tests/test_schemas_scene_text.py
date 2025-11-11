@@ -29,7 +29,7 @@ class TestSceneDialogue:
             speaker="Test Speaker",
             text="Test dialogue text",
             emotion="Angry",
-            context="During battle"
+            context="During battle",
         )
         assert dialogue.emotion == "Angry"
         assert dialogue.context == "During battle"
@@ -46,9 +46,7 @@ class TestSceneText:
             atmosphere="Dark, ominous",
             initial_text="You enter the scene",
             examination_texts={"object1": "Description of object 1"},
-            dialogue=[
-                SceneDialogue(speaker="Speaker", text="Text")
-            ]
+            dialogue=[SceneDialogue(speaker="Speaker", text="Text")],
         )
         assert scene.name == "Test Scene"
         assert len(scene.examination_texts) == 1
@@ -95,7 +93,7 @@ class TestSceneTexts:
                     description="B" * 100,
                     atmosphere="Bright",
                     initial_text="Welcome to scene 2",
-                )
+                ),
             }
         )
         assert len(st.scenes) == 2

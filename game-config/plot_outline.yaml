@@ -1,33 +1,33 @@
 narrative_foundation:
   title: "Test Space Hulk Adventure"
-  setting: "A derelict spacecraft drifting through the void"
+  setting: 'A derelict spacecraft drifting through the void'
   themes:
     - isolation
     - survival
     - gothic horror
-  tone: "Dark and oppressive"
+  tone: 'Dark and oppressive'
   plot_points:
-    - id: "discovery"
-      name: "Discovery of the Hulk"
-      description: "The boarding party discovers the ancient vessel"
-    - id: "revelation"
-      name: "Dark Revelation"
-      description: "The true nature of the threat is revealed"
+    - id: 'discovery'
+      name: 'Discovery of the Hulk'
+      description: 'The boarding party discovers the ancient vessel'
+    - id: 'revelation'
+      name: 'Dark Revelation'
+      description: 'The true nature of the threat is revealed'
   characters:
-    - name: "Brother Severus"
-      role: "Space Marine Leader"
-      backstory: "A veteran of many boarding actions"
+    - name: 'Brother Severus'
+      role: 'Space Marine Leader'
+      backstory: 'A veteran of many boarding actions'
   conflicts:
-    - type: "survival"
-      description: "Fighting for survival against overwhelming odds"
+    - type: 'survival'
+      description: 'Fighting for survival against overwhelming odds'
   endings:
-    - id: "victory"
-      name: "Victorious Escape"
-      description: "The team successfully escapes"
+    - id: 'victory'
+      name: 'Victorious Escape'
+      description: 'The team successfully escapes'
       conditions:
-        - flag: "main_objective_complete"
-    - id: "sacrifice"
-      name: "Noble Sacrifice"
-      description: "The team sacrifices themselves to save others"
+        - flag: 'main_objective_complete'
+    - id: 'sacrifice'
+      name: 'Noble Sacrifice'
+      description: 'The team sacrifices themselves to save others'
       conditions:
-        - flag: "self_destruct_activated"
+        - flag: 'self_destruct_activated'

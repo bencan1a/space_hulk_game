@@ -4,7 +4,6 @@ This module defines the schema for validating scene text outputs including
 scene descriptions, atmosphere, examination texts, dialogue, and narrative notes.
 """
 
-
 from pydantic import BaseModel, Field, field_validator
 
 
@@ -26,26 +25,12 @@ class SceneDialogue(BaseModel):
         ... )
     """
 
-    speaker: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description="Character name"
-    )
-    text: str = Field(
-        ...,
-        min_length=5,
-        description="Dialogue text"
-    )
+    speaker: str = Field(..., min_length=1, max_length=200, description="Character name")
+    text: str = Field(..., min_length=5, description="Dialogue text")
     emotion: str | None = Field(
-        default=None,
-        max_length=500,
-        description="Optional emotion or delivery style"
+        default=None, max_length=500, description="Optional emotion or delivery style"
     )
-    context: str | None = Field(
-        default=None,
-        description="Optional context for the dialogue"
-    )
+    context: str | None = Field(default=None, description="Optional context for the dialogue")
 
 
 class SceneText(BaseModel):
@@ -75,43 +60,23 @@ class SceneText(BaseModel):
         ... )
     """
 
-    name: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description="Human-readable scene name"
-    )
-    description: str = Field(
-        ...,
-        min_length=50,
-        description="Main scene description"
-    )
+    name: str = Field(..., min_length=1, max_length=200, description="Human-readable scene name")
+    description: str = Field(..., min_length=50, description="Main scene description")
     atmosphere: str = Field(
-        ...,
-        min_length=10,
-        max_length=500,
-        description="Atmospheric description or tags"
+        ..., min_length=10, max_length=500, description="Atmospheric description or tags"
     )
-    initial_text: str = Field(
-        ...,
-        min_length=10,
-        description="Text shown when entering the scene"
-    )
+    initial_text: str = Field(..., min_length=10, description="Text shown when entering the scene")
     examination_texts: dict[str, str] = Field(
-        default_factory=dict,
-        description="Dictionary of examinable objects to descriptions"
+        default_factory=dict, description="Dictionary of examinable objects to descriptions"
     )
     dialogue: list[SceneDialogue] = Field(
-        default_factory=list,
-        description="List of dialogue in this scene"
+        default_factory=list, description="List of dialogue in this scene"
     )
     narrative_notes: str | None = Field(
-        default=None,
-        min_length=20,
-        description="Optional narrative purpose notes"
+        default=None, min_length=20, description="Optional narrative purpose notes"
     )
 
-    @field_validator('examination_texts')
+    @field_validator("examination_texts")
     @classmethod
     def validate_examination_texts(cls, v: dict[str, str]) -> dict[str, str]:
         """Ensure all examination texts are non-empty."""
@@ -119,9 +84,7 @@ class SceneText(BaseModel):
             if not key.strip():
                 raise ValueError("Examination text keys must be non-empty")
             if not value.strip() or len(value) < 10:
-                raise ValueError(
-                    f"Examination text for '{key}' must be at least 10 characters"
-                )
+                raise ValueError(f"Examination text for '{key}' must be at least 10 characters")
         return v
 
 
@@ -144,24 +107,22 @@ class SceneTexts(BaseModel):
     """
 
     scenes: dict[str, SceneText] = Field(
-        ...,
-        min_length=1,
-        description="Dictionary of scene_id to SceneText (minimum 1 scene)"
+        ..., min_length=1, description="Dictionary of scene_id to SceneText (minimum 1 scene)"
     )
 
-    @field_validator('scenes')
+    @field_validator("scenes")
     @classmethod
     def validate_scene_ids(cls, v: dict[str, SceneText]) -> dict[str, SceneText]:
         """Ensure all scene IDs follow naming convention."""
         for scene_id in v:
-            if not scene_id.replace('_', '').replace('-', '').isalnum():
+            if not scene_id.replace("_", "").replace("-", "").isalnum():
                 raise ValueError(
                     f"Scene ID '{scene_id}' must contain only alphanumeric characters, "
                     f"underscores, and hyphens"
                 )
         return v
 
-    @field_validator('scenes')
+    @field_validator("scenes")
     @classmethod
     def validate_scene_names_match_keys(cls, v: dict[str, SceneText]) -> dict[str, SceneText]:
         """Validate that scene texts are properly structured.
@@ -196,23 +157,23 @@ if __name__ == "__main__":
                 initial_text="Impact imminent! Brace for uncontrolled descent!",
                 examination_texts={
                     "comms_array": "The integral vox-caster array is spitting static, an angry electrical current buzzing against your gauntlet. Severely damaged, only faint, distorted whispers pierce the din.",
-                    "drop_pod_hatch": "The massive ceramite hatch is buckled inwards at one corner, scorch marks marring its integrity. It remains sealed for now, a flimsy barrier against the void and whatever primordial horrors await."
+                    "drop_pod_hatch": "The massive ceramite hatch is buckled inwards at one corner, scorch marks marring its integrity. It remains sealed for now, a flimsy barrier against the void and whatever primordial horrors await.",
                 },
                 dialogue=[
                     SceneDialogue(
                         speaker="Brother-Captain Tyberius",
                         text="Status report! Comm-link non-responsive. Valerius, Xylos, Theron, confirm vitals!",
                         emotion="Commanding, urgent",
-                        context="As the drop pod shudders violently from impacts."
+                        context="As the drop pod shudders violently from impacts.",
                     ),
                     SceneDialogue(
                         speaker="Brother Valerius",
                         text="All systems nominal, Captain! Eager for contact! Let the Xenos come!",
                         emotion="Anticipatory, aggressive",
-                        context="A growl in his voice, even through the vox."
-                    )
+                        context="A growl in his voice, even through the vox.",
+                    ),
                 ],
-                narrative_notes="This scene establishes the immediate chaos and danger of the insertion. It introduces the squad members and their initial reactions, sets the claustrophobic and grimdark tone, and immediately highlights the isolation and the pervasive Warp influence."
+                narrative_notes="This scene establishes the immediate chaos and danger of the insertion. It introduces the squad members and their initial reactions, sets the claustrophobic and grimdark tone, and immediately highlights the isolation and the pervasive Warp influence.",
             ),
             "scene_whispers_in_the_dark": SceneText(
                 name="Whispers in the Dark",
@@ -223,8 +184,8 @@ if __name__ == "__main__":
                     "grotesque_murals": "Crude, yet disturbingly detailed, charnel-house art. They depict Xenos worshipped as gods, their vile forms rendered with disturbing reverence by mutated hands. A perversion of faith."
                 },
                 dialogue=[],
-                narrative_notes="This scene introduces the primary Xenos threat (Genestealers) and establishes their brutality. The decaying remains of previous expeditions reinforce the overwhelming odds and grim nature of the mission."
-            )
+                narrative_notes="This scene introduces the primary Xenos threat (Genestealers) and establishes their brutality. The decaying remains of previous expeditions reinforce the overwhelming odds and grim nature of the mission.",
+            ),
         }
     )
 

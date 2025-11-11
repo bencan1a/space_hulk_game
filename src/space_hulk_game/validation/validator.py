@@ -151,8 +151,9 @@ class OutputValidator:
             error_type = error["type"]
 
             # Create a detailed error message
-            if error.get("ctx"):
-                ctx = ", ".join(f"{k}={v}" for k, v in error["ctx"].items())
+            ctx_dict = error.get("ctx")
+            if ctx_dict:
+                ctx = ", ".join(f"{k}={v}" for k, v in ctx_dict.items())
                 error_msg = f"Field '{loc}': {msg} (type={error_type}, {ctx})"
             else:
                 error_msg = f"Field '{loc}': {msg} (type={error_type})"

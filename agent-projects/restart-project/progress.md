@@ -115,7 +115,7 @@
 - ✅ Comprehensive unit tests: tests/test_validators.py (673 lines, 26 tests)
   - All 26 tests passing (100% pass rate)
   - Tests for valid YAML inputs (5 tests)
-  - Tests for invalid YAML inputs (15 tests) 
+  - Tests for invalid YAML inputs (15 tests)
   - Tests for real generated files (5 tests)
   - Edge case tests (markdown wrapping, empty files, syntax errors)
 - ✅ All success criteria validated:

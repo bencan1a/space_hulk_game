@@ -182,19 +182,19 @@ python examples/corrector_usage.py
 class OutputCorrector:
     def __init__(self):
         """Initialize the output corrector with a validator instance."""
-    
+
     def correct_plot(self, raw_output: str) -> CorrectionResult:
         """Attempt to correct common errors in plot outline YAML."""
-    
+
     def correct_narrative_map(self, raw_output: str) -> CorrectionResult:
         """Attempt to correct common errors in narrative map YAML."""
-    
+
     def correct_puzzle_design(self, raw_output: str) -> CorrectionResult:
         """Attempt to correct common errors in puzzle design YAML."""
-    
+
     def correct_scene_texts(self, raw_output: str) -> CorrectionResult:
         """Attempt to correct common errors in scene texts YAML."""
-    
+
     def correct_game_mechanics(self, raw_output: str) -> CorrectionResult:
         """Attempt to correct common errors in game mechanics YAML."""
 ```

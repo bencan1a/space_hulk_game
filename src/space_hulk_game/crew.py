@@ -191,9 +191,9 @@ class SpaceHulkGame:
             if "prompt" not in inputs:
                 logger.warning("No 'prompt' or 'game' key found in inputs")
                 # Use default instead of raising error to allow testing
-                inputs[
-                    "prompt"
-                ] = "A mysterious derelict space hulk drifts in the void, its corridors dark and silent."
+                inputs["prompt"] = (
+                    "A mysterious derelict space hulk drifts in the void, its corridors dark and silent."
+                )
                 logger.info(f"Using default prompt: {inputs['prompt']}")
 
             # Load planning template if template hint detected in prompt (Chunk 3.4)

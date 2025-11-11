@@ -529,8 +529,7 @@ class OutputCorrector:
                             scene["description"], 50
                         )
                         corrections.append(
-                            f"Extended short scene description "
-                            f"(was {len(original_desc)} chars)"
+                            f"Extended short scene description (was {len(original_desc)} chars)"
                         )
                         logger.info(
                             f"Extended scene description from {len(original_desc)} "
@@ -863,8 +862,7 @@ class OutputCorrector:
                             scene["description"], 100
                         )
                         corrections.append(
-                            f"Extended short scene description "
-                            f"(was {len(original_desc)} chars)"
+                            f"Extended short scene description (was {len(original_desc)} chars)"
                         )
                         logger.info(
                             f"Extended scene description from {len(original_desc)} "
@@ -1081,8 +1079,7 @@ class OutputCorrector:
             data["technical_requirements"] = [
                 {
                     "requirement": (
-                        "Basic game engine functionality for managing "
-                        "game state and logic."
+                        "Basic game engine functionality for managing game state and logic."
                     ),
                     "justification": "Required for the game to function properly.",
                 }
