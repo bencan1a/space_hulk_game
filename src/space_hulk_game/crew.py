@@ -83,6 +83,7 @@ from crewai import LLM, Agent, Crew, Process, Task
 from crewai.project import CrewBase, after_kickoff, agent, before_kickoff, crew, task
 
 from space_hulk_game.config.hierarchical_tasks import HIERARCHICAL_TASKS
+from space_hulk_game.utils.output_sanitizer import OutputSanitizer
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -166,6 +167,97 @@ class SpaceHulkGame:
         except Exception as e:
             logger.error(f"Error loading tasks config: {e!s}")
             raise
+
+        # Monkey-patch Task._save_file for pre-write YAML sanitization
+        # This intercepts CrewAI's file write and applies sanitization BEFORE disk write
+        # Implements Chunk 3 of YAML Pipeline Refactor plan
+        self._apply_task_save_file_patch()
+
+    def _apply_task_save_file_patch(self) -> None:
+        """Apply monkey-patch to Task._save_file for YAML sanitization.
+
+        This method intercepts CrewAI's Task._save_file() method to apply
+        sanitization BEFORE writing to disk. This solves the critical issue
+        where raw LLM output (with markdown fences, syntax errors, etc.)
+        is written directly to disk.
+
+        The wrapper:
+        1. Detects output type from filename (plot_outline.yaml -> 'plot')
+        2. Sanitizes string outputs using OutputSanitizer
+        3. Calls original _save_file with sanitized result
+        4. Handles errors gracefully (logs warning, continues with original)
+
+        Output Type Mapping:
+            - plot_outline.yaml -> 'plot'
+            - narrative_map.yaml -> 'narrative'
+            - puzzle_design.yaml -> 'puzzle'
+            - scene_texts.yaml -> 'scene'
+            - prd_document.yaml -> 'mechanics'
+
+        Implements: Chunk 3 of YAML Pipeline Refactor plan
+        """
+        # Save reference to original method before patching
+        original_save_file = Task._save_file
+
+        def sanitized_save_file(self, result: dict | str | Any) -> None:
+            """Sanitized wrapper for Task._save_file.
+
+            This wrapper intercepts the file write operation and applies
+            OutputSanitizer for string outputs with a detected type.
+
+            Args:
+                self: The Task instance (bound method)
+                result: The task output to save (string, dict, or other)
+
+            Returns:
+                None (writes to disk via original _save_file)
+            """
+            # Only sanitize string outputs with output_file defined
+            if isinstance(result, str) and hasattr(self, "output_file") and self.output_file:
+                # Map filename patterns to output types
+                output_type_map = {
+                    "plot_outline": "plot",
+                    "narrative_map": "narrative",
+                    "puzzle_design": "puzzle",
+                    "scene_texts": "scene",
+                    "prd_document": "mechanics",
+                }
+
+                # Detect output type from filename
+                output_type = None
+                for key, val in output_type_map.items():
+                    if key in self.output_file:
+                        output_type = val
+                        logger.debug(
+                            f"Detected output type '{output_type}' from filename: {self.output_file}"
+                        )
+                        break
+
+                # Apply sanitization if type detected
+                if output_type:
+                    try:
+                        sanitizer = OutputSanitizer()
+                        logger.info(f"Sanitizing {self.output_file} as type '{output_type}'")
+                        result = sanitizer.sanitize(result, output_type)
+                        logger.info(f"Sanitization complete for {self.output_file}")
+                    except Exception as e:
+                        logger.warning(
+                            f"Sanitization failed for {self.output_file}: {e}",
+                            exc_info=True,
+                        )
+                        # Continue with original result (graceful degradation)
+                        logger.warning("Continuing with unsanitized output (graceful degradation)")
+                else:
+                    logger.debug(
+                        f"No output type mapping for {self.output_file}, skipping sanitization"
+                    )
+
+            # Call original _save_file method with (possibly sanitized) result
+            original_save_file(self, result)
+
+        # Apply monkey-patch
+        Task._save_file = sanitized_save_file
+        logger.info("Task._save_file monkey-patched for YAML sanitization")
 
     @before_kickoff
     def prepare_inputs(self, inputs):
