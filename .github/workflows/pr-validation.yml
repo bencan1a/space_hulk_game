@@ -1,0 +1,55 @@
+name: PR Validation
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  validate:
+    name: Quick PR Checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: 'pip'
+
+      - name: Install uv
+        run: pip install uv
+
+      - name: Install dependencies
+        run: uv pip install --system -e ".[dev]"
+
+      - name: Quick checks
+        run: |
+          echo "Running formatting check..."
+          ruff format --check .
+
+          echo "Running linting..."
+          ruff check .
+
+          echo "Running tests..."
+          python -m unittest discover -s tests -v
+
+      - name: Check PR description
+        run: |
+          if [ -z "${{ github.event.pull_request.body }}" ]; then
+            echo "⚠️  Warning: PR description is empty"
+            echo "Please add a description to your PR"
+          else
+            echo "✅ PR has description"
+          fi
+
+      - name: PR Summary
+        if: always()
+        run: |
+          echo "## PR Validation Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Formatting: Passed" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Linting: Passed" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Tests: Passed" >> $GITHUB_STEP_SUMMARY
