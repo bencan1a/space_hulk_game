@@ -60,10 +60,10 @@ make check-all
 ```bash
 # Execute Wave 4 (4 parallel agents)
 # Create .github/workflows/ci.yml
-# Create .github/workflows/pr-validation.yml
 # Create .github/workflows/nightly-regression.yml
 # Create tools/build_context.py
 # Push to test branch to validate CI
+# Note: pr-validation.yml was initially created but later removed as redundant with ci.yml
 ```
 
 **Phase 4 (Week 4): Documentation**
@@ -154,7 +154,7 @@ make check-all
 5. **CI/CD**
    - Multi-platform testing (Ubuntu, Windows, macOS)
    - Python version matrix (3.10, 3.11, 3.12)
-   - Separate workflows: ci, pr-validation, nightly-regression
+   - Separate workflows: ci (includes PR validation), nightly-regression
 
 6. **Documentation Automation**
    - build_context.py generates unified context for AI agents

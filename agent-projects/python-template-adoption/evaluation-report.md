@@ -145,9 +145,8 @@ The AGENTS.md file serves as the "first thing AI agents should read" and address
 - Codecov integration
 
 **Workflows:**
-1. **ci.yml**: Main quality checks on push/PR
-2. **pr-validation.yml**: Fast checks for PRs
-3. **nightly-regression.yml**: Comprehensive testing (inferred)
+1. **ci.yml**: Main quality checks on push/PR (includes all PR validation)
+2. **nightly-regression.yml**: Comprehensive testing (inferred)
 
 **Space Hulk Considerations:**
 - CrewAI may have platform-specific behaviors
