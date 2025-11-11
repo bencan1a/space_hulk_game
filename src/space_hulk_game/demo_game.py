@@ -45,6 +45,7 @@ from .engine import (
     TextAdventureEngine,
     GameState,
     GameData,
+    GameValidator,
 )
 from .engine.persistence import SaveSystem
 
@@ -272,7 +273,7 @@ class DemoGameCLI:
     def load_game_data(self) -> bool:
         """
         Load game data from YAML files.
-        
+
         Returns:
             True if successful, False otherwise.
         """
@@ -282,6 +283,31 @@ class DemoGameCLI:
             print(self.formatter.success(f"✓ Loaded: {self.game_data.title}"))
             print(self.formatter.system(f"  Scenes: {len(self.game_data.scenes)}"))
             print(self.formatter.system(f"  Starting at: {self.game_data.starting_scene}"))
+
+            # Validate game content for playability issues
+            print(self.formatter.system("\nValidating game content..."))
+            validator = GameValidator(strict_mode=False)
+            result = validator.validate_game(self.game_data)
+
+            if result.is_valid():
+                print(self.formatter.success("✓ Game validation passed"))
+            else:
+                print(self.formatter.warning("\n⚠ Warning: Game validation found issues:"))
+                print(self.formatter.warning("=" * 79))
+                # Display validation summary with proper formatting
+                summary_lines = result.get_summary().split('\n')
+                for line in summary_lines:
+                    if line.strip():
+                        print(self.formatter.warning(line))
+                print(self.formatter.warning("=" * 79))
+                print(self.formatter.warning("\nThe game may not be fully playable."))
+                print(self.formatter.system("You can still try to play, but expect issues.\n"))
+
+                response = input(self.formatter.prompt("Continue anyway? (y/n): ")).strip().lower()
+                if response not in ['y', 'yes']:
+                    print(self.formatter.system("Game loading cancelled."))
+                    return False
+
             return True
         except FileNotFoundError as e:
             print(self.formatter.warning(f"\n✗ Error: Game files not found"))
