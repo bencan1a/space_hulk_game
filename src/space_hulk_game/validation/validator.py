@@ -193,6 +193,9 @@ class OutputValidator:
         if parse_errors:
             return ValidationResult(valid=False, data=None, errors=parse_errors)
 
+        # Type guard: data is guaranteed to be dict here since parse_errors is empty
+        assert data is not None, "data should not be None when parse_errors is empty"
+
         # Validate against schema
         try:
             plot = PlotOutline(**data)
@@ -240,6 +243,9 @@ class OutputValidator:
         if parse_errors:
             return ValidationResult(valid=False, data=None, errors=parse_errors)
 
+        # Type guard: data is guaranteed to be dict here since parse_errors is empty
+        assert data is not None, "data should not be None when parse_errors is empty"
+
         # Validate against schema
         try:
             narrative_map = NarrativeMap(**data)
@@ -284,6 +290,9 @@ class OutputValidator:
         data, parse_errors = self._parse_yaml(raw_output)
         if parse_errors:
             return ValidationResult(valid=False, data=None, errors=parse_errors)
+
+        # Type guard: data is guaranteed to be dict here since parse_errors is empty
+        assert data is not None, "data should not be None when parse_errors is empty"
 
         # Validate against schema
         try:
@@ -336,6 +345,9 @@ class OutputValidator:
         if parse_errors:
             return ValidationResult(valid=False, data=None, errors=parse_errors)
 
+        # Type guard: data is guaranteed to be dict here since parse_errors is empty
+        assert data is not None, "data should not be None when parse_errors is empty"
+
         # Validate against schema
         try:
             scene_texts = SceneTexts(**data)
@@ -384,6 +396,9 @@ class OutputValidator:
         data, parse_errors = self._parse_yaml(raw_output)
         if parse_errors:
             return ValidationResult(valid=False, data=None, errors=parse_errors)
+
+        # Type guard: data is guaranteed to be dict here since parse_errors is empty
+        assert data is not None, "data should not be None when parse_errors is empty"
 
         # Validate against schema
         try:
