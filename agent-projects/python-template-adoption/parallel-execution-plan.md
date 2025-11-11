@@ -182,13 +182,10 @@ make fix  # Use new Makefile
 **Tasks:**
 - 3.1.1: Create .github/workflows/ci.yml
 
-**Deliverable:** Multi-platform CI workflow
+**Deliverable:** Multi-platform CI workflow (includes PR validation)
 
-### Agent 2: PR Validation (1 hour)
-**Tasks:**
-- 3.2.1: Create .github/workflows/pr-validation.yml
-
-**Deliverable:** Fast PR checks workflow
+### Agent 2: ~~PR Validation~~ (Merged into CI workflow)
+**Note:** Originally planned as separate workflow, but merged into ci.yml to avoid redundancy
 
 ### Agent 3: Nightly Regression (1.5 hours)
 **Tasks:**
@@ -483,7 +480,7 @@ pre-commit run --all-files
 # Create .github/workflows/ci.yml
 
 # Terminal 2: PR Validation
-# Create .github/workflows/pr-validation.yml
+# Note: pr-validation.yml was initially planned but merged into ci.yml to avoid redundancy
 
 # Terminal 3: Nightly
 # Create .github/workflows/nightly-regression.yml

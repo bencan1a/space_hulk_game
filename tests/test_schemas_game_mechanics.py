@@ -4,18 +4,18 @@ import pytest
 from pydantic import ValidationError
 
 from space_hulk_game.schemas.game_mechanics import (
-    MovementSystem,
-    InventorySystem,
-    CombatSystem,
     CombatMechanic,
-    InteractionSystem,
+    CombatSystem,
+    GameMechanics,
+    GameState,
     GameSystems,
+    InteractionSystem,
+    InventorySystem,
+    LoseCondition,
+    MovementSystem,
+    TechnicalRequirement,
     TrackedVariable,
     WinCondition,
-    LoseCondition,
-    GameState,
-    TechnicalRequirement,
-    GameMechanics,
 )
 
 
@@ -44,7 +44,7 @@ class TestInventorySystem:
             description="A" * 50, capacity=100,
             commands=["take"], narrative_purpose="B" * 50
         )
-        
+
         # Invalid capacities
         with pytest.raises(ValidationError):
             InventorySystem(

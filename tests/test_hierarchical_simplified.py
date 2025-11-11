@@ -15,7 +15,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 
-def test_simplified_hierarchical():  # noqa: PLR0915
+def test_simplified_hierarchical():
     """Test hierarchical mode with simplified tasks."""
     print("\n" + "=" * 80)
     print("HIERARCHICAL MODE - SIMPLIFIED TASK DESCRIPTIONS")

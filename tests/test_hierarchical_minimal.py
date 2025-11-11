@@ -38,7 +38,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 
-def test_hierarchical_minimal():  # noqa: PLR0915
+def test_hierarchical_minimal():
     """
     Test hierarchical mode with minimal 3-task configuration.
     """

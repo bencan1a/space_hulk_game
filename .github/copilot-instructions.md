@@ -54,6 +54,29 @@ space_hulk_game/
 - Use **descriptive variable names**
 - Add **logging** for important operations
 
+### Pre-Checkin Requirements
+**ALWAYS run these commands before committing code:**
+```bash
+# 1. Auto-fix linting issues
+ruff check . --fix
+
+# 2. Format code
+ruff format .
+
+# 3. Verify no linting errors remain
+ruff check .
+
+# 4. Run type checking
+mypy src/           # Strict checking on source code
+mypy tests/         # Relaxed checking on tests
+mypy tools/         # Relaxed checking on tools
+
+# 5. Run tests
+python -m unittest discover -s tests -v
+```
+
+**Note:** If `ruff` is not installed, run `pip install ruff` or `uv pip install -e ".[dev]"` first.
+
 ### Import Organization
 1. Standard library imports
 2. Third-party imports (CrewAI, yaml, etc.)

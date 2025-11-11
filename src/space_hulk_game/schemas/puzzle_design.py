@@ -4,25 +4,25 @@ This module defines the schema for validating puzzle design outputs including
 puzzles, artifacts, monsters, NPCs, and overall puzzle design structure.
 """
 
-from typing import List
+
 from pydantic import BaseModel, Field, field_validator
 
 
 class PuzzleStep(BaseModel):
     """A single step in solving a puzzle.
-    
+
     This model accepts either a plain string or a dict with 'step' key
     to match the YAML format.
-    
+
     Attributes:
         step: Description of the step to perform.
-    
+
     Example:
         >>> step = PuzzleStep(
         ...     step="Locate the auxiliary power conduit junction..."
         ... )
     """
-    
+
     step: str = Field(
         ...,
         min_length=10,
@@ -32,30 +32,30 @@ class PuzzleStep(BaseModel):
 
 class PuzzleSolution(BaseModel):
     """Solution structure for a puzzle.
-    
+
     Attributes:
         type: Type of solution (e.g., 'multi-step', 'observation', 'timed').
         steps: List of steps to solve the puzzle.
-    
+
     Example:
         >>> solution = PuzzleSolution(
         ...     type="multi-step_interaction_and_logic",
         ...     steps=[PuzzleStep(...), ...]
         ... )
     """
-    
+
     type: str = Field(
         ...,
         min_length=3,
         max_length=200,
         description="Type of puzzle solution"
     )
-    steps: List[PuzzleStep] = Field(
+    steps: list[PuzzleStep] = Field(
         ...,
         min_length=1,
         description="Steps to solve the puzzle (at least 1)"
     )
-    
+
     @field_validator('steps', mode='before')
     @classmethod
     def convert_string_steps(cls, v):
@@ -75,7 +75,7 @@ class PuzzleSolution(BaseModel):
 
 class Puzzle(BaseModel):
     """A puzzle in the game.
-    
+
     Attributes:
         id: Unique identifier for the puzzle.
         name: Human-readable puzzle name.
@@ -84,7 +84,7 @@ class Puzzle(BaseModel):
         narrative_purpose: Why this puzzle exists narratively.
         solution: Solution structure for the puzzle.
         difficulty: Difficulty level (e.g., 'easy', 'medium', 'hard').
-    
+
     Example:
         >>> puzzle = Puzzle(
         ...     id="puzzle_comm_relay_restore",
@@ -96,7 +96,7 @@ class Puzzle(BaseModel):
         ...     difficulty="medium"
         ... )
     """
-    
+
     id: str = Field(
         ...,
         min_length=1,
@@ -134,7 +134,7 @@ class Puzzle(BaseModel):
         pattern="^(easy|medium|hard)$",
         description="Difficulty level: easy, medium, or hard"
     )
-    
+
     @field_validator('id')
     @classmethod
     def validate_id_format(cls, v: str) -> str:
@@ -148,16 +148,16 @@ class Puzzle(BaseModel):
 
 class ArtifactProperty(BaseModel):
     """A property of an artifact.
-    
+
     Attributes:
         property: Description of the artifact property.
-    
+
     Example:
         >>> prop = ArtifactProperty(
         ...     property="minor moral boost (if worn or kept)"
         ... )
     """
-    
+
     property: str = Field(
         ...,
         min_length=5,
@@ -167,7 +167,7 @@ class ArtifactProperty(BaseModel):
 
 class Artifact(BaseModel):
     """An artifact that can be found in the game.
-    
+
     Attributes:
         id: Unique identifier for the artifact.
         name: Human-readable artifact name.
@@ -175,7 +175,7 @@ class Artifact(BaseModel):
         location: Scene ID where the artifact is located.
         narrative_significance: Why this artifact is narratively important.
         properties: List of artifact properties or effects.
-    
+
     Example:
         >>> artifact = Artifact(
         ...     id="artifact_blood_eagle_pendant",
@@ -186,7 +186,7 @@ class Artifact(BaseModel):
         ...     properties=[ArtifactProperty(...)]
         ... )
     """
-    
+
     id: str = Field(
         ...,
         min_length=1,
@@ -215,12 +215,12 @@ class Artifact(BaseModel):
         min_length=20,
         description="Narrative importance of this artifact"
     )
-    properties: List[ArtifactProperty] = Field(
+    properties: list[ArtifactProperty] = Field(
         ...,
         min_length=1,
         description="Artifact properties (at least 1)"
     )
-    
+
     @field_validator('id')
     @classmethod
     def validate_id_format(cls, v: str) -> str:
@@ -234,7 +234,7 @@ class Artifact(BaseModel):
 
 class Monster(BaseModel):
     """A monster or enemy in the game.
-    
+
     Attributes:
         id: Unique identifier for the monster.
         name: Human-readable monster name.
@@ -242,7 +242,7 @@ class Monster(BaseModel):
         locations: List of scene IDs where this monster appears.
         narrative_role: The monster's role in the narrative.
         abilities: List of the monster's special abilities.
-    
+
     Example:
         >>> monster = Monster(
         ...     id="monster_feral_genestealer",
@@ -253,7 +253,7 @@ class Monster(BaseModel):
         ...     abilities=["Fast Attack", "Rending Claws"]
         ... )
     """
-    
+
     id: str = Field(
         ...,
         min_length=1,
@@ -271,7 +271,7 @@ class Monster(BaseModel):
         min_length=20,
         description="Detailed monster description"
     )
-    locations: List[str] = Field(
+    locations: list[str] = Field(
         ...,
         min_length=1,
         description="Scene IDs where monster appears (at least 1)"
@@ -281,12 +281,12 @@ class Monster(BaseModel):
         min_length=20,
         description="Monster's narrative role"
     )
-    abilities: List[str] = Field(
+    abilities: list[str] = Field(
         ...,
         min_length=1,
         description="Monster abilities (at least 1)"
     )
-    
+
     @field_validator('id')
     @classmethod
     def validate_id_format(cls, v: str) -> str:
@@ -296,10 +296,10 @@ class Monster(BaseModel):
                 "ID must contain only alphanumeric characters, underscores, and hyphens"
             )
         return v
-    
+
     @field_validator('abilities')
     @classmethod
-    def validate_abilities_not_empty(cls, v: List[str]) -> List[str]:
+    def validate_abilities_not_empty(cls, v: list[str]) -> list[str]:
         """Ensure all abilities are non-empty strings."""
         if not all(ability.strip() for ability in v):
             raise ValueError("All abilities must be non-empty strings")
@@ -308,7 +308,7 @@ class Monster(BaseModel):
 
 class NPC(BaseModel):
     """A non-player character in the game.
-    
+
     Attributes:
         id: Unique identifier for the NPC.
         name: Human-readable NPC name.
@@ -316,7 +316,7 @@ class NPC(BaseModel):
         description: Detailed description of the NPC.
         locations: List of scene IDs where this NPC appears.
         dialogue_themes: List of themes or topics the NPC discusses.
-    
+
     Example:
         >>> npc = NPC(
         ...     id="npc_brother_captain_tyberius",
@@ -327,7 +327,7 @@ class NPC(BaseModel):
         ...     dialogue_themes=["Duty and Sacrifice", "The Burden of Command"]
         ... )
     """
-    
+
     id: str = Field(
         ...,
         min_length=1,
@@ -351,17 +351,17 @@ class NPC(BaseModel):
         min_length=20,
         description="Detailed NPC description"
     )
-    locations: List[str] = Field(
+    locations: list[str] = Field(
         ...,
         min_length=1,
         description="Scene IDs where NPC appears (at least 1)"
     )
-    dialogue_themes: List[str] = Field(
+    dialogue_themes: list[str] = Field(
         ...,
         min_length=1,
         description="Dialogue themes (at least 1)"
     )
-    
+
     @field_validator('id')
     @classmethod
     def validate_id_format(cls, v: str) -> str:
@@ -371,10 +371,10 @@ class NPC(BaseModel):
                 "ID must contain only alphanumeric characters, underscores, and hyphens"
             )
         return v
-    
+
     @field_validator('dialogue_themes')
     @classmethod
-    def validate_themes_not_empty(cls, v: List[str]) -> List[str]:
+    def validate_themes_not_empty(cls, v: list[str]) -> list[str]:
         """Ensure all dialogue themes are non-empty strings."""
         if not all(theme.strip() for theme in v):
             raise ValueError("All dialogue themes must be non-empty strings")
@@ -383,16 +383,16 @@ class NPC(BaseModel):
 
 class PuzzleDesign(BaseModel):
     """Complete puzzle design for a game.
-    
+
     This is the top-level model representing all puzzles, artifacts,
     monsters, and NPCs in the game.
-    
+
     Attributes:
         puzzles: List of puzzles in the game.
         artifacts: List of artifacts that can be found.
         monsters: List of monsters/enemies in the game.
         npcs: List of non-player characters.
-    
+
     Example:
         >>> puzzle_design = PuzzleDesign(
         ...     puzzles=[Puzzle(...), ...],
@@ -401,58 +401,58 @@ class PuzzleDesign(BaseModel):
         ...     npcs=[NPC(...), ...]
         ... )
     """
-    
-    puzzles: List[Puzzle] = Field(
+
+    puzzles: list[Puzzle] = Field(
         ...,
         min_length=1,
         description="Puzzles in the game (at least 1)"
     )
-    artifacts: List[Artifact] = Field(
+    artifacts: list[Artifact] = Field(
         ...,
         min_length=1,
         description="Artifacts in the game (at least 1)"
     )
-    monsters: List[Monster] = Field(
+    monsters: list[Monster] = Field(
         ...,
         min_length=1,
         description="Monsters in the game (at least 1)"
     )
-    npcs: List[NPC] = Field(
+    npcs: list[NPC] = Field(
         ...,
         min_length=1,
         description="NPCs in the game (at least 1)"
     )
-    
+
     @field_validator('puzzles')
     @classmethod
-    def validate_puzzle_ids_unique(cls, v: List[Puzzle]) -> List[Puzzle]:
+    def validate_puzzle_ids_unique(cls, v: list[Puzzle]) -> list[Puzzle]:
         """Ensure all puzzle IDs are unique."""
         ids = [puzzle.id for puzzle in v]
         if len(ids) != len(set(ids)):
             raise ValueError("All puzzle IDs must be unique")
         return v
-    
+
     @field_validator('artifacts')
     @classmethod
-    def validate_artifact_ids_unique(cls, v: List[Artifact]) -> List[Artifact]:
+    def validate_artifact_ids_unique(cls, v: list[Artifact]) -> list[Artifact]:
         """Ensure all artifact IDs are unique."""
         ids = [artifact.id for artifact in v]
         if len(ids) != len(set(ids)):
             raise ValueError("All artifact IDs must be unique")
         return v
-    
+
     @field_validator('monsters')
     @classmethod
-    def validate_monster_ids_unique(cls, v: List[Monster]) -> List[Monster]:
+    def validate_monster_ids_unique(cls, v: list[Monster]) -> list[Monster]:
         """Ensure all monster IDs are unique."""
         ids = [monster.id for monster in v]
         if len(ids) != len(set(ids)):
             raise ValueError("All monster IDs must be unique")
         return v
-    
+
     @field_validator('npcs')
     @classmethod
-    def validate_npc_ids_unique(cls, v: List[NPC]) -> List[NPC]:
+    def validate_npc_ids_unique(cls, v: list[NPC]) -> list[NPC]:
         """Ensure all NPC IDs are unique."""
         ids = [npc.id for npc in v]
         if len(ids) != len(set(ids)):
@@ -513,5 +513,5 @@ if __name__ == "__main__":
             )
         ]
     )
-    
+
     print(f"✅ Puzzle design validation successful: {len(example_puzzle_design.puzzles)} puzzles")

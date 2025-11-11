@@ -24,7 +24,7 @@ import re
 import sys
 from pathlib import Path
 
-import requests
+import requests  # type: ignore[import-untyped]
 
 
 class Mem0Configurator:
@@ -185,7 +185,7 @@ class Mem0Configurator:
         """Check if Ollama is running."""
         try:
             response = requests.get("http://localhost:11434/api/tags", timeout=2)
-            return response.status_code == 200
+            return response.status_code == 200  # type: ignore[no-any-return]
         except Exception:
             return False
 

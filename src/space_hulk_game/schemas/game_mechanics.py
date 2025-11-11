@@ -4,25 +4,25 @@ This module defines the schema for validating game mechanics outputs including
 game systems, state management, win/lose conditions, and technical requirements.
 """
 
-from typing import List
+
 from pydantic import BaseModel, Field, field_validator
 
 
 class GameSystemCommands(BaseModel):
     """Commands available in a game system.
-    
+
     This is a simple wrapper to ensure commands are valid.
     """
-    
-    commands: List[str] = Field(
+
+    commands: list[str] = Field(
         ...,
         min_length=1,
         description="List of available commands (at least 1)"
     )
-    
+
     @field_validator('commands')
     @classmethod
-    def validate_commands_not_empty(cls, v: List[str]) -> List[str]:
+    def validate_commands_not_empty(cls, v: list[str]) -> list[str]:
         """Ensure all commands are non-empty strings."""
         if not all(cmd.strip() for cmd in v):
             raise ValueError("All commands must be non-empty strings")
@@ -31,18 +31,18 @@ class GameSystemCommands(BaseModel):
 
 class CombatMechanic(BaseModel):
     """A specific combat mechanic or rule.
-    
+
     Attributes:
         name: Name of the combat mechanic.
         rules: Description of how the mechanic works.
-    
+
     Example:
         >>> mechanic = CombatMechanic(
         ...     name="Overwatch",
         ...     rules="Set a character to fire upon enemies entering their line of sight..."
         ... )
     """
-    
+
     name: str = Field(
         ...,
         min_length=1,
@@ -58,12 +58,12 @@ class CombatMechanic(BaseModel):
 
 class MovementSystem(BaseModel):
     """Movement system configuration.
-    
+
     Attributes:
         description: Description of how movement works.
         commands: List of movement commands.
         narrative_purpose: Why this system exists narratively.
-    
+
     Example:
         >>> movement = MovementSystem(
         ...     description="Tactical grid-based movement with limited action points...",
@@ -71,13 +71,13 @@ class MovementSystem(BaseModel):
         ...     narrative_purpose="Reinforces the claustrophobic and dangerous environment..."
         ... )
     """
-    
+
     description: str = Field(
         ...,
         min_length=50,
         description="Description of movement system"
     )
-    commands: List[str] = Field(
+    commands: list[str] = Field(
         ...,
         min_length=1,
         description="Movement commands (at least 1)"
@@ -91,13 +91,13 @@ class MovementSystem(BaseModel):
 
 class InventorySystem(BaseModel):
     """Inventory system configuration.
-    
+
     Attributes:
         description: Description of how inventory works.
         capacity: Maximum number of items that can be carried.
         commands: List of inventory commands.
         narrative_purpose: Why this system exists narratively.
-    
+
     Example:
         >>> inventory = InventorySystem(
         ...     description="Limited capacity inventory for each Space Marine...",
@@ -106,7 +106,7 @@ class InventorySystem(BaseModel):
         ...     narrative_purpose="Scarcity of resources drives the survival theme..."
         ... )
     """
-    
+
     description: str = Field(
         ...,
         min_length=50,
@@ -118,7 +118,7 @@ class InventorySystem(BaseModel):
         le=100,
         description="Maximum inventory capacity (1-100)"
     )
-    commands: List[str] = Field(
+    commands: list[str] = Field(
         ...,
         min_length=1,
         description="Inventory commands (at least 1)"
@@ -132,12 +132,12 @@ class InventorySystem(BaseModel):
 
 class CombatSystem(BaseModel):
     """Combat system configuration.
-    
+
     Attributes:
         description: Description of how combat works.
         mechanics: List of specific combat mechanics.
         narrative_purpose: Why this system exists narratively.
-    
+
     Example:
         >>> combat = CombatSystem(
         ...     description="Turn-based tactical combat. Features cover systems...",
@@ -145,13 +145,13 @@ class CombatSystem(BaseModel):
         ...     narrative_purpose="The tactical, turn-based nature supports survival theme..."
         ... )
     """
-    
+
     description: str = Field(
         ...,
         min_length=50,
         description="Description of combat system"
     )
-    mechanics: List[CombatMechanic] = Field(
+    mechanics: list[CombatMechanic] = Field(
         ...,
         min_length=1,
         description="Combat mechanics (at least 1)"
@@ -165,12 +165,12 @@ class CombatSystem(BaseModel):
 
 class InteractionSystem(BaseModel):
     """Interaction system configuration.
-    
+
     Attributes:
         description: Description of how interaction works.
         commands: List of interaction commands.
         narrative_purpose: Why this system exists narratively.
-    
+
     Example:
         >>> interaction = InteractionSystem(
         ...     description="Allows players to interact with objects, environments...",
@@ -178,13 +178,13 @@ class InteractionSystem(BaseModel):
         ...     narrative_purpose="'Examine' allows players to uncover crucial lore..."
         ... )
     """
-    
+
     description: str = Field(
         ...,
         min_length=50,
         description="Description of interaction system"
     )
-    commands: List[str] = Field(
+    commands: list[str] = Field(
         ...,
         min_length=1,
         description="Interaction commands (at least 1)"
@@ -198,13 +198,13 @@ class InteractionSystem(BaseModel):
 
 class GameSystems(BaseModel):
     """All game systems configuration.
-    
+
     Attributes:
         movement: Movement system configuration.
         inventory: Inventory system configuration.
         combat: Combat system configuration.
         interaction: Interaction system configuration.
-    
+
     Example:
         >>> systems = GameSystems(
         ...     movement=MovementSystem(...),
@@ -213,7 +213,7 @@ class GameSystems(BaseModel):
         ...     interaction=InteractionSystem(...)
         ... )
     """
-    
+
     movement: MovementSystem = Field(..., description="Movement system")
     inventory: InventorySystem = Field(..., description="Inventory system")
     combat: CombatSystem = Field(..., description="Combat system")
@@ -222,18 +222,18 @@ class GameSystems(BaseModel):
 
 class TrackedVariable(BaseModel):
     """A tracked game state variable.
-    
+
     Attributes:
         variable: Name of the variable being tracked.
         purpose: Description of what the variable tracks and why.
-    
+
     Example:
         >>> var = TrackedVariable(
         ...     variable="squad_morale",
         ...     purpose="Tracks the overall mental state of the squad..."
         ... )
     """
-    
+
     variable: str = Field(
         ...,
         min_length=1,
@@ -249,16 +249,16 @@ class TrackedVariable(BaseModel):
 
 class WinCondition(BaseModel):
     """A win condition for the game.
-    
+
     Attributes:
         condition: Description of the win condition.
-    
+
     Example:
         >>> win = WinCondition(
         ...     condition="Successfully neutralize the threat posed by 'The Serpent's Coil'..."
         ... )
     """
-    
+
     condition: str = Field(
         ...,
         min_length=20,
@@ -268,16 +268,16 @@ class WinCondition(BaseModel):
 
 class LoseCondition(BaseModel):
     """A lose condition for the game.
-    
+
     Attributes:
         condition: Description of the lose condition.
-    
+
     Example:
         >>> lose = LoseCondition(
         ...     condition="All squad members are incapacitated or killed in combat."
         ... )
     """
-    
+
     condition: str = Field(
         ...,
         min_length=20,
@@ -287,12 +287,12 @@ class LoseCondition(BaseModel):
 
 class GameState(BaseModel):
     """Game state management configuration.
-    
+
     Attributes:
         tracked_variables: List of variables being tracked.
         win_conditions: List of win conditions.
         lose_conditions: List of lose conditions.
-    
+
     Example:
         >>> state = GameState(
         ...     tracked_variables=[TrackedVariable(...), ...],
@@ -300,18 +300,18 @@ class GameState(BaseModel):
         ...     lose_conditions=[LoseCondition(...), ...]
         ... )
     """
-    
-    tracked_variables: List[TrackedVariable] = Field(
+
+    tracked_variables: list[TrackedVariable] = Field(
         ...,
         min_length=1,
         description="Tracked variables (at least 1)"
     )
-    win_conditions: List[WinCondition] = Field(
+    win_conditions: list[WinCondition] = Field(
         ...,
         min_length=1,
         description="Win conditions (at least 1)"
     )
-    lose_conditions: List[LoseCondition] = Field(
+    lose_conditions: list[LoseCondition] = Field(
         ...,
         min_length=1,
         description="Lose conditions (at least 1)"
@@ -320,18 +320,18 @@ class GameState(BaseModel):
 
 class TechnicalRequirement(BaseModel):
     """A technical requirement for the game.
-    
+
     Attributes:
         requirement: Description of the technical requirement.
         justification: Why this requirement is necessary.
-    
+
     Example:
         >>> req = TechnicalRequirement(
         ...     requirement="Robust AI for diverse enemy types...",
         ...     justification="Crucial for making combat challenging and varied..."
         ... )
     """
-    
+
     requirement: str = Field(
         ...,
         min_length=20,
@@ -346,16 +346,16 @@ class TechnicalRequirement(BaseModel):
 
 class GameMechanics(BaseModel):
     """Complete game mechanics and design document.
-    
+
     This is the top-level model representing the entire game mechanics
     specification including systems, state management, and technical requirements.
-    
+
     Attributes:
         game_title: Title of the game.
         game_systems: All game systems configuration.
         game_state: Game state management configuration.
         technical_requirements: List of technical requirements.
-    
+
     Example:
         >>> mechanics = GameMechanics(
         ...     game_title="Space Hulk: Echoes of the Void",
@@ -364,7 +364,7 @@ class GameMechanics(BaseModel):
         ...     technical_requirements=[TechnicalRequirement(...), ...]
         ... )
     """
-    
+
     game_title: str = Field(
         ...,
         min_length=1,
@@ -379,7 +379,7 @@ class GameMechanics(BaseModel):
         ...,
         description="Game state management"
     )
-    technical_requirements: List[TechnicalRequirement] = Field(
+    technical_requirements: list[TechnicalRequirement] = Field(
         ...,
         min_length=1,
         description="Technical requirements (at least 1)"
@@ -444,5 +444,5 @@ if __name__ == "__main__":
             )
         ]
     )
-    
+
     print(f"✅ Game mechanics validation successful: {example_game_mechanics.game_title}")

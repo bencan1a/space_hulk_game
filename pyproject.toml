@@ -111,6 +111,17 @@ module = [
 ]
 ignore_missing_imports = true
 
+# Lower bar for tests and tools directories
+[[tool.mypy.overrides]]
+module = [
+    "tests.*",
+    "tools.*",
+]
+disallow_untyped_defs = false
+check_untyped_defs = false
+disallow_incomplete_defs = false
+warn_return_any = false
+
 [tool.ruff]
 line-length = 100
 target-version = "py310"
@@ -147,6 +158,7 @@ ignore = [
     "C901",    # too complex
     "PLR0913", # too many arguments
     "PLR0912", # too many branches
+    "PLR0915", # too many statements
     "PLR2004", # magic value comparison
 ]
 

@@ -953,26 +953,17 @@ jobs:
 
 ---
 
-### Group 3B: PR Validation Workflow ⏱️ PARALLEL
-Can develop alongside main CI.
+### Group 3B: ~~PR Validation Workflow~~ (Merged into CI)
+**Note:** This task was initially planned as a separate workflow but was merged into ci.yml to avoid redundancy with the main CI workflow.
 
-#### Task 3.2.1: Create .github/workflows/pr-validation.yml ⏱️
+#### Task 3.2.1: ~~Create .github/workflows/pr-validation.yml~~ (Obsolete)
+**Status:** Merged into ci.yml
 **Executor:** CI/CD Agent
-**Effort:** 1 hour
+**Original Effort:** 1 hour
 **Dependencies:** Phase 2 complete
 **Parallelizable:** Yes (with Task 3.1.1)
 
-**Create:** `.github/workflows/pr-validation.yml`
-
-**Content:**
-```yaml
-name: PR Validation
-
-on:
-  pull_request:
-    types: [opened, synchronize, reopened]
-
-jobs:
+**Note:** The PR validation functionality is now part of the main ci.yml workflow which runs on both push and pull_request events.
   validate:
     name: Quick PR Checks
     runs-on: ubuntu-latest

@@ -4,11 +4,11 @@ import pytest
 from pydantic import ValidationError
 
 from space_hulk_game.schemas.plot_outline import (
-    PlotPoint,
     Character,
     Conflict,
     PlotBranch,
     PlotOutline,
+    PlotPoint,
 )
 
 
@@ -31,7 +31,7 @@ class TestPlotPoint:
         PlotPoint(id="pp_01", name="Name", description="A" * 50)
         PlotPoint(id="pp-01-test", name="Name", description="A" * 50)
         PlotPoint(id="pp_01_test", name="Name", description="A" * 50)
-        
+
         # Invalid ID (special characters)
         with pytest.raises(ValidationError):
             PlotPoint(id="pp@01", name="Name", description="A" * 50)

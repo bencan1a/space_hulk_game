@@ -4,19 +4,19 @@ This module defines the schema for validating scene text outputs including
 scene descriptions, atmosphere, examination texts, dialogue, and narrative notes.
 """
 
-from typing import List, Dict, Optional
+
 from pydantic import BaseModel, Field, field_validator
 
 
 class SceneDialogue(BaseModel):
     """A dialogue line in a scene.
-    
+
     Attributes:
         speaker: Name of the character speaking.
         text: The dialogue text.
         emotion: Optional emotion or delivery style.
         context: Optional context for when this dialogue occurs.
-    
+
     Example:
         >>> dialogue = SceneDialogue(
         ...     speaker="Brother-Captain Tyberius",
@@ -25,7 +25,7 @@ class SceneDialogue(BaseModel):
         ...     context="As the drop pod shudders violently..."
         ... )
     """
-    
+
     speaker: str = Field(
         ...,
         min_length=1,
@@ -37,12 +37,12 @@ class SceneDialogue(BaseModel):
         min_length=5,
         description="Dialogue text"
     )
-    emotion: Optional[str] = Field(
+    emotion: str | None = Field(
         default=None,
         max_length=500,
         description="Optional emotion or delivery style"
     )
-    context: Optional[str] = Field(
+    context: str | None = Field(
         default=None,
         description="Optional context for the dialogue"
     )
@@ -50,10 +50,10 @@ class SceneDialogue(BaseModel):
 
 class SceneText(BaseModel):
     """Text content for a single scene.
-    
+
     This includes all descriptive text, atmosphere, examination texts,
     dialogue, and narrative notes for a scene.
-    
+
     Attributes:
         name: Human-readable scene name.
         description: Main scene description.
@@ -62,7 +62,7 @@ class SceneText(BaseModel):
         examination_texts: Dictionary of object names to examination descriptions.
         dialogue: List of dialogue in this scene.
         narrative_notes: Optional notes about the scene's narrative purpose.
-    
+
     Example:
         >>> scene_text = SceneText(
         ...     name="The Drop Pod Descent",
@@ -74,7 +74,7 @@ class SceneText(BaseModel):
         ...     narrative_notes="This scene establishes the immediate chaos..."
         ... )
     """
-    
+
     name: str = Field(
         ...,
         min_length=1,
@@ -97,23 +97,23 @@ class SceneText(BaseModel):
         min_length=10,
         description="Text shown when entering the scene"
     )
-    examination_texts: Dict[str, str] = Field(
+    examination_texts: dict[str, str] = Field(
         default_factory=dict,
         description="Dictionary of examinable objects to descriptions"
     )
-    dialogue: List[SceneDialogue] = Field(
+    dialogue: list[SceneDialogue] = Field(
         default_factory=list,
         description="List of dialogue in this scene"
     )
-    narrative_notes: Optional[str] = Field(
+    narrative_notes: str | None = Field(
         default=None,
         min_length=20,
         description="Optional narrative purpose notes"
     )
-    
+
     @field_validator('examination_texts')
     @classmethod
-    def validate_examination_texts(cls, v: Dict[str, str]) -> Dict[str, str]:
+    def validate_examination_texts(cls, v: dict[str, str]) -> dict[str, str]:
         """Ensure all examination texts are non-empty."""
         for key, value in v.items():
             if not key.strip():
@@ -127,13 +127,13 @@ class SceneText(BaseModel):
 
 class SceneTexts(BaseModel):
     """Collection of all scene texts in the game.
-    
+
     This is the top-level model representing all scene text content
     organized by scene ID.
-    
+
     Attributes:
         scenes: Dictionary mapping scene IDs to SceneText objects.
-    
+
     Example:
         >>> scene_texts = SceneTexts(
         ...     scenes={
@@ -142,30 +142,30 @@ class SceneTexts(BaseModel):
         ...     }
         ... )
     """
-    
-    scenes: Dict[str, SceneText] = Field(
+
+    scenes: dict[str, SceneText] = Field(
         ...,
         min_length=1,
         description="Dictionary of scene_id to SceneText (minimum 1 scene)"
     )
-    
+
     @field_validator('scenes')
     @classmethod
-    def validate_scene_ids(cls, v: Dict[str, SceneText]) -> Dict[str, SceneText]:
+    def validate_scene_ids(cls, v: dict[str, SceneText]) -> dict[str, SceneText]:
         """Ensure all scene IDs follow naming convention."""
-        for scene_id in v.keys():
+        for scene_id in v:
             if not scene_id.replace('_', '').replace('-', '').isalnum():
                 raise ValueError(
                     f"Scene ID '{scene_id}' must contain only alphanumeric characters, "
                     f"underscores, and hyphens"
                 )
         return v
-    
+
     @field_validator('scenes')
     @classmethod
-    def validate_scene_names_match_keys(cls, v: Dict[str, SceneText]) -> Dict[str, SceneText]:
+    def validate_scene_names_match_keys(cls, v: dict[str, SceneText]) -> dict[str, SceneText]:
         """Validate that scene texts are properly structured.
-        
+
         This ensures scenes have sufficient content and quality.
         """
         for scene_id, scene_text in v.items():
@@ -174,13 +174,13 @@ class SceneTexts(BaseModel):
                 raise ValueError(
                     f"Scene '{scene_id}' description should be at least 100 characters for immersion"
                 )
-            
+
             # Ensure initial text is meaningful
             if len(scene_text.initial_text) < 20:
                 raise ValueError(
                     f"Scene '{scene_id}' initial_text should be at least 20 characters"
                 )
-        
+
         return v
 
 
@@ -227,5 +227,5 @@ if __name__ == "__main__":
             )
         }
     )
-    
+
     print(f"✅ Scene texts validation successful: {len(example_scene_texts.scenes)} scenes")
