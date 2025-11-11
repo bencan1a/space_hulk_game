@@ -14,7 +14,7 @@ from pathlib import Path
 from space_hulk_game.engine import ContentLoader, GameState
 
 
-def main():  # noqa: PLR0915
+def main():
     """Run the demo."""
     print("=" * 70)
     print("Space Hulk Game - Content Loader Demo")

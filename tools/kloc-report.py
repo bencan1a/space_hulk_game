@@ -24,7 +24,7 @@ import sys
 import time
 from collections.abc import Iterable
 
-import requests
+import requests  # type: ignore[import-untyped]
 
 # -------- Configuration: test & ignore patterns (adjust to your stack) --------
 TEST_RE = re.compile(
@@ -96,7 +96,7 @@ def parse_args() -> argparse.Namespace:
 try:
     from zoneinfo import ZoneInfo  # Python 3.9+
 except ImportError:
-    ZoneInfo = None
+    ZoneInfo = None  # type: ignore[assignment, misc]
 
 
 def denver_tz():
@@ -253,10 +253,10 @@ def get_commit_detail(full_name: str, sha: str, sleep_s: float) -> dict:
     resp.raise_for_status()
     if sleep_s:
         time.sleep(sleep_s)
-    return resp.json()
+    return resp.json()  # type: ignore[no-any-return]
 
 
-def main():  # noqa: PLR0915
+def main():
     args = parse_args()
 
     if args.owner_scope == "org" and not args.org:

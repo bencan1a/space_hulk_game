@@ -66,8 +66,10 @@ ruff format .
 # 3. Verify no linting errors remain
 ruff check .
 
-# 4. Run type checking (on src/ only)
-mypy src/
+# 4. Run type checking
+mypy src/           # Strict checking on source code
+mypy tests/         # Relaxed checking on tests
+mypy tools/         # Relaxed checking on tools
 
 # 5. Run tests
 python -m unittest discover -s tests -v

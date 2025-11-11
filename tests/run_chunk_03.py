@@ -226,7 +226,7 @@ def run_single_test(run_number, prompt, output_dir):
     return results
 
 
-def main():  # noqa: PLR0915
+def main():
     """Run Chunk 0.3 reliability testing."""
     print("\n" + "=" * 80)
     print("CHUNK 0.3: RELIABILITY TESTING (3 CONSECUTIVE RUNS)")

@@ -35,7 +35,7 @@ class MockInputOutput:
         """
         self.commands = commands
         self.command_index = 0
-        self.outputs = []
+        self.outputs: list[str] = []
 
     def input_func(self) -> str:
         """Return next command from the list."""
