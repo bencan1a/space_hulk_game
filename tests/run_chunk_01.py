@@ -93,7 +93,7 @@ def validate_output_files(output_dir, expected_files):
     return results
 
 
-def main():  # noqa: PLR0915
+def main():
     """Run Chunk 0.1 validation test."""
     print("\n" + "=" * 80)
     print("CHUNK 0.1: SEQUENTIAL MODE VALIDATION (5 CORE TASKS)")

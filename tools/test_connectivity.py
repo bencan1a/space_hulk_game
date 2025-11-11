@@ -10,7 +10,7 @@ import os
 import sys
 
 
-def main():  # noqa: PLR0915
+def main():
     print("\n" + "=" * 70)
     print("CONNECTIVITY TEST REPORT")
     print("=" * 70)
@@ -27,7 +27,7 @@ def main():  # noqa: PLR0915
 
     # Connectivity test
     print("\n✓ Step 2: Test OpenRouter API Connectivity")
-    import requests
+    import requests  # type: ignore[import-untyped]
 
     try:
         response = requests.get("https://openrouter.ai/api/v1/models", timeout=5)

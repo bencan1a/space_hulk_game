@@ -142,7 +142,7 @@ def collect_active_plans() -> list[dict[str, Any]]:
     return plans
 
 
-def build_context_file() -> None:  # noqa: PLR0915
+def build_context_file() -> None:
     """Assemble unified CONTEXT.md for AI agents."""
     print("Building CONTEXT.md...")
 

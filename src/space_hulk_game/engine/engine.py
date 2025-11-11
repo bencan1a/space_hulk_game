@@ -339,7 +339,7 @@ class TextAdventureEngine:
         self._output(f"\nYou drop the {item.name}.\n")
         logger.info(f"Dropped item: {item_id}")
 
-    def handle_use(self, item_id: str, target_id: str | None = None) -> None:  # noqa: PLR0915
+    def handle_use(self, item_id: str, target_id: str | None = None) -> None:
         """
         Handle using an item.
 

@@ -23,7 +23,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 
-def test_optimized_hierarchical():  # noqa: PLR0915
+def test_optimized_hierarchical():
     """
     Test hierarchical mode with optimized configuration.
     """

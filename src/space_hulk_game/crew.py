@@ -473,7 +473,7 @@ class SpaceHulkGame:
         # Default fallback
         return {"error": error_message, "recovered": False}
 
-    def clean_yaml_output_files(self):  # noqa: PLR0915
+    def clean_yaml_output_files(self):
         """
         Post-process YAML output files to remove markdown code fences and fix common YAML issues.
 

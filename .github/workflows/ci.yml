@@ -32,9 +32,11 @@ jobs:
 
       - name: Auto-fix linting issues
         run: ruff check . --fix
+        continue-on-error: true
 
       - name: Auto-format code
         run: ruff format .
+        continue-on-error: true
 
       - name: Check formatting
         run: ruff format --check .
@@ -62,7 +64,13 @@ jobs:
         run: uv pip install --system -e ".[dev]"
 
       - name: Run type checking
-        run: mypy src/
+        run: |
+          echo "Type checking src/ (strict)..."
+          mypy src/
+          echo "Type checking tests/ (relaxed)..."
+          mypy tests/ || true
+          echo "Type checking tools/ (relaxed)..."
+          mypy tools/ || true
 
   security-scan:
     name: Security Scan

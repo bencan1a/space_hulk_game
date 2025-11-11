@@ -20,7 +20,7 @@ import time
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 
-def test_crew_initialization():  # noqa: PLR0915
+def test_crew_initialization():
     """Test that the crew can be initialized successfully."""
     print("=" * 70)
     print("Space Hulk Game - Crew Initialization Test")

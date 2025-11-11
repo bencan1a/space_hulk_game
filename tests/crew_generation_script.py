@@ -34,7 +34,7 @@ def timeout_handler(signum, frame):
     raise TimeoutError("Operation timed out")
 
 
-def test_sequential_generation(timeout_seconds=600):  # noqa: PLR0915
+def test_sequential_generation(timeout_seconds=600):
     """
     Test crew in sequential mode (simplest configuration)
 
@@ -142,7 +142,7 @@ def test_sequential_generation(timeout_seconds=600):  # noqa: PLR0915
     return results
 
 
-def test_hierarchical_generation(timeout_seconds=600):  # noqa: PLR0915
+def test_hierarchical_generation(timeout_seconds=600):
     """
     Test crew in hierarchical mode (current configuration)
 

@@ -40,7 +40,7 @@ from typing import cast
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 
-def test_hierarchical_with_gemini():  # noqa: PLR0915
+def test_hierarchical_with_gemini():
     """Test hierarchical mode with Gemini 2.5 Flash."""
     print("\n" + "=" * 80)
     print("HIERARCHICAL MODE TEST - GEMINI 2.5 FLASH")
