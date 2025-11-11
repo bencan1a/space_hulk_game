@@ -4,10 +4,11 @@ This module provides validation functionality for parsing and validating
 YAML outputs from AI agents against Pydantic schemas.
 """
 
+from __future__ import annotations
+
 import logging
-import re
-from dataclasses import dataclass
-from typing import Any
+from dataclasses import dataclass, field
+from typing import TYPE_CHECKING, Any
 
 import yaml
 from pydantic import ValidationError
@@ -17,6 +18,10 @@ from space_hulk_game.schemas.narrative_map import NarrativeMap
 from space_hulk_game.schemas.plot_outline import PlotOutline
 from space_hulk_game.schemas.puzzle_design import PuzzleDesign
 from space_hulk_game.schemas.scene_text import SceneTexts
+from space_hulk_game.utils.yaml_processor import strip_markdown_yaml_blocks
+
+if TYPE_CHECKING:
+    from space_hulk_game.validation.types import ProcessingResult
 
 logger = logging.getLogger(__name__)
 
@@ -25,10 +30,14 @@ logger = logging.getLogger(__name__)
 class ValidationResult:
     """Result of validating YAML output against a schema.
 
+    NOTE: ValidationResult is kept for backward compatibility.
+    New code should use ProcessingResult from validation.types
+
     Attributes:
         valid: Whether the validation succeeded.
         data: Parsed Pydantic model if validation succeeded, None otherwise.
         errors: List of error messages if validation failed, empty list otherwise.
+        warnings: List of warning messages (non-critical issues).
 
     Example:
         >>> result = ValidationResult(valid=True, data=plot_outline, errors=[])
@@ -41,6 +50,30 @@ class ValidationResult:
     valid: bool
     data: Any | None
     errors: list[str]
+    warnings: list[str] = field(default_factory=list)
+
+    def to_processing_result(self) -> ProcessingResult:
+        """Convert to unified ProcessingResult type.
+
+        Returns:
+            ProcessingResult instance with equivalent data.
+
+        Example:
+            >>> result = ValidationResult(valid=True, data=plot, errors=[])
+            >>> processing_result = result.to_processing_result()
+            >>> processing_result.is_valid
+            True
+        """
+        from space_hulk_game.validation.types import ProcessingResult  # noqa: PLC0415
+
+        return ProcessingResult(
+            success=self.valid,
+            data=self.data,
+            errors=self.errors,
+            warnings=self.warnings,
+            corrections=[],
+            metadata={},
+        )
 
 
 class OutputValidator:
@@ -68,35 +101,6 @@ class OutputValidator:
         """Initialize the output validator."""
         logger.info("OutputValidator initialized")
 
-    def _strip_markdown_fences(self, raw_output: str) -> str:
-        """Strip markdown code fences from YAML output.
-
-        AI outputs often wrap YAML in markdown fences like:
-        ```yaml
-        content: here
-        ```
-
-        This method removes those fences to get clean YAML.
-
-        Args:
-            raw_output: Raw output string, potentially with markdown fences.
-
-        Returns:
-            Cleaned YAML string without markdown fences.
-
-        Example:
-            >>> validator = OutputValidator()
-            >>> yaml_with_fences = "```yaml\\nkey: value\\n```"
-            >>> clean = validator._strip_markdown_fences(yaml_with_fences)
-            >>> clean
-            'key: value'
-        """
-        # Remove opening fence (```yaml or ```)
-        output = re.sub(r"\A```(?:yaml)?\s*\n", "", raw_output.strip())
-        # Remove closing fence (```)
-        output = re.sub(r"\n```\s*$", "", output, flags=re.MULTILINE)
-        return output.strip()
-
     def _parse_yaml(self, raw_output: str) -> tuple[dict | None, list[str]]:
         """Parse YAML string into a dictionary.
 
@@ -110,7 +114,7 @@ class OutputValidator:
         """
         try:
             # Strip markdown fences first
-            clean_yaml = self._strip_markdown_fences(raw_output)
+            clean_yaml = strip_markdown_yaml_blocks(raw_output)
 
             # Parse YAML
             data = yaml.safe_load(clean_yaml)
@@ -151,8 +155,9 @@ class OutputValidator:
             error_type = error["type"]
 
             # Create a detailed error message
-            if error.get("ctx"):
-                ctx = ", ".join(f"{k}={v}" for k, v in error["ctx"].items())
+            ctx_dict = error.get("ctx")
+            if ctx_dict:
+                ctx = ", ".join(f"{k}={v}" for k, v in ctx_dict.items())
                 error_msg = f"Field '{loc}': {msg} (type={error_type}, {ctx})"
             else:
                 error_msg = f"Field '{loc}': {msg} (type={error_type})"

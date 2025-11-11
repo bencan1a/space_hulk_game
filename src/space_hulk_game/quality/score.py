@@ -5,15 +5,23 @@ This module defines the QualityScore data structure used by all evaluators
 to standardize evaluation results across different content types.
 """
 
+from __future__ import annotations
+
 import json
 from dataclasses import dataclass, field
-from typing import Any, cast
+from typing import TYPE_CHECKING, Any, cast
+
+if TYPE_CHECKING:
+    from space_hulk_game.validation.types import ProcessingResult
 
 
 @dataclass
 class QualityScore:
     """
     Standardized quality score returned by all evaluators.
+
+    NOTE: QualityScore is specialized for quality evaluation.
+    For general processing, use ProcessingResult from validation.types
 
     Attributes:
         score: Quality score from 0.0 to 10.0
@@ -79,7 +87,7 @@ class QualityScore:
         return json.dumps(self.to_dict(), indent=2)
 
     @classmethod
-    def from_dict(cls, data: dict[str, Any]) -> "QualityScore":
+    def from_dict(cls, data: dict[str, Any]) -> QualityScore:
         """
         Create QualityScore from dictionary.
 
@@ -131,3 +139,31 @@ class QualityScore:
                 lines.append(f"  - {failure}")
 
         return "\n".join(lines)
+
+    def to_processing_result(self) -> ProcessingResult:
+        """Convert to unified ProcessingResult type.
+
+        Returns:
+            ProcessingResult instance with equivalent data.
+
+        Example:
+            >>> score = QualityScore(
+            ...     score=8.5,
+            ...     passed=True,
+            ...     feedback="Good quality",
+            ...     details={"word_count": 650}
+            ... )
+            >>> processing_result = score.to_processing_result()
+            >>> processing_result.metadata['score']
+            8.5
+        """
+        from space_hulk_game.validation.types import ProcessingResult  # noqa: PLC0415
+
+        return ProcessingResult(
+            success=self.passed,
+            data=None,
+            errors=[],
+            warnings=[],
+            corrections=[],
+            metadata={"score": self.score, "feedback": self.feedback, "details": self.details},
+        )

@@ -21,7 +21,7 @@ def pytest_configure(config):
 
     if env_file.exists():
         # Manually load .env file (without requiring python-dotenv)
-        with open(env_file) as f:
+        with open(env_file, encoding="utf-8") as f:
             for line in f:
                 line = line.strip()  # noqa: PLW2901
                 # Skip empty lines and comments

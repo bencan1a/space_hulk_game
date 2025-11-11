@@ -23,7 +23,7 @@ class TestWorkflows(unittest.TestCase):
         workflow_path = self.workflows_dir / "run-kloc-report.yml"
         self.assertTrue(workflow_path.exists(), f"Workflow not found: {workflow_path}")
 
-        with open(workflow_path) as f:
+        with open(workflow_path, encoding="utf-8") as f:
             workflow = yaml.safe_load(f)
 
         self.assertIsNotNone(workflow, "Workflow should parse as YAML")
@@ -34,7 +34,7 @@ class TestWorkflows(unittest.TestCase):
         """Test that kloc workflow job step has timeout configured."""
         workflow_path = self.workflows_dir / "run-kloc-report.yml"
 
-        with open(workflow_path) as f:
+        with open(workflow_path, encoding="utf-8") as f:
             workflow = yaml.safe_load(f)
 
         # Find the run-kloc-report job
@@ -61,7 +61,7 @@ class TestWorkflows(unittest.TestCase):
         """Test that kloc workflow uses python -u for unbuffered output."""
         workflow_path = self.workflows_dir / "run-kloc-report.yml"
 
-        with open(workflow_path) as f:
+        with open(workflow_path, encoding="utf-8") as f:
             content = f.read()
 
         # Check that python -u is used
@@ -72,7 +72,7 @@ class TestWorkflows(unittest.TestCase):
         """Test that kloc workflow uses --repos for faster execution."""
         workflow_path = self.workflows_dir / "run-kloc-report.yml"
 
-        with open(workflow_path) as f:
+        with open(workflow_path, encoding="utf-8") as f:
             content = f.read()
 
         # Check that --repos is used
@@ -85,7 +85,7 @@ class TestWorkflows(unittest.TestCase):
         """Test that kloc workflow checks script exit code."""
         workflow_path = self.workflows_dir / "run-kloc-report.yml"
 
-        with open(workflow_path) as f:
+        with open(workflow_path, encoding="utf-8") as f:
             content = f.read()
 
         # Check for PIPESTATUS check
@@ -96,7 +96,7 @@ class TestWorkflows(unittest.TestCase):
         """Test that kloc workflow has required permissions."""
         workflow_path = self.workflows_dir / "run-kloc-report.yml"
 
-        with open(workflow_path) as f:
+        with open(workflow_path, encoding="utf-8") as f:
             workflow = yaml.safe_load(f)
 
         jobs = workflow.get("jobs", {})

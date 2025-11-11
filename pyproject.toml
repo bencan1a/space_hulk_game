@@ -36,6 +36,7 @@ dev = [
     "ruff>=0.1.0",
     "mypy>=1.0.0",
     "bandit>=1.7.0",
+    "yamllint>=1.33.0",
     "pre-commit>=3.0.0",
 
     # Type Stubs
@@ -93,13 +94,14 @@ warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = false
 ignore_missing_imports = true
+namespace_packages = false
 exclude = [
     "venv",
     ".venv",
     "build",
     "dist",
     "tmp",
-    "agent-tmp",  # Added
+    "agent-tmp",
 ]
 
 # Ignore missing imports for specific third-party libraries without type stubs
@@ -158,6 +160,7 @@ ignore = [
     "C901",    # too complex
     "PLR0913", # too many arguments
     "PLR0912", # too many branches
+    "PLR0911", # too many return statements
     "PLR0915", # too many statements
     "PLR2004", # magic value comparison
 ]

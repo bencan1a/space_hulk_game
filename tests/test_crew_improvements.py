@@ -32,7 +32,7 @@ class TestCrewConfiguration(unittest.TestCase):
 
         # Read the crew.py file and verify sequential mode is set
         crew_file = os.path.join(os.path.dirname(__file__), "../src/space_hulk_game/crew.py")
-        with open(crew_file) as f:
+        with open(crew_file, encoding="utf-8") as f:
             content = f.read()
 
         # Verify Process.sequential is used in the crew() method
@@ -42,7 +42,7 @@ class TestCrewConfiguration(unittest.TestCase):
     def test_hierarchical_mode_available(self):
         """Test that hierarchical mode is available as alternative."""
         crew_file = os.path.join(os.path.dirname(__file__), "../src/space_hulk_game/crew.py")
-        with open(crew_file) as f:
+        with open(crew_file, encoding="utf-8") as f:
             content = f.read()
 
         # Verify create_hierarchical_crew method exists
@@ -52,7 +52,7 @@ class TestCrewConfiguration(unittest.TestCase):
     def test_memory_and_planning_disabled(self):
         """Test that memory and planning are disabled in default mode."""
         crew_file = os.path.join(os.path.dirname(__file__), "../src/space_hulk_game/crew.py")
-        with open(crew_file) as f:
+        with open(crew_file, encoding="utf-8") as f:
             content = f.read()
 
         # In the default crew() method, memory and planning should be commented out
@@ -84,7 +84,7 @@ class TestCrewConfiguration(unittest.TestCase):
     def test_comprehensive_logging_present(self):
         """Test that comprehensive logging is implemented."""
         crew_file = os.path.join(os.path.dirname(__file__), "../src/space_hulk_game/crew.py")
-        with open(crew_file) as f:
+        with open(crew_file, encoding="utf-8") as f:
             content = f.read()
 
         # Verify logger is imported and used
@@ -139,7 +139,7 @@ class TestTaskConfiguration(unittest.TestCase):
 
         self.assertTrue(os.path.exists(tasks_file))
 
-        with open(tasks_file) as f:
+        with open(tasks_file, encoding="utf-8") as f:
             tasks = yaml.safe_load(f)
 
         self.assertIsNotNone(tasks)
@@ -153,7 +153,7 @@ class TestTaskConfiguration(unittest.TestCase):
             os.path.dirname(__file__), "../src/space_hulk_game/config/tasks.yaml"
         )
 
-        with open(tasks_file) as f:
+        with open(tasks_file, encoding="utf-8") as f:
             tasks = yaml.safe_load(f)
 
         core_tasks = [
@@ -180,7 +180,7 @@ class TestTaskConfiguration(unittest.TestCase):
             os.path.dirname(__file__), "../src/space_hulk_game/config/tasks.yaml"
         )
 
-        with open(tasks_file) as f:
+        with open(tasks_file, encoding="utf-8") as f:
             tasks = yaml.safe_load(f)
 
         # Build dependency graph
@@ -226,7 +226,7 @@ class TestAgentConfiguration(unittest.TestCase):
 
         self.assertTrue(os.path.exists(agents_file))
 
-        with open(agents_file) as f:
+        with open(agents_file, encoding="utf-8") as f:
             agents = yaml.safe_load(f)
 
         self.assertIsNotNone(agents)
@@ -240,7 +240,7 @@ class TestAgentConfiguration(unittest.TestCase):
             os.path.dirname(__file__), "../src/space_hulk_game/config/agents.yaml"
         )
 
-        with open(agents_file) as f:
+        with open(agents_file, encoding="utf-8") as f:
             agents = yaml.safe_load(f)
 
         expected_agents = [
@@ -266,7 +266,7 @@ class TestAgentConfiguration(unittest.TestCase):
             os.path.dirname(__file__), "../src/space_hulk_game/config/agents.yaml"
         )
 
-        with open(agents_file) as f:
+        with open(agents_file, encoding="utf-8") as f:
             agents = yaml.safe_load(f)
 
         self.assertIn("NarrativeDirectorAgent", agents)
@@ -284,7 +284,7 @@ class TestDocumentation(unittest.TestCase):
         """Test that crew.py has comprehensive module docstring."""
         crew_file = os.path.join(os.path.dirname(__file__), "../src/space_hulk_game/crew.py")
 
-        with open(crew_file) as f:
+        with open(crew_file, encoding="utf-8") as f:
             content = f.read()
 
         # Check for key documentation elements
@@ -300,7 +300,7 @@ class TestDocumentation(unittest.TestCase):
             os.path.dirname(__file__), "../src/space_hulk_game/config/tasks.yaml"
         )
 
-        with open(tasks_file) as f:
+        with open(tasks_file, encoding="utf-8") as f:
             content = f.read()
 
         # Check for documentation header
@@ -313,7 +313,7 @@ class TestDocumentation(unittest.TestCase):
             os.path.dirname(__file__), "../src/space_hulk_game/config/agents.yaml"
         )
 
-        with open(agents_file) as f:
+        with open(agents_file, encoding="utf-8") as f:
             content = f.read()
 
         # Check for documentation header

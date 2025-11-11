@@ -97,7 +97,7 @@ class CommandParser:
 
         logger.debug(f"CommandParser initialized with {len(self._command_map)} command synonyms")
 
-    def parse(  # noqa: PLR0911
+    def parse(
         self,
         command: str,
         game_state: GameState | None = None,

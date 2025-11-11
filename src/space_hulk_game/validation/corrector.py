@@ -5,13 +5,20 @@ errors in AI agent outputs. It attempts to fix missing fields, syntax errors,
 and format violations while preserving the intent of the original content.
 """
 
+from __future__ import annotations
+
 import logging
 import re
 from dataclasses import dataclass
+from typing import TYPE_CHECKING
 
 import yaml
 
+from space_hulk_game.utils.yaml_processor import strip_markdown_yaml_blocks
 from space_hulk_game.validation.validator import OutputValidator, ValidationResult
+
+if TYPE_CHECKING:
+    from space_hulk_game.validation.types import ProcessingResult
 
 logger = logging.getLogger(__name__)
 
@@ -19,6 +26,9 @@ logger = logging.getLogger(__name__)
 @dataclass
 class CorrectionResult:
     """Result of attempting to auto-correct YAML output.
+
+    NOTE: CorrectionResult is kept for backward compatibility.
+    New code should use ProcessingResult from validation.types
 
     Attributes:
         corrected_yaml: The corrected YAML string.
@@ -39,6 +49,34 @@ class CorrectionResult:
     corrections: list[str]
     validation_result: ValidationResult
     success: bool
+
+    def to_processing_result(self) -> ProcessingResult:
+        """Convert to unified ProcessingResult type.
+
+        Returns:
+            ProcessingResult instance with equivalent data.
+
+        Example:
+            >>> result = CorrectionResult(
+            ...     corrected_yaml="title: Fixed",
+            ...     corrections=["Fixed ID"],
+            ...     validation_result=ValidationResult(valid=True, data=None, errors=[]),
+            ...     success=True
+            ... )
+            >>> processing_result = result.to_processing_result()
+            >>> processing_result.is_valid
+            True
+        """
+        from space_hulk_game.validation.types import ProcessingResult  # noqa: PLC0415
+
+        return ProcessingResult(
+            success=self.success,
+            data=None,  # corrected_yaml is in metadata
+            errors=self.validation_result.errors if self.validation_result else [],
+            warnings=self.validation_result.warnings if self.validation_result else [],
+            corrections=self.corrections,
+            metadata={"corrected_yaml": self.corrected_yaml},
+        )
 
 
 class OutputCorrector:
@@ -71,21 +109,6 @@ class OutputCorrector:
         """Initialize the output corrector with a validator instance."""
         self.validator = OutputValidator()
         logger.info("OutputCorrector initialized")
-
-    def _strip_markdown_fences(self, raw_output: str) -> str:
-        """Strip markdown code fences from YAML output.
-
-        Args:
-            raw_output: Raw output string, potentially with markdown fences.
-
-        Returns:
-            Cleaned YAML string without markdown fences.
-        """
-        # Remove opening fence (```yaml or ```)
-        output = re.sub(r"\A```(?:yaml)?\s*\n", "", raw_output.strip())
-        # Remove closing fence (```)
-        output = re.sub(r"\n```\s*$", "", output, flags=re.MULTILINE)
-        return output.strip()
 
     def _fix_id_format(self, id_value: str) -> str:
         """Fix ID format to match schema requirements.
@@ -142,6 +165,150 @@ class OutputCorrector:
 
         return extended
 
+    def _fix_mixed_quotes(self, content: str) -> str:
+        """Fix strings with mismatched quote delimiters.
+
+        Handles strings like "entrance' or 'corridor_1" where the opening
+        and closing quotes don't match. Normalizes to the opening quote type.
+
+        Args:
+            content: Raw YAML string with potential mixed quotes.
+
+        Returns:
+            Fixed YAML string with consistent quote usage.
+
+        Example:
+            >>> corrector = OutputCorrector()
+            >>> corrector._fix_mixed_quotes('starting_scene: "entrance\\'')
+            'starting_scene: "entrance"'
+            >>> corrector._fix_mixed_quotes("south: 'corridor_1\\"")
+            "south: 'corridor_1'"
+        """
+        # Strategy: Look for strings that start with one quote type and end with another
+        # We need to be careful about apostrophes inside strings
+        # Pattern 1: " ... ' at end of line (double quote start, single quote end)
+        # Pattern 2: ' ... " at end of line (single quote start, double quote end)
+
+        # Use line-by-line processing to avoid matching across multiple values
+        lines = content.split("\n")
+        fixed_lines = []
+
+        for line in lines:
+            # Check for mismatched quotes on this line
+            # Pattern: starts with " and ends with ' (at end of line)
+            if re.search(r':\s*"[^"]*\'$', line):
+                # Replace the final ' with "
+                line = re.sub(r"\'$", '"', line)  # noqa: PLW2901
+            # Pattern: starts with ' and ends with " (at end of line)
+            elif re.search(r":\s*'[^']*\"$", line):
+                # Replace the final " with '
+                line = re.sub(r'"$', "'", line)  # noqa: PLW2901
+
+            fixed_lines.append(line)
+
+        content = "\n".join(fixed_lines)
+        logger.debug("Fixed mixed quote delimiters")
+        return content
+
+    def _fix_invalid_list_markers(self, content: str) -> str:
+        """Fix invalid YAML list markers with multiple dashes.
+
+        Handles list items marked with multiple dashes (e.g., '---------------- item')
+        and converts them to proper YAML list syntax ('- item').
+
+        Args:
+            content: Raw YAML string with potential invalid list markers.
+
+        Returns:
+            Fixed YAML string with proper list markers.
+
+        Example:
+            >>> corrector = OutputCorrector()
+            >>> corrector._fix_invalid_list_markers('items:\\n  ---------------- flashlight')
+            'items:\\n  - flashlight'
+        """
+        # Pattern: line starting with indentation, followed by 4+ dashes, then content
+        # Captures: (indentation) (4+ dashes) (optional spaces) (rest of line)
+        # Replace with: (indentation) - (rest of line)
+        content = re.sub(
+            r"^(\s*)-{4,}\s*(.+)$",
+            r"\1- \2",
+            content,
+            flags=re.MULTILINE,
+        )
+
+        logger.debug("Fixed invalid list markers")
+        return content
+
+    def _fix_unescaped_apostrophes(self, content: str) -> str:
+        """Fix unescaped apostrophes in single-quoted strings.
+
+        Handles apostrophes inside single-quoted strings (e.g., 'Ship's Bridge')
+        by converting them to double-quoted strings to avoid escaping.
+
+        Args:
+            content: Raw YAML string with potential unescaped apostrophes.
+
+        Returns:
+            Fixed YAML string with apostrophes properly handled.
+
+        Example:
+            >>> corrector = OutputCorrector()
+            >>> corrector._fix_unescaped_apostrophes("name: 'Ship's Bridge'")
+            'name: "Ship\\'s Bridge"'
+            >>> corrector._fix_unescaped_apostrophes("description: 'The captain's quarters'")
+            'description: "The captain\\'s quarters"'
+        """
+        # Pattern: find single-quoted strings that contain apostrophes
+        # We need to match the entire string including any apostrophes inside
+        # Strategy: Look for : 'some text with potential apostrophe' pattern
+        # Use a greedy match to get everything between the outer quotes
+
+        def replace_single_quoted_with_apostrophe(match):
+            """Replace single-quoted string containing apostrophe with double-quoted version."""
+            prefix = match.group(1)  # Everything before the opening quote (: and spaces)
+            inner_content = match.group(2)  # Content inside the outer quotes
+
+            # Check if content contains an apostrophe (but not just the closing quote)
+            # We need to look for apostrophes that are NOT the final closing quote
+            if "'" in inner_content:
+                # Convert to double-quoted string
+                # The content already has the apostrophes, just change the delimiters
+                return f'{prefix}"{inner_content}"'
+            else:
+                # Keep as-is
+                return match.group(0)
+
+        # Pattern: (: + optional spaces) ' (everything until last ') '
+        # This uses a possessive quantifier to match everything between outer quotes
+        # The pattern matches: colon, spaces, opening single quote, content (greedy), closing single quote
+        # We need to match the full quoted string, even if it contains apostrophes
+        # The key insight: match from ' to the LAST ' on the line
+        lines = content.split("\n")
+        fixed_lines = []
+
+        for line in lines:
+            # Look for pattern: key: 'value with potential apostrophes'
+            # Use a more sophisticated approach: find : ' pairs and match to closing '
+            if ": '" in line or ":\t'" in line:
+                # Find the position of ": '"
+                match = re.search(r"(\s*:\s*)'(.+)'$", line)
+                if match:
+                    prefix = match.group(1)
+                    inner = match.group(2)
+                    # Check if inner content has apostrophes
+                    if "'" in inner:
+                        # Replace the line with double-quoted version
+                        fixed_line = line[: match.start()] + f'{prefix}"{inner}"'
+                        fixed_lines.append(fixed_line)
+                        continue
+            # No match or no apostrophes, keep original
+            fixed_lines.append(line)
+
+        result = "\n".join(fixed_lines)
+        logger.debug("Fixed unescaped apostrophes in single-quoted strings")
+        return result
+
     def _parse_yaml_safe(self, raw_output: str) -> tuple[dict | None, list[str]]:
         """Safely parse YAML with error recovery.
 
@@ -157,7 +324,12 @@ class OutputCorrector:
         """
         try:
             # Strip markdown fences first
-            clean_yaml = self._strip_markdown_fences(raw_output)
+            clean_yaml = strip_markdown_yaml_blocks(raw_output)
+
+            # Apply syntax fixes BEFORE parsing
+            clean_yaml = self._fix_mixed_quotes(clean_yaml)
+            clean_yaml = self._fix_invalid_list_markers(clean_yaml)
+            clean_yaml = self._fix_unescaped_apostrophes(clean_yaml)
 
             # Try to parse
             data = yaml.safe_load(clean_yaml)
@@ -176,8 +348,12 @@ class OutputCorrector:
 
             try:
                 # Common fix: remove duplicate colons, fix indentation issues
-                clean_yaml = self._strip_markdown_fences(raw_output)
+                clean_yaml = strip_markdown_yaml_blocks(raw_output)
 
+                # NOTE: This is the ONLY implementation of colon-in-values fixing.
+                # Other modules (evaluator, crew) have been refactored to rely on this.
+                # Do not duplicate this logic elsewhere.
+                #
                 # Try to fix "mapping values are not allowed here" by escaping colons in values
                 # This is a simple heuristic and may not catch all cases
                 lines = clean_yaml.split("\n")
@@ -529,8 +705,7 @@ class OutputCorrector:
                             scene["description"], 50
                         )
                         corrections.append(
-                            f"Extended short scene description "
-                            f"(was {len(original_desc)} chars)"
+                            f"Extended short scene description (was {len(original_desc)} chars)"
                         )
                         logger.info(
                             f"Extended scene description from {len(original_desc)} "
@@ -863,8 +1038,7 @@ class OutputCorrector:
                             scene["description"], 100
                         )
                         corrections.append(
-                            f"Extended short scene description "
-                            f"(was {len(original_desc)} chars)"
+                            f"Extended short scene description (was {len(original_desc)} chars)"
                         )
                         logger.info(
                             f"Extended scene description from {len(original_desc)} "
@@ -1081,8 +1255,7 @@ class OutputCorrector:
             data["technical_requirements"] = [
                 {
                     "requirement": (
-                        "Basic game engine functionality for managing "
-                        "game state and logic."
+                        "Basic game engine functionality for managing game state and logic."
                     ),
                     "justification": "Required for the game to function properly.",
                 }

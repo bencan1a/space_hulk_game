@@ -41,7 +41,7 @@ class TestSequentialAgentSystem(unittest.TestCase):
         """Set up class-level fixtures."""
         cls.api_key = os.getenv("OPENROUTER_API_KEY")
         cls.model_name = os.getenv("OPENAI_MODEL_NAME", "openrouter/anthropic/claude-3.5-sonnet")
-        cls.use_real_api = bool(cls.api_key)
+        cls.use_real_api = bool(cls.api_key) and os.getenv("RUN_REAL_API_TESTS") == "1"
 
         if cls.use_real_api:
             print("\n✓ Running integration tests with REAL API")

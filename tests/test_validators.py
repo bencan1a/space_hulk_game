@@ -14,6 +14,7 @@ from space_hulk_game.schemas.narrative_map import NarrativeMap
 from space_hulk_game.schemas.plot_outline import PlotOutline
 from space_hulk_game.schemas.puzzle_design import PuzzleDesign
 from space_hulk_game.schemas.scene_text import SceneTexts
+from space_hulk_game.utils.yaml_processor import strip_markdown_yaml_blocks
 from space_hulk_game.validation import OutputValidator, ValidationResult
 
 
@@ -31,19 +32,19 @@ class TestOutputValidator(unittest.TestCase):
     def test_strip_markdown_fences_with_yaml_language(self):
         """Test stripping markdown fences with yaml language specifier."""
         yaml_with_fence = "```yaml\nkey: value\n```"
-        result = self.validator._strip_markdown_fences(yaml_with_fence)
+        result = strip_markdown_yaml_blocks(yaml_with_fence)
         self.assertEqual(result, "key: value")
 
     def test_strip_markdown_fences_without_language(self):
         """Test stripping markdown fences without language specifier."""
         yaml_with_fence = "```\nkey: value\n```"
-        result = self.validator._strip_markdown_fences(yaml_with_fence)
+        result = strip_markdown_yaml_blocks(yaml_with_fence)
         self.assertEqual(result, "key: value")
 
     def test_strip_markdown_fences_no_fences(self):
         """Test that content without fences is unchanged."""
         yaml_no_fence = "key: value"
-        result = self.validator._strip_markdown_fences(yaml_no_fence)
+        result = strip_markdown_yaml_blocks(yaml_no_fence)
         self.assertEqual(result, "key: value")
 
     def test_parse_yaml_valid(self):
@@ -115,6 +116,7 @@ conflicts:
         result = self.validator.validate_plot(yaml_str)
         self.assertTrue(result.valid)
         self.assertIsInstance(result.data, PlotOutline)
+        assert result.data is not None  # Type narrowing for mypy/pyright
         self.assertEqual(result.data.title, "Test Plot")
         self.assertEqual(len(result.errors), 0)
 
@@ -264,6 +266,7 @@ scenes:
         result = self.validator.validate_narrative_map(yaml_str)
         self.assertTrue(result.valid)
         self.assertIsInstance(result.data, NarrativeMap)
+        assert result.data is not None  # Type narrowing for mypy/pyright
         self.assertEqual(result.data.start_scene, "scene_01")
         self.assertEqual(len(result.data.scenes), 2)
         self.assertEqual(len(result.errors), 0)
@@ -373,6 +376,7 @@ npcs:
         result = self.validator.validate_puzzle_design(yaml_str)
         self.assertTrue(result.valid)
         self.assertIsInstance(result.data, PuzzleDesign)
+        assert result.data is not None  # Type narrowing for mypy/pyright
         self.assertEqual(len(result.data.puzzles), 1)
         self.assertEqual(len(result.data.artifacts), 1)
         self.assertEqual(len(result.data.monsters), 1)
@@ -454,6 +458,7 @@ scenes:
         result = self.validator.validate_scene_texts(yaml_str)
         self.assertTrue(result.valid)
         self.assertIsInstance(result.data, SceneTexts)
+        assert result.data is not None  # Type narrowing for mypy/pyright
         self.assertEqual(len(result.data.scenes), 1)
         self.assertEqual(len(result.errors), 0)
 
@@ -530,6 +535,7 @@ technical_requirements:
         result = self.validator.validate_game_mechanics(yaml_str)
         self.assertTrue(result.valid)
         self.assertIsInstance(result.data, GameMechanics)
+        assert result.data is not None  # Type narrowing for mypy/pyright
         self.assertEqual(result.data.game_title, "Test Game")
         self.assertEqual(len(result.errors), 0)
 
@@ -592,7 +598,7 @@ class TestRealFileValidation(unittest.TestCase):
         """Test validation against real plot_outline.yaml file."""
         try:
             plot_file = self.game_config_dir / "plot_outline.yaml"
-            with open(plot_file) as f:
+            with open(plot_file, encoding="utf-8") as f:
                 yaml_content = f.read()
 
             # The real file has a 'narrative_foundation' wrapper, extract it
@@ -619,7 +625,7 @@ class TestRealFileValidation(unittest.TestCase):
         """Test validation against real narrative_map.yaml file."""
         try:
             narrative_file = self.game_config_dir / "narrative_map.yaml"
-            with open(narrative_file) as f:
+            with open(narrative_file, encoding="utf-8") as f:
                 yaml_content = f.read()
 
             result = self.validator.validate_narrative_map(yaml_content)
@@ -641,7 +647,7 @@ class TestRealFileValidation(unittest.TestCase):
         """Test validation against real puzzle_design.yaml file."""
         try:
             puzzle_file = self.game_config_dir / "puzzle_design.yaml"
-            with open(puzzle_file) as f:
+            with open(puzzle_file, encoding="utf-8") as f:
                 yaml_content = f.read()
 
             result = self.validator.validate_puzzle_design(yaml_content)
@@ -663,7 +669,7 @@ class TestRealFileValidation(unittest.TestCase):
         """Test validation against real scene_texts.yaml file."""
         try:
             scene_file = self.game_config_dir / "scene_texts.yaml"
-            with open(scene_file) as f:
+            with open(scene_file, encoding="utf-8") as f:
                 yaml_content = f.read()
 
             result = self.validator.validate_scene_texts(yaml_content)

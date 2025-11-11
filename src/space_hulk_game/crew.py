@@ -74,7 +74,6 @@ Known Issues & Mitigations:
 import datetime
 import logging
 import os
-import re
 from pathlib import Path
 from typing import Any, cast
 
@@ -83,6 +82,7 @@ from crewai import LLM, Agent, Crew, Process, Task
 from crewai.project import CrewBase, after_kickoff, agent, before_kickoff, crew, task
 
 from space_hulk_game.config.hierarchical_tasks import HIERARCHICAL_TASKS
+from space_hulk_game.utils.output_sanitizer import OutputSanitizer
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -167,6 +167,97 @@ class SpaceHulkGame:
             logger.error(f"Error loading tasks config: {e!s}")
             raise
 
+        # Monkey-patch Task._save_file for pre-write YAML sanitization
+        # This intercepts CrewAI's file write and applies sanitization BEFORE disk write
+        # Implements Chunk 3 of YAML Pipeline Refactor plan
+        self._apply_task_save_file_patch()
+
+    def _apply_task_save_file_patch(self) -> None:
+        """Apply monkey-patch to Task._save_file for YAML sanitization.
+
+        This method intercepts CrewAI's Task._save_file() method to apply
+        sanitization BEFORE writing to disk. This solves the critical issue
+        where raw LLM output (with markdown fences, syntax errors, etc.)
+        is written directly to disk.
+
+        The wrapper:
+        1. Detects output type from filename (plot_outline.yaml -> 'plot')
+        2. Sanitizes string outputs using OutputSanitizer
+        3. Calls original _save_file with sanitized result
+        4. Handles errors gracefully (logs warning, continues with original)
+
+        Output Type Mapping:
+            - plot_outline.yaml -> 'plot'
+            - narrative_map.yaml -> 'narrative'
+            - puzzle_design.yaml -> 'puzzle'
+            - scene_texts.yaml -> 'scene'
+            - prd_document.yaml -> 'mechanics'
+
+        Implements: Chunk 3 of YAML Pipeline Refactor plan
+        """
+        # Save reference to original method before patching
+        original_save_file = Task._save_file
+
+        def sanitized_save_file(self, result: dict | str | Any) -> None:
+            """Sanitized wrapper for Task._save_file.
+
+            This wrapper intercepts the file write operation and applies
+            OutputSanitizer for string outputs with a detected type.
+
+            Args:
+                self: The Task instance (bound method)
+                result: The task output to save (string, dict, or other)
+
+            Returns:
+                None (writes to disk via original _save_file)
+            """
+            # Only sanitize string outputs with output_file defined
+            if isinstance(result, str) and hasattr(self, "output_file") and self.output_file:
+                # Map filename patterns to output types
+                output_type_map = {
+                    "plot_outline": "plot",
+                    "narrative_map": "narrative",
+                    "puzzle_design": "puzzle",
+                    "scene_texts": "scene",
+                    "prd_document": "mechanics",
+                }
+
+                # Detect output type from filename
+                output_type = None
+                for key, val in output_type_map.items():
+                    if key in self.output_file:
+                        output_type = val
+                        logger.debug(
+                            f"Detected output type '{output_type}' from filename: {self.output_file}"
+                        )
+                        break
+
+                # Apply sanitization if type detected
+                if output_type:
+                    try:
+                        sanitizer = OutputSanitizer()
+                        logger.info(f"Sanitizing {self.output_file} as type '{output_type}'")
+                        result = sanitizer.sanitize(result, output_type)
+                        logger.info(f"Sanitization complete for {self.output_file}")
+                    except Exception as e:
+                        logger.warning(
+                            f"Sanitization failed for {self.output_file}: {e}",
+                            exc_info=True,
+                        )
+                        # Continue with original result (graceful degradation)
+                        logger.warning("Continuing with unsanitized output (graceful degradation)")
+                else:
+                    logger.debug(
+                        f"No output type mapping for {self.output_file}, skipping sanitization"
+                    )
+
+            # Call original _save_file method with (possibly sanitized) result
+            original_save_file(self, result)
+
+        # Apply monkey-patch
+        Task._save_file = sanitized_save_file
+        logger.info("Task._save_file monkey-patched for YAML sanitization")
+
     @before_kickoff
     def prepare_inputs(self, inputs):
         """
@@ -191,9 +282,9 @@ class SpaceHulkGame:
             if "prompt" not in inputs:
                 logger.warning("No 'prompt' or 'game' key found in inputs")
                 # Use default instead of raising error to allow testing
-                inputs[
-                    "prompt"
-                ] = "A mysterious derelict space hulk drifts in the void, its corridors dark and silent."
+                inputs["prompt"] = (
+                    "A mysterious derelict space hulk drifts in the void, its corridors dark and silent."
+                )
                 logger.info(f"Using default prompt: {inputs['prompt']}")
 
             # Load planning template if template hint detected in prompt (Chunk 3.4)
@@ -473,178 +564,26 @@ class SpaceHulkGame:
         # Default fallback
         return {"error": error_message, "recovered": False}
 
-    def clean_yaml_output_files(self):
-        """
-        Post-process YAML output files to remove markdown code fences and fix common YAML issues.
-
-        The LLM sometimes:
-        1. Wraps YAML content in markdown code blocks (```yml ... ```)
-        2. Uses em dashes (-) instead of hyphens (--)
-        3. Creates improper line continuations in multiline strings
-        4. Generates numbered lists that break YAML syntax
-
-        This method cleans all these issues.
-        """
-        output_files = [
-            "game-config/plot_outline.yaml",
-            "game-config/narrative_map.yaml",
-            "game-config/puzzle_design.yaml",
-            "game-config/scene_texts.yaml",
-            "game-config/prd_document.yaml",
-        ]
-
-        cleaned_count = 0
-        for filepath in output_files:
-            try:
-                if not Path(filepath).exists():
-                    logger.warning(f"Output file not found: {filepath}")
-                    continue
-
-                with Path(filepath).open(encoding="utf-8") as f:
-                    content = f.read()
-
-                original_content = content
-                needs_cleaning = False
-
-                # 1. Remove markdown code fence markers
-                if content.startswith("```") or "```yml" in content or "```yaml" in content:
-                    logger.info(f"Removing code fences from {filepath}")
-                    content = (
-                        content.replace("```yml\n", "")
-                        .replace("```yaml\n", "")
-                        .replace("```\n", "")
-                    )
-                    content = content.replace("\n```", "").replace("```", "")
-                    needs_cleaning = True
-
-                # 2. Replace em dashes with double hyphens (for YAML compatibility)
-                if "-" in content or "-" in content:
-                    logger.info(f"Replacing em dashes in {filepath}")
-                    content = content.replace("-", "--").replace("-", "--")
-                    needs_cleaning = True
-
-                # 2b. Fix nested quotes in double-quoted strings
-                # Pattern: description: "text with "nested" quotes"
-                # Replace inner double quotes with single quotes
-                def fix_nested_quotes(match, fp=filepath):
-                    """Replace nested double quotes with single quotes inside YAML strings."""
-                    full_match = match.group(0)
-                    key = match.group(1)  # e.g., "description"
-                    value = match.group(2)  # The quoted string content
-
-                    # Check if there are nested double quotes
-                    if '"' in value:
-                        logger.info(f"Fixing nested quotes in {fp}")
-                        # Replace internal double quotes with single quotes
-                        fixed_value = value.replace('"', "'")
-                        return f'{key}: "{fixed_value}"'
-
-                    return full_match
-
-                # Match YAML key-value pairs with quoted strings
-                content = re.sub(
-                    r'(\w+):\s+"([^"]*(?:"[^"]*)*)"',
-                    fix_nested_quotes,
-                    content,
-                    flags=re.MULTILINE,
-                )
-
-                # 3. Fix improper line continuations in YAML strings
-                # Pattern: lines within a quoted string that have wrong indentation
-                # Find lines that continue a string but have incorrect indentation
-                # (e.g., line starting with more spaces than the parent)
-                lines = content.split("\n")
-                fixed_lines = []
-                i = 0
-                while i < len(lines):
-                    line = lines[i]
-                    # Check if this is a description line that's broken
-                    if (
-                        i + 1 < len(lines)
-                        and 'description: "' in line
-                        and not line.rstrip().endswith('"')
-                    ):
-                        # This line starts a description but doesn't end it
-                        # Check if next line is a continuation with wrong indentation
-                        next_line = lines[i + 1]
-                        current_indent = len(line) - len(line.lstrip())
-                        next_indent = len(next_line) - len(next_line.lstrip())
-
-                        # If next line has more indentation and isn't a YAML key
-                        if next_indent > current_indent and ":" not in next_line.lstrip()[:20]:
-                            logger.info(f"Fixing line continuation in {filepath} at line {i + 1}")
-                            # Merge the lines
-                            fixed_line = line.rstrip() + " " + next_line.lstrip()
-                            fixed_lines.append(fixed_line)
-                            i += 2  # Skip the next line since we merged it
-                            needs_cleaning = True
-                            continue
-
-                    fixed_lines.append(line)
-                    i += 1
-
-                content = "\n".join(fixed_lines)
-
-                # 4. Fix numbered lists inside quoted strings
-                # Pattern: description: "text:\n        1. item\n        2. item"
-                # Should be: description: "text: (1) item (2) item"
-                def fix_numbered_list(match, fp=filepath):
-                    text = match.group(0)
-                    # If there are numbered items on separate lines, inline them
-                    if re.search(r"\n\s+\d+\.", text):
-                        logger.info(f"Fixing numbered list in {fp}")
-                        # Convert multiline numbered list to inline
-                        fixed = re.sub(r"\n\s+(\d+)\.\s+", r" (\1) ", text)
-                        return fixed
-                    return text
-
-                content = re.sub(
-                    r'description: "[^"]*"',
-                    fix_numbered_list,
-                    content,
-                    flags=re.MULTILINE | re.DOTALL,
-                )
-
-                # Write cleaned content back if any changes were made
-                if needs_cleaning or content != original_content:
-                    with Path(filepath).open("w", encoding="utf-8") as f:
-                        f.write(content)
-
-                    cleaned_count += 1
-                    logger.info(f"✅ Cleaned {filepath}")
-                else:
-                    logger.debug(f"No issues found in {filepath}")
-
-            except Exception as e:
-                logger.error(f"Error cleaning {filepath}: {e!s}")
-
-        if cleaned_count > 0:
-            logger.info(f"Cleaned {cleaned_count} YAML file(s)")
-
-        return cleaned_count
-
     @after_kickoff
     def process_output(self, output):
         """
         Hook method that modifies the final output after the crew finishes all tasks.
         Adds metadata and formats the output for better usability.
 
+        Note: YAML sanitization is handled by OutputSanitizer in Phase 1,
+        which intercepts Task._save_file() BEFORE writing to disk.
+        Post-write cleanup is no longer needed.
+
         Best Practices Applied:
         - Comprehensive metadata for debugging and tracking
         - Graceful error handling to preserve output
         - Clear status indicators for quality assessment
-        - Post-processing to clean YAML output files
         """
         try:
             logger.info("Processing crew output...")
 
-            # Clean YAML output files first
-            try:
-                cleaned_files = self.clean_yaml_output_files()
-                logger.info(f"Post-processed {cleaned_files} YAML files")
-            except Exception as e:
-                logger.error(f"Error cleaning YAML files: {e!s}")
-                # Continue processing even if cleaning fails
+            # Note: YAML sanitization now happens pre-write via OutputSanitizer (Phase 1).
+            # Post-write cleanup is no longer needed.
 
             # Get crew configuration safely
             try:

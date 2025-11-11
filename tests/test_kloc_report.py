@@ -13,7 +13,7 @@ class TestKlocReport(unittest.TestCase):
 
     def setUp(self):
         """Set up test fixtures."""
-        self.script_path = Path(__file__).parent.parent / "kloc-report.py"
+        self.script_path = Path(__file__).parent.parent / "tools" / "kloc-report.py"
         self.assertTrue(self.script_path.exists(), f"Script not found: {self.script_path}")
 
     def test_script_help_runs_without_hanging(self):
@@ -73,7 +73,7 @@ class TestKlocReport(unittest.TestCase):
 
     def test_script_has_flush_calls(self):
         """Test that the script contains sys.stdout.flush() calls."""
-        with open(self.script_path) as f:
+        with open(self.script_path, encoding="utf-8") as f:
             content = f.read()
 
         # Check for flush calls

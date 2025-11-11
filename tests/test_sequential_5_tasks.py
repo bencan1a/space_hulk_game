@@ -37,6 +37,7 @@ class TestSequential5Tasks(unittest.TestCase):
         cls.project_root = Path(__file__).parent.parent
         cls.output_dir = cls.project_root / "game-config"
         cls.test_prompt = "A Space Marine boarding team discovers an ancient derelict vessel"
+        cls.use_real_api = os.getenv("RUN_REAL_API_TESTS") == "1"
 
         # Expected output files from 5 core tasks
         cls.expected_files = [
@@ -47,13 +48,21 @@ class TestSequential5Tasks(unittest.TestCase):
             "prd_document.yaml",
         ]
 
-        # Clean up old output files before testing
-        for filename in cls.expected_files:
-            filepath = cls.output_dir / filename
-            if filepath.exists():
-                filepath.unlink()
-                print(f"Cleaned up old file: {filepath}")
+        # Only clean up old output files if running with real API
+        # In mock mode, use static test files that are checked in
+        if cls.use_real_api:
+            for filename in cls.expected_files:
+                filepath = cls.output_dir / filename
+                if filepath.exists():
+                    filepath.unlink()
+                    print(f"Cleaned up old file: {filepath}")
+        else:
+            print("\n⚠ Running in MOCK mode - using static test files from game-config/")
 
+    @unittest.skipUnless(
+        os.getenv("RUN_REAL_API_TESTS") == "1",
+        "Skipping crew execution test - requires RUN_REAL_API_TESTS=1",
+    )
     def test_01_crew_execution_completes(self):
         """Test that crew execution completes within timeout."""
         print("\n" + "=" * 80)
@@ -154,7 +163,7 @@ class TestSequential5Tasks(unittest.TestCase):
         for filename in self.expected_files:
             filepath = self.output_dir / filename
             try:
-                with open(filepath) as f:
+                with open(filepath, encoding="utf-8") as f:
                     data = yaml.safe_load(f)
 
                 # Check that file is not empty
@@ -196,7 +205,7 @@ class TestSequential5Tasks(unittest.TestCase):
         for filename in self.expected_files:
             filepath = self.output_dir / filename
             try:
-                with open(filepath) as f:
+                with open(filepath, encoding="utf-8") as f:
                     data = yaml.safe_load(f)
 
                 # Check for minimum content based on file type

@@ -52,4 +52,3 @@ space_hulk_game/
 - **README.md** - Project overview and setup
 - **docs/SETUP.md** - Detailed installation guide
 - **docs/QUICKSTART.md** - Quick reference
-

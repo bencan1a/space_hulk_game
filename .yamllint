@@ -1,0 +1,26 @@
+---
+# yamllint configuration for Space Hulk Game
+# See https://yamllint.readthedocs.io/en/stable/configuration.html
+
+extends: default
+
+rules:
+  line-length:
+    max: 120
+    level: warning
+  indentation:
+    spaces: 2
+  comments:
+    min-spaces-from-content: 1
+  document-start: disable  # Not required for our YAML files
+  truthy:
+    allowed-values: ['true', 'false', 'on', 'off']  # Allow 'on' for GitHub Actions
+
+ignore: |
+  .venv/
+  venv/
+  game-config/
+  planning_templates/
+  .git/
+  __pycache__/
+  *.egg-info/
