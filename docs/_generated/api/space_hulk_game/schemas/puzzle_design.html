@@ -1,0 +1,1195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>space_hulk_game.schemas.puzzle_design API documentation</title>
+<meta name="description" content="Pydantic models for puzzle design validation …">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>space_hulk_game.schemas.puzzle_design</code></h1>
+</header>
+<section id="section-intro">
+<p>Pydantic models for puzzle design validation.</p>
+<p>This module defines the schema for validating puzzle design outputs including
+puzzles, artifacts, monsters, NPCs, and overall puzzle design structure.</p>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="space_hulk_game.schemas.puzzle_design.Artifact"><code class="flex name class">
+<span>class <span class="ident">Artifact</span></span>
+<span>(</span><span>**data: Any)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Artifact(BaseModel):
+    &#34;&#34;&#34;An artifact that can be found in the game.
+    
+    Attributes:
+        id: Unique identifier for the artifact.
+        name: Human-readable artifact name.
+        description: Detailed description of the artifact.
+        location: Scene ID where the artifact is located.
+        narrative_significance: Why this artifact is narratively important.
+        properties: List of artifact properties or effects.
+    
+    Example:
+        &gt;&gt;&gt; artifact = Artifact(
+        ...     id=&#34;artifact_blood_eagle_pendant&#34;,
+        ...     name=&#34;Blood Eagle Pendant&#34;,
+        ...     description=&#34;A tarnished, but resilient, bronze pendant...&#34;,
+        ...     location=&#34;scene_whispers_in_the_dark&#34;,
+        ...     narrative_significance=&#34;Serves as a grim reminder...&#34;,
+        ...     properties=[ArtifactProperty(...)]
+        ... )
+    &#34;&#34;&#34;
+    
+    id: str = Field(
+        ...,
+        min_length=1,
+        max_length=200,
+        description=&#34;Unique artifact identifier&#34;
+    )
+    name: str = Field(
+        ...,
+        min_length=1,
+        max_length=200,
+        description=&#34;Human-readable artifact name&#34;
+    )
+    description: str = Field(
+        ...,
+        min_length=20,
+        description=&#34;Detailed artifact description&#34;
+    )
+    location: str = Field(
+        ...,
+        min_length=1,
+        max_length=200,
+        description=&#34;Scene ID where artifact is located&#34;
+    )
+    narrative_significance: str = Field(
+        ...,
+        min_length=20,
+        description=&#34;Narrative importance of this artifact&#34;
+    )
+    properties: List[ArtifactProperty] = Field(
+        ...,
+        min_length=1,
+        description=&#34;Artifact properties (at least 1)&#34;
+    )
+    
+    @field_validator(&#39;id&#39;)
+    @classmethod
+    def validate_id_format(cls, v: str) -&gt; str:
+        &#34;&#34;&#34;Ensure id follows naming convention.&#34;&#34;&#34;
+        if not v.replace(&#39;_&#39;, &#39;&#39;).replace(&#39;-&#39;, &#39;&#39;).isalnum():
+            raise ValueError(
+                &#34;ID must contain only alphanumeric characters, underscores, and hyphens&#34;
+            )
+        return v</code></pre>
+</details>
+<div class="desc"><p>An artifact that can be found in the game.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>id</code></strong></dt>
+<dd>Unique identifier for the artifact.</dd>
+<dt><strong><code>name</code></strong></dt>
+<dd>Human-readable artifact name.</dd>
+<dt><strong><code>description</code></strong></dt>
+<dd>Detailed description of the artifact.</dd>
+<dt><strong><code>location</code></strong></dt>
+<dd>Scene ID where the artifact is located.</dd>
+<dt><strong><code>narrative_significance</code></strong></dt>
+<dd>Why this artifact is narratively important.</dd>
+<dt><strong><code>properties</code></strong></dt>
+<dd>List of artifact properties or effects.</dd>
+</dl>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; artifact = Artifact(
+...     id=&quot;artifact_blood_eagle_pendant&quot;,
+...     name=&quot;Blood Eagle Pendant&quot;,
+...     description=&quot;A tarnished, but resilient, bronze pendant...&quot;,
+...     location=&quot;scene_whispers_in_the_dark&quot;,
+...     narrative_significance=&quot;Serves as a grim reminder...&quot;,
+...     properties=[ArtifactProperty(...)]
+... )
+</code></pre>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pydantic.main.BaseModel</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="space_hulk_game.schemas.puzzle_design.Artifact.description"><code class="name">var <span class="ident">description</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.Artifact.id"><code class="name">var <span class="ident">id</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.Artifact.location"><code class="name">var <span class="ident">location</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.Artifact.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.Artifact.name"><code class="name">var <span class="ident">name</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.Artifact.narrative_significance"><code class="name">var <span class="ident">narrative_significance</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.Artifact.properties"><code class="name">var <span class="ident">properties</span> : List[<a title="space_hulk_game.schemas.puzzle_design.ArtifactProperty" href="#space_hulk_game.schemas.puzzle_design.ArtifactProperty">ArtifactProperty</a>]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Static methods</h3>
+<dl>
+<dt id="space_hulk_game.schemas.puzzle_design.Artifact.validate_id_format"><code class="name flex">
+<span>def <span class="ident">validate_id_format</span></span>(<span>v: str) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Ensure id follows naming convention.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.ArtifactProperty"><code class="flex name class">
+<span>class <span class="ident">ArtifactProperty</span></span>
+<span>(</span><span>**data: Any)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ArtifactProperty(BaseModel):
+    &#34;&#34;&#34;A property of an artifact.
+    
+    Attributes:
+        property: Description of the artifact property.
+    
+    Example:
+        &gt;&gt;&gt; prop = ArtifactProperty(
+        ...     property=&#34;minor moral boost (if worn or kept)&#34;
+        ... )
+    &#34;&#34;&#34;
+    
+    property: str = Field(
+        ...,
+        min_length=5,
+        description=&#34;Artifact property description&#34;
+    )</code></pre>
+</details>
+<div class="desc"><p>A property of an artifact.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>property</code></strong></dt>
+<dd>Description of the artifact property.</dd>
+</dl>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; prop = ArtifactProperty(
+...     property=&quot;minor moral boost (if worn or kept)&quot;
+... )
+</code></pre>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pydantic.main.BaseModel</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="space_hulk_game.schemas.puzzle_design.ArtifactProperty.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.ArtifactProperty.property"><code class="name">var <span class="ident">property</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.Monster"><code class="flex name class">
+<span>class <span class="ident">Monster</span></span>
+<span>(</span><span>**data: Any)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Monster(BaseModel):
+    &#34;&#34;&#34;A monster or enemy in the game.
+    
+    Attributes:
+        id: Unique identifier for the monster.
+        name: Human-readable monster name.
+        description: Detailed description of the monster.
+        locations: List of scene IDs where this monster appears.
+        narrative_role: The monster&#39;s role in the narrative.
+        abilities: List of the monster&#39;s special abilities.
+    
+    Example:
+        &gt;&gt;&gt; monster = Monster(
+        ...     id=&#34;monster_feral_genestealer&#34;,
+        ...     name=&#34;Feral Genestealer&#34;,
+        ...     description=&#34;The common Genestealer strain...&#34;,
+        ...     locations=[&#34;scene_whispers_in_the_dark&#34;, ...],
+        ...     narrative_role=&#34;The baseline, ever-present Xenos threat...&#34;,
+        ...     abilities=[&#34;Fast Attack&#34;, &#34;Rending Claws&#34;]
+        ... )
+    &#34;&#34;&#34;
+    
+    id: str = Field(
+        ...,
+        min_length=1,
+        max_length=200,
+        description=&#34;Unique monster identifier&#34;
+    )
+    name: str = Field(
+        ...,
+        min_length=1,
+        max_length=200,
+        description=&#34;Human-readable monster name&#34;
+    )
+    description: str = Field(
+        ...,
+        min_length=20,
+        description=&#34;Detailed monster description&#34;
+    )
+    locations: List[str] = Field(
+        ...,
+        min_length=1,
+        description=&#34;Scene IDs where monster appears (at least 1)&#34;
+    )
+    narrative_role: str = Field(
+        ...,
+        min_length=20,
+        description=&#34;Monster&#39;s narrative role&#34;
+    )
+    abilities: List[str] = Field(
+        ...,
+        min_length=1,
+        description=&#34;Monster abilities (at least 1)&#34;
+    )
+    
+    @field_validator(&#39;id&#39;)
+    @classmethod
+    def validate_id_format(cls, v: str) -&gt; str:
+        &#34;&#34;&#34;Ensure id follows naming convention.&#34;&#34;&#34;
+        if not v.replace(&#39;_&#39;, &#39;&#39;).replace(&#39;-&#39;, &#39;&#39;).isalnum():
+            raise ValueError(
+                &#34;ID must contain only alphanumeric characters, underscores, and hyphens&#34;
+            )
+        return v
+    
+    @field_validator(&#39;abilities&#39;)
+    @classmethod
+    def validate_abilities_not_empty(cls, v: List[str]) -&gt; List[str]:
+        &#34;&#34;&#34;Ensure all abilities are non-empty strings.&#34;&#34;&#34;
+        if not all(ability.strip() for ability in v):
+            raise ValueError(&#34;All abilities must be non-empty strings&#34;)
+        return v</code></pre>
+</details>
+<div class="desc"><p>A monster or enemy in the game.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>id</code></strong></dt>
+<dd>Unique identifier for the monster.</dd>
+<dt><strong><code>name</code></strong></dt>
+<dd>Human-readable monster name.</dd>
+<dt><strong><code>description</code></strong></dt>
+<dd>Detailed description of the monster.</dd>
+<dt><strong><code>locations</code></strong></dt>
+<dd>List of scene IDs where this monster appears.</dd>
+<dt><strong><code>narrative_role</code></strong></dt>
+<dd>The monster's role in the narrative.</dd>
+<dt><strong><code>abilities</code></strong></dt>
+<dd>List of the monster's special abilities.</dd>
+</dl>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; monster = Monster(
+...     id=&quot;monster_feral_genestealer&quot;,
+...     name=&quot;Feral Genestealer&quot;,
+...     description=&quot;The common Genestealer strain...&quot;,
+...     locations=[&quot;scene_whispers_in_the_dark&quot;, ...],
+...     narrative_role=&quot;The baseline, ever-present Xenos threat...&quot;,
+...     abilities=[&quot;Fast Attack&quot;, &quot;Rending Claws&quot;]
+... )
+</code></pre>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pydantic.main.BaseModel</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="space_hulk_game.schemas.puzzle_design.Monster.abilities"><code class="name">var <span class="ident">abilities</span> : List[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.Monster.description"><code class="name">var <span class="ident">description</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.Monster.id"><code class="name">var <span class="ident">id</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.Monster.locations"><code class="name">var <span class="ident">locations</span> : List[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.Monster.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.Monster.name"><code class="name">var <span class="ident">name</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.Monster.narrative_role"><code class="name">var <span class="ident">narrative_role</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Static methods</h3>
+<dl>
+<dt id="space_hulk_game.schemas.puzzle_design.Monster.validate_abilities_not_empty"><code class="name flex">
+<span>def <span class="ident">validate_abilities_not_empty</span></span>(<span>v: List[str]) ‑> List[str]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Ensure all abilities are non-empty strings.</p></div>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.Monster.validate_id_format"><code class="name flex">
+<span>def <span class="ident">validate_id_format</span></span>(<span>v: str) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Ensure id follows naming convention.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.NPC"><code class="flex name class">
+<span>class <span class="ident">NPC</span></span>
+<span>(</span><span>**data: Any)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class NPC(BaseModel):
+    &#34;&#34;&#34;A non-player character in the game.
+    
+    Attributes:
+        id: Unique identifier for the NPC.
+        name: Human-readable NPC name.
+        role: The NPC&#39;s role in the game.
+        description: Detailed description of the NPC.
+        locations: List of scene IDs where this NPC appears.
+        dialogue_themes: List of themes or topics the NPC discusses.
+    
+    Example:
+        &gt;&gt;&gt; npc = NPC(
+        ...     id=&#34;npc_brother_captain_tyberius&#34;,
+        ...     name=&#34;Brother-Captain Tyberius&#34;,
+        ...     role=&#34;Player Character / Squad Leader&#34;,
+        ...     description=&#34;The player embodies Tyberius...&#34;,
+        ...     locations=[&#34;all_scenes&#34;],
+        ...     dialogue_themes=[&#34;Duty and Sacrifice&#34;, &#34;The Burden of Command&#34;]
+        ... )
+    &#34;&#34;&#34;
+    
+    id: str = Field(
+        ...,
+        min_length=1,
+        max_length=200,
+        description=&#34;Unique NPC identifier&#34;
+    )
+    name: str = Field(
+        ...,
+        min_length=1,
+        max_length=200,
+        description=&#34;Human-readable NPC name&#34;
+    )
+    role: str = Field(
+        ...,
+        min_length=1,
+        max_length=300,
+        description=&#34;NPC&#39;s role in the game&#34;
+    )
+    description: str = Field(
+        ...,
+        min_length=20,
+        description=&#34;Detailed NPC description&#34;
+    )
+    locations: List[str] = Field(
+        ...,
+        min_length=1,
+        description=&#34;Scene IDs where NPC appears (at least 1)&#34;
+    )
+    dialogue_themes: List[str] = Field(
+        ...,
+        min_length=1,
+        description=&#34;Dialogue themes (at least 1)&#34;
+    )
+    
+    @field_validator(&#39;id&#39;)
+    @classmethod
+    def validate_id_format(cls, v: str) -&gt; str:
+        &#34;&#34;&#34;Ensure id follows naming convention.&#34;&#34;&#34;
+        if not v.replace(&#39;_&#39;, &#39;&#39;).replace(&#39;-&#39;, &#39;&#39;).isalnum():
+            raise ValueError(
+                &#34;ID must contain only alphanumeric characters, underscores, and hyphens&#34;
+            )
+        return v
+    
+    @field_validator(&#39;dialogue_themes&#39;)
+    @classmethod
+    def validate_themes_not_empty(cls, v: List[str]) -&gt; List[str]:
+        &#34;&#34;&#34;Ensure all dialogue themes are non-empty strings.&#34;&#34;&#34;
+        if not all(theme.strip() for theme in v):
+            raise ValueError(&#34;All dialogue themes must be non-empty strings&#34;)
+        return v</code></pre>
+</details>
+<div class="desc"><p>A non-player character in the game.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>id</code></strong></dt>
+<dd>Unique identifier for the NPC.</dd>
+<dt><strong><code>name</code></strong></dt>
+<dd>Human-readable NPC name.</dd>
+<dt><strong><code>role</code></strong></dt>
+<dd>The NPC's role in the game.</dd>
+<dt><strong><code>description</code></strong></dt>
+<dd>Detailed description of the NPC.</dd>
+<dt><strong><code>locations</code></strong></dt>
+<dd>List of scene IDs where this NPC appears.</dd>
+<dt><strong><code>dialogue_themes</code></strong></dt>
+<dd>List of themes or topics the NPC discusses.</dd>
+</dl>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; npc = NPC(
+...     id=&quot;npc_brother_captain_tyberius&quot;,
+...     name=&quot;Brother-Captain Tyberius&quot;,
+...     role=&quot;Player Character / Squad Leader&quot;,
+...     description=&quot;The player embodies Tyberius...&quot;,
+...     locations=[&quot;all_scenes&quot;],
+...     dialogue_themes=[&quot;Duty and Sacrifice&quot;, &quot;The Burden of Command&quot;]
+... )
+</code></pre>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pydantic.main.BaseModel</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="space_hulk_game.schemas.puzzle_design.NPC.description"><code class="name">var <span class="ident">description</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.NPC.dialogue_themes"><code class="name">var <span class="ident">dialogue_themes</span> : List[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.NPC.id"><code class="name">var <span class="ident">id</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.NPC.locations"><code class="name">var <span class="ident">locations</span> : List[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.NPC.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.NPC.name"><code class="name">var <span class="ident">name</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.NPC.role"><code class="name">var <span class="ident">role</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Static methods</h3>
+<dl>
+<dt id="space_hulk_game.schemas.puzzle_design.NPC.validate_id_format"><code class="name flex">
+<span>def <span class="ident">validate_id_format</span></span>(<span>v: str) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Ensure id follows naming convention.</p></div>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.NPC.validate_themes_not_empty"><code class="name flex">
+<span>def <span class="ident">validate_themes_not_empty</span></span>(<span>v: List[str]) ‑> List[str]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Ensure all dialogue themes are non-empty strings.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.Puzzle"><code class="flex name class">
+<span>class <span class="ident">Puzzle</span></span>
+<span>(</span><span>**data: Any)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Puzzle(BaseModel):
+    &#34;&#34;&#34;A puzzle in the game.
+    
+    Attributes:
+        id: Unique identifier for the puzzle.
+        name: Human-readable puzzle name.
+        description: Detailed description of the puzzle.
+        location: Scene ID where the puzzle is located.
+        narrative_purpose: Why this puzzle exists narratively.
+        solution: Solution structure for the puzzle.
+        difficulty: Difficulty level (e.g., &#39;easy&#39;, &#39;medium&#39;, &#39;hard&#39;).
+    
+    Example:
+        &gt;&gt;&gt; puzzle = Puzzle(
+        ...     id=&#34;puzzle_comm_relay_restore&#34;,
+        ...     name=&#34;Comm-Relay Restoration&#34;,
+        ...     description=&#34;The damaged drop pod&#39;s auxiliary comm-relay...&#34;,
+        ...     location=&#34;scene_drop_pod_descent&#34;,
+        ...     narrative_purpose=&#34;Reinforces Tyberius&#39;s struggle...&#34;,
+        ...     solution=PuzzleSolution(...),
+        ...     difficulty=&#34;medium&#34;
+        ... )
+    &#34;&#34;&#34;
+    
+    id: str = Field(
+        ...,
+        min_length=1,
+        max_length=200,
+        description=&#34;Unique puzzle identifier&#34;
+    )
+    name: str = Field(
+        ...,
+        min_length=1,
+        max_length=200,
+        description=&#34;Human-readable puzzle name&#34;
+    )
+    description: str = Field(
+        ...,
+        min_length=50,
+        description=&#34;Detailed puzzle description&#34;
+    )
+    location: str = Field(
+        ...,
+        min_length=1,
+        max_length=200,
+        description=&#34;Scene ID where puzzle is located&#34;
+    )
+    narrative_purpose: str = Field(
+        ...,
+        min_length=20,
+        description=&#34;Why this puzzle exists narratively&#34;
+    )
+    solution: PuzzleSolution = Field(
+        ...,
+        description=&#34;Puzzle solution structure&#34;
+    )
+    difficulty: str = Field(
+        ...,
+        pattern=&#34;^(easy|medium|hard)$&#34;,
+        description=&#34;Difficulty level: easy, medium, or hard&#34;
+    )
+    
+    @field_validator(&#39;id&#39;)
+    @classmethod
+    def validate_id_format(cls, v: str) -&gt; str:
+        &#34;&#34;&#34;Ensure id follows naming convention.&#34;&#34;&#34;
+        if not v.replace(&#39;_&#39;, &#39;&#39;).replace(&#39;-&#39;, &#39;&#39;).isalnum():
+            raise ValueError(
+                &#34;ID must contain only alphanumeric characters, underscores, and hyphens&#34;
+            )
+        return v</code></pre>
+</details>
+<div class="desc"><p>A puzzle in the game.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>id</code></strong></dt>
+<dd>Unique identifier for the puzzle.</dd>
+<dt><strong><code>name</code></strong></dt>
+<dd>Human-readable puzzle name.</dd>
+<dt><strong><code>description</code></strong></dt>
+<dd>Detailed description of the puzzle.</dd>
+<dt><strong><code>location</code></strong></dt>
+<dd>Scene ID where the puzzle is located.</dd>
+<dt><strong><code>narrative_purpose</code></strong></dt>
+<dd>Why this puzzle exists narratively.</dd>
+<dt><strong><code>solution</code></strong></dt>
+<dd>Solution structure for the puzzle.</dd>
+<dt><strong><code>difficulty</code></strong></dt>
+<dd>Difficulty level (e.g., 'easy', 'medium', 'hard').</dd>
+</dl>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; puzzle = Puzzle(
+...     id=&quot;puzzle_comm_relay_restore&quot;,
+...     name=&quot;Comm-Relay Restoration&quot;,
+...     description=&quot;The damaged drop pod's auxiliary comm-relay...&quot;,
+...     location=&quot;scene_drop_pod_descent&quot;,
+...     narrative_purpose=&quot;Reinforces Tyberius's struggle...&quot;,
+...     solution=PuzzleSolution(...),
+...     difficulty=&quot;medium&quot;
+... )
+</code></pre>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pydantic.main.BaseModel</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="space_hulk_game.schemas.puzzle_design.Puzzle.description"><code class="name">var <span class="ident">description</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.Puzzle.difficulty"><code class="name">var <span class="ident">difficulty</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.Puzzle.id"><code class="name">var <span class="ident">id</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.Puzzle.location"><code class="name">var <span class="ident">location</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.Puzzle.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.Puzzle.name"><code class="name">var <span class="ident">name</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.Puzzle.narrative_purpose"><code class="name">var <span class="ident">narrative_purpose</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.Puzzle.solution"><code class="name">var <span class="ident">solution</span> : <a title="space_hulk_game.schemas.puzzle_design.PuzzleSolution" href="#space_hulk_game.schemas.puzzle_design.PuzzleSolution">PuzzleSolution</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Static methods</h3>
+<dl>
+<dt id="space_hulk_game.schemas.puzzle_design.Puzzle.validate_id_format"><code class="name flex">
+<span>def <span class="ident">validate_id_format</span></span>(<span>v: str) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Ensure id follows naming convention.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.PuzzleDesign"><code class="flex name class">
+<span>class <span class="ident">PuzzleDesign</span></span>
+<span>(</span><span>**data: Any)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PuzzleDesign(BaseModel):
+    &#34;&#34;&#34;Complete puzzle design for a game.
+    
+    This is the top-level model representing all puzzles, artifacts,
+    monsters, and NPCs in the game.
+    
+    Attributes:
+        puzzles: List of puzzles in the game.
+        artifacts: List of artifacts that can be found.
+        monsters: List of monsters/enemies in the game.
+        npcs: List of non-player characters.
+    
+    Example:
+        &gt;&gt;&gt; puzzle_design = PuzzleDesign(
+        ...     puzzles=[Puzzle(...), ...],
+        ...     artifacts=[Artifact(...), ...],
+        ...     monsters=[Monster(...), ...],
+        ...     npcs=[NPC(...), ...]
+        ... )
+    &#34;&#34;&#34;
+    
+    puzzles: List[Puzzle] = Field(
+        ...,
+        min_length=1,
+        description=&#34;Puzzles in the game (at least 1)&#34;
+    )
+    artifacts: List[Artifact] = Field(
+        ...,
+        min_length=1,
+        description=&#34;Artifacts in the game (at least 1)&#34;
+    )
+    monsters: List[Monster] = Field(
+        ...,
+        min_length=1,
+        description=&#34;Monsters in the game (at least 1)&#34;
+    )
+    npcs: List[NPC] = Field(
+        ...,
+        min_length=1,
+        description=&#34;NPCs in the game (at least 1)&#34;
+    )
+    
+    @field_validator(&#39;puzzles&#39;)
+    @classmethod
+    def validate_puzzle_ids_unique(cls, v: List[Puzzle]) -&gt; List[Puzzle]:
+        &#34;&#34;&#34;Ensure all puzzle IDs are unique.&#34;&#34;&#34;
+        ids = [puzzle.id for puzzle in v]
+        if len(ids) != len(set(ids)):
+            raise ValueError(&#34;All puzzle IDs must be unique&#34;)
+        return v
+    
+    @field_validator(&#39;artifacts&#39;)
+    @classmethod
+    def validate_artifact_ids_unique(cls, v: List[Artifact]) -&gt; List[Artifact]:
+        &#34;&#34;&#34;Ensure all artifact IDs are unique.&#34;&#34;&#34;
+        ids = [artifact.id for artifact in v]
+        if len(ids) != len(set(ids)):
+            raise ValueError(&#34;All artifact IDs must be unique&#34;)
+        return v
+    
+    @field_validator(&#39;monsters&#39;)
+    @classmethod
+    def validate_monster_ids_unique(cls, v: List[Monster]) -&gt; List[Monster]:
+        &#34;&#34;&#34;Ensure all monster IDs are unique.&#34;&#34;&#34;
+        ids = [monster.id for monster in v]
+        if len(ids) != len(set(ids)):
+            raise ValueError(&#34;All monster IDs must be unique&#34;)
+        return v
+    
+    @field_validator(&#39;npcs&#39;)
+    @classmethod
+    def validate_npc_ids_unique(cls, v: List[NPC]) -&gt; List[NPC]:
+        &#34;&#34;&#34;Ensure all NPC IDs are unique.&#34;&#34;&#34;
+        ids = [npc.id for npc in v]
+        if len(ids) != len(set(ids)):
+            raise ValueError(&#34;All NPC IDs must be unique&#34;)
+        return v</code></pre>
+</details>
+<div class="desc"><p>Complete puzzle design for a game.</p>
+<p>This is the top-level model representing all puzzles, artifacts,
+monsters, and NPCs in the game.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>puzzles</code></strong></dt>
+<dd>List of puzzles in the game.</dd>
+<dt><strong><code>artifacts</code></strong></dt>
+<dd>List of artifacts that can be found.</dd>
+<dt><strong><code>monsters</code></strong></dt>
+<dd>List of monsters/enemies in the game.</dd>
+<dt><strong><code>npcs</code></strong></dt>
+<dd>List of non-player characters.</dd>
+</dl>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; puzzle_design = PuzzleDesign(
+...     puzzles=[Puzzle(...), ...],
+...     artifacts=[Artifact(...), ...],
+...     monsters=[Monster(...), ...],
+...     npcs=[NPC(...), ...]
+... )
+</code></pre>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pydantic.main.BaseModel</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="space_hulk_game.schemas.puzzle_design.PuzzleDesign.artifacts"><code class="name">var <span class="ident">artifacts</span> : List[<a title="space_hulk_game.schemas.puzzle_design.Artifact" href="#space_hulk_game.schemas.puzzle_design.Artifact">Artifact</a>]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.PuzzleDesign.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.PuzzleDesign.monsters"><code class="name">var <span class="ident">monsters</span> : List[<a title="space_hulk_game.schemas.puzzle_design.Monster" href="#space_hulk_game.schemas.puzzle_design.Monster">Monster</a>]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.PuzzleDesign.npcs"><code class="name">var <span class="ident">npcs</span> : List[<a title="space_hulk_game.schemas.puzzle_design.NPC" href="#space_hulk_game.schemas.puzzle_design.NPC">NPC</a>]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.PuzzleDesign.puzzles"><code class="name">var <span class="ident">puzzles</span> : List[<a title="space_hulk_game.schemas.puzzle_design.Puzzle" href="#space_hulk_game.schemas.puzzle_design.Puzzle">Puzzle</a>]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Static methods</h3>
+<dl>
+<dt id="space_hulk_game.schemas.puzzle_design.PuzzleDesign.validate_artifact_ids_unique"><code class="name flex">
+<span>def <span class="ident">validate_artifact_ids_unique</span></span>(<span>v: List[<a title="space_hulk_game.schemas.puzzle_design.Artifact" href="#space_hulk_game.schemas.puzzle_design.Artifact">Artifact</a>]) ‑> List[<a title="space_hulk_game.schemas.puzzle_design.Artifact" href="#space_hulk_game.schemas.puzzle_design.Artifact">Artifact</a>]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Ensure all artifact IDs are unique.</p></div>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.PuzzleDesign.validate_monster_ids_unique"><code class="name flex">
+<span>def <span class="ident">validate_monster_ids_unique</span></span>(<span>v: List[<a title="space_hulk_game.schemas.puzzle_design.Monster" href="#space_hulk_game.schemas.puzzle_design.Monster">Monster</a>]) ‑> List[<a title="space_hulk_game.schemas.puzzle_design.Monster" href="#space_hulk_game.schemas.puzzle_design.Monster">Monster</a>]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Ensure all monster IDs are unique.</p></div>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.PuzzleDesign.validate_npc_ids_unique"><code class="name flex">
+<span>def <span class="ident">validate_npc_ids_unique</span></span>(<span>v: List[<a title="space_hulk_game.schemas.puzzle_design.NPC" href="#space_hulk_game.schemas.puzzle_design.NPC">NPC</a>]) ‑> List[<a title="space_hulk_game.schemas.puzzle_design.NPC" href="#space_hulk_game.schemas.puzzle_design.NPC">NPC</a>]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Ensure all NPC IDs are unique.</p></div>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.PuzzleDesign.validate_puzzle_ids_unique"><code class="name flex">
+<span>def <span class="ident">validate_puzzle_ids_unique</span></span>(<span>v: List[<a title="space_hulk_game.schemas.puzzle_design.Puzzle" href="#space_hulk_game.schemas.puzzle_design.Puzzle">Puzzle</a>]) ‑> List[<a title="space_hulk_game.schemas.puzzle_design.Puzzle" href="#space_hulk_game.schemas.puzzle_design.Puzzle">Puzzle</a>]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Ensure all puzzle IDs are unique.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.PuzzleSolution"><code class="flex name class">
+<span>class <span class="ident">PuzzleSolution</span></span>
+<span>(</span><span>**data: Any)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PuzzleSolution(BaseModel):
+    &#34;&#34;&#34;Solution structure for a puzzle.
+    
+    Attributes:
+        type: Type of solution (e.g., &#39;multi-step&#39;, &#39;observation&#39;, &#39;timed&#39;).
+        steps: List of steps to solve the puzzle.
+    
+    Example:
+        &gt;&gt;&gt; solution = PuzzleSolution(
+        ...     type=&#34;multi-step_interaction_and_logic&#34;,
+        ...     steps=[PuzzleStep(...), ...]
+        ... )
+    &#34;&#34;&#34;
+    
+    type: str = Field(
+        ...,
+        min_length=3,
+        max_length=200,
+        description=&#34;Type of puzzle solution&#34;
+    )
+    steps: List[PuzzleStep] = Field(
+        ...,
+        min_length=1,
+        description=&#34;Steps to solve the puzzle (at least 1)&#34;
+    )
+    
+    @field_validator(&#39;steps&#39;, mode=&#39;before&#39;)
+    @classmethod
+    def convert_string_steps(cls, v):
+        &#34;&#34;&#34;Convert plain string steps to PuzzleStep objects.&#34;&#34;&#34;
+        if isinstance(v, list):
+            result = []
+            for item in v:
+                if isinstance(item, str):
+                    result.append(PuzzleStep(step=item))
+                elif isinstance(item, dict):
+                    result.append(PuzzleStep(**item))
+                else:
+                    result.append(item)
+            return result
+        return v</code></pre>
+</details>
+<div class="desc"><p>Solution structure for a puzzle.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>type</code></strong></dt>
+<dd>Type of solution (e.g., 'multi-step', 'observation', 'timed').</dd>
+<dt><strong><code>steps</code></strong></dt>
+<dd>List of steps to solve the puzzle.</dd>
+</dl>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; solution = PuzzleSolution(
+...     type=&quot;multi-step_interaction_and_logic&quot;,
+...     steps=[PuzzleStep(...), ...]
+... )
+</code></pre>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pydantic.main.BaseModel</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="space_hulk_game.schemas.puzzle_design.PuzzleSolution.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.PuzzleSolution.steps"><code class="name">var <span class="ident">steps</span> : List[<a title="space_hulk_game.schemas.puzzle_design.PuzzleStep" href="#space_hulk_game.schemas.puzzle_design.PuzzleStep">PuzzleStep</a>]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.PuzzleSolution.type"><code class="name">var <span class="ident">type</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Static methods</h3>
+<dl>
+<dt id="space_hulk_game.schemas.puzzle_design.PuzzleSolution.convert_string_steps"><code class="name flex">
+<span>def <span class="ident">convert_string_steps</span></span>(<span>v)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Convert plain string steps to PuzzleStep objects.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.PuzzleStep"><code class="flex name class">
+<span>class <span class="ident">PuzzleStep</span></span>
+<span>(</span><span>**data: Any)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PuzzleStep(BaseModel):
+    &#34;&#34;&#34;A single step in solving a puzzle.
+    
+    This model accepts either a plain string or a dict with &#39;step&#39; key
+    to match the YAML format.
+    
+    Attributes:
+        step: Description of the step to perform.
+    
+    Example:
+        &gt;&gt;&gt; step = PuzzleStep(
+        ...     step=&#34;Locate the auxiliary power conduit junction...&#34;
+        ... )
+    &#34;&#34;&#34;
+    
+    step: str = Field(
+        ...,
+        min_length=10,
+        description=&#34;Description of the puzzle step&#34;
+    )</code></pre>
+</details>
+<div class="desc"><p>A single step in solving a puzzle.</p>
+<p>This model accepts either a plain string or a dict with 'step' key
+to match the YAML format.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>step</code></strong></dt>
+<dd>Description of the step to perform.</dd>
+</dl>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; step = PuzzleStep(
+...     step=&quot;Locate the auxiliary power conduit junction...&quot;
+... )
+</code></pre>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pydantic.main.BaseModel</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="space_hulk_game.schemas.puzzle_design.PuzzleStep.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.puzzle_design.PuzzleStep.step"><code class="name">var <span class="ident">step</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="space_hulk_game.schemas" href="index.html">space_hulk_game.schemas</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="space_hulk_game.schemas.puzzle_design.Artifact" href="#space_hulk_game.schemas.puzzle_design.Artifact">Artifact</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.schemas.puzzle_design.Artifact.description" href="#space_hulk_game.schemas.puzzle_design.Artifact.description">description</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.Artifact.id" href="#space_hulk_game.schemas.puzzle_design.Artifact.id">id</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.Artifact.location" href="#space_hulk_game.schemas.puzzle_design.Artifact.location">location</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.Artifact.model_config" href="#space_hulk_game.schemas.puzzle_design.Artifact.model_config">model_config</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.Artifact.name" href="#space_hulk_game.schemas.puzzle_design.Artifact.name">name</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.Artifact.narrative_significance" href="#space_hulk_game.schemas.puzzle_design.Artifact.narrative_significance">narrative_significance</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.Artifact.properties" href="#space_hulk_game.schemas.puzzle_design.Artifact.properties">properties</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.Artifact.validate_id_format" href="#space_hulk_game.schemas.puzzle_design.Artifact.validate_id_format">validate_id_format</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="space_hulk_game.schemas.puzzle_design.ArtifactProperty" href="#space_hulk_game.schemas.puzzle_design.ArtifactProperty">ArtifactProperty</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.schemas.puzzle_design.ArtifactProperty.model_config" href="#space_hulk_game.schemas.puzzle_design.ArtifactProperty.model_config">model_config</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.ArtifactProperty.property" href="#space_hulk_game.schemas.puzzle_design.ArtifactProperty.property">property</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="space_hulk_game.schemas.puzzle_design.Monster" href="#space_hulk_game.schemas.puzzle_design.Monster">Monster</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.schemas.puzzle_design.Monster.abilities" href="#space_hulk_game.schemas.puzzle_design.Monster.abilities">abilities</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.Monster.description" href="#space_hulk_game.schemas.puzzle_design.Monster.description">description</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.Monster.id" href="#space_hulk_game.schemas.puzzle_design.Monster.id">id</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.Monster.locations" href="#space_hulk_game.schemas.puzzle_design.Monster.locations">locations</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.Monster.model_config" href="#space_hulk_game.schemas.puzzle_design.Monster.model_config">model_config</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.Monster.name" href="#space_hulk_game.schemas.puzzle_design.Monster.name">name</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.Monster.narrative_role" href="#space_hulk_game.schemas.puzzle_design.Monster.narrative_role">narrative_role</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.Monster.validate_abilities_not_empty" href="#space_hulk_game.schemas.puzzle_design.Monster.validate_abilities_not_empty">validate_abilities_not_empty</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.Monster.validate_id_format" href="#space_hulk_game.schemas.puzzle_design.Monster.validate_id_format">validate_id_format</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="space_hulk_game.schemas.puzzle_design.NPC" href="#space_hulk_game.schemas.puzzle_design.NPC">NPC</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.schemas.puzzle_design.NPC.description" href="#space_hulk_game.schemas.puzzle_design.NPC.description">description</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.NPC.dialogue_themes" href="#space_hulk_game.schemas.puzzle_design.NPC.dialogue_themes">dialogue_themes</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.NPC.id" href="#space_hulk_game.schemas.puzzle_design.NPC.id">id</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.NPC.locations" href="#space_hulk_game.schemas.puzzle_design.NPC.locations">locations</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.NPC.model_config" href="#space_hulk_game.schemas.puzzle_design.NPC.model_config">model_config</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.NPC.name" href="#space_hulk_game.schemas.puzzle_design.NPC.name">name</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.NPC.role" href="#space_hulk_game.schemas.puzzle_design.NPC.role">role</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.NPC.validate_id_format" href="#space_hulk_game.schemas.puzzle_design.NPC.validate_id_format">validate_id_format</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.NPC.validate_themes_not_empty" href="#space_hulk_game.schemas.puzzle_design.NPC.validate_themes_not_empty">validate_themes_not_empty</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="space_hulk_game.schemas.puzzle_design.Puzzle" href="#space_hulk_game.schemas.puzzle_design.Puzzle">Puzzle</a></code></h4>
+<ul class="two-column">
+<li><code><a title="space_hulk_game.schemas.puzzle_design.Puzzle.description" href="#space_hulk_game.schemas.puzzle_design.Puzzle.description">description</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.Puzzle.difficulty" href="#space_hulk_game.schemas.puzzle_design.Puzzle.difficulty">difficulty</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.Puzzle.id" href="#space_hulk_game.schemas.puzzle_design.Puzzle.id">id</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.Puzzle.location" href="#space_hulk_game.schemas.puzzle_design.Puzzle.location">location</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.Puzzle.model_config" href="#space_hulk_game.schemas.puzzle_design.Puzzle.model_config">model_config</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.Puzzle.name" href="#space_hulk_game.schemas.puzzle_design.Puzzle.name">name</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.Puzzle.narrative_purpose" href="#space_hulk_game.schemas.puzzle_design.Puzzle.narrative_purpose">narrative_purpose</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.Puzzle.solution" href="#space_hulk_game.schemas.puzzle_design.Puzzle.solution">solution</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.Puzzle.validate_id_format" href="#space_hulk_game.schemas.puzzle_design.Puzzle.validate_id_format">validate_id_format</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="space_hulk_game.schemas.puzzle_design.PuzzleDesign" href="#space_hulk_game.schemas.puzzle_design.PuzzleDesign">PuzzleDesign</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.schemas.puzzle_design.PuzzleDesign.artifacts" href="#space_hulk_game.schemas.puzzle_design.PuzzleDesign.artifacts">artifacts</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.PuzzleDesign.model_config" href="#space_hulk_game.schemas.puzzle_design.PuzzleDesign.model_config">model_config</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.PuzzleDesign.monsters" href="#space_hulk_game.schemas.puzzle_design.PuzzleDesign.monsters">monsters</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.PuzzleDesign.npcs" href="#space_hulk_game.schemas.puzzle_design.PuzzleDesign.npcs">npcs</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.PuzzleDesign.puzzles" href="#space_hulk_game.schemas.puzzle_design.PuzzleDesign.puzzles">puzzles</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.PuzzleDesign.validate_artifact_ids_unique" href="#space_hulk_game.schemas.puzzle_design.PuzzleDesign.validate_artifact_ids_unique">validate_artifact_ids_unique</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.PuzzleDesign.validate_monster_ids_unique" href="#space_hulk_game.schemas.puzzle_design.PuzzleDesign.validate_monster_ids_unique">validate_monster_ids_unique</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.PuzzleDesign.validate_npc_ids_unique" href="#space_hulk_game.schemas.puzzle_design.PuzzleDesign.validate_npc_ids_unique">validate_npc_ids_unique</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.PuzzleDesign.validate_puzzle_ids_unique" href="#space_hulk_game.schemas.puzzle_design.PuzzleDesign.validate_puzzle_ids_unique">validate_puzzle_ids_unique</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="space_hulk_game.schemas.puzzle_design.PuzzleSolution" href="#space_hulk_game.schemas.puzzle_design.PuzzleSolution">PuzzleSolution</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.schemas.puzzle_design.PuzzleSolution.convert_string_steps" href="#space_hulk_game.schemas.puzzle_design.PuzzleSolution.convert_string_steps">convert_string_steps</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.PuzzleSolution.model_config" href="#space_hulk_game.schemas.puzzle_design.PuzzleSolution.model_config">model_config</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.PuzzleSolution.steps" href="#space_hulk_game.schemas.puzzle_design.PuzzleSolution.steps">steps</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.PuzzleSolution.type" href="#space_hulk_game.schemas.puzzle_design.PuzzleSolution.type">type</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="space_hulk_game.schemas.puzzle_design.PuzzleStep" href="#space_hulk_game.schemas.puzzle_design.PuzzleStep">PuzzleStep</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.schemas.puzzle_design.PuzzleStep.model_config" href="#space_hulk_game.schemas.puzzle_design.PuzzleStep.model_config">model_config</a></code></li>
+<li><code><a title="space_hulk_game.schemas.puzzle_design.PuzzleStep.step" href="#space_hulk_game.schemas.puzzle_design.PuzzleStep.step">step</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,1215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>space_hulk_game.schemas.game_mechanics API documentation</title>
+<meta name="description" content="Pydantic models for game mechanics validation …">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>space_hulk_game.schemas.game_mechanics</code></h1>
+</header>
+<section id="section-intro">
+<p>Pydantic models for game mechanics validation.</p>
+<p>This module defines the schema for validating game mechanics outputs including
+game systems, state management, win/lose conditions, and technical requirements.</p>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="space_hulk_game.schemas.game_mechanics.CombatMechanic"><code class="flex name class">
+<span>class <span class="ident">CombatMechanic</span></span>
+<span>(</span><span>**data: Any)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CombatMechanic(BaseModel):
+    &#34;&#34;&#34;A specific combat mechanic or rule.
+    
+    Attributes:
+        name: Name of the combat mechanic.
+        rules: Description of how the mechanic works.
+    
+    Example:
+        &gt;&gt;&gt; mechanic = CombatMechanic(
+        ...     name=&#34;Overwatch&#34;,
+        ...     rules=&#34;Set a character to fire upon enemies entering their line of sight...&#34;
+        ... )
+    &#34;&#34;&#34;
+    
+    name: str = Field(
+        ...,
+        min_length=1,
+        max_length=200,
+        description=&#34;Mechanic name&#34;
+    )
+    rules: str = Field(
+        ...,
+        min_length=20,
+        description=&#34;Description of mechanic rules&#34;
+    )</code></pre>
+</details>
+<div class="desc"><p>A specific combat mechanic or rule.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>name</code></strong></dt>
+<dd>Name of the combat mechanic.</dd>
+<dt><strong><code>rules</code></strong></dt>
+<dd>Description of how the mechanic works.</dd>
+</dl>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; mechanic = CombatMechanic(
+...     name=&quot;Overwatch&quot;,
+...     rules=&quot;Set a character to fire upon enemies entering their line of sight...&quot;
+... )
+</code></pre>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pydantic.main.BaseModel</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="space_hulk_game.schemas.game_mechanics.CombatMechanic.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.CombatMechanic.name"><code class="name">var <span class="ident">name</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.CombatMechanic.rules"><code class="name">var <span class="ident">rules</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.CombatSystem"><code class="flex name class">
+<span>class <span class="ident">CombatSystem</span></span>
+<span>(</span><span>**data: Any)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CombatSystem(BaseModel):
+    &#34;&#34;&#34;Combat system configuration.
+    
+    Attributes:
+        description: Description of how combat works.
+        mechanics: List of specific combat mechanics.
+        narrative_purpose: Why this system exists narratively.
+    
+    Example:
+        &gt;&gt;&gt; combat = CombatSystem(
+        ...     description=&#34;Turn-based tactical combat. Features cover systems...&#34;,
+        ...     mechanics=[CombatMechanic(...), ...],
+        ...     narrative_purpose=&#34;The tactical, turn-based nature supports survival theme...&#34;
+        ... )
+    &#34;&#34;&#34;
+    
+    description: str = Field(
+        ...,
+        min_length=50,
+        description=&#34;Description of combat system&#34;
+    )
+    mechanics: List[CombatMechanic] = Field(
+        ...,
+        min_length=1,
+        description=&#34;Combat mechanics (at least 1)&#34;
+    )
+    narrative_purpose: str = Field(
+        ...,
+        min_length=50,
+        description=&#34;Narrative purpose of combat system&#34;
+    )</code></pre>
+</details>
+<div class="desc"><p>Combat system configuration.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>description</code></strong></dt>
+<dd>Description of how combat works.</dd>
+<dt><strong><code>mechanics</code></strong></dt>
+<dd>List of specific combat mechanics.</dd>
+<dt><strong><code>narrative_purpose</code></strong></dt>
+<dd>Why this system exists narratively.</dd>
+</dl>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; combat = CombatSystem(
+...     description=&quot;Turn-based tactical combat. Features cover systems...&quot;,
+...     mechanics=[CombatMechanic(...), ...],
+...     narrative_purpose=&quot;The tactical, turn-based nature supports survival theme...&quot;
+... )
+</code></pre>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pydantic.main.BaseModel</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="space_hulk_game.schemas.game_mechanics.CombatSystem.description"><code class="name">var <span class="ident">description</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.CombatSystem.mechanics"><code class="name">var <span class="ident">mechanics</span> : List[<a title="space_hulk_game.schemas.game_mechanics.CombatMechanic" href="#space_hulk_game.schemas.game_mechanics.CombatMechanic">CombatMechanic</a>]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.CombatSystem.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.CombatSystem.narrative_purpose"><code class="name">var <span class="ident">narrative_purpose</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.GameMechanics"><code class="flex name class">
+<span>class <span class="ident">GameMechanics</span></span>
+<span>(</span><span>**data: Any)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GameMechanics(BaseModel):
+    &#34;&#34;&#34;Complete game mechanics and design document.
+    
+    This is the top-level model representing the entire game mechanics
+    specification including systems, state management, and technical requirements.
+    
+    Attributes:
+        game_title: Title of the game.
+        game_systems: All game systems configuration.
+        game_state: Game state management configuration.
+        technical_requirements: List of technical requirements.
+    
+    Example:
+        &gt;&gt;&gt; mechanics = GameMechanics(
+        ...     game_title=&#34;Space Hulk: Echoes of the Void&#34;,
+        ...     game_systems=GameSystems(...),
+        ...     game_state=GameState(...),
+        ...     technical_requirements=[TechnicalRequirement(...), ...]
+        ... )
+    &#34;&#34;&#34;
+    
+    game_title: str = Field(
+        ...,
+        min_length=1,
+        max_length=200,
+        description=&#34;Title of the game&#34;
+    )
+    game_systems: GameSystems = Field(
+        ...,
+        description=&#34;Game systems configuration&#34;
+    )
+    game_state: GameState = Field(
+        ...,
+        description=&#34;Game state management&#34;
+    )
+    technical_requirements: List[TechnicalRequirement] = Field(
+        ...,
+        min_length=1,
+        description=&#34;Technical requirements (at least 1)&#34;
+    )</code></pre>
+</details>
+<div class="desc"><p>Complete game mechanics and design document.</p>
+<p>This is the top-level model representing the entire game mechanics
+specification including systems, state management, and technical requirements.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>game_title</code></strong></dt>
+<dd>Title of the game.</dd>
+<dt><strong><code>game_systems</code></strong></dt>
+<dd>All game systems configuration.</dd>
+<dt><strong><code>game_state</code></strong></dt>
+<dd>Game state management configuration.</dd>
+<dt><strong><code>technical_requirements</code></strong></dt>
+<dd>List of technical requirements.</dd>
+</dl>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; mechanics = GameMechanics(
+...     game_title=&quot;Space Hulk: Echoes of the Void&quot;,
+...     game_systems=GameSystems(...),
+...     game_state=GameState(...),
+...     technical_requirements=[TechnicalRequirement(...), ...]
+... )
+</code></pre>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pydantic.main.BaseModel</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="space_hulk_game.schemas.game_mechanics.GameMechanics.game_state"><code class="name">var <span class="ident">game_state</span> : <a title="space_hulk_game.schemas.game_mechanics.GameState" href="#space_hulk_game.schemas.game_mechanics.GameState">GameState</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.GameMechanics.game_systems"><code class="name">var <span class="ident">game_systems</span> : <a title="space_hulk_game.schemas.game_mechanics.GameSystems" href="#space_hulk_game.schemas.game_mechanics.GameSystems">GameSystems</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.GameMechanics.game_title"><code class="name">var <span class="ident">game_title</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.GameMechanics.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.GameMechanics.technical_requirements"><code class="name">var <span class="ident">technical_requirements</span> : List[<a title="space_hulk_game.schemas.game_mechanics.TechnicalRequirement" href="#space_hulk_game.schemas.game_mechanics.TechnicalRequirement">TechnicalRequirement</a>]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.GameState"><code class="flex name class">
+<span>class <span class="ident">GameState</span></span>
+<span>(</span><span>**data: Any)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GameState(BaseModel):
+    &#34;&#34;&#34;Game state management configuration.
+    
+    Attributes:
+        tracked_variables: List of variables being tracked.
+        win_conditions: List of win conditions.
+        lose_conditions: List of lose conditions.
+    
+    Example:
+        &gt;&gt;&gt; state = GameState(
+        ...     tracked_variables=[TrackedVariable(...), ...],
+        ...     win_conditions=[WinCondition(...), ...],
+        ...     lose_conditions=[LoseCondition(...), ...]
+        ... )
+    &#34;&#34;&#34;
+    
+    tracked_variables: List[TrackedVariable] = Field(
+        ...,
+        min_length=1,
+        description=&#34;Tracked variables (at least 1)&#34;
+    )
+    win_conditions: List[WinCondition] = Field(
+        ...,
+        min_length=1,
+        description=&#34;Win conditions (at least 1)&#34;
+    )
+    lose_conditions: List[LoseCondition] = Field(
+        ...,
+        min_length=1,
+        description=&#34;Lose conditions (at least 1)&#34;
+    )</code></pre>
+</details>
+<div class="desc"><p>Game state management configuration.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>tracked_variables</code></strong></dt>
+<dd>List of variables being tracked.</dd>
+<dt><strong><code>win_conditions</code></strong></dt>
+<dd>List of win conditions.</dd>
+<dt><strong><code>lose_conditions</code></strong></dt>
+<dd>List of lose conditions.</dd>
+</dl>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(
+...     tracked_variables=[TrackedVariable(...), ...],
+...     win_conditions=[WinCondition(...), ...],
+...     lose_conditions=[LoseCondition(...), ...]
+... )
+</code></pre>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pydantic.main.BaseModel</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="space_hulk_game.schemas.game_mechanics.GameState.lose_conditions"><code class="name">var <span class="ident">lose_conditions</span> : List[<a title="space_hulk_game.schemas.game_mechanics.LoseCondition" href="#space_hulk_game.schemas.game_mechanics.LoseCondition">LoseCondition</a>]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.GameState.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.GameState.tracked_variables"><code class="name">var <span class="ident">tracked_variables</span> : List[<a title="space_hulk_game.schemas.game_mechanics.TrackedVariable" href="#space_hulk_game.schemas.game_mechanics.TrackedVariable">TrackedVariable</a>]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.GameState.win_conditions"><code class="name">var <span class="ident">win_conditions</span> : List[<a title="space_hulk_game.schemas.game_mechanics.WinCondition" href="#space_hulk_game.schemas.game_mechanics.WinCondition">WinCondition</a>]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.GameSystemCommands"><code class="flex name class">
+<span>class <span class="ident">GameSystemCommands</span></span>
+<span>(</span><span>**data: Any)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GameSystemCommands(BaseModel):
+    &#34;&#34;&#34;Commands available in a game system.
+    
+    This is a simple wrapper to ensure commands are valid.
+    &#34;&#34;&#34;
+    
+    commands: List[str] = Field(
+        ...,
+        min_length=1,
+        description=&#34;List of available commands (at least 1)&#34;
+    )
+    
+    @field_validator(&#39;commands&#39;)
+    @classmethod
+    def validate_commands_not_empty(cls, v: List[str]) -&gt; List[str]:
+        &#34;&#34;&#34;Ensure all commands are non-empty strings.&#34;&#34;&#34;
+        if not all(cmd.strip() for cmd in v):
+            raise ValueError(&#34;All commands must be non-empty strings&#34;)
+        return v</code></pre>
+</details>
+<div class="desc"><p>Commands available in a game system.</p>
+<p>This is a simple wrapper to ensure commands are valid.</p>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pydantic.main.BaseModel</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="space_hulk_game.schemas.game_mechanics.GameSystemCommands.commands"><code class="name">var <span class="ident">commands</span> : List[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.GameSystemCommands.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Static methods</h3>
+<dl>
+<dt id="space_hulk_game.schemas.game_mechanics.GameSystemCommands.validate_commands_not_empty"><code class="name flex">
+<span>def <span class="ident">validate_commands_not_empty</span></span>(<span>v: List[str]) ‑> List[str]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Ensure all commands are non-empty strings.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.GameSystems"><code class="flex name class">
+<span>class <span class="ident">GameSystems</span></span>
+<span>(</span><span>**data: Any)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GameSystems(BaseModel):
+    &#34;&#34;&#34;All game systems configuration.
+    
+    Attributes:
+        movement: Movement system configuration.
+        inventory: Inventory system configuration.
+        combat: Combat system configuration.
+        interaction: Interaction system configuration.
+    
+    Example:
+        &gt;&gt;&gt; systems = GameSystems(
+        ...     movement=MovementSystem(...),
+        ...     inventory=InventorySystem(...),
+        ...     combat=CombatSystem(...),
+        ...     interaction=InteractionSystem(...)
+        ... )
+    &#34;&#34;&#34;
+    
+    movement: MovementSystem = Field(..., description=&#34;Movement system&#34;)
+    inventory: InventorySystem = Field(..., description=&#34;Inventory system&#34;)
+    combat: CombatSystem = Field(..., description=&#34;Combat system&#34;)
+    interaction: InteractionSystem = Field(..., description=&#34;Interaction system&#34;)</code></pre>
+</details>
+<div class="desc"><p>All game systems configuration.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>movement</code></strong></dt>
+<dd>Movement system configuration.</dd>
+<dt><strong><code>inventory</code></strong></dt>
+<dd>Inventory system configuration.</dd>
+<dt><strong><code>combat</code></strong></dt>
+<dd>Combat system configuration.</dd>
+<dt><strong><code>interaction</code></strong></dt>
+<dd>Interaction system configuration.</dd>
+</dl>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; systems = GameSystems(
+...     movement=MovementSystem(...),
+...     inventory=InventorySystem(...),
+...     combat=CombatSystem(...),
+...     interaction=InteractionSystem(...)
+... )
+</code></pre>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pydantic.main.BaseModel</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="space_hulk_game.schemas.game_mechanics.GameSystems.combat"><code class="name">var <span class="ident">combat</span> : <a title="space_hulk_game.schemas.game_mechanics.CombatSystem" href="#space_hulk_game.schemas.game_mechanics.CombatSystem">CombatSystem</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.GameSystems.interaction"><code class="name">var <span class="ident">interaction</span> : <a title="space_hulk_game.schemas.game_mechanics.InteractionSystem" href="#space_hulk_game.schemas.game_mechanics.InteractionSystem">InteractionSystem</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.GameSystems.inventory"><code class="name">var <span class="ident">inventory</span> : <a title="space_hulk_game.schemas.game_mechanics.InventorySystem" href="#space_hulk_game.schemas.game_mechanics.InventorySystem">InventorySystem</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.GameSystems.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.GameSystems.movement"><code class="name">var <span class="ident">movement</span> : <a title="space_hulk_game.schemas.game_mechanics.MovementSystem" href="#space_hulk_game.schemas.game_mechanics.MovementSystem">MovementSystem</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.InteractionSystem"><code class="flex name class">
+<span>class <span class="ident">InteractionSystem</span></span>
+<span>(</span><span>**data: Any)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class InteractionSystem(BaseModel):
+    &#34;&#34;&#34;Interaction system configuration.
+    
+    Attributes:
+        description: Description of how interaction works.
+        commands: List of interaction commands.
+        narrative_purpose: Why this system exists narratively.
+    
+    Example:
+        &gt;&gt;&gt; interaction = InteractionSystem(
+        ...     description=&#34;Allows players to interact with objects, environments...&#34;,
+        ...     commands=[&#34;examine&#34;, &#34;talk&#34;, &#34;use&#34;, &#34;analyze&#34;],
+        ...     narrative_purpose=&#34;&#39;Examine&#39; allows players to uncover crucial lore...&#34;
+        ... )
+    &#34;&#34;&#34;
+    
+    description: str = Field(
+        ...,
+        min_length=50,
+        description=&#34;Description of interaction system&#34;
+    )
+    commands: List[str] = Field(
+        ...,
+        min_length=1,
+        description=&#34;Interaction commands (at least 1)&#34;
+    )
+    narrative_purpose: str = Field(
+        ...,
+        min_length=50,
+        description=&#34;Narrative purpose of interaction system&#34;
+    )</code></pre>
+</details>
+<div class="desc"><p>Interaction system configuration.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>description</code></strong></dt>
+<dd>Description of how interaction works.</dd>
+<dt><strong><code>commands</code></strong></dt>
+<dd>List of interaction commands.</dd>
+<dt><strong><code>narrative_purpose</code></strong></dt>
+<dd>Why this system exists narratively.</dd>
+</dl>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; interaction = InteractionSystem(
+...     description=&quot;Allows players to interact with objects, environments...&quot;,
+...     commands=[&quot;examine&quot;, &quot;talk&quot;, &quot;use&quot;, &quot;analyze&quot;],
+...     narrative_purpose=&quot;'Examine' allows players to uncover crucial lore...&quot;
+... )
+</code></pre>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pydantic.main.BaseModel</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="space_hulk_game.schemas.game_mechanics.InteractionSystem.commands"><code class="name">var <span class="ident">commands</span> : List[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.InteractionSystem.description"><code class="name">var <span class="ident">description</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.InteractionSystem.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.InteractionSystem.narrative_purpose"><code class="name">var <span class="ident">narrative_purpose</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.InventorySystem"><code class="flex name class">
+<span>class <span class="ident">InventorySystem</span></span>
+<span>(</span><span>**data: Any)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class InventorySystem(BaseModel):
+    &#34;&#34;&#34;Inventory system configuration.
+    
+    Attributes:
+        description: Description of how inventory works.
+        capacity: Maximum number of items that can be carried.
+        commands: List of inventory commands.
+        narrative_purpose: Why this system exists narratively.
+    
+    Example:
+        &gt;&gt;&gt; inventory = InventorySystem(
+        ...     description=&#34;Limited capacity inventory for each Space Marine...&#34;,
+        ...     capacity=5,
+        ...     commands=[&#34;take&#34;, &#34;drop&#34;, &#34;use&#34;],
+        ...     narrative_purpose=&#34;Scarcity of resources drives the survival theme...&#34;
+        ... )
+    &#34;&#34;&#34;
+    
+    description: str = Field(
+        ...,
+        min_length=50,
+        description=&#34;Description of inventory system&#34;
+    )
+    capacity: int = Field(
+        ...,
+        ge=1,
+        le=100,
+        description=&#34;Maximum inventory capacity (1-100)&#34;
+    )
+    commands: List[str] = Field(
+        ...,
+        min_length=1,
+        description=&#34;Inventory commands (at least 1)&#34;
+    )
+    narrative_purpose: str = Field(
+        ...,
+        min_length=50,
+        description=&#34;Narrative purpose of inventory system&#34;
+    )</code></pre>
+</details>
+<div class="desc"><p>Inventory system configuration.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>description</code></strong></dt>
+<dd>Description of how inventory works.</dd>
+<dt><strong><code>capacity</code></strong></dt>
+<dd>Maximum number of items that can be carried.</dd>
+<dt><strong><code>commands</code></strong></dt>
+<dd>List of inventory commands.</dd>
+<dt><strong><code>narrative_purpose</code></strong></dt>
+<dd>Why this system exists narratively.</dd>
+</dl>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; inventory = InventorySystem(
+...     description=&quot;Limited capacity inventory for each Space Marine...&quot;,
+...     capacity=5,
+...     commands=[&quot;take&quot;, &quot;drop&quot;, &quot;use&quot;],
+...     narrative_purpose=&quot;Scarcity of resources drives the survival theme...&quot;
+... )
+</code></pre>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pydantic.main.BaseModel</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="space_hulk_game.schemas.game_mechanics.InventorySystem.capacity"><code class="name">var <span class="ident">capacity</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.InventorySystem.commands"><code class="name">var <span class="ident">commands</span> : List[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.InventorySystem.description"><code class="name">var <span class="ident">description</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.InventorySystem.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.InventorySystem.narrative_purpose"><code class="name">var <span class="ident">narrative_purpose</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.LoseCondition"><code class="flex name class">
+<span>class <span class="ident">LoseCondition</span></span>
+<span>(</span><span>**data: Any)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class LoseCondition(BaseModel):
+    &#34;&#34;&#34;A lose condition for the game.
+    
+    Attributes:
+        condition: Description of the lose condition.
+    
+    Example:
+        &gt;&gt;&gt; lose = LoseCondition(
+        ...     condition=&#34;All squad members are incapacitated or killed in combat.&#34;
+        ... )
+    &#34;&#34;&#34;
+    
+    condition: str = Field(
+        ...,
+        min_length=20,
+        description=&#34;Description of the lose condition&#34;
+    )</code></pre>
+</details>
+<div class="desc"><p>A lose condition for the game.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>condition</code></strong></dt>
+<dd>Description of the lose condition.</dd>
+</dl>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; lose = LoseCondition(
+...     condition=&quot;All squad members are incapacitated or killed in combat.&quot;
+... )
+</code></pre>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pydantic.main.BaseModel</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="space_hulk_game.schemas.game_mechanics.LoseCondition.condition"><code class="name">var <span class="ident">condition</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.LoseCondition.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.MovementSystem"><code class="flex name class">
+<span>class <span class="ident">MovementSystem</span></span>
+<span>(</span><span>**data: Any)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class MovementSystem(BaseModel):
+    &#34;&#34;&#34;Movement system configuration.
+    
+    Attributes:
+        description: Description of how movement works.
+        commands: List of movement commands.
+        narrative_purpose: Why this system exists narratively.
+    
+    Example:
+        &gt;&gt;&gt; movement = MovementSystem(
+        ...     description=&#34;Tactical grid-based movement with limited action points...&#34;,
+        ...     commands=[&#34;move&#34;, &#34;brace&#34;, &#34;breach&#34;],
+        ...     narrative_purpose=&#34;Reinforces the claustrophobic and dangerous environment...&#34;
+        ... )
+    &#34;&#34;&#34;
+    
+    description: str = Field(
+        ...,
+        min_length=50,
+        description=&#34;Description of movement system&#34;
+    )
+    commands: List[str] = Field(
+        ...,
+        min_length=1,
+        description=&#34;Movement commands (at least 1)&#34;
+    )
+    narrative_purpose: str = Field(
+        ...,
+        min_length=50,
+        description=&#34;Narrative purpose of movement system&#34;
+    )</code></pre>
+</details>
+<div class="desc"><p>Movement system configuration.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>description</code></strong></dt>
+<dd>Description of how movement works.</dd>
+<dt><strong><code>commands</code></strong></dt>
+<dd>List of movement commands.</dd>
+<dt><strong><code>narrative_purpose</code></strong></dt>
+<dd>Why this system exists narratively.</dd>
+</dl>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; movement = MovementSystem(
+...     description=&quot;Tactical grid-based movement with limited action points...&quot;,
+...     commands=[&quot;move&quot;, &quot;brace&quot;, &quot;breach&quot;],
+...     narrative_purpose=&quot;Reinforces the claustrophobic and dangerous environment...&quot;
+... )
+</code></pre>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pydantic.main.BaseModel</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="space_hulk_game.schemas.game_mechanics.MovementSystem.commands"><code class="name">var <span class="ident">commands</span> : List[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.MovementSystem.description"><code class="name">var <span class="ident">description</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.MovementSystem.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.MovementSystem.narrative_purpose"><code class="name">var <span class="ident">narrative_purpose</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.TechnicalRequirement"><code class="flex name class">
+<span>class <span class="ident">TechnicalRequirement</span></span>
+<span>(</span><span>**data: Any)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TechnicalRequirement(BaseModel):
+    &#34;&#34;&#34;A technical requirement for the game.
+    
+    Attributes:
+        requirement: Description of the technical requirement.
+        justification: Why this requirement is necessary.
+    
+    Example:
+        &gt;&gt;&gt; req = TechnicalRequirement(
+        ...     requirement=&#34;Robust AI for diverse enemy types...&#34;,
+        ...     justification=&#34;Crucial for making combat challenging and varied...&#34;
+        ... )
+    &#34;&#34;&#34;
+    
+    requirement: str = Field(
+        ...,
+        min_length=20,
+        description=&#34;Technical requirement description&#34;
+    )
+    justification: str = Field(
+        ...,
+        min_length=20,
+        description=&#34;Justification for the requirement&#34;
+    )</code></pre>
+</details>
+<div class="desc"><p>A technical requirement for the game.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>requirement</code></strong></dt>
+<dd>Description of the technical requirement.</dd>
+<dt><strong><code>justification</code></strong></dt>
+<dd>Why this requirement is necessary.</dd>
+</dl>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; req = TechnicalRequirement(
+...     requirement=&quot;Robust AI for diverse enemy types...&quot;,
+...     justification=&quot;Crucial for making combat challenging and varied...&quot;
+... )
+</code></pre>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pydantic.main.BaseModel</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="space_hulk_game.schemas.game_mechanics.TechnicalRequirement.justification"><code class="name">var <span class="ident">justification</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.TechnicalRequirement.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.TechnicalRequirement.requirement"><code class="name">var <span class="ident">requirement</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.TrackedVariable"><code class="flex name class">
+<span>class <span class="ident">TrackedVariable</span></span>
+<span>(</span><span>**data: Any)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TrackedVariable(BaseModel):
+    &#34;&#34;&#34;A tracked game state variable.
+    
+    Attributes:
+        variable: Name of the variable being tracked.
+        purpose: Description of what the variable tracks and why.
+    
+    Example:
+        &gt;&gt;&gt; var = TrackedVariable(
+        ...     variable=&#34;squad_morale&#34;,
+        ...     purpose=&#34;Tracks the overall mental state of the squad...&#34;
+        ... )
+    &#34;&#34;&#34;
+    
+    variable: str = Field(
+        ...,
+        min_length=1,
+        max_length=200,
+        description=&#34;Variable name&#34;
+    )
+    purpose: str = Field(
+        ...,
+        min_length=20,
+        description=&#34;Purpose and impact of the variable&#34;
+    )</code></pre>
+</details>
+<div class="desc"><p>A tracked game state variable.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>variable</code></strong></dt>
+<dd>Name of the variable being tracked.</dd>
+<dt><strong><code>purpose</code></strong></dt>
+<dd>Description of what the variable tracks and why.</dd>
+</dl>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; var = TrackedVariable(
+...     variable=&quot;squad_morale&quot;,
+...     purpose=&quot;Tracks the overall mental state of the squad...&quot;
+... )
+</code></pre>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pydantic.main.BaseModel</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="space_hulk_game.schemas.game_mechanics.TrackedVariable.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.TrackedVariable.purpose"><code class="name">var <span class="ident">purpose</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.TrackedVariable.variable"><code class="name">var <span class="ident">variable</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.WinCondition"><code class="flex name class">
+<span>class <span class="ident">WinCondition</span></span>
+<span>(</span><span>**data: Any)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class WinCondition(BaseModel):
+    &#34;&#34;&#34;A win condition for the game.
+    
+    Attributes:
+        condition: Description of the win condition.
+    
+    Example:
+        &gt;&gt;&gt; win = WinCondition(
+        ...     condition=&#34;Successfully neutralize the threat posed by &#39;The Serpent&#39;s Coil&#39;...&#34;
+        ... )
+    &#34;&#34;&#34;
+    
+    condition: str = Field(
+        ...,
+        min_length=20,
+        description=&#34;Description of the win condition&#34;
+    )</code></pre>
+</details>
+<div class="desc"><p>A win condition for the game.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>condition</code></strong></dt>
+<dd>Description of the win condition.</dd>
+</dl>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; win = WinCondition(
+...     condition=&quot;Successfully neutralize the threat posed by 'The Serpent's Coil'...&quot;
+... )
+</code></pre>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pydantic.main.BaseModel</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="space_hulk_game.schemas.game_mechanics.WinCondition.condition"><code class="name">var <span class="ident">condition</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.schemas.game_mechanics.WinCondition.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="space_hulk_game.schemas" href="index.html">space_hulk_game.schemas</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="space_hulk_game.schemas.game_mechanics.CombatMechanic" href="#space_hulk_game.schemas.game_mechanics.CombatMechanic">CombatMechanic</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.schemas.game_mechanics.CombatMechanic.model_config" href="#space_hulk_game.schemas.game_mechanics.CombatMechanic.model_config">model_config</a></code></li>
+<li><code><a title="space_hulk_game.schemas.game_mechanics.CombatMechanic.name" href="#space_hulk_game.schemas.game_mechanics.CombatMechanic.name">name</a></code></li>
+<li><code><a title="space_hulk_game.schemas.game_mechanics.CombatMechanic.rules" href="#space_hulk_game.schemas.game_mechanics.CombatMechanic.rules">rules</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="space_hulk_game.schemas.game_mechanics.CombatSystem" href="#space_hulk_game.schemas.game_mechanics.CombatSystem">CombatSystem</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.schemas.game_mechanics.CombatSystem.description" href="#space_hulk_game.schemas.game_mechanics.CombatSystem.description">description</a></code></li>
+<li><code><a title="space_hulk_game.schemas.game_mechanics.CombatSystem.mechanics" href="#space_hulk_game.schemas.game_mechanics.CombatSystem.mechanics">mechanics</a></code></li>
+<li><code><a title="space_hulk_game.schemas.game_mechanics.CombatSystem.model_config" href="#space_hulk_game.schemas.game_mechanics.CombatSystem.model_config">model_config</a></code></li>
+<li><code><a title="space_hulk_game.schemas.game_mechanics.CombatSystem.narrative_purpose" href="#space_hulk_game.schemas.game_mechanics.CombatSystem.narrative_purpose">narrative_purpose</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="space_hulk_game.schemas.game_mechanics.GameMechanics" href="#space_hulk_game.schemas.game_mechanics.GameMechanics">GameMechanics</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.schemas.game_mechanics.GameMechanics.game_state" href="#space_hulk_game.schemas.game_mechanics.GameMechanics.game_state">game_state</a></code></li>
+<li><code><a title="space_hulk_game.schemas.game_mechanics.GameMechanics.game_systems" href="#space_hulk_game.schemas.game_mechanics.GameMechanics.game_systems">game_systems</a></code></li>
+<li><code><a title="space_hulk_game.schemas.game_mechanics.GameMechanics.game_title" href="#space_hulk_game.schemas.game_mechanics.GameMechanics.game_title">game_title</a></code></li>
+<li><code><a title="space_hulk_game.schemas.game_mechanics.GameMechanics.model_config" href="#space_hulk_game.schemas.game_mechanics.GameMechanics.model_config">model_config</a></code></li>
+<li><code><a title="space_hulk_game.schemas.game_mechanics.GameMechanics.technical_requirements" href="#space_hulk_game.schemas.game_mechanics.GameMechanics.technical_requirements">technical_requirements</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="space_hulk_game.schemas.game_mechanics.GameState" href="#space_hulk_game.schemas.game_mechanics.GameState">GameState</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.schemas.game_mechanics.GameState.lose_conditions" href="#space_hulk_game.schemas.game_mechanics.GameState.lose_conditions">lose_conditions</a></code></li>
+<li><code><a title="space_hulk_game.schemas.game_mechanics.GameState.model_config" href="#space_hulk_game.schemas.game_mechanics.GameState.model_config">model_config</a></code></li>
+<li><code><a title="space_hulk_game.schemas.game_mechanics.GameState.tracked_variables" href="#space_hulk_game.schemas.game_mechanics.GameState.tracked_variables">tracked_variables</a></code></li>
+<li><code><a title="space_hulk_game.schemas.game_mechanics.GameState.win_conditions" href="#space_hulk_game.schemas.game_mechanics.GameState.win_conditions">win_conditions</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="space_hulk_game.schemas.game_mechanics.GameSystemCommands" href="#space_hulk_game.schemas.game_mechanics.GameSystemCommands">GameSystemCommands</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.schemas.game_mechanics.GameSystemCommands.commands" href="#space_hulk_game.schemas.game_mechanics.GameSystemCommands.commands">commands</a></code></li>
+<li><code><a title="space_hulk_game.schemas.game_mechanics.GameSystemCommands.model_config" href="#space_hulk_game.schemas.game_mechanics.GameSystemCommands.model_config">model_config</a></code></li>
+<li><code><a title="space_hulk_game.schemas.game_mechanics.GameSystemCommands.validate_commands_not_empty" href="#space_hulk_game.schemas.game_mechanics.GameSystemCommands.validate_commands_not_empty">validate_commands_not_empty</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="space_hulk_game.schemas.game_mechanics.GameSystems" href="#space_hulk_game.schemas.game_mechanics.GameSystems">GameSystems</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.schemas.game_mechanics.GameSystems.combat" href="#space_hulk_game.schemas.game_mechanics.GameSystems.combat">combat</a></code></li>
+<li><code><a title="space_hulk_game.schemas.game_mechanics.GameSystems.interaction" href="#space_hulk_game.schemas.game_mechanics.GameSystems.interaction">interaction</a></code></li>
+<li><code><a title="space_hulk_game.schemas.game_mechanics.GameSystems.inventory" href="#space_hulk_game.schemas.game_mechanics.GameSystems.inventory">inventory</a></code></li>
+<li><code><a title="space_hulk_game.schemas.game_mechanics.GameSystems.model_config" href="#space_hulk_game.schemas.game_mechanics.GameSystems.model_config">model_config</a></code></li>
+<li><code><a title="space_hulk_game.schemas.game_mechanics.GameSystems.movement" href="#space_hulk_game.schemas.game_mechanics.GameSystems.movement">movement</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="space_hulk_game.schemas.game_mechanics.InteractionSystem" href="#space_hulk_game.schemas.game_mechanics.InteractionSystem">InteractionSystem</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.schemas.game_mechanics.InteractionSystem.commands" href="#space_hulk_game.schemas.game_mechanics.InteractionSystem.commands">commands</a></code></li>
+<li><code><a title="space_hulk_game.schemas.game_mechanics.InteractionSystem.description" href="#space_hulk_game.schemas.game_mechanics.InteractionSystem.description">description</a></code></li>
+<li><code><a title="space_hulk_game.schemas.game_mechanics.InteractionSystem.model_config" href="#space_hulk_game.schemas.game_mechanics.InteractionSystem.model_config">model_config</a></code></li>
+<li><code><a title="space_hulk_game.schemas.game_mechanics.InteractionSystem.narrative_purpose" href="#space_hulk_game.schemas.game_mechanics.InteractionSystem.narrative_purpose">narrative_purpose</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="space_hulk_game.schemas.game_mechanics.InventorySystem" href="#space_hulk_game.schemas.game_mechanics.InventorySystem">InventorySystem</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.schemas.game_mechanics.InventorySystem.capacity" href="#space_hulk_game.schemas.game_mechanics.InventorySystem.capacity">capacity</a></code></li>
+<li><code><a title="space_hulk_game.schemas.game_mechanics.InventorySystem.commands" href="#space_hulk_game.schemas.game_mechanics.InventorySystem.commands">commands</a></code></li>
+<li><code><a title="space_hulk_game.schemas.game_mechanics.InventorySystem.description" href="#space_hulk_game.schemas.game_mechanics.InventorySystem.description">description</a></code></li>
+<li><code><a title="space_hulk_game.schemas.game_mechanics.InventorySystem.model_config" href="#space_hulk_game.schemas.game_mechanics.InventorySystem.model_config">model_config</a></code></li>
+<li><code><a title="space_hulk_game.schemas.game_mechanics.InventorySystem.narrative_purpose" href="#space_hulk_game.schemas.game_mechanics.InventorySystem.narrative_purpose">narrative_purpose</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="space_hulk_game.schemas.game_mechanics.LoseCondition" href="#space_hulk_game.schemas.game_mechanics.LoseCondition">LoseCondition</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.schemas.game_mechanics.LoseCondition.condition" href="#space_hulk_game.schemas.game_mechanics.LoseCondition.condition">condition</a></code></li>
+<li><code><a title="space_hulk_game.schemas.game_mechanics.LoseCondition.model_config" href="#space_hulk_game.schemas.game_mechanics.LoseCondition.model_config">model_config</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="space_hulk_game.schemas.game_mechanics.MovementSystem" href="#space_hulk_game.schemas.game_mechanics.MovementSystem">MovementSystem</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.schemas.game_mechanics.MovementSystem.commands" href="#space_hulk_game.schemas.game_mechanics.MovementSystem.commands">commands</a></code></li>
+<li><code><a title="space_hulk_game.schemas.game_mechanics.MovementSystem.description" href="#space_hulk_game.schemas.game_mechanics.MovementSystem.description">description</a></code></li>
+<li><code><a title="space_hulk_game.schemas.game_mechanics.MovementSystem.model_config" href="#space_hulk_game.schemas.game_mechanics.MovementSystem.model_config">model_config</a></code></li>
+<li><code><a title="space_hulk_game.schemas.game_mechanics.MovementSystem.narrative_purpose" href="#space_hulk_game.schemas.game_mechanics.MovementSystem.narrative_purpose">narrative_purpose</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="space_hulk_game.schemas.game_mechanics.TechnicalRequirement" href="#space_hulk_game.schemas.game_mechanics.TechnicalRequirement">TechnicalRequirement</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.schemas.game_mechanics.TechnicalRequirement.justification" href="#space_hulk_game.schemas.game_mechanics.TechnicalRequirement.justification">justification</a></code></li>
+<li><code><a title="space_hulk_game.schemas.game_mechanics.TechnicalRequirement.model_config" href="#space_hulk_game.schemas.game_mechanics.TechnicalRequirement.model_config">model_config</a></code></li>
+<li><code><a title="space_hulk_game.schemas.game_mechanics.TechnicalRequirement.requirement" href="#space_hulk_game.schemas.game_mechanics.TechnicalRequirement.requirement">requirement</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="space_hulk_game.schemas.game_mechanics.TrackedVariable" href="#space_hulk_game.schemas.game_mechanics.TrackedVariable">TrackedVariable</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.schemas.game_mechanics.TrackedVariable.model_config" href="#space_hulk_game.schemas.game_mechanics.TrackedVariable.model_config">model_config</a></code></li>
+<li><code><a title="space_hulk_game.schemas.game_mechanics.TrackedVariable.purpose" href="#space_hulk_game.schemas.game_mechanics.TrackedVariable.purpose">purpose</a></code></li>
+<li><code><a title="space_hulk_game.schemas.game_mechanics.TrackedVariable.variable" href="#space_hulk_game.schemas.game_mechanics.TrackedVariable.variable">variable</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="space_hulk_game.schemas.game_mechanics.WinCondition" href="#space_hulk_game.schemas.game_mechanics.WinCondition">WinCondition</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.schemas.game_mechanics.WinCondition.condition" href="#space_hulk_game.schemas.game_mechanics.WinCondition.condition">condition</a></code></li>
+<li><code><a title="space_hulk_game.schemas.game_mechanics.WinCondition.model_config" href="#space_hulk_game.schemas.game_mechanics.WinCondition.model_config">model_config</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>
