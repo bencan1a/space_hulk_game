@@ -74,12 +74,15 @@ Known Issues & Mitigations:
 import datetime
 import logging
 import os
+import re
 from pathlib import Path
 from typing import Any, cast
 
 import yaml
 from crewai import LLM, Agent, Crew, Process, Task
 from crewai.project import CrewBase, after_kickoff, agent, before_kickoff, crew, task
+
+from space_hulk_game.config.hierarchical_tasks import HIERARCHICAL_TASKS
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -489,8 +492,6 @@ class SpaceHulkGame:
             "game-config/scene_texts.yaml",
             "game-config/prd_document.yaml",
         ]
-
-        import re
 
         cleaned_count = 0
         for filepath in output_files:
@@ -1030,9 +1031,6 @@ class SpaceHulkGame:
             Crew configured for hierarchical process with simplified tasks
         """
         logger.info("Creating hierarchical crew with simplified tasks")
-
-        # Import simplified task configs
-        from space_hulk_game.config.hierarchical_tasks import HIERARCHICAL_TASKS
 
         # Create optimized manager
         manager_llm = LLM(

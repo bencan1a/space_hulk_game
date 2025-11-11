@@ -86,6 +86,7 @@ def test_hierarchical_with_gemini():  # noqa: PLR0915
 
     try:
         from crewai import LLM, Agent, Crew, Process
+
         from space_hulk_game.crew import SpaceHulkGame
 
         print("✅ Importing crew...")

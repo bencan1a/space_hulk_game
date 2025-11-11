@@ -30,13 +30,16 @@ jobs:
       - name: Install dependencies
         run: uv pip install --system -e ".[dev]"
 
+      - name: Auto-fix linting issues
+        run: ruff check . --fix
+
       - name: Auto-format code
         run: ruff format .
 
       - name: Check formatting
         run: ruff format --check .
 
-      - name: Run linting
+      - name: Verify no linting errors
         run: ruff check .
 
   type-check:
