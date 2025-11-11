@@ -1,7 +1,7 @@
 # Quality Metrics Documentation
 
-**Version:** 1.0  
-**Created:** November 9, 2025  
+**Version:** 1.0
+**Created:** November 9, 2025
 **Part of:** Phase 3, Chunk 3.1
 
 ---
@@ -318,10 +318,10 @@ results = {}
 for key, filepath in files.items():
     with open(filepath, 'r') as f:
         content = f.read()
-    
+
     metrics_class = metrics_classes[key]
     metrics = metrics_class.from_yaml_content(content)
-    
+
     results[key] = {
         'score': metrics.get_score(),
         'passes': metrics.passes_threshold(),
@@ -334,7 +334,7 @@ for key, result in results.items():
     print(f"\n{key.upper()}")
     print(f"Score: {result['score']:.1f}/10.0")
     print(f"Status: {'✅ PASS' if result['passes'] else '❌ FAIL'}")
-    
+
     if result['failures']:
         print("Issues:")
         for failure in result['failures']:
@@ -347,16 +347,16 @@ for key, result in results.items():
 def generate_feedback(metrics, output_type):
     """Generate actionable feedback for improving content."""
     feedback = []
-    
+
     if not metrics.passes_threshold():
         feedback.append(
             f"The {output_type} does not meet quality thresholds. "
             f"Current score: {metrics.get_score():.1f}/10.0"
         )
-        
+
         for failure in metrics.get_failures():
             feedback.append(f"- {failure}")
-        
+
         # Add specific improvement suggestions
         if output_type == 'plot':
             if metrics.branching_paths_count < 2:
@@ -369,7 +369,7 @@ def generate_feedback(metrics, output_type):
                     "Expand the plot description with more detail about "
                     "the setting, characters, and story progression."
                 )
-    
+
     return "\n".join(feedback)
 ```
 
@@ -429,20 +429,20 @@ To add a new metric to an existing module:
 @dataclass
 class PlotMetrics:
     # ... existing fields ...
-    
+
     # Add new metric
     has_character_arcs: bool = False
-    
+
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> 'PlotMetrics':
         metrics = cls()
         # ... existing logic ...
-        
+
         # Add new check
         metrics.has_character_arcs = cls._check_character_arcs(data)
-        
+
         return metrics
-    
+
     @staticmethod
     def _check_character_arcs(data: Dict[str, Any]) -> bool:
         """Check for character development."""

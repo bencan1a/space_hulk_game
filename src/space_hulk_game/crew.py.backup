@@ -90,7 +90,7 @@ class SpaceHulkGame:
         and setting up shared memory.
         """
         logger.info("Initializing SpaceHulkGame crew")
-        
+
         # Initialize Mem0 memory client for context retention across agents
         logger.info("Initializing Mem0 memory client")
 
@@ -104,17 +104,17 @@ class SpaceHulkGame:
         }
         # Will be used in the crew configuration
         self.shared_memory = None
-        
+
         # Define the LLM configuration for Ollama
         logger.info("Initializing Ollama LLM configuration")
         self.llm = LLM(
             model="ollama/qwen2.5",
             base_url="http://localhost:11434"
         )
-        
+
         # Determine the base directory for relative paths
         base_dir = os.path.dirname(os.path.abspath(__file__))
-        
+
         # Load agents configuration
         agents_path = os.path.join(base_dir, self.agents_config_path)
         logger.info(f"Loading agents config from: {agents_path}")
@@ -125,7 +125,7 @@ class SpaceHulkGame:
         except Exception as e:
             logger.error(f"Error loading agents config: {str(e)}")
             raise
-            
+
         # Load tasks configuration
         tasks_path = os.path.join(base_dir, self.tasks_config_path)
         logger.info(f"Loading tasks config from: {tasks_path}")
@@ -142,7 +142,7 @@ class SpaceHulkGame:
         """
         Hook method that validates inputs before the crew starts.
         Ensures required fields are present and adds additional data.
-        
+
         Best Practices Applied:
         - Explicit validation with clear error messages
         - Graceful fallback to defaults when appropriate
@@ -150,33 +150,33 @@ class SpaceHulkGame:
         """
         try:
             logger.info(f"Preparing inputs: {inputs}")
-            
+
             # Handle the case where input is provided as 'game' instead of 'prompt'
             if "game" in inputs and "prompt" not in inputs:
                 logger.info("Converting 'game' input to 'prompt'")
                 inputs["prompt"] = inputs["game"]
-            
+
             # Validate required inputs
             if "prompt" not in inputs:
                 logger.warning("No 'prompt' or 'game' key found in inputs")
                 # Use default instead of raising error to allow testing
                 inputs["prompt"] = "A mysterious derelict space hulk drifts in the void, its corridors dark and silent."
                 logger.info(f"Using default prompt: {inputs['prompt']}")
-            
+
             # Add context for all agents
             inputs["additional_data"] = "Space Hulk game context for all agents."
-            
+
             # Add metadata for tracking
             inputs["_timestamp"] = str(datetime.datetime.now())
             inputs["_process_mode"] = "sequential"  # Track which mode is being used
-            
+
             logger.info(f"Prepared inputs successfully: {list(inputs.keys())}")
             return inputs
-            
+
         except Exception as e:
             # Log error with full context
             logger.error(f"Error in prepare_inputs: {str(e)}", exc_info=True)
-            
+
             # Provide recovery with defaults
             default_inputs = {
                 "prompt": "A mysterious derelict space hulk drifts in the void.",
@@ -195,7 +195,7 @@ class SpaceHulkGame:
         """
         error_message = f"Error executing task '{task.name}': {str(exception)}"
         print(error_message)
-        
+
         # Task-specific recovery mechanisms
         if task.name == "Generate Overarching Plot":
             # Return a basic default plot outline
@@ -315,16 +315,16 @@ class SpaceHulkGame:
                     }
                 }
             }
-        
+
         # Default fallback
         return {"error": error_message, "recovered": False}
-    
+
     @after_kickoff
     def process_output(self, output):
         """
         Hook method that modifies the final output after the crew finishes all tasks.
         Adds metadata and formats the output for better usability.
-        
+
         Best Practices Applied:
         - Comprehensive metadata for debugging and tracking
         - Graceful error handling to preserve output
@@ -332,7 +332,7 @@ class SpaceHulkGame:
         """
         try:
             logger.info("Processing crew output...")
-            
+
             # Get crew configuration safely
             try:
                 crew_obj = self.crew()
@@ -342,7 +342,7 @@ class SpaceHulkGame:
                 # Fallback if crew() isn't available
                 total_tasks = 0
                 total_agents = 0
-            
+
             # Add comprehensive metadata
             output.metadata = {
                 "processed_at": str(datetime.datetime.now()),
@@ -352,7 +352,7 @@ class SpaceHulkGame:
                 "total_tasks": total_tasks,
                 "total_agents": total_agents
             }
-            
+
             # Add completion summary
             completion_summary = "\n\n=== Crew Execution Complete ===\n"
             completion_summary += f"Timestamp: {output.metadata['processed_at']}\n"
@@ -360,7 +360,7 @@ class SpaceHulkGame:
             if total_tasks > 0:
                 completion_summary += f"Tasks Completed: {output.metadata['total_tasks']}\n"
                 completion_summary += f"Agents Used: {output.metadata['total_agents']}\n"
-            
+
             # Check for errors during processing
             if hasattr(output, 'errors') and output.errors:
                 completion_summary += "\n⚠️  WARNING: Some errors occurred during processing.\n"
@@ -369,16 +369,16 @@ class SpaceHulkGame:
             else:
                 completion_summary += "\n✅ All tasks completed successfully.\n"
                 output.metadata["had_errors"] = False
-            
+
             output.raw += completion_summary
-            
+
             logger.info("Output processing complete")
             return output
-            
+
         except Exception as e:
             # Handle any errors in post-processing without losing output
             logger.error(f"Error in post-processing: {str(e)}", exc_info=True)
-            
+
             # Try to add minimal metadata
             try:
                 if not hasattr(output, 'metadata'):
@@ -387,7 +387,7 @@ class SpaceHulkGame:
                 output.metadata["processed_at"] = str(datetime.datetime.now())
             except Exception:
                 pass  # If even this fails, just return original output
-            
+
             # Return original output to preserve crew results
             logger.warning("Returning output with minimal post-processing due to error")
             return output
@@ -395,15 +395,15 @@ class SpaceHulkGame:
     # ---------------------------------
     # Agents
     # ---------------------------------
-    
+
     @agent
     def NarrativeDirectorAgent(self) -> Agent:
         """
         Returns the NarrativeDirectorAgent definition from agents.yaml.
-        
+
         This agent ensures narrative cohesion across all game elements and
         coordinates the narrative-driven development process.
-        
+
         Note: The method name must match the agent name in the YAML file for CrewAI to properly
         map between tasks and agents.
         """
@@ -418,7 +418,7 @@ class SpaceHulkGame:
     def PlotMasterAgent(self) -> Agent:
         """
         Returns the PlotMasterAgent definition from agents.yaml.
-        
+
         Note: The method name must match the agent name in the YAML file for CrewAI to properly
         map between tasks and agents.
         """
@@ -433,7 +433,7 @@ class SpaceHulkGame:
     def NarrativeArchitectAgent(self) -> Agent:
         """
         Returns the NarrativeArchitectAgent definition from agents.yaml.
-        
+
         Note: The method name must match the agent name in the YAML file for CrewAI to properly
         map between tasks and agents.
         """
@@ -448,7 +448,7 @@ class SpaceHulkGame:
     def PuzzleSmithAgent(self) -> Agent:
         """
         Returns the PuzzleSmithAgent definition from agents.yaml.
-        
+
         Note: The method name must match the agent name in the YAML file for CrewAI to properly
         map between tasks and agents.
         """
@@ -463,7 +463,7 @@ class SpaceHulkGame:
     def CreativeScribeAgent(self) -> Agent:
         """
         Returns the CreativeScribeAgent definition from agents.yaml.
-        
+
         Note: The method name must match the agent name in the YAML file for CrewAI to properly
         map between tasks and agents.
         """
@@ -478,7 +478,7 @@ class SpaceHulkGame:
     def MechanicsGuruAgent(self) -> Agent:
         """
         Returns the MechanicsGuruAgent definition from agents.yaml.
-        
+
         Note: The method name must match the agent name in the YAML file for CrewAI to properly
         map between tasks and agents.
         """
@@ -497,7 +497,7 @@ class SpaceHulkGame:
     def GenerateOverarchingPlot(self) -> Task:
         """
         The GenerateOverarchingPlot task from tasks.yaml.
-        
+
         Note: The method name must match the task name in the YAML file for CrewAI to properly
         map between tasks.
         """
@@ -510,7 +510,7 @@ class SpaceHulkGame:
     def CreateNarrativeMap(self) -> Task:
         """
         The CreateNarrativeMap task from tasks.yaml.
-        
+
         Note: The method name must match the task name in the YAML file for CrewAI to properly
         map between tasks.
         """
@@ -523,7 +523,7 @@ class SpaceHulkGame:
     def DesignArtifactsAndPuzzles(self) -> Task:
         """
         The DesignArtifactsAndPuzzles task from tasks.yaml.
-        
+
         Note: The method name must match the task name in the YAML file for CrewAI to properly
         map between tasks.
         """
@@ -536,7 +536,7 @@ class SpaceHulkGame:
     def WriteSceneDescriptionsAndDialogue(self) -> Task:
         """
         The WriteSceneDescriptionsAndDialogue task from tasks.yaml.
-        
+
         Note: The method name must match the task name in the YAML file for CrewAI to properly
         map between tasks.
         """
@@ -549,7 +549,7 @@ class SpaceHulkGame:
     def CreateGameMechanicsPRD(self) -> Task:
         """
         The CreateGameMechanicsPRD task from tasks.yaml.
-        
+
         Note: The method name must match the task name in the YAML file for CrewAI to properly
         map between tasks.
         """
@@ -557,15 +557,15 @@ class SpaceHulkGame:
         return Task(  # type: ignore[call-arg]
             config=self.tasks_config["CreateGameMechanicsPRD"]
         )
-        
+
     @task
     def EvaluateNarrativeFoundation(self) -> Task:
         """
         The EvaluateNarrativeFoundation task from tasks.yaml.
-        
+
         This task evaluates the narrative foundation to ensure it provides sufficient depth
         and direction for subsequent development. It's a critical quality gate.
-        
+
         Note: The method name must match the task name in the YAML file for CrewAI to properly
         map between tasks.
         """
@@ -573,15 +573,15 @@ class SpaceHulkGame:
         return Task(  # type: ignore[call-arg]
             config=self.tasks_config["EvaluateNarrativeFoundation"]
         )
-        
+
     @task
     def EvaluateNarrativeStructure(self) -> Task:
         """
         The EvaluateNarrativeStructure task from tasks.yaml.
-        
+
         This task evaluates the narrative structure to ensure it properly develops
         the approved foundation into an implementable blueprint.
-        
+
         Note: The method name must match the task name in the YAML file for CrewAI to properly
         map between tasks.
         """
@@ -589,15 +589,15 @@ class SpaceHulkGame:
         return Task(  # type: ignore[call-arg]
             config=self.tasks_config["EvaluateNarrativeStructure"]
         )
-        
+
     @task
     def NarrativeIntegrationCheckPuzzles(self) -> Task:
         """
         The NarrativeIntegrationCheckPuzzles task from tasks.yaml.
-        
+
         This task evaluates how well the puzzles, artifacts, monsters, and NPCs integrate
         with the established narrative.
-        
+
         Note: The method name must match the task name in the YAML file for CrewAI to properly
         map between tasks.
         """
@@ -605,15 +605,15 @@ class SpaceHulkGame:
         return Task(  # type: ignore[call-arg]
             config=self.tasks_config["NarrativeIntegrationCheckPuzzles"]
         )
-        
+
     @task
     def NarrativeIntegrationCheckScenes(self) -> Task:
         """
         The NarrativeIntegrationCheckScenes task from tasks.yaml.
-        
+
         This task evaluates how well the scene descriptions and dialogue reflect and
         advance the established narrative.
-        
+
         Note: The method name must match the task name in the YAML file for CrewAI to properly
         map between tasks.
         """
@@ -621,15 +621,15 @@ class SpaceHulkGame:
         return Task(  # type: ignore[call-arg]
             config=self.tasks_config["NarrativeIntegrationCheckScenes"]
         )
-        
+
     @task
     def NarrativeIntegrationCheckMechanics(self) -> Task:
         """
         The NarrativeIntegrationCheckMechanics task from tasks.yaml.
-        
+
         This task evaluates how well the game mechanics support and enhance
         the established narrative.
-        
+
         Note: The method name must match the task name in the YAML file for CrewAI to properly
         map between tasks.
         """
@@ -637,15 +637,15 @@ class SpaceHulkGame:
         return Task(  # type: ignore[call-arg]
             config=self.tasks_config["NarrativeIntegrationCheckMechanics"]
         )
-        
+
     @task
     def FinalNarrativeIntegration(self) -> Task:
         """
         The FinalNarrativeIntegration task from tasks.yaml.
-        
+
         This task performs a comprehensive review of all game elements to ensure they
         form a cohesive, narrative-driven whole.
-        
+
         Note: The method name must match the task name in the YAML file for CrewAI to properly
         map between tasks.
         """
@@ -657,20 +657,20 @@ class SpaceHulkGame:
     # ---------------------------------
     # Crew Definition
     # ---------------------------------
-    
+
     def create_hierarchical_crew(self) -> Crew:
         """
         Alternative crew configuration using hierarchical process.
-        
+
         This method is NOT decorated with @crew and is provided for
         manual testing after sequential mode is proven to work.
-        
+
         To use this configuration:
         1. First verify sequential mode works (default crew() method)
         2. Test with simple tasks (3-5 tasks max)
         3. Incrementally add evaluation tasks
         4. Monitor for hanging/blocking behavior
-        
+
         Known Issues (per REVISED_RESTART_PLAN.md):
         - Hierarchical process can hang with complex task dependencies
         - Manager agent (NarrativeDirector) may not delegate properly
@@ -678,21 +678,21 @@ class SpaceHulkGame:
         - Memory/planning features may cause blocks
         """
         logger.info("Creating hierarchical crew configuration")
-        
+
         # Create the manager agent
         manager = self.NarrativeDirectorAgent()
-        
+
         # Get worker agents - all agents except the manager
         # Note: This filters by checking if the agent's config matches the manager's config
         worker_agents = [
-            agent for agent in self.agents 
+            agent for agent in self.agents
             if agent.role != manager.role  # Filter by role instead of type comparison
         ]
-        
+
         logger.info(f"Manager: {manager.role}")
         logger.info(f"Worker agents: {[agent.role for agent in worker_agents]}")
         logger.info(f"Total tasks: {len(self.tasks)}")
-        
+
         return Crew(
             agents=worker_agents,          # Worker agents only (manager not in list)
             tasks=self.tasks,              # All tasks
@@ -709,12 +709,12 @@ class SpaceHulkGame:
     def crew(self) -> Crew:
         """
         Returns an instance of the Crew with a sequential process flow.
-        
+
         Per the REVISED_RESTART_PLAN.md Phase 0 debugging strategy:
         - Start with sequential process (simplest configuration)
         - Test basic functionality before adding hierarchical complexity
         - Avoid memory/planning features until basic generation works
-        
+
         Once sequential mode is proven to work, we can:
         1. Re-enable hierarchical process with proper manager delegation
         2. Add memory capabilities for context retention
@@ -723,7 +723,7 @@ class SpaceHulkGame:
         logger.info("Initializing crew with sequential process")
         logger.info(f"Total agents available: {len(self.agents)}")
         logger.info(f"Total tasks to execute: {len(self.tasks)}")
-        
+
         # Sequential process - simplest configuration per restart plan
         # All agents work in order without manager coordination
         return Crew(

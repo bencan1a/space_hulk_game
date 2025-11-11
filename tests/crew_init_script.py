@@ -16,7 +16,8 @@ import sys
 import time
 
 # Add src to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
+
 
 def test_crew_initialization():
     """Test that the crew can be initialized successfully."""
@@ -28,6 +29,7 @@ def test_crew_initialization():
     try:
         print("1. Importing SpaceHulkGame class...")
         from space_hulk_game.crew import SpaceHulkGame
+
         print("   ✅ Import successful\n")
 
         print("2. Initializing crew instance...")
@@ -44,9 +46,13 @@ def test_crew_initialization():
 
         print("4. Checking tasks configuration...")
         print(f"   - Tasks loaded: {len(game.tasks_config)} tasks")
-        core_tasks = ['GenerateOverarchingPlot', 'CreateNarrativeMap',
-                     'DesignArtifactsAndPuzzles', 'WriteSceneDescriptionsAndDialogue',
-                     'CreateGameMechanicsPRD']
+        core_tasks = [
+            "GenerateOverarchingPlot",
+            "CreateNarrativeMap",
+            "DesignArtifactsAndPuzzles",
+            "WriteSceneDescriptionsAndDialogue",
+            "CreateGameMechanicsPRD",
+        ]
         for task_name in core_tasks:
             status = "✅" if task_name in game.tasks_config else "❌"
             print(f"     {status} {task_name}")
@@ -67,6 +73,7 @@ def test_crew_initialization():
 
         # Verify sequential mode
         from crewai import Process
+
         if crew.process == Process.sequential:
             print("   ✅ Sequential process mode confirmed")
         else:
@@ -78,10 +85,12 @@ def test_crew_initialization():
             h_crew = game.create_hierarchical_crew()
             print("   ✅ Hierarchical crew available")
             print(f"      - Process: {h_crew.process}")
-            print(f"      - Manager: {h_crew.manager_agent.role if h_crew.manager_agent else 'None'}")
+            print(
+                f"      - Manager: {h_crew.manager_agent.role if h_crew.manager_agent else 'None'}"
+            )
             print(f"      - Workers: {len(h_crew.agents)} agents")
         except Exception as e:
-            print(f"   ⚠️  Hierarchical crew creation failed: {str(e)}")
+            print(f"   ⚠️  Hierarchical crew creation failed: {e!s}")
         print()
 
         print("=" * 70)
@@ -89,25 +98,26 @@ def test_crew_initialization():
         print("=" * 70)
         print()
         print("The crew is ready for execution. To run a full generation:")
-        print("  crewai run --inputs \"prompt: Your game scenario\"")
+        print('  crewai run --inputs "prompt: Your game scenario"')
         print()
         print("Or test with Python:")
         print("  from space_hulk_game.crew import SpaceHulkGame")
         print("  game = SpaceHulkGame()")
-        print("  result = game.crew().kickoff({\"prompt\": \"Your scenario\"})")
+        print('  result = game.crew().kickoff({"prompt": "Your scenario"})')
         print()
 
         return True
 
     except ImportError as e:
-        print(f"\n❌ Import Error: {str(e)}")
+        print(f"\n❌ Import Error: {e!s}")
         print("\nMake sure you're running from the project root directory.")
         print("Try: cd /home/runner/work/space_hulk_game/space_hulk_game")
         return False
 
     except Exception as e:
-        print(f"\n❌ Initialization Error: {str(e)}")
+        print(f"\n❌ Initialization Error: {e!s}")
         import traceback
+
         traceback.print_exc()
         return False
 

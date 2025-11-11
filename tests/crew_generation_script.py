@@ -25,6 +25,7 @@ from space_hulk_game.crew import SpaceHulkGame
 
 class TimeoutError(Exception):
     """Raised when operation times out"""
+
     pass
 
 
@@ -54,12 +55,12 @@ def test_sequential_generation(timeout_seconds=600):
     signal.alarm(timeout_seconds)  # type: ignore[attr-defined]
 
     results = {
-        'mode': 'sequential',
-        'success': False,
-        'duration': None,
-        'outputs_generated': [],
-        'errors': [],
-        'timeout': False
+        "mode": "sequential",
+        "success": False,
+        "duration": None,
+        "outputs_generated": [],
+        "errors": [],
+        "timeout": False,
     }
 
     try:
@@ -82,7 +83,7 @@ def test_sequential_generation(timeout_seconds=600):
         )
 
         duration = time.time() - start_time
-        results['duration'] = duration
+        results["duration"] = duration
 
         print()
         print(f"[{datetime.now().strftime('%H:%M:%S')}] Generation completed!")
@@ -91,11 +92,11 @@ def test_sequential_generation(timeout_seconds=600):
 
         # Check outputs
         output_files = [
-            'plot_outline.yaml',
-            'narrative_map.yaml',
-            'puzzle_design.yaml',
-            'scene_texts.yaml',
-            'prd_document.yaml'
+            "plot_outline.yaml",
+            "narrative_map.yaml",
+            "puzzle_design.yaml",
+            "scene_texts.yaml",
+            "prd_document.yaml",
         ]
 
         print("Checking generated files:")
@@ -104,7 +105,7 @@ def test_sequential_generation(timeout_seconds=600):
             status = "✓" if exists else "✗"
             print(f"  {status} {filename}")
             if exists:
-                results['outputs_generated'].append(filename)
+                results["outputs_generated"].append(filename)
                 # Check file size
                 size = os.path.getsize(filename)
                 print(f"     Size: {size} bytes")
@@ -118,19 +119,20 @@ def test_sequential_generation(timeout_seconds=600):
             print(result_str[:500] + "..." if len(result_str) > 500 else result_str)
             print("-" * 40)
 
-        results['success'] = True
+        results["success"] = True
 
     except TimeoutError:
         print()
         print(f"✗ TEST FAILED: Timed out after {timeout_seconds} seconds")
-        results['timeout'] = True
-        results['errors'].append(f"Timeout after {timeout_seconds}s")
+        results["timeout"] = True
+        results["errors"].append(f"Timeout after {timeout_seconds}s")
 
     except Exception as e:
         print()
-        print(f"✗ TEST FAILED: {str(e)}")
-        results['errors'].append(str(e))
+        print(f"✗ TEST FAILED: {e!s}")
+        results["errors"].append(str(e))
         import traceback
+
         traceback.print_exc()
 
     finally:
@@ -161,12 +163,12 @@ def test_hierarchical_generation(timeout_seconds=600):
     signal.alarm(timeout_seconds)  # type: ignore[attr-defined]
 
     results = {
-        'mode': 'hierarchical',
-        'success': False,
-        'duration': None,
-        'outputs_generated': [],
-        'errors': [],
-        'timeout': False
+        "mode": "hierarchical",
+        "success": False,
+        "duration": None,
+        "outputs_generated": [],
+        "errors": [],
+        "timeout": False,
     }
 
     try:
@@ -187,7 +189,7 @@ def test_hierarchical_generation(timeout_seconds=600):
         )
 
         duration = time.time() - start_time
-        results['duration'] = duration
+        results["duration"] = duration
 
         print()
         print(f"[{datetime.now().strftime('%H:%M:%S')}] Generation completed!")
@@ -196,11 +198,11 @@ def test_hierarchical_generation(timeout_seconds=600):
 
         # Check outputs
         output_files = [
-            'plot_outline.yaml',
-            'narrative_map.yaml',
-            'puzzle_design.yaml',
-            'scene_texts.yaml',
-            'prd_document.yaml'
+            "plot_outline.yaml",
+            "narrative_map.yaml",
+            "puzzle_design.yaml",
+            "scene_texts.yaml",
+            "prd_document.yaml",
         ]
 
         print("Checking generated files:")
@@ -209,7 +211,7 @@ def test_hierarchical_generation(timeout_seconds=600):
             status = "✓" if exists else "✗"
             print(f"  {status} {filename}")
             if exists:
-                results['outputs_generated'].append(filename)
+                results["outputs_generated"].append(filename)
                 # Check file size
                 size = os.path.getsize(filename)
                 print(f"     Size: {size} bytes")
@@ -223,7 +225,7 @@ def test_hierarchical_generation(timeout_seconds=600):
             print(result_str[:500] + "..." if len(result_str) > 500 else result_str)
             print("-" * 40)
 
-        results['success'] = True
+        results["success"] = True
 
     except TimeoutError:
         print()
@@ -231,21 +233,22 @@ def test_hierarchical_generation(timeout_seconds=600):
         print()
         print("DIAGNOSIS: The crew appears to be hanging in hierarchical mode.")
         print("This confirms the reported issue with agent coordination.")
-        results['timeout'] = True
-        results['errors'].append(f"Timeout after {timeout_seconds}s")
+        results["timeout"] = True
+        results["errors"].append(f"Timeout after {timeout_seconds}s")
 
     except KeyboardInterrupt:
         print()
         print("✗ TEST INTERRUPTED: User stopped test (Ctrl+C)")
         print()
         print("DIAGNOSIS: The crew was not making progress.")
-        results['errors'].append("User interrupted - crew appeared stuck")
+        results["errors"].append("User interrupted - crew appeared stuck")
 
     except Exception as e:
         print()
-        print(f"✗ TEST FAILED: {str(e)}")
-        results['errors'].append(str(e))
+        print(f"✗ TEST FAILED: {e!s}")
+        results["errors"].append(str(e))
         import traceback
+
         traceback.print_exc()
 
     finally:
@@ -264,21 +267,21 @@ def print_summary(results_list):
     print()
 
     for results in results_list:
-        mode = results['mode'].upper()
-        success = "✓ PASSED" if results['success'] else "✗ FAILED"
+        mode = results["mode"].upper()
+        success = "✓ PASSED" if results["success"] else "✗ FAILED"
 
         print(f"{mode} Mode: {success}")
 
-        if results['duration']:
+        if results["duration"]:
             print(f"  Duration: {results['duration']:.1f}s ({results['duration']/60:.1f}m)")
 
-        if results['outputs_generated']:
+        if results["outputs_generated"]:
             print(f"  Outputs: {len(results['outputs_generated'])}/5 files")
 
-        if results['timeout']:
+        if results["timeout"]:
             print("  Issue: Timed out (crew likely hanging)")
 
-        if results['errors']:
+        if results["errors"]:
             print(f"  Errors: {', '.join(results['errors'])}")
 
         print()
@@ -287,9 +290,11 @@ def print_summary(results_list):
     print("RECOMMENDATIONS:")
     print()
 
-    all_failed = all(not r['success'] for r in results_list)
-    sequential_passed = any(r['mode'] == 'sequential' and r['success'] for r in results_list)
-    hierarchical_failed = any(r['mode'] == 'hierarchical' and not r['success'] for r in results_list)
+    all_failed = all(not r["success"] for r in results_list)
+    sequential_passed = any(r["mode"] == "sequential" and r["success"] for r in results_list)
+    hierarchical_failed = any(
+        r["mode"] == "hierarchical" and not r["success"] for r in results_list
+    )
 
     if all_failed:
         print("❌ Both modes failed. Issues to investigate:")
@@ -321,18 +326,15 @@ def print_summary(results_list):
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Test Space Hulk Game crew generation')
+    parser = argparse.ArgumentParser(description="Test Space Hulk Game crew generation")
     parser.add_argument(
-        '--mode',
-        choices=['sequential', 'hierarchical', 'both'],
-        default='both',
-        help='Which mode to test'
+        "--mode",
+        choices=["sequential", "hierarchical", "both"],
+        default="both",
+        help="Which mode to test",
     )
     parser.add_argument(
-        '--timeout',
-        type=int,
-        default=600,
-        help='Timeout in seconds (default: 600 = 10 minutes)'
+        "--timeout", type=int, default=600, help="Timeout in seconds (default: 600 = 10 minutes)"
     )
 
     args = parser.parse_args()
@@ -347,17 +349,17 @@ def main():
 
     results = []
 
-    if args.mode in ['sequential', 'both']:
+    if args.mode in ["sequential", "both"]:
         print("NOTE: Sequential test requires modifying crew.py to use Process.sequential")
         print("      Skip this test if you haven't made that change yet.")
         response = input("Run sequential test? (y/n): ")
-        if response.lower() == 'y':
+        if response.lower() == "y":
             results.append(test_sequential_generation(args.timeout))
         print()
 
-    if args.mode in ['hierarchical', 'both']:
+    if args.mode in ["hierarchical", "both"]:
         response = input("Run hierarchical test? (y/n): ")
-        if response.lower() == 'y':
+        if response.lower() == "y":
             results.append(test_hierarchical_generation(args.timeout))
         print()
 
@@ -367,11 +369,11 @@ def main():
         print("No tests were run.")
 
     # Exit with error code if any tests failed
-    if any(not r['success'] for r in results):
+    if any(not r["success"] for r in results):
         sys.exit(1)
     else:
         sys.exit(0)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

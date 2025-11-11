@@ -31,23 +31,20 @@ from pathlib import Path
 import yaml
 
 # Disable CrewAI telemetry to avoid firewall warnings
-os.environ['OTEL_SDK_DISABLED'] = 'true'
+os.environ["OTEL_SDK_DISABLED"] = "true"
 
 # Add src to path so we can import space_hulk_game
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root / "src"))
 
+
 def validate_output_files(output_dir, expected_files):
     """Validate that all expected output files exist and are valid YAML."""
-    print("\n" + "="*80)
+    print("\n" + "=" * 80)
     print("VALIDATING OUTPUT FILES")
-    print("="*80)
+    print("=" * 80)
 
-    results = {
-        "all_exist": True,
-        "all_valid_yaml": True,
-        "files_status": {}
-    }
+    results = {"all_exist": True, "all_valid_yaml": True, "files_status": {}}
 
     for filename in expected_files:
         filepath = output_dir / filename
@@ -92,21 +89,22 @@ def validate_output_files(output_dir, expected_files):
         else:
             print(f"❌ {filename}: File not found")
 
-    print("="*80)
+    print("=" * 80)
     return results
+
 
 def main():
     """Run Chunk 0.2 validation test."""
-    print("\n" + "="*80)
+    print("\n" + "=" * 80)
     print("CHUNK 0.2: SEQUENTIAL MODE VALIDATION (ALL 11 TASKS)")
-    print("="*80)
+    print("=" * 80)
     print("Per master_implementation_plan.md:")
     print("- Testing sequential mode with all 11 tasks (5 core + 6 evaluation)")
     print("- Expected: All 11 tasks complete without errors")
     print("- Expected: Generation time < 15 minutes")
     print("- Expected: All 5 output files are valid YAML")
     print("- Expected: Evaluation tasks provide meaningful feedback")
-    print("="*80 + "\n")
+    print("=" * 80 + "\n")
 
     # Test configuration
     test_prompt = "A Space Marine boarding team discovers an ancient derelict vessel"
@@ -116,7 +114,7 @@ def main():
         "narrative_map.yaml",
         "puzzle_design.yaml",
         "scene_texts.yaml",
-        "prd_document.yaml"
+        "prd_document.yaml",
     ]
 
     # Clean up old output files
@@ -131,6 +129,7 @@ def main():
     # Import crew (do this after path setup)
     try:
         from space_hulk_game.crew import SpaceHulkGame
+
         print("✅ Successfully imported SpaceHulkGame crew")
     except ImportError as e:
         print(f"❌ Failed to import SpaceHulkGame: {e}")
@@ -140,17 +139,17 @@ def main():
 
     # Prepare inputs
     inputs = {
-        'prompt': test_prompt,
-        'game': test_prompt  # Some configs might use 'game' key
+        "prompt": test_prompt,
+        "game": test_prompt,  # Some configs might use 'game' key
     }
 
-    print("\n" + "="*80)
+    print("\n" + "=" * 80)
     print("STARTING CREW EXECUTION")
-    print("="*80)
+    print("=" * 80)
     print(f"Prompt: {test_prompt}")
     print("Timeout: 20 minutes (1200 seconds)")
     print(f"Expected Outputs: {len(expected_files)} files")
-    print("="*80 + "\n")
+    print("=" * 80 + "\n")
 
     # Execute crew
     start_time = time.time()
@@ -166,10 +165,14 @@ def main():
         actual_task_count = len(crew_instance.tasks_config)
 
         if actual_task_count != expected_task_count:
-            print(f"\n⚠️  WARNING: Expected {expected_task_count} tasks but found {actual_task_count}")
+            print(
+                f"\n⚠️  WARNING: Expected {expected_task_count} tasks but found {actual_task_count}"
+            )
             print(f"   Loaded tasks: {list(crew_instance.tasks_config.keys())}")
             print("\n   This test requires all 11 tasks (5 core + 6 evaluation) to be enabled.")
-            print("   Please restore all evaluation tasks in tasks.yaml and crew.py before running this test.")
+            print(
+                "   Please restore all evaluation tasks in tasks.yaml and crew.py before running this test."
+            )
             return 1
 
         print(f"✅ Verified all {actual_task_count} tasks loaded")
@@ -181,11 +184,11 @@ def main():
         end_time = time.time()
         execution_time = end_time - start_time
 
-        print("\n" + "="*80)
+        print("\n" + "=" * 80)
         print("CREW EXECUTION COMPLETED")
-        print("="*80)
+        print("=" * 80)
         print(f"Execution Time: {execution_time:.2f} seconds ({execution_time/60:.2f} minutes)")
-        print("="*80)
+        print("=" * 80)
 
         success = True
 
@@ -201,15 +204,16 @@ def main():
         error_message = f"Error during execution: {e}"
         print(f"\n❌ {error_message}")
         import traceback
+
         traceback.print_exc()
 
     # Validate outputs
     validation_results = validate_output_files(output_dir, expected_files)
 
     # Print final summary
-    print("\n" + "="*80)
+    print("\n" + "=" * 80)
     print("CHUNK 0.2 VALIDATION SUMMARY")
-    print("="*80)
+    print("=" * 80)
 
     if not success:
         print(f"❌ Crew Execution: FAILED - {error_message}")
@@ -232,7 +236,7 @@ def main():
         print(f"❌ YAML Validity: {len(invalid)} invalid files: {', '.join(invalid)}")
 
     # Overall result
-    print("="*80)
+    print("=" * 80)
     if success and validation_results["all_exist"] and validation_results["all_valid_yaml"]:
         if execution_time < 900:
             print("✅ CHUNK 0.2 VALIDATION: PASSED")
@@ -248,9 +252,10 @@ def main():
         print("Review issues above and retry after fixes")
         return_code = 1
 
-    print("="*80 + "\n")
+    print("=" * 80 + "\n")
 
     return return_code
+
 
 if __name__ == "__main__":
     sys.exit(main())

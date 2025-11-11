@@ -29,12 +29,12 @@ project_patterns:
     - Group related tests in test classes
     - Use descriptive test method names
     - Isolate tests from external dependencies
-  
+
   naming_conventions:
     test_files: "test_<module_name>.py"
     test_classes: "Test<ClassName>"
     test_methods: "test_<functionality>_<condition>_<expected_result>"
-  
+
   test_organization:
     - Arrange: Set up test data
     - Act: Execute the functionality
@@ -49,15 +49,15 @@ current_tests:
       - Error handling (handle_task_failure)
       - Output processing (process_output)
       - Edge cases and validation
-    
+
     test_classes:
       TestSpaceHulkGameInputs:
         - test_prepare_inputs_valid
         - test_prepare_inputs_missing_prompt
-      
+
       TestSpaceHulkGameErrorHandling:
         - test_handle_task_failure_for_each_task
-      
+
       TestSpaceHulkGameOutput:
         - test_process_output_formatting
 
@@ -66,26 +66,26 @@ mocking_patterns:
   mock_imports:
     example: |
       from unittest.mock import patch, MagicMock, Mock
-  
+
   mock_yaml_loading:
     example: |
       @patch('builtins.open', mock_open(read_data='key: value'))
       def test_load_config(self):
           # Test YAML loading
-  
+
   mock_external_apis:
     example: |
       @patch('module.external_api_call')
       def test_api_integration(self, mock_api):
           mock_api.return_value = {'status': 'success'}
           # Test with mocked API
-  
+
   mock_crewai_components:
     example: |
       class MockAgent:
           def __init__(self, **kwargs):
               self.config = kwargs
-      
+
       @patch('crewai.Agent', MockAgent)
       def test_agent_creation(self):
           # Test agent creation
@@ -100,7 +100,7 @@ test_categories:
       - Input validation functions
       - Data transformation methods
       - Error handling logic
-  
+
   integration_tests:
     purpose: Test component interactions
     scope: Multiple components working together
@@ -109,7 +109,7 @@ test_categories:
       - YAML loading and agent creation
       - Task execution workflow
       - Output file generation
-  
+
   edge_case_tests:
     purpose: Test boundary conditions
     scope: Unusual or extreme inputs
@@ -127,19 +127,19 @@ best_practices:
     - Don't rely on test execution order
     - Clean up resources after tests
     - Use setUp and tearDown methods
-  
+
   test_clarity:
     - One assertion per test (when practical)
     - Use descriptive test names
     - Add comments for complex test logic
     - Keep tests simple and readable
-  
+
   test_maintenance:
     - Update tests when code changes
     - Remove obsolete tests
     - Refactor duplicated test code
     - Keep test data minimal and relevant
-  
+
   error_testing:
     - Test both success and failure paths
     - Verify error messages
@@ -151,31 +151,31 @@ common_patterns:
   basic_test:
     example: |
       import unittest
-      
+
       class TestMyFunction(unittest.TestCase):
           def test_valid_input(self):
               result = my_function("input")
               self.assertEqual(result, "expected")
-  
+
   setup_teardown:
     example: |
       class TestWithSetup(unittest.TestCase):
           def setUp(self):
               self.test_data = {"key": "value"}
-          
+
           def tearDown(self):
               # Clean up resources
               pass
-          
+
           def test_something(self):
               # Test using self.test_data
-  
+
   test_exceptions:
     example: |
       def test_raises_exception(self):
           with self.assertRaises(ValueError):
               function_that_raises()
-  
+
   mock_patch:
     example: |
       @patch('module.dependency')
@@ -190,13 +190,13 @@ workflow:
     - Run existing tests to establish baseline
     - Verify all tests pass
     - Note any pre-existing failures
-  
+
   during_development:
     - Write tests for new functionality
     - Run tests frequently
     - Fix failures immediately
     - Ensure good test coverage
-  
+
   after_changes:
     - Run full test suite
     - Verify all tests pass
@@ -210,13 +210,13 @@ project_specific:
     - Test configuration loading
     - Validate input/output processing
     - Test lifecycle hooks
-  
+
   yaml_testing:
     - Test YAML file loading
     - Validate required fields
     - Test malformed YAML handling
     - Verify data structure after loading
-  
+
   game_logic_testing:
     - Test narrative branching
     - Validate puzzle solutions
@@ -250,13 +250,13 @@ common_tasks:
     - Set up test data
     - Execute functionality
     - Assert expected results
-  
+
   test_error_handling:
     - Identify error conditions
     - Use assertRaises for exceptions
     - Verify error messages
     - Test recovery mechanisms
-  
+
   mock_dependencies:
     - Identify external dependencies
     - Create mock objects

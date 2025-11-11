@@ -26,9 +26,9 @@ Related to #
 
 <!-- List the specific changes made in this PR -->
 
-- 
-- 
-- 
+-
+-
+-
 
 ## Testing Performed
 
@@ -50,7 +50,7 @@ Related to #
 ```
 
 **Test Results:**
-- 
+-
 
 ### Test Cases Covered
 - [ ] CrewAI agent functionality

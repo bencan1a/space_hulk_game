@@ -15,11 +15,12 @@ import warnings
 from unittest.mock import MagicMock, patch
 
 # Add the src directory to the path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../")))
 
 # Try to import required modules
 try:
     from crewai import LLM
+
     CREWAI_AVAILABLE = True
 except ImportError:
     CREWAI_AVAILABLE = False
@@ -32,8 +33,8 @@ class TestAPIValidation(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         """Set up class-level fixtures."""
-        cls.api_key = os.getenv('OPENROUTER_API_KEY')
-        cls.model_name = os.getenv('OPENAI_MODEL_NAME', 'openrouter/anthropic/claude-3.5-sonnet')
+        cls.api_key = os.getenv("OPENROUTER_API_KEY")
+        cls.model_name = os.getenv("OPENAI_MODEL_NAME", "openrouter/anthropic/claude-3.5-sonnet")
         cls.has_real_credentials = bool(cls.api_key)
 
         if cls.has_real_credentials:
@@ -48,22 +49,16 @@ class TestAPIValidation(unittest.TestCase):
         """Test that LLM can be initialized with OpenRouter configuration."""
         if self.has_real_credentials:
             # Test with real credentials
-            llm = LLM(
-                model=self.model_name,
-                api_key=self.api_key
-            )
+            llm = LLM(model=self.model_name, api_key=self.api_key)
             self.assertIsNotNone(llm)
             self.assertEqual(llm.model, self.model_name)
         else:
             # Test with mock
-            with patch('crewai.LLM') as mock_llm:
+            with patch("crewai.LLM") as mock_llm:
                 mock_instance = MagicMock()
                 mock_llm.return_value = mock_instance
 
-                llm = LLM(
-                    model=self.model_name,
-                    api_key="mock-key"
-                )
+                llm = LLM(model=self.model_name, api_key="mock-key")
 
                 self.assertIsNotNone(llm)
 
@@ -72,10 +67,7 @@ class TestAPIValidation(unittest.TestCase):
         """Test a simple LLM API call to validate connectivity."""
         if self.has_real_credentials:
             # Make a real API call
-            llm = LLM(
-                model=self.model_name,
-                api_key=self.api_key
-            )
+            llm = LLM(model=self.model_name, api_key=self.api_key)
 
             # Simple test prompt
             test_prompt = "Say 'API connection successful' if you can read this."
@@ -91,16 +83,13 @@ class TestAPIValidation(unittest.TestCase):
                 print(f"  Sample: {response[:100]}...")
 
             except Exception as e:
-                self.fail(f"API call failed with error: {str(e)}")
+                self.fail(f"API call failed with error: {e!s}")
         else:
             # Test with mock
             mock_response = "API connection successful (mocked)"
 
-            with patch.object(LLM, 'call', return_value=mock_response):
-                llm = LLM(
-                    model=self.model_name,
-                    api_key="mock-key"
-                )
+            with patch.object(LLM, "call", return_value=mock_response):
+                llm = LLM(model=self.model_name, api_key="mock-key")
 
                 response = llm.call([{"role": "user", "content": "test"}])
 
@@ -115,10 +104,7 @@ class TestAPIValidation(unittest.TestCase):
         In one sentence, describe the atmosphere when a player first enters a derelict vessel."""
 
         if self.has_real_credentials:
-            llm = LLM(
-                model=self.model_name,
-                api_key=self.api_key
-            )
+            llm = LLM(model=self.model_name, api_key=self.api_key)
 
             try:
                 response = llm.call([{"role": "user", "content": game_prompt}])
@@ -133,17 +119,16 @@ class TestAPIValidation(unittest.TestCase):
                 print(f"  Response: {response}")
 
             except Exception as e:
-                self.fail(f"Game context API call failed: {str(e)}")
+                self.fail(f"Game context API call failed: {e!s}")
         else:
             # Test with mock response
-            mock_game_response = ("The oppressive silence is broken only by the creaking "
-                                 "of ancient metal as you step into the flickering darkness.")
+            mock_game_response = (
+                "The oppressive silence is broken only by the creaking "
+                "of ancient metal as you step into the flickering darkness."
+            )
 
-            with patch.object(LLM, 'call', return_value=mock_game_response):
-                llm = LLM(
-                    model=self.model_name,
-                    api_key="mock-key"
-                )
+            with patch.object(LLM, "call", return_value=mock_game_response):
+                llm = LLM(model=self.model_name, api_key="mock-key")
 
                 response = llm.call([{"role": "user", "content": game_prompt}])
 
@@ -153,24 +138,17 @@ class TestAPIValidation(unittest.TestCase):
 
     def test_environment_variables_documented(self):
         """Test that environment variables are properly documented."""
-        env_example_path = os.path.join(
-            os.path.dirname(__file__),
-            '..',
-            '.env.example'
-        )
+        env_example_path = os.path.join(os.path.dirname(__file__), "..", ".env.example")
 
-        self.assertTrue(
-            os.path.exists(env_example_path),
-            ".env.example file should exist"
-        )
+        self.assertTrue(os.path.exists(env_example_path), ".env.example file should exist")
 
         with open(env_example_path) as f:
             content = f.read()
 
             # Check for OpenRouter documentation
-            self.assertIn('OPENROUTER_API_KEY', content)
-            self.assertIn('OPENAI_MODEL_NAME', content)
-            self.assertIn('openrouter/', content)
+            self.assertIn("OPENROUTER_API_KEY", content)
+            self.assertIn("OPENAI_MODEL_NAME", content)
+            self.assertIn("openrouter/", content)
 
     def test_api_error_handling(self):
         """Test that API errors are handled gracefully."""
@@ -186,11 +164,8 @@ class TestAPIValidation(unittest.TestCase):
             self.skipTest("Skipping error test with real API credentials")
         else:
             # Mock an API error
-            with patch.object(LLM, 'call', side_effect=Exception("Invalid API key")):
-                llm = LLM(
-                    model=self.model_name,
-                    api_key=invalid_key
-                )
+            with patch.object(LLM, "call", side_effect=Exception("Invalid API key")):
+                llm = LLM(model=self.model_name, api_key=invalid_key)
 
                 with self.assertRaises(Exception) as context:
                     llm.call([{"role": "user", "content": "test"}])
@@ -212,7 +187,7 @@ class TestLLMConfiguration(unittest.TestCase):
 
         for model in test_models:
             with self.subTest(model=model):
-                with patch('crewai.LLM') as mock_llm:
+                with patch("crewai.LLM") as mock_llm:
                     mock_instance = MagicMock()
                     mock_instance.model = model
                     mock_llm.return_value = mock_instance
@@ -225,18 +200,15 @@ class TestLLMConfiguration(unittest.TestCase):
     def test_llm_fallback_to_ollama(self):
         """Test that system can fall back to Ollama if OpenRouter not available."""
         # This tests the existing Ollama configuration
-        with patch('crewai.LLM') as mock_llm:
+        with patch("crewai.LLM") as mock_llm:
             mock_instance = MagicMock()
             mock_llm.return_value = mock_instance
 
-            llm = LLM(
-                model="ollama/qwen2.5",
-                base_url="http://localhost:11434"
-            )
+            llm = LLM(model="ollama/qwen2.5", base_url="http://localhost:11434")
 
             self.assertIsNotNone(llm)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Run tests with verbose output
     unittest.main(verbosity=2)

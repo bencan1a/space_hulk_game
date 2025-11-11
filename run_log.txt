@@ -22,7 +22,7 @@ Warhammer 40,000: Waking the Hulk - Story Outline and Character Background
 
 Story Outline:
 
-1. Prologue: 
+1. Prologue:
    - A massive Space Hulk emerges from the Warp near an Imperial world
    - Distress signals and strange energy readings are detected
    - The Inquisition dispatches a team to investigate
@@ -116,7 +116,7 @@ Warhammer 40,000: Waking the Hulk - Story Outline and Character Background
 
 Story Outline:
 
-1. Prologue: 
+1. Prologue:
    - A massive Space Hulk emerges from the Warp near an Imperial world
    - Distress signals and strange energy readings are detected
    - The Inquisition dispatches a team to investigate
@@ -219,9 +219,9 @@ class StoryNode:
         self.choices = choices  # Dictionary of choice text to next node ID
 
 story_graph = {
-    "start": StoryNode("You wake up in a dark corridor...", 
+    "start": StoryNode("You wake up in a dark corridor...",
                        {"Explore": "node1", "Call out": "node2"}),
-    "node1": StoryNode("You find a strange device...", 
+    "node1": StoryNode("You find a strange device...",
                        {"Activate": "node3", "Leave it": "node4"}),
     # ... more nodes
 }
@@ -317,7 +317,7 @@ def combat(player, enemy):
         player.attack_enemy(enemy)
         if enemy.is_alive():
             enemy.attack_enemy(player)
-        
+
         print(f"{player.name} HP: {player.health}, {enemy.name} HP: {enemy.health}")
 
     if player.is_alive():
@@ -419,9 +419,9 @@ class StoryNode:
         self.choices = choices  # Dictionary of choice text to next node ID
 
 story_graph = {
-    "start": StoryNode("You wake up in a dark corridor...", 
+    "start": StoryNode("You wake up in a dark corridor...",
                        {"Explore": "node1", "Call out": "node2"}),
-    "node1": StoryNode("You find a strange device...", 
+    "node1": StoryNode("You find a strange device...",
                        {"Activate": "node3", "Leave it": "node4"}),
     # ... more nodes
 }
@@ -517,7 +517,7 @@ def combat(player, enemy):
         player.attack_enemy(enemy)
         if enemy.is_alive():
             enemy.attack_enemy(player)
-        
+
         print(f"{player.name} HP: {player.health}, {enemy.name} HP: {enemy.health}")
 
     if player.is_alive():
@@ -620,8 +620,8 @@ class Location:
         self.objects = objects
 
 locations = {
-    "cargo_bay": Location("Cargo Bay", "A vast chamber filled with derelict shipping containers...", 
-                          {"north": "corridor", "east": "airlock"}, 
+    "cargo_bay": Location("Cargo Bay", "A vast chamber filled with derelict shipping containers...",
+                          {"north": "corridor", "east": "airlock"},
                           ["crate", "dataslate"])
     # More locations...
 }
@@ -684,7 +684,7 @@ def combat_round(player, enemy):
         # Implement defend logic
     elif player_action == "USE ITEM":
         # Implement item use in combat
-    
+
     if enemy.is_alive():
         enemy.attack_enemy(player)
 ```
@@ -763,7 +763,7 @@ class StoryNode:
         self.choices = choices  # Dict of choice text to next node ID
 
 story_graph = {
-    "start": StoryNode("You awaken in a stasis pod...", 
+    "start": StoryNode("You awaken in a stasis pod...",
                        {"Examine surroundings": "node1", "Check equipment": "node2"}),
     # More nodes...
 }
@@ -821,7 +821,7 @@ class Ending:
         pass
 
 endings = {
-    "purge": Ending("Purge", "You destroy the Hulk...", 
+    "purge": Ending("Purge", "You destroy the Hulk...",
                     {"moral_alignment": 75, "artifact_destroyed": True}),
     # More endings...
 }
@@ -1395,7 +1395,7 @@ By following these patterns and practices, you'll create a flexible and maintain
 
 [1m[95m# Agent:[00m [1m[92mSenior Software Engineer[00m
 [95m## Final Answer:[00m [92m
-Thank you for sharing your initial implementation of the core structure for 'Warhammer 40,000: Waking the Hulk'. I'd be happy to review it for correctness, efficiency, and adherence to Python best practices. However, I don't see the actual code in your message. 
+Thank you for sharing your initial implementation of the core structure for 'Warhammer 40,000: Waking the Hulk'. I'd be happy to review it for correctness, efficiency, and adherence to Python best practices. However, I don't see the actual code in your message.
 
 To provide a thorough review, I'll need to see the specific classes and functions you've implemented. Could you please share the code you've written so far? This should include:
 
@@ -1424,7 +1424,7 @@ Please paste your code, and I'll be able to give you a detailed review and feedb
 [95m## Tool Input:[00m [92m
 "{\"task\": \"Review and provide feedback on the initial implementation of the game's core structure\", \"context\": \"I'm implementing the core classes and functions for 'Warhammer 40,000: Waking the Hulk' based on the recommended patterns and best practices. I'll provide the initial implementation, and I'd like you to review it for correctness, efficiency, and adherence to Python best practices.\", \"coworker\": \"Senior Software Engineer\"}"[00m
 [95m## Tool Output:[00m [92m
-Thank you for sharing your initial implementation of the core structure for 'Warhammer 40,000: Waking the Hulk'. I'd be happy to review it for correctness, efficiency, and adherence to Python best practices. However, I don't see the actual code in your message. 
+Thank you for sharing your initial implementation of the core structure for 'Warhammer 40,000: Waking the Hulk'. I'd be happy to review it for correctness, efficiency, and adherence to Python best practices. However, I don't see the actual code in your message.
 
 To provide a thorough review, I'll need to see the specific classes and functions you've implemented. Could you please share the code you've written so far? This should include:
 
@@ -1977,7 +1977,7 @@ Once you have a more detailed architecture or code to share, I'd be happy to pro
 
 [1m[95m# Agent:[00m [1m[92mSenior Software Engineer[00m
 [95m## Final Answer:[00m [92m
-Thank you for sharing the initial software architecture for 'Warhammer 40,000: Waking the Hulk'. I've reviewed the code and I'm ready to provide feedback on its completeness and alignment with the game design. 
+Thank you for sharing the initial software architecture for 'Warhammer 40,000: Waking the Hulk'. I've reviewed the code and I'm ready to provide feedback on its completeness and alignment with the game design.
 
 Overall, the architecture seems to be a good starting point, but there are several areas where we can improve and expand to better align with the game design. Here's my detailed feedback:
 
@@ -2122,7 +2122,7 @@ In conclusion, while the initial architecture provides a solid foundation, there
 [95m## Tool Input:[00m [92m
 "{\"task\": \"Please review the following software architecture design and provide feedback on its completeness and alignment with the game design.\", \"context\": \"I've created the initial software architecture for 'Warhammer 40,000: Waking the Hulk' based on the game design and previous input. Here's the complete Python code for your review:\", \"coworker\": \"Senior Software Engineer\"}"[00m
 [95m## Tool Output:[00m [92m
-Thank you for sharing the initial software architecture for 'Warhammer 40,000: Waking the Hulk'. I've reviewed the code and I'm ready to provide feedback on its completeness and alignment with the game design. 
+Thank you for sharing the initial software architecture for 'Warhammer 40,000: Waking the Hulk'. I've reviewed the code and I'm ready to provide feedback on its completeness and alignment with the game design.
 
 Overall, the architecture seems to be a good starting point, but there are several areas where we can improve and expand to better align with the game design. Here's my detailed feedback:
 

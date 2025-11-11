@@ -21,13 +21,13 @@ Example:
 import logging
 import os
 import re
-from typing import Dict, List, Any
+from typing import Any
+
 import yaml
 
+from .entities import NPC, Event, Item
 from .game_data import GameData
 from .scene import Scene
-from .entities import Item, NPC, Event
-
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -35,73 +35,76 @@ logger = logging.getLogger(__name__)
 
 class LoaderError(Exception):
     """Base exception for content loading errors."""
+
     pass
 
 
 class YAMLParseError(LoaderError):
     """Raised when YAML parsing fails."""
+
     pass
 
 
 class ValidationError(LoaderError):
     """Raised when loaded content fails validation."""
+
     pass
 
 
 class ContentLoader:
     """
     Loads AI-generated YAML files and converts them into GameData.
-    
+
     The ContentLoader implements a Facade pattern to simplify the complex process
     of loading and merging multiple YAML files. It uses Strategy pattern internally
     for handling different file formats and Builder pattern for constructing GameData.
-    
+
     Attributes:
         strict_mode: If True, raises exceptions on validation errors.
                     If False, logs warnings and uses defaults.
-    
+
     Examples:
         Load a complete game:
         >>> loader = ContentLoader()
         >>> game_data = loader.load_game("game-config/")
         >>> print(f"Loaded: {game_data.title}")
-        
+
         Load with lenient error handling:
         >>> loader = ContentLoader(strict_mode=False)
         >>> game_data = loader.load_game("game-config/")
-        
+
         Load individual files:
         >>> plot_data = loader.load_yaml("game-config/plot_outline.yaml")
     """
-    
+
     def __init__(self, strict_mode: bool = False):
         """
         Initialize the ContentLoader.
-        
+
         Args:
             strict_mode: If True, raise exceptions on validation errors.
                         If False, log warnings and use defaults.
         """
         self.strict_mode = strict_mode
         logger.info(f"ContentLoader initialized (strict_mode={strict_mode})")
-    
+
     def load_game(self, output_dir: str) -> GameData:
         """
         Load all generated YAML files into a playable game.
-        
+
         This is the main entry point for loading a complete game. It loads
         all 5 YAML files, validates them, converts them to engine objects,
         and merges them into a single GameData structure.
-        
+
         Args:
             output_dir: Directory containing the generated YAML files.
-        
+
         Returns:
             GameData object containing all loaded content.
-            
+
         Raises:
             LoaderError: If critical files are missing or invalid.
-            
+
         Examples:
             >>> loader = ContentLoader()
             >>> game_data = loader.load_game("game-config/")
@@ -109,41 +112,41 @@ class ContentLoader:
             True
         """
         logger.info(f"Loading game from directory: {output_dir}")
-        
+
         # Load all YAML files
         plot = self.load_yaml(os.path.join(output_dir, "plot_outline.yaml"))
         narrative = self.load_yaml(os.path.join(output_dir, "narrative_map.yaml"))
         puzzles = self.load_yaml(os.path.join(output_dir, "puzzle_design.yaml"))
         scenes = self.load_yaml(os.path.join(output_dir, "scene_texts.yaml"))
         mechanics = self.load_yaml(os.path.join(output_dir, "prd_document.yaml"))
-        
+
         logger.info("All YAML files loaded successfully")
-        
+
         # Merge into GameData
         game_data = self.merge_into_game_data(plot, narrative, puzzles, scenes, mechanics)
-        
+
         logger.info(f"Game loaded: '{game_data.title}' with {len(game_data.scenes)} scenes")
         return game_data
-    
-    def load_yaml(self, filepath: str) -> Dict[str, Any]:
+
+    def load_yaml(self, filepath: str) -> dict[str, Any]:
         """
         Load and parse a YAML file with error handling.
-        
+
         Handles common issues with AI-generated YAML:
         - Markdown code fence wrapping (```yaml ... ```)
         - Extra whitespace
         - Missing files
         - Invalid YAML syntax
-        
+
         Args:
             filepath: Path to the YAML file to load.
-            
+
         Returns:
             Parsed YAML content as a dictionary.
-            
+
         Raises:
             LoaderError: If file is missing or cannot be parsed.
-            
+
         Examples:
             >>> loader = ContentLoader()
             >>> data = loader.load_yaml("game-config/plot_outline.yaml")
@@ -151,7 +154,7 @@ class ContentLoader:
             True
         """
         logger.debug(f"Loading YAML file: {filepath}")
-        
+
         # Check if file exists
         if not os.path.exists(filepath):
             error_msg = f"File not found: {filepath}"
@@ -161,32 +164,32 @@ class ContentLoader:
             else:
                 logger.warning(f"File missing, returning empty dict: {filepath}")
                 return {}
-        
+
         try:
             # Read file content
-            with open(filepath, 'r', encoding='utf-8') as f:
+            with open(filepath, encoding="utf-8") as f:
                 content = f.read()
-            
+
             # Clean up markdown wrapping (common AI output issue)
             content = self._clean_yaml_content(content)
-            
+
             # Parse YAML
             data = yaml.safe_load(content)
-            
+
             if data is None:
                 logger.warning(f"Empty YAML file: {filepath}")
                 return {}
-            
+
             if not isinstance(data, dict):
                 error_msg = f"Invalid YAML structure in {filepath}: expected dict, got {type(data)}"
                 logger.error(error_msg)
                 if self.strict_mode:
                     raise YAMLParseError(error_msg)
                 return {}
-            
+
             logger.debug(f"Successfully loaded {filepath}: {len(data)} top-level keys")
             return data
-            
+
         except yaml.YAMLError as e:
             error_msg = f"YAML parsing error in {filepath}: {e}"
             logger.error(error_msg)
@@ -203,79 +206,79 @@ class ContentLoader:
             else:
                 logger.warning(f"Error loading file, returning empty dict: {filepath}")
                 return {}
-    
+
     def _clean_yaml_content(self, content: str) -> str:
         """
         Clean up common issues in AI-generated YAML content.
-        
+
         Specifically, this method:
             - Removes markdown code fences (e.g., ```yaml ... ```) that may wrap YAML content.
             - Strips leading and trailing whitespace from the content.
-        
+
         Args:
             content: Raw YAML content string.
-            
+
         Returns:
             Cleaned YAML content with code fences and extraneous whitespace removed.
         """
         # Remove markdown code fences
-        content = re.sub(r'^```ya?ml\s*\n', '', content, flags=re.MULTILINE)
-        content = re.sub(r'\n```\s*$', '', content, flags=re.MULTILINE)
-        
+        content = re.sub(r"^```ya?ml\s*\n", "", content, flags=re.MULTILINE)
+        content = re.sub(r"\n```\s*$", "", content, flags=re.MULTILINE)
+
         # Strip leading/trailing whitespace
         content = content.strip()
-        
+
         return content
-    
+
     def merge_into_game_data(
         self,
-        plot: Dict[str, Any],
-        narrative: Dict[str, Any],
-        puzzles: Dict[str, Any],
-        scenes_text: Dict[str, Any],
-        mechanics: Dict[str, Any]
+        plot: dict[str, Any],
+        narrative: dict[str, Any],
+        puzzles: dict[str, Any],
+        scenes_text: dict[str, Any],
+        mechanics: dict[str, Any],
     ) -> GameData:
         """
         Merge all loaded YAML data into a GameData object.
-        
+
         This method implements the core conversion logic, transforming
         the YAML structures into Scene, Item, NPC, and Event objects.
-        
+
         Args:
             plot: Data from plot_outline.yaml
             narrative: Data from narrative_map.yaml
             puzzles: Data from puzzle_design.yaml
             scenes_text: Data from scene_texts.yaml
             mechanics: Data from prd_document.yaml
-            
+
         Returns:
             Complete GameData object.
-            
+
         Raises:
             ValidationError: If required data is missing.
         """
         logger.info("Merging YAML data into GameData")
-        
+
         # Extract title and description
         title = self._extract_title(plot, narrative, mechanics)
         description = self._extract_description(plot, mechanics)
-        
+
         # Build scenes from narrative map
         scenes = self._build_scenes(narrative, scenes_text, puzzles)
-        
+
         # Find starting scene
         starting_scene = self._find_starting_scene(narrative, scenes)
-        
+
         # Extract global items and NPCs
         global_items = self._extract_global_items(puzzles)
         global_npcs = self._extract_global_npcs(puzzles)
-        
+
         # Extract additional data
         themes = self._extract_themes(plot)
         plot_points = self._extract_plot_points(plot)
         endings = self._extract_endings(plot)
         game_rules = self._extract_game_rules(mechanics)
-        
+
         # Build GameData
         game_data = GameData(
             title=title,
@@ -289,114 +292,115 @@ class ContentLoader:
             endings=endings,
             game_rules=game_rules,
             metadata={
-                'loaded_from_ai': True,
-                'source_files': ['plot_outline', 'narrative_map', 'puzzle_design', 'scene_texts', 'prd_document']
-            }
+                "loaded_from_ai": True,
+                "source_files": [
+                    "plot_outline",
+                    "narrative_map",
+                    "puzzle_design",
+                    "scene_texts",
+                    "prd_document",
+                ],
+            },
         )
-        
+
         logger.info("GameData merge complete")
         return game_data
-    
-    def _extract_title(self, plot: Dict, narrative: Dict, mechanics: Dict) -> str:
+
+    def _extract_title(self, plot: dict, narrative: dict, mechanics: dict) -> str:
         """Extract game title from available sources."""
         # Try multiple sources
         title = (
-            plot.get('narrative_foundation', {}).get('title') or
-            narrative.get('title') or
-            mechanics.get('title') or
-            mechanics.get('game_title') or
-            "Untitled Space Hulk Adventure"
+            plot.get("narrative_foundation", {}).get("title")
+            or narrative.get("title")
+            or mechanics.get("title")
+            or mechanics.get("game_title")
+            or "Untitled Space Hulk Adventure"
         )
         logger.debug(f"Extracted title: {title}")
         return title
-    
-    def _extract_description(self, plot: Dict, mechanics: Dict) -> str:
+
+    def _extract_description(self, plot: dict, mechanics: dict) -> str:
         """Extract game description from available sources."""
         description = (
-            plot.get('narrative_foundation', {}).get('setting') or
-            mechanics.get('description') or
-            mechanics.get('game_overview') or
-            "A text adventure set in the grim darkness of the far future."
+            plot.get("narrative_foundation", {}).get("setting")
+            or mechanics.get("description")
+            or mechanics.get("game_overview")
+            or "A text adventure set in the grim darkness of the far future."
         )
         logger.debug(f"Extracted description: {description[:50]}...")
         return description
-    
-    def _extract_themes(self, plot: Dict) -> List[str]:
+
+    def _extract_themes(self, plot: dict) -> list[str]:
         """Extract narrative themes from plot data."""
-        foundation = plot.get('narrative_foundation', {})
-        themes = foundation.get('themes', [])
-        
+        foundation = plot.get("narrative_foundation", {})
+        themes = foundation.get("themes", [])
+
         if isinstance(themes, str):
             # Handle single theme as string
             themes = [themes]
-        
+
         logger.debug(f"Extracted {len(themes)} themes")
         return list(themes) if themes else []
-    
-    def _extract_plot_points(self, plot: Dict) -> List[Dict[str, Any]]:
+
+    def _extract_plot_points(self, plot: dict) -> list[dict[str, Any]]:
         """Extract major plot points from plot data."""
-        foundation = plot.get('narrative_foundation', {})
-        plot_points = foundation.get('plot_points', [])
-        
+        foundation = plot.get("narrative_foundation", {})
+        plot_points = foundation.get("plot_points", [])
+
         if not isinstance(plot_points, list):
             logger.warning(f"Invalid plot_points format: {type(plot_points)}")
             return []
-        
+
         logger.debug(f"Extracted {len(plot_points)} plot points")
         return plot_points
-    
-    def _extract_endings(self, plot: Dict) -> List[Dict[str, Any]]:
+
+    def _extract_endings(self, plot: dict) -> list[dict[str, Any]]:
         """Extract possible endings from plot data."""
-        foundation = plot.get('narrative_foundation', {})
-        endings = foundation.get('endings', [])
-        
+        foundation = plot.get("narrative_foundation", {})
+        endings = foundation.get("endings", [])
+
         if not isinstance(endings, list):
             logger.warning(f"Invalid endings format: {type(endings)}")
             return []
-        
+
         logger.debug(f"Extracted {len(endings)} endings")
         return endings
-    
-    def _extract_game_rules(self, mechanics: Dict) -> Dict[str, Any]:
+
+    def _extract_game_rules(self, mechanics: dict) -> dict[str, Any]:
         """Extract game mechanics and rules."""
         rules = {}
-        
+
         # Common keys in PRD documents
-        for key in ['mechanics', 'game_mechanics', 'rules', 'systems']:
+        for key in ["mechanics", "game_mechanics", "rules", "systems"]:
             if key in mechanics:
                 rules[key] = mechanics[key]
-        
+
         logger.debug(f"Extracted {len(rules)} game rule categories")
         return rules
-    
-    def _build_scenes(
-        self,
-        narrative: Dict,
-        scenes_text: Dict,
-        puzzles: Dict
-    ) -> Dict[str, Scene]:
+
+    def _build_scenes(self, narrative: dict, scenes_text: dict, puzzles: dict) -> dict[str, Scene]:
         """
         Build Scene objects from narrative map and scene texts.
-        
+
         Args:
             narrative: Narrative map data.
             scenes_text: Scene description data.
             puzzles: Puzzle and artifact data.
-            
+
         Returns:
             Dictionary mapping scene IDs to Scene objects.
         """
         logger.info("Building scenes from narrative data")
-        
+
         scenes = {}
-        
+
         # Get scene data from narrative map
         narrative_scenes = (
-            narrative.get('narrative_map', {}).get('scenes', {}) or
-            narrative.get('scenes', {}) or
-            {}
+            narrative.get("narrative_map", {}).get("scenes", {})
+            or narrative.get("scenes", {})
+            or {}
         )
-        
+
         if not narrative_scenes:
             logger.warning("No scenes found in narrative map")
             # Create a default starting scene
@@ -404,83 +408,74 @@ class ContentLoader:
                 id="start",
                 name="Starting Location",
                 description="The adventure begins here.",
-                exits={}
+                exits={},
             )
             return {"start": default_scene}
-        
+
         # Build each scene
         for scene_id, scene_data in narrative_scenes.items():
             try:
-                scene = self._build_single_scene(
-                    scene_id, scene_data, scenes_text, puzzles
-                )
+                scene = self._build_single_scene(scene_id, scene_data, scenes_text, puzzles)
                 scenes[scene_id] = scene
                 logger.debug(f"Built scene: {scene_id}")
             except Exception as e:
                 logger.error(f"Error building scene '{scene_id}': {e}")
                 if self.strict_mode:
                     raise ValidationError(f"Failed to build scene '{scene_id}': {e}") from e
-        
+
         if not scenes:
             logger.error("No scenes were successfully built")
             if self.strict_mode:
                 raise ValidationError("No valid scenes found")
             # Create fallback scene
             scenes["start"] = Scene(
-                id="start",
-                name="Starting Location",
-                description="The adventure begins.",
-                exits={}
+                id="start", name="Starting Location", description="The adventure begins.", exits={}
             )
-        
+
         logger.info(f"Built {len(scenes)} scenes")
         return scenes
-    
+
     def _build_single_scene(
-        self,
-        scene_id: str,
-        scene_data: Dict,
-        scenes_text: Dict,
-        puzzles: Dict
+        self, scene_id: str, scene_data: dict, scenes_text: dict, puzzles: dict
     ) -> Scene:
         """
         Build a single Scene object from its data.
-        
+
         Args:
             scene_id: The scene's unique identifier.
             scene_data: Scene data from narrative map.
             scenes_text: All scene text data.
             puzzles: Puzzle and artifact data.
-            
+
         Returns:
             Constructed Scene object.
         """
         # Extract name and description
-        name = scene_data.get('name', scene_id.replace('_', ' ').title())
-        
+        name = scene_data.get("name", scene_id.replace("_", " ").title())
+
         # Look for description in scene_data or scenes_text
         description = (
-            scene_data.get('description') or
-            scenes_text.get(scene_id, {}).get('description') or
-            f"A location in the Space Hulk."
+            scene_data.get("description")
+            or scenes_text.get(scene_id, {}).get("description")
+            or "A location in the Space Hulk."
         )
-        
+
         # Extract exits/connections
         exits = self._extract_exits(scene_data)
-        
+
         # Extract items
         items = self._extract_scene_items(scene_data, puzzles)
-        
+
         # Extract NPCs
         npcs = self._extract_scene_npcs(scene_data, puzzles)
-        
+
         # Extract events
         events = self._extract_scene_events(scene_data)
-        
+
         # Extract additional properties
-        dark = scene_data.get('dark', False)
-        locked_exits = scene_data.get('locked_exits', {})
-        
+        dark = scene_data.get("dark", False)
+        locked_exits = scene_data.get("locked_exits", {})
+
         scene = Scene(
             id=scene_id,
             name=name,
@@ -490,15 +485,15 @@ class ContentLoader:
             npcs=npcs,
             events=events,
             dark=dark,
-            locked_exits=locked_exits
+            locked_exits=locked_exits,
         )
-        
+
         return scene
-    
-    def _extract_exits(self, scene_data: Dict) -> Dict[str, str]:
+
+    def _extract_exits(self, scene_data: dict) -> dict[str, str]:
         """Extract exits from scene data."""
-        exits = scene_data.get('exits', {}) or scene_data.get('connections', {}) or {}
-        
+        exits = scene_data.get("exits", {}) or scene_data.get("connections", {}) or {}
+
         # Normalize exits to dict
         if isinstance(exits, list):
             # Convert list of exit names to dict
@@ -507,25 +502,25 @@ class ContentLoader:
                 if isinstance(exit_item, str):
                     exits_dict[exit_item] = exit_item
                 elif isinstance(exit_item, dict):
-                    direction = exit_item.get('direction') or exit_item.get('name')
-                    target = exit_item.get('target') or exit_item.get('scene_id')
+                    direction = exit_item.get("direction") or exit_item.get("name")
+                    target = exit_item.get("target") or exit_item.get("scene_id")
                     if direction and target:
                         exits_dict[direction] = target
             exits = exits_dict
-        
+
         return exits if isinstance(exits, dict) else {}
-    
-    def _extract_scene_items(self, scene_data: Dict, puzzles: Dict) -> List[Item]:
+
+    def _extract_scene_items(self, scene_data: dict, puzzles: dict) -> list[Item]:
         """Extract items present in this scene."""
         items = []
-        item_ids = scene_data.get('items', []) or []
-        
+        item_ids = scene_data.get("items", []) or []
+
         if not isinstance(item_ids, list):
             item_ids = [item_ids]
-        
+
         # Get item definitions from puzzles
-        item_definitions = puzzles.get('artifacts', {}) or puzzles.get('items', {}) or {}
-        
+        item_definitions = puzzles.get("artifacts", {}) or puzzles.get("items", {}) or {}
+
         for item_id in item_ids:
             if isinstance(item_id, str):
                 item_def = item_definitions.get(item_id, {})
@@ -535,20 +530,20 @@ class ContentLoader:
                         items.append(item)
                     except Exception as e:
                         logger.warning(f"Failed to build item '{item_id}': {e}")
-        
+
         return items
-    
-    def _extract_scene_npcs(self, scene_data: Dict, puzzles: Dict) -> List[NPC]:
+
+    def _extract_scene_npcs(self, scene_data: dict, puzzles: dict) -> list[NPC]:
         """Extract NPCs present in this scene."""
         npcs = []
-        npc_ids = scene_data.get('npcs', []) or []
-        
+        npc_ids = scene_data.get("npcs", []) or []
+
         if not isinstance(npc_ids, list):
             npc_ids = [npc_ids]
-        
+
         # Get NPC definitions from puzzles
-        npc_definitions = puzzles.get('npcs', {}) or puzzles.get('characters', {}) or {}
-        
+        npc_definitions = puzzles.get("npcs", {}) or puzzles.get("characters", {}) or {}
+
         for npc_id in npc_ids:
             if isinstance(npc_id, str):
                 npc_def = npc_definitions.get(npc_id, {})
@@ -558,17 +553,17 @@ class ContentLoader:
                         npcs.append(npc)
                     except Exception as e:
                         logger.warning(f"Failed to build NPC '{npc_id}': {e}")
-        
+
         return npcs
-    
-    def _extract_scene_events(self, scene_data: Dict) -> List[Event]:
+
+    def _extract_scene_events(self, scene_data: dict) -> list[Event]:
         """Extract events that can trigger in this scene."""
         events = []
-        event_list = scene_data.get('events', []) or []
-        
+        event_list = scene_data.get("events", []) or []
+
         if not isinstance(event_list, list):
             event_list = [event_list]
-        
+
         for event_data in event_list:
             if isinstance(event_data, dict):
                 try:
@@ -576,52 +571,52 @@ class ContentLoader:
                     events.append(event)
                 except Exception as e:
                     logger.warning(f"Failed to build event: {e}")
-        
+
         return events
-    
-    def _build_item(self, item_id: str, item_def: Dict) -> Item:
+
+    def _build_item(self, item_id: str, item_def: dict) -> Item:
         """Build an Item object from its definition."""
         return Item(
             id=item_id,
-            name=item_def.get('name', item_id.replace('_', ' ').title()),
-            description=item_def.get('description', 'An item.'),
-            takeable=item_def.get('takeable', True),
-            useable=item_def.get('useable', False),
-            use_text=item_def.get('use_text'),
-            required_flag=item_def.get('required_flag'),
-            effects=item_def.get('effects', {})
+            name=item_def.get("name", item_id.replace("_", " ").title()),
+            description=item_def.get("description", "An item."),
+            takeable=item_def.get("takeable", True),
+            useable=item_def.get("useable", False),
+            use_text=item_def.get("use_text"),
+            required_flag=item_def.get("required_flag"),
+            effects=item_def.get("effects", {}),
         )
-    
-    def _build_npc(self, npc_id: str, npc_def: Dict) -> NPC:
+
+    def _build_npc(self, npc_id: str, npc_def: dict) -> NPC:
         """Build an NPC object from its definition."""
         return NPC(
             id=npc_id,
-            name=npc_def.get('name', npc_id.replace('_', ' ').title()),
-            description=npc_def.get('description', 'A character.'),
-            dialogue=npc_def.get('dialogue', {}),
-            hostile=npc_def.get('hostile', False),
-            health=npc_def.get('health', 100),
-            gives_item=npc_def.get('gives_item'),
-            required_flag=npc_def.get('required_flag')
+            name=npc_def.get("name", npc_id.replace("_", " ").title()),
+            description=npc_def.get("description", "A character."),
+            dialogue=npc_def.get("dialogue", {}),
+            hostile=npc_def.get("hostile", False),
+            health=npc_def.get("health", 100),
+            gives_item=npc_def.get("gives_item"),
+            required_flag=npc_def.get("required_flag"),
         )
-    
-    def _build_event(self, event_data: Dict) -> Event:
+
+    def _build_event(self, event_data: dict) -> Event:
         """Build an Event object from its data."""
         return Event(
-            id=event_data.get('id', 'event'),
-            description=event_data.get('description', 'Something happens.'),
-            trigger_on_entry=event_data.get('trigger_on_entry', False),
-            required_flag=event_data.get('required_flag'),
-            one_time=event_data.get('one_time', True),
-            effects=event_data.get('effects', {})
+            id=event_data.get("id", "event"),
+            description=event_data.get("description", "Something happens."),
+            trigger_on_entry=event_data.get("trigger_on_entry", False),
+            required_flag=event_data.get("required_flag"),
+            one_time=event_data.get("one_time", True),
+            effects=event_data.get("effects", {}),
         )
-    
-    def _extract_global_items(self, puzzles: Dict) -> Dict[str, Item]:
+
+    def _extract_global_items(self, puzzles: dict) -> dict[str, Item]:
         """Extract global item definitions (not placed in scenes)."""
         global_items = {}
-        
-        item_defs = puzzles.get('artifacts', {}) or puzzles.get('items', {}) or {}
-        
+
+        item_defs = puzzles.get("artifacts", {}) or puzzles.get("items", {}) or {}
+
         for item_id, item_def in item_defs.items():
             if isinstance(item_def, dict):
                 try:
@@ -629,16 +624,16 @@ class ContentLoader:
                     global_items[item_id] = item
                 except Exception as e:
                     logger.warning(f"Failed to build global item '{item_id}': {e}")
-        
+
         logger.debug(f"Extracted {len(global_items)} global items")
         return global_items
-    
-    def _extract_global_npcs(self, puzzles: Dict) -> Dict[str, NPC]:
+
+    def _extract_global_npcs(self, puzzles: dict) -> dict[str, NPC]:
         """Extract global NPC definitions (not placed in scenes)."""
         global_npcs = {}
-        
-        npc_defs = puzzles.get('npcs', {}) or puzzles.get('characters', {}) or {}
-        
+
+        npc_defs = puzzles.get("npcs", {}) or puzzles.get("characters", {}) or {}
+
         for npc_id, npc_def in npc_defs.items():
             if isinstance(npc_def, dict):
                 try:
@@ -646,33 +641,33 @@ class ContentLoader:
                     global_npcs[npc_id] = npc
                 except Exception as e:
                     logger.warning(f"Failed to build global NPC '{npc_id}': {e}")
-        
+
         logger.debug(f"Extracted {len(global_npcs)} global NPCs")
         return global_npcs
-    
-    def _find_starting_scene(self, narrative: Dict, scenes: Dict[str, Scene]) -> str:
+
+    def _find_starting_scene(self, narrative: dict, scenes: dict[str, Scene]) -> str:
         """Find the starting scene ID."""
         # Try to find explicitly defined starting scene
         starting_scene = (
-            narrative.get('starting_scene') or
-            narrative.get('narrative_map', {}).get('starting_scene') or
-            narrative.get('start_scene')
+            narrative.get("starting_scene")
+            or narrative.get("narrative_map", {}).get("starting_scene")
+            or narrative.get("start_scene")
         )
-        
+
         if starting_scene and starting_scene in scenes:
             logger.debug(f"Found starting scene: {starting_scene}")
             return starting_scene
-        
+
         # Fall back to first scene or 'start'
-        if 'start' in scenes:
+        if "start" in scenes:
             logger.debug("Using 'start' as starting scene")
-            return 'start'
-        
+            return "start"
+
         if scenes:
             first_scene = next(iter(scenes.keys()))
             logger.debug(f"Using first scene as starting scene: {first_scene}")
             return first_scene
-        
+
         # This should not happen if scenes validation passed
         logger.error("No starting scene found")
         if self.strict_mode:

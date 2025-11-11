@@ -18,6 +18,7 @@ def main():
     print("\n✓ Step 1: Import CrewAI")
     try:
         from crewai import LLM
+
         print("  SUCCESS: CrewAI is installed and importable")
     except ImportError as e:
         print(f"  FAILED: {e}")
@@ -26,6 +27,7 @@ def main():
     # Connectivity test
     print("\n✓ Step 2: Test OpenRouter API Connectivity")
     import requests
+
     try:
         response = requests.get("https://openrouter.ai/api/v1/models", timeout=5)
         print(f"  SUCCESS: OpenRouter API is reachable (HTTP {response.status_code})")
@@ -46,10 +48,7 @@ def main():
     # LLM initialization test
     print("\n✓ Step 4: Test LLM Initialization")
     try:
-        llm = LLM(
-            model="openrouter/anthropic/claude-3.5-sonnet",
-            api_key="test-placeholder"
-        )
+        llm = LLM(model="openrouter/anthropic/claude-3.5-sonnet", api_key="test-placeholder")
         print("  SUCCESS: LLM instance can be created")
     except Exception as e:
         print(f"  FAILED: {e}")
@@ -71,7 +70,7 @@ def main():
 
     # Credentials check
     print("\n⚠ Step 6: Check API Credentials")
-    api_key = os.getenv('OPENROUTER_API_KEY')
+    api_key = os.getenv("OPENROUTER_API_KEY")
     if api_key:
         print(f"  FOUND: OPENROUTER_API_KEY (length: {len(api_key)})")
         print("  ✓ Ready to run real API tests!")

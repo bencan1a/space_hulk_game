@@ -39,20 +39,21 @@ from typing import cast
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
+
 def test_hierarchical_with_gemini():
     """Test hierarchical mode with Gemini 2.5 Flash."""
-    print("\n" + "="*80)
+    print("\n" + "=" * 80)
     print("HIERARCHICAL MODE TEST - GEMINI 2.5 FLASH")
-    print("="*80)
+    print("=" * 80)
     print(f"Start: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
     # Check for Gemini configuration
     gemini_key = os.environ.get("GOOGLE_API_KEY") or os.environ.get("GEMINI_API_KEY")
 
     if not gemini_key:
-        print("\n" + "="*80)
+        print("\n" + "=" * 80)
         print("⚠️  GEMINI API KEY NOT CONFIGURED")
-        print("="*80)
+        print("=" * 80)
         print("\nTo run this test, you need to set up Gemini API access.")
         print("\nQuick setup:")
         print("  1. Get API key from: https://aistudio.google.com/app/apikey")
@@ -64,7 +65,7 @@ def test_hierarchical_with_gemini():
         print("\nAlternatively, create .env file:")
         print("  GOOGLE_API_KEY=your-api-key-here")
         print("  OPENAI_MODEL_NAME=gemini/gemini-2.0-flash-exp")
-        print("\n" + "="*80)
+        print("\n" + "=" * 80)
         return False
 
     print("✅ Gemini API key found")
@@ -79,13 +80,12 @@ def test_hierarchical_with_gemini():
         gemini_model = configured_model
 
     print(f"✅ Using model: {gemini_model}")
-    print("="*80 + "\n")
+    print("=" * 80 + "\n")
 
     start_time = time.time()
 
     try:
         from crewai import LLM, Agent, Crew, Process
-
         from space_hulk_game.crew import SpaceHulkGame
 
         print("✅ Importing crew...")
@@ -94,12 +94,7 @@ def test_hierarchical_with_gemini():
         print("\n🔧 Creating hierarchical crew with Gemini...")
 
         # Create Gemini-powered manager
-        gemini_llm = LLM(
-            model=gemini_model,
-            api_key=gemini_key,
-            temperature=0.3,
-            max_tokens=4000
-        )
+        gemini_llm = LLM(model=gemini_model, api_key=gemini_key, temperature=0.3, max_tokens=4000)
 
         manager = Agent(
             role="Narrative Director",
@@ -108,7 +103,7 @@ def test_hierarchical_with_gemini():
             llm=gemini_llm,
             allow_delegation=True,
             verbose=True,
-            max_iter=15  # Give Gemini a bit more room
+            max_iter=15,  # Give Gemini a bit more room
         )
 
         print(f"   Manager: {manager.role}")
@@ -144,7 +139,7 @@ def test_hierarchical_with_gemini():
             tasks=minimal_tasks,
             process=Process.hierarchical,
             manager_agent=manager,
-            verbose=True
+            verbose=True,
         )
 
         print("✅ Hierarchical crew created successfully")
@@ -156,13 +151,13 @@ def test_hierarchical_with_gemini():
         print(f"   Prompt: {test_prompt}")
         print("   Max timeout: 10 minutes")
         print("   Monitoring for delegation behavior...")
-        print("\n" + "-"*80)
+        print("\n" + "-" * 80)
 
         exec_start = time.time()
         hierarchical_crew.kickoff(inputs=inputs)
         exec_time = time.time() - exec_start
 
-        print("-"*80)
+        print("-" * 80)
         print("\n✅ HIERARCHICAL EXECUTION COMPLETED SUCCESSFULLY!")
         print(f"   Execution time: {exec_time:.2f}s ({exec_time/60:.2f} min)")
 
@@ -170,7 +165,7 @@ def test_hierarchical_with_gemini():
         output_files = [
             "game-config/plot_outline.yaml",
             "game-config/narrative_map.yaml",
-            "game-config/puzzle_design.yaml"
+            "game-config/puzzle_design.yaml",
         ]
 
         files_created = sum(1 for f in output_files if os.path.exists(f))
@@ -185,9 +180,9 @@ def test_hierarchical_with_gemini():
 
         total_time = time.time() - start_time
 
-        print("\n" + "="*80)
+        print("\n" + "=" * 80)
         print("🎉 BREAKTHROUGH: HIERARCHICAL MODE WORKS WITH GEMINI!")
-        print("="*80)
+        print("=" * 80)
         print(f"✅ Hierarchical mode SUCCESSFUL with Gemini {gemini_model}")
         print(f"✅ Execution time: {exec_time:.2f}s ({exec_time/60:.2f} min)")
         print(f"✅ Files created: {files_created}/{len(output_files)}")
@@ -200,16 +195,16 @@ def test_hierarchical_with_gemini():
         print("   - Or use Gemini for all agents (best quality)")
         print(f"\nTotal test time: {total_time:.2f}s")
         print(f"End: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-        print("="*80)
+        print("=" * 80)
 
         return True
 
     except Exception as e:
         error_time = time.time() - start_time
-        print("\n" + "="*80)
+        print("\n" + "=" * 80)
         print("❌ HIERARCHICAL MODE FAILED WITH GEMINI")
-        print("="*80)
-        print(f"Error: {str(e)}")
+        print("=" * 80)
+        print(f"Error: {e!s}")
         print(f"Time before failure: {error_time:.2f}s ({error_time/60:.2f} min)")
 
         # Check if it's the same delegation error
@@ -224,28 +219,29 @@ def test_hierarchical_with_gemini():
             print("\n📋 Analysis: API authentication issue.")
             print("   Check that GOOGLE_API_KEY is valid and has sufficient quota.")
 
-        print("="*80)
+        print("=" * 80)
 
         import traceback
+
         traceback.print_exc()
 
         return False
 
 
 if __name__ == "__main__":
-    print("\n" + "="*80)
+    print("\n" + "=" * 80)
     print("TESTING HIERARCHICAL MODE WITH GEMINI 2.5 FLASH")
-    print("="*80)
+    print("=" * 80)
     print("\nThis test checks if Gemini can handle hierarchical delegation")
     print("where Llama 3.1 70B failed.")
-    print("="*80)
+    print("=" * 80)
 
     success = test_hierarchical_with_gemini()
 
     if success:
-        print("\n" + "="*80)
+        print("\n" + "=" * 80)
         print("🎉 SUCCESS - HIERARCHICAL MODE WORKS!")
-        print("="*80)
+        print("=" * 80)
         print("\nNext steps:")
         print("1. Update crew.py to use Gemini for hierarchical mode")
         print("2. Consider hybrid approach: Gemini manager + Ollama workers")
@@ -253,14 +249,14 @@ if __name__ == "__main__":
         print("4. Test with evaluation tasks (all 11 tasks)")
         print("\nSee docs/HIERARCHICAL_MODE_INVESTIGATION.md for implementation guide.")
     else:
-        print("\n" + "="*80)
+        print("\n" + "=" * 80)
         print("📋 FAILED - SEE ERROR ANALYSIS ABOVE")
-        print("="*80)
+        print("=" * 80)
         print("\nIf API key is configured correctly but still failing:")
         print("- Check docs/HIERARCHICAL_MODE_ASSESSMENT.md")
         print("- Consider using sequential mode (100% reliable)")
         print("- Review task descriptions in src/space_hulk_game/config/tasks.yaml")
 
-    print("="*80)
+    print("=" * 80)
 
     sys.exit(0 if success else 1)

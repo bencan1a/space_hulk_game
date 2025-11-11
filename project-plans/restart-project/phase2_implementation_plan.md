@@ -17,40 +17,40 @@ Phase 2 transforms the Space Hulk Game CrewAI implementation from a linear flow 
 ```mermaid
 graph TD
     Start[Game Prompt] --> ND[Narrative Director Agent]
-    
+
     %% Plot Master Foundation Work
     ND -->|Assign Initial Task| PM[Plot Master Agent]
     PM -->|Create Comprehensive Plot Foundation| ND
     ND -->|Evaluate| E1[Evaluate Narrative Foundation]
     E1 -->|Feedback & Approval| PM
     PM -->|Refine Foundation| ND
-    
+
     %% Narrative Structure Development
     ND -->|Assign After Plot Approval| NA[Narrative Architect Agent]
     NA -->|Develop Detailed Narrative Structure| ND
     ND -->|Evaluate| E2[Evaluate Narrative Structure]
     E2 -->|Feedback & Approval| NA
     NA -->|Refine Structure| ND
-    
+
     %% Specialized Work - Only after narrative structure approval
     ND -->|Provide Narrative Context| PS[Puzzle Smith Agent]
     PS -->|Create Context-Integrated Puzzles| ND
     ND -->|Evaluate Against Narrative| E3[Narrative Integration Check: Puzzles]
     E3 -->|Feedback| PS
     PS -->|Revise For Narrative Cohesion| ND
-    
+
     ND -->|Provide Narrative Context| CS[Creative Scribe Agent]
     CS -->|Write Narrative-Driven Scenes| ND
     ND -->|Evaluate Against Narrative| E4[Narrative Integration Check: Scenes]
     E4 -->|Feedback| CS
     CS -->|Revise For Narrative Cohesion| ND
-    
+
     ND -->|Provide Narrative Context| MG[Mechanics Guru Agent]
     MG -->|Design Narrative-Supporting Mechanics| ND
     ND -->|Evaluate Against Narrative| E5[Narrative Integration Check: Mechanics]
     E5 -->|Feedback| MG
     MG -->|Revise For Narrative Cohesion| ND
-    
+
     %% Final Integration
     ND -->|Comprehensive Integration| FI[Final Narrative Integration]
     FI --> End[Cohesive Narrative-Driven Game Content]
@@ -91,22 +91,22 @@ Modify the existing tasks and add new ones to enforce strict sequential dependen
 GenerateOverarchingPlot:
   name: "Generate Comprehensive Narrative Foundation"
   description: >
-    Create a comprehensive narrative foundation for the Space Hulk game. This foundation must be 
-    detailed enough to guide all subsequent development, establishing the setting, key plot points, 
-    themes, tone, and central conflicts. This narrative foundation is the critical first step that 
+    Create a comprehensive narrative foundation for the Space Hulk game. This foundation must be
+    detailed enough to guide all subsequent development, establishing the setting, key plot points,
+    themes, tone, and central conflicts. This narrative foundation is the critical first step that
     all other development will build upon.
   expected_output: >
-    A detailed narrative foundation document that clearly defines the game's setting, core 
-    narrative themes, major plot points, key characters, central conflicts, and narrative 
-    tone. This document must be comprehensive enough to serve as the guiding framework for 
+    A detailed narrative foundation document that clearly defines the game's setting, core
+    narrative themes, major plot points, key characters, central conflicts, and narrative
+    tone. This document must be comprehensive enough to serve as the guiding framework for
     all subsequent development work.
   agent: "PlotMasterAgent"
-  
+
 EvaluateNarrativeFoundation:
   name: "Evaluate Narrative Foundation"
   description: >
     Thoroughly evaluate the narrative foundation to ensure it provides sufficient depth, clarity,
-    and direction for all subsequent development. This is a critical quality gate - subsequent 
+    and direction for all subsequent development. This is a critical quality gate - subsequent
     work cannot proceed until a strong narrative foundation is established.
   expected_output: >
     A comprehensive evaluation of the narrative foundation with specific feedback for improvement.
@@ -126,7 +126,7 @@ CreateNarrativeMap:
     all critical paths, character arcs, decision points, and narrative progression. This
     structure will direct all subsequent content creation by specialists.
   expected_output: >
-    A comprehensive narrative structure that clearly defines all scenes, connections, character 
+    A comprehensive narrative structure that clearly defines all scenes, connections, character
     moments, key decision points, and narrative progression in a structured format that can
     guide specialized development work.
   agent: "NarrativeArchitectAgent"
@@ -139,9 +139,9 @@ CreateNarrativeMap:
 EvaluateNarrativeStructure:
   name: "Evaluate Narrative Structure"
   description: >
-    Thoroughly evaluate the narrative structure to ensure it adequately develops the approved 
-    foundation into an implementable blueprint for all specialized development. This is a 
-    critical quality gate - specialist work cannot fully proceed until the narrative structure 
+    Thoroughly evaluate the narrative structure to ensure it adequately develops the approved
+    foundation into an implementable blueprint for all specialized development. This is a
+    critical quality gate - specialist work cannot fully proceed until the narrative structure
     is approved.
   expected_output: >
     A detailed evaluation of the narrative structure with specific feedback. Include explicit
@@ -158,7 +158,7 @@ DesignArtifactsAndPuzzles:
   name: "Create Narrative-Integrated Puzzles and Artifacts"
   description: >
     Based on the approved narrative structure, design puzzles, artifacts, monsters, and NPCs
-    that directly serve and enhance the established narrative. Each element must have clear 
+    that directly serve and enhance the established narrative. Each element must have clear
     connections to the narrative themes, advance the story in meaningful ways, and maintain
     thematic consistency.
   expected_output: >
@@ -290,7 +290,7 @@ Add methods for the Narrative Director Agent and all new evaluation tasks:
 def NarrativeDirectorAgent(self) -> Agent:
     """
     Returns the NarrativeDirectorAgent definition from agents.yaml.
-    
+
     This agent ensures narrative cohesion across all game elements and
     coordinates the narrative-driven development process.
     """
@@ -388,7 +388,7 @@ sequenceDiagram
     participant YAML as YAML Config
     participant Code as crew.py
     participant Test as Testing
-    
+
     Dev->>YAML: 1. Add NarrativeDirectorAgent to agents.yaml
     Dev->>YAML: 2. Update tasks.yaml with narrative-driven structure
     Dev->>Code: 3. Add NarrativeDirectorAgent method to crew.py

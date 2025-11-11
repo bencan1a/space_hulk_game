@@ -13,7 +13,9 @@ class TestWorkflows(unittest.TestCase):
     def setUp(self):
         """Set up test fixtures."""
         self.workflows_dir = Path(__file__).parent.parent / ".github" / "workflows"
-        self.assertTrue(self.workflows_dir.exists(), f"Workflows directory not found: {self.workflows_dir}")
+        self.assertTrue(
+            self.workflows_dir.exists(), f"Workflows directory not found: {self.workflows_dir}"
+        )
 
     def test_kloc_workflow_is_valid_yaml(self):
         """Test that run-kloc-report.yml is valid YAML."""

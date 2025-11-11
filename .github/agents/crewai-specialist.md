@@ -201,14 +201,14 @@ Purpose: Validate and prepare inputs before crew execution
 @before_kickoff
 def prepare_inputs(self, inputs):
     logger.info(f"Preparing inputs: {inputs}")
-    
+
     # Validate required fields
     if "prompt" not in inputs:
         raise ValueError("Input must contain 'prompt'")
-    
+
     # Add additional data
     inputs["context"] = "Additional context"
-    
+
     return inputs
 ```
 
@@ -220,15 +220,15 @@ Purpose: Process and format output after crew execution
 @after_kickoff
 def process_output(self, output):
     logger.info("Processing output")
-    
+
     # Add metadata
     output.metadata = {
         "processed_at": str(datetime.datetime.now())
     }
-    
+
     # Format output
     output.raw += "\n\n[Processing complete]"
-    
+
     return output
 ```
 
@@ -256,7 +256,7 @@ tasks_path = os.path.join(base_dir, 'config', 'tasks.yaml')
 
 with open(agents_path, 'r') as file:
     agents_config = yaml.safe_load(file)
-    
+
 with open(tasks_path, 'r') as file:
     tasks_config = yaml.safe_load(file)
 ```

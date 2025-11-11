@@ -1,0 +1,56 @@
+```yaml
+narrative_foundation:
+  title: "Space Hulk: Echoes of the Void"
+  setting: "The narrative unfolds within the derelict, cyclopean confines of the 'Goliath's Maw,' a colossal Space Hulk comprising the intermingled husks of starships, asteroid fragments, and long-lost Imperial void stations. Drifting aimlessly through the Segmentum Obscurus, its interior is a labyrinth of pitch-black corridors, collapsing gantries, and oxygen-depleted chambers. Twisted wreckage forms grotesque cathedral-like cavities, illuminated erratically by malfunctioning emergency lights or the glowing spores of alien flora. The air is thick with the scent of ozone, decay, and unidentifiable organic matter. Gravity is sporadic, shifting wildly between sections, creating disorienting zero-g pockets where ancient debris hangs suspended alongside grotesque xenos chitterings. The Goliath's Maw is not merely a setting; it is a character, a vast, hungry entity slowly digesting its contents, a tomb ship sailing the stars."
+  themes:
+    - Survival Against Overwhelming Odds: The core struggle of outnumbered Space Marines against an endless tide of Genestealers.
+    - Loss of Humanity/Descent into Madness: The psychological toll of prolonged exposure to the xenos threat and the claustrophobic environment, forcing difficult moral choices.
+    - The Futility of Heroism: Sacrifices made with little hope for ultimate victory, emphasizing the grimdark nature of the 41st Millennium.
+    - Claustrophobia and Isolation: The crushing psychological impact of narrow corridors, darkness, and being cut off from the Imperium.
+    - Ancient Horrors and Unveiling Truths: Discovering the dark secrets and forgotten tech that lie buried within the Space Hulk, potentially revealing the true origin or purpose of the Genestealer infestation.
+  tone: "Utterly grimdark, claustrophobic, desperate, and suspenseful. The tone emphasizes the constant threat of annihilation, the psychological breakdown of the characters, and the oppressive, inescapable nature of the Space Hulk. Moments of fleeting hope are quickly extinguished by brutal reality. There is a strong sense of cosmic horror, with the Genestealers being an alien, incomprehensible threat. The narrative aims for an emotionally draining and physically taxing experience, mirroring the plight of the Terminators."
+  plot_points:
+    - id: "pp_initial_contact"
+      name: "The Vanguard's Folly"
+      description: "A small, elite detachment of Terminators from the Blood Angels Chapter's Deathwing is dispatched to the 'Goliath's Maw' to investigate a distress beacon – a seemingly impossible signal from a long-lost Imperial Navy vessel. Initial intel suggests a minor Xenos infestation, but the moment they breach the Hulk, they are ambushed and the rescue mission immediately devolves into a desperate fight for survival, revealing the true scale of the Genestealer hoard."
+    - id: "pp_first_objective"
+      name: "The Warp Core Retrieval"
+      description: "Stranded and with limited resources, the Terminators must secure a dormant Warp Core Generator from a section of the Hulk known as the 'Graveyard of Ships'. This core is vital, either to power their critically damaged Thunderhawk gunship for an emergency extraction or to overload sections of the Hulk to create a temporary egress point, allowing them to escape its immediate interior."
+    - id: "pp_unveiled_horror"
+      name: "Whispers of the Hive Mind"
+      description: "During their perilous journey, the squad stumbles upon a forgotten, pre-Imperial xenos bioweapons research facility embedded within the heart of the Hulk. They discover horrific genetic experiments, a proto-Genestealer cult, and evidence suggesting the Goliath's Maw is not just a drifting hulk, but a deliberate, slow-moving 'gene-farm' or a breeding ground designed by a higher Tyranid intelligence, continuously spawning new horrors and drawing in prey."
+    - id: "pp_moral_crossroads"
+      name: "The Sacrifice of the Innocent"
+      description: "The Terminators intercept a broken distress call from a small pocket of long-lost Imperial citizens, trapped deep within the Hulk since its initial formation centuries ago. They are a corrupted, dying community, unknowingly feeding the Genestealer biomass. The squad faces a dire choice: attempt a near-impossible rescue that risks their mission and their lives, or sacrifice these innocent (yet contaminated) souls to preserve their own dwindling hope of containing the threat."
+    - id: "pp_the_brood_nest"
+      name: "Confronting the Patriarch"
+      description: "The path to potential escape or containment leads directly to the primary Genestealer brood nest – a pulsating, bio-luminescent cavern where the Patriarch, the progenitor of the Goliath's Maw's infestation, resides. This climactic battle determines the fate of the mission and the potential future of the surrounding star systems. The Patriarch is not merely a creature but a psychic nexus, connected to a greater, looming threat."
+    - id: "pp_desperate_escape_or_containment"
+      name: "The Last Stand / The Doomed Warning"
+      description: "Depending on player choices and mission success, the final act involves either a desperate, barely successful escape from the collapsing Hulk with critical intelligence, or a valiant last stand to detonatethe entire Goliath's Maw with themselves inside, sending a final, dire warning to the Imperium about the true nature of the threat, but ensuring no one survives."
+  characters:
+    - name: "Brother-Captain Valerius"
+      role: "Squad Leader, Blood Angels Terminator"
+      backstory: "A veteran of countless campaigns against xenos and heretics, Valerius bears the heavy burden of leadership and the Black Rage that lurks within all Blood Angels. He is stoic and unyielding, driven by duty and a fierce loyalty to his brothers. Though capable of immense savagery, he struggles internally with moments of doubt and glimpses of the Chapter's cursed past, seeing parallels in the seemingly endless fight against the alien."
+    - name: "Brother-Sergeant Kaelen"
+      role: "Tactical Specialist, Blood Angels Terminator"
+      backstory: "Kaelen is the pragmatic and strategic mind of the squad, renowned for his calm under pressure and meticulous planning. He views the universe through the lens of probabilities and tactical advantages, a trait honed by years battling insidious enemy forces. He often clashes subtly with Valerius over the balance between strategic withdrawal and heroic sacrifice, and is haunted by a past failure where his tactical advice led to heavy losses."
+    - name: "Brother-Apothecary Tybor"
+      role: "Medic and Lore Keeper, Blood Angels Terminator"
+      backstory: "A grim but essential member, Tybor is responsible for the health and spiritual purity of his brothers. He carries the Narthecium not just for healing, but to harvest the gene-seed of fallen Space Marines, a sacred duty. He possesses extensive knowledge of xenos biology from his Apothecary training, often providing vital tactical insights. He keenly feels the despair of fighting an enemy that seeks to corrupt and consume all life, his faith constantly tested by the horrors he witnesses."
+    - name: "Brother-Heavy Bolter Theron"
+      role: "Heavy Weapons Specialist, Blood Angels Terminator"
+      backstory: "Theron is the squad's immovable wall, wielding his heavy bolter with devastating precision. He is a grim, quiet warrior, his focus absolute in the face of the enemy. Beneath his stoic exterior lies a deep, unspoken fear of the Genestealers, born from witnessing their insidious predation first-hand during his early campaigns. He primarily communicates through the roar of his weapon, but his loyalty and resolve are unwavering."
+    - name: "The Brood Lord's Voice (The Patriarch)"
+      role: "Primary Antagonist (indirect and direct)"
+      backstory: "More than just a creature, the Patriarch of the Goliath's Maw is an ancient, potent psychic entity, the progenitor of its vast Genestealer infestation. It has been gestating within the Hulk for centuries, slowly expanding its dominion, corrupting remnants of human technology and biomass into its own horrific ecosystem. It possesses an intelligence far beyond that of a mere beast, acting as a direct conduit to a nascent Hive Mind, subtly manipulating its evolving environment and preying on the hopes and fears of its victims."
+  conflicts:
+    - type: "Man vs. Xenos (Genestealer Bio-Threat)"
+      description: "The primary external conflict: the squad's desperate struggle against the overwhelming numbers, predatory speed, and insidious biological adaptations of the Genestealer infestation within the Space Hulk. This includes direct combat, avoiding detection, and navigating contaminated environments."
+    - type: "Man vs. Environment (The Space Hulk)"
+      description: "The Goliath's Maw itself is a formidable adversary. This includes navigating treacherous terrain, collapsing structures, unpredictable gravity shifts, environmental hazards (toxic gases, vacuum), and resource scarcity (ammunition, power, life support). The Hulk actively works against the player, forcing constant adaptation."
+    - type: "Man vs. Self (Psychological Toll & Internal Conflict)"
+      description: "The internal struggles of the Terminators: battling the creeping madness born from claustrophobia, isolation, the overwhelming horror of the xenos, and the potential onset of the Black Rage or Red Thirst. This also encompasses moral dilemmas, the strain of leadership, and the psychological impact of constant, brutal warfare and inevitable losses."
+    - type: "Man vs. Faith/Ideology (Grimdark Reality)"
+      description: "The conflict between the Space Marines' unwavering faith in the Imperium and the grim, often hopeless reality of their mission. Questioning the meaning of sacrifice, the limits of Imperial power against such an alien threat, and understanding that not every enemy can be simply 'cleansed' – some must be contained, or escape at any cost."
+```

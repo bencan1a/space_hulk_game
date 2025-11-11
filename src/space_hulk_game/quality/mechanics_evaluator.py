@@ -67,20 +67,20 @@ class MechanicsEvaluator(QualityEvaluator):
 
             # Build details dictionary
             details = {
-                'total_systems': metrics.total_systems,
-                'systems_with_rules': metrics.systems_with_rules,
-                'has_combat_system': metrics.has_combat_system,
-                'has_movement_system': metrics.has_movement_system,
-                'has_inventory_system': metrics.has_inventory_system,
-                'has_progression_system': metrics.has_progression_system,
-                'completeness_percentage': metrics.completeness_percentage,
-                'average_rule_clarity': metrics.average_rule_clarity,
-                'has_balance_notes': metrics.has_balance_notes,
-                'total_word_count': 0,  # Can be computed if needed
-                'systems_without_descriptions': [],
-                'unclear_systems': [],
-                'failures': failures,
-                'threshold': self.pass_threshold
+                "total_systems": metrics.total_systems,
+                "systems_with_rules": metrics.systems_with_rules,
+                "has_combat_system": metrics.has_combat_system,
+                "has_movement_system": metrics.has_movement_system,
+                "has_inventory_system": metrics.has_inventory_system,
+                "has_progression_system": metrics.has_progression_system,
+                "completeness_percentage": metrics.completeness_percentage,
+                "average_rule_clarity": metrics.average_rule_clarity,
+                "has_balance_notes": metrics.has_balance_notes,
+                "total_word_count": 0,  # Can be computed if needed
+                "systems_without_descriptions": [],
+                "unclear_systems": [],
+                "failures": failures,
+                "threshold": self.pass_threshold,
             }
 
             logger.info(
@@ -95,16 +95,16 @@ class MechanicsEvaluator(QualityEvaluator):
             return self._create_score(
                 score=0.0,
                 passed=False,
-                feedback=f"Failed to parse mechanics content: {str(e)}",
-                details={'error': str(e)}
+                feedback=f"Failed to parse mechanics content: {e!s}",
+                details={"error": str(e)},
             )
         except Exception as e:
             logger.exception(f"Unexpected error evaluating mechanics: {e}")
             return self._create_score(
                 score=0.0,
                 passed=False,
-                feedback=f"Unexpected error during evaluation: {str(e)}",
-                details={'error': str(e)}
+                feedback=f"Unexpected error during evaluation: {e!s}",
+                details={"error": str(e)},
             )
 
     def generate_detailed_feedback(self, content: str) -> str:
@@ -134,7 +134,7 @@ class MechanicsEvaluator(QualityEvaluator):
 
         # Add specific findings
         details = result.details
-        failures = details.get('failures', [])
+        failures = details.get("failures", [])
 
         if failures:
             lines.append("Issues to address:")
@@ -150,17 +150,17 @@ class MechanicsEvaluator(QualityEvaluator):
 
         # Add positive feedback
         lines.append("")
-        if details.get('has_combat_system'):
+        if details.get("has_combat_system"):
             lines.append("✓ Combat system described")
-        if details.get('has_movement_system'):
+        if details.get("has_movement_system"):
             lines.append("✓ Movement system described")
-        if details.get('has_inventory_system'):
+        if details.get("has_inventory_system"):
             lines.append("✓ Inventory system described")
-        if details.get('has_progression_system'):
+        if details.get("has_progression_system"):
             lines.append("✓ Progression system described")
-        if details.get('average_rule_clarity', 0) >= 7.0:
+        if details.get("average_rule_clarity", 0) >= 7.0:
             lines.append("✓ Rules are clear and well-explained")
-        if details.get('has_balance_notes'):
+        if details.get("has_balance_notes"):
             lines.append("✓ Difficulty/balance discussed")
 
         return "\n".join(lines)

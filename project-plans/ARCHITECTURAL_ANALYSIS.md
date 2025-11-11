@@ -43,7 +43,7 @@ Game Prompt → Plot Foundation → Narrative Structure → Specialized Content 
   - **PuzzleSmithAgent**: Designs puzzles, artifacts, NPCs, monsters
   - **CreativeScribeAgent**: Writes scene descriptions and dialogue
   - **MechanicsGuruAgent**: Defines game mechanics and systems
-  
+
 - Hierarchical process flow with quality gates
 - Task dependencies ensuring proper execution order
 - Context sharing through task dependencies
@@ -263,7 +263,7 @@ Memory Pool:
 
 ```
 Complex Tasks (Plot, Evaluation): Larger/Cloud models
-Medium Tasks (Narrative Mapping): Mid-size models  
+Medium Tasks (Narrative Mapping): Mid-size models
 Simple Tasks (Scene writing): Smaller/Local models
 ```
 
@@ -432,7 +432,7 @@ Simple Tasks (Scene writing): Smaller/Local models
 
 #### ✅ DO: Continue Current Direction
 - Keep CrewAI framework
-- Keep hierarchical architecture  
+- Keep hierarchical architecture
 - Keep Ollama for local execution
 - Complete planned phases 3-5
 - Add game engine for validation

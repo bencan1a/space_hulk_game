@@ -19,20 +19,20 @@ required_elements:
     - "Multiple areas with interconnected clues"
     - "Evidence of events that need reconstruction"
     - "Technological mysteries requiring investigation"
-  
+
   narrative_beats:
     - "Discovery of initial mystery or anomaly"
     - "Gathering clues from different sources"
     - "False leads and misdirection"
     - "Breakthrough revelation connecting clues"
     - "Final confrontation with truth"
-  
+
   investigation_elements:
     - "Physical evidence to examine"
     - "Data logs and recordings to analyze"
     - "Witness testimony (NPCs, servitors, AI)"
     - "Environmental storytelling through scene details"
-  
+
   mandatory_components:
     - "At least 5 distinct clues leading to solution"
     - "One red herring or false lead"
@@ -47,13 +47,13 @@ tone:
     - "Intriguing"
     - "Revelatory"
     - "Tense"
-  
+
   avoid:
     - "Arbitrary puzzle solutions without logic"
     - "Clues that appear without context"
     - "Simple 'find the key' mechanics"
     - "Solutions that require metagame knowledge"
-  
+
   emphasis:
     - "Logical deduction from available evidence"
     - "Multiple clues pointing to same conclusion"
@@ -71,7 +71,7 @@ example_scenes:
       - "Dust settling on ancient uniforms"
       - "Blinking console lights in rhythm"
       - "Recycled air, stale but breathable"
-  
+
   middle:
     location: "Data archive with corrupted but recoverable logs"
     description: "The archive holds terabytes of ship data, but something has systematically corrupted specific files. The pattern of corruption is deliberate - someone wanted certain information hidden. Your tech-priest identifies the deletion timestamps: all within the same hour, centuries ago. What were they trying to hide?"
@@ -81,7 +81,7 @@ example_scenes:
       - "Rhythmic clicks of ancient storage drives"
       - "Ozone smell from overworked cogitators"
       - "Your own focused concentration"
-  
+
   climax:
     location: "Hidden chamber containing the truth"
     description: "Behind the false bulkhead lies a chamber no ship blueprint shows. Inside: evidence of what really happened. The pieces finally fit. The crew didn't die - they chose death rather than live with what they'd discovered. And now you know it too. The question is: will you make the same choice?"
@@ -100,14 +100,14 @@ example_puzzles:
     solution_hint: "Compare all sources, identify impossible claims, reconstruct true timeline"
     difficulty: "medium"
     investigation_element: "Logical analysis of conflicting evidence"
-  
+
   technical:
     name: "The Encrypted Archive"
     description: "Critical data is encrypted with a cipher that requires understanding of ship's history. Clues to the key are scattered across the hulk in the form of crew personal effects, ship name variations, and historical references."
     solution_hint: "Gather background information, connect historical dots, synthesize the key"
     difficulty: "high"
     investigation_element: "Information gathering across multiple locations"
-  
+
   forensic:
     name: "The Crime Scene"
     description: "A scene of apparent conflict, but something doesn't add up. Blast patterns inconsistent with weapon types. Blood spatter suggests impossible movements. Bodies arranged unnaturally. What really happened here requires careful observation and reconstruction."
@@ -122,7 +122,7 @@ character_suggestions:
     - "Inquisitorial agent trained in detection"
     - "Ship's detective following cold case"
     - "Rogue trader seeking lost treasure/knowledge"
-  
+
   npc_types:
     - "Unreliable witness with partial information"
     - "AI with fragmented memory banks"
@@ -136,14 +136,14 @@ story_structure:
     - "Initial survey reveals anomalies"
     - "First clues discovered"
     - "Stakes established - why solving this matters"
-  
+
   act_2_investigation:
     - "Multiple investigation threads open"
     - "Clues begin connecting"
     - "False leads identified and discarded"
     - "Breakthrough moment reveals new angle"
     - "Resistance or obstacles to investigation appear"
-  
+
   act_3_revelation:
     - "Final pieces fall into place"
     - "Truth is revealed - for better or worse"
@@ -158,19 +158,19 @@ investigation_framework:
       - "Environmental damage patterns"
       - "Biological samples or remains"
       - "Technological artifacts"
-    
+
     documentary_evidence:
       - "Ship logs and crew journals"
       - "Encoded messages and transmissions"
       - "Surveillance footage"
       - "Technical schematics and modifications"
-    
+
     testimonial_evidence:
       - "Survivor accounts (if any)"
       - "AI or servitor recordings"
       - "Intercepted communications"
       - "Psychic impressions (if appropriate)"
-  
+
   clue_placement_guidelines:
     - "Place clues in logical locations based on story"
     - "Some clues require skill/tools to access (Tech-Use, etc.)"
@@ -185,13 +185,13 @@ deduction_mechanics:
     spatial: "Location of evidence reveals movement or intent"
     causal: "Understanding why leads to understanding who"
     relational: "Connections between people reveal motives"
-  
+
   revelation_triggers:
     - "Collecting specific number of clues (e.g., 3 of 5)"
     - "Examining clues in certain order"
     - "Combining clues to form new insight"
     - "Accessing restricted information with gained knowledge"
-  
+
   player_agency:
     - "Players can pursue leads in any order"
     - "Multiple paths to same conclusion"
@@ -207,7 +207,7 @@ mystery_categories:
       - "Alibi verification through evidence"
       - "Hidden relationships revealed"
       - "Surprising but logical revelation"
-  
+
   howdunit:
     description: "Determine method used in impossible situation"
     elements:
@@ -215,7 +215,7 @@ mystery_categories:
       - "Technical or scientific explanation"
       - "Hidden mechanism or method"
       - "Demonstration of solution"
-  
+
   whydunit:
     description: "Uncover motive behind actions"
     elements:
@@ -223,7 +223,7 @@ mystery_categories:
       - "Deep backstory revelation"
       - "Psychological or ideological driver"
       - "Understanding changes perspective"
-  
+
   whatdunit:
     description: "Discover what actually occurred"
     elements:
@@ -241,7 +241,7 @@ mechanics_suggestions:
       - "Awareness: noticing environmental details"
       - "Logic/Intelligence: connecting clues"
       - "Medicae: analyzing biological evidence"
-  
+
   clue_journal:
     description: "Track discovered information and theories"
     features:
@@ -249,7 +249,7 @@ mechanics_suggestions:
       - "Player notes and theories"
       - "Connection mapping between clues"
       - "Timeline reconstruction"
-  
+
   deduction_challenges:
     description: "Mini-games or prompts for key revelations"
     types:
@@ -257,7 +257,7 @@ mechanics_suggestions:
       - "Match suspects to evidence"
       - "Identify contradictions in statements"
       - "Reconstruct scene from clues"
-  
+
   information_gathering:
     description: "Multiple methods to acquire clues"
     methods:
@@ -275,7 +275,7 @@ ending_guidelines:
       - "Logical chain of deduction demonstrated"
       - "Culprit/cause identified with evidence"
       - "Consequences of revelation addressed"
-  
+
   partial:
     description: "Main mystery solved but questions remain"
     requirements:
@@ -283,7 +283,7 @@ ending_guidelines:
       - "Some loose ends or uncertainties"
       - "Hints at larger conspiracy or mystery"
       - "Room for sequel or expansion"
-  
+
   unsolved:
     description: "Truth remains elusive or unknowable"
     requirements:
@@ -317,17 +317,17 @@ investigation_templates:
     setup: "Ancient crime or incident requiring new investigation"
     complications: "Old evidence, faded memories, deliberate cover-up"
     payoff: "Historical truth impacts present situation"
-  
+
   conspiracy:
     setup: "Evidence of organized deception or hidden agenda"
     complications: "Active opposition, false trails, paranoia"
     payoff: "Exposure of conspiracy and its architects"
-  
+
   archaeological:
     setup: "Uncovering past through relics and remains"
     complications: "Incomplete evidence, cultural gaps, dangerous discoveries"
     payoff: "Understanding of what happened and why it matters"
-  
+
   scientific:
     setup: "Unexplained phenomenon requiring investigation"
     complications: "Limited understanding, dangerous testing, ethical concerns"

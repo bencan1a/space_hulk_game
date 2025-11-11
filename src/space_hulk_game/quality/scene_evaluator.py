@@ -68,17 +68,19 @@ class SceneEvaluator(QualityEvaluator):
 
             # Build details dictionary
             details = {
-                'total_scenes': metrics.total_scenes,
-                'scenes_with_vivid_descriptions': metrics.scenes_with_vivid_descriptions,
-                'scenes_with_dialogue': metrics.scenes_with_dialogue,
-                'average_description_length': metrics.average_description_length,
-                'tone_consistency_score': metrics.tone_consistency_score,
-                'has_sensory_details': metrics.has_sensory_details,
-                'total_word_count': metrics.average_description_length * metrics.total_scenes if metrics.total_scenes > 0 else 0,
-                'scenes_without_descriptions': [],  # Can be computed if needed
-                'scenes_with_short_descriptions': [],
-                'failures': failures,
-                'threshold': self.pass_threshold
+                "total_scenes": metrics.total_scenes,
+                "scenes_with_vivid_descriptions": metrics.scenes_with_vivid_descriptions,
+                "scenes_with_dialogue": metrics.scenes_with_dialogue,
+                "average_description_length": metrics.average_description_length,
+                "tone_consistency_score": metrics.tone_consistency_score,
+                "has_sensory_details": metrics.has_sensory_details,
+                "total_word_count": metrics.average_description_length * metrics.total_scenes
+                if metrics.total_scenes > 0
+                else 0,
+                "scenes_without_descriptions": [],  # Can be computed if needed
+                "scenes_with_short_descriptions": [],
+                "failures": failures,
+                "threshold": self.pass_threshold,
             }
 
             logger.info(
@@ -93,16 +95,16 @@ class SceneEvaluator(QualityEvaluator):
             return self._create_score(
                 score=0.0,
                 passed=False,
-                feedback=f"Failed to parse scene content: {str(e)}",
-                details={'error': str(e)}
+                feedback=f"Failed to parse scene content: {e!s}",
+                details={"error": str(e)},
             )
         except Exception as e:
             logger.exception(f"Unexpected error evaluating scene: {e}")
             return self._create_score(
                 score=0.0,
                 passed=False,
-                feedback=f"Unexpected error during evaluation: {str(e)}",
-                details={'error': str(e)}
+                feedback=f"Unexpected error during evaluation: {e!s}",
+                details={"error": str(e)},
             )
 
     def generate_detailed_feedback(self, content: str) -> str:
@@ -132,7 +134,7 @@ class SceneEvaluator(QualityEvaluator):
 
         # Add specific findings
         details = result.details
-        failures = details.get('failures', [])
+        failures = details.get("failures", [])
 
         if failures:
             lines.append("Issues to address:")
@@ -143,19 +145,23 @@ class SceneEvaluator(QualityEvaluator):
         # Add content statistics
         lines.append(f"Scene count: {details.get('total_scenes', 0)} (min: 5)")
         lines.append(f"Total word count: {details.get('total_word_count', 0):.0f}")
-        lines.append(f"Average description length: {details.get('average_description_length', 0):.0f} words")
-        lines.append(f"Scenes with vivid descriptions: {details.get('scenes_with_vivid_descriptions', 0)}")
+        lines.append(
+            f"Average description length: {details.get('average_description_length', 0):.0f} words"
+        )
+        lines.append(
+            f"Scenes with vivid descriptions: {details.get('scenes_with_vivid_descriptions', 0)}"
+        )
         lines.append(f"Scenes with dialogue: {details.get('scenes_with_dialogue', 0)}")
 
         # Add positive feedback
         lines.append("")
-        if details.get('scenes_with_vivid_descriptions', 0) > 0:
+        if details.get("scenes_with_vivid_descriptions", 0) > 0:
             lines.append("✓ Vivid, detailed descriptions present")
-        if details.get('scenes_with_dialogue', 0) > 0:
+        if details.get("scenes_with_dialogue", 0) > 0:
             lines.append("✓ Dialogue present where appropriate")
-        if details.get('tone_consistency_score', 0) >= 7.0:
+        if details.get("tone_consistency_score", 0) >= 7.0:
             lines.append("✓ Consistent tone throughout")
-        if details.get('has_sensory_details'):
+        if details.get("has_sensory_details"):
             lines.append("✓ Rich sensory details included")
 
         return "\n".join(lines)

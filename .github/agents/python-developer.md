@@ -88,14 +88,14 @@ Example:
 def create_agent(config: Dict[str, str], llm: LLM) -> Agent:
     """
     Create a CrewAI agent from configuration.
-    
+
     Args:
         config: Dictionary containing agent configuration (role, goal, backstory)
         llm: LLM instance to use for the agent
-        
+
     Returns:
         Configured Agent instance
-        
+
     Example:
         >>> config = {"role": "Writer", "goal": "Write stories"}
         >>> agent = create_agent(config, my_llm)
@@ -170,7 +170,7 @@ class TestSpaceHulkGame(unittest.TestCase):
     def test_agent_creation(self):
         # Test agent is created correctly
         pass
-    
+
     def test_error_handling(self):
         # Test error handling works
         pass

@@ -21,15 +21,15 @@ jobs:
   run-kloc-report:
     name: Generate KLOC Report
     runs-on: ubuntu-latest
-    
+
     permissions:
       contents: read
       pull-requests: write  # Needed to post comments
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -44,7 +44,7 @@ jobs:
         run: |
           .venv/bin/python -m pip install requests
           echo "✅ Dependencies installed in virtual environment"
-      
+
       - name: Run KLOC report script
         id: run_kloc
         timeout-minutes: 360  # 6 hours max (GitHub Actions default)
@@ -53,47 +53,47 @@ jobs:
         run: |
           echo "🚀 Running KLOC report for user bencan1a..."
           echo "📅 Run timestamp: $(date -Iseconds)"
-          
+
           # Build the command with unbuffered output (using venv python)
           # Default to specific repos for faster execution
           CMD=".venv/bin/python -u tools/kloc-report.py --user bencan1a --verbose --repos CalendarBot space_hulk_game Azahar 3dsconv Python-template"
-          
+
           # Add date range if provided
           if [ -n "${{ inputs.since_date }}" ]; then
             CMD="$CMD --since ${{ inputs.since_date }}"
           fi
-          
+
           if [ -n "${{ inputs.until_date }}" ]; then
             CMD="$CMD --until ${{ inputs.until_date }}"
           fi
-          
+
           echo "📋 Command: $CMD"
-          
+
           # Run the script and capture output (unbuffered)
           $CMD 2>&1 | tee kloc_output.log
-          
+
           # Check if script succeeded
           SCRIPT_EXIT=${PIPESTATUS[0]}
           if [ $SCRIPT_EXIT -ne 0 ]; then
             echo "❌ KLOC report failed with exit code $SCRIPT_EXIT"
             exit $SCRIPT_EXIT
           fi
-          
+
           echo "✅ KLOC report completed"
           echo "run_timestamp=$(date +%Y%m%d_%H%M%S)" >> $GITHUB_OUTPUT
-      
+
       - name: Display generated CSVs
         if: always()
         run: |
           echo "📊 Generated CSV files:"
           ls -lh *.csv 2>/dev/null || echo "No CSV files found"
-          
+
           if [ -f kloc_by_repo.csv ]; then
             echo ""
             echo "📄 Per-repo summary (first 20 lines):"
             head -n 20 kloc_by_repo.csv
           fi
-      
+
       - name: Upload KLOC report artifacts
         if: always()
         uses: actions/upload-artifact@v4
@@ -105,46 +105,46 @@ jobs:
             kloc_output.log
           retention-days: 90
           if-no-files-found: warn
-      
+
       - name: Create report summary
         if: always()
         id: summary
         run: |
           cat > kloc_summary.md << EOF
           # KLOC Report Summary
-          
+
           **Timestamp**: $(date -Iseconds)
           **User**: bencan1a
           **Workflow Run**: ${{ github.run_number }}
-          
+
           ## Configuration
           EOF
-          
+
           if [ -n "${{ inputs.since_date }}" ]; then
             echo "- **Since**: ${{ inputs.since_date }}" >> kloc_summary.md
           else
             echo "- **Since**: Last Sunday (default)" >> kloc_summary.md
           fi
-          
+
           if [ -n "${{ inputs.until_date }}" ]; then
             echo "- **Until**: ${{ inputs.until_date }}" >> kloc_summary.md
           else
             echo "- **Until**: Today (default)" >> kloc_summary.md
           fi
-          
+
           echo "" >> kloc_summary.md
           echo "## Summary Statistics" >> kloc_summary.md
           echo "" >> kloc_summary.md
           echo "\`\`\`" >> kloc_summary.md
-          
+
           # Extract summary from log
           if [ -f kloc_output.log ]; then
             grep -A 10 "=== Summary ===" kloc_output.log >> kloc_summary.md || echo "Summary not found in log" >> kloc_summary.md
           fi
-          
+
           echo "\`\`\`" >> kloc_summary.md
           echo "" >> kloc_summary.md
-          
+
           if [ -f kloc_by_repo.csv ]; then
             echo "## Top 10 Repositories by Churn" >> kloc_summary.md
             echo "" >> kloc_summary.md
@@ -152,20 +152,20 @@ jobs:
             head -n 11 kloc_by_repo.csv >> kloc_summary.md
             echo "\`\`\`" >> kloc_summary.md
           fi
-          
+
           echo "" >> kloc_summary.md
           echo "## Artifacts" >> kloc_summary.md
           echo "- 📦 Full report files: \`kloc-report-${{ steps.run_kloc.outputs.run_timestamp }}\`" >> kloc_summary.md
           echo "- 📊 Per-file CSV: \`kloc_files.csv\`" >> kloc_summary.md
           echo "- 📈 Per-repo CSV: \`kloc_by_repo.csv\`" >> kloc_summary.md
-          
+
           cat kloc_summary.md
-          
+
           # Save summary for PR comment
           echo "SUMMARY<<EOFMARKER" >> $GITHUB_OUTPUT
           cat kloc_summary.md >> $GITHUB_OUTPUT
           echo "EOFMARKER" >> $GITHUB_OUTPUT
-      
+
       - name: Post comment to PR
         if: inputs.pr_number != ''
         uses: actions/github-script@v7
@@ -173,14 +173,14 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const summary = `${{ steps.summary.outputs.SUMMARY }}`;
-            
+
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: ${{ inputs.pr_number }},
               body: summary
             });
-      
+
       - name: Upload summary
         if: always()
         uses: actions/upload-artifact@v4

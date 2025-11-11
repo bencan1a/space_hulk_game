@@ -81,7 +81,7 @@ from crewai import LLM, Agent, Crew, Process, Task
 from crewai.project import CrewBase, after_kickoff, agent, before_kickoff, crew, task
 
 # Configure logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
 
 
@@ -117,7 +117,7 @@ class SpaceHulkGame:
             "provider": "mem0",
             "config": {
                 "user_id": "space_hulk_user"  # User identifier for mem0
-            }
+            },
         }
         # Will be used in the crew configuration
         self.shared_memory = None
@@ -132,17 +132,11 @@ class SpaceHulkGame:
         if openrouter_key and "openrouter" in openai_model:
             # Use OpenRouter
             logger.info(f"Using OpenRouter with model: {openai_model}")
-            self.llm = LLM(
-                model=openai_model,
-                api_key=openrouter_key
-            )
+            self.llm = LLM(model=openai_model, api_key=openrouter_key)
         else:
             # Use Ollama (default)
             logger.info("Using Ollama with model: ollama/qwen2.5")
-            self.llm = LLM(
-                model="ollama/qwen2.5",
-                base_url="http://localhost:11434"
-            )
+            self.llm = LLM(model="ollama/qwen2.5", base_url="http://localhost:11434")
 
         # Determine the base directory for relative paths
         base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -155,7 +149,7 @@ class SpaceHulkGame:
                 self.agents_config = yaml.safe_load(file)
             logger.info(f"Loaded agents: {list(self.agents_config.keys())}")
         except Exception as e:
-            logger.error(f"Error loading agents config: {str(e)}")
+            logger.error(f"Error loading agents config: {e!s}")
             raise
 
         # Load tasks configuration
@@ -166,7 +160,7 @@ class SpaceHulkGame:
                 self.tasks_config = yaml.safe_load(file)
             logger.info(f"Loaded tasks: {list(self.tasks_config.keys())}")
         except Exception as e:
-            logger.error(f"Error loading tasks config: {str(e)}")
+            logger.error(f"Error loading tasks config: {e!s}")
             raise
 
     @before_kickoff
@@ -193,14 +187,18 @@ class SpaceHulkGame:
             if "prompt" not in inputs:
                 logger.warning("No 'prompt' or 'game' key found in inputs")
                 # Use default instead of raising error to allow testing
-                inputs["prompt"] = "A mysterious derelict space hulk drifts in the void, its corridors dark and silent."
+                inputs[
+                    "prompt"
+                ] = "A mysterious derelict space hulk drifts in the void, its corridors dark and silent."
                 logger.info(f"Using default prompt: {inputs['prompt']}")
 
             # Load planning template if template hint detected in prompt (Chunk 3.4)
             template_context = self._load_planning_template(inputs.get("prompt", ""))
             if template_context:
                 inputs["planning_template"] = template_context
-                logger.info(f"Loaded planning template: {template_context.get('template_name', 'unknown')}")
+                logger.info(
+                    f"Loaded planning template: {template_context.get('template_name', 'unknown')}"
+                )
 
             # Add context for all agents
             inputs["additional_data"] = "Space Hulk game context for all agents."
@@ -214,7 +212,7 @@ class SpaceHulkGame:
 
         except Exception as e:
             # Log error with full context
-            logger.error(f"Error in prepare_inputs: {str(e)}", exc_info=True)
+            logger.error(f"Error in prepare_inputs: {e!s}", exc_info=True)
 
             # Provide recovery with defaults
             default_inputs = {
@@ -222,7 +220,7 @@ class SpaceHulkGame:
                 "additional_data": "Space Hulk game context for all agents.",
                 "_timestamp": str(datetime.datetime.now()),
                 "_error_recovery": True,
-                "_original_error": str(e)
+                "_original_error": str(e),
             }
             logger.warning(f"Recovering with default inputs: {default_inputs}")
             return default_inputs
@@ -258,10 +256,43 @@ class SpaceHulkGame:
 
             # Define template detection keywords
             template_keywords = {
-                "space_horror": ["horror", "scary", "terrifying", "dread", "fear", "nightmare", "corruption"],
-                "mystery_investigation": ["mystery", "investigation", "investigate", "detective", "clue", "solve", "evidence", "discover"],
-                "survival_escape": ["survival", "escape", "desperate", "resource", "trapped", "flee", "running"],
-                "combat_focused": ["combat", "battle", "tactical", "squad", "fight", "warrior", "assault"]
+                "space_horror": [
+                    "horror",
+                    "scary",
+                    "terrifying",
+                    "dread",
+                    "fear",
+                    "nightmare",
+                    "corruption",
+                ],
+                "mystery_investigation": [
+                    "mystery",
+                    "investigation",
+                    "investigate",
+                    "detective",
+                    "clue",
+                    "solve",
+                    "evidence",
+                    "discover",
+                ],
+                "survival_escape": [
+                    "survival",
+                    "escape",
+                    "desperate",
+                    "resource",
+                    "trapped",
+                    "flee",
+                    "running",
+                ],
+                "combat_focused": [
+                    "combat",
+                    "battle",
+                    "tactical",
+                    "squad",
+                    "fight",
+                    "warrior",
+                    "assault",
+                ],
             }
 
             # Check for template keywords in prompt
@@ -289,7 +320,7 @@ class SpaceHulkGame:
                 return {}
 
             # Load template YAML file
-            with open(template_path, encoding='utf-8') as f:
+            with open(template_path, encoding="utf-8") as f:
                 template_content = yaml.safe_load(f)
 
             # Validate that loaded content is a dictionary
@@ -298,7 +329,7 @@ class SpaceHulkGame:
                 return {}
 
             # Validate required fields in template
-            required_fields = ['template_name', 'template_version', 'description']
+            required_fields = ["template_name", "template_version", "description"]
             if not all(field in template_content for field in required_fields):
                 logger.warning(f"Template missing required fields: {template_path}")
                 return {}
@@ -310,7 +341,7 @@ class SpaceHulkGame:
 
         except Exception as e:
             # Don't fail the entire process if template loading fails
-            logger.warning(f"Error loading planning template: {str(e)}", exc_info=True)
+            logger.warning(f"Error loading planning template: {e!s}", exc_info=True)
             return {}
 
     def handle_task_failure(self, task, exception):
@@ -318,7 +349,7 @@ class SpaceHulkGame:
         Handle task execution failures with appropriate recovery mechanisms.
         Provides task-specific fallback content to allow the process to continue.
         """
-        error_message = f"Error executing task '{task.name}': {str(exception)}"
+        error_message = f"Error executing task '{task.name}': {exception!s}"
         print(error_message)
 
         # Task-specific recovery mechanisms
@@ -330,12 +361,12 @@ class SpaceHulkGame:
                     "setting": "Derelict space vessel",
                     "main_branches": [
                         {"path": "Exploration", "description": "Explore the vessel cautiously"},
-                        {"path": "Combat", "description": "Fight through hostile entities"}
+                        {"path": "Combat", "description": "Fight through hostile entities"},
                     ],
                     "endings": [
                         {"name": "Escape", "description": "Successfully escape the vessel"},
-                        {"name": "Trapped", "description": "Become trapped in the vessel"}
-                    ]
+                        {"name": "Trapped", "description": "Become trapped in the vessel"},
+                    ],
                 }
             }
         elif task.name == "Create Narrative Map":
@@ -347,25 +378,25 @@ class SpaceHulkGame:
                         "entrance": {
                             "description": "The entrance to the derelict vessel",
                             "connections": ["corridor", "control_room"],
-                            "items": []
+                            "items": [],
                         },
                         "corridor": {
                             "description": "A long, dark corridor",
                             "connections": ["entrance", "engine_room"],
-                            "items": ["flashlight"]
+                            "items": ["flashlight"],
                         },
                         "control_room": {
                             "description": "The ship's control room",
                             "connections": ["entrance"],
-                            "items": ["keycard"]
+                            "items": ["keycard"],
                         },
                         "engine_room": {
                             "description": "The ship's engine room",
                             "connections": ["corridor"],
                             "items": ["tool_kit"],
-                            "requires": "keycard"
-                        }
-                    }
+                            "requires": "keycard",
+                        },
+                    },
                 }
             }
         elif task.name == "Design Artifacts, Puzzles, Monsters, and NPCs":
@@ -377,30 +408,24 @@ class SpaceHulkGame:
                             "name": "Engine Repair",
                             "description": "Repair the engine to power up the ship",
                             "requires": ["tool_kit"],
-                            "solution": "Use the tool kit on the engine"
+                            "solution": "Use the tool kit on the engine",
                         }
                     ],
                     "artifacts": [
                         {
                             "name": "flashlight",
-                            "description": "A basic flashlight to illuminate dark areas"
+                            "description": "A basic flashlight to illuminate dark areas",
                         },
-                        {
-                            "name": "keycard",
-                            "description": "Grants access to restricted areas"
-                        },
-                        {
-                            "name": "tool_kit",
-                            "description": "Tools for repairing ship systems"
-                        }
+                        {"name": "keycard", "description": "Grants access to restricted areas"},
+                        {"name": "tool_kit", "description": "Tools for repairing ship systems"},
                     ],
                     "monsters": [
                         {
                             "name": "Shadow Lurker",
                             "description": "A creature that lurks in the darkness",
-                            "location": "corridor"
+                            "location": "corridor",
                         }
-                    ]
+                    ],
                 }
             }
         elif task.name == "Write Scene Descriptions and Dialogue":
@@ -409,12 +434,12 @@ class SpaceHulkGame:
                 "scene_texts": {
                     "entrance": {
                         "description": "The massive entrance hatch creaks open, revealing a cavernous docking bay. The air is stale and cold, carrying the metallic scent of ancient machinery. Emergency lights flicker weakly, casting long shadows across abandoned cargo containers.",
-                        "examination": "The docking bay shows signs of a hasty evacuation. Cargo containers lie scattered, their contents spilled across the floor. Most of the escape pods are missing from their berths."
+                        "examination": "The docking bay shows signs of a hasty evacuation. Cargo containers lie scattered, their contents spilled across the floor. Most of the escape pods are missing from their berths.",
                     },
                     "corridor": {
                         "description": "A long, narrow corridor stretches before you, its metal walls scarred and dented. The overhead lights flicker erratically, plunging sections into momentary darkness. Something has clearly been dragged along the floor, leaving dark streaks.",
-                        "examination": "The damage to the walls appears to be from both weapons fire and something with tremendous strength. There are claw marks gouged into the metal in several places."
-                    }
+                        "examination": "The damage to the walls appears to be from both weapons fire and something with tremendous strength. There are claw marks gouged into the metal in several places.",
+                    },
                 }
             }
         elif task.name == "Create Game Mechanics PRD":
@@ -425,19 +450,19 @@ class SpaceHulkGame:
                     "game_systems": {
                         "exploration": {
                             "movement": "Players navigate using cardinal directions (north, south, east, west) or specific exits.",
-                            "perception": "A 'look' or 'examine' command reveals additional details about the environment."
+                            "perception": "A 'look' or 'examine' command reveals additional details about the environment.",
                         },
                         "inventory": {
                             "collection": "Items can be picked up with 'take [item]'",
                             "management": "Players can check inventory with 'inventory' command",
-                            "capacity": "Limited to 10 items"
+                            "capacity": "Limited to 10 items",
                         },
                         "combat": {
                             "initiative": "Player acts first, then enemies",
                             "actions": ["attack", "defend", "use item", "flee"],
-                            "damage_types": ["physical", "energy"]
-                        }
-                    }
+                            "damage_types": ["physical", "energy"],
+                        },
+                    },
                 }
             }
 
@@ -456,7 +481,7 @@ class SpaceHulkGame:
             "game-config/narrative_map.yaml",
             "game-config/puzzle_design.yaml",
             "game-config/scene_texts.yaml",
-            "game-config/prd_document.yaml"
+            "game-config/prd_document.yaml",
         ]
 
         cleaned_count = 0
@@ -466,20 +491,24 @@ class SpaceHulkGame:
                     logger.warning(f"Output file not found: {filepath}")
                     continue
 
-                with open(filepath, encoding='utf-8') as f:
+                with open(filepath, encoding="utf-8") as f:
                     content = f.read()
 
                 # Check if file has code fences
-                if content.startswith('```') or '```yml' in content or '```yaml' in content:
+                if content.startswith("```") or "```yml" in content or "```yaml" in content:
                     logger.info(f"Cleaning code fences from {filepath}")
 
                     # Remove markdown code fence markers
                     # Handle various formats: ```yml, ```yaml, ```
-                    cleaned = content.replace('```yml\n', '').replace('```yaml\n', '').replace('```\n', '')
-                    cleaned = cleaned.replace('\n```', '').replace('```', '')
+                    cleaned = (
+                        content.replace("```yml\n", "")
+                        .replace("```yaml\n", "")
+                        .replace("```\n", "")
+                    )
+                    cleaned = cleaned.replace("\n```", "").replace("```", "")
 
                     # Write cleaned content back
-                    with open(filepath, 'w', encoding='utf-8') as f:
+                    with open(filepath, "w", encoding="utf-8") as f:
                         f.write(cleaned)
 
                     cleaned_count += 1
@@ -488,7 +517,7 @@ class SpaceHulkGame:
                     logger.debug(f"No code fences found in {filepath}")
 
             except Exception as e:
-                logger.error(f"Error cleaning {filepath}: {str(e)}")
+                logger.error(f"Error cleaning {filepath}: {e!s}")
 
         if cleaned_count > 0:
             logger.info(f"Cleaned {cleaned_count} YAML file(s) by removing code fences")
@@ -515,7 +544,7 @@ class SpaceHulkGame:
                 cleaned_files = self.clean_yaml_output_files()
                 logger.info(f"Post-processed {cleaned_files} YAML files")
             except Exception as e:
-                logger.error(f"Error cleaning YAML files: {str(e)}")
+                logger.error(f"Error cleaning YAML files: {e!s}")
                 # Continue processing even if cleaning fails
 
             # Get crew configuration safely
@@ -535,7 +564,7 @@ class SpaceHulkGame:
                 "error_handling_applied": True,
                 "crew_mode": "sequential",  # Track execution mode
                 "total_tasks": total_tasks,
-                "total_agents": total_agents
+                "total_agents": total_agents,
             }
 
             # Add completion summary
@@ -547,9 +576,11 @@ class SpaceHulkGame:
                 completion_summary += f"Agents Used: {output.metadata['total_agents']}\n"
 
             # Check for errors during processing
-            if hasattr(output, 'errors') and output.errors:
+            if hasattr(output, "errors") and output.errors:
                 completion_summary += "\n⚠️  WARNING: Some errors occurred during processing.\n"
-                completion_summary += "Recovery mechanisms were applied. Please review the content.\n"
+                completion_summary += (
+                    "Recovery mechanisms were applied. Please review the content.\n"
+                )
                 output.metadata["had_errors"] = True
             else:
                 completion_summary += "\n✅ All tasks completed successfully.\n"
@@ -562,11 +593,11 @@ class SpaceHulkGame:
 
         except Exception as e:
             # Handle any errors in post-processing without losing output
-            logger.error(f"Error in post-processing: {str(e)}", exc_info=True)
+            logger.error(f"Error in post-processing: {e!s}", exc_info=True)
 
             # Try to add minimal metadata
             try:
-                if not hasattr(output, 'metadata'):
+                if not hasattr(output, "metadata"):
                     output.metadata = {}
                 output.metadata["post_processing_error"] = str(e)
                 output.metadata["processed_at"] = str(datetime.datetime.now())
@@ -592,11 +623,13 @@ class SpaceHulkGame:
         Note: The method name must match the agent name in the YAML file for CrewAI to properly
         map between tasks and agents.
         """
-        logger.info(f"Creating NarrativeDirectorAgent with config: {self.agents_config.get('NarrativeDirectorAgent')}")
+        logger.info(
+            f"Creating NarrativeDirectorAgent with config: {self.agents_config.get('NarrativeDirectorAgent')}"
+        )
         return Agent(  # type: ignore[call-arg]
             config=self.agents_config["NarrativeDirectorAgent"],
             llm=self.llm,  # Use the Ollama LLM configuration
-            verbose=True
+            verbose=True,
         )
 
     @agent
@@ -607,11 +640,13 @@ class SpaceHulkGame:
         Note: The method name must match the agent name in the YAML file for CrewAI to properly
         map between tasks and agents.
         """
-        logger.info(f"Creating PlotMasterAgent with config: {self.agents_config.get('PlotMasterAgent')}")
+        logger.info(
+            f"Creating PlotMasterAgent with config: {self.agents_config.get('PlotMasterAgent')}"
+        )
         return Agent(  # type: ignore[call-arg]
             config=self.agents_config["PlotMasterAgent"],
             llm=self.llm,  # Use the Ollama LLM configuration
-            verbose=True
+            verbose=True,
         )
 
     @agent
@@ -622,11 +657,13 @@ class SpaceHulkGame:
         Note: The method name must match the agent name in the YAML file for CrewAI to properly
         map between tasks and agents.
         """
-        logger.info(f"Creating NarrativeArchitectAgent with config: {self.agents_config.get('NarrativeArchitectAgent')}")
+        logger.info(
+            f"Creating NarrativeArchitectAgent with config: {self.agents_config.get('NarrativeArchitectAgent')}"
+        )
         return Agent(  # type: ignore[call-arg]
             config=self.agents_config["NarrativeArchitectAgent"],
             llm=self.llm,  # Use the Ollama LLM configuration
-            verbose=True
+            verbose=True,
         )
 
     @agent
@@ -637,11 +674,13 @@ class SpaceHulkGame:
         Note: The method name must match the agent name in the YAML file for CrewAI to properly
         map between tasks and agents.
         """
-        logger.info(f"Creating PuzzleSmithAgent with config: {self.agents_config.get('PuzzleSmithAgent')}")
+        logger.info(
+            f"Creating PuzzleSmithAgent with config: {self.agents_config.get('PuzzleSmithAgent')}"
+        )
         return Agent(  # type: ignore[call-arg]
             config=self.agents_config["PuzzleSmithAgent"],
             llm=self.llm,  # Use the Ollama LLM configuration
-            verbose=True
+            verbose=True,
         )
 
     @agent
@@ -652,11 +691,13 @@ class SpaceHulkGame:
         Note: The method name must match the agent name in the YAML file for CrewAI to properly
         map between tasks and agents.
         """
-        logger.info(f"Creating CreativeScribeAgent with config: {self.agents_config.get('CreativeScribeAgent')}")
+        logger.info(
+            f"Creating CreativeScribeAgent with config: {self.agents_config.get('CreativeScribeAgent')}"
+        )
         return Agent(  # type: ignore[call-arg]
             config=self.agents_config["CreativeScribeAgent"],
             llm=self.llm,  # Use the Ollama LLM configuration
-            verbose=True
+            verbose=True,
         )
 
     @agent
@@ -667,11 +708,13 @@ class SpaceHulkGame:
         Note: The method name must match the agent name in the YAML file for CrewAI to properly
         map between tasks and agents.
         """
-        logger.info(f"Creating MechanicsGuruAgent with config: {self.agents_config.get('MechanicsGuruAgent')}")
+        logger.info(
+            f"Creating MechanicsGuruAgent with config: {self.agents_config.get('MechanicsGuruAgent')}"
+        )
         return Agent(  # type: ignore[call-arg]
             config=self.agents_config["MechanicsGuruAgent"],
             llm=self.llm,  # Use the Ollama LLM configuration
-            verbose=True
+            verbose=True,
         )
 
     # ---------------------------------
@@ -686,7 +729,9 @@ class SpaceHulkGame:
         Note: The method name must match the task name in the YAML file for CrewAI to properly
         map between tasks.
         """
-        logger.info(f"Creating GenerateOverarchingPlot task with config: {self.tasks_config.get('GenerateOverarchingPlot')}")
+        logger.info(
+            f"Creating GenerateOverarchingPlot task with config: {self.tasks_config.get('GenerateOverarchingPlot')}"
+        )
         return Task(  # type: ignore[call-arg]
             config=self.tasks_config["GenerateOverarchingPlot"]
         )
@@ -699,7 +744,9 @@ class SpaceHulkGame:
         Note: The method name must match the task name in the YAML file for CrewAI to properly
         map between tasks.
         """
-        logger.info(f"Creating CreateNarrativeMap task with config: {self.tasks_config.get('CreateNarrativeMap')}")
+        logger.info(
+            f"Creating CreateNarrativeMap task with config: {self.tasks_config.get('CreateNarrativeMap')}"
+        )
         return Task(  # type: ignore[call-arg]
             config=self.tasks_config["CreateNarrativeMap"]
         )
@@ -712,7 +759,9 @@ class SpaceHulkGame:
         Note: The method name must match the task name in the YAML file for CrewAI to properly
         map between tasks.
         """
-        logger.info(f"Creating DesignArtifactsAndPuzzles task with config: {self.tasks_config.get('DesignArtifactsAndPuzzles')}")
+        logger.info(
+            f"Creating DesignArtifactsAndPuzzles task with config: {self.tasks_config.get('DesignArtifactsAndPuzzles')}"
+        )
         return Task(  # type: ignore[call-arg]
             config=self.tasks_config["DesignArtifactsAndPuzzles"]
         )
@@ -725,7 +774,9 @@ class SpaceHulkGame:
         Note: The method name must match the task name in the YAML file for CrewAI to properly
         map between tasks.
         """
-        logger.info(f"Creating WriteSceneDescriptionsAndDialogue task with config: {self.tasks_config.get('WriteSceneDescriptionsAndDialogue')}")
+        logger.info(
+            f"Creating WriteSceneDescriptionsAndDialogue task with config: {self.tasks_config.get('WriteSceneDescriptionsAndDialogue')}"
+        )
         return Task(  # type: ignore[call-arg]
             config=self.tasks_config["WriteSceneDescriptionsAndDialogue"]
         )
@@ -738,7 +789,9 @@ class SpaceHulkGame:
         Note: The method name must match the task name in the YAML file for CrewAI to properly
         map between tasks.
         """
-        logger.info(f"Creating CreateGameMechanicsPRD task with config: {self.tasks_config.get('CreateGameMechanicsPRD')}")
+        logger.info(
+            f"Creating CreateGameMechanicsPRD task with config: {self.tasks_config.get('CreateGameMechanicsPRD')}"
+        )
         return Task(  # type: ignore[call-arg]
             config=self.tasks_config["CreateGameMechanicsPRD"]
         )
@@ -755,7 +808,9 @@ class SpaceHulkGame:
         Note: The method name must match the task name in the YAML file for CrewAI to properly
         map between tasks.
         """
-        logger.info(f"Creating EvaluateNarrativeFoundation task with config: {self.tasks_config.get('EvaluateNarrativeFoundation')}")
+        logger.info(
+            f"Creating EvaluateNarrativeFoundation task with config: {self.tasks_config.get('EvaluateNarrativeFoundation')}"
+        )
         return Task(  # type: ignore[call-arg]
             config=self.tasks_config["EvaluateNarrativeFoundation"]
         )
@@ -772,7 +827,9 @@ class SpaceHulkGame:
         Note: The method name must match the task name in the YAML file for CrewAI to properly
         map between tasks.
         """
-        logger.info(f"Creating EvaluateNarrativeStructure task with config: {self.tasks_config.get('EvaluateNarrativeStructure')}")
+        logger.info(
+            f"Creating EvaluateNarrativeStructure task with config: {self.tasks_config.get('EvaluateNarrativeStructure')}"
+        )
         return Task(  # type: ignore[call-arg]
             config=self.tasks_config["EvaluateNarrativeStructure"]
         )
@@ -789,7 +846,9 @@ class SpaceHulkGame:
         Note: The method name must match the task name in the YAML file for CrewAI to properly
         map between tasks.
         """
-        logger.info(f"Creating NarrativeIntegrationCheckPuzzles task with config: {self.tasks_config.get('NarrativeIntegrationCheckPuzzles')}")
+        logger.info(
+            f"Creating NarrativeIntegrationCheckPuzzles task with config: {self.tasks_config.get('NarrativeIntegrationCheckPuzzles')}"
+        )
         return Task(  # type: ignore[call-arg]
             config=self.tasks_config["NarrativeIntegrationCheckPuzzles"]
         )
@@ -806,7 +865,9 @@ class SpaceHulkGame:
         Note: The method name must match the task name in the YAML file for CrewAI to properly
         map between tasks.
         """
-        logger.info(f"Creating NarrativeIntegrationCheckScenes task with config: {self.tasks_config.get('NarrativeIntegrationCheckScenes')}")
+        logger.info(
+            f"Creating NarrativeIntegrationCheckScenes task with config: {self.tasks_config.get('NarrativeIntegrationCheckScenes')}"
+        )
         return Task(  # type: ignore[call-arg]
             config=self.tasks_config["NarrativeIntegrationCheckScenes"]
         )
@@ -823,7 +884,9 @@ class SpaceHulkGame:
         Note: The method name must match the task name in the YAML file for CrewAI to properly
         map between tasks.
         """
-        logger.info(f"Creating NarrativeIntegrationCheckMechanics task with config: {self.tasks_config.get('NarrativeIntegrationCheckMechanics')}")
+        logger.info(
+            f"Creating NarrativeIntegrationCheckMechanics task with config: {self.tasks_config.get('NarrativeIntegrationCheckMechanics')}"
+        )
         return Task(  # type: ignore[call-arg]
             config=self.tasks_config["NarrativeIntegrationCheckMechanics"]
         )
@@ -840,7 +903,9 @@ class SpaceHulkGame:
         Note: The method name must match the task name in the YAML file for CrewAI to properly
         map between tasks.
         """
-        logger.info(f"Creating FinalNarrativeIntegration task with config: {self.tasks_config.get('FinalNarrativeIntegration')}")
+        logger.info(
+            f"Creating FinalNarrativeIntegration task with config: {self.tasks_config.get('FinalNarrativeIntegration')}"
+        )
         return Task(  # type: ignore[call-arg]
             config=self.tasks_config["FinalNarrativeIntegration"]
         )
@@ -873,10 +938,14 @@ class SpaceHulkGame:
         # Create optimized manager
         manager_llm = LLM(
             model=os.environ.get("OPENAI_MODEL_NAME", "ollama/qwen2.5"),
-            base_url="http://localhost:11434" if "ollama" in os.environ.get("OPENAI_MODEL_NAME", "ollama") else None,
-            api_key=os.environ.get("OPENROUTER_API_KEY") if os.environ.get("OPENROUTER_API_KEY") else None,
+            base_url="http://localhost:11434"
+            if "ollama" in os.environ.get("OPENAI_MODEL_NAME", "ollama")
+            else None,
+            api_key=os.environ.get("OPENROUTER_API_KEY")
+            if os.environ.get("OPENROUTER_API_KEY")
+            else None,
             temperature=0.3,
-            max_tokens=4000
+            max_tokens=4000,
         )
 
         manager = Agent(
@@ -886,7 +955,7 @@ class SpaceHulkGame:
             llm=manager_llm,
             allow_delegation=True,
             verbose=True,
-            max_iter=10
+            max_iter=10,
         )
 
         # Create worker agents
@@ -898,14 +967,20 @@ class SpaceHulkGame:
 
         # Create simplified tasks
         simplified_tasks = []
-        for task_key in ["GenerateOverarchingPlot", "CreateNarrativeMap", "DesignArtifactsAndPuzzles"]:
+        for task_key in [
+            "GenerateOverarchingPlot",
+            "CreateNarrativeMap",
+            "DesignArtifactsAndPuzzles",
+        ]:
             task_config = HIERARCHICAL_TASKS[task_key]
-            simplified_tasks.append(Task(
-                description=task_config["description"],
-                expected_output=task_config["expected_output"],
-                agent=eval(f'self.{task_config["agent"]}()'),
-                output_file=task_config.get("output_file")
-            ))
+            simplified_tasks.append(
+                Task(
+                    description=task_config["description"],
+                    expected_output=task_config["expected_output"],
+                    agent=eval(f'self.{task_config["agent"]}()'),
+                    output_file=task_config.get("output_file"),
+                )
+            )
 
         logger.info(f"Manager: {manager.role}")
         logger.info(f"Workers: {[agent.role for agent in worker_agents]}")
@@ -916,7 +991,7 @@ class SpaceHulkGame:
             tasks=simplified_tasks,
             process=Process.hierarchical,
             manager_agent=manager,
-            verbose=True
+            verbose=True,
         )
 
     def create_hierarchical_crew(self, max_iter=10, use_simplified_manager=True) -> Crew:
@@ -947,10 +1022,14 @@ class SpaceHulkGame:
             logger.info("Using simplified manager configuration")
             manager_llm = LLM(
                 model=os.environ.get("OPENAI_MODEL_NAME", "ollama/qwen2.5"),
-                base_url="http://localhost:11434" if "ollama" in os.environ.get("OPENAI_MODEL_NAME", "ollama") else None,
-                api_key=os.environ.get("OPENROUTER_API_KEY") if os.environ.get("OPENROUTER_API_KEY") else None,
+                base_url="http://localhost:11434"
+                if "ollama" in os.environ.get("OPENAI_MODEL_NAME", "ollama")
+                else None,
+                api_key=os.environ.get("OPENROUTER_API_KEY")
+                if os.environ.get("OPENROUTER_API_KEY")
+                else None,
                 temperature=0.3,  # Lower temperature for more consistent manager decisions
-                max_tokens=4000   # Ensure enough tokens for delegation decisions
+                max_tokens=4000,  # Ensure enough tokens for delegation decisions
             )
 
             # Create manager with simplified backstory to reduce prompt size
@@ -961,7 +1040,7 @@ class SpaceHulkGame:
                 llm=manager_llm,
                 allow_delegation=True,
                 verbose=True,
-                max_iter=max_iter  # Limit iterations to prevent excessive delegation
+                max_iter=max_iter,  # Limit iterations to prevent excessive delegation
             )
         else:
             # Use standard manager configuration
@@ -969,10 +1048,7 @@ class SpaceHulkGame:
             manager.max_iter = max_iter
 
         # Get worker agents - all agents except the manager
-        worker_agents = [
-            agent for agent in self.agents
-            if agent.role != manager.role
-        ]
+        worker_agents = [agent for agent in self.agents if agent.role != manager.role]
 
         logger.info(f"Manager: {manager.role}")
         logger.info(f"Worker agents: {[agent.role for agent in worker_agents]}")
@@ -980,11 +1056,11 @@ class SpaceHulkGame:
         logger.info(f"Max iterations: {max_iter}")
 
         return Crew(
-            agents=worker_agents,          # Worker agents only (manager not in list)
-            tasks=self.tasks,              # All tasks
+            agents=worker_agents,  # Worker agents only (manager not in list)
+            tasks=self.tasks,  # All tasks
             process=Process.hierarchical,  # Hierarchical with manager delegation
-            manager_agent=manager,         # Optimized manager for coordination
-            verbose=True,                  # Enable detailed logging
+            manager_agent=manager,  # Optimized manager for coordination
+            verbose=True,  # Enable detailed logging
             # Optional enhancements (test after basic hierarchical works):
             # memory=True,
             # memory_config=self.memory_config,
@@ -1013,10 +1089,10 @@ class SpaceHulkGame:
         # Sequential process - simplest configuration per restart plan
         # All agents work in order without manager coordination
         return Crew(
-            agents=self.agents,           # All agents work as peers
-            tasks=self.tasks,              # Tasks execute in definition order
-            process=Process.sequential,    # Sequential process per Phase 0 plan
-            verbose=True,                  # Enable detailed logging for debugging
+            agents=self.agents,  # All agents work as peers
+            tasks=self.tasks,  # Tasks execute in definition order
+            process=Process.sequential,  # Sequential process per Phase 0 plan
+            verbose=True,  # Enable detailed logging for debugging
             # Memory and planning disabled per Phase 0 plan
             # Will be re-enabled after basic functionality is proven
         )

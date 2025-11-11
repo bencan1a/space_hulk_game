@@ -32,7 +32,7 @@ This document tracks key decisions made during the Space Hulk Game project, expl
        tasks=self.tasks,
        process=Process.hierarchical,
        memory=True,  # Enable memory
-       memory_config=self.memory_config,  # Use mem0 configuration 
+       memory_config=self.memory_config,  # Use mem0 configuration
        planning=True,
        verbose=True
    )
@@ -64,7 +64,7 @@ This document tracks key decisions made during the Space Hulk Game project, expl
    ```python
    # Create the manager agent separately
    manager = self.NarrativeDirectorAgent()
-   
+
    # Get all agents excluding the NarrativeDirectorAgent
    regular_agents = [agent for agent in self.agents if not isinstance(agent, type(manager))]
    ```
@@ -208,7 +208,7 @@ PYTHONPATH=${workspaceFolder}/src
 
 **Context:** After the project went dormant for several months, a comprehensive analysis was conducted to evaluate whether to restart from scratch with a new architecture or continue with the existing implementation. The analysis compared the current hierarchical multi-agent approach against modern best practices in multi-agent orchestration (2025).
 
-**Rationale:** 
+**Rationale:**
 1. **Architecture is Sound**: The hierarchical orchestration pattern with a Narrative Director coordinating specialized agents is appropriate for this domain. Narrative cohesion requires central oversight, which the current architecture provides.
 
 2. **Technology Stack is Modern**: CrewAI remains the best framework choice for this use case. Alternatives like LangGraph or AutoGen don't provide significant benefits that would justify migration costs. The Ollama + Python stack is privacy-friendly, cost-effective, and actively maintained.
@@ -231,24 +231,24 @@ PYTHONPATH=${workspaceFolder}/src
   - Implement quality evaluators with scoring
   - Add retry logic with feedback
   - Create planning templates
-  
+
 - **Phase 3.5**: Simple Game Engine (2 weeks) - NEW & CRITICAL
   - Build minimal text adventure engine
   - Create command parser and game state
   - Implement content loader for generated YAML
   - Validate games are actually playable
-  
+
 - **Phase 4**: Output Validation & Standardization (2-3 weeks)
   - Define Pydantic models for all outputs
   - Implement schema validators
   - Add auto-correction for common errors
-  
+
 - **Phase 5**: Enhanced Memory System (2 weeks)
   - Design memory schema for collaboration
   - Fully utilize mem0 capabilities
   - Enable cross-agent context sharing
   - Implement cross-session learning
-  
+
 - **Phase 6**: Production Polish (2 weeks)
   - Add structured logging and metrics
   - Create example games

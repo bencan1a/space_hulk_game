@@ -132,7 +132,7 @@ def tool_function(parameter):
 class CustomTool(BaseTool):
     name = "tool_name"
     description = "Tool description"
-    
+
     def _run(self, input_param):
         return result
 ```
@@ -161,7 +161,7 @@ def search_web(query: str) -> str:
 class DatabaseTool(BaseTool):
     name = "database_tool"
     description = "Query the database"
-    
+
     def _run(self, query: str):
         # Database query implementation
         return results

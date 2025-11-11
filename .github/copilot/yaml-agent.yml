@@ -20,14 +20,14 @@ best_practices:
     - Group related items together
     - Use meaningful key names
     - Add comments for complex sections
-  
+
   formatting:
     - Use lowercase with underscores for keys
     - Quote strings with special characters
     - Use block style for long text (|)
     - Maintain consistent spacing
     - Align values when it improves readability
-  
+
   organization:
     - Place metadata at the top
     - Group similar configuration items
@@ -56,7 +56,7 @@ project_files:
           Experienced in crafting narratives
         verbose: true
         allow_delegation: false
-  
+
   tasks_config:
     path: src/space_hulk_game/config/tasks.yaml
     structure:
@@ -74,27 +74,27 @@ project_files:
           A detailed plot outline
         agent: plot_master
         output_file: plot_outline.yaml
-  
+
   game_design:
     path: src/space_hulk_game/config/gamedesign.yaml
     purpose: Game design examples and templates
     structure: Game-specific configurations
-  
+
   narrative_map:
     path: narrative_map.yaml
     purpose: Scene connections and narrative flow
     structure: Scene graph with connections
-  
+
   scene_texts:
     path: scene_texts.yaml
     purpose: Scene descriptions and dialogue
     structure: Scene-by-scene text content
-  
+
   plot_outline:
     path: plot_outline.yaml
     purpose: Story structure and plot points
     structure: Hierarchical plot elements
-  
+
   puzzle_design:
     path: puzzle_design.yaml
     purpose: Puzzle specifications
@@ -108,13 +108,13 @@ patterns:
         This is a multiline string
         that preserves line breaks
         exactly as written.
-    
+
     folded: |
       description: >
         This is a folded string
         that wraps lines into
         a single paragraph.
-  
+
   lists:
     inline: "context: [task1, task2, task3]"
     block: |
@@ -122,17 +122,17 @@ patterns:
         - task1
         - task2
         - task3
-  
+
   anchors_and_aliases:
     example: |
       defaults: &defaults
         verbose: true
         allow_delegation: false
-      
+
       agent1:
         <<: *defaults
         role: Role 1
-  
+
   nested_structures:
     example: |
       agent:
@@ -149,14 +149,14 @@ validation:
     - Check indentation consistency
     - Ensure quotes are balanced
     - Verify colon usage (key: value)
-  
+
   common_errors:
     - Tabs instead of spaces
     - Inconsistent indentation
     - Missing colons
     - Unquoted special characters
     - Mixing list styles
-  
+
   python_loading:
     - Use yaml.safe_load() for security
     - Handle FileNotFoundError
@@ -170,13 +170,13 @@ project_guidelines:
     - Keep descriptions clear and concise
     - Set verbose: true during development
     - Document special parameters
-  
+
   task_definitions:
     - Use placeholders for dynamic inputs ({game})
     - Specify clear expected outputs
     - List all context dependencies
     - Always specify output_file for persistence
-  
+
   game_design_files:
     - Maintain consistent structure across files
     - Use descriptive keys for scenes/areas
@@ -187,7 +187,7 @@ project_guidelines:
 loading_pattern: |
   import yaml
   import os
-  
+
   def load_config(filename):
       path = os.path.join('config', filename)
       try:
@@ -208,7 +208,7 @@ common_tasks:
     - Define role, goal, backstory
     - Set verbose and allow_delegation
     - Maintain consistent formatting
-  
+
   add_task:
     - Open src/space_hulk_game/config/tasks.yaml
     - Add new task key
@@ -217,7 +217,7 @@ common_tasks:
     - Assign to agent
     - List context dependencies
     - Set output_file if needed
-  
+
   update_game_design:
     - Open appropriate design file
     - Add/modify content maintaining structure

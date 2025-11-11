@@ -23,7 +23,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 # Add the src directory to the path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../")))
 
 # Try to import required modules
 CREWAI_AVAILABLE = False
@@ -31,6 +31,7 @@ QUALITY_MODULES_AVAILABLE = False
 
 try:
     import importlib.util
+
     CREWAI_AVAILABLE = importlib.util.find_spec("crewai") is not None
 except ImportError:
     # CrewAI not available - some tests will be skipped
@@ -42,6 +43,7 @@ try:
     from src.space_hulk_game.quality.plot_evaluator import PlotEvaluator
     from src.space_hulk_game.quality.retry import TaskType, execute_with_quality_check
     from src.space_hulk_game.quality.score import QualityScore
+
     QUALITY_MODULES_AVAILABLE = True
 except ImportError as e:
     # Quality modules not available - tests will be skipped
@@ -58,17 +60,17 @@ class TestQualitySystemConfiguration(unittest.TestCase):
 
         self.assertIsNotNone(config)
         self.assertIsNotNone(config.config)
-        self.assertIn('global', config.config)
-        self.assertIn('thresholds', config.config)
+        self.assertIn("global", config.config)
+        self.assertIn("thresholds", config.config)
 
         # Check default state (disabled)
-        self.assertFalse(config.config['global']['enabled'])
+        self.assertFalse(config.config["global"]["enabled"])
 
     @unittest.skipUnless(QUALITY_MODULES_AVAILABLE, "Quality modules not available")
     def test_quality_config_env_override(self):
         """Test that environment variable can enable quality checking."""
         # Test with environment variable enabled
-        with patch.dict(os.environ, {'QUALITY_CHECK_ENABLED': 'true'}):
+        with patch.dict(os.environ, {"QUALITY_CHECK_ENABLED": "true"}):
             config = QualityCheckConfig()
             # Note: Current implementation loads from file, not env
             # This test documents expected behavior for future implementation
@@ -78,11 +80,11 @@ class TestQualitySystemConfiguration(unittest.TestCase):
     def test_task_type_mapping(self):
         """Test that all task types are properly defined."""
         # Verify TaskType enum exists and has expected values
-        self.assertTrue(hasattr(TaskType, 'PLOT'))
-        self.assertTrue(hasattr(TaskType, 'NARRATIVE'))
-        self.assertTrue(hasattr(TaskType, 'PUZZLE'))
-        self.assertTrue(hasattr(TaskType, 'SCENE'))
-        self.assertTrue(hasattr(TaskType, 'MECHANICS'))
+        self.assertTrue(hasattr(TaskType, "PLOT"))
+        self.assertTrue(hasattr(TaskType, "NARRATIVE"))
+        self.assertTrue(hasattr(TaskType, "PUZZLE"))
+        self.assertTrue(hasattr(TaskType, "SCENE"))
+        self.assertTrue(hasattr(TaskType, "MECHANICS"))
 
 
 class TestQualityEvaluatorIntegration(unittest.TestCase):
@@ -197,7 +199,7 @@ endings:
             task_type=TaskType.PLOT,
             task_name="Test Plot Task",
             pass_threshold=6.0,
-            max_retries=3
+            max_retries=3,
         )
 
         # Should have retried at least once
@@ -220,7 +222,7 @@ endings:
             task_type=TaskType.PLOT,
             task_name="Test Poor Task",
             pass_threshold=6.0,
-            max_retries=2
+            max_retries=2,
         )
 
         # Should have tried max_retries times (not max_retries + 1)
@@ -234,7 +236,7 @@ class TestQualityScoreLogging(unittest.TestCase):
     @unittest.skipUnless(QUALITY_MODULES_AVAILABLE, "Quality modules not available")
     def test_quality_score_logged(self):
         """Test that quality scores appear in logs."""
-        with patch('src.space_hulk_game.quality.retry.logger') as mock_logger:
+        with patch("src.space_hulk_game.quality.retry.logger") as mock_logger:
             # Create a simple task that passes quality check
             def mock_task(**kwargs):
                 return """
@@ -261,7 +263,7 @@ endings:
                 task_type=TaskType.PLOT,
                 task_name="Test Logging Task",
                 pass_threshold=6.0,
-                max_retries=1
+                max_retries=1,
             )
 
             # Check that logger was called with quality score info
@@ -282,7 +284,7 @@ class TestPlanningTemplateIntegration(unittest.TestCase):
         """Test that planning templates directory exists."""
         self.assertTrue(
             self.templates_exist,
-            f"Planning templates directory should exist at {self.templates_dir}"
+            f"Planning templates directory should exist at {self.templates_dir}",
         )
 
     @unittest.skipUnless(QUALITY_MODULES_AVAILABLE, "Quality modules not available")
@@ -292,18 +294,15 @@ class TestPlanningTemplateIntegration(unittest.TestCase):
             self.skipTest("Templates directory not found")
 
         expected_templates = [
-            'space_horror.yaml',
-            'mystery_investigation.yaml',
-            'survival_escape.yaml',
-            'combat_focused.yaml'
+            "space_horror.yaml",
+            "mystery_investigation.yaml",
+            "survival_escape.yaml",
+            "combat_focused.yaml",
         ]
 
         for template in expected_templates:
             template_path = self.templates_dir / template
-            self.assertTrue(
-                template_path.exists(),
-                f"Template {template} should exist"
-            )
+            self.assertTrue(template_path.exists(), f"Template {template} should exist")
 
 
 class TestEndToEndIntegration(unittest.TestCase):
@@ -315,20 +314,17 @@ class TestEndToEndIntegration(unittest.TestCase):
     """
 
     @unittest.skipUnless(
-        CREWAI_AVAILABLE and QUALITY_MODULES_AVAILABLE,
-        "CrewAI and quality modules required"
+        CREWAI_AVAILABLE and QUALITY_MODULES_AVAILABLE, "CrewAI and quality modules required"
     )
     def test_quality_system_disabled_by_default(self):
         """Test that quality system is disabled by default."""
         config = QualityCheckConfig()
         self.assertFalse(
-            config.config['global']['enabled'],
-            "Quality checking should be disabled by default"
+            config.config["global"]["enabled"], "Quality checking should be disabled by default"
         )
 
     @unittest.skipUnless(
-        CREWAI_AVAILABLE and QUALITY_MODULES_AVAILABLE,
-        "CrewAI and quality modules required"
+        CREWAI_AVAILABLE and QUALITY_MODULES_AVAILABLE, "CrewAI and quality modules required"
     )
     def test_quality_integration_workflow(self):
         """Test complete workflow: task → quality check → retry if needed."""
@@ -369,7 +365,7 @@ endings:
             task_type=TaskType.PLOT,
             task_name="Test Integration Task",
             pass_threshold=6.0,
-            max_retries=3
+            max_retries=3,
         )
 
         # Should have improved on retry
@@ -432,35 +428,26 @@ class TestDocumentation(unittest.TestCase):
         """Test that QUALITY_METRICS.md exists."""
         quality_doc = self.docs_dir / "QUALITY_METRICS.md"
 
-        self.assertTrue(
-            quality_doc.exists(),
-            "QUALITY_METRICS.md documentation should exist"
-        )
+        self.assertTrue(quality_doc.exists(), "QUALITY_METRICS.md documentation should exist")
 
     def test_quality_checking_documentation_exists(self):
         """Test that QUALITY_CHECKING.md exists."""
         checking_doc = self.docs_dir / "QUALITY_CHECKING.md"
 
-        self.assertTrue(
-            checking_doc.exists(),
-            "QUALITY_CHECKING.md documentation should exist"
-        )
+        self.assertTrue(checking_doc.exists(), "QUALITY_CHECKING.md documentation should exist")
 
     def test_planning_templates_documentation_exists(self):
         """Test that PLANNING_TEMPLATES.md exists."""
         templates_doc = self.docs_dir / "PLANNING_TEMPLATES.md"
 
-        self.assertTrue(
-            templates_doc.exists(),
-            "PLANNING_TEMPLATES.md documentation should exist"
-        )
+        self.assertTrue(templates_doc.exists(), "PLANNING_TEMPLATES.md documentation should exist")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Print environment info
-    print("\n" + "="*70)
+    print("\n" + "=" * 70)
     print("QUALITY SYSTEM - END-TO-END INTEGRATION TESTS")
-    print("="*70)
+    print("=" * 70)
 
     if CREWAI_AVAILABLE:
         print("✓ CrewAI available")
@@ -473,7 +460,9 @@ if __name__ == '__main__':
         print("⚠ Quality modules not available - tests will be skipped")
 
     # Check for quality config
-    config_path = Path(__file__).parent.parent / "src" / "space_hulk_game" / "config" / "quality_config.yaml"
+    config_path = (
+        Path(__file__).parent.parent / "src" / "space_hulk_game" / "config" / "quality_config.yaml"
+    )
     if config_path.exists():
         print("✓ quality_config.yaml found")
     else:
@@ -487,7 +476,7 @@ if __name__ == '__main__':
     else:
         print("⚠ Planning templates directory not found")
 
-    print("="*70 + "\n")
+    print("=" * 70 + "\n")
 
     # Run tests
     unittest.main(verbosity=2)

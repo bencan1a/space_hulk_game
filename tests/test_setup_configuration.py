@@ -24,7 +24,7 @@ class TestSetupConfiguration(unittest.TestCase):
         setup_sh = self.project_root / "setup.sh"
         self.assertTrue(setup_sh.exists(), "setup.sh should exist")
         # Check if file is executable (on Unix-like systems)
-        if os.name != 'nt':  # Not Windows
+        if os.name != "nt":  # Not Windows
             self.assertTrue(os.access(setup_sh, os.X_OK), "setup.sh should be executable")
 
     def test_setup_ps1_exists(self):
@@ -58,16 +58,10 @@ class TestSetupConfiguration(unittest.TestCase):
         content = pyproject.read_text()
 
         # Check for required dependencies
-        required_deps = [
-            "crewai",
-            "mem0ai",
-            "pyyaml",
-            "litellm"
-        ]
+        required_deps = ["crewai", "mem0ai", "pyyaml", "litellm"]
 
         for dep in required_deps:
-            self.assertIn(dep, content.lower(),
-                         f"pyproject.toml should contain {dep} dependency")
+            self.assertIn(dep, content.lower(), f"pyproject.toml should contain {dep} dependency")
 
     def test_pyproject_toml_has_dev_dependencies(self):
         """Test that pyproject.toml contains development dependencies."""
@@ -75,16 +69,12 @@ class TestSetupConfiguration(unittest.TestCase):
         content = pyproject.read_text()
 
         # Check for dev dependencies
-        dev_deps = [
-            "pytest",
-            "black",
-            "flake8",
-            "mypy"
-        ]
+        dev_deps = ["pytest", "black", "flake8", "mypy"]
 
         for dep in dev_deps:
-            self.assertIn(dep, content.lower(),
-                         f"pyproject.toml should contain {dep} in dev dependencies")
+            self.assertIn(
+                dep, content.lower(), f"pyproject.toml should contain {dep} in dev dependencies"
+            )
 
     def test_pyproject_toml_has_scripts(self):
         """Test that pyproject.toml contains project scripts."""
@@ -92,10 +82,14 @@ class TestSetupConfiguration(unittest.TestCase):
         content = pyproject.read_text()
 
         # Check for entry points
-        self.assertIn("[project.scripts]", content,
-                     "pyproject.toml should have [project.scripts] section")
-        self.assertIn("space_hulk_game", content.lower(),
-                     "pyproject.toml should have space_hulk_game entry point")
+        self.assertIn(
+            "[project.scripts]", content, "pyproject.toml should have [project.scripts] section"
+        )
+        self.assertIn(
+            "space_hulk_game",
+            content.lower(),
+            "pyproject.toml should have space_hulk_game entry point",
+        )
 
     def test_env_example_has_required_vars(self):
         """Test that .env.example contains required environment variables."""
@@ -103,22 +97,18 @@ class TestSetupConfiguration(unittest.TestCase):
         content = env_example.read_text()
 
         # Check for key configuration variables
-        required_vars = [
-            "OPENAI_MODEL_NAME",
-            "OLLAMA_BASE_URL",
-            "LOG_LEVEL"
-        ]
+        required_vars = ["OPENAI_MODEL_NAME", "OLLAMA_BASE_URL", "LOG_LEVEL"]
 
         for var in required_vars:
-            self.assertIn(var, content,
-                         f".env.example should contain {var} configuration")
+            self.assertIn(var, content, f".env.example should contain {var} configuration")
 
     def test_setup_sh_has_shebang(self):
         """Test that setup.sh has proper shebang."""
         setup_sh = self.project_root / "setup.sh"
-        first_line = setup_sh.read_text().split('\n')[0]
-        self.assertTrue(first_line.startswith("#!/bin/bash"),
-                       "setup.sh should start with #!/bin/bash shebang")
+        first_line = setup_sh.read_text().split("\n")[0]
+        self.assertTrue(
+            first_line.startswith("#!/bin/bash"), "setup.sh should start with #!/bin/bash shebang"
+        )
 
     def test_documentation_files_exist(self):
         """Test that all documentation files exist."""
@@ -143,8 +133,7 @@ class TestSetupConfiguration(unittest.TestCase):
         gitignore = self.project_root / ".gitignore"
         if gitignore.exists():
             content = gitignore.read_text()
-            self.assertIn(".env", content,
-                         ".gitignore should exclude .env files")
+            self.assertIn(".env", content, ".gitignore should exclude .env files")
 
 
 class TestProjectStructure(unittest.TestCase):
@@ -171,8 +160,7 @@ class TestProjectStructure(unittest.TestCase):
 
         for config_file in config_files:
             config_path = config_dir / config_file
-            self.assertTrue(config_path.exists(),
-                           f"{config_file} should exist in config directory")
+            self.assertTrue(config_path.exists(), f"{config_file} should exist in config directory")
 
     def test_main_files_exist(self):
         """Test that main Python files exist."""
@@ -181,8 +169,7 @@ class TestProjectStructure(unittest.TestCase):
 
         for main_file in main_files:
             main_path = src_dir / main_file
-            self.assertTrue(main_path.exists(),
-                           f"{main_file} should exist in src/space_hulk_game")
+            self.assertTrue(main_path.exists(), f"{main_file} should exist in src/space_hulk_game")
 
     def test_tests_directory_exists(self):
         """Test that tests directory exists."""
@@ -190,5 +177,5 @@ class TestProjectStructure(unittest.TestCase):
         self.assertTrue(tests_dir.exists(), "tests directory should exist")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

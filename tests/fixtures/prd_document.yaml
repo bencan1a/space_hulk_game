@@ -7,7 +7,7 @@ mechanics:
     commands:
       - "go [direction]"
       - "move [direction]"
-  
+
   inventory:
     description: "Pick up and use items"
     max_items: 10
@@ -16,7 +16,7 @@ mechanics:
       - "drop [item]"
       - "use [item]"
       - "inventory"
-  
+
   combat:
     description: "Turn-based combat with NPCs"
     player_health: 100
@@ -30,7 +30,7 @@ systems:
     max_health: 100
     healing_items:
       - medkit
-  
+
   lighting_system:
     dark_scenes_require_light: true
     light_sources:

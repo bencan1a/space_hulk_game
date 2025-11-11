@@ -49,7 +49,7 @@ class MechanicsMetrics:
     min_clarity: float = 6.0  # Out of 10.0
 
     @classmethod
-    def from_yaml_content(cls, yaml_content: str) -> 'MechanicsMetrics':
+    def from_yaml_content(cls, yaml_content: str) -> "MechanicsMetrics":
         """
         Create MechanicsMetrics from YAML content string.
 
@@ -62,9 +62,9 @@ class MechanicsMetrics:
         try:
             # Handle markdown-wrapped YAML
             content = yaml_content.strip()
-            if content.startswith('```'):
-                lines = content.split('\n')
-                content = '\n'.join(lines[1:-1])
+            if content.startswith("```"):
+                lines = content.split("\n")
+                content = "\n".join(lines[1:-1])
 
             data = yaml.safe_load(content)
             return cls.from_dict(data)
@@ -72,7 +72,7 @@ class MechanicsMetrics:
             raise ValueError(f"Failed to parse YAML content: {e}") from e
 
     @classmethod
-    def from_dict(cls, data: dict[str, Any]) -> 'MechanicsMetrics':
+    def from_dict(cls, data: dict[str, Any]) -> "MechanicsMetrics":
         """
         Create MechanicsMetrics from a dictionary (parsed YAML).
 
@@ -85,18 +85,18 @@ class MechanicsMetrics:
         metrics = cls()
 
         # Get mechanics/systems section
-        mechanics = data.get('mechanics', data)
-        systems = mechanics.get('systems', {})
+        mechanics = data.get("mechanics", data)
+        systems = mechanics.get("systems", {})
 
         # If no explicit systems section, analyze the entire document
         if not systems:
             systems = mechanics
 
         # Check for specific core systems
-        metrics.has_combat_system = cls._has_system(systems, 'combat')
-        metrics.has_movement_system = cls._has_system(systems, 'movement')
-        metrics.has_inventory_system = cls._has_system(systems, 'inventory')
-        metrics.has_progression_system = cls._has_system(systems, 'progression')
+        metrics.has_combat_system = cls._has_system(systems, "combat")
+        metrics.has_movement_system = cls._has_system(systems, "movement")
+        metrics.has_inventory_system = cls._has_system(systems, "inventory")
+        metrics.has_progression_system = cls._has_system(systems, "progression")
 
         # Count total systems
         metrics.total_systems = cls._count_systems(systems)
@@ -106,13 +106,15 @@ class MechanicsMetrics:
 
         # Calculate completeness (out of 5 expected core systems)
         expected_systems = 5
-        present_systems = sum([
-            metrics.has_combat_system,
-            metrics.has_movement_system,
-            metrics.has_inventory_system,
-            metrics.has_progression_system,
-            metrics.total_systems > 0,  # At least one other system
-        ])
+        present_systems = sum(
+            [
+                metrics.has_combat_system,
+                metrics.has_movement_system,
+                metrics.has_inventory_system,
+                metrics.has_progression_system,
+                metrics.total_systems > 0,  # At least one other system
+            ]
+        )
         metrics.completeness_percentage = (present_systems / expected_systems) * 100.0
 
         # Calculate average clarity
@@ -178,9 +180,22 @@ class MechanicsMetrics:
 
         # Count top-level system keys
         system_keywords = [
-            'combat', 'movement', 'inventory', 'progression', 'health',
-            'stamina', 'skill', 'puzzle', 'dialogue', 'stealth', 'resource',
-            'crafting', 'trading', 'reputation', 'time', 'environment'
+            "combat",
+            "movement",
+            "inventory",
+            "progression",
+            "health",
+            "stamina",
+            "skill",
+            "puzzle",
+            "dialogue",
+            "stealth",
+            "resource",
+            "crafting",
+            "trading",
+            "reputation",
+            "time",
+            "environment",
         ]
 
         for key in systems.keys():
@@ -217,8 +232,8 @@ class MechanicsMetrics:
 
             if isinstance(value, dict):
                 # Check for rules/description
-                has_rules = 'rules' in value or 'description' in value
-                has_examples = 'example' in value or 'examples' in value
+                has_rules = "rules" in value or "description" in value
+                has_examples = "example" in value or "examples" in value
 
                 # Get text content
                 text = str(value)
@@ -248,7 +263,7 @@ class MechanicsMetrics:
                     score += 3.0
 
                 # Check for structured language
-                if any(word in value.lower() for word in ['must', 'should', 'can', 'when', 'if']):
+                if any(word in value.lower() for word in ["must", "should", "can", "when", "if"]):
                     score += 2.0
 
             clarity_scores.append(min(score, 10.0))
@@ -270,8 +285,16 @@ class MechanicsMetrics:
             True if balance is mentioned
         """
         balance_keywords = [
-            'balance', 'difficulty', 'challenge', 'fair', 'balanced',
-            'easy', 'hard', 'moderate', 'scaling', 'progression curve'
+            "balance",
+            "difficulty",
+            "challenge",
+            "fair",
+            "balanced",
+            "easy",
+            "hard",
+            "moderate",
+            "scaling",
+            "progression curve",
         ]
 
         # Convert to string for searching
@@ -287,9 +310,9 @@ class MechanicsMetrics:
             True if all thresholds are met, False otherwise
         """
         return (
-            self.total_systems >= self.min_systems and
-            self.completeness_percentage >= self.min_completeness and
-            self.average_rule_clarity >= self.min_clarity
+            self.total_systems >= self.min_systems
+            and self.completeness_percentage >= self.min_completeness
+            and self.average_rule_clarity >= self.min_clarity
         )
 
     def get_failures(self) -> list[str]:
@@ -303,8 +326,7 @@ class MechanicsMetrics:
 
         if self.total_systems < self.min_systems:
             failures.append(
-                f"Insufficient game systems: {self.total_systems} "
-                f"(minimum: {self.min_systems})"
+                f"Insufficient game systems: {self.total_systems} " f"(minimum: {self.min_systems})"
             )
 
         if self.completeness_percentage < self.min_completeness:
@@ -322,16 +344,14 @@ class MechanicsMetrics:
         # Warnings for missing core systems
         missing_core = []
         if not self.has_combat_system:
-            missing_core.append('combat')
+            missing_core.append("combat")
         if not self.has_movement_system:
-            missing_core.append('movement')
+            missing_core.append("movement")
         if not self.has_inventory_system:
-            missing_core.append('inventory')
+            missing_core.append("inventory")
 
         if missing_core:
-            failures.append(
-                f"Warning: Missing core systems: {', '.join(missing_core)}"
-            )
+            failures.append(f"Warning: Missing core systems: {', '.join(missing_core)}")
 
         return failures
 
@@ -357,11 +377,13 @@ class MechanicsMetrics:
         score += 3.0 * (self.average_rule_clarity / 10.0)
 
         # Core systems (1.5 points total)
-        core_systems = sum([
-            self.has_combat_system,
-            self.has_movement_system,
-            self.has_inventory_system,
-        ])
+        core_systems = sum(
+            [
+                self.has_combat_system,
+                self.has_movement_system,
+                self.has_inventory_system,
+            ]
+        )
         score += 1.5 * (core_systems / 3.0)
 
         # Balance notes (0.5 points)
@@ -378,16 +400,16 @@ class MechanicsMetrics:
             Dictionary representation of metrics
         """
         return {
-            'has_combat_system': self.has_combat_system,
-            'has_movement_system': self.has_movement_system,
-            'has_inventory_system': self.has_inventory_system,
-            'has_progression_system': self.has_progression_system,
-            'total_systems': self.total_systems,
-            'systems_with_rules': self.systems_with_rules,
-            'completeness_percentage': round(self.completeness_percentage, 1),
-            'average_rule_clarity': round(self.average_rule_clarity, 2),
-            'has_balance_notes': self.has_balance_notes,
-            'passes_threshold': self.passes_threshold(),
-            'score': self.get_score(),
-            'failures': self.get_failures(),
+            "has_combat_system": self.has_combat_system,
+            "has_movement_system": self.has_movement_system,
+            "has_inventory_system": self.has_inventory_system,
+            "has_progression_system": self.has_progression_system,
+            "total_systems": self.total_systems,
+            "systems_with_rules": self.systems_with_rules,
+            "completeness_percentage": round(self.completeness_percentage, 1),
+            "average_rule_clarity": round(self.average_rule_clarity, 2),
+            "has_balance_notes": self.has_balance_notes,
+            "passes_threshold": self.passes_threshold(),
+            "score": self.get_score(),
+            "failures": self.get_failures(),
         }

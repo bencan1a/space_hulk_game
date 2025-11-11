@@ -8,7 +8,7 @@ This directory contains GitHub Actions workflows for the Space Hulk Game project
 
 On-demand workflow to execute the CrewAI agent crew and capture generated game content as artifacts.
 
-**Trigger**: Manual (workflow_dispatch)  
+**Trigger**: Manual (workflow_dispatch)
 **Documentation**: See [docs/WORKFLOWS.md](../../docs/WORKFLOWS.md) for detailed information
 
 ## How to Use

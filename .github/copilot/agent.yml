@@ -17,7 +17,7 @@ structure:
   tests: tests/
   config: src/space_hulk_game/config/
   documentation: memory-bank/
-  game_design: 
+  game_design:
     - prd_document.yaml
     - narrative_map.yaml
     - scene_texts.yaml
@@ -42,7 +42,7 @@ technologies:
     - mem0
     - litellm
   package_manager: uv
-  
+
 # Code style preferences
 style:
   - Follow PEP 8 Python style guidelines

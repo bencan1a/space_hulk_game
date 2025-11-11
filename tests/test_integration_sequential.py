@@ -18,13 +18,14 @@ import warnings
 from unittest.mock import MagicMock, patch
 
 # Add the src directory to the path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../")))
 
 # Try to import required modules
 try:
     from crewai import LLM, Agent, Crew, Process, Task
 
     from src.space_hulk_game.crew import SpaceHulkGame
+
     CREWAI_AVAILABLE = True
 except ImportError as e:
     CREWAI_AVAILABLE = False
@@ -37,8 +38,8 @@ class TestSequentialAgentSystem(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         """Set up class-level fixtures."""
-        cls.api_key = os.getenv('OPENROUTER_API_KEY')
-        cls.model_name = os.getenv('OPENAI_MODEL_NAME', 'openrouter/anthropic/claude-3.5-sonnet')
+        cls.api_key = os.getenv("OPENROUTER_API_KEY")
+        cls.model_name = os.getenv("OPENAI_MODEL_NAME", "openrouter/anthropic/claude-3.5-sonnet")
         cls.use_real_api = bool(cls.api_key)
 
         if cls.use_real_api:
@@ -56,7 +57,7 @@ class TestSequentialAgentSystem(unittest.TestCase):
         """Test that SpaceHulkGame crew can be initialized."""
         if self.use_real_api:
             # Patch LLM to use OpenRouter instead of Ollama
-            with patch('src.space_hulk_game.crew.LLM') as mock_llm_class:
+            with patch("src.space_hulk_game.crew.LLM") as mock_llm_class:
                 mock_llm = MagicMock()
                 mock_llm_class.return_value = mock_llm
 
@@ -67,8 +68,7 @@ class TestSequentialAgentSystem(unittest.TestCase):
                 self.assertIsNotNone(crew.tasks_config)
         else:
             # Use mocked initialization
-            with patch('src.space_hulk_game.crew.LLM') as mock_llm_class:
-
+            with patch("src.space_hulk_game.crew.LLM") as mock_llm_class:
                 mock_llm = MagicMock()
                 mock_llm_class.return_value = mock_llm
 
@@ -81,8 +81,7 @@ class TestSequentialAgentSystem(unittest.TestCase):
     @unittest.skipUnless(CREWAI_AVAILABLE, "CrewAI not available")
     def test_prepare_inputs_validation(self):
         """Test that prepare_inputs validates and enriches input data."""
-        with patch('src.space_hulk_game.crew.LLM') as mock_llm_class:
-
+        with patch("src.space_hulk_game.crew.LLM") as mock_llm_class:
             mock_llm_class.return_value = MagicMock()
 
             crew = SpaceHulkGame()
@@ -114,8 +113,7 @@ class TestSequentialAgentSystem(unittest.TestCase):
     @unittest.skipUnless(CREWAI_AVAILABLE, "CrewAI not available")
     def test_agent_creation(self):
         """Test that all 6 agents can be created successfully."""
-        with patch('src.space_hulk_game.crew.LLM') as mock_llm_class:
-
+        with patch("src.space_hulk_game.crew.LLM") as mock_llm_class:
             mock_llm = MagicMock()
             mock_llm_class.return_value = mock_llm
 
@@ -123,12 +121,12 @@ class TestSequentialAgentSystem(unittest.TestCase):
 
             # Test each agent creation
             agents_to_test = [
-                'NarrativeDirectorAgent',
-                'PlotMasterAgent',
-                'NarrativeArchitectAgent',
-                'PuzzleSmithAgent',
-                'CreativeScribeAgent',
-                'MechanicsGuruAgent'
+                "NarrativeDirectorAgent",
+                "PlotMasterAgent",
+                "NarrativeArchitectAgent",
+                "PuzzleSmithAgent",
+                "CreativeScribeAgent",
+                "MechanicsGuruAgent",
             ]
 
             for agent_name in agents_to_test:
@@ -142,19 +140,18 @@ class TestSequentialAgentSystem(unittest.TestCase):
     @unittest.skipUnless(CREWAI_AVAILABLE, "CrewAI not available")
     def test_task_creation(self):
         """Test that all core tasks can be created successfully."""
-        with patch('src.space_hulk_game.crew.LLM') as mock_llm_class:
-
+        with patch("src.space_hulk_game.crew.LLM") as mock_llm_class:
             mock_llm_class.return_value = MagicMock()
 
             crew = SpaceHulkGame()
 
             # Test core task creation
             tasks_to_test = [
-                'GenerateOverarchingPlot',
-                'CreateNarrativeMap',
-                'DesignArtifactsAndPuzzles',
-                'WriteSceneDescriptionsAndDialogue',
-                'CreateGameMechanicsPRD'
+                "GenerateOverarchingPlot",
+                "CreateNarrativeMap",
+                "DesignArtifactsAndPuzzles",
+                "WriteSceneDescriptionsAndDialogue",
+                "CreateGameMechanicsPRD",
             ]
 
             for task_name in tasks_to_test:
@@ -168,8 +165,7 @@ class TestSequentialAgentSystem(unittest.TestCase):
     @unittest.skipUnless(CREWAI_AVAILABLE, "CrewAI not available")
     def test_crew_configuration(self):
         """Test that crew is configured with sequential process."""
-        with patch('src.space_hulk_game.crew.LLM') as mock_llm_class:
-
+        with patch("src.space_hulk_game.crew.LLM") as mock_llm_class:
             mock_llm_class.return_value = MagicMock()
 
             crew_instance = SpaceHulkGame()
@@ -182,25 +178,21 @@ class TestSequentialAgentSystem(unittest.TestCase):
             self.assertTrue(len(crew_obj.tasks) > 0)
 
     @unittest.skipUnless(CREWAI_AVAILABLE, "CrewAI not available")
-    @unittest.skipIf(os.getenv('SKIP_SLOW_TESTS') == '1', "Skipping slow integration test")
+    @unittest.skipIf(os.getenv("SKIP_SLOW_TESTS") == "1", "Skipping slow integration test")
     def test_full_crew_execution_minimal(self):
         """Test full crew execution with minimal task set (mocked)."""
         # This test uses mocked LLM responses to avoid long execution times
         # and API costs during testing
 
-        with patch('src.space_hulk_game.crew.LLM') as mock_llm_class:
-
+        with patch("src.space_hulk_game.crew.LLM") as mock_llm_class:
             # Set up mock LLM
             mock_llm = MagicMock()
             mock_llm.call.return_value = "Mock LLM response for testing"
             mock_llm_class.return_value = mock_llm
 
             # Mock the task execution to return quickly
-            with patch('crewai.Task.execute_sync') as mock_execute:
-                mock_execute.return_value = MagicMock(
-                    raw="Mock task output",
-                    pydantic=None
-                )
+            with patch("crewai.Task.execute_sync") as mock_execute:
+                mock_execute.return_value = MagicMock(raw="Mock task output", pydantic=None)
 
                 try:
                     _ = SpaceHulkGame()
@@ -216,13 +208,12 @@ class TestSequentialAgentSystem(unittest.TestCase):
                     print("\n✓ Crew execution test framework validated (mocked)")
 
                 except Exception as e:
-                    self.fail(f"Crew execution failed: {str(e)}")
+                    self.fail(f"Crew execution failed: {e!s}")
 
     @unittest.skipUnless(CREWAI_AVAILABLE, "CrewAI not available")
     def test_process_output_adds_metadata(self):
         """Test that process_output enriches results with metadata."""
-        with patch('src.space_hulk_game.crew.LLM') as mock_llm_class:
-
+        with patch("src.space_hulk_game.crew.LLM") as mock_llm_class:
             mock_llm_class.return_value = MagicMock()
 
             crew = SpaceHulkGame()
@@ -238,19 +229,18 @@ class TestSequentialAgentSystem(unittest.TestCase):
             result = crew.process_output(mock_output)
 
             # Validate metadata was added
-            self.assertTrue(hasattr(result, 'metadata'))
+            self.assertTrue(hasattr(result, "metadata"))
             self.assertIsInstance(result.metadata, dict)
-            self.assertIn('processed_at', result.metadata)
-            self.assertIn('validation_applied', result.metadata)
-            self.assertIn('crew_mode', result.metadata)
-            self.assertIn('total_tasks', result.metadata)
-            self.assertIn('total_agents', result.metadata)
+            self.assertIn("processed_at", result.metadata)
+            self.assertIn("validation_applied", result.metadata)
+            self.assertIn("crew_mode", result.metadata)
+            self.assertIn("total_tasks", result.metadata)
+            self.assertIn("total_agents", result.metadata)
 
     @unittest.skipUnless(CREWAI_AVAILABLE, "CrewAI not available")
     def test_error_recovery_mechanisms(self):
         """Test that error recovery mechanisms work correctly."""
-        with patch('src.space_hulk_game.crew.LLM') as mock_llm_class:
-
+        with patch("src.space_hulk_game.crew.LLM") as mock_llm_class:
             mock_llm_class.return_value = MagicMock()
 
             crew = SpaceHulkGame()
@@ -275,8 +265,7 @@ class TestAgentContextPassing(unittest.TestCase):
     @unittest.skipUnless(CREWAI_AVAILABLE, "CrewAI not available")
     def test_task_dependencies_configured(self):
         """Test that task dependencies are properly configured."""
-        with patch('src.space_hulk_game.crew.LLM') as mock_llm_class:
-
+        with patch("src.space_hulk_game.crew.LLM") as mock_llm_class:
             mock_llm_class.return_value = MagicMock()
 
             crew_instance = SpaceHulkGame()
@@ -303,30 +292,25 @@ class TestRealAPIExecution(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         """Set up for real API tests."""
-        cls.api_key = os.getenv('OPENROUTER_API_KEY')
-        cls.model_name = os.getenv('OPENAI_MODEL_NAME', 'openrouter/anthropic/claude-3.5-sonnet')
-        cls.run_real_tests = (
-            cls.api_key is not None and
-            os.getenv('RUN_REAL_API_TESTS') == '1'
-        )
+        cls.api_key = os.getenv("OPENROUTER_API_KEY")
+        cls.model_name = os.getenv("OPENAI_MODEL_NAME", "openrouter/anthropic/claude-3.5-sonnet")
+        cls.run_real_tests = cls.api_key is not None and os.getenv("RUN_REAL_API_TESTS") == "1"
 
     @unittest.skipUnless(
-        os.getenv('OPENROUTER_API_KEY') and os.getenv('RUN_REAL_API_TESTS') == '1',
-        "Real API tests disabled (set RUN_REAL_API_TESTS=1 to enable)"
+        os.getenv("OPENROUTER_API_KEY") and os.getenv("RUN_REAL_API_TESTS") == "1",
+        "Real API tests disabled (set RUN_REAL_API_TESTS=1 to enable)",
     )
     @unittest.skipUnless(CREWAI_AVAILABLE, "CrewAI not available")
     def test_single_agent_real_execution(self):
         """Test execution of a single agent with real API."""
         # Configure crew to use OpenRouter
-        with patch('src.space_hulk_game.crew.SpaceHulkGame.__init__'):
+        with patch("src.space_hulk_game.crew.SpaceHulkGame.__init__"):
+
             def custom_init(self):
                 # Load configs normally
                 SpaceHulkGame.__init__._original_method(self)
                 # Override LLM to use OpenRouter
-                self.llm = LLM(
-                    model=self.model_name,
-                    api_key=self.api_key
-                )
+                self.llm = LLM(model=self.model_name, api_key=self.api_key)
 
             # This would need more complex patching to work correctly
             # For now, this serves as a template for real API testing
@@ -334,22 +318,22 @@ class TestRealAPIExecution(unittest.TestCase):
             self.skipTest("Real API test requires additional setup")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Print environment info
-    print("\n" + "="*70)
+    print("\n" + "=" * 70)
     print("SEQUENTIAL AGENT SYSTEM - END-TO-END INTEGRATION TESTS")
-    print("="*70)
+    print("=" * 70)
 
-    if os.getenv('OPENROUTER_API_KEY'):
+    if os.getenv("OPENROUTER_API_KEY"):
         print("✓ OPENROUTER_API_KEY found")
-        if os.getenv('RUN_REAL_API_TESTS') == '1':
+        if os.getenv("RUN_REAL_API_TESTS") == "1":
             print("✓ RUN_REAL_API_TESTS enabled - will run real API tests")
         else:
             print("  (Set RUN_REAL_API_TESTS=1 to enable real API tests)")
     else:
         print("⚠ OPENROUTER_API_KEY not found - using mocked tests only")
 
-    print("="*70 + "\n")
+    print("=" * 70 + "\n")
 
     # Run tests
     unittest.main(verbosity=2)

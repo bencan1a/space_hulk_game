@@ -41,7 +41,7 @@
 #
 # For initial validation (per REVISED_RESTART_PLAN.md), test with just the 5 core tasks:
 # 1. GenerateOverarchingPlot
-# 2. CreateNarrativeMap  
+# 2. CreateNarrativeMap
 # 3. DesignArtifactsAndPuzzles
 # 4. WriteSceneDescriptionsAndDialogue
 # 5. CreateGameMechanicsPRD
@@ -52,14 +52,14 @@
 GenerateOverarchingPlot:
   name: "Generate Comprehensive Narrative Foundation"
   description: >
-    Create a comprehensive narrative foundation for the Space Hulk game. This foundation must be 
-    detailed enough to guide all subsequent development, establishing the setting, key plot points, 
-    themes, tone, and central conflicts. This narrative foundation is the critical first step that 
+    Create a comprehensive narrative foundation for the Space Hulk game. This foundation must be
+    detailed enough to guide all subsequent development, establishing the setting, key plot points,
+    themes, tone, and central conflicts. This narrative foundation is the critical first step that
     all other development will build upon.
   expected_output: >
-    A detailed narrative foundation document that clearly defines the game's setting, core 
-    narrative themes, major plot points, key characters, central conflicts, and narrative 
-    tone. This document must be comprehensive enough to serve as the guiding framework for 
+    A detailed narrative foundation document that clearly defines the game's setting, core
+    narrative themes, major plot points, key characters, central conflicts, and narrative
+    tone. This document must be comprehensive enough to serve as the guiding framework for
     all subsequent development work.
   agent: "PlotMasterAgent"
   output_file: "game-config/plot_outline.yaml"
@@ -68,7 +68,7 @@ EvaluateNarrativeFoundation:
   name: "Evaluate Narrative Foundation"
   description: >
     Thoroughly evaluate the narrative foundation to ensure it provides sufficient depth, clarity,
-    and direction for all subsequent development. This is a critical quality gate - subsequent 
+    and direction for all subsequent development. This is a critical quality gate - subsequent
     work cannot proceed until a strong narrative foundation is established.
   expected_output: >
     A comprehensive evaluation of the narrative foundation with specific feedback for improvement.
@@ -88,7 +88,7 @@ CreateNarrativeMap:
     all critical paths, character arcs, decision points, and narrative progression. This
     structure will direct all subsequent content creation by specialists.
   expected_output: >
-    A comprehensive narrative structure that clearly defines all scenes, connections, character 
+    A comprehensive narrative structure that clearly defines all scenes, connections, character
     moments, key decision points, and narrative progression in a structured format that can
     guide specialized development work.
   agent: "NarrativeArchitectAgent"
@@ -102,9 +102,9 @@ CreateNarrativeMap:
 EvaluateNarrativeStructure:
   name: "Evaluate Narrative Structure"
   description: >
-    Thoroughly evaluate the narrative structure to ensure it adequately develops the approved 
-    foundation into an implementable blueprint for all specialized development. This is a 
-    critical quality gate - specialist work cannot fully proceed until the narrative structure 
+    Thoroughly evaluate the narrative structure to ensure it adequately develops the approved
+    foundation into an implementable blueprint for all specialized development. This is a
+    critical quality gate - specialist work cannot fully proceed until the narrative structure
     is approved.
   expected_output: >
     A detailed evaluation of the narrative structure with specific feedback. Include explicit
@@ -121,7 +121,7 @@ DesignArtifactsAndPuzzles:
   name: "Create Narrative-Integrated Puzzles and Artifacts"
   description: >
     Based on the approved narrative structure, design puzzles, artifacts, monsters, and NPCs
-    that directly serve and enhance the established narrative. Each element must have clear 
+    that directly serve and enhance the established narrative. Each element must have clear
     connections to the narrative themes, advance the story in meaningful ways, and maintain
     thematic consistency.
   expected_output: >

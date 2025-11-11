@@ -15,7 +15,7 @@ Based on comprehensive analysis of the project goals, architecture, and success 
 
 Sequential mode already generates complete games with:
 - Plot outlines
-- Narrative maps  
+- Narrative maps
 - Puzzles and artifacts
 - Scene descriptions
 - Game mechanics (PRD)

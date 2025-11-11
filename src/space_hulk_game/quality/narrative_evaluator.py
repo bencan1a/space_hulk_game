@@ -67,15 +67,15 @@ class NarrativeMapEvaluator(QualityEvaluator):
 
             # Build details dictionary
             details = {
-                'total_scenes': metrics.total_scenes,
-                'scenes_with_descriptions': metrics.scenes_with_descriptions,
-                'all_connections_valid': metrics.all_connections_valid,
-                'has_orphaned_scenes': metrics.has_orphaned_scenes,
-                'orphaned_scenes': list(metrics.orphaned_scenes) if metrics.orphaned_scenes else [],
-                'invalid_connections': [],  # Legacy field, no longer tracked
-                'completeness_percentage': metrics.completeness_percentage,
-                'failures': failures,
-                'threshold': self.pass_threshold
+                "total_scenes": metrics.total_scenes,
+                "scenes_with_descriptions": metrics.scenes_with_descriptions,
+                "all_connections_valid": metrics.all_connections_valid,
+                "has_orphaned_scenes": metrics.has_orphaned_scenes,
+                "orphaned_scenes": list(metrics.orphaned_scenes) if metrics.orphaned_scenes else [],
+                "invalid_connections": [],  # Legacy field, no longer tracked
+                "completeness_percentage": metrics.completeness_percentage,
+                "failures": failures,
+                "threshold": self.pass_threshold,
             }
 
             logger.info(
@@ -90,16 +90,16 @@ class NarrativeMapEvaluator(QualityEvaluator):
             return self._create_score(
                 score=0.0,
                 passed=False,
-                feedback=f"Failed to parse narrative map content: {str(e)}",
-                details={'error': str(e)}
+                feedback=f"Failed to parse narrative map content: {e!s}",
+                details={"error": str(e)},
             )
         except Exception as e:
             logger.exception(f"Unexpected error evaluating narrative map: {e}")
             return self._create_score(
                 score=0.0,
                 passed=False,
-                feedback=f"Unexpected error during evaluation: {str(e)}",
-                details={'error': str(e)}
+                feedback=f"Unexpected error during evaluation: {e!s}",
+                details={"error": str(e)},
             )
 
     def generate_detailed_feedback(self, content: str) -> str:
@@ -129,7 +129,7 @@ class NarrativeMapEvaluator(QualityEvaluator):
 
         # Add specific findings
         details = result.details
-        failures = details.get('failures', [])
+        failures = details.get("failures", [])
 
         if failures:
             lines.append("Issues to address:")
@@ -142,7 +142,7 @@ class NarrativeMapEvaluator(QualityEvaluator):
         lines.append(f"Completeness: {details.get('completeness_percentage', 0):.1f}%")
 
         # List orphaned scenes if any
-        orphaned = details.get('orphaned_scenes', [])
+        orphaned = details.get("orphaned_scenes", [])
         if orphaned:
             lines.append("")
             lines.append(f"Orphaned scenes ({len(orphaned)}):")
@@ -150,7 +150,7 @@ class NarrativeMapEvaluator(QualityEvaluator):
                 lines.append(f"  • {scene_id}")
 
         # List invalid connections if any
-        invalid = details.get('invalid_connections', [])
+        invalid = details.get("invalid_connections", [])
         if invalid:
             lines.append("")
             lines.append(f"Invalid connections ({len(invalid)}):")
@@ -159,11 +159,11 @@ class NarrativeMapEvaluator(QualityEvaluator):
 
         # Add positive feedback
         lines.append("")
-        if details.get('scenes_with_descriptions', 0) == details.get('total_scenes', 0):
+        if details.get("scenes_with_descriptions", 0) == details.get("total_scenes", 0):
             lines.append("✓ All scenes have descriptions")
-        if details.get('all_connections_valid'):
+        if details.get("all_connections_valid"):
             lines.append("✓ All connections are valid")
-        if not details.get('has_orphaned_scenes'):
+        if not details.get("has_orphaned_scenes"):
             lines.append("✓ No orphaned scenes")
 
         return "\n".join(lines)

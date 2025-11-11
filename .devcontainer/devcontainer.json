@@ -1,7 +1,7 @@
 {
   "name": "Space Hulk Game Development",
   "image": "mcr.microsoft.com/devcontainers/python:1-3.11-bullseye",
-  
+
   // Features to install
   "features": {
     "ghcr.io/devcontainers/features/git:1": {},
@@ -44,11 +44,11 @@
         "git.autofetch": true,
         "extensions.autoUpdate": false
       },
-      
+
       // Extensions to install
       "extensions": [
         "ms-python.python",
-        "ms-python.black-formatter", 
+        "ms-python.black-formatter",
         "ms-python.mypy-type-checker",
         "ms-python.pylint",
         "charliermarsh.ruff",
@@ -109,12 +109,12 @@
   // Configure lifecycle scripts
   "initializeCommand": "echo 'Initializing Space Hulk Game devcontainer...'",
   "onCreateCommand": "echo 'Creating Space Hulk Game development environment...'",
-  
+
   // Security and performance settings
   "privileged": false,
   "capAdd": [],
   "securityOpt": ["seccomp=unconfined"],
-  
+
   // Resource limits (optional)
   "hostRequirements": {
     "cpus": 2,
