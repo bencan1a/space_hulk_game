@@ -14,6 +14,7 @@ from space_hulk_game.schemas.narrative_map import NarrativeMap
 from space_hulk_game.schemas.plot_outline import PlotOutline
 from space_hulk_game.schemas.puzzle_design import PuzzleDesign
 from space_hulk_game.schemas.scene_text import SceneTexts
+from space_hulk_game.utils.yaml_processor import strip_markdown_yaml_blocks
 from space_hulk_game.validation import OutputValidator, ValidationResult
 
 
@@ -31,19 +32,19 @@ class TestOutputValidator(unittest.TestCase):
     def test_strip_markdown_fences_with_yaml_language(self):
         """Test stripping markdown fences with yaml language specifier."""
         yaml_with_fence = "```yaml\nkey: value\n```"
-        result = self.validator._strip_markdown_fences(yaml_with_fence)
+        result = strip_markdown_yaml_blocks(yaml_with_fence)
         self.assertEqual(result, "key: value")
 
     def test_strip_markdown_fences_without_language(self):
         """Test stripping markdown fences without language specifier."""
         yaml_with_fence = "```\nkey: value\n```"
-        result = self.validator._strip_markdown_fences(yaml_with_fence)
+        result = strip_markdown_yaml_blocks(yaml_with_fence)
         self.assertEqual(result, "key: value")
 
     def test_strip_markdown_fences_no_fences(self):
         """Test that content without fences is unchanged."""
         yaml_no_fence = "key: value"
-        result = self.validator._strip_markdown_fences(yaml_no_fence)
+        result = strip_markdown_yaml_blocks(yaml_no_fence)
         self.assertEqual(result, "key: value")
 
     def test_parse_yaml_valid(self):
