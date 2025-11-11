@@ -12,6 +12,8 @@ from typing import Any
 
 import yaml
 
+from space_hulk_game.utils.yaml_processor import strip_markdown_yaml_blocks
+
 from .score import QualityScore
 
 logger = logging.getLogger(__name__)
@@ -87,47 +89,12 @@ class QualityEvaluator(ABC):
         return result.feedback
 
     @staticmethod
-    def _fix_common_yaml_errors(content: str) -> str:
-        """
-        Attempt to fix common YAML syntax errors.
-
-        Args:
-            content: YAML string that may have syntax errors
-
-        Returns:
-            Fixed YAML string
-        """
-        lines = content.split("\n")
-        fixed_lines = []
-
-        for line in lines:
-            # Fix unquoted values with colons (e.g., "title: Space Hulk: Derelict")
-            # Match pattern: "key: value with : colon" where value is not quoted
-            if ":" in line and not line.strip().startswith("-"):
-                parts = line.split(":", 1)
-                if len(parts) == 2:
-                    key_part = parts[0]
-                    value_part = parts[1].strip()
-
-                    # If value has a colon and is not already quoted
-                    if ":" in value_part and not (
-                        (value_part.startswith('"') and value_part.endswith('"'))
-                        or (value_part.startswith("'") and value_part.endswith("'"))
-                    ):
-                        # Quote the value
-                        fixed_line = f'{key_part}: "{value_part}"'
-                        fixed_lines.append(fixed_line)
-                        logger.debug(f"Fixed YAML line: {line.strip()} -> {fixed_line}")
-                        continue
-
-            fixed_lines.append(line)
-
-        return "\n".join(fixed_lines)
-
-    @staticmethod
     def parse_yaml(content: str) -> dict[str, Any]:
         """
-        Parse YAML content, handling markdown-wrapped YAML and common syntax errors.
+        Parse YAML content, handling markdown-wrapped YAML.
+
+        NOTE: YAML sanitization happens in OutputSanitizer (Phase 1).
+        This method assumes YAML is already clean. If parsing fails, it's a real error.
 
         Args:
             content: YAML string, optionally wrapped in markdown code fences
@@ -140,30 +107,13 @@ class QualityEvaluator(ABC):
         """
         try:
             # Handle markdown-wrapped YAML
-            content_stripped = content.strip()
-            if content_stripped.startswith("```"):
-                lines = content_stripped.split("\n")
-                # Remove first line (```yaml or ```) and last line (```)
-                content_stripped = "\n".join(lines[1:-1])
-                logger.debug("Stripped markdown fences from YAML content")
+            content_stripped = strip_markdown_yaml_blocks(content.strip())
+            logger.debug("Stripped markdown fences from YAML content")
 
-            # Try to parse as-is first
-            try:
-                data = yaml.safe_load(content_stripped)
-                if data is None:
-                    raise ValueError("YAML content is empty or invalid")
-                return dict(data)
-            except yaml.YAMLError as parse_error:
-                # Attempt to fix common YAML syntax errors and retry
-                logger.debug(
-                    f"Initial YAML parse failed, attempting to fix common errors: {parse_error}"
-                )
-                fixed_content = QualityEvaluator._fix_common_yaml_errors(content_stripped)
-                data = yaml.safe_load(fixed_content)
-                if data is None:
-                    raise ValueError("YAML content is empty or invalid") from parse_error
-                logger.info("Successfully parsed YAML after fixing common syntax errors")
-                return dict(data)
+            data = yaml.safe_load(content_stripped)
+            if data is None:
+                raise ValueError("YAML content is empty or invalid")
+            return dict(data)
 
         except yaml.YAMLError as e:
             logger.error(f"Failed to parse YAML: {e}")

@@ -11,6 +11,7 @@ from dataclasses import dataclass
 
 import yaml
 
+from space_hulk_game.utils.yaml_processor import strip_markdown_yaml_blocks
 from space_hulk_game.validation.validator import OutputValidator, ValidationResult
 
 logger = logging.getLogger(__name__)
@@ -72,20 +73,6 @@ class OutputCorrector:
         self.validator = OutputValidator()
         logger.info("OutputCorrector initialized")
 
-    def _strip_markdown_fences(self, raw_output: str) -> str:
-        """Strip markdown code fences from YAML output.
-
-        Args:
-            raw_output: Raw output string, potentially with markdown fences.
-
-        Returns:
-            Cleaned YAML string without markdown fences.
-        """
-        # Remove opening fence (```yaml or ```)
-        output = re.sub(r"\A```(?:yaml)?\s*\n", "", raw_output.strip())
-        # Remove closing fence (```)
-        output = re.sub(r"\n```\s*$", "", output, flags=re.MULTILINE)
-        return output.strip()
 
     def _fix_id_format(self, id_value: str) -> str:
         """Fix ID format to match schema requirements.
@@ -301,7 +288,7 @@ class OutputCorrector:
         """
         try:
             # Strip markdown fences first
-            clean_yaml = self._strip_markdown_fences(raw_output)
+            clean_yaml = strip_markdown_yaml_blocks(raw_output)
 
             # Apply syntax fixes BEFORE parsing
             clean_yaml = self._fix_mixed_quotes(clean_yaml)
@@ -325,8 +312,12 @@ class OutputCorrector:
 
             try:
                 # Common fix: remove duplicate colons, fix indentation issues
-                clean_yaml = self._strip_markdown_fences(raw_output)
+                clean_yaml = strip_markdown_yaml_blocks(raw_output)
 
+                # NOTE: This is the ONLY implementation of colon-in-values fixing.
+                # Other modules (evaluator, crew) have been refactored to rely on this.
+                # Do not duplicate this logic elsewhere.
+                #
                 # Try to fix "mapping values are not allowed here" by escaping colons in values
                 # This is a simple heuristic and may not catch all cases
                 lines = clean_yaml.split("\n")

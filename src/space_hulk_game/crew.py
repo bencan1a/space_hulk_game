@@ -84,6 +84,7 @@ from crewai.project import CrewBase, after_kickoff, agent, before_kickoff, crew,
 
 from space_hulk_game.config.hierarchical_tasks import HIERARCHICAL_TASKS
 from space_hulk_game.utils.output_sanitizer import OutputSanitizer
+from space_hulk_game.utils.yaml_processor import strip_markdown_yaml_blocks
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -601,12 +602,7 @@ class SpaceHulkGame:
                 # 1. Remove markdown code fence markers
                 if content.startswith("```") or "```yml" in content or "```yaml" in content:
                     logger.info(f"Removing code fences from {filepath}")
-                    content = (
-                        content.replace("```yml\n", "")
-                        .replace("```yaml\n", "")
-                        .replace("```\n", "")
-                    )
-                    content = content.replace("\n```", "").replace("```", "")
+                    content = strip_markdown_yaml_blocks(content)
                     needs_cleaning = True
 
                 # 2. Replace em dashes with double hyphens (for YAML compatibility)
@@ -614,32 +610,6 @@ class SpaceHulkGame:
                     logger.info(f"Replacing em dashes in {filepath}")
                     content = content.replace("-", "--").replace("-", "--")
                     needs_cleaning = True
-
-                # 2b. Fix nested quotes in double-quoted strings
-                # Pattern: description: "text with "nested" quotes"
-                # Replace inner double quotes with single quotes
-                def fix_nested_quotes(match, fp=filepath):
-                    """Replace nested double quotes with single quotes inside YAML strings."""
-                    full_match = match.group(0)
-                    key = match.group(1)  # e.g., "description"
-                    value = match.group(2)  # The quoted string content
-
-                    # Check if there are nested double quotes
-                    if '"' in value:
-                        logger.info(f"Fixing nested quotes in {fp}")
-                        # Replace internal double quotes with single quotes
-                        fixed_value = value.replace('"', "'")
-                        return f'{key}: "{fixed_value}"'
-
-                    return full_match
-
-                # Match YAML key-value pairs with quoted strings
-                content = re.sub(
-                    r'(\w+):\s+"([^"]*(?:"[^"]*)*)"',
-                    fix_nested_quotes,
-                    content,
-                    flags=re.MULTILINE,
-                )
 
                 # 3. Fix improper line continuations in YAML strings
                 # Pattern: lines within a quoted string that have wrong indentation

@@ -24,9 +24,12 @@ Example:
 """
 
 import logging
+from typing import TYPE_CHECKING
 
 from space_hulk_game.utils.yaml_processor import strip_markdown_yaml_blocks
-from space_hulk_game.validation.corrector import OutputCorrector
+
+if TYPE_CHECKING:
+    from space_hulk_game.validation.corrector import OutputCorrector
 
 logger = logging.getLogger(__name__)
 
@@ -71,6 +74,9 @@ class OutputSanitizer:
         The corrector provides type-specific validation and auto-correction
         for all five output types.
         """
+        # Lazy import to avoid circular dependency
+        from space_hulk_game.validation.corrector import OutputCorrector
+
         self.corrector = OutputCorrector()
         logger.info("OutputSanitizer initialized with OutputCorrector")
 

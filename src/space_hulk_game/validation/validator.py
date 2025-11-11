@@ -17,6 +17,7 @@ from space_hulk_game.schemas.narrative_map import NarrativeMap
 from space_hulk_game.schemas.plot_outline import PlotOutline
 from space_hulk_game.schemas.puzzle_design import PuzzleDesign
 from space_hulk_game.schemas.scene_text import SceneTexts
+from space_hulk_game.utils.yaml_processor import strip_markdown_yaml_blocks
 
 logger = logging.getLogger(__name__)
 
@@ -68,34 +69,6 @@ class OutputValidator:
         """Initialize the output validator."""
         logger.info("OutputValidator initialized")
 
-    def _strip_markdown_fences(self, raw_output: str) -> str:
-        """Strip markdown code fences from YAML output.
-
-        AI outputs often wrap YAML in markdown fences like:
-        ```yaml
-        content: here
-        ```
-
-        This method removes those fences to get clean YAML.
-
-        Args:
-            raw_output: Raw output string, potentially with markdown fences.
-
-        Returns:
-            Cleaned YAML string without markdown fences.
-
-        Example:
-            >>> validator = OutputValidator()
-            >>> yaml_with_fences = "```yaml\\nkey: value\\n```"
-            >>> clean = validator._strip_markdown_fences(yaml_with_fences)
-            >>> clean
-            'key: value'
-        """
-        # Remove opening fence (```yaml or ```)
-        output = re.sub(r"\A```(?:yaml)?\s*\n", "", raw_output.strip())
-        # Remove closing fence (```)
-        output = re.sub(r"\n```\s*$", "", output, flags=re.MULTILINE)
-        return output.strip()
 
     def _parse_yaml(self, raw_output: str) -> tuple[dict | None, list[str]]:
         """Parse YAML string into a dictionary.
@@ -110,7 +83,7 @@ class OutputValidator:
         """
         try:
             # Strip markdown fences first
-            clean_yaml = self._strip_markdown_fences(raw_output)
+            clean_yaml = strip_markdown_yaml_blocks(raw_output)
 
             # Parse YAML
             data = yaml.safe_load(clean_yaml)
