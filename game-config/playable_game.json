@@ -44,7 +44,7 @@
         "name": "Isolated Survival and Navigation",
         "description": "The 'Goliath's Maw' stretches before you, a maze of desiccated corridors and shattered bulkheads. The air is heavy, a metallic tang mingling with the scent of ozone and the cloying sweetness of unknown biological decay. Sporadic emergency lights flicker, casting grotesque, shifting shadows that dance like forgotten spirits. Rust crumbles from every surface, a fine red dust coating your boots. The silence is broken only by the rhythmic thrum of the Hulk's dying engines, the faint drip of stagnant water, and the distant, unsettling skittering of unseen things. You are a solitary crimson shadow in a world of grey and rust, each step a testament to grim resolve, each encounter a brutal test of your will against the encroaching madness of the Black Rage and the relentless alien foe. Scattered along your path are the somber relics of your fallen brothers: a shattered shoulder pad, a plasma pistol discharged into oblivion, a fragmented comm-bead still emitting a faint, desperate hum.",
         "exits": {
-          "insertion chamber": "scene_01_insertion",
+          "back": "scene_01_insertion",
           "rubble path": "scene_03_reunion_arion",
           "maintenance shaft": "scene_03_reunion_arion"
         },
