@@ -78,16 +78,55 @@ This document provides an overview and navigation guide for the browser-based ga
 
 ---
 
+### 4. **User Journey Diagrams**
+**File**: [USER_JOURNEYS_DIAGRAMS.md](./USER_JOURNEYS_DIAGRAMS.md)
+
+**Purpose**: Visual representations of user flows and system interactions
+
+**Contents**:
+- ASCII art user journey maps
+- System flow diagrams
+- State transition diagrams
+- API interaction sequences
+- Component hierarchy
+- Decision trees
+
+**Audience**: All team members (visual communication)
+
+---
+
+### 5. **Theming System Design** ⭐ NEW
+**File**: [THEMING_SYSTEM.md](./THEMING_SYSTEM.md)
+
+**Purpose**: Multi-genre theme configuration for runtime customization
+
+**Contents**:
+- Theme architecture and configuration structure
+- Runtime theme loading and switching
+- Frontend/backend implementation patterns
+- CSS variable system
+- Multiple theme examples (Warhammer 40K, Cyberpunk, Fantasy, etc.)
+- User experience flows for theme selection
+- Migration strategy for implementing themes
+- Requirements for theme extensibility
+
+**Key Principle**: **No hardcoded strings or visual styles** - all theme content loaded at runtime
+
+**Audience**: Designers, frontend developers, product team
+
+---
+
 ## 🎯 Project Summary
 
 ### What We're Building
 
-A **browser-based interface** for the Space Hulk text adventure game that enables:
+A **browser-based interface** for text adventure game creation and play that enables:
 
 1. **Story Creation**: Users can create games using AI agents
    - Choose from templates or write custom prompts
    - Refine prompts through AI chat
    - Monitor real-time generation progress
+   - Select from multiple genre themes (Warhammer 40K default, expandable to cyberpunk, fantasy, etc.)
    
 2. **Iteration & Feedback**: Users can improve generated stories
    - Provide structured feedback on plot, puzzles, writing, tone
@@ -98,6 +137,7 @@ A **browser-based interface** for the Space Hulk text adventure game that enable
    - Browse, search, and filter stories
    - View metadata and details
    - Quick access to play or edit
+   - Stories maintain their selected theme/aesthetic
 
 4. **Gameplay**: Play games in browser
    - Text-based interface with command input

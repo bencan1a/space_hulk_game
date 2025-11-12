@@ -36,11 +36,12 @@ All documentation has been moved to the [`docs/`](docs/) folder:
 - **[CrewAI API Reference](docs/crewai-api-reference.md)** - CrewAI framework reference
 
 ### Browser-Based Interface (Planned)
-- **[Web Interface Overview](docs/WEB_INTERFACE_OVERVIEW.md)** - Complete project overview and navigation
-- **[Product Requirements (PRD)](docs/PRD_WEB_INTERFACE.md)** - Detailed product specification
-- **[Technical Architecture](docs/ARCHITECTURE_WEB_INTERFACE.md)** - System design and architecture
-- **[Implementation Guide](docs/IMPLEMENTATION_GUIDE_WEB_INTERFACE.md)** - Developer setup and implementation steps
-- **[User Journey Diagrams](docs/USER_JOURNEYS_DIAGRAMS.md)** - Visual flowcharts and user experience maps
+- **[Web Interface Overview](agent-projects/web-interface-design/WEB_INTERFACE_OVERVIEW.md)** - Complete project overview and navigation
+- **[Product Requirements (PRD)](agent-projects/web-interface-design/PRD_WEB_INTERFACE.md)** - Detailed product specification
+- **[Technical Architecture](agent-projects/web-interface-design/ARCHITECTURE_WEB_INTERFACE.md)** - System design and architecture
+- **[Implementation Guide](agent-projects/web-interface-design/IMPLEMENTATION_GUIDE_WEB_INTERFACE.md)** - Developer setup and implementation steps
+- **[User Journey Diagrams](agent-projects/web-interface-design/USER_JOURNEYS_DIAGRAMS.md)** - Visual flowcharts and user experience maps
+- **[Theming System](agent-projects/web-interface-design/THEMING_SYSTEM.md)** - Multi-genre theme configuration and runtime customization
 
 ## Quick Start
 
