@@ -131,13 +131,24 @@ def test_transformation():
         game_structure["game"]["scenes"][scene_id] = game_scene
 
     # Add ending scene to endings array
-    final_scene_id = "scene_010_desperate_escape"
-    if final_scene_id in game_structure["game"]["scenes"]:
+    # Dynamically determine the final scene ID
+    # Try to find a scene marked as final, else pick the last scene by sorted order
+    scenes_dict = game_structure["game"]["scenes"]
+    # Option 1: Look for a scene with a name or property indicating it's the final scene
+    final_scene_id = None
+    for sid, scene in scenes_dict.items():
+        if "final" in scene["name"].lower() or "confrontation" in scene["name"].lower() or "escape" in scene["name"].lower():
+            final_scene_id = sid
+            break
+    # Option 2: Fallback to last scene by sorted order if not found
+    if not final_scene_id:
+        final_scene_id = sorted(scenes_dict.keys())[-1]
+    if final_scene_id in scenes_dict:
         game_structure["game"]["endings"].append(
             {
                 "id": "ending_escape",
                 "scene_id": final_scene_id,
-                "name": "Desperate Escape",
+                "name": scenes_dict[final_scene_id]["name"],
                 "description": "Final push for extraction",
                 "ending_type": "victory",
             }
