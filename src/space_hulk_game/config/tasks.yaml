@@ -481,3 +481,198 @@ FinalNarrativeIntegration:
     - "NarrativeIntegrationCheckPuzzles"
     - "NarrativeIntegrationCheckScenes"
     - "NarrativeIntegrationCheckMechanics"
+
+# Game Engineering - Transform narrative to playable structure
+TranslateNarrativeToGameStructure:
+  name: "Translate Narrative to Playable Game Structure"
+  description: >
+    Transform the narrative map, scene texts, and puzzle designs into a complete,
+    playable game structure that conforms to the game engine's technical requirements.
+    This critical translation step ensures the rich narrative content becomes an
+    interactive, playable experience.
+
+    **Key Responsibilities:**
+    1. **Scene Connection Translation**: Convert narrative connections into BIDIRECTIONAL exits with proper semantics
+       - Extract target scenes from the connections array
+       - Map connections using GRAMMATICALLY CORRECT exit names that work with "There is an exit to the [EXIT_NAME]"
+       - GOOD exit names: "north", "south", "east", "west", "forward", "corridor", "airlock", "chamber", "control room"
+       - BAD exit names: "proceed", "continue", "investigate" (verbs that don't work as nouns)
+
+       **CRITICAL - Bidirectional Navigation:**
+       - ALL exits must be bidirectional unless explicitly marked as one-way in narrative
+       - Use directional pairs: north↔south, east↔west, up↔down, forward↔back
+       - Use location pairs: "corridor"↔"hangar", "airlock"↔"main deck", etc.
+       - Example: If scene A has exit "north" → scene B, then scene B MUST have exit "south" → scene A
+       - Example: If scene A has exit "airlock" → scene B, then scene B MUST have exit "hangar" (or original location name) → scene A
+
+       **Exit Naming Strategy:**
+       - Prefer compass directions (north/south/east/west) for clear spatial relationships
+       - Use location names when direction is ambiguous ("to corridor", "to bridge")
+       - Maintain consistency: track which direction was used and ensure reverse exit matches
+       - Only create one-way exits for: locked_exits, narrative-specific conditions, or dead ends
+
+       - Ensure all scenes are properly connected and reachable
+
+    2. **Game Object Extraction**: Extract items, NPCs, and events from textual descriptions
+       - Parse puzzle designs for items and artifacts
+       - Extract NPCs from character moments and dialogue
+       - Identify key items mentioned in scene descriptions
+
+       **Events (scene-triggered story beats):**
+       - Events are for automatic story triggers that fire when entering a scene
+       - Each Event MUST have: id (string), description (string, REQUIRED)
+       - Optional fields: trigger_on_entry (bool), required_flag (string), one_time (bool), effects (dict)
+       - Example Event: Alarm triggers when entering, NPC leaves scene, story revelation
+       - **DO NOT** create events for decision points (those become exits)
+       - Most scenes will have events: [] (empty array) unless specific story triggers exist
+
+    3. **Scene Data Structure**: Create proper Scene objects with all required fields
+       - id, name, description from narrative map and scene texts
+       - exits dictionary mapping directions to scene IDs
+       - items list with Item objects (id, name, description, takeable)
+       - npcs list with NPC objects (id, name, description, dialogue)
+       - events list for scene-triggered events
+
+    4. **Decision Point Mapping**: Convert narrative decision points into branching exits (NOT events)
+       - **IMPORTANT**: Decision points from narrative_map are NOT events - they are multiple exit paths
+       - Map each option in a decision_point to a separate exit in the exits dictionary
+       - Example: If narrative has decision_point with 2 choices → create 2 exits from that scene
+       - Use locked_exits if a choice requires a condition/flag
+       - DO NOT create Event objects for decision points
+
+       **Example Decision Point Mapping:**
+       Narrative: decision_point with options "Assault immediately" vs "Sneak around"
+       Game Output:
+       ```json
+       "exits": {{
+         "assault route": "scene_combat_heavy",
+         "stealth route": "scene_stealth_path"
+       }}
+       ```
+
+    5. **Playability Validation**: Ensure the game is completable
+       - Verify all scenes are reachable from starting scene
+       - Check that no dead ends exist (except designated endings)
+       - Ensure critical path is completable
+
+    **IMPORTANT: Output must be valid JSON in the game engine's format:**
+    ```json
+    {{
+      "game": {{
+        "title": "Game Title",
+        "description": "Game description",
+        "starting_scene": "scene_001_hangar",
+        "scenes": {{
+          "scene_001_hangar": {{
+            "id": "scene_001_hangar",
+            "name": "Hangar Bay",
+            "description": "Full scene description from scene_texts",
+            "exits": {{
+              "north": "scene_002_corridor",
+              "east": "scene_003_armory"
+            }},
+            "items": [
+              {{
+                "id": "item_key",
+                "name": "Brass Key",
+                "description": "An old brass key",
+                "takeable": true
+              }}
+            ],
+            "npcs": [
+              {{
+                "id": "npc_guard",
+                "name": "Guard",
+                "description": "A stern imperial guard",
+                "dialogue": {{
+                  "greeting": "Halt! State your business.",
+                  "give_item": "Take this, you'll need it."
+                }},
+                "gives_item": "item_key"
+              }}
+            ],
+            "events": [
+              {{
+                "id": "event_alarm",
+                "description": "An alarm begins blaring as you enter",
+                "trigger_on_entry": true,
+                "one_time": true,
+                "effects": {{}}
+              }}
+            ],
+            "dark": false,
+            "locked_exits": {{}}
+          }},
+          "scene_002_corridor": {{
+            "id": "scene_002_corridor",
+            "name": "Main Corridor",
+            "description": "A long corridor stretches before you",
+            "exits": {{
+              "south": "scene_001_hangar",
+              "west": "scene_004_chapel"
+            }},
+            "items": [],
+            "npcs": [],
+            "events": [],
+            "dark": false,
+            "locked_exits": {{}}
+          }},
+          "scene_003_armory": {{
+            "id": "scene_003_armory",
+            "name": "Armory",
+            "description": "Weapon racks line the walls",
+            "exits": {{
+              "west": "scene_001_hangar"
+            }},
+            "items": [],
+            "npcs": [],
+            "events": [],
+            "dark": false,
+            "locked_exits": {{}}
+          }}
+        }},
+        "global_items": {{}},
+        "global_npcs": {{}},
+        "endings": [
+          {{
+            "id": "ending_victory",
+            "scene_id": "scene_final_escape",
+            "name": "Victorious Escape",
+            "description": "You escaped the hulk",
+            "ending_type": "victory"
+          }}
+        ]
+      }}
+    }}
+    ```
+
+  expected_output: >
+    A complete, valid JSON document containing a fully playable game structure. The output
+    MUST pass all validation checks:
+    - All scenes are reachable from the starting scene
+    - All exits point to valid scenes
+    - **ALL EXITS ARE BIDIRECTIONAL** - if scene A has exit "north" to scene B, then scene B MUST have exit "south" to scene A
+    - Exit names are grammatically correct and work with "There is an exit to the [NAME]"
+    - Exit names use proper directional pairs (north↔south, east↔west, up↔down, forward↔back)
+    - Decision points are mapped to multiple exits (NOT to events)
+    - All events have required "description" field
+    - Events do NOT have "type", "prompt", or "options" fields (those are for decision points, which become exits)
+    - Most scenes will have "events": [] unless there's a specific story trigger
+    - No dead ends exist (except designated ending scenes)
+    - All required items are present
+    - The game has a clear win/lose condition
+    - The JSON structure exactly matches the game engine's Scene model
+
+    The output MUST be parseable JSON, not markdown or plain text. Include all scenes from
+    the narrative map with proper exits, items extracted from puzzles, NPCs from character
+    moments, and decision points mapped to game mechanics.
+
+  agent: "GameEngineerAgent"
+  context:
+    - "CreateNarrativeMap"
+    - "WriteSceneDescriptionsAndDialogue"
+    - "DesignArtifactsAndPuzzles"
+    - "CreateGameMechanicsPRD"
+  dependencies:
+    - "FinalNarrativeIntegration"
+  output_file: "game-config/playable_game.json"

@@ -290,3 +290,169 @@ example4_space_hulk: >
             A precarious balance between survival and compromise,
             possibly angering both Imperium and Chaos forces.
   """
+
+example5_game_engine_format: >
+  """
+  Game Engine Data Structure Examples
+
+  This example shows the expected JSON structure for the game engine. The GameEngineerAgent
+  must transform narrative content into this exact format.
+
+  **Complete Game Structure:**
+  {
+    "game": {
+      "title": "Space Hulk: Echoes of the Void",
+      "description": "A text-based adventure in the Warhammer 40K universe",
+      "starting_scene": "scene_001_hangar",
+      "scenes": {
+        "scene_001_hangar": {
+          "id": "scene_001_hangar",
+          "name": "Hangar Bay Delta",
+          "description": "You stand in a vast hangar bay, the air thick with the stench of decay...",
+          "exits": {
+            "north": "scene_002_corridor",
+            "east": "scene_003_armory",
+            "examine wreckage": "scene_004_wreckage"
+          },
+          "items": [
+            {
+              "id": "item_flare",
+              "name": "Emergency Flare",
+              "description": "A standard Imperial Guard emergency flare",
+              "takeable": true
+            },
+            {
+              "id": "item_dataslate",
+              "name": "Damaged Dataslate",
+              "description": "A cracked dataslate with partial logs",
+              "takeable": true
+            }
+          ],
+          "npcs": [
+            {
+              "id": "npc_servitor",
+              "name": "Damaged Servitor",
+              "description": "A malfunctioning servitor sparks and twitches",
+              "dialogue": {
+                "greeting": "...unit...malfunction...warning...",
+                "repeated": "...systems...failing..."
+              }
+            }
+          ],
+          "events": [],
+          "dark": false,
+          "locked_exits": {}
+        },
+        "scene_002_corridor": {
+          "id": "scene_002_corridor",
+          "name": "Main Corridor",
+          "description": "A long corridor stretches before you, walls covered in ancient grime...",
+          "exits": {
+            "south": "scene_001_hangar",
+            "north": "scene_005_chapel",
+            "west": "scene_006_lab"
+          },
+          "items": [],
+          "npcs": [],
+          "events": [],
+          "dark": true,
+          "locked_exits": {
+            "north": "item_chapel_key"
+          }
+        },
+        "scene_final_escape": {
+          "id": "scene_final_escape",
+          "name": "Extraction Point",
+          "description": "You reach the extraction point as the hulk begins to collapse...",
+          "exits": {},
+          "items": [],
+          "npcs": [],
+          "events": [],
+          "dark": false,
+          "locked_exits": {}
+        }
+      },
+      "global_items": {},
+      "global_npcs": {},
+      "endings": [
+        {
+          "id": "ending_victory",
+          "scene_id": "scene_final_escape",
+          "name": "Victorious Escape",
+          "description": "Against all odds, you escaped the Space Hulk alive",
+          "ending_type": "victory"
+        },
+        {
+          "id": "ending_sacrifice",
+          "scene_id": "scene_final_sacrifice",
+          "name": "Noble Sacrifice",
+          "description": "You gave your life to ensure your brothers escaped",
+          "ending_type": "sacrifice"
+        }
+      ]
+    }
+  }
+
+  **Key Mapping Rules:**
+
+  1. Scene Connections -> Exits (MUST BE BIDIRECTIONAL):
+     Narrative: "connections": [{"target": "scene_002", "condition": "..."}]
+     Game Engine: "exits": {"north": "scene_002"}
+
+     **CRITICAL: Exits must be bidirectional!**
+     If scene_001 has "north" -> scene_002, then scene_002 MUST have "south" -> scene_001
+
+     Example of correct bidirectional exits:
+     scene_001_hangar: {"exits": {"north": "scene_002_corridor"}}
+     scene_002_corridor: {"exits": {"south": "scene_001_hangar"}}
+
+     Example with location names:
+     scene_001_hangar: {"exits": {"corridor": "scene_002_corridor"}}
+     scene_002_corridor: {"exits": {"hangar": "scene_001_hangar"}}
+
+     Use directional pairs: north↔south, east↔west, up↔down, forward↔back
+     Use location pairs: name the source location in reverse exit
+
+  2. Decision Points -> Multiple Exits (NOT Events):
+     Narrative: "decision_points": [{"options": ["choice A", "choice B"]}]
+     Game Engine: "exits": {"choice_a_route": "scene_a", "choice_b_route": "scene_b"}
+
+     **IMPORTANT**: Decision points are player choices, so they become multiple exits.
+     Do NOT create events for decision points. Events are automatic story triggers.
+
+  3. Character Moments -> NPCs:
+     Narrative: "character_moments": [{"character": "Valerius", "moment": "..."}]
+     Game Engine: "npcs": [{"id": "npc_valerius", "name": "Captain Valerius", ...}]
+
+  4. Artifacts -> Items:
+     Narrative: puzzle_design.artifacts: [{"name": "Xenos Device", ...}]
+     Game Engine: "items": [{"id": "item_xenos_device", "name": "Xenos Device", ...}]
+
+  5. Scene Descriptions:
+     Always use the full description from scene_texts.json, not the summary from narrative_map.json
+
+  6. Events (Automatic Story Triggers):
+     Events are for automatic triggers when entering a scene (NOT for player choices).
+     Event structure: {"id": "event_id", "description": "What happens", "trigger_on_entry": true}
+     Example: Alarm sounds, NPC flees, door seals automatically
+     **DO NOT** use events for decision points - those become multiple exits
+
+  **Validation Checklist:**
+  - ✅ All scenes have an "id" field matching the key
+  - ✅ All scenes have "name", "description", and "exits"
+  - ✅ Exits dictionary maps direction/action to scene IDs
+  - ✅ **ALL EXITS ARE BIDIRECTIONAL** (if A→B exists, then B→A must exist)
+  - ✅ Exit names use proper directional pairs (north↔south, east↔west)
+  - ✅ Exit names are grammatically correct (work with "There is an exit to the [NAME]")
+  - ✅ Decision points are mapped to multiple exits (NOT events)
+  - ✅ All events have required "id" and "description" fields
+  - ✅ Events do NOT have "type", "prompt", or "options" (those are for exits)
+  - ✅ Most scenes have "events": [] unless specific story triggers exist
+  - ✅ Starting scene exists in scenes dictionary
+  - ✅ All exit targets exist as scene IDs
+  - ✅ Ending scenes are marked in endings array
+  - ✅ At least one path from start to an ending exists
+  - ✅ Items have id, name, description, takeable
+  - ✅ NPCs have id, name, description, dialogue
+  - ✅ No orphaned scenes (unreachable from start)
+  """

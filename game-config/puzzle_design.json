@@ -2,252 +2,246 @@
   "puzzle_design": {
     "puzzles": [
       {
-        "id": "puz_001_debris_clearance",
-        "name": "Corridor Alpha Debris Clearance",
-        "description": "A section of Corridor Alpha is heavily damaged and blocked by twisted metal, structural components, and Tyranid bio-matter. The squad needs to find a way to safely clear a path without causing a further collapse.",
-        "location": "scene_002_corridor_alpha",
-        "narrative_purpose": "Introduces basic environmental navigation challenges and reinforces the 'Man vs. Environment' theme. Highlights Brother Tiberius's technical skill and Valerius's tactical assessment by requiring observation of structural integrity before proceeding. Represents the claustrophobic nature of the Space Hulk.",
+        "id": "puzzle_s02_collapsed_passage",
+        "name": "Collapsed Passage Re-route",
+        "description": "Valerius encounters a heavily collapsed section of the main corridor, blocking direct progress. A defunct servo-skull drone, partially buried, hints at an alternative maintenance shaft, but gaining access requires bypassing a rusted control panel.",
+        "location": "scene_02_isolated_survival",
+        "narrative_purpose": "Forces the player to choose between a direct, but risky, path or a technical bypass, reinforcing the 'isolated survival' theme and demonstrating Valerius's adaptability under pressure. Leads directly into Character Moment for Valerius to fight growing Black Rage or manage a direct, tactical choice.",
         "solution": {
-          "type": "environmental_interaction_and_skill_check",
+          "type": "environmental_interaction_and_choice",
           "steps": [
-            "Player identifies critical structural supports. (Tiberius's expertise)",
-            "Player uses heavy weapon or demolition charge to precisely clear debris without compromising surrounding structure. (Tiberius's ability or Raphael's command)",
-            "Alternatively, discover a hidden maintenance passage around the main blockage. (Exploration)"
-          ]
-        },
-        "difficulty": "easy"
-      },
-      {
-        "id": "puz_002_data_slate_decryption",
-        "name": "First Squad's Data-Slate Decryption",
-        "description": "Among the gruesome remains of First Squad, a battered but intact data-slate is found. It's heavily encrypted with Imperial military protocols and partially corrupted by Tyranid bio-interference, requiring precise access to retrieve its contents.",
-        "location": "scene_003_first_squad_fate",
-        "narrative_purpose": "This puzzle directly addresses the 'dp_first_squad_data' decision point through gameplay. Resolving it successfully provides critical narrative information ('plot2_lost_contact' and early hints of 'The Anathema''s nature) and reinforces the grim reality of the mission. Failure or a rushed attempt might yield corrupted or partial information, impacting later missions.",
-        "solution": {
-          "type": "timed_sequence_or_logic_gate",
-          "steps": [
-            "Initiate decryption protocol (player choice).",
-            "Solve a short logic puzzle to bypass initial Imperial encryption (represents Brother Tiberius's tech-savvy support).",
-            "Maneuver through a bio-interference 'mini-game' to stabilize data streams, avoiding complete corruption (represents the ongoing struggle against Tyranid influence).",
-            "Extract log entries and astropathic fragments about 'The Anathema' and First Squad's last moments."
+            "Inspect collapsed corridor: reveals no immediate way through.",
+            "Locate defunct servo-skull: reveals a schematic for the alternate maintenance shaft entrance and a cryptic access code fragment.",
+            "Interact with rusted control panel: requires a minor logic-puzzle or quick-time event to re-route power, then inputting the fractured code. Success opens the shaft. Failure could trigger a minor Genestealer ambush.",
+            "Alternatively: Attempt to 'clear rubble' directly (s02_d1_path_choice), triggering a combat encounter and consuming more time/resources."
           ]
         },
         "difficulty": "medium"
       },
       {
-        "id": "puz_003_reactor_reroute",
-        "name": "Unstable Reactor Core Reroute",
-        "description": "In the Restricted Sector, the primary power conduit to a vital bulkhead door is unstable due to warp-taint and Tyranid bio-growth. It requires the squad to manually reroute power through secondary, often compromised, relays or bypass safe-guards to operate the door.",
-        "location": "scene_004_restricted_sector",
-        "narrative_purpose": "Connects to the 'Man vs. Environment' conflict and the 'plot4_moral_dilemma' if a rescue is chosen. Failure might cause environmental hazards (e.g., radiation leaks, minor explosions) or alert nearby Tyranids, increasing tactical difficulty. Emphasizes Tiberius's role in engineering solutions and Valerius's caution.",
+        "id": "puzzle_s04_data_fragment_reconstruction",
+        "name": "Ancient Data-Slate Reconstruction",
+        "description": "In a forgotten utility station, Brother Arion discovers several heavily damaged and encrypted Imperial data-slates. Piecing together the fragments and decrypting the corrupted files could reveal crucial information about the Hulk's past and the C'tan Shard.",
+        "location": "scene_04_deeper_hulk_investigation",
+        "narrative_purpose": "Allows Brother Arion to showcase his intellectual curiosity and analytical skills while driving forward 'Unveiling the Hulk's Secrets'. It provides direct lore delivery, tying into plot point pp_04, and deepens the player's understanding of the context. This puzzle directly precedes and sets up 'Unveiling the Hulk's Secrets' (scene_05_hulk_secrets_revealed).",
         "solution": {
-          "type": "environmental_manipulation_and_consequence",
+          "type": "logic_and_decryption",
           "steps": [
-            "Locate multiple damaged power relays in the vicinity.",
-            "Choose which relays to repair/bypass, balancing risk of energy discharge vs. time/resources.",
-            "Manually override the door's safety protocols, potentially requiring specific sequence input.",
-            "If rescuing personnel, a successful reroute enables access; a partial success might only open a dangerous path."
+            "Collect 3-5 data-slate fragments scattered in the station (minor exploration).",
+            "Bring fragments to Arion, who then initiates the reconstruction.",
+            "Player assists Arion in a mini-game: connecting corrupted data nodes (logic puzzle) and entering a series of keyword sequences (lore-based guesses/hints from environmental clues) to decrypt the files.",
+            "Successful decryption reveals logs detailing the Hulk's experimental warship origin, the captured C'tan Shard, and its subsequent influence."
           ]
         },
         "difficulty": "medium"
+      },
+      {
+        "id": "puzzle_s07_lockdown_override",
+        "name": "Core Chamber Lockdown Override",
+        "description": "The final approach to the C'tan Shard chamber is protected by a multi-layered security lockdown, remnants of the original crew's attempt to contain the growing threat. The controls are ancient and require precise, coordinated input to bypass.",
+        "location": "scene_07_approaching_the_core",
+        "narrative_purpose": "Provides a significant challenge before the final confrontation, increasing tension. It requires Valerius to utilize his tactical leadership (possibly by directing Arion or Tiberius's actions) and illustrates the desperation of the original Imperial crew. Success allows access to pp_06 and scene_08.",
+        "solution": {
+          "type": "timed_coordination_puzzle",
+          "steps": [
+            "Player (Valerius) must activate a primary console to initiate the override sequence.",
+            "Another character (e.g., Arion or Tiberius depending on proximity/player choice) must activate secondary power conduits in sequence within a strict time limit.",
+            "Periodically during the override, Genestealer patrols are drawn to the activity, forcing a brief combat interruption.",
+            "Failure to complete a sequence on time triggers backup security (e.g., automated turrets or flood of lesser Genestealers) that must be incapacitated before retrying."
+          ]
+        },
+        "difficulty": "hard"
       }
     ],
     "artifacts": [
       {
-        "id": "artf_001_first_squad_data_slate",
-        "name": "First Squad's Data-Slate",
-        "description": "A standard-issue Blood Angels data-slate, encased in plasti-steel, with several impact fractures and a faint, sickly purple luminescence emanating from its cracks. Its contents are encrypted and partially corrupted by xenos bio-signatures.",
-        "location": "scene_003_first_squad_fate",
-        "narrative_significance": "Crucial for 'plot2_lost_contact'. Retrieving and decrypting this artifact provides information about 'The Anathema's' location and nature, the initial First Squad engagement, and potentially early warnings about the Genestealer Patriarch, directly influencing 'dp_first_squad_data'. It serves as a grim memento of their fallen comrades and reinforces the stakes.",
+        "id": "artifact_ceremonial_dag",
+        "name": "Ceremonial Death Mask (Fragment)",
+        "description": "A shattered fragment of a Blood Angels Death Mask, bearing the stylized tear and winged skull. It radiates a faint psychic echo of despair and duty.",
+        "location": "scene_02_isolated_survival",
+        "narrative_significance": "Found on a fallen brother, this artifact deeply connects to Valerius's internal conflict. Collecting these fragments (additional fragments could be found in s04) could unlock lore entries about the Death Company or trigger Valerius's 'Black Rage' internal monologue moments, reinforcing his struggle with his inherited curse and the sacrifice of his brethren. It directly supports Valerius's character arc.",
         "properties": [
-          "Encrypted Tactical Data",
-          "Corrupted Astropathic Scans",
-          "Location of 'The Anathema' (if fully decrypted)",
-          "Last known combat logs of First Squad"
+          {
+            "property": "triggers_dialogue",
+            "value": "Valerius reflection on the Death Company and Black Rage"
+          },
+          {
+            "property": "minor_sanity_drain_or_buff",
+            "value": "depending on player's current Black Rage level"
+          }
         ]
       },
       {
-        "id": "artf_002_the_anathema",
-        "name": "The Anathema",
-        "description": "A grotesque bio-artifact pulsing with dark psychic energy, resembling a fusion of an enormous, crystalline xenos organism and corrupted Ancient Terran technology. It is partially embedded within a massive organic growth, continually siphoning energy and radiating a palpable sense of dread.",
-        "location": "scene_005_hive_mind_presence / scene_006_confrontation / scene_007_final_choice",
-        "narrative_significance": "This is the central MacGuffin of the entire mission, directly tied to 'plot1_initial_contact', 'plot3_the_hive_mind_awakens', and 'plot5_confrontation_and_choice'. It is the reason the Terminators are on the Hulk, and the ultimate decision regarding its fate drives the final act of the narrative. It embodies the 'cosmic horror' theme and the difficult moral choices Raphael must make.",
+        "id": "artifact_ctan_shard_data",
+        "name": "Corrupted Data-Slate (from C'tan Shard)",
+        "description": "A partially melted and heavily corrupted data-slate, emanating faint, unsettling energy. It seems to react to Brother Arion's presence.",
+        "location": "scene_04_deeper_hulk_investigation",
+        "narrative_significance": "This is a key artifact directly related to the C'tan Shard and Arion's growing obsession. When discovered, it triggers Arion's interest in 'purifying' and weaponizing the shard (pp_05). It acts as a physical manifestation of the Shard's influence and Arion's character arc development. Successfully deciphering it via the puzzle 'Ancient Data-Slate Reconstruction' reveals critical lore about the Shard's origins and capabilities, fueling Arion's arguments.",
         "properties": [
-          "Potent Psychic Emitter",
-          "Tyranid Synapse Beacon (Potential)",
-          "Attracts Hive Fleet organisms",
-          "Structurally destabilizes Space Hulk upon violent destruction",
-          "Biological/Technological Hybrid (Xenos origin)"
+          {
+            "property": "emits_psychic_resonance",
+            "value": "high"
+          },
+          {
+            "property": "unlocks_arion_dialogue_tree",
+            "value": "regarding purification/weaponization"
+          },
+          {
+            "property": "lore_source",
+            "value": "C'tan Shard history"
+          }
+        ]
+      },
+      {
+        "id": "artifact_hulk_doomsday_key",
+        "name": "Doomsday Protocol Activation Key",
+        "description": "A heavy, archaic cogitator key shaped like an Aquila, designed for a singular, catastrophic purpose: the annihilation of the 'Goliath's Maw'. It is protected by hardened adamantium casing.",
+        "location": "scene_08_final_confrontation",
+        "narrative_significance": "The ultimate instrument of 'Survival vs. Sacrifice'. Finding this key presents Valerius with the 'Martyrdom Ending' option (s08_d1_ending_choice). Its presence raises the stakes of the final confrontation and forces the player to consider the ultimate cost of eliminating the C'tan Shard. It is the physical linchpin for one of the primary narrative resolutions.",
+        "properties": [
+          {
+            "property": "activates_doomsday_protocol",
+            "value": "confirm_destruction_sequence"
+          },
+          {
+            "property": "plot_critical",
+            "value": "ending_trigger"
+          }
         ]
       }
     ],
     "monsters": [
       {
-        "id": "mon_001_genestealer",
-        "name": "Genestealer",
-        "description": "Iconic multi-limbed xenos predators with razor-sharp claws, chitinous armor, and preternatural speed. They are the vanguard of the Tyranid Hive Fleets, infesting worlds from within.",
+        "id": "monster_genestealer_patrol",
+        "name": "Genestealer Patrol",
+        "description": "Standard Genestealer brood, fast, chitin-armored, and equipped with razor-sharp claws. They hunt in small packs and are adept at ambushes.",
         "locations": [
-          "scene_003_first_squad_fate",
-          "scene_004_1_rescue_attempt",
-          "scene_005_hive_mind_presence",
-          "scene_006_confrontation",
-          "scene_008_extraction_destroy",
-          "scene_008_extraction_retrieve"
+          "scene_01_insertion",
+          "scene_02_isolated_survival",
+          "scene_04_deeper_hulk_investigation",
+          "scene_07_approaching_the_core"
         ],
-        "narrative_role": "The primary combat antagonist, embodying the 'Man vs. Alien' conflict and the pervasive nature of the infestation. Their presence escalates from initial skirmishes to overwhelming hordes, reflecting the growth of the Hive Mind's presence ('plot3_the_hive_mind_awakens').",
+        "narrative_role": "The primary physical threat throughout the game. Their increasing numbers and tactical sophistication (from simple ambushes to coordinated attacks) reflect the growing influence of the Patriarch and C'tan Shard, serving the 'Man vs. Alien' theme. They provide continuous challenge and reinforce the grim reality of the Space Hulk.",
         "abilities": [
-          "Blinding Charge",
-          "Render Claws (armor penetration)",
-          "Feeder Tendrils (psychic dampening)",
-          "Stealth Ambush"
+          "Claw attack",
+          "Ambush",
+          "Swarm tactics"
         ]
       },
       {
-        "id": "mon_002_broodlord",
-        "name": "Broodlord",
-        "description": "A larger, more cunning variant of the Genestealer, possessing enhanced psychic abilities and leading smaller broods. Its presence signifies a more organized and dangerous element of the infestation.",
+        "id": "monster_broodlord",
+        "name": "Broodlord (Enhanced)",
+        "description": "A larger, more aggressive Genestealer alpha, exhibiting rudimentary psychic abilities and enhanced resilience due to the C'tan Shard's influence. It leads larger broods.",
         "locations": [
-          "scene_003_first_squad_fate",
-          "scene_005_hive_mind_presence",
-          "scene_006_confrontation"
+          "scene_04_deeper_hulk_investigation",
+          "scene_07_approaching_the_core"
         ],
-        "narrative_role": "Serves as a mini-boss or elite enemy. Its increased intelligence and psychic capabilities demonstrate the escalating threat of the Tyranid infestation and the growing influence of the Genestealer Patriarch, contributing to 'plot3_the_hive_mind_awakens'. It challenges squad tactics and individual resilience.",
+        "narrative_role": "Serves as a mini-boss or significant encounter that showcases the increasing threat of the Genestealer infestation (pp_03). Its psychic enhancement directly links to the C'tan Shard's corrupting influence, demonstrating the power that Arion seeks to control and the intensity of the Patriarch's domain. It highlights the growing pressure on Valerius and the squad.",
         "abilities": [
-          "Mind Control (temporary squad disorientation)",
-          "Psychic Scream",
-          "Crushing Claws (heavy damage)",
-          "Brood Telepathy (coordinates nearby Genestealers)"
+          "Psychic Scream (disorient)",
+          "Coordinated Charge",
+          "Rending Claws",
+          "Area-of-effect aura (fear/slow)"
         ]
       },
       {
-        "id": "mon_003_tyranid_assimilator_growth",
-        "name": "Tyranid Assimilator Growth (Environmental Threat)",
-        "description": "A stationary or slow-moving mass of Tyranid bio-matter that actively consumes and structurally destabilizes the Space Hulk, creating new organic pathways or blocking existing ones. It might release minor bio-organisms.",
+        "id": "monster_patriarch_ascendant",
+        "name": "Genestealer Patriarch (Ascendant)",
+        "description": "The ancient and most formidable leader of the Hulk's Genestealer brood, significantly empowered by the C'tan Shard. It radiates a potent psychic presence, controls the entire infestation, and is a master tactician in battle.",
         "locations": [
-          "scene_002_corridor_alpha",
-          "scene_003_first_squad_fate",
-          "scene_004_restricted_sector",
-          "scene_005_hive_mind_presence"
+          "scene_08_final_confrontation"
         ],
-        "narrative_role": "This entity directly represents the 'Man vs. Environment' conflict and the 'plot3_the_hive_mind_awakens' as the Hulk becomes consumed. It functions as an environmental hazard, forcing players to find alternative routes or destroy its vulnerable points, often triggering smaller enemies. It showcases the horrifying biological transformation of the Space Hulk.",
+        "narrative_role": "The ultimate physical antagonist, representing the peak of the 'Man vs. Alien' conflict and the corrupting power of the C'tan Shard. Its heightened intelligence and psychic abilities are a direct consequence of the Shard (pp_03, pp_06). Defeating the Patriarch is a monumental task that tests all of Valerius's skills and the squad's cohesion, directly preceding the final choice regarding the Shard. Its death or survival is tied to the game's ending.",
         "abilities": [
-          "Structural Erosion",
-          "Spores Release (obscures vision)",
-          "Spawning Sacs (releases weaker enemies)",
-          "Bio-acid Spray"
-        ]
-      },
-      {
-        "id": "mon_004_genestealer_patriarch",
-        "name": "Genestealer Patriarch",
-        "description": "The colossal, grotesque psychic cornerstone of the Genestealer Cult within the Hulk. It is a terrifying intellect and a physical powerhouse, radiating malevolent psychic influence and surrounded by its most devout progeny.",
-        "locations": [
-          "scene_006_confrontation"
-        ],
-        "narrative_role": "The ultimate physical antagonist, central to 'plot5_confrontation_and_choice'. Its defeat (or bypass) allows access to 'The Anathema'. The fight represents the climax of the 'Man vs. Alien' conflict and tests Raphael's leadership and the squad's cohesion under immense psychic pressure and physical threat. It embodies the 'futility of faith' theme as the ultimate xenos abomination.",
-        "abilities": [
-          "Psychic Domination (mind-shatter, disorient foes)",
-          "Massive Crushing Attacks",
-          "Synaptic Link (buffs nearby Genestealers)",
-          "Bio-electric Feedback (stuns on melee hit)",
-          "Adaptive Regeneration"
+          "Massive Psychic Blasts",
+          "Mind Control (on lesser Genestealers)",
+          "Devastating Melee",
+          "Hive Mind Command (spawns reinforcements)",
+          "Telekinetic Shield (briefly invulnerable)"
         ]
       }
     ],
     "npcs": [
       {
-        "id": "npc_001_valerius",
+        "id": "npc_sergeant_valerius",
         "name": "Brother-Sergeant Valerius",
-        "role": "Squad Mate / Tactical Advisor",
-        "description": "An experienced and pragmatic Terminator, Valerius is Raphael's second-in-command. He's seen countless horrors and approaches every situation with a grizzled but reliable logic, often tempering zeal with practicality.",
+        "role": "Player Character, Squad Leader",
+        "description": "A veteran Death Company Terminator, struggling against the Black Rage. His duty and faith are constantly tested by the grim reality of the Hulk and his internal demons. He is the player's avatar and moral compass.",
         "locations": [
-          "scene_001_insertion",
-          "scene_002_corridor_alpha",
-          "scene_003_first_squad_fate",
-          "scene_004_restricted_sector",
-          "scene_004_1_rescue_attempt",
-          "scene_005_hive_mind_presence",
-          "scene_006_confrontation",
-          "scene_007_final_choice",
-          "scene_008_extraction_destroy",
-          "scene_008_extraction_retrieve",
-          "scene_009_escape_or_doom"
+          "scene_01_insertion",
+          "scene_02_isolated_survival",
+          "scene_03_reunion_arion",
+          "scene_04_deeper_hulk_investigation",
+          "scene_05_hulk_secrets_revealed",
+          "scene_06_moral_dilemma",
+          "scene_07_approaching_the_core",
+          "scene_08_final_confrontation"
         ],
         "dialogue_themes": [
-          "Tactical Assessment",
-          "Pragmatism vs. Idealism",
-          "Warnings of Escalating Threat",
-          "Squad Cohesion",
-          "Loyalty to Raphael"
+          "Duty and Sacrifice",
+          "Black Rage (internal struggle)",
+          "Faith vs. Heresy",
+          "Leadership",
+          "Redemption"
         ]
       },
       {
-        "id": "npc_002_claudius",
-        "name": "Brother Claudius",
-        "role": "Squad Mate / Zealous Warrior",
-        "description": "A younger Terminator, filled with fervent zeal and eagerness to prove himself. His faith is his shield, but the grim reality of the Space Hulk begins to test his resolve and sometimes leads to reckless conviction.",
+        "id": "npc_arion",
+        "name": "Brother Arion",
+        "role": "Librarian, Moral Catalyst",
+        "description": "A highly intelligent Blood Angels Librarian, whose intellectual curiosity and thirst for forbidden knowledge lead him down a dangerous path of subtle corruption by the C'tan Shard. He challenges Valerius's Imperial orthodoxy.",
         "locations": [
-          "scene_001_insertion",
-          "scene_002_corridor_alpha",
-          "scene_003_first_squad_fate",
-          "scene_004_restricted_sector",
-          "scene_004_1_rescue_attempt",
-          "scene_005_hive_mind_presence",
-          "scene_006_confrontation",
-          "scene_007_final_choice",
-          "scene_008_extraction_destroy",
-          "scene_008_extraction_retrieve",
-          "scene_009_escape_or_doom"
+          "scene_03_reunion_arion",
+          "scene_04_deeper_hulk_investigation",
+          "scene_05_hulk_secrets_revealed",
+          "scene_06_moral_dilemma",
+          "scene_07_approaching_the_core",
+          "scene_08_final_confrontation"
         ],
         "dialogue_themes": [
-          "Imperial Faith",
-          "Anti-Xenos Zeal",
-          "Struggle Against Horror",
-          "Redemption and Sacrifice",
-          "Impact of Witnessing Atrocities"
+          "Knowledge and Power",
+          "Xenos Lore",
+          "Warp Influence",
+          "Purification vs. Destruction",
+          "Pragmatism vs. Ideology"
         ]
       },
       {
-        "id": "npc_003_tiberius",
+        "id": "npc_tiberius",
         "name": "Brother Tiberius",
-        "role": "Squad Mate / Technical Specialist & Heavy Weapons Expert",
-        "description": "Quiet and observant, Tiberius is a master of demolitions and heavy ordnance. His expertise is crucial for navigating hazardous environments and exploiting enemy weaknesses, though his past hints at a more ruthless pragmatism.",
+        "role": "Death Company Exemplar, Combat Support",
+        "description": "A stoic Death Company Marine, fully consumed by the Black Rage but channeling it into disciplined ferocity against xenos. He serves as a mirror to Valerius's potential fate and a staunch, albeit often unthinking, adherent to Imperial holy wrath.",
         "locations": [
-          "scene_001_insertion",
-          "scene_002_corridor_alpha",
-          "scene_003_first_squad_fate",
-          "scene_004_restricted_sector",
-          "scene_004_1_rescue_attempt",
-          "scene_005_hive_mind_presence",
-          "scene_006_confrontation",
-          "scene_007_final_choice",
-          "scene_008_extraction_destroy",
-          "scene_008_extraction_retrieve",
-          "scene_009_escape_or_doom"
+          "scene_03_reunion_arion",
+          "scene_04_deeper_hulk_investigation",
+          "scene_06_moral_dilemma",
+          "scene_07_approaching_the_core",
+          "scene_08_final_confrontation"
         ],
         "dialogue_themes": [
-          "Structural Analysis",
-          "Weapon Effectiveness",
-          "Environmental Hazards",
-          "Implicit Warnings",
-          "Cold Pragmatism"
+          "Vengeance",
+          "Hatred of Xenos",
+          "Sanguinius's Sacrifice",
+          "Unyielding Faith",
+          "Brutal Efficiency"
         ]
       },
       {
-        "id": "npc_004_trapped_personnel",
-        "name": "Trapped Imperial Personnel / Servitors",
-        "role": "Conditional Rescuees / Moral Dilemma Element",
-        "description": "A small group of desperate Imperial crewmen or servitors, survivors from the original vessels fused into the Hulk. They are terrified and under attack from minor Tyranid organisms, representing the innocent lives caught in the conflict.",
+        "id": "npc_ancient_comms_log",
+        "name": "Ancient (Automated) Comms Log",
+        "role": "Lore Provider, Atmospheric Element",
+        "description": "Fragmented, automated audio logs or visual recordings from the original Imperial crew of the 'Goliath's Maw' before its fall. The voices are often panicked, desperate, or filled with grim determination.",
         "locations": [
-          "scene_004_restricted_sector",
-          "scene_004_1_rescue_attempt"
+          "scene_04_deeper_hulk_investigation",
+          "scene_05_hulk_secrets_revealed"
         ],
-        "narrative_significance": "These NPCs serve as the core of the 'dp_trapped_personnel' decision point and 'plot4_moral_dilemma'. Their presence forces Raphael to weigh his primary mission against the value of Imperial lives, directly influencing squad morale and resource expenditure. Successfully rescuing them can provide a temporary morale boost, while abandoning them can cause a dip and internal conflict for Raphael.",
+        "narrative_role": "Provides critical backstory (pp_04) about the Hulk's origins, the C'tan Shard's capture, and the events leading to the ship's perdition. These logs reinforce the 'Cosmic Horror' theme and show the desperate struggle of previous Imperial forces against an unknowable threat, foreshadowing the gravity of Valerius's mission. Their fragmented nature adds to the mystery and allows for the 'Ancient Data-Slate Reconstruction' puzzle.",
         "dialogue_themes": [
-          "Pleading for Rescue",
-          "Fear and Desperation",
-          "Gratitude (if rescued)",
-          "Minor Information (about local area or Hulk conditions)"
+          "Desperation",
+          "Discovery of the Shard",
+          "The Horus Heresy (references)",
+          "Failure of Containment",
+          "Doomsday Prep"
         ]
       }
     ]

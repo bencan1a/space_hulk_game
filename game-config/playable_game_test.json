@@ -1,0 +1,478 @@
+{
+  "game": {
+    "title": "Space Hulk: Echoes of the Void",
+    "description": "A text-based adventure in the Warhammer 40K universe",
+    "starting_scene": "scene_001_insertion",
+    "scenes": {
+      "scene_001_insertion": {
+        "id": "scene_001_insertion",
+        "name": "Drop Pod Insertion & Initial Contact",
+        "description": "The Thunderhawk drop pod shudders violently, a screaming projectile hurled through the void. It slams into the 'Goliath's Lament' with a deafening, metallic shriek, tearing through corroded bulkheads like a daemon's claw. Alarms blare, debris rains, and the acrid stench of recycled air mixes with something foul and alien. Before the ramps even fully deploy, shrill xenomorphic chittering echoes through the ruptured hangar, and grotesque, multi-limbed horrors, the vanguard of the Genestealer infestation, swarm from the shadows.",
+        "exits": {
+          "forward": "scene_002_ambush"
+        },
+        "items": [],
+        "npcs": [
+          {
+            "id": "npc_brother_captain_valerius",
+            "name": "Brother-Captain Valerius",
+            "description": "Brother-Captain Valerius is present in this scene",
+            "dialogue": {
+              "greeting": "Squad! Form up! Defensive perimeter! Kael, cover the flank!"
+            }
+          },
+          {
+            "id": "npc_brother_sergeant_kael",
+            "name": "Brother-Sergeant Kael",
+            "description": "Brother-Sergeant Kael is present in this scene",
+            "dialogue": {
+              "greeting": "Aye, Captain! Watch your six, brothers! They're pouring in!"
+            }
+          },
+          {
+            "id": "npc_brother_varrus",
+            "name": "Brother Varrus",
+            "description": "Brother Varrus is present in this scene",
+            "dialogue": {
+              "greeting": "Heresy made manifest! BURN, XENOS!"
+            }
+          },
+          {
+            "id": "npc_apothecary_lyra",
+            "name": "Apothecary Lyra",
+            "description": "Apothecary Lyra is present in this scene",
+            "dialogue": {
+              "greeting": "Initial bio-signatures indicate advanced Genestealer variants. Caution advised near primary vents!"
+            }
+          }
+        ],
+        "events": [],
+        "dark": false,
+        "locked_exits": {}
+      },
+      "scene_002_ambush": {
+        "id": "scene_002_ambush",
+        "name": "Hangar Bay Ambush & Retreat",
+        "description": "The initial skirmish explodes into a maelstrom of claws, teeth, and bolter fire. More Genestealers than thought possible boil from every shattered crevice, their chitin gleaming under the emergency strobes. The drop pod's structural integrity fails completely, threatening to crush the squad. The sheer, savage brutality of the horde is overwhelming, pushing the Terminators back, forcing a tactical, brutal retreat. Brother Varrus's heavy flamer sputters, then chokes, leaving him dangerously exposed.",
+        "exits": {
+          "forward": "scene_003_access_corridor"
+        },
+        "items": [],
+        "npcs": [
+          {
+            "id": "npc_brother_captain_valerius",
+            "name": "Brother-Captain Valerius",
+            "description": "Brother-Captain Valerius is present in this scene",
+            "dialogue": {
+              "greeting": "Fall back! To the service tunnels! Varrus, clear a path!"
+            }
+          },
+          {
+            "id": "npc_brother_varrus",
+            "name": "Brother Varrus",
+            "description": "Brother Varrus is present in this scene",
+            "dialogue": {
+              "greeting": "My weapon! It's jammed, Captain! I'm exposed!"
+            }
+          },
+          {
+            "id": "npc_brother_sergeant_kael",
+            "name": "Brother-Sergeant Kael",
+            "description": "Brother-Sergeant Kael is present in this scene",
+            "dialogue": {
+              "greeting": "Cover him! Apothecary, lay suppressive fire! South arm is our only option, Captain!"
+            }
+          },
+          {
+            "id": "npc_apothecary_lyra",
+            "name": "Apothecary Lyra",
+            "description": "Apothecary Lyra is present in this scene",
+            "dialogue": {
+              "greeting": "Environmental collapse imminent! Proceeding south offers marginal structural stability."
+            }
+          }
+        ],
+        "events": [],
+        "dark": false,
+        "locked_exits": {}
+      },
+      "scene_003_access_corridor": {
+        "id": "scene_003_access_corridor",
+        "name": "Decaying Access Corridor",
+        "description": "The roar of the hangar fades into a chilling quiet, replaced by the persistent creak and groan of stressed metal. You are in a long, winding access corridor, choked with grotesque, bioluminescent fungi clinging to twisted pipes and fallen bulkheads. The air is stagnant, thick with dust and the metallic tang of decay, carrying faint, unidentifiable whispers. The deck plates occasionally judder, a disorienting sensation as the hulk's artificial gravity flickers erratically, sometimes threatening to wrench a Terminator from their footing.",
+        "exits": {
+          "forward": "scene_004_phantom_signal"
+        },
+        "items": [],
+        "npcs": [
+          {
+            "id": "npc_brother_sergeant_kael",
+            "name": "Brother-Sergeant Kael",
+            "description": "Brother-Sergeant Kael is present in this scene",
+            "dialogue": {
+              "greeting": "Maintain formation, brothers. These shifts are disquieting. Keep your magnetised boots firm."
+            }
+          },
+          {
+            "id": "npc_apothecary_lyra",
+            "name": "Apothecary Lyra",
+            "description": "Apothecary Lyra is present in this scene",
+            "dialogue": {
+              "greeting": "Fascinating. The fungal growth exhibits a unique photosynthetic-chemosynthetic hybrid metabolism. Potentially symbiotic with the hulk's decay, or perhaps parasitic? Samples are imperative."
+            }
+          },
+          {
+            "id": "npc_brother_varrus",
+            "name": "Brother Varrus",
+            "description": "Brother Varrus is present in this scene",
+            "dialogue": {
+              "greeting": "Ugh. Smells like a Nurgle's pit. Let's move. Faster we're out, faster I can purge with fire."
+            }
+          },
+          {
+            "id": "npc_brother_captain_valerius",
+            "name": "Brother-Captain Valerius",
+            "description": "Brother-Captain Valerius is present in this scene",
+            "dialogue": {
+              "greeting": "Agreed, Varrus. Lyra, restrict sampling to minimum safe parameters. We have a mission to prosecute, not a botanical survey."
+            }
+          }
+        ],
+        "events": [],
+        "dark": false,
+        "locked_exits": {}
+      },
+      "scene_004_phantom_signal": {
+        "id": "scene_004_phantom_signal",
+        "name": "Signal Origin Chamber",
+        "description": "The decaying corridor abruptly opens into a colossal, cavernous chamber, breathtaking in its ruined grandeur. One entire side of the chamber is blasted open to the void, revealing the cold, indifferent stars and fractured pieces of the hulk drifting lazily. Suspended precariously above, embedded deep within the chamber's ceiling, is a massive, shattered section of what was once an Imperial cruiser \u2013 its aquila emblem tarnished but still recognizable. From within this derelict, a faint, rhythmic electronic pulse emanates, a ghostly, desperate 'vox' static, barely registering above the hiss of ruptured systems.",
+        "exits": {
+          "forward": "scene_005_boarding_vessel"
+        },
+        "items": [],
+        "npcs": [
+          {
+            "id": "npc_brother_captain_valerius",
+            "name": "Brother-Captain Valerius",
+            "description": "Brother-Captain Valerius is present in this scene",
+            "dialogue": {
+              "greeting": "An Imperial vessel... Or what remains of one. Lyra, can you identify the signal? Is it current?"
+            }
+          },
+          {
+            "id": "npc_apothecary_lyra",
+            "name": "Apothecary Lyra",
+            "description": "Apothecary Lyra is present in this scene",
+            "dialogue": {
+              "greeting": "Faint, Captain, but undoubtedly Imperial in origin. Pre-M38 vox-codes, if I'm not mistaken. Static suggests deep-space degradation or interference. It is a recurring loop, non-sentient now."
+            }
+          },
+          {
+            "id": "npc_brother_sergeant_kael",
+            "name": "Brother-Sergeant Kael",
+            "description": "Brother-Sergeant Kael is present in this scene",
+            "dialogue": {
+              "greeting": "Captain, with respect, pursuing a centuries-dead distress call is a dangerous diversion. Our primary objective is the cleansing. This could be a static trap or worse."
+            }
+          },
+          {
+            "id": "npc_brother_varrus",
+            "name": "Brother Varrus",
+            "description": "Brother Varrus is present in this scene",
+            "dialogue": {
+              "greeting": "If there's xenos in there, waiting, then it's still a target. Means to an end, Captain?"
+            }
+          }
+        ],
+        "events": [],
+        "dark": false,
+        "locked_exits": {}
+      },
+      "scene_005_boarding_vessel": {
+        "id": "scene_005_boarding_vessel",
+        "name": "Derelict Imperial Vessel",
+        "description": "The boarding grappling hooks bite deep into the ruined cruiser's hull, and the ascent is a perilous journey into a fragmented past. Within the derelict's belly, the air grows colder, permeated by the metallic scent of old blood and rusting iron. Corpses of long-dead Imperial Guardsmen, skeletal and void-rotted, lie half-buried in debris, testament to a hopeless last stand. Their archaic lasguns are fused to their boney fingers. The distress signal pulses stronger now, leading to a section of the ship that, impossibly, feels sterile and unnerving amidst the widespread decay, its entrance strangely fortified.",
+        "exits": {
+          "forward": "scene_006_xenos_lab"
+        },
+        "items": [],
+        "npcs": [
+          {
+            "id": "npc_brother_captain_valerius",
+            "name": "Brother-Captain Valerius",
+            "description": "Brother-Captain Valerius is present in this scene",
+            "dialogue": {
+              "greeting": "No signs of xenos infestation here... only the echoes of a lost war. Yet, the signal persists."
+            }
+          },
+          {
+            "id": "npc_brother_sergeant_kael",
+            "name": "Brother-Sergeant Kael",
+            "description": "Brother-Sergeant Kael is present in this scene",
+            "dialogue": {
+              "greeting": "This fortification isn't Imperial. And the readings Lyra mentioned... I see no tactical advantage in remaining. Target remains unidentified."
+            }
+          },
+          {
+            "id": "npc_apothecary_lyra",
+            "name": "Apothecary Lyra",
+            "description": "Apothecary Lyra is present in this scene",
+            "dialogue": {
+              "greeting": "Energy readings here are... anomalous. A harmonic resonance pattern, far beyond known Imperial or Tyranid signatures. It feels ancient. And powerful. It emanates from behind that reinforced barrier."
+            }
+          },
+          {
+            "id": "npc_brother_varrus",
+            "name": "Brother Varrus",
+            "description": "Brother Varrus is present in this scene",
+            "dialogue": {
+              "greeting": "If it's alien, it's hostile. Breach the door, Captain? My melta-gun could make quick work of it."
+            }
+          }
+        ],
+        "events": [],
+        "dark": false,
+        "locked_exits": {}
+      },
+      "scene_006_xenos_lab": {
+        "id": "scene_006_xenos_lab",
+        "name": "Ancient Xenos Lab & Device Discovery",
+        "description": "Beyond the fortified door lies a space utterly unlike any human design. Cold, sterile, and alien. Pulsating light sources embedded in smooth, obsidian-like walls cast shifting patterns on intricately carved consoles of unknown material. Strange, humming machinery, composed of impossible angles and flowing lines, radiates a palpable, unsettling energy. At the heart of this xenos sanctum, suspended within a shimmering field, is the 'Xenos Device' itself: a crystalline construct, radiating a silent hum that vibrates deep within a Terminator's bones. It feels both ancient and alive.",
+        "exits": {
+          "forward": "scene_007_device_analysis"
+        },
+        "items": [],
+        "npcs": [
+          {
+            "id": "npc_apothecary_lyra",
+            "name": "Apothecary Lyra",
+            "description": "Apothecary Lyra is present in this scene",
+            "dialogue": {
+              "greeting": "Unbelievable... this technology... it predates common galactic understanding. Not Eldar, not Necron... certainly not Tyranid. This device... it's a monumental discovery, Captain."
+            }
+          },
+          {
+            "id": "npc_brother_sergeant_kael",
+            "name": "Brother-Sergeant Kael",
+            "description": "Brother-Sergeant Kael is present in this scene",
+            "dialogue": {
+              "greeting": "Burn it. Burn it now, Captain. Xenos abominations only bring ruin. This filth must be expunged."
+            }
+          },
+          {
+            "id": "npc_brother_captain_valerius",
+            "name": "Brother-Captain Valerius",
+            "description": "Brother-Captain Valerius is present in this scene",
+            "dialogue": {
+              "greeting": "Hold, Kael. Lyra, can you ascertain its function? Its purpose?"
+            }
+          },
+          {
+            "id": "npc_brother_varrus",
+            "name": "Brother Varrus",
+            "description": "Brother Varrus is present in this scene",
+            "dialogue": {
+              "greeting": "It feels... wrong. My augurs are screaming. This thing is not meant to be."
+            }
+          }
+        ],
+        "events": [],
+        "dark": false,
+        "locked_exits": {}
+      },
+      "scene_007_device_analysis": {
+        "id": "scene_007_device_analysis",
+        "name": "Understanding the Device",
+        "description": "After Lyra's intense, focused analysis, the true, astonishing nature of the Xenos Device comes to light. It is a bio-enhancer and suppressor, a colossal genetic manipulator. It is capable of either accelerating Genestealer evolution into terrifying new forms, or, conversely, disrupting their biological functions, potentially weakening or even exterminating them. However, repurposing it for either function is fraught with immense peril, risking the hulk's structural integrity or accidental mutations cascading throughout the system, threatening not just the squad, but potentially the Imperial world of Aethelgard itself.",
+        "exits": {
+          "forward": "scene_008_valerius_revelation"
+        },
+        "items": [],
+        "npcs": [
+          {
+            "id": "npc_apothecary_lyra",
+            "name": "Apothecary Lyra",
+            "description": "Apothecary Lyra is present in this scene",
+            "dialogue": {
+              "greeting": "Captain, brothers... this device. It's a genetic modulator on a planetary scale. It doesn't just attract or repel, it *rewrites*. It could eradicate the Genestealer strain on the hulk, effectively acting as a cure... but the energy required would destabilize the entire hulk, likely tearing it apart and, by extension, us."
+            }
+          },
+          {
+            "id": "npc_brother_sergeant_kael",
+            "name": "Brother-Sergeant Kael",
+            "description": "Brother-Sergeant Kael is present in this scene",
+            "dialogue": {
+              "greeting": "Eradication. A swift end. Our duty is to cleanse the xenos filth, not to make *terms* with it. What is a Space Hulk's fate compared to our mission?"
+            }
+          },
+          {
+            "id": "npc_brother_captain_valerius",
+            "name": "Brother-Captain Valerius",
+            "description": "Brother-Captain Valerius is present in this scene",
+            "dialogue": {
+              "greeting": "A swift end, or a tactical advantage in a prolonged war... both options carry immense risk. Brothers, this device represents Plot Point 5: a choice between the 'Cure' or the 'Weapon'. Kael, Lyra... prepare for the consequences of either path."
+            }
+          },
+          {
+            "id": "npc_brother_varrus",
+            "name": "Brother Varrus",
+            "description": "Brother Varrus is present in this scene",
+            "dialogue": {
+              "greeting": "Just tell me what needs blasting, Captain. Either way, plenty of xenos to purge."
+            }
+          }
+        ],
+        "events": [],
+        "dark": false,
+        "locked_exits": {}
+      },
+      "scene_008_valerius_revelation": {
+        "id": "scene_008_valerius_revelation",
+        "name": "Valerius's Confession",
+        "description": "The hum of the Xenos Device fills the tense silence as Valerius turns from it, his formidable Terminator helmet seeming heavy on his shoulders. He addresses the squad, his voice a low rumble, devoid of its usual unyielding command. He confesses to a secret mission, a dire directive from an Inquisitor he swore an oath to recover a specific relic, one perhaps connected to the ancient device or a Warp-tainted artifact hidden deeper within the hulk. His hidden objective was to supersede all others, even the cleansing, even if it meant sacrificing the primary mission, or indeed, the entire squad.",
+        "exits": {
+          "forward": "scene_009_internal_conflict"
+        },
+        "items": [],
+        "npcs": [
+          {
+            "id": "npc_brother_captain_valerius",
+            "name": "Brother-Captain Valerius",
+            "description": "Brother-Captain Valerius is present in this scene",
+            "dialogue": {
+              "greeting": "Brothers. I have borne a burden that transcends our Chapter's vows. An Inquisitor's directive. Recover a relic, code-named 'Aethel-Omega', hidden deep within the 'Goliath's Lament'. My mission here was not solely the cleansing."
+            }
+          },
+          {
+            "id": "npc_brother_sergeant_kael",
+            "name": "Brother-Sergeant Kael",
+            "description": "Brother-Sergeant Kael is present in this scene",
+            "dialogue": {
+              "greeting": "...Captain? You... you had a secret mission? To abandon the cleansing? To risk Aethelgard, and us, for a private Inquisitorial whim?"
+            }
+          },
+          {
+            "id": "npc_apothecary_lyra",
+            "name": "Apothecary Lyra",
+            "description": "Apothecary Lyra is present in this scene",
+            "dialogue": {
+              "greeting": "Aethel-Omega... a designation I've heard in sanctioned Inquisitorial archives. A highly sensitive, 'Eyes Only' project. Captain, are you implying this device *is* Aethel-Omega, or merely a component?"
+            }
+          },
+          {
+            "id": "npc_brother_varrus",
+            "name": "Brother Varrus",
+            "description": "Brother Varrus is present in this scene",
+            "dialogue": {
+              "greeting": "Inquisitorial orders... above the Emperor's Light itself? This is... troubling."
+            }
+          }
+        ],
+        "events": [],
+        "dark": false,
+        "locked_exits": {}
+      },
+      "scene_009_internal_conflict": {
+        "id": "scene_009_internal_conflict",
+        "name": "Squad Divided",
+        "description": "Kael's outrage is immediate and absolute. He throws down his bolter, the thud echoing in the alien lab. He confronts Valerius, his voice a raw challenge, accusing him of dereliction of duty, of heresy against the Chapter and the Imperium. Varrus grimly readies his weapon, not against the Captain, but against the uncertainty of the situation, a silent threat to any who would falter from their oaths. Lyra, ever the pragmatist, assesses the new parameters, her mind racing to integrate Valerius's revelation into the strategic equation. The squad, once a unified fist of the Emperor, is fractured, trust replaced by suspicion and conflicting loyalties.",
+        "exits": {
+          "forward": "scene_010_desperate_escape"
+        },
+        "items": [],
+        "npcs": [
+          {
+            "id": "npc_brother_sergeant_kael",
+            "name": "Brother-Sergeant Kael",
+            "description": "Brother-Sergeant Kael is present in this scene",
+            "dialogue": {
+              "greeting": "Heresy! You would sacrifice the cleansing, the survival of Aethelgard, for a secret Inquisitorial trinket? This is not the way of the Ultramarines! This is not loyalty to the Emperor!"
+            }
+          },
+          {
+            "id": "npc_brother_captain_valerius",
+            "name": "Brother-Captain Valerius",
+            "description": "Brother-Captain Valerius is present in this scene",
+            "dialogue": {
+              "greeting": "`Aethel-Omega' is not a trinket, Kael. It is of paramount importance to the Imperium. An Inquisitor's directive is a higher calling. My oath binds me."
+            }
+          },
+          {
+            "id": "npc_apothecary_lyra",
+            "name": "Apothecary Lyra",
+            "description": "Apothecary Lyra is present in this scene",
+            "dialogue": {
+              "greeting": "Both objectives are grave, brothers. The Genestealer threat is immediate; Aethel-Omega's significance, while vague, could impact sectors. We must find a path that honors both, if one exists."
+            }
+          },
+          {
+            "id": "npc_brother_varrus",
+            "name": "Brother Varrus",
+            "description": "Brother Varrus is present in this scene",
+            "dialogue": {
+              "greeting": "Orders are orders, Kael. But a Space Marine's duty is to his Chapter and the Imperium. To abandon one for the other... that way lies perdition."
+            }
+          }
+        ],
+        "events": [],
+        "dark": false,
+        "locked_exits": {}
+      },
+      "scene_010_desperate_escape": {
+        "id": "scene_010_desperate_escape",
+        "name": "Final Push: Desperate Escape",
+        "description": "A seismic groan rips through the 'Goliath's Lament'. Depending on previous choices, the Space Hulk succumbs to the Xenos Device's catastrophic re-tuning, an overwhelming Genestealer surge, or its inherent, age-old instability. Alarms shriek, bulkheads shudder, and the very fabric of the colossal derelict begins to tear itself apart around you. The final moments of the mission are now a desperate sprint, a fight for absolute survival against the collapse of space and time itself, and the last, rabid guardians of the hulk's dark secrets. The extraction point is close, agonizingly so, but the path is a nightmare of collapsing tunnels and endless alien claws.",
+        "exits": {},
+        "items": [],
+        "npcs": [
+          {
+            "id": "npc_brother_captain_valerius",
+            "name": "Brother-Captain Valerius",
+            "description": "Brother-Captain Valerius is present in this scene",
+            "dialogue": {
+              "greeting": "(If alive) To the extraction point! No quarter, no surrender! For the Emperor! For Aethelgard!"
+            }
+          },
+          {
+            "id": "npc_brother_sergeant_kael",
+            "name": "Brother-Sergeant Kael",
+            "description": "Brother-Sergeant Kael is present in this scene",
+            "dialogue": {
+              "greeting": "(If alive) Hold the line, brothers! They will not take us! Die with honor!"
+            }
+          },
+          {
+            "id": "npc_apothecary_lyra",
+            "name": "Apothecary Lyra",
+            "description": "Apothecary Lyra is present in this scene",
+            "dialogue": {
+              "greeting": "(If alive) Structural integrity failing across multiple sectors! Prioritize speed over engagement! My readings indicate a clear, but narrow, path!"
+            }
+          },
+          {
+            "id": "npc_brother_varrus",
+            "name": "Brother Varrus",
+            "description": "Brother Varrus is present in this scene",
+            "dialogue": {
+              "greeting": "(If alive) One last purge for the Emperor! Let them choke on our fire! FOR ULTRAMAR!"
+            }
+          }
+        ],
+        "events": [],
+        "dark": false,
+        "locked_exits": {}
+      }
+    },
+    "global_items": {},
+    "global_npcs": {},
+    "endings": [
+      {
+        "id": "ending_escape",
+        "scene_id": "scene_010_desperate_escape",
+        "name": "Desperate Escape",
+        "description": "Final push for extraction",
+        "ending_type": "victory"
+      }
+    ]
+  }
+}

@@ -72,10 +72,10 @@ format-check:
 	ruff format --check .
 
 type-check:
-	mypy src/space_hulk_game tests tools
+	mypy src/space_hulk_game tests tools *.py
 
 type-check-pre-commit:
-	mypy --cache-dir=/dev/null src/space_hulk_game tests tools
+	mypy --cache-dir=/dev/null src/space_hulk_game tests tools *.py
 
 security:
 	bandit -r src/ -c pyproject.toml
@@ -114,7 +114,7 @@ type-check-files:
 	@if [ -n "$(FILES)" ]; then \
 		mypy --cache-dir=/dev/null $(FILES); \
 	else \
-		mypy --cache-dir=/dev/null src/space_hulk_game tests tools; \
+		mypy --cache-dir=/dev/null src/space_hulk_game tests tools *.py; \
 	fi
 
 security-files:

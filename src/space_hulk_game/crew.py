@@ -227,6 +227,7 @@ class SpaceHulkGame:
                     "puzzle_design": "puzzle",
                     "scene_texts": "scene",
                     "prd_document": "mechanics",
+                    "playable_game": "game",  # GameEngineerAgent output
                 }
 
                 # Detect output type from filename
@@ -763,6 +764,26 @@ class SpaceHulkGame:
             verbose=True,
         )
 
+    @agent
+    def GameEngineerAgent(self) -> Agent:
+        """
+        Returns the GameEngineerAgent definition from agents.yaml.
+
+        This agent transforms rich narrative content into playable game structures
+        by converting narrative connections into game engine format.
+
+        Note: The method name must match the agent name in the YAML file for CrewAI to properly
+        map between tasks and agents.
+        """
+        logger.info(
+            f"Creating GameEngineerAgent with config: {self.agents_config.get('GameEngineerAgent')}"
+        )
+        return Agent(  # type: ignore[call-arg]
+            config=self.agents_config["GameEngineerAgent"],
+            llm=self.llm,  # Use the LLM configuration
+            verbose=True,
+        )
+
     # ---------------------------------
     # Tasks
     # ---------------------------------
@@ -954,6 +975,27 @@ class SpaceHulkGame:
         )
         return Task(  # type: ignore[call-arg]
             config=self.tasks_config["FinalNarrativeIntegration"]
+        )
+
+    @task
+    def TranslateNarrativeToGameStructure(self) -> Task:
+        """
+        The TranslateNarrativeToGameStructure task from tasks.yaml.
+
+        This task transforms the narrative map, scene texts, and puzzle designs into
+        a complete, playable game structure that conforms to the game engine's
+        technical requirements.
+
+        This is the critical bridge between narrative content and playable game mechanics.
+
+        Note: The method name must match the task name in the YAML file for CrewAI to properly
+        map between tasks.
+        """
+        logger.info(
+            f"Creating TranslateNarrativeToGameStructure task with config: {self.tasks_config.get('TranslateNarrativeToGameStructure')}"
+        )
+        return Task(  # type: ignore[call-arg]
+            config=self.tasks_config["TranslateNarrativeToGameStructure"]
         )
 
     # ---------------------------------
