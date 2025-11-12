@@ -4,17 +4,23 @@ This folder contains complete design documentation for the browser-based game cr
 
 ## 📋 Documentation Overview
 
+### ⭐ NEW: Architecture & Implementation (2025-11-12)
+
+1. **[SUMMARY.md](./SUMMARY.md)** - **START HERE**: Executive summary of architecture and plan
+2. **[ARCHITECTURAL_DESIGN.md](./ARCHITECTURAL_DESIGN.md)** - Comprehensive system architecture design
+3. **[IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md)** - 6 phases, 41 AI-agent-scoped tasks
+
 ### Quick Start Documents
 
-1. **[WEB_INTERFACE_OVERVIEW.md](./WEB_INTERFACE_OVERVIEW.md)** - Start here for project navigation and summary
-2. **[THEMING_SYSTEM.md](./THEMING_SYSTEM.md)** - **Important**: Multi-genre theming architecture
+4. **[WEB_INTERFACE_OVERVIEW.md](./WEB_INTERFACE_OVERVIEW.md)** - Project navigation and summary
+5. **[THEMING_SYSTEM.md](./THEMING_SYSTEM.md)** - **Important**: Multi-genre theming architecture
 
 ### Complete Specifications
 
-3. **[PRD_WEB_INTERFACE.md](./PRD_WEB_INTERFACE.md)** - Product requirements (60+ user stories, personas, journeys)
-4. **[ARCHITECTURE_WEB_INTERFACE.md](./ARCHITECTURE_WEB_INTERFACE.md)** - Technical architecture and system design
-5. **[IMPLEMENTATION_GUIDE_WEB_INTERFACE.md](./IMPLEMENTATION_GUIDE_WEB_INTERFACE.md)** - Developer implementation guide
-6. **[USER_JOURNEYS_DIAGRAMS.md](./USER_JOURNEYS_DIAGRAMS.md)** - Visual flowcharts and user flows
+6. **[PRD_WEB_INTERFACE.md](./PRD_WEB_INTERFACE.md)** - Product requirements (60+ user stories, personas, journeys)
+7. **[ARCHITECTURE_WEB_INTERFACE.md](./ARCHITECTURE_WEB_INTERFACE.md)** - Technical architecture and system design
+8. **[IMPLEMENTATION_GUIDE_WEB_INTERFACE.md](./IMPLEMENTATION_GUIDE_WEB_INTERFACE.md)** - Developer implementation guide
+9. **[USER_JOURNEYS_DIAGRAMS.md](./USER_JOURNEYS_DIAGRAMS.md)** - Visual flowcharts and user flows
 
 ## 🎨 Design Principles
 
@@ -44,10 +50,10 @@ See **[THEMING_SYSTEM.md](./THEMING_SYSTEM.md)** for complete details on multi-g
 → Read [WEB_INTERFACE_OVERVIEW.md](./WEB_INTERFACE_OVERVIEW.md) then [PRD_WEB_INTERFACE.md](./PRD_WEB_INTERFACE.md)
 
 ### Engineering Leads
-→ Read [PRD_WEB_INTERFACE.md](./PRD_WEB_INTERFACE.md) then [ARCHITECTURE_WEB_INTERFACE.md](./ARCHITECTURE_WEB_INTERFACE.md)
+→ Read [SUMMARY.md](./SUMMARY.md) then [ARCHITECTURAL_DESIGN.md](./ARCHITECTURAL_DESIGN.md)
 
 ### Developers
-→ Read [IMPLEMENTATION_GUIDE_WEB_INTERFACE.md](./IMPLEMENTATION_GUIDE_WEB_INTERFACE.md)
+→ Read [IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md) then [ARCHITECTURAL_DESIGN.md](./ARCHITECTURAL_DESIGN.md)
 
 ### Designers
 → Read [PRD_WEB_INTERFACE.md](./PRD_WEB_INTERFACE.md) then [THEMING_SYSTEM.md](./THEMING_SYSTEM.md)
@@ -57,12 +63,13 @@ See **[THEMING_SYSTEM.md](./THEMING_SYSTEM.md)** for complete details on multi-g
 
 ## 📊 Project Stats
 
-- **5 comprehensive documents**
-- **3,800+ lines of specifications**
+- **9 comprehensive documents** (3 new: architecture + implementation)
+- **5,600+ lines of specifications**
 - **60+ user stories** with acceptance criteria
+- **41 AI-agent-scoped implementation tasks**
 - **3 detailed user personas**
 - **3 complete user journey maps**
-- **16-week implementation timeline**
+- **6 implementation phases over 16 weeks**
 - **Multiple genre themes** supported
 
 ## 🎯 Key Features Designed
@@ -113,7 +120,8 @@ For questions about this documentation:
 
 ---
 
-**Version**: 1.0  
+**Version**: 2.0  
 **Last Updated**: 2025-11-12  
-**Status**: Ready for Engineering Review
+**Status**: Architecture & Implementation Plan Complete ✅  
+**Next**: Team review and Phase 1 kickoff
 
