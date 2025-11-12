@@ -40,6 +40,7 @@ All documentation has been moved to the [`docs/`](docs/) folder:
 - **[Product Requirements (PRD)](docs/PRD_WEB_INTERFACE.md)** - Detailed product specification
 - **[Technical Architecture](docs/ARCHITECTURE_WEB_INTERFACE.md)** - System design and architecture
 - **[Implementation Guide](docs/IMPLEMENTATION_GUIDE_WEB_INTERFACE.md)** - Developer setup and implementation steps
+- **[User Journey Diagrams](docs/USER_JOURNEYS_DIAGRAMS.md)** - Visual flowcharts and user experience maps
 
 ## Quick Start
 
