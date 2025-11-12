@@ -1,0 +1,510 @@
+{
+  "game": {
+    "title": "Space Hulk: Echoes of the Void",
+    "description": "A dark, atmospheric, first-person horror game where players step into the ceramite boots of Brother-Sergeant Valerius, a Blood Angels Terminator, battling overwhelming Genestealer infestations and his own inner demons deep within a derelict Space Hulk. Confront a cosmic horror, make impossible choices, and shape the fate of your squad and the Imperium.",
+    "starting_scene": "scene_01_insertion",
+    "scenes": {
+      "scene_01_insertion": {
+        "id": "scene_01_insertion",
+        "name": "Insertion and Initial Contact",
+        "description": "The 'Goliath's Maw' looms, a skeletal titan of fused derelicts and ancient rock. Its gaping maw of a docking bay yawns before your Thunderhawk, a maelstrom of void-dust and flickering emergency lights casting long, grotesque shadows. Inside, the air is thick with the metallic tang of decay and the cloying sweetness of organic infestation. Alarms shriek their death throes as your squad of Blood Angels Terminators, clad in their revered power armor, descends into the belly of the beast. Suddenly, the world explodes into a symphony of screeching claws, chittering xenos, and the thunderous roar of bolters. Chaos erupts. Your brothers fall, torn asunder by unseen horrors in the flickering gloom, their cries swallowed by the monstrous cacophony. The coordinated insertion shatters, replaced by desperate, isolated skirmishes. Valerius finds himself alone, surrounded by the mangled remains of his brethren, the Red Thirst a savage whisper at the edge of his awareness, threatening to consume him.",
+        "exits": {
+          "corridor": "scene_02_isolated_survival"
+        },
+        "items": [
+          {
+            "id": "item_fallen_kael_armor",
+            "name": "Fallen Brother's Armor",
+            "description": "The mangled remains of Brother Kael stand testament to the ferocity of the ambush. His power armor is rent, organic matter splattered across its crimson plates. A broken storm bolter lies nearby.",
+            "takeable": false
+          },
+          {
+            "id": "item_shredded_bulkhead",
+            "name": "Shredded Bulkhead",
+            "description": "The bulkhead is shredded, torn as if by colossal talons. Whatever hit you came with devastating speed and force. Remnants of a Genestealer scythe-arm are embedded in the adamantium.",
+            "takeable": false
+          }
+        ],
+        "npcs": [
+          {
+            "id": "npc_arion_pre_separation",
+            "name": "Brother Arion (initial)",
+            "description": "Briefly seen using psychic power defensively before being separated.",
+            "dialogue": {
+              "greeting": "Psychic countermeasures deployed! They're in the vents, Sergeant! Too many!"
+            }
+          }
+        ],
+        "events": [],
+        "dark": true,
+        "locked_exits": {}
+      },
+      "scene_02_isolated_survival": {
+        "id": "scene_02_isolated_survival",
+        "name": "Isolated Survival and Navigation",
+        "description": "The 'Goliath's Maw' stretches before you, a maze of desiccated corridors and shattered bulkheads. The air is heavy, a metallic tang mingling with the scent of ozone and the cloying sweetness of unknown biological decay. Sporadic emergency lights flicker, casting grotesque, shifting shadows that dance like forgotten spirits. Rust crumbles from every surface, a fine red dust coating your boots. The silence is broken only by the rhythmic thrum of the Hulk's dying engines, the faint drip of stagnant water, and the distant, unsettling skittering of unseen things. You are a solitary crimson shadow in a world of grey and rust, each step a testament to grim resolve, each encounter a brutal test of your will against the encroaching madness of the Black Rage and the relentless alien foe. Scattered along your path are the somber relics of your fallen brothers: a shattered shoulder pad, a plasma pistol discharged into oblivion, a fragmented comm-bead still emitting a faint, desperate hum.",
+        "exits": {
+          "back": "scene_01_insertion",
+          "rubble path": "scene_03_reunion_arion",
+          "maintenance shaft": "scene_03_reunion_arion"
+        },
+        "items": [
+          {
+            "id": "artifact_ceremonial_dag",
+            "name": "Ceremonial Death Mask (Fragment)",
+            "description": "A shattered fragment of a Blood Angels Death Mask, bearing the stylized tear and winged skull. It radiates a faint psychic echo of despair and duty. This artifact deeply connects to Valerius's internal conflict. Collecting these fragments could unlock lore entries about the Death Company or trigger Valerius's 'Black Rage' internal monologue moments, reinforcing his struggle with his inherited curse and the sacrifice of his brethren.",
+            "takeable": true
+          },
+          {
+            "id": "item_scoffed_bulkhead_markings",
+            "name": "Scorched Bulkhead Markings",
+            "description": "On a scorched bulkhead, hastily scrawled in blood, are rudimentary tally marks. A count of xenos slain by a desperate Marine before his end. A grim reminder of those who came before, and those who will follow.",
+            "takeable": false
+          },
+          {
+            "id": "item_ruptured_pipe",
+            "name": "Ruptured Pipe",
+            "description": "A ruptured pipe spews thick, corrosive steam that hisses and swirls, limiting visibility. The Hulk itself actively resists passage, its wounds leaking corrosive bile.",
+            "takeable": false
+          },
+          {
+            "id": "item_blood_trail",
+            "name": "Fading Blood Trail",
+            "description": "A fading trail of crimson, clearly not xenos ichor, suggests one of your brothers passed this way. The trail forks, one path leading into a collapsed section, another into a dark, narrow maintenance shaft. A faint, distorted signal bleeds from somewhere ahead.",
+            "takeable": false
+          }
+        ],
+        "npcs": [],
+        "events": [],
+        "dark": false,
+        "locked_exits": {}
+      },
+      "scene_03_reunion_arion": {
+        "id": "scene_03_reunion_arion",
+        "name": "Reunion with Arion and Objective Revealed",
+        "description": "Through the decaying labyrinth of bulkheads and service conduits, the faint psychic signature of Brother Arion intensified, guiding your path. You enter a cavernous engine room, its massive turbines long-dead and festooned with years of organic growth and alien webbing. In the center, almost lost amidst the gloom, stands Brother Arion, his force staff humming with latent power, a protective psychic barrier shimmering around him. Beside him, a hulking figure, almost fully consumed by the Black Rage, tears apart a Genestealer with bare hands – Brother Tiberius, a living storm of fury. Arion's eyes, usually sharp and discerning, hold a new, almost feverish light as he turns to you, the sheer relief warring with a chilling intensity. The air crackles, not just with psychic energy, but with a palpable sense of momentous revelation.",
+        "exits": {
+          "from rubble path": "scene_02_isolated_survival",
+          "from maintenance shaft": "scene_02_isolated_survival",
+          "deeper corridor": "scene_04_deeper_hulk_investigation"
+        },
+        "items": [
+          {
+            "id": "item_dead_genestealers_tiberius",
+            "name": "Obliterated Genestealers",
+            "description": "The xenos around Tiberius are not merely dead; they are obliterated, pulp and broken chitin. His ferocity is unmatched, but terrifying to behold.",
+            "takeable": false
+          },
+          {
+            "id": "item_arion_force_staff_glow",
+            "name": "Arion's Force Staff",
+            "description": "Arion's force staff pulses faintly, a more vibrant blue than usual. His grip on it is almost possessive, his gaze a little too fixed.",
+            "takeable": false
+          },
+          {
+            "id": "item_ancient_console",
+            "name": "Ancient Console",
+            "description": "A rusted, ancient console, its screens fractured, glows faintly with a sickly green light. It hums with an unusual, unstable energy, resonating with something deep within the Hulk.",
+            "takeable": false
+          }
+        ],
+        "npcs": [
+          {
+            "id": "npc_arion",
+            "name": "Brother Arion",
+            "description": "A highly intelligent Blood Angels Librarian, whose intellectual curiosity and thirst for forbidden knowledge lead him down a dangerous path.",
+            "dialogue": {
+              "greeting": "Sergeant! By the Emperor’s grace, you live! I knew a true son of Sanguinius would penetrate their squalid resistance.",
+              "shards_revelation": "That, Sergeant, is the true prize. It's a C’tan Shard. Its power is… immense. And it’s awakening.",
+              "purification_hint": "Destroyed, perhaps. But what if there is another way? Such power… unimagined potential for the Imperium..."
+            }
+          },
+          {
+            "id": "npc_tiberius",
+            "name": "Brother Tiberius",
+            "description": "A stoic Death Company Marine, fully consumed by the Black Rage but channeling it into disciplined ferocity.",
+            "dialogue": {
+              "greeting": "Xenos filth! They die! All die!",
+              "anti_shard": "Destroy! Destroy! Filth! Suffer not the alien to live!"
+            }
+          }
+        ],
+        "events": [],
+        "dark": false,
+        "locked_exits": {}
+      },
+      "scene_04_deeper_hulk_investigation": {
+        "id": "scene_04_deeper_hulk_investigation",
+        "name": "Deeper into the Hulk - Growing Threat",
+        "description": "The Hulk's architecture grows increasingly surreal and dangerous as you delve deeper. Corridors twist into impossible geometries, walls are scarred by ancient battles and fused with alien biomass, pulsing with a sickly, internal light. The air grows heavier, thick with an almost palpable psychic pressure emanating from the heart of the vessel. Genestealers here are not the scattered ambushers of the upper decks; they move with chilling coordination, their scythes whispering in unison, their psychic roars almost deafening. You stumble upon grotesque scenes: ancient Imperial Guard encampments now silent charnel houses, their last stand frozen in time; the power-armored remains of another Astartes Chapter, their chapter symbols defaced, their bones picked clean. The cold dread of countless failed endeavors clings to every shadow.",
+        "exits": {
+          "reunion chamber": "scene_03_reunion_arion",
+          "old cache": "scene_05_hulk_secrets_revealed",
+          "continue forward": "scene_05_hulk_secrets_revealed"
+        },
+        "items": [
+          {
+            "id": "artifact_ctan_shard_data",
+            "name": "Corrupted Data-Slate (from C'tan Shard)",
+            "description": "A partially melted and heavily corrupted data-slate, emanating faint, unsettling energy. It seems to react to Brother Arion's presence. When discovered, it triggers Arion's interest in 'purifying' and weaponizing the shard. It acts as a physical manifestation of the Shard's influence and Arion's character arc development. Successfully deciphering it via the puzzle 'Ancient Data-Slate Reconstruction' reveals critical lore about the Shard's origins and capabilities, fueling Arion's arguments.",
+            "takeable": true
+          },
+          {
+            "id": "item_imperial_guard_remnants",
+            "name": "Imperial Guard Remnants",
+            "description": "The skeletal remains of an entire Imperial Guard squad, still clutching their lasguns. Their forms are locked in a grotesque tableau of desperate defense. A tattered regimental banner suggests their identity – the 143rd Cadian Shock Troopers.",
+            "takeable": false
+          },
+          {
+            "id": "item_damaged_servitor_logs",
+            "name": "Damaged Servitor Logs",
+            "description": "A heavily damaged Servitor, miraculously still operational, shivers uncontrollably as it spouts fragmented data logs: '…warp fluctuations… growing… entity… psychic signature… overwhelming… containment breach… all hands lost…'",
+            "takeable": false
+          },
+          {
+            "id": "item_ancient_blood_angels_icon",
+            "name": "Ancient Blood Angels Icon",
+            "description": "Scrawled on a bulkhead, partially obscured by recent Genestealer webbing, is an ancient, faded icon of the Blood Angels Chapter. An Astartes power gauntlet, shattered but recognizable from a pre-Heresy mark, lies nearby.",
+            "takeable": false
+          }
+        ],
+        "npcs": [
+          {
+            "id": "npc_arion",
+            "name": "Brother Arion",
+            "description": "A highly intelligent Blood Angels Librarian, driven by curiosity.",
+            "dialogue": {
+              "greeting": "Fascinating… the patterns of resistance… the tactical evolution of the Genestealer strain here. It accelerates. The Shard's influence is exponential.",
+              "warning": "We must reach it, Sergeant, before they fully adapt..."
+            }
+          },
+          {
+            "id": "npc_tiberius",
+            "name": "Brother Tiberius",
+            "description": "A stoic Death Company Marine, fully consumed by the Black Rage.",
+            "dialogue": {
+              "fallen_disdain": "Weaklings! Their faith failed them. Pathetic human vermin. Only the fury of Sanguinius can cleanse this defilement!",
+              "smash_suggestion": "Scrap! Filth! Look, Sergeant, ancient scrap! We smash it. Why do we not smash it?"
+            }
+          },
+          {
+            "id": "npc_ancient_comms_log",
+            "name": "Ancient (Automated) Comms Log",
+            "description": "Fragmented, automated audio logs or visual recordings from the original Imperial crew.",
+            "dialogue": {
+              "generic": "(An ancient, automated comms log repeats fragmented warnings about warp fluctuations and entity growth.)"
+            }
+          }
+        ],
+        "events": [],
+        "dark": false,
+        "locked_exits": {}
+      },
+      "scene_05_hulk_secrets_revealed": {
+        "id": "scene_05_hulk_secrets_revealed",
+        "name": "Unveiling the Hulk's Secrets",
+        "description": "You penetrate an archaic data-core, its consoles still flickering with ancient pict-data and warped schematics. The air here vibrates with the lingering hum of long-dead machinery and the faint, ghostly echoes of forgotten voices. Arion, his eyes alight with a voracious hunger for knowledge, interfaces with the crumbling terminals. Fragmented logs coalesce into a chilling chronicle: the 'Goliath's Maw' was no mere transport, but an experimental Ark Mechanicus vessel, lost during the treacherous currents of the Horus Heresy. Its purpose: the study and weaponization of extreme xenos phenomena. The logs speak of a 'contained warp anomaly' that swiftly became 'uncontainable,' a 'stellar-mass entity fragment' radiating 'soul-crushing energies.' Pict-recordings flicker: desperate Mechanicus adepts, their faces contorted in terror, as a shimmering, obsidian shard pulses with cold, unearthly light, attracting shadows that chitter and crawl. The truth of the Hulk’s agonizing birth, its slow corruption, and the shard’s cosmic gravity settles like a shroud.",
+        "exits": {
+          "main corridor": "scene_04_deeper_hulk_investigation",
+          "command bridge": "scene_06_moral_dilemma"
+        },
+        "items": [
+          {
+            "id": "item_pict_recording_shroud",
+            "name": "Pict-Recording of the Shard",
+            "description": "A looped pict-recording plays, depicting robed figures shrinking before a pulsating, black shard that radiates palpable malevolence. As the image distorts, shadowy forms with too many limbs begin to coalesce in the background.",
+            "takeable": false
+          },
+          {
+            "id": "item_ancient_mechanicus_tome",
+            "name": "Ancient Mechanicus Tome",
+            "description": "A calcified, electronic tome, detailing arcane experiments and classifications of 'stellar-born entities.' Warnings of 'psychic resonance' and 'soul-fracturing energies' are repeatedly highlighted.",
+            "takeable": false
+          },
+          {
+            "id": "item_horus_heresy_log_entry",
+            "name": "Fragmented Heresy Log",
+            "description": "A fragmented log entry, dated to the 31st Millennium: '…warp storm… Heresy… Goliath's Maw lost… Xenos containment compromised… Entity growing… All faith lost…'",
+            "takeable": false
+          }
+        ],
+        "npcs": [
+          {
+            "id": "npc_arion",
+            "name": "Brother Arion",
+            "description": "A highly intelligent Blood Angels Librarian, increasingly obsessed with the C'tan Shard.",
+            "dialogue": {
+              "revelation_awe": "By the Emperor's Golden Throne… a C’tan Shard. And not just any vessel… a Mechanicus research Ark! This is invaluable! The potential… the sheer power…",
+              "purification_argument": "But Sergeant, to blindly destroy such a wellspring of cosmic energy… it would be an act of galactic shortsightedness! Ignorance is far more dangerous than knowledge, even forbidden knowledge!"
+            }
+          },
+          {
+            "id": "npc_tiberius",
+            "name": "Brother Tiberius",
+            "description": "A stoic Death Company Marine, fully consumed by the Black Rage.",
+            "dialogue": {
+              "condemnation": "Shatter! All of it! The false god! The whispers breed weakness! Only righteous destruction!"
+            }
+          },
+          {
+            "id": "npc_ancient_comms_log",
+            "name": "Ancient (Automated) Comms Log",
+            "description": "Fragmented, automated audio logs or visual recordings from the original Imperial crew.",
+            "dialogue": {
+              "generic": "(An ancient, automated comms log recounts the horrors of the Hulk's fall.)"
+            }
+          }
+        ],
+        "events": [],
+        "dark": false,
+        "locked_exits": {}
+      },
+      "scene_06_moral_dilemma": {
+        "id": "scene_06_moral_dilemma",
+        "name": "Moral Dilemma: The Shard's Power",
+        "description": "The oppressive weight of the Hulk closes in, its ancient secrets now fully unveiled. In a desolate, grand chamber, once a command bridge judging by its ruined consoles, the newly absorbed knowledge hangs heavy. Arion stands apart, his psychic aura visibly agitated, his eyes burning with an almost unnatural light that reflects the pulsating energies from deeper within the Hulk. He strides forward, his voice steady but laced with a fervent intensity, proposing the unthinkable. Tiberius, a hulking monument to Sanguinius's sorrow, clenches his power fists, ready to explode. The air crackles with unspoken tension, the fate of the mission – and perhaps more – resting on Valerius’s words.",
+        "exits": {
+          "data core": "scene_05_hulk_secrets_revealed",
+          "purification path": "scene_07_approaching_the_core",
+          "destruction path": "scene_07_approaching_the_core",
+          "containment path": "scene_07_approaching_the_core"
+        },
+        "items": [
+          {
+            "id": "item_shattered_aquila",
+            "name": "Shattered Aquila",
+            "description": "A colossal aquila, once a symbol of Imperial might, lies shattered across the deck. Its broken wings seem to mock the divisions within your squad.",
+            "takeable": false
+          }
+        ],
+        "npcs": [
+          {
+            "id": "npc_arion",
+            "name": "Brother Arion",
+            "description": "A corrupted Blood Angels Librarian, proposing the weaponization of the C'tan Shard.",
+            "dialogue": {
+              "purification_proposal": "Sergeant. Consider the implications... This shard… it is a nascent god-engine! To simply obliterate it would be to cast aside a gift from the cosmos!",
+              "persuasion": "Think, Sergeant! Not merely as a soldier, but as a leader capable of truly saving Mankind!"
+            }
+          },
+          {
+            "id": "npc_tiberius",
+            "name": "Brother Tiberius",
+            "description": "A death company marine, enraged by Arion's heresy.",
+            "dialogue": {
+              "heresy_accusation": "Silence, Librarian! Your words are poison! This is heresy! A xenos blasphemy!"
+            }
+          }
+        ],
+        "events": [],
+        "dark": false,
+        "locked_exits": {}
+      },
+      "scene_07_approaching_the_core": {
+        "id": "scene_07_approaching_the_core",
+        "name": "Approaching the Core - Patriarch's Domain",
+        "description": "The final approach to the C'tan Shard chamber is less a corridor and more a living, organic nightmare. The Hulk's ancient metal is almost entirely consumed by a pulsating, biomechanical growth – the true, vile heart of the Genestealer infestation. The walls writhe with unseen life, and strange, viscous fluids drip from chitinous ceilings. The air is thick, choked with the acrid scent of alien biology and the overwhelming psychic roar of the Patriarch, now amplified to maddening levels by the shard’s proximity. Xenos forms, larger, more cunning, and more numerous than any you’ve faced, scuttle in the periphery. Brother Tiberius, now a whirlwind of crimson fury, his growls barely coherent, lunges ahead, almost blindly, a living weapon. Arion, depending on your choice, either walks with a terrifying resolve, his eyes blazing with power, or a desperate, almost terrified grimace, struggling against the psychic onslaught. Valerius, your own Black Rage now a roaring beast at the gates of your mind, must harness it, shaping the raw fury into focused, brutal efficiency.",
+        "exits": {
+          "from purification path": "scene_06_moral_dilemma",
+          "from destruction path": "scene_06_moral_dilemma",
+          "from containment path": "scene_06_moral_dilemma",
+          "shard chamber": "scene_08_final_confrontation"
+        },
+        "items": [
+          {
+            "id": "item_organic_corridor",
+            "name": "Organic Corridor",
+            "description": "The corridor is a living tunnel of bio-flesh, glistening wetly with parasitic growths. Genestealer eggs pulse in clustered sacs, ready to hatch and swarm.",
+            "takeable": false
+          },
+          {
+            "id": "item_patriarch_scent_markings",
+            "name": "Patriarch Scent Markings",
+            "description": "A particularly rank, musky scent indicates recent passage of the Patriarch. Its psychic footprint is heavy here, a palpable sense of predatory observation.",
+            "takeable": false
+          },
+          {
+            "id": "item_shard_emanation_points",
+            "name": "Shard Emanation Points",
+            "description": "Points in the organic wall glow with the sickly green light emanating from the C'tan Shard chamber, pulsing like an unholy beacon, radiating maddening whispers onto the mind.",
+            "takeable": false
+          }
+        ],
+        "npcs": [
+          {
+            "id": "npc_arion",
+            "name": "Brother Arion",
+            "description": "The Blood Angels Librarian, either empowered or struggling against the Shard's influence.",
+            "dialogue": {
+              "empowered_dialogue": "This power… it is magnificent! I feel it drawing me… drawing us! We are almost there! Soon, my vision shall be reality!",
+              "struggle_dialogue": "The pressure… it’s unbearable! It claws at my mind, trying to rend my sanity! We must hurry, Sergeant, or none of us will escape with our minds intact!"
+            }
+          },
+          {
+            "id": "npc_tiberius",
+            "name": "Brother Tiberius",
+            "description": "Death Company Marine, fully consumed by the Black Rage, charging headlong into foes.",
+            "dialogue": {
+              "berserk_roar": "DIE! XENOS! DIE FOR SANGUINIUS!"
+            }
+          },
+          {
+            "id": "npc_patriarch_telepathic",
+            "name": "The Patriarch (Telepathic)",
+            "description": "The overwhelming psychic presence of the Patriarch harassing the squad.",
+            "dialogue": {
+              "mind_assault": "...Prey… come closer… the hunger… the god-gift… mine…"
+            }
+          }
+        ],
+        "events": [],
+        "dark": false,
+        "locked_exits": {}
+      },
+      "scene_08_final_confrontation": {
+        "id": "scene_08_final_confrontation",
+        "name": "Final Confrontation and Doomsday Protocol",
+        "description": "You burst into a colossal, crystalline chamber at the very heart of the 'Goliath's Maw'. Here, the reality around you warps, shimmered by raw, uncontained energy. At the focal point of this madness stands the C'tan Shard, a monumental, obsidian pyramid, crackling with green lightning and pulsating with a rhythm that echoes in your very bones. Its silent presence twists the air, makes your teeth ache, and drives the Black Rage to a fever pitch. Guarding it stands the Patriarch, bloated and terrible, its form mutated and enhanced by the shard's influence, its carapace shimmering with an unholy glow, flanked by its most elite, monstrous brood. As the final battle begins, a forgotten console hums to life, its ancient screen displaying a dire warning and a single, catastrophic option: The Doomsday Protocol – a full-spectrum core destabilization, designed to obliterate the Hulk and anything within it. The chamber is a maelstrom of cosmic horror, desperate battle, and ultimate choice.",
+        "exits": {
+          "approaching chamber": "scene_07_approaching_the_core",
+          "activate doomsday protocol": "ending_martyrdom",
+          "assist arion purification": "ending_heretic_power",
+          "destroy shard directly": "ending_standard_victory",
+          "attempt containment escape": "ending_grave_risk"
+        },
+        "items": [
+          {
+            "id": "artifact_hulk_doomsday_key",
+            "name": "Doomsday Protocol Activation Key",
+            "description": "A heavy, archaic cogitator key shaped like an Aquila, designed for a singular, catastrophic purpose: the annihilation of the 'Goliath's Maw'. It is protected by hardened adamantium casing.",
+            "takeable": true
+          },
+          {
+            "id": "item_ctan_shard",
+            "name": "C'tan Shard",
+            "description": "The C'tan Shard is a nightmare made real, a fragment of a dead god. It radiates cold power, its facets shifting with unseen energies, affecting your very soul. To touch it would be madness.",
+            "takeable": false
+          },
+          {
+            "id": "item_doomsday_protocol_console",
+            "name": "Doomsday Protocol Console",
+            "description": "An ancient, almost transparent console embedded in the crystalline wall. It glows with a steady, blood-red light, displaying a single, ominous warning: 'TOTAL-HULK-DESTRUCTION PROTOCOL – ACTIVATE? YES/NO'. The detonation sequence timer blinks ominously.",
+            "takeable": false
+          },
+          {
+            "id": "item_patriarch_mutations",
+            "name": "Patriarch Mutations",
+            "description": "The Patriarch's form is grotesquely distended, its claws longer than your arm, its psychic power visibly manifesting as shimmering distortions in the air surrounding it. It is less a beast, and more a demigod of the alien scum, mutated and enhanced by the shard's influence.",
+            "takeable": false
+          }
+        ],
+        "npcs": [
+          {
+            "id": "npc_patriarch_ascendant",
+            "name": "Genestealer Patriarch (Ascendant)",
+            "description": "The ancient and most formidable leader of the Hulk's Genestealer brood, significantly empowered by the C'tan Shard. It radiates a potent psychic presence and controls the entire infestation.",
+            "dialogue": {
+              "final_assault": "...MINE! The power… it is MINE! You will not touch it, little worms! Your minds will BREAK before my god-gift! Feed… feed…"
+            }
+          },
+          {
+            "id": "npc_tiberius",
+            "name": "Brother Tiberius",
+            "description": "Death Company Marine, fully consumed by the Black Rage, charging the Patriarch with suicidal ferocity.",
+            "dialogue": {
+              "final_charge": "FOR SANGUINIUS! AVENGE THE FALLEN! DEATH! DEATH TO THE FALSE GOD AND HIS CHILDREN!"
+            }
+          },
+          {
+            "id": "npc_arion",
+            "name": "Brother Arion",
+            "description": "The Blood Angels Librarian, either in a desperate attempt to purify the shard or overwhelmed by its power.",
+            "dialogue": {
+              "purification_attempt": "NOW, SERGEANT! I feel the connection! We can do this! Focus! I will bind its essence! Prepare for the ascension!",
+              "overwhelmed_plea": "By the Emperor, it's too much! The pressure! We must destroy it! NOW! Or contain it! It won't be contained by mere will alone!"
+            }
+          }
+        ],
+        "events": [],
+        "dark": false,
+        "locked_exits": {}
+      },
+      "ending_martyrdom": {
+        "id": "ending_martyrdom",
+        "name": "Martyrdom Ending",
+        "description": "With a grim resolve, you activate the Doomsday Protocol. The Space Hulk shudders violently, straining against the forces tearing it apart. There is no escape, no solace, only the righteous annihilation of cosmic evil. You and your brothers are consumed in a cataclysm of fire and light, sacrificing yourselves to save countless others. For the Emperor.",
+        "exits": {},
+        "items": [],
+        "npcs": [],
+        "events": [],
+        "dark": true,
+        "locked_exits": {}
+      },
+      "ending_heretic_power": {
+        "id": "ending_heretic_power",
+        "name": "Heretic/Power Ending",
+        "description": "You align with Arion, assisting him in his desperate, forbidden attempt to 'purify' and wield the C'tan Shard. The outcome is ambiguous but terrifying: Arion is either transformed into a being of terrifying power, a psychically empowered servant of the Imperium (or a new, unwitting puppet of the shard), or he is utterly consumed, leaving a void of alien consciousness. The line between righteous power and ultimate damnation blurs.",
+        "exits": {},
+        "items": [],
+        "npcs": [],
+        "events": [],
+        "dark": true,
+        "locked_exits": {}
+      },
+      "ending_standard_victory": {
+        "id": "ending_standard_victory",
+        "name": "Standard Victory/Escape Ending",
+        "description": "You and your remaining brothers battle furiously, tearing down the Patriarch and shattering the C'tan Shard with sheer bolter and blade. The Hulk begins to collapse around you, but you fight your way out, escaping into the void as the 'Goliath's Maw' is consumed by its own destruction. You have achieved victory, but the cost, and the memories of what you faced, will haunt you forever. The Imperium is safe, for now.",
+        "exits": {},
+        "items": [],
+        "npcs": [],
+        "events": [],
+        "dark": true,
+        "locked_exits": {}
+      },
+      "ending_grave_risk": {
+        "id": "ending_grave_risk",
+        "name": "Grave Risk Ending",
+        "description": "Defying both destruction and weaponization, you initiate a precarious containment protocol, a desperate gamble to secure the C'tan Shard for deeper study or eventual transport. You escape the Hulking behemoth with the cosmic entity in tow, knowing its influence is a ticking time bomb. The future remains uncertain, riddled with both immense potential and unimaginable peril. The Imperium has gained a dangerous prize, but at what ultimate cost to your soul and humanity?",
+        "exits": {},
+        "items": [],
+        "npcs": [],
+        "events": [],
+        "dark": true,
+        "locked_exits": {}
+      }
+    },
+    "global_items": {},
+    "global_npcs": {},
+    "endings": [
+      {
+        "id": "ending_martyrdom",
+        "scene_id": "ending_martyrdom",
+        "name": "Martyrdom Ending: For the Emperor!",
+        "description": "You sacrifice all to obliterate the cosmic evil and save countless others. The ultimate duty fulfilled.",
+        "ending_type": "sacrifice"
+      },
+      {
+        "id": "ending_heretic_power",
+        "scene_id": "ending_heretic_power",
+        "name": "Heretic/Power Ending: A Dangerous Path",
+        "description": "You embraced forbidden power, leading to an uncertain, potentially corrupt, but potent future for the Imperium.",
+        "ending_type": "ambiguous_victory"
+      },
+      {
+        "id": "ending_standard_victory",
+        "scene_id": "ending_standard_victory",
+        "name": "Standard Victory: Against All Odds",
+        "description": "You fought, you conquered, and you escaped. The Hulk is destroyed, the xenos threat averted, for now.",
+        "ending_type": "victory"
+      },
+      {
+        "id": "ending_grave_risk",
+        "scene_id": "ending_grave_risk",
+        "name": "Grave Risk Ending: A Ticking Time Bomb",
+        "description": "You secured the forbidden power, but its influence is a potent unseen threat, a gamble for the Imperium's future.",
+        "ending_type": "ambiguous_victory"
+      }
+    ]
+  }
+}

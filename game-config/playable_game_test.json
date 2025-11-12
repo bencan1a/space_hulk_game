@@ -1,0 +1,332 @@
+{
+  "game": {
+    "title": "Space Hulk: Echoes of the Void",
+    "description": "A text-based adventure in the Warhammer 40K universe",
+    "starting_scene": "scene_01_insertion",
+    "scenes": {
+      "scene_02_isolated_survival": {
+        "id": "scene_02_isolated_survival",
+        "name": "Isolated Survival and Navigation",
+        "description": "The 'Goliath's Maw' stretches before you, a maze of desiccated corridors and shattered bulkheads. The air is heavy, a metallic tang mingling with the scent of ozone and the cloying sweetness of unknown biological decay. Sporadic emergency lights flicker, casting grotesque, shifting shadows that dance like forgotten spirits. Rust crumbles from every surface, a fine red dust coating your boots. The silence is broken only by the rhythmic thrum of the Hulk's dying engines, the faint drip of stagnant water, and the distant, unsettling skittering of unseen things. You are a solitary crimson shadow in a world of grey and rust, each step a testament to grim resolve, each encounter a brutal test of your will against the encroaching madness of the Black Rage and the relentless alien foe. Scattered along your path are the somber relics of your fallen brothers: a shattered shoulder pad, a plasma pistol discharged into oblivion, a fragmented comm-bead still emitting a faint, desperate hum.",
+        "exits": {
+          "forward": "scene_03_reunion_arion",
+          "north": "scene_02_isolated_survival"
+        },
+        "items": [],
+        "npcs": [
+          {
+            "id": "npc_brother_sergeant_valerius",
+            "name": "Brother-Sergeant Valerius",
+            "description": "Brother-Sergeant Valerius is present in this scene",
+            "dialogue": {
+              "greeting": "*Breathing heavily* Another one. Another soul for the Emperor. Their sacrifice will not be in vain."
+            }
+          },
+          {
+            "id": "npc_comm_link_static",
+            "name": "Comm-Link Static",
+            "description": "Comm-Link Static is present in this scene",
+            "dialogue": {
+              "greeting": "*Faint, heavily distorted voice* ...Sergeant... ...signal... ...corrupted... ...Arion... whereabouts unknown..."
+            }
+          }
+        ],
+        "events": [],
+        "dark": false,
+        "locked_exits": {}
+      },
+      "scene_01_insertion": {
+        "id": "scene_01_insertion",
+        "name": "Insertion and Initial Contact",
+        "description": "The 'Goliath's Maw' looms, a skeletal titan of fused derelicts and ancient rock. Its gaping maw of a docking bay yawns before your Thunderhawk, a maelstrom of void-dust and flickering emergency lights casting long, grotesque shadows. Inside, the air is thick with the metallic tang of decay and the cloying sweetness of organic infestation. Alarms shriek their death throes as your squad of Blood Angels Terminators, clad in their revered power armor, descends into the belly of the beast. Suddenly, the world explodes into a symphony of screeching claws, chittering xenos, and the thunderous roar of bolters. Chaos erupts. Your brothers fall, torn asunder by unseen horrors in the flickering gloom, their cries swallowed by the monstrous cacophony. The coordinated insertion shatters, replaced by desperate, isolated skirmishes. Valerius finds himself alone, surrounded by the mangled remains of his brethren, the Red Thirst a savage whisper at the edge of his awareness, threatening to consume him.",
+        "exits": {
+          "forward": "scene_02_isolated_survival"
+        },
+        "items": [],
+        "npcs": [
+          {
+            "id": "npc_brother_sergeant_valerius",
+            "name": "Brother-Sergeant Valerius",
+            "description": "Brother-Sergeant Valerius is present in this scene",
+            "dialogue": {
+              "greeting": "Squad, report! Maintain formation! By Sanguinius's blood!"
+            }
+          },
+          {
+            "id": "npc_brother_arion",
+            "name": "Brother Arion",
+            "description": "Brother Arion is present in this scene",
+            "dialogue": {
+              "greeting": "Psychic countermeasures deployed! They're in the vents, Sergeant! Too many!"
+            }
+          },
+          {
+            "id": "npc_brother_kael",
+            "name": "Brother Kael",
+            "description": "Brother Kael is present in this scene",
+            "dialogue": {
+              "greeting": "Aaarggh! For the Emp\u2014"
+            }
+          }
+        ],
+        "events": [],
+        "dark": false,
+        "locked_exits": {}
+      },
+      "scene_03_reunion_arion": {
+        "id": "scene_03_reunion_arion",
+        "name": "Reunion with Arion and Objective Revealed",
+        "description": "Through the decaying labyrinth of bulkheads and service conduits, the faint psychic signature of Brother Arion intensified, guiding your path. You enter a cavernous engine room, its massive turbines long-dead and festooned with years of organic growth and alien webbing. In the center, almost lost amidst the gloom, stands Brother Arion, his force staff humming with latent power, a protective psychic barrier shimmering around him. Beside him, a hulking figure, almost fully consumed by the Black Rage, tears apart a Genestealer with bare hands \u2013 Brother Tiberius, a living storm of fury. Arion's eyes, usually sharp and discerning, hold a new, almost feverish light as he turns to you, the sheer relief warring with a chilling intensity. The air crackles, not just with psychic energy, but with a palpable sense of momentous revelation.",
+        "exits": {
+          "forward": "scene_04_deeper_hulk_investigation"
+        },
+        "items": [],
+        "npcs": [
+          {
+            "id": "npc_brother_arion",
+            "name": "Brother Arion",
+            "description": "Brother Arion is present in this scene",
+            "dialogue": {
+              "greeting": "Sergeant! By the Emperor\u2019s grace, you live! I knew a true son of Sanguinius would penetrate their squalid resistance. My apologies, the psychic overlay\u2026 it made communication\u2026 difficult."
+            }
+          },
+          {
+            "id": "npc_brother_tiberius",
+            "name": "Brother Tiberius",
+            "description": "Brother Tiberius is present in this scene",
+            "dialogue": {
+              "greeting": "Xenos filth! They die! All die!"
+            }
+          },
+          {
+            "id": "npc_brother_sergeant_valerius",
+            "name": "Brother-Sergeant Valerius",
+            "description": "Brother-Sergeant Valerius is present in this scene",
+            "dialogue": {
+              "greeting": "Arion. What's happened here? Your signal was an erratic whisper. And what is this\u2026 feeling? A current in the warp, stronger than any we've encountered."
+            }
+          }
+        ],
+        "events": [],
+        "dark": false,
+        "locked_exits": {}
+      },
+      "scene_04_deeper_hulk_investigation": {
+        "id": "scene_04_deeper_hulk_investigation",
+        "name": "Deeper into the Hulk - Growing Threat",
+        "description": "The Hulk's architecture grows increasingly surreal and dangerous as you delve deeper. Corridors twist into impossible geometries, walls are scarred by ancient battles and fused with alien biomass, pulsing with a sickly, internal light. The air grows heavier, thick with an almost palpable psychic pressure emanating from the heart of the vessel. Genestealers here are not the scattered ambushers of the upper decks; they move with chilling coordination, their scythes whispering in unison, their psychic roars almost deafening. You stumble upon grotesque scenes: ancient Imperial Guard encampments now silent charnel houses, their last stand frozen in time; the power-armored remains of another Astartes Chapter, their chapter symbols defaced, their bones picked clean. The cold dread of countless failed endeavors clings to every shadow.",
+        "exits": {
+          "forward": "scene_05_hulk_secrets_revealed",
+          "north": "scene_04_deeper_hulk_investigation"
+        },
+        "items": [],
+        "npcs": [
+          {
+            "id": "npc_brother_tiberius",
+            "name": "Brother Tiberius",
+            "description": "Brother Tiberius is present in this scene",
+            "dialogue": {
+              "greeting": "Weaklings! Their faith failed them. Pathetic human vermin. Only the fury of Sanguinius can cleanse this defilement!"
+            }
+          },
+          {
+            "id": "npc_brother_arion",
+            "name": "Brother Arion",
+            "description": "Brother Arion is present in this scene",
+            "dialogue": {
+              "greeting": "Fascinating\u2026 the patterns of resistance\u2026 the tactical evolution of the Genestealer strain here. It accelerates. The Shard's influence is exponential. It feeds their intelligence, sharpens their instincts. We must reach it, Sergeant, before they fully adapt..."
+            }
+          },
+          {
+            "id": "npc_brother_sergeant_valerius",
+            "name": "Brother-Sergeant Valerius",
+            "description": "Brother-Sergeant Valerius is present in this scene",
+            "dialogue": {
+              "greeting": "The weight of failed endeavors\u2026 it presses down like the void. These halls are soaked in the blood of the loyal. Arion, your theories are a luxury we cannot afford. We have a mission: locate, destroy. Nothing more. Nothing less. Keep your focus on the enemy now."
+            }
+          }
+        ],
+        "events": [],
+        "dark": false,
+        "locked_exits": {}
+      },
+      "scene_05_hulk_secrets_revealed": {
+        "id": "scene_05_hulk_secrets_revealed",
+        "name": "Unveiling the Hulk's Secrets",
+        "description": "You penetrate an archaic data-core, its consoles still flickering with ancient pict-data and warped schematics. The air here vibrates with the lingering hum of long-dead machinery and the faint, ghostly echoes of forgotten voices. Arion, his eyes alight with a voracious hunger for knowledge, interfaces with the crumbling terminals. Fragmented logs coalesce into a chilling chronicle: the 'Goliath's Maw' was no mere transport, but an experimental Ark Mechanicus vessel, lost during the treacherous currents of the Horus Heresy. Its purpose: the study and weaponization of extreme xenos phenomena. The logs speak of a 'contained warp anomaly' that swiftly became 'uncontainable,' a 'stellar-mass entity fragment' radiating 'soul-crushing energies.' Pict-recordings flicker: desperate Mechanicus adepts, their faces contorted in terror, as a shimmering, obsidian shard pulses with cold, unearthly light, attracting shadows that chitter and crawl. The truth of the Hulk\u2019s agonizing birth, its slow corruption, and the shard\u2019s cosmic gravity settles like a shroud.",
+        "exits": {
+          "forward": "scene_06_moral_dilemma"
+        },
+        "items": [],
+        "npcs": [
+          {
+            "id": "npc_brother_arion",
+            "name": "Brother Arion",
+            "description": "Brother Arion is present in this scene",
+            "dialogue": {
+              "greeting": "By the Emperor's Golden Throne\u2026 a C\u2019tan Shard. And not just any vessel\u2026 a Mechanicus research Ark! An illicit project, lost during the Heresy. They sought to harness it\u2026 foolhardy\u2026 but perhaps not entirely without merit. This is invaluable! The potential\u2026 the sheer power\u2026"
+            }
+          },
+          {
+            "id": "npc_brother_sergeant_valerius",
+            "name": "Brother-Sergeant Valerius",
+            "description": "Brother-Sergeant Valerius is present in this scene",
+            "dialogue": {
+              "greeting": "Heresy! This entire vessel is a testament to forbidden knowledge and the price of hubris. This\u2026 'potential'\u2026 has damned countless souls and drawn this xenos plague! Our duty is clear: purge this abomination, not catalogue its blasphemes."
+            }
+          },
+          {
+            "id": "npc_brother_tiberius",
+            "name": "Brother Tiberius",
+            "description": "Brother Tiberius is present in this scene",
+            "dialogue": {
+              "greeting": "Shatter! All of it! The false god! The whispers breed weakness! Only righteous destruction!"
+            }
+          }
+        ],
+        "events": [],
+        "dark": false,
+        "locked_exits": {}
+      },
+      "scene_06_moral_dilemma": {
+        "id": "scene_06_moral_dilemma",
+        "name": "Moral Dilemma: The Shard's Power",
+        "description": "The oppressive weight of the Hulk closes in, its ancient secrets now fully unveiled. In a desolate, grand chamber, once a command bridge judging by its ruined consoles, the newly absorbed knowledge hangs heavy. Arion stands apart, his psychic aura visibly agitated, his eyes burning with an almost unnatural light that reflects the pulsating energies from deeper within the Hulk. He strides forward, his voice steady but laced with a fervent intensity, proposing the unthinkable. Tiberius, a hulking monument to Sanguinius's sorrow, clenches his power fists, ready to explode. The air crackles with unspoken tension, the fate of the mission \u2013 and perhaps more \u2013 resting on Valerius\u2019s words.",
+        "exits": {
+          "forward": "scene_07_approaching_the_core"
+        },
+        "items": [],
+        "npcs": [
+          {
+            "id": "npc_brother_arion",
+            "name": "Brother Arion",
+            "description": "Brother Arion is present in this scene",
+            "dialogue": {
+              "greeting": "Sergeant. Consider the implications of what we've discovered. This shard\u2026 it is not merely a xenos artifact to be destroyed. It is a nascent god-engine, a primal force of creation and destruction! To simply obliterate it would be to cast aside a gift from the cosmos, a means to elevate Mankind beyond mere survival! We can purify it, leash its power for the Imperium! Imagine what a psychic conduit I could be, channeling such vastness for the Emperor!"
+            }
+          },
+          {
+            "id": "npc_brother_tiberius",
+            "name": "Brother Tiberius",
+            "description": "Brother Tiberius is present in this scene",
+            "dialogue": {
+              "greeting": "Silence, Librarian! Your words are poison! This is heresy! A xenos blasphemy! The only purity it knows is annihilation! We will cleanse it with bolt and melta, as Sanguinius demands!"
+            }
+          },
+          {
+            "id": "npc_brother_sergeant_valerius",
+            "name": "Brother-Sergeant Valerius",
+            "description": "Brother-Sergeant Valerius is present in this scene",
+            "dialogue": {
+              "greeting": "Arion! Be careful what you speak. Your words tread a path to damnation. The Inquisition would flay you for less. Our orders are absolute: the shard is a threat, it must be neutralized. To tamper with such forces is to invite ruin! But\u2026 *a moment of hesitation, the flicker of doubt in his resolve* \u2026the power\u2026 for the Imperium\u2026"
+            }
+          }
+        ],
+        "events": [],
+        "dark": false,
+        "locked_exits": {}
+      },
+      "scene_07_approaching_the_core": {
+        "id": "scene_07_approaching_the_core",
+        "name": "Approaching the Core - Patriarch's Domain",
+        "description": "The final approach to the C'tan Shard chamber is less a corridor and more a living, organic nightmare. The Hulk's ancient metal is almost entirely consumed by a pulsating, biomechanical growth \u2013 the true, vile heart of the Genestealer infestation. The walls writhe with unseen life, and strange, viscous fluids drip from chitinous ceilings. The air is thick, choked with the acrid scent of alien biology and the overwhelming psychic roar of the Patriarch, now amplified to maddening levels by the shard\u2019s proximity. Xenos forms, larger, more cunning, and more numerous than any you\u2019ve faced, scuttle in the periphery. Brother Tiberius, now a whirlwind of crimson fury, his growls barely coherent, lunges ahead, almost blindly, a living weapon. Arion, depending on your choice, either walks with a terrifying resolve, his eyes blazing with power, or a desperate, almost terrified grimace, struggling against the psychic onslaught. Valerius, your own Black Rage now a roaring beast at the gates of your mind, must harness it, shaping the raw fury into focused, brutal efficiency.",
+        "exits": {
+          "forward": "scene_08_final_confrontation"
+        },
+        "items": [],
+        "npcs": [
+          {
+            "id": "npc_brother_tiberius",
+            "name": "Brother Tiberius",
+            "description": "Brother Tiberius is present in this scene",
+            "dialogue": {
+              "greeting": "DIE! XENOS! DIE FOR SANGUINIUS! *Primal roar*"
+            }
+          },
+          {
+            "id": "npc_brother_arion",
+            "name": "Brother Arion",
+            "description": "Brother Arion is present in this scene",
+            "dialogue": {
+              "greeting": "(If Valerius chose Path A - Purification): 'This power\u2026 it is magnificent! I feel it drawing me\u2026 drawing us! Brother-Sergeant, we are almost there! Soon, my vision shall be reality!'"
+            }
+          },
+          {
+            "id": "npc_brother_sergeant_valerius",
+            "name": "Brother-Sergeant Valerius",
+            "description": "Brother-Sergeant Valerius is present in this scene",
+            "dialogue": {
+              "greeting": "The Black Rage\u2026 a tempest in my skull. Sanguinius, grant me the strength to channel this fury! To turn this madness into a weapon! For the Emperor! Push through! We have come too far!"
+            }
+          },
+          {
+            "id": "npc_the_patriarch_(telepathic)",
+            "name": "The Patriarch (Telepathic)",
+            "description": "The Patriarch (Telepathic) is present in this scene",
+            "dialogue": {
+              "greeting": "*A chorus of chittering thoughts, a cold, predatory intelligence pushing into your mind* ...Prey\u2026 come closer\u2026 the hunger\u2026 the god-gift\u2026 mine\u2026"
+            }
+          }
+        ],
+        "events": [],
+        "dark": false,
+        "locked_exits": {}
+      },
+      "scene_08_final_confrontation": {
+        "id": "scene_08_final_confrontation",
+        "name": "Final Confrontation and Doomsday Protocol",
+        "description": "You burst into a colossal, crystalline chamber at the very heart of the 'Goliath's Maw'. Here, the reality around you warps, shimmered by raw, uncontained energy. At the focal point of this madness stands the C'tan Shard, a monumental, obsidian pyramid, crackling with green lightning and pulsating with a rhythm that echoes in your very bones. Its silent presence twists the air, makes your teeth ache, and drives the Black Rage to a fever pitch. Guarding it stands the Patriarch, bloated and terrible, its form mutated and enhanced by the shard's influence, its carapace shimmering with an unholy glow, flanked by its most elite, monstrous brood. As the final battle begins, a forgotten console hums to life, its ancient screen displaying a dire warning and a single, catastrophic option: The Doomsday Protocol \u2013 a full-spectrum core destabilization, designed to obliterate the Hulk and anything within it. The chamber is a maelstrom of cosmic horror, desperate battle, and ultimate choice.",
+        "exits": {},
+        "items": [],
+        "npcs": [
+          {
+            "id": "npc_the_patriarch_(telepathic_roar)",
+            "name": "The Patriarch (Telepathic Roar)",
+            "description": "The Patriarch (Telepathic Roar) is present in this scene",
+            "dialogue": {
+              "greeting": "...MINE! The power\u2026 it is MINE! You will not touch it, little worms! Your minds will BREAK before my god-gift! Feed\u2026 feed\u2026"
+            }
+          },
+          {
+            "id": "npc_brother_tiberius",
+            "name": "Brother Tiberius",
+            "description": "Brother Tiberius is present in this scene",
+            "dialogue": {
+              "greeting": "FOR SANGUINIUS! AVENGE THE FALLEN! DEATH! DEATH TO THE FALSE GOD AND HIS CHILDREN!"
+            }
+          },
+          {
+            "id": "npc_brother_arion",
+            "name": "Brother Arion",
+            "description": "Brother Arion is present in this scene",
+            "dialogue": {
+              "greeting": "(If Valerius chose Path A - Purification): 'NOW, SERGEANT! I feel the connection! We can do this! Focus! I will bind its essence! Prepare for the ascension!'"
+            }
+          },
+          {
+            "id": "npc_brother_sergeant_valerius",
+            "name": "Brother-Sergeant Valerius",
+            "description": "Brother-Sergeant Valerius is present in this scene",
+            "dialogue": {
+              "greeting": "The weight of the galaxy rests upon this moment. My brothers\u2026 my oath\u2026 my curse\u2026 ONE FINAL ACT! For the Imperium. For Sanguinius. For the souls of humanity!"
+            }
+          }
+        ],
+        "events": [],
+        "dark": false,
+        "locked_exits": {}
+      }
+    },
+    "global_items": {},
+    "global_npcs": {},
+    "endings": [
+      {
+        "id": "ending_escape",
+        "scene_id": "scene_08_final_confrontation",
+        "name": "Final Confrontation and Doomsday Protocol",
+        "description": "Final push for extraction",
+        "ending_type": "victory"
+      }
+    ]
+  }
+}

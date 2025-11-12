@@ -1,95 +1,94 @@
 {
   "narrative_foundation": {
-    "title": "Space Hulk: Echoes of Perdition",
-    "setting": "The game takes place aboard the 'Perdition's Grasp', a colossal, ancient Space Hulk adrift in the treacherous void of the Warhammer 40,000 galaxy. This Space Hulk is a amalgamation of derelict Imperial vessels, xenos craft, and forgotten space stations, fused together by aeons of warp-current travel. Its interior is a labyrinth of rusted bulkheads, decaying technology, and oppressive darkness, punctuated by glowing bio-luminescent fungi and the grotesque organic architecture of the Tyranid infestation. The atmosphere is one of claustrophobic dread and existential horror, where humanity's last stand against an unimaginable threat unfolds amidst the decaying grandeur of a corrupted past. The year is M41, and the Imperium is under siege from countless enemies.",
+    "title": "Space Hulk: Echoes of the Void",
+    "setting": "The game takes place aboard the 'Goliath's Maw,' a titanic Space Hulk – a conglomeration of derelict starships, asteroids, and orbital debris, adrift in the Imperium's uncharted sectors. This particular Hulk is ancient, scarred by untold millennia of warp travel and xenos infestation, rumored to contain technological relics and secrets from humanity's golden age. Its interior is a labyrinth of decaying corridors, vast, silent chambers, and choked ventilation shafts, punctuated by the grotesque biology of Genestealer infestations and the spectral echoes of long-dead crews. The atmosphere is oppressive, dark, and claustrophobic, with artificial gravity flickering, power conduits sparking erratically, and the pervasive, chilling scent of ozone and rot. Beyond the immediate threat of the Genestealers, the Hulk itself is a character, its vastness and age hinting at cosmic horrors and forgotten histories.",
     "themes": [
-      "The enduring human spirit against overwhelming odds",
-      "The futility of faith in the face of cosmic horror",
-      "The thin line between duty and fanaticism",
-      "The corrosive nature of isolation and despair",
-      "The sacrifice required for survival"
+      "Survival vs. Sacrifice",
+      "Humanity's Frailty in the Face of the Alien",
+      "The Nature of Faith and Despair",
+      "Uncovering Lost Knowledge (and its Price)",
+      "The Corrupting Influence of the Warp"
     ],
-    "tone": "Gritty, dark, claustrophobic, hopeless, but with brief flashes of defiant heroism. The pervasive mood is one of dread and a constant struggle for survival against an inexorable, alien foe. Elements of psychological horror are integrated to emphasize the mental toll on the Space Marines.",
+    "tone": "Gritty, terrifying, desperate, and darkly epic. The narrative is infused with a sense of dread and existential horror, emphasizing the fragility of human life against overwhelming odds. Moments of heroism are grim and often come at a terrible cost, reinforcing the 'grimdark' aesthetic of the Warhammer 40,000 universe. The tone should evoke a constant feeling of claustrophobia, paranoia, and the creeping dread of being hunted.",
     "plot_points": [
       {
-        "id": "plot1_initial_contact",
-        "name": "Initial Contact & Discovery",
-        "description": "A contingent of Blood Angels Terminators is dispatched to investigate the 'Perdition's Grasp' after its erratic warp-signatures are detected near a vital Imperial world. They are tasked with recovering 'The Anathema', a rumored relic of immense psychic power believed to be onboard, and eradicating any threats. Upon boarding, they encounter a nascent but rapidly growing Tyranid Genestealer infestation."
+        "id": "pp_01_insertion",
+        "name": "Insertion and Initial Contact",
+        "description": "A squad of Terminators from the Blood Angels Chapter's Death Company, accompanied by a seasoned Librarian, is deployed onto the 'Goliath's Maw.' Their mission: neutralise the Genestealer threat and retrieve a xenos artifact detected by Astropathic choirs. Almost immediately, they are separated and ambushed, suffering heavy casualties and losing critical equipment. The player character, Brother-Sergeant Valerius, finds himself isolated with a few remaining Terminators, deep within the Hulk."
       },
       {
-        "id": "plot2_lost_contact",
-        "name": "Lost Contact & Escalation",
-        "description": "Shortly after initial reports, communications with the lead Terminator squad are severed. The second squad, led by Brother-Captain Raphael, is sent to establish contact, reinforce, and complete the mission. They quickly discover the full extent of the Genestealer presence and the horrific fate of the first squad."
+        "id": "pp_02_reunion_and_objective",
+        "name": "Reunion and Re-establishing Objective",
+        "description": "Valerius navigates the treacherous corridors, reuniting with other scattered squad members, including the enigmatic Librarian, Brother Arion. Arion reveals the true nature of their primary objective: retrieving a C'tan Shard, a fragment of a star god, that was integrated into the Hulk's core millennia ago and is now causing dangerous warp fluctuations. The Genestealer infestation is merely a symptom of the shard's awakening."
       },
       {
-        "id": "plot3_the_hive_mind_awakens",
-        "name": "The Hive Mind Awakens",
-        "description": "As the Terminators delve deeper, they realize the Space Hulk isn't merely infested; it's becoming a 'brood nest' for a larger Tyranid organism. The 'Anathema' is revealed to be a component of a nascent synapse creature, or a psychic beacon attracting further Tyranid vessels, making its destruction or retrieval paramount to preventing a sector-wide invasion."
+        "id": "pp_03_the_hive_mind_manifests",
+        "name": "Encountering the Hive Mind's Will",
+        "description": "As the Terminators delve deeper, they encounter increasingly complex and aggressive Genestealer tactics, indicating the presence of a Broodlord or even a Patriarch directly influenced by the Hive Mind, which is drawn to the C'tan Shard's energy. They discover evidence of previous, failed attempts by other Imperial factions to cleanse the Hulk, their remnants providing both clues and warnings."
       },
       {
-        "id": "plot4_moral_dilemma",
-        "name": "Moral Dilemma: Sacrifices",
-        "description": "The squad faces agonizing choices. Do they sacrifice valuable time and limited resources to rescue trapped Imperial personnel (or even their own injured)? Or do they prioritize the mission, potentially condemning innocents but increasing their chances against the overwhelming Tyranid threat? These choices impact squad morale and future mission parameters."
+        "id": "pp_04_secrets_of_the_hulk",
+        "name": "Unveiling the Hulk's Secrets",
+        "description": "Valerius and his squad uncover fragmented data logs, ancient pict-recordings, and cryptic murals detailing the Hulk's origins. It is revealed that the 'Goliath's Maw' was once an experimental Imperial warship, lost during the Horus Heresy, and subsequently fused with xenos vessels and warp-tainted debris. The C'tan Shard was a captured weapon, intended for study, which escaped containment and began slowly corrupting the vessel, attracting all manner of horrors, including the Genestealers."
       },
       {
-        "id": "plot5_confrontation_and_choice",
-        "name": "Confrontation and Final Choice",
-        "description": "The Terminators finally reach 'The Anathema'. They discover that it is a xenos bio-artifact drawing psychic energy, threatening to awaken a dormant Hive Fleet or create a potent synapse creature. They must decide whether to attempt a difficult retrieval, risking further exposure and escalating the Tyranid threat, or destroy the artifact, potentially losing critical Imperial intelligence or a weapon that could be turned against the Xenos later. This choice directly impacts the ending."
+        "id": "pp_05_moral_dilemma_shard",
+        "name": "Moral Dilemma: The Shard's Power",
+        "description": "The Librarian, Brother Arion, begins to show signs of being subtly influenced by the C'tan Shard's psychic emanations. He presents a dangerous proposition: instead of destroying the shard, perhaps its immense power could be 'purified' and wielded by the Imperium against its foes. This creates a rift within the squad, forcing Valerius to choose between strict adherence to orders and the potential, albeit heretical, weaponization of a cosmic deity."
       },
       {
-        "id": "plot6_escape_or_doom",
-        "name": "Escape or Doom",
-        "description": "Regardless of their final decision regarding 'The Anathema', the Space Hulk begins to destabilize due to either the destruction of the artifact, the awakening of the Hive Mind, or internal structural collapses caused by the ongoing conflict. The remaining Terminators must fight their way to an extraction point before the entire Space Hulk is consumed by the warp or utterly collapses."
+        "id": "pp_06_final_confrontation_and_choice",
+        "name": "Final Confrontation and Doomsday Protocol",
+        "description": "The squad reaches the heart of the Hulk, a chamber pulsating with unholy energy where the C'tan Shard resides, guarded by the empowered Genestealer Patriarch and its brood. A doomsday protocol, left by the original crew, is discovered – a way to destabilize the Hulk and detonate it, ensuring the shard's destruction, but at the cost of the squad's lives. Valerius must make a final, harrowing choice: activate the protocol, attempt to 'purify' the shard with Arion, or find another way to escape with the shard, risking its influence on the galaxy."
       }
     ],
     "characters": [
       {
-        "name": "Brother-Captain Raphael",
-        "role": "Player Character - Taciturn and resolute Blood Angels Terminator Captain. Leads the second boarding contingent.",
-        "backstory": "A veteran of countless campaigns, Raphael carries the weight of past losses and the 'Red Thirst' of his chapter. He is known for his unwavering commitment to duty, even if it means making impossible choices. He believes in the Emperor's light but struggles with the grim realities of the galaxy."
-      },
-      {
         "name": "Brother-Sergeant Valerius",
-        "role": "Squad Mate - Experienced, pragmatic, and resourceful.",
-        "backstory": "Valerius acts as Raphael's second-in-command, often offering a more grounded perspective. He's seen humanity at its worst and best, retaining a cynical idealism. His loyalty to Raphael and the Chapter is absolute, but he questions unnecessary sacrifices."
+        "role": "Player Character, Squad Leader (Blood Angels, Death Company)",
+        "backstory": "A veteran Terminator of the Blood Angels, recently inducted into the Death Company. He grapples with the Black Rage, a psychic curse that threatens to consume him, making his actions unpredictable and his resolve constantly tested. His tactical prowess is unmatched, but his mind is a battlefield. He is haunted by the past failures of his Chapter and seeks redemption through self-sacrifice."
       },
       {
-        "name": "Brother Claudius",
-        "role": "Squad Mate - Young, zealous, and eager for glory.",
-        "backstory": "Claudius is a recent initiate to the Terminator ranks, enthusiastic to prove himself worthy. He represents the unshakeable faith and fervent devotion of the Imperium, sometimes to the point of recklessness. He idolizes Raphael and struggles with the moral ambiguities of warfare."
+        "name": "Brother Arion",
+        "role": "Librarian (Blood Angels)",
+        "backstory": "A powerful psyker and scholar, Arion was assigned to the mission due to his knowledge of xenos artifacts and warp lore. He is intellectually curious, sometimes to a fault, pushing the boundaries of sanctioned knowledge. He believes that understanding is power, even if that understanding comes from forbidden sources. He becomes increasingly drawn to the C'tan Shard's energies, challenging his own faith and loyalty."
       },
       {
         "name": "Brother Tiberius",
-        "role": "Squad Mate - Expert in demolitions and heavy weaponry, quiet and observant.",
-        "backstory": "Tiberius is a man of few words but deadly precision. His past involves several 'unusual' incidents of technical expertise, hinting at a darker, more pragmatic approach to warfare than his brethren. He often spots details others miss but rarely speaks his mind unless necessary."
+        "role": "Tactical Marine (Blood Angels, Death Company)",
+        "backstory": "A stoic and unwavering member of the Death Company, Tiberius is consumed by the Black Rage but maintains a disciplined ferocity. He is a grim reminder of Valerius's own potential fate. His actions are often driven by visions of Sanguinius's sacrifice, making him fiercely loyal but prone to acts of extreme violence."
       },
       {
-        "name": "The Hive Mind (Presence)",
-        "role": "Antagonist - The overarching consciousness controlling the Tyranid forces.",
-        "backstory": "An incomprehensible, extrasolar entity driven by insatiable hunger. It has no individual personality but exerts a palpable psychic pressure on the Space Hulk, driving its creatures to achieve its reproductive and consumption goals. Its presence grows stronger as the players delve deeper."
+        "name": "The Patriarch",
+        "role": "Antagonist, Genestealer Leader",
+        "backstory": "An ancient and incredibly intelligent Genestealer Patriarch, it has presided over the infestation of the 'Goliath's Maw' for centuries. Its psychic prowess is amplified by the proximity of the C'tan Shard, making it a formidable foe. It acts as the local nexus for the Tyranid Hive Mind, orchestrating complex ambushes and evolving its brood's tactics."
       },
       {
-        "name": "Genestealer Patriarch (Emergent Threat)",
-        "role": "Antagonist - The local progenitor of the Tyranid infestation within the Space Hulk.",
-        "backstory": "Born from the first infiltrator caste, this creature is the psychic and genetic linchpin of the Space Hulk's infestation. It commands the Genestealer Cult within and adapts the local fauna. It is cunning and territorial, a physical manifestation of the Hive Mind's will on a smaller scale."
+        "name": "The C'tan Shard (Subtle Influence)",
+        "role": "Antagonist, Cosmic Entity",
+        "backstory": "A fragmented piece of a Necron C'tan (Star God), it was once a colossal being capable of devouring stars. Imprisoned and weaponized by an ancient civilization (or possibly the Imperium itself in a forgotten era), it now radiates immense, raw cosmic and psychic energy, subtly corrupting life around it and attracting the Tyranids. Its influence is a slow, insidious horror, not a direct physical threat."
       }
     ],
     "conflicts": [
       {
-        "type": "Man vs. Alien (Tyranids)",
-        "description": "The primary and most direct conflict: the highly trained Space Marines fighting against hordes of alien bioforms. This encompasses tactical combat, resource management, and the constant threat of being overwhelmed by sheer numbers and horrific biological adaptations."
+        "type": "Man vs. Alien/Xenos",
+        "description": "The primary physical conflict: the Blood Angels Terminators against the relentless, overwhelming hordes of Genestealers, adapted to the Space Hulk's environment and emboldened by a powerful Patriarch."
       },
       {
-        "type": "Man vs. Environment (Space Hulk)",
-        "description": "The Space Hulk itself is a hostile entity. Claustrophobic corridors, environmental hazards, collapsing structures, power failures, and the psychological impact of being lost within a decaying, alien-infested labyrinth create a constant struggle for survival beyond direct combat."
+        "type": "Man vs. Environment",
+        "description": "The Space Hulk itself is a hostile entity – decaying infrastructure, treacherous navigation, failing life support, and unpredictable warp phenomena constantly imperil the squad. The claustrophobic and dark environment breeds fear and paranoia."
       },
       {
-        "type": "Man vs. Self (Psychological/Moral)",
-        "description": "Space Marines grapple with their duty, the horrors they witness, the 'Red Thirst' (if Blood Angels), and the difficult moral choices presented by the mission. This includes questions of sacrifice, dogma vs. pragmatism, and maintaining their sanity amidst cosmic dread."
+        "type": "Man vs. Self (Internal Struggle)",
+        "description": "Valerius's battle with the Black Rage and the Red Thirst. The constant fight against succumbing to hereditary madness, balancing tactical acumen with raw, berserk fury. Brother Arion's internal struggle with forbidden knowledge and the allure of the C'tan Shard's power."
       },
       {
-        "type": "Man vs. Imperium (Ideological)",
-        "description": "Subtly, the conflict might involve the rigidity of Imperial dogma versus the pragmatic necessities of survival. Decisions made might go against standard Imperial protocols but are vital for stopping a larger threat, leading to internal conflict within the squad or potential censure."
+        "type": "Man vs. The Unknown/Cosmic Horror",
+        "description": "The C'tan Shard represents a cosmic entity beyond human comprehension, its power and true intentions an existential threat. The ancient mysteries of the Hulk, hinting at forgotten atrocities and galactic-scale events, contribute to this sense of dread."
+      },
+      {
+        "type": "Ideological/Moral Conflict",
+        "description": "The clash between Imperial dogma (destroying xenos artifacts at all costs) and the temptation of heresy (weaponizing the C'tan Shard). This is embodied in the evolving relationship and opposing views of Valerius and Arion."
       }
     ]
   }

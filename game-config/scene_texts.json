@@ -1,133 +1,336 @@
 {
   "scene_texts": {
     "scenes": {
-      "scene_001_insertion": {
-        "name": "Insertion Point - Bridge of Despair",
-        "description": "The air crackles with ozone as ceramite boots meet the cold, scarred metal of the 'Perdition's Grasp'. The breach site coughs out a plume of superheated vapor, revealing the skeletal remains of what was once a grand starship bridge. Shattered command consoles jut like jagged teeth from the floor, their dormant screens reflecting the flickering ruby glow of emergency lighting. Dust motes dance in the sickly light, making the reek of ozone, stale death, and something indescribably alien even more oppressive. This is no mere derelict; it is a tomb, and your arrival has merely disturbed its restless dead. The primary mission, to make contact with First Squad and secure 'The Anathema', presses down with the weight of a thousand forgotten campaigns.",
-        "atmosphere": "Claustrophobic, grim, foreboding, decaying, tense.",
-        "initial_text": "You stand on the bridge of a forgotten hulk, the only sounds the hiss of your armor's environmental seals and the distant groans of metal.",
+      "scene_01_insertion": {
+        "name": "Insertion and Initial Contact",
+        "description": "The 'Goliath's Maw' looms, a skeletal titan of fused derelicts and ancient rock. Its gaping maw of a docking bay yawns before your Thunderhawk, a maelstrom of void-dust and flickering emergency lights casting long, grotesque shadows. Inside, the air is thick with the metallic tang of decay and the cloying sweetness of organic infestation. Alarms shriek their death throes as your squad of Blood Angels Terminators, clad in their revered power armor, descends into the belly of the beast. Suddenly, the world explodes into a symphony of screeching claws, chittering xenos, and the thunderous roar of bolters. Chaos erupts. Your brothers fall, torn asunder by unseen horrors in the flickering gloom, their cries swallowed by the monstrous cacophony. The coordinated insertion shatters, replaced by desperate, isolated skirmishes. Valerius finds himself alone, surrounded by the mangled remains of his brethren, the Red Thirst a savage whisper at the edge of his awareness, threatening to consume him.",
+        "atmosphere": "Claustrophobic, chaotic, terrifying, desperate. A sudden, violent ambush that shatters expectations and instills immediate dread.",
+        "initial_text": "The void-sick maw of the 'Goliath's Maw' swallows your Thunderhawk whole. The mission brief crackles in your comms, a distant echo against the rising tide of unnatural static. Then, the ambush. Pain. Screams. Darkness. You are alone.",
         "examination_texts": {
-          "shattered_console": "The main command console, reduced to twisted metal and sparking wires. A faint, unintelligible data readout flickers erratically, too corrupted to decipher. It smells faintly of burnt flesh.",
-          "dead_crewman": "The desiccated remains of a human crewman, fused to a command chair, long since stripped of any useful gear. A silent monument to the cruelty of the void.",
-          "breach_site": "The angry, jagged hole your Thunderhawk created, framed by mangled bulkheads. Beyond, the black abyss of deep space beckons. No way back this way."
+          "fallen_brother_01": "The mangled remains of Brother Kael stand testament to the ferocity of the ambush. His power armor is rent, organic matter splattered across its crimson plates. A broken storm bolter lies nearby. There's no honor in this death, only brutality.",
+          "wall_damage": "The bulkhead is shredded, torn as if by colossal talons. Whatever hit you came with devastating speed and force. Remnants of a Genestealer scythe-arm are embedded in the adamantium. Too many of them."
         },
         "dialogue": [
           {
-            "speaker": "Brother-Captain Raphael",
-            "text": "All right, brothers. Standard sweep protocols. Valerius, comms. Claudius, check for structural integrity. Tiberius, sensors. Let's find out what silence swallowed First Squad whole.",
-            "context": "Upon entering the scene, assessing the situation."
+            "speaker": "Brother-Sergeant Valerius",
+            "text": "Squad, report! Maintain formation! By Sanguinius's blood!",
+            "context": "Initial moments of the ambush, trying to rally the squad."
           },
           {
-            "speaker": "Brother Claudius",
-            "text": "By the Emperor's will, Captain! Let's purge these xenos abominations from this vessel!",
-            "emotion": "Eager, zealous",
-            "context": "Fingering his bolter, looking for immediate action."
+            "speaker": "Brother Arion",
+            "text": "Psychic countermeasures deployed! They're in the vents, Sergeant! Too many!",
+            "context": "Just before he is separated, a flash of blue psychic energy flares defensively.",
+            "emotion": "Strained, urgent"
           },
           {
-            "speaker": "Brother-Captain Raphael",
-            "text": "Patience, Claudius. Zeal will not save us from a foe we do not understand. We hunt no mere pirates here. Keep your faith, but keep your senses sharper.",
-            "emotion": "Stern, world-weary",
-            "context": "Responding to Claudius's eagerness, a quiet warning."
+            "speaker": "Brother Kael",
+            "text": "Aaarggh! For the Emp—",
+            "context": "Cut off mid-scream, his comms going dead."
           },
           {
             "speaker": "Brother-Sergeant Valerius",
-            "text": "Comms still dead, Captain. And I'm getting... anomalous energy readings. Faint, but distinct. Not Imperial.",
-            "context": "After attempting to establish comms."
-          },
-          {
-            "speaker": "Brother Tiberius",
-            "text": "Structural stress points across this deck, Captain. Nothing critical yet, but this Hulk feels like it's holding its breath.",
-            "emotion": "Calm, analytical",
-            "context": "After scanning the environment."
+            "text": "Kael! Arion! Any-… Silence. The static shrieks. 'Alone.' The word claws at your mind, an ancient predator. The Black Rage whispers, a siren song of blood and fury, but your training holds, a thin steel wire over an abyss.",
+            "context": "After the initial chaos, realizing the squad has been decimated and separated.",
+            "emotion": "Grim determination, fighting internal struggle"
           }
         ],
-        "narrative_notes": "Establishes the grim atmosphere and immediate objectives. Introduces the squad dynamics and initial character traits of Raphael's stoicism, Claudius's zeal, Valerius's pragmatism, and Tiberius's observational skills. Sets the stage for the unknown threat."
+        "narrative_notes": "This scene establishes the immediate threat, the lethality of the Genestealers, and introduces Valerius's internal struggle with the Black Rage. It sets a desperate tone and forces the player into a state of isolation, fulfilling 'pp_01_insertion' and 'scene_01_insertion'."
       },
-      "scene_002_corridor_alpha": {
-        "name": "Corridor Alpha - Echoes of Battle",
-        "description": "The 'Bridge of Despair' gives way to Corridor Alpha, a skeletal artery of pitted metal and flickering emergency lights that plunge deeper into the Space Hulk's heart. Every surface is scarred – deep, gouging scorch marks spiderweb the bulkheads, a testament to violent energy discharges. Torn plasteel panels hang like ragged banners, revealing tangled conduits and the cold, dead vacuum beyond. Spent bolter casings, glinting dully, litter the deck, alongside what appear to be fragments of ceramite armor and the disturbing, slick trails of something not of this galaxy. The path ahead is partially choked with debris – twisted support beams and shattered equipment – forcing a careful, slow advance. Your auspex flickers with phantom signals, brief, then gone, a ghostly choir hinting at unseen horrors.",
-        "atmosphere": "Tense, silent, ominous, evidence of past conflict.",
-        "initial_text": "The corridor stretches before you, a winding path through the wreckage of a forgotten war. Every dent and scorch mark tells a story of ferocity and sacrifice.",
+      "scene_02_isolated_survival": {
+        "name": "Isolated Survival and Navigation",
+        "description": "The 'Goliath's Maw' stretches before you, a maze of desiccated corridors and shattered bulkheads. The air is heavy, a metallic tang mingling with the scent of ozone and the cloying sweetness of unknown biological decay. Sporadic emergency lights flicker, casting grotesque, shifting shadows that dance like forgotten spirits. Rust crumbles from every surface, a fine red dust coating your boots. The silence is broken only by the rhythmic thrum of the Hulk's dying engines, the faint drip of stagnant water, and the distant, unsettling skittering of unseen things. You are a solitary crimson shadow in a world of grey and rust, each step a testament to grim resolve, each encounter a brutal test of your will against the encroaching madness of the Black Rage and the relentless alien foe. Scattered along your path are the somber relics of your fallen brothers: a shattered shoulder pad, a plasma pistol discharged into oblivion, a fragmented comm-bead still emitting a faint, desperate hum.",
+        "atmosphere": "Oppressive, claustrophobic, desolate, perpetually threatening. A sense of being hunted.",
+        "initial_text": "The Hulk is a tomb, vast and hungry. You navigate its winding entrails, the weight of your lost brothers a leaden cloak upon your shoulders. Every shadow hides a predator, every turn a potential ambush.",
         "examination_texts": {
-          "scorched_bulkhead": "Massive scorch marks, consistent with heavy bolter fire, but also something else – an acidic corrosive burn, deep enough to weaken the adamantium plating.",
-          "spent_bolter_casings": "Dozens of spent shells from Astartes bolters, scattered haphazardly, indicating a fierce, desperate fight. Some are melted, as if by extreme heat.",
-          "debris_pile": "A tangle of girders, electrical conduits, and human-sized equipment, seemingly thrown about with immense force. Among them, you spot what looks like a fragment of a Terminator pauldron, emblazoned with the faint insignia of the Blood Angels First Company."
+          "fallen_brother_tally_markings": "On a scorched bulkhead, hastily scrawled in blood, are rudimentary tally marks. A count of xenos slain by a desperate Marine before his end. A grim reminder of those who came before, and those who will follow.",
+          "ruptured_pipe": "A ruptured pipe spews thick, corrosive steam that hisses and swirls, limiting visibility. The Hulk itself actively resists passage, its wounds leaking corrosive bile.",
+          "blood_trail": "A fading trail of crimson, clearly not xenos ichor, suggests one of your brothers passed this way. The trail forks, one path leading into a collapsed section, another into a dark, narrow maintenance shaft. A faint, distorted signal bleeds from somewhere ahead."
         },
         "dialogue": [
           {
             "speaker": "Brother-Sergeant Valerius",
-            "text": "Heavy engagement here. Bolter fire, and... something else. The scorch marks aren't clean. Acidic residue, perhaps?",
-            "context": "Examining the damage on the bulkheads."
+            "text": "*Breathing heavily* Another one. Another soul for the Emperor. Their sacrifice will not be in vain.",
+            "context": "Discovering the remains of a fallen Blood Angel.",
+            "emotion": "Grief, resolve"
           },
           {
-            "speaker": "Brother Tiberius",
-            "text": "Structural integrity here is compromised. These support beams are barely holding. We proceed carefully, or we risk a cave-in.",
-            "emotion": "Measured, practical",
-            "context": "Assessing the debris and pathway."
+            "speaker": "Comm-Link Static",
+            "text": "*Faint, heavily distorted voice* ...Sergeant... ...signal... ...corrupted... ...Arion... whereabouts unknown...",
+            "context": "Sporadic, unreliable comms chatter, hinting at Arion's distress signal.",
+            "emotion": "Static, desperate"
           },
           {
-            "speaker": "Brother-Captain Raphael",
-            "text": "Tyranids. No doubt. The pattern of destruction, the sheer savagery... it bears their vile mark. First Squad met them here.",
-            "emotion": "Grim, resolute",
-            "context": "Drawing conclusions from the evidence."
-          },
-          {
-            "speaker": "Brother Claudius",
-            "text": "Then let us avenge them, Captain! For the Emperor!",
-            "emotion": "Vehement, determined",
-            "context": "Clenching his fists, eager for combat."
-          },
-          {
-            "speaker": "Brother-Captain Raphael",
-            "text": "We will, Brother. But first, we find what they died protecting. Move with purpose, brothers. And watch your flanks. The auspex is useless in this warp-tainted muck.",
-            "context": "Giving orders, reinforcing caution."
+            "speaker": "Brother-Sergeant Valerius",
+            "text": "The whispers grow louder. Sanguinius... they do not deserve this end, my Lord. Grant me strength to avenge them, to remember my duty. For the Chapter. For the Imperium.",
+            "context": "Fighting an internal battle against the Black Rage after a close encounter with Genestealers.",
+            "emotion": "Strained, fiercely determined"
           }
         ],
-        "narrative_notes": "Reinforces the presence of an active Tyranid threat and the fate of First Squad. Highlights Valerius's tactical knowledge and Tiberius's structural assessment skills. Increases tension as the environment itself becomes a threat."
+        "narrative_notes": "This scene establishes the hostile environment and Valerius's resilience and internal struggles. It forces the player to navigate environmental hazards and isolated threats, reinforcing the theme of isolated survival and setting up the search for other squad members, leading to 'scene_03_reunion_arion'. This directly addresses connection to 'scene_02_isolated_survival'."
       },
-      "scene_003_first_squad_fate": {
-        "name": "First Squad's Fate - The Hive Growth Chamber",
-        "description": "The corridor suddenly vomits you into a vast, pulsating organic chamber. The walls pulse with a sickly, bioluminescent green, adorned with grotesque fungal growths and iridescent membranes. The air is thick, humid, and smells of chitinous decay, fertile earth, and something metallic, like stale blood. This is a brood chamber, a living, breathing testament to the Tyranid Hive Mind's horrifying ingenuity. But then, you see them – the hulking forms of First Squad's Terminators, not fallen in battle, but utterly subsumed. Their ceramite shells are barely visible beneath layers of viscous, chitinous tissue, fused into the grotesque bio-structures, serving as incubators for squirming xenos larvae or grim, silent trophies. The rhythmic, sickening *thrum-thrum* of organic growth echoes through the chamber, and faint, chittering sounds suggest you are not alone. Genestealers emerge from the pulsing walls.",
-        "atmosphere": "Horrific, visceral, shocking, claustrophobic, alien.",
-        "initial_text": "A chamber of unspeakable horror unfurls before you, a living biome of xenos flesh and the gruesome remains of your fallen brothers. The air pulses with silent screams.",
+      "scene_03_reunion_arion": {
+        "name": "Reunion with Arion and Objective Revealed",
+        "description": "Through the decaying labyrinth of bulkheads and service conduits, the faint psychic signature of Brother Arion intensified, guiding your path. You enter a cavernous engine room, its massive turbines long-dead and festooned with years of organic growth and alien webbing. In the center, almost lost amidst the gloom, stands Brother Arion, his force staff humming with latent power, a protective psychic barrier shimmering around him. Beside him, a hulking figure, almost fully consumed by the Black Rage, tears apart a Genestealer with bare hands – Brother Tiberius, a living storm of fury. Arion's eyes, usually sharp and discerning, hold a new, almost feverish light as he turns to you, the sheer relief warring with a chilling intensity. The air crackles, not just with psychic energy, but with a palpable sense of momentous revelation.",
+        "atmosphere": "Moment of relief followed by unsettling revelation. Intensifies the sense of cosmic dread.",
+        "initial_text": "A flicker of blue energy, a snarl of righteous fury. Arion. Tiberius. You are no longer alone, but the reunion brings with it a revelation far more chilling than any xenos.",
         "examination_texts": {
-          "assimilated_terminator": "The remains of Brother-Sergeant Kael. His Thunder Hammer, still clutched in a chitin-encased gauntlet, is fused into the bio-mass. Larvae writhe within the spaces where his visor once was. A truly abominable end.",
-          "pulsating_bio_mass": "The main organic growth dominates the chamber, pulsing like a monstrous heart. Faint psychic tendrils brush against your consciousness, a whisper of alien hunger.",
-          "first_squad_data_slate": "Near the horrifying remnants of Brother-Sergeant Kael, partially embedded in the bio-mass, you spot a data-slate. It glows faintly, indicating it might still contain crucial information. Retrieving it would mean closer proximity to the living horror."
+          "dead_genestealers_tiberius": "The xenos around Tiberius are not merely dead; they are obliterated, pulp and broken chitin. His ferocity is unmatched, but terrifying to behold.",
+          "arion_staff_glow": "Arion's force staff pulses faintly, a more vibrant blue than usual. His grip on it is almost possessive, his gaze a little too fixed.",
+          "ancient_console": "A rusted, ancient console, its screens fractured, glows faintly with a sickly green light. It hums with an unusual, unstable energy, resonating with something deep within the Hulk."
         },
         "dialogue": [
           {
-            "speaker": "Brother-Captain Raphael",
-            "text": "By the Emperor... no. Not like this.",
-            "emotion": "Visceral grief, raw fury",
-            "context": "Stunned by the horrifying sight of First Squad."
-          },
-          {
-            "speaker": "Brother Claudius",
-            "text": "This... this is an abomination! An affront to all life! They must pay!",
-            "emotion": "Shocked, then vengeful",
-            "context": "His zeal momentarily falters before hardening into grim resolve."
-          },
-          {
-            "speaker": "Brother-Sergeant Valerius",
-            "text": "Captain, look! Genestealers! Multiple contacts, emerging from the walls! This chamber is a nest. We cannot hold here indefinitely.",
-            "emotion": "Urgent, tactical",
-            "context": "As the first Genestealers appear."
-          },
-          {
-            "speaker": "Brother-Captain Raphael",
-            "text": "I see it, Valerius! For our fallen brothers! Unleash the Emperor's wrath! But secure that data-slate near Kael!",
-            "emotion": "Hardened resolve, commanding",
-            "context": "Leading the charge while prioritizing intelligence."
+            "speaker": "Brother Arion",
+            "text": "Sergeant! By the Emperor’s grace, you live! I knew a true son of Sanguinius would penetrate their squalid resistance. My apologies, the psychic overlay… it made communication… difficult.",
+            "context": "Greeting Valerius, showing relief but with an underlying tension.",
+            "emotion": "Relieved, but subtly intense"
           },
           {
             "speaker": "Brother Tiberius",
-            "text": "Data-slate appears functional, Captain. It's a high-risk retrieve, though. Too many hostiles and unstable bio-mass.",
-            "emotion": "Calm, analytical",
-            "context": "Assessing the data-slate's position and the surrounding threat."
+            "text": "Xenos filth! They die! All die!",
+            "context": "Tiberius, consumed by the Black Rage, tearing a Genestealer apart, his voice a primal roar.",
+            "emotion": "Rage, berserk"
+          },
+          {
+            "speaker": "Brother-Sergeant Valerius",
+            "text": "Arion. What's happened here? Your signal was an erratic whisper. And what is this… feeling? A current in the warp, stronger than any we've encountered.",
+            "context": "Addressing Arion, noting the strange sensations.",
+            "emotion": "Concern, unease"
+          },
+          {
+            "speaker": "Brother Arion",
+            "text": "That, Sergeant, is the true prize. The reason this hulk has become a festering maw. It's not just the Genestealers. The warp signature we detected, the energy drawing them… it’s a C’tan Shard. A fragment of a star-god, buried deep within this vessel. Its power is… immense. And it’s awakening.",
+            "context": "Revealing the primary objective, his eyes gleam with a strange light.",
+            "emotion": "Feverish intensity, awe"
+          },
+          {
+            "speaker": "Brother-Sergeant Valerius",
+            "text": "A C'tan… here? A xenos deity? Our orders are to neutralize the threat and retrieve the artifact. If this shard is causing warp fluctuations, drawing these creatures… it must be destroyed, at all costs.",
+            "context": "Reaffirming mission parameters, struggling with the concept of a star god.",
+            "emotion": "Duty-bound, conflicted"
+          },
+          {
+            "speaker": "Brother Arion",
+            "text": "Destroyed, perhaps. But what if there is another way? Such power… unimagined potential for the Imperium, if properly contained. Imagine, Sergeant, a weapon of such magnitude wielded for Mankind...",
+            "context": "Subtly hinting at his burgeoning obsession with the shard's power.",
+            "emotion": "Intrigued, persuasive, bordering on fanaticism"
+          },
+          {
+            "speaker": "Brother Tiberius",
+            "text": "Destroy! Destroy! Filth! Suffer not the alien to live!",
+            "context": "Tiberius reacting violently to Arion's suggestion.",
+            "emotion": "Violent condemnation, unthinking fury"
           }
         ],
-        "narrative_notes": "Reveals the true horror of the Tyranid infestation and the fate of First Squad. This elicits a strong emotional response from Raphael and Claudius, while Valerius and Tiberius remain grounded in immediate threats and tactical assessment. Introduces the first direct combat with Genestealers and a critical decision point regarding the data-slate, directly impacting future intelligence."
+        "narrative_notes": "This scene marks the reunion of key characters and the revelation of the central objective, the C'tan Shard, fulfilling 'pp_02_reunion_and_objective' and 'scene_03_reunion_arion'. It immediately introduces the ideological conflict and Arion's subtle corruption, foreshadowing later dilemmas. Tiberius's role as the embodiment of pure rage for destruction is cemented."
+      },
+      "scene_04_deeper_hulk_investigation": {
+        "name": "Deeper into the Hulk - Growing Threat",
+        "description": "The Hulk's architecture grows increasingly surreal and dangerous as you delve deeper. Corridors twist into impossible geometries, walls are scarred by ancient battles and fused with alien biomass, pulsing with a sickly, internal light. The air grows heavier, thick with an almost palpable psychic pressure emanating from the heart of the vessel. Genestealers here are not the scattered ambushers of the upper decks; they move with chilling coordination, their scythes whispering in unison, their psychic roars almost deafening. You stumble upon grotesque scenes: ancient Imperial Guard encampments now silent charnel houses, their last stand frozen in time; the power-armored remains of another Astartes Chapter, their chapter symbols defaced, their bones picked clean. The cold dread of countless failed endeavors clings to every shadow.",
+        "atmosphere": "Oppressive, increasingly dangerous, filled with historical tragedy and growing cosmic horror. The feeling of being watched and systematically hunted.",
+        "initial_text": "The 'Goliath's Maw' is a graveyard of Imperial ambition, each step revealing the grisly fate of those who came before. The xenos here are not random beasts; they are thinking predators.",
+        "examination_texts": {
+          "imperial_guard_remnants": "The skeletal remains of an entire Imperial Guard squad, still clutching their lasguns. Their forms are locked in a grotesque tableau of desperate defense. A tattered regimental banner, depicting a stylized eagle, suggests their identity – the 143rd Cadian Shock Troopers. They tried, and they failed.",
+          "damaged_servitor_logs": "A heavily damaged Servitor, miraculously still operational, shivers uncontrollably as it spouts fragmented data logs: '…warp fluctuations… growing… entity… psychic signature… overwhelming… containment breach… all hands lost…' The last entry ends with a shriek of pure terror.",
+          "ancient_blood_angels_icon": "Scrawled on a bulkhead, partially obscured by recent Genestealer webbing, is an ancient, faded icon of the Blood Angels Chapter. It's a stark reminder that even your own lineage has faced oblivion here before. An Astartes power gauntlet, shattered but recognizable from a pre-Heresy mark, lies nearby."
+        },
+        "dialogue": [
+          {
+            "speaker": "Brother Tiberius",
+            "text": "Weaklings! Their faith failed them. Pathetic human vermin. Only the fury of Sanguinius can cleanse this defilement!",
+            "context": "Upon discovering the fallen Imperial Guard, his Black Rage fueling his disdain.",
+            "emotion": "Contempt, righteous fury"
+          },
+          {
+            "speaker": "Brother Arion",
+            "text": "Fascinating… the patterns of resistance… the tactical evolution of the Genestealer strain here. It accelerates. The Shard's influence is exponential. It feeds their intelligence, sharpens their instincts. We must reach it, Sergeant, before they fully adapt...",
+            "context": "Observing sophisticated Genestealer tactics, his academic curiosity bordering on obsession.",
+            "emotion": "Intrigued, urgent, detached"
+          },
+          {
+            "speaker": "Brother-Sergeant Valerius",
+            "text": "The weight of failed endeavors… it presses down like the void. These halls are soaked in the blood of the loyal. Arion, your theories are a luxury we cannot afford. We have a mission: locate, destroy. Nothing more. Nothing less. Keep your focus on the enemy now.",
+            "context": "Observing Arion's distracted fascination, feeling increasingly uneasy and burdened by the past.",
+            "emotion": "Unease, authoritative, burdened"
+          },
+          {
+            "speaker": "Brother Tiberius",
+            "text": "Scrap! Filth! Look, Sergeant, ancient scrap! We smash it. Why do we not smash it?",
+            "context": "Upon finding a cache of ancient Imperial Guard equipment, expressing a single-minded desire for destruction.",
+            "emotion": "Impatient, destructive"
+          }
+        ],
+        "narrative_notes": "This scene deepens the threat, showing the Genestealers' increased coordination ('pp_03_the_hive_mind_manifests'). It also introduces evidence of previous Imperial failures, emphasizing the Hulk's danger and historical significance. Character arcs progress with Arion's growing obsession and Valerius's unease, Tiberius's raging against the weak. 's04_d1_remnants_choice' offers a tactical decision affecting resource management and immediate danger, connecting to 'scene_04_deeper_hulk_investigation'."
+      },
+      "scene_05_hulk_secrets_revealed": {
+        "name": "Unveiling the Hulk's Secrets",
+        "description": "You penetrate an archaic data-core, its consoles still flickering with ancient pict-data and warped schematics. The air here vibrates with the lingering hum of long-dead machinery and the faint, ghostly echoes of forgotten voices. Arion, his eyes alight with a voracious hunger for knowledge, interfaces with the crumbling terminals. Fragmented logs coalesce into a chilling chronicle: the 'Goliath's Maw' was no mere transport, but an experimental Ark Mechanicus vessel, lost during the treacherous currents of the Horus Heresy. Its purpose: the study and weaponization of extreme xenos phenomena. The logs speak of a 'contained warp anomaly' that swiftly became 'uncontainable,' a 'stellar-mass entity fragment' radiating 'soul-crushing energies.' Pict-recordings flicker: desperate Mechanicus adepts, their faces contorted in terror, as a shimmering, obsidian shard pulses with cold, unearthly light, attracting shadows that chitter and crawl. The truth of the Hulk’s agonizing birth, its slow corruption, and the shard’s cosmic gravity settles like a shroud.",
+        "atmosphere": "Revealing, unsettling, cosmic horror, the weight of ancient tragedy.",
+        "initial_text": "The truth is a wound, ripped open in the fabric of history. The 'Goliath's Maw' holds secrets far older and more terrible than simple xenos infestation. The whispers of the past scream through the data-verse.",
+        "examination_texts": {
+          "pict_recording_shroud": "A looped pict-recording plays, depicting robed figures shrinking before a pulsating, black shard that radiates palpable malevolence. As the image distorts, shadowy forms with too many limbs begin to coalesce in the background.",
+          "ancient_mechanicus_tome": "A calcified, electronic tome, detailing arcane experiments and classifications of 'stellar-born entities.' Warnings of 'psychic resonance' and 'soul-fracturing energies' are repeatedly highlighted.",
+          "log_entry_horus_heresy": "A fragmented log entry, dated to the 31st Millennium: '…warp storm… Heresy… Goliath's Maw lost… Xenos containment compromised… Entity growing… All faith lost…'"
+        },
+        "dialogue": [
+          {
+            "speaker": "Brother Arion",
+            "text": "By the Emperor's Golden Throne… a C’tan Shard. And not just any vessel… a Mechanicus research Ark! An illicit project, lost during the Heresy. They sought to harness it… foolhardy… but perhaps not entirely without merit. This is invaluable! The potential… the sheer power…",
+            "context": "Upon uncovering the full history, his excitement thinly veiling a growing obsession, his eyes gleaming.",
+            "emotion": "Awe, intense intellectual curiosity, hunger for knowledge"
+          },
+          {
+            "speaker": "Brother-Sergeant Valerius",
+            "text": "Heresy! This entire vessel is a testament to forbidden knowledge and the price of hubris. This… 'potential'… has damned countless souls and drawn this xenos plague! Our duty is clear: purge this abomination, not catalogue its blasphemes.",
+            "context": "Reacting with increasing revulsion and moral outrage to the revelations, the weight of Imperial dogma pressing down on him.",
+            "emotion": "Disgust, moral conflict, heightened sense of duty"
+          },
+          {
+            "speaker": "Brother Tiberius",
+            "text": "Shatter! All of it! The false god! The whispers breed weakness! Only righteous destruction!",
+            "context": "Overhearing the revelations, his Black Rage fueling a desire for absolute eradication of all perceived threats and heresy.",
+            "emotion": "Violent condemnation, unwavering fanaticism"
+          },
+          {
+            "speaker": "Brother Arion",
+            "text": "But Sergeant, to blindly destroy such a wellspring of cosmic energy… it would be an act of galactic shortsightedness! Imagine the secrets it holds! The strength it could grant us against the true enemies! Ignorance is far more dangerous than knowledge, even forbidden knowledge!",
+            "context": "Pressing his argument, his conviction growing, subtly trying to sway Valerius.",
+            "emotion": "Argumentative, persuasive, almost pleading"
+          }
+        ],
+        "narrative_notes": "This scene is the narrative turning point for the Hulk's lore, fulfilling 'pp_04_secrets_of_the_hulk' and 'scene_05_hulk_secrets_revealed'. It solidifies the C'tan Shard's cosmic horror status and deepens Arion's corruption while increasing Valerius's internal conflict regarding duty vs. the allure of power. It perfectly leads into the explicit moral dilemma."
+      },
+      "scene_06_moral_dilemma": {
+        "name": "Moral Dilemma: The Shard's Power",
+        "description": "The oppressive weight of the Hulk closes in, its ancient secrets now fully unveiled. In a desolate, grand chamber, once a command bridge judging by its ruined consoles, the newly absorbed knowledge hangs heavy. Arion stands apart, his psychic aura visibly agitated, his eyes burning with an almost unnatural light that reflects the pulsating energies from deeper within the Hulk. He strides forward, his voice steady but laced with a fervent intensity, proposing the unthinkable. Tiberius, a hulking monument to Sanguinius's sorrow, clenches his power fists, ready to explode. The air crackles with unspoken tension, the fate of the mission – and perhaps more – resting on Valerius’s words.",
+        "atmosphere": "Tense, morally weighty, impending confrontation, a crucible of duty and temptation.",
+        "initial_text": "The choice is a blade against your soul. Duty, faith, or the siren call of raw power. Arion stands on the precipice, and he demands you follow him into the unknown.",
+        "examination_texts": {
+          "arion_gaze": "Arion's eyes are too bright, too focused. The C'tan's influence has woven itself into his thoughts, giving them a chilling coherence. He is convinced of his path.",
+          "tiberius_fists": "Tiberius's power fists hum menacingly, his knuckles white against the red ceramite. He watches Arion with murderous intent, ready to strike at any hint of heresy.",
+          "shattered_aquila": "A colossal aquila, once a symbol of Imperial might, lies shattered across the deck. Its broken wings seem to mock the divisions within your squad."
+        },
+        "dialogue": [
+          {
+            "speaker": "Brother Arion",
+            "text": "Sergeant. Consider the implications of what we've discovered. This shard… it is not merely a xenos artifact to be destroyed. It is a nascent god-engine, a primal force of creation and destruction! To simply obliterate it would be to cast aside a gift from the cosmos, a means to elevate Mankind beyond mere survival! We can purify it, leash its power for the Imperium! Imagine what a psychic conduit I could be, channeling such vastness for the Emperor!",
+            "context": "Making his dangerous proposition, his voice filled with zealous conviction.",
+            "emotion": "Zealous, persuasive, almost fanatical"
+          },
+          {
+            "speaker": "Brother Tiberius",
+            "text": "Silence, Librarian! Your words are poison! This is heresy! A xenos blasphemy! The only purity it knows is annihilation! We will cleanse it with bolt and melta, as Sanguinius demands!",
+            "context": "Roaring with fury, stepping towards Arion, his Black Rage fully manifesting.",
+            "emotion": "Rage, condemning, threatening"
+          },
+          {
+            "speaker": "Brother-Sergeant Valerius",
+            "text": "Arion! Be careful what you speak. Your words tread a path to damnation. The Inquisition would flay you for less. Our orders are absolute: the shard is a threat, it must be neutralized. To tamper with such forces is to invite ruin! But… *a moment of hesitation, the flicker of doubt in his resolve* …the power… for the Imperium…",
+            "context": "Struggling with Arion's proposal, torn between duty, faith, and the allure of unforeseen power.",
+            "emotion": "Conflicted, cautious, internally tormented"
+          },
+          {
+            "speaker": "Brother Arion",
+            "text": "Think, Sergeant! Not merely as a soldier, but as a leader capable of truly saving Mankind! This is more than a simple mission now. It is a chance to redefine victory! To secure a weapon that would shatter the enemies of the Imperium into dust! My psychic strength, combined with the shard's emanations… I know I can do this!",
+            "context": "Exerting subtle psychic pressure, trying to sway Valerius.",
+            "emotion": "Manipulative, insistent, driven"
+          },
+          {
+            "speaker": "Brother-Sergeant Valerius",
+            "text": "My duty… my oath… against such a temptation… Sanguinius, grant me clarity in this moment of darkest trial.",
+            "context": "His internal monologue as he contemplates the choice, hinting at the depths of his struggle.",
+            "emotion": "Agonized, seeking guidance"
+          }
+        ],
+        "narrative_notes": "This scene is the central moral dilemma, fulfilling 'pp_05_moral_dilemma_shard' and 'scene_06_moral_dilemma'. It intensifies Arion's corruption and Tiberius's rage, forcing Valerius into a crucial decision ('s06_d1_shard_approach') that will dictate the story's trajectory and align with his character arc. The dialogue highlights the ideological conflict."
+      },
+      "scene_07_approaching_the_core": {
+        "name": "Approaching the Core - Patriarch's Domain",
+        "description": "The final approach to the C'tan Shard chamber is less a corridor and more a living, organic nightmare. The Hulk's ancient metal is almost entirely consumed by a pulsating, biomechanical growth – the true, vile heart of the Genestealer infestation. The walls writhe with unseen life, and strange, viscous fluids drip from chitinous ceilings. The air is thick, choked with the acrid scent of alien biology and the overwhelming psychic roar of the Patriarch, now amplified to maddening levels by the shard’s proximity. Xenos forms, larger, more cunning, and more numerous than any you’ve faced, scuttle in the periphery. Brother Tiberius, now a whirlwind of crimson fury, his growls barely coherent, lunges ahead, almost blindly, a living weapon. Arion, depending on your choice, either walks with a terrifying resolve, his eyes blazing with power, or a desperate, almost terrified grimace, struggling against the psychic onslaught. Valerius, your own Black Rage now a roaring beast at the gates of your mind, must harness it, shaping the raw fury into focused, brutal efficiency.",
+        "atmosphere": "Overwhelming, grotesque, intensely hostile, climactic build-up. Psychic pressure is suffocating.",
+        "initial_text": "The true maw of the beast, where metal yields to flesh and the cosmic whispers become screams. The Patriarch's domain. The C'tan Shard's throne. Your destiny awaits.",
+        "examination_texts": {
+          "organic_corridor": "The corridor is a living tunnel of bio-flesh, glistening wetly with parasitic growths. Genestealer eggs pulse in clustered sacs, ready to hatch and swarm.",
+          "patriarch_scent_markings": "A particularly rank, musky scent indicates recent passage of the Patriarch. Its psychic footprint is heavy here, a palpable sense of predatory observation.",
+          "shard_emanation_points": "Points in the organic wall glow with the sickly green light emanating from the C'tan Shard chamber, pulsing like an unholy beacon, radiating maddening whispers onto the mind."
+        },
+        "dialogue": [
+          {
+            "speaker": "Brother Tiberius",
+            "text": "DIE! XENOS! DIE FOR SANGUINIUS! *Primal roar*",
+            "context": "Charging headlong into a Genestealer ambush, fully consumed by the Black Rage.",
+            "emotion": "Berserk fury, incoherent rage"
+          },
+          {
+            "speaker": "Brother Arion",
+            "text": "(If Valerius chose Path A - Purification): 'This power… it is magnificent! I feel it drawing me… drawing us! Brother-Sergeant, we are almost there! Soon, my vision shall be reality!'",
+            "context": "Radiating confidence and an unnerving zeal, his psychic power visibly enhanced.",
+            "emotion": "Exalted, zealous, powerful"
+          },
+          {
+            "speaker": "Brother Arion",
+            "text": "(If Valerius chose Path B - Destruction): 'The pressure… it's unbearable! It claws at my mind, trying to rend my sanity! We must hurry, Sergeant, or none of us will escape with our minds intact!'",
+            "context": "Struggling desperately against the overwhelming psychic emanations, his resolve worn thin.",
+            "emotion": "Strained, desperate, terrified"
+          },
+          {
+            "speaker": "Brother-Sergeant Valerius",
+            "text": "The Black Rage… a tempest in my skull. Sanguinius, grant me the strength to channel this fury! To turn this madness into a weapon! For the Emperor! Push through! We have come too far!",
+            "context": "Fighting his inner demons, focusing the Black Rage into controlled aggression.",
+            "emotion": "Controlled rage, grim determination, immense strain"
+          },
+          {
+            "speaker": "The Patriarch (Telepathic)",
+            "text": "*A chorus of chittering thoughts, a cold, predatory intelligence pushing into your mind* ...Prey… come closer… the hunger… the god-gift… mine…",
+            "context": "The overwhelming psychic presence of the Patriarch, telepathically harassing the squad.",
+            "emotion": "Cold predatory intelligence, possessive, ancient malice"
+          }
+        ],
+        "narrative_notes": "This scene establishes the final gauntlet, showcasing the full horror of the Genestealer infestation and the overwhelming psychic presence of both the Patriarch and the C'tan Shard. It brings the characters to their breaking points, with Tiberius fully consumed, Arion's state reflecting previous choices, and Valerius wielding his Black Rage, preparing for the climax. This prepares for 'scene_08_final_confrontation'."
+      },
+      "scene_08_final_confrontation": {
+        "name": "Final Confrontation and Doomsday Protocol",
+        "description": "You burst into a colossal, crystalline chamber at the very heart of the 'Goliath's Maw'. Here, the reality around you warps, shimmered by raw, uncontained energy. At the focal point of this madness stands the C'tan Shard, a monumental, obsidian pyramid, crackling with green lightning and pulsating with a rhythm that echoes in your very bones. Its silent presence twists the air, makes your teeth ache, and drives the Black Rage to a fever pitch. Guarding it stands the Patriarch, bloated and terrible, its form mutated and enhanced by the shard's influence, its carapace shimmering with an unholy glow, flanked by its most elite, monstrous brood. As the final battle begins, a forgotten console hums to life, its ancient screen displaying a dire warning and a single, catastrophic option: The Doomsday Protocol – a full-spectrum core destabilization, designed to obliterate the Hulk and anything within it. The chamber is a maelstrom of cosmic horror, desperate battle, and ultimate choice.",
+        "atmosphere": "Epic, desperate, awe-inspiring, cataclysmic, filled with cosmic dread. The culmination of all tensions.",
+        "initial_text": "The shard. The Patriarch. The protocol. The universe demands a choice, and only your blood will write the ending. This is the end of the line, for the Hulk, for the shard, for you.",
+        "examination_texts": {
+          "ctan_shard": "The C'tan Shard is a nightmare made real, a fragment of a dead god. It radiates cold power, its facets shifting with unseen energies, affecting your very soul. To touch it would be madness.",
+          "doomsday_protocol_console": "An ancient, almost transparent console embedded in the crystalline wall. It glows with a steady, blood-red light, displaying a single, ominous warning: 'TOTAL-HULK-DESTRUCTION PROTOCOL – ACTIVATE? YES/NO'. The detonation sequence timer blinks ominously.",
+          "patriarch_mutations": "The Patriarch's form is grotesquely distended, its claws longer than your arm, its psychic power visibly manifesting as shimmering distortions in the air surrounding it. It is less a beast, and more a demigod of the alien scum."
+        },
+        "dialogue": [
+          {
+            "speaker": "The Patriarch (Telepathic Roar)",
+            "text": "...MINE! The power… it is MINE! You will not touch it, little worms! Your minds will BREAK before my god-gift! Feed… feed…",
+            "context": "As the final battle begins, the Patriarch's amplified psychic scream assaults the squad.",
+            "emotion": "Supreme malice, territorial, maddened power"
+          },
+          {
+            "speaker": "Brother Tiberius",
+            "text": "FOR SANGUINIUS! AVENGE THE FALLEN! DEATH! DEATH TO THE FALSE GOD AND HIS CHILDREN!",
+            "context": "Charging the Patriarch with suicidal ferocity, a force of pure, distilled Black Rage, regardless of Valerius's final choice.",
+            "emotion": "Utter berserk rage, self-sacrificial fervor"
+          },
+          {
+            "speaker": "Brother Arion",
+            "text": "(If Valerius chose Path A - Purification): 'NOW, SERGEANT! I feel the connection! We can do this! Focus! I will bind its essence! Prepare for the ascension!'",
+            "context": "Attempting to psychically commune with and control the shard, his body wracked with strain and power.",
+            "emotion": "Desperate exhilaration, immense strain, fervent belief"
+          },
+          {
+            "speaker": "Brother Arion",
+            "text": "(If Valerius chose Path B or C - Destruction/Containment): 'By the Emperor, it's too much! The pressure! We must destroy it! NOW! Or contain it! It won't be contained by mere will alone!'",
+            "context": "Struggling to assist in the destruction or lamenting the difficulty of containment, his earlier bravado replaced by fear.",
+            "emotion": "Desperate, terrified, overwhelmed"
+          },
+          {
+            "speaker": "Brother-Sergeant Valerius",
+            "text": "The weight of the galaxy rests upon this moment. My brothers… my oath… my curse… ONE FINAL ACT! For the Imperium. For Sanguinius. For the souls of humanity!",
+            "context": "Choosing his final action, the Black Rage a tempest, but his will, for this moment, is iron.",
+            "emotion": "Ultimate resolve, heavy burden, grim determination"
+          }
+        ],
+        "narrative_notes": "This is the climax of the entire narrative, fulfilling 'pp_06_final_confrontation_and_choice' and 'scene_08_final_confrontation'. It brings together all the narrative threads: the C'tan Shard, the Patriarch, Arion's corrupted ambition, Tiberius's ultimate sacrifice, and Valerius's final, defining choice ('s08_d1_ending_choice'). The dialogue and descriptions intensify the cosmic horror and the stakes of the decision."
       }
     }
   }
