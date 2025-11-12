@@ -60,12 +60,45 @@ def test_transformation():
 
         # Convert connections to exits
         exits = {}
+        # Define direction pairs for bidirectional mapping
+        DIRECTION_PAIRS = {
+            "forward": "backward",
+            "backward": "forward",
+            "north": "south",
+            "south": "north",
+            "east": "west",
+            "west": "east",
+        }
+        DIRECTIONS = ["forward", "north", "east", "south", "west"]
         for idx, connection in enumerate(narrative_scene.get("connections", [])):
             target = connection.get("target")
             if target:
-                # Simple mapping: use ordinal directions or "forward"
-                direction = ["forward", "north", "east", "south", "west"][idx % 5]
+                direction = DIRECTIONS[idx % len(DIRECTIONS)]
                 exits[direction] = target
+                # Ensure bidirectional exit in the target scene
+                # Initialize target scene in game_structure if not already present
+                if target not in game_structure["game"]["scenes"]:
+                    # Try to get the narrative and text for the target scene
+                    target_narrative = narrative_map["narrative_map"]["scenes"].get(target, {})
+                    target_text = scene_texts["scene_texts"]["scenes"].get(target, {})
+                    game_structure["game"]["scenes"][target] = {
+                        "id": target,
+                        "name": target_narrative.get("name", "Unknown"),
+                        "description": target_text.get("description", target_narrative.get("description", "")),
+                        "exits": {},
+                        "items": [],
+                        "npcs": [],
+                        "events": [],
+                        "dark": False,
+                        "locked_exits": {},
+                    }
+                # Add the reverse exit to the target scene
+                reverse_direction = DIRECTION_PAIRS.get(direction)
+                if reverse_direction:
+                    target_exits = game_structure["game"]["scenes"][target].setdefault("exits", {})
+                    # Only add if not already present to avoid overwriting
+                    if reverse_direction not in target_exits:
+                        target_exits[reverse_direction] = scene_id
 
         # Extract NPCs from character moments and dialogue
         npcs = []
