@@ -35,6 +35,12 @@ All documentation has been moved to the [`docs/`](docs/) folder:
 - **[Secrets Setup](docs/SECRETS_SETUP.md)** - Setting up API keys for workflows
 - **[CrewAI API Reference](docs/crewai-api-reference.md)** - CrewAI framework reference
 
+### Browser-Based Interface (Planned)
+- **[Web Interface Overview](docs/WEB_INTERFACE_OVERVIEW.md)** - Complete project overview and navigation
+- **[Product Requirements (PRD)](docs/PRD_WEB_INTERFACE.md)** - Detailed product specification
+- **[Technical Architecture](docs/ARCHITECTURE_WEB_INTERFACE.md)** - System design and architecture
+- **[Implementation Guide](docs/IMPLEMENTATION_GUIDE_WEB_INTERFACE.md)** - Developer setup and implementation steps
+
 ## Quick Start
 
 ### Playing the Demo Game
