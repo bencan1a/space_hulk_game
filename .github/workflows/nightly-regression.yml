@@ -51,6 +51,7 @@ jobs:
           PYTHONUTF8: "1"
           #ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          OPENAI_MODEL_NAME: ${{ vars.OPENAI_MODEL_NAME }}
           RUN_REAL_API_TESTS: 1
         run: |
           echo "Running tests with real API..."
@@ -61,6 +62,7 @@ jobs:
         env:
           #ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          OPENAI_MODEL_NAME: ${{ vars.OPENAI_MODEL_NAME }}
         run: python tools/validate_api.py
 
       - name: Generate comprehensive coverage
