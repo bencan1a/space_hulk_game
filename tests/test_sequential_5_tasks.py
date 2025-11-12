@@ -8,24 +8,23 @@ Per master_implementation_plan.md Chunk 0.1:
 - Comment out all 6 evaluation tasks in tasks.yaml
 - Run: crewai run --inputs "prompt: A Space Marine boarding team discovers an ancient derelict vessel"
 - Monitor execution with 15-minute timeout
-- Validate outputs: 5 YAML files exist and are valid
+- Validate outputs: 5 JSON files exist and are valid
 - Document: execution time, any errors, output quality
 
 Success Criteria:
 ✅ All 5 core tasks complete without errors
-✅ All 5 output files exist and contain valid YAML
+✅ All 5 output files exist and contain valid JSON
 ✅ Generation completes in < 10 minutes
 ✅ No hanging or timeout issues
 """
 
+import json
 import os
 import subprocess
 import sys
 import time
 import unittest
 from pathlib import Path
-
-import yaml
 
 
 class TestSequential5Tasks(unittest.TestCase):
@@ -41,11 +40,11 @@ class TestSequential5Tasks(unittest.TestCase):
 
         # Expected output files from 5 core tasks
         cls.expected_files = [
-            "plot_outline.yaml",
-            "narrative_map.yaml",
-            "puzzle_design.yaml",
-            "scene_texts.yaml",
-            "prd_document.yaml",
+            "plot_outline.json",
+            "narrative_map.json",
+            "puzzle_design.json",
+            "scene_texts.json",
+            "prd_document.json",
         ]
 
         # Only clean up old output files if running with real API
@@ -153,10 +152,10 @@ class TestSequential5Tasks(unittest.TestCase):
         print("=" * 80)
         print(f"✅ All {len(self.expected_files)} output files created successfully")
 
-    def test_03_output_files_valid_yaml(self):
-        """Test that all output files contain valid YAML."""
+    def test_03_output_files_valid_json(self):
+        """Test that all output files contain valid JSON."""
         print("\n" + "=" * 80)
-        print("Validating YAML Syntax")
+        print("Validating JSON Syntax")
         print("=" * 80)
 
         invalid_files = []
@@ -164,11 +163,11 @@ class TestSequential5Tasks(unittest.TestCase):
             filepath = self.output_dir / filename
             try:
                 with open(filepath, encoding="utf-8") as f:
-                    data = yaml.safe_load(f)
+                    data = json.load(f)
 
                 # Check that file is not empty
                 if data is None:
-                    invalid_files.append((filename, "File is empty or contains only comments"))
+                    invalid_files.append((filename, "File is empty"))
                     print(f"❌ Invalid: {filename} - Empty file")
                 # Count keys for basic content validation
                 elif isinstance(data, dict):
@@ -177,9 +176,9 @@ class TestSequential5Tasks(unittest.TestCase):
                 else:
                     print(f"✅ Valid: {filename} (non-dict data type)")
 
-            except yaml.YAMLError as e:
+            except json.JSONDecodeError as e:
                 invalid_files.append((filename, str(e)))
-                print(f"❌ Invalid: {filename} - YAML error: {e}")
+                print(f"❌ Invalid: {filename} - JSON error: {e}")
             except FileNotFoundError:
                 invalid_files.append((filename, "File not found"))
                 print(f"❌ Invalid: {filename} - File not found")
@@ -189,10 +188,10 @@ class TestSequential5Tasks(unittest.TestCase):
 
         if invalid_files:
             error_msg = "\n".join([f"{f}: {e}" for f, e in invalid_files])
-            self.fail(f"Invalid YAML files:\n{error_msg}")
+            self.fail(f"Invalid JSON files:\n{error_msg}")
 
         print("=" * 80)
-        print(f"✅ All {len(self.expected_files)} output files contain valid YAML")
+        print(f"✅ All {len(self.expected_files)} output files contain valid JSON")
 
     def test_04_output_content_quality(self):
         """Test basic content quality of outputs."""
@@ -206,34 +205,34 @@ class TestSequential5Tasks(unittest.TestCase):
             filepath = self.output_dir / filename
             try:
                 with open(filepath, encoding="utf-8") as f:
-                    data = yaml.safe_load(f)
+                    data = json.load(f)
 
                 # Check for minimum content based on file type
-                if filename == "plot_outline.yaml":
+                if filename == "plot_outline.json":
                     if not isinstance(data, dict):
                         quality_issues.append(f"{filename}: Expected dict, got {type(data)}")
                     else:
                         print(f"✅ {filename}: Contains plot outline data")
 
-                elif filename == "narrative_map.yaml":
+                elif filename == "narrative_map.json":
                     if not isinstance(data, dict):
                         quality_issues.append(f"{filename}: Expected dict, got {type(data)}")
                     else:
                         print(f"✅ {filename}: Contains narrative map data")
 
-                elif filename == "puzzle_design.yaml":
+                elif filename == "puzzle_design.json":
                     if not isinstance(data, dict):
                         quality_issues.append(f"{filename}: Expected dict, got {type(data)}")
                     else:
                         print(f"✅ {filename}: Contains puzzle design data")
 
-                elif filename == "scene_texts.yaml":
+                elif filename == "scene_texts.json":
                     if not isinstance(data, dict):
                         quality_issues.append(f"{filename}: Expected dict, got {type(data)}")
                     else:
                         print(f"✅ {filename}: Contains scene text data")
 
-                elif filename == "prd_document.yaml":
+                elif filename == "prd_document.json":
                     if not isinstance(data, dict):
                         quality_issues.append(f"{filename}: Expected dict, got {type(data)}")
                     else:
@@ -264,7 +263,7 @@ def run_chunk_01_test():
     print("- Evaluation tasks are commented out in tasks.yaml and crew.py")
     print("- Expected: All 5 tasks complete without errors")
     print("- Expected: Generation time < 10 minutes")
-    print("- Expected: All 5 output files are valid YAML")
+    print("- Expected: All 5 output files are valid JSON")
     print("=" * 80 + "\n")
 
     # Run the test suite

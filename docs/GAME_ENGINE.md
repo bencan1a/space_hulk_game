@@ -129,24 +129,24 @@ locked_exits: Dict[str, str]    # exit -> required_key_id
 
 ### 4. ContentLoader (loader.py)
 
-**Purpose**: Loads AI-generated YAML files into game objects
+**Purpose**: Loads AI-generated JSON files into game objects
 
 **Responsibilities**:
-- Loading 5 YAML files (plot, narrative, puzzles, scenes, mechanics)
-- Parsing YAML with error handling
-- Converting YAML to engine objects
+- Loading 5 JSON files (plot, narrative, puzzles, scenes, mechanics)
+- Parsing JSON with error handling
+- Converting JSON to engine objects
 - Validating loaded content
 
 **Key Methods**:
 ```python
 def load_game(self, output_dir: str) -> GameData:
-    """Load all generated YAML files into a playable game."""
+    """Load all generated JSON files into a playable game."""
 
-def load_yaml(self, filepath: str) -> Dict[str, Any]:
-    """Load a single YAML file with error handling."""
+def load_json(self, filepath: str) -> Dict[str, Any]:
+    """Load a single JSON file with error handling."""
 ```
 
-**Design Pattern**: **Builder Pattern** - Constructs complex GameData from YAML
+**Design Pattern**: **Builder Pattern** - Constructs complex GameData from JSON
 
 ### 5. CommandParser (parser.py)
 
@@ -249,7 +249,7 @@ def validate_game(self, game_data: GameData) -> ValidationResult:
    - Enables undo/redo (future enhancement)
 
 3. **Builder Pattern**
-   - `ContentLoader`: Constructs complex `GameData` from YAML files
+   - `ContentLoader`: Constructs complex `GameData` from JSON files
 
 4. **Memento Pattern**
    - `GameState` + `SaveSystem`: Capture and restore game state
@@ -294,14 +294,14 @@ def validate_game(self, game_data: GameData) -> ValidationResult:
    ↓
 2. ContentLoader.load_game("fixtures/")
    ↓
-3. Load 5 YAML files:
-   - plot_outline.yaml
-   - narrative_map.yaml
-   - puzzle_design.yaml
-   - scene_texts.yaml
-   - prd_document.yaml
+3. Load 5 JSON files:
+   - plot_outline.json
+   - narrative_map.json
+   - puzzle_design.json
+   - scene_texts.json
+   - prd_document.json
    ↓
-4. Convert YAML → GameData (scenes, items, NPCs, etc.)
+4. Convert JSON → GameData (scenes, items, NPCs, etc.)
    ↓
 5. GameValidator.validate_game(game_data)
    ↓
@@ -601,7 +601,7 @@ The engine is designed to handle:
 
 ```python
 LoaderError                 # Base for loading errors
-├── YAMLParseError         # YAML parsing failed
+├── JSONParseError         # JSON parsing failed
 ├── ValidationError        # Content validation failed
 └── FileNotFoundError      # File not found
 

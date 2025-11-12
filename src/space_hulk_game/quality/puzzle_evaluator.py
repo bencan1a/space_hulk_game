@@ -23,7 +23,7 @@ class PuzzleEvaluator(QualityEvaluator):
 
     Example:
         >>> evaluator = PuzzleEvaluator()
-        >>> score = evaluator.evaluate(puzzle_yaml_content)
+        >>> score = evaluator.evaluate(puzzle_json_content)
         >>> print(f"Score: {score.score}/10")
         >>> print(score.feedback)
     """
@@ -43,7 +43,7 @@ class PuzzleEvaluator(QualityEvaluator):
         Evaluate puzzle design content.
 
         Args:
-            content: YAML string containing puzzle design
+            content: JSON string containing puzzle design
 
         Returns:
             QualityScore with evaluation results
@@ -52,8 +52,8 @@ class PuzzleEvaluator(QualityEvaluator):
             ValueError: If content cannot be parsed
         """
         try:
-            # Parse YAML content using metrics class
-            metrics = PuzzleMetrics.from_yaml_content(content)
+            # Parse JSON content using metrics class
+            metrics = PuzzleMetrics.from_json_content(content)
 
             # Get score and check if passes threshold
             score = metrics.get_score()
@@ -110,7 +110,7 @@ class PuzzleEvaluator(QualityEvaluator):
         Generate detailed, actionable feedback for improvement.
 
         Args:
-            content: YAML string containing puzzle design
+            content: JSON string containing puzzle design
 
         Returns:
             Multi-line feedback with specific suggestions

@@ -5,13 +5,12 @@ This module provides utilities to integrate quality checking and retry logic
 into the CrewAI task execution workflow.
 """
 
+import json
 import logging
 import os
 from collections.abc import Callable
 from pathlib import Path
 from typing import Any
-
-import yaml
 
 from .retry import TaskType, execute_with_quality_check
 
@@ -22,7 +21,7 @@ class QualityCheckConfig:
     """
     Configuration for quality checking system.
 
-    Loads configuration from quality_config.yaml and environment variables.
+    Loads configuration from quality_config.json and environment variables.
     """
 
     def __init__(self, config_path: str | None = None):
@@ -30,14 +29,14 @@ class QualityCheckConfig:
         Initialize quality check configuration.
 
         Args:
-            config_path: Path to quality_config.yaml (optional)
+            config_path: Path to quality_config.json (optional)
         """
         self.config = self._load_config(config_path)
         self.task_configs = self._create_task_configs()
 
     def _load_config(self, config_path: str | Path | None = None) -> dict[str, Any]:
         """
-        Load configuration from YAML file.
+        Load configuration from JSON file.
 
         Args:
             config_path: Path to config file (optional)
@@ -48,11 +47,11 @@ class QualityCheckConfig:
         if config_path is None:
             # Default path relative to this module
             module_dir = Path(__file__).parent.parent
-            config_path = module_dir / "config" / "quality_config.yaml"
+            config_path = module_dir / "config" / "quality_config.json"
 
         try:
             with Path(config_path).open() as f:
-                config = yaml.safe_load(f)
+                config = json.load(f)
             logger.info(f"Loaded quality configuration from {config_path}")
             return dict(config) if config else {}
         except FileNotFoundError:
@@ -90,7 +89,7 @@ class QualityCheckConfig:
         """
         thresholds = self.config.get("thresholds", {})
 
-        # Map YAML keys to TaskType enum
+        # Map JSON keys to TaskType enum
         task_map = {
             "plot": TaskType.PLOT,
             "narrative": TaskType.NARRATIVE,
@@ -100,12 +99,12 @@ class QualityCheckConfig:
         }
 
         configs = {}
-        for yaml_key, task_type in task_map.items():
-            threshold_config = thresholds.get(yaml_key, {})
+        for json_key, task_type in task_map.items():
+            threshold_config = thresholds.get(json_key, {})
             configs[task_type] = {
                 "enabled": threshold_config.get("enabled", True),
                 "pass_threshold": self._get_env_override(
-                    f"QUALITY_{yaml_key.upper()}_THRESHOLD",
+                    f"QUALITY_{json_key.upper()}_THRESHOLD",
                     threshold_config.get("pass_threshold", 6.0),
                 ),
                 "max_retries": self._get_env_override(

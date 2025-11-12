@@ -134,13 +134,21 @@ class SpaceHulkGame:
         openai_model = os.environ.get("OPENAI_MODEL_NAME", "ollama/qwen2.5")
 
         if openrouter_key and "openrouter" in openai_model:
-            # Use OpenRouter
-            logger.info(f"Using OpenRouter with model: {openai_model}")
-            self.llm = LLM(model=openai_model, api_key=openrouter_key)
+            # Use OpenRouter with JSON mode enabled
+            logger.info(f"Using OpenRouter with model: {openai_model} (JSON mode enabled)")
+            self.llm = LLM(
+                model=openai_model,
+                api_key=openrouter_key,
+                response_format={"type": "json_object"},  # type: ignore[arg-type]  # Enable JSON mode
+            )
         else:
-            # Use Ollama (default)
-            logger.info("Using Ollama with model: ollama/qwen2.5")
-            self.llm = LLM(model="ollama/qwen2.5", base_url="http://localhost:11434")
+            # Use Ollama (default) with JSON mode enabled
+            logger.info("Using Ollama with model: ollama/qwen2.5 (JSON mode enabled)")
+            self.llm = LLM(
+                model="ollama/qwen2.5",
+                base_url="http://localhost:11434",
+                response_format={"type": "json_object"},  # type: ignore[arg-type]  # Enable JSON mode
+            )
 
         # Determine the base directory for relative paths
         base_dir = Path(__file__).resolve().parent
@@ -167,33 +175,32 @@ class SpaceHulkGame:
             logger.error(f"Error loading tasks config: {e!s}")
             raise
 
-        # Monkey-patch Task._save_file for pre-write YAML sanitization
+        # Monkey-patch Task._save_file for pre-write JSON sanitization
         # This intercepts CrewAI's file write and applies sanitization BEFORE disk write
-        # Implements Chunk 3 of YAML Pipeline Refactor plan
+        # Now using JSON format instead of YAML for better LLM compatibility
         self._apply_task_save_file_patch()
 
     def _apply_task_save_file_patch(self) -> None:
-        """Apply monkey-patch to Task._save_file for YAML sanitization.
+        """Apply monkey-patch to Task._save_file for JSON sanitization.
 
         This method intercepts CrewAI's Task._save_file() method to apply
         sanitization BEFORE writing to disk. This solves the critical issue
-        where raw LLM output (with markdown fences, syntax errors, etc.)
-        is written directly to disk.
+        where raw LLM output may need validation before being written.
 
         The wrapper:
-        1. Detects output type from filename (plot_outline.yaml -> 'plot')
-        2. Sanitizes string outputs using OutputSanitizer
+        1. Detects output type from filename (plot_outline.json -> 'plot')
+        2. Sanitizes string outputs using OutputSanitizer (now JSON-based)
         3. Calls original _save_file with sanitized result
         4. Handles errors gracefully (logs warning, continues with original)
 
         Output Type Mapping:
-            - plot_outline.yaml -> 'plot'
-            - narrative_map.yaml -> 'narrative'
-            - puzzle_design.yaml -> 'puzzle'
-            - scene_texts.yaml -> 'scene'
-            - prd_document.yaml -> 'mechanics'
+            - plot_outline.json -> 'plot'
+            - narrative_map.json -> 'narrative'
+            - puzzle_design.json -> 'puzzle'
+            - scene_texts.json -> 'scene'
+            - prd_document.json -> 'mechanics'
 
-        Implements: Chunk 3 of YAML Pipeline Refactor plan
+        Note: JSON mode should reduce sanitization needs significantly compared to YAML
         """
         # Save reference to original method before patching
         original_save_file = Task._save_file
@@ -570,9 +577,9 @@ class SpaceHulkGame:
         Hook method that modifies the final output after the crew finishes all tasks.
         Adds metadata and formats the output for better usability.
 
-        Note: YAML sanitization is handled by OutputSanitizer in Phase 1,
+        Note: JSON sanitization is handled by OutputSanitizer,
         which intercepts Task._save_file() BEFORE writing to disk.
-        Post-write cleanup is no longer needed.
+        Post-write cleanup is no longer needed (JSON mode provides cleaner output).
 
         Best Practices Applied:
         - Comprehensive metadata for debugging and tracking
@@ -582,8 +589,8 @@ class SpaceHulkGame:
         try:
             logger.info("Processing crew output...")
 
-            # Note: YAML sanitization now happens pre-write via OutputSanitizer (Phase 1).
-            # Post-write cleanup is no longer needed.
+            # Note: JSON sanitization happens pre-write via OutputSanitizer.
+            # JSON mode provides cleaner output, so post-write cleanup is not needed.
 
             # Get crew configuration safely
             try:

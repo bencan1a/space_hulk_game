@@ -1,0 +1,86 @@
+{
+  "narrative_map": {
+    "starting_scene": "entrance",
+    "scenes": {
+      "entrance": {
+        "name": "Entrance Airlock",
+        "description": "A dark airlock chamber with corroded walls",
+        "exits": {
+          "north": "corridor_1",
+          "east": "storage"
+        },
+        "items": [
+          "flashlight"
+        ],
+        "npcs": [],
+        "dark": false
+      },
+      "corridor_1": {
+        "name": "Main Corridor",
+        "description": "A long corridor stretching into darkness",
+        "exits": {
+          "south": "entrance",
+          "north": "bridge",
+          "west": "cargo_bay"
+        },
+        "items": [],
+        "npcs": [
+          "servitor_wreck"
+        ],
+        "dark": true,
+        "locked_exits": {
+          "north": "bridge_key"
+        }
+      },
+      "storage": {
+        "name": "Storage Room",
+        "description": "A small storage room filled with crates",
+        "exits": {
+          "west": "entrance"
+        },
+        "items": [
+          "medkit",
+          "bridge_key"
+        ],
+        "npcs": [],
+        "dark": false
+      },
+      "cargo_bay": {
+        "name": "Cargo Bay",
+        "description": "A vast cargo hold filled with ancient containers",
+        "exits": {
+          "east": "corridor_1"
+        },
+        "items": [],
+        "npcs": [
+          "survivor"
+        ],
+        "dark": false,
+        "events": [
+          {
+            "id": "ambush",
+            "description": "A hidden threat emerges!",
+            "trigger_on_entry": true,
+            "required_flag": "power_restored",
+            "one_time": true,
+            "effects": {
+              "damage": 20
+            }
+          }
+        ]
+      },
+      "bridge": {
+        "name": "Ship's Bridge",
+        "description": "The command center of the vessel",
+        "exits": {
+          "south": "corridor_1"
+        },
+        "items": [
+          "dataslate"
+        ],
+        "npcs": [],
+        "dark": false
+      }
+    }
+  }
+}

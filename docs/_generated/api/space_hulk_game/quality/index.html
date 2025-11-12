@@ -387,7 +387,7 @@ game content, including plot outlines, narrative maps, puzzles, scenes, and mech
 
     Example:
         &gt;&gt;&gt; evaluator = MechanicsEvaluator()
-        &gt;&gt;&gt; score = evaluator.evaluate(mechanics_yaml_content)
+        &gt;&gt;&gt; score = evaluator.evaluate(mechanics_json_content)
         &gt;&gt;&gt; print(f&#34;Score: {score.score}/10&#34;)
         &gt;&gt;&gt; print(score.feedback)
     &#34;&#34;&#34;
@@ -407,7 +407,7 @@ game content, including plot outlines, narrative maps, puzzles, scenes, and mech
         Evaluate game mechanics content.
 
         Args:
-            content: YAML string containing game mechanics
+            content: JSON string containing game mechanics
 
         Returns:
             QualityScore with evaluation results
@@ -416,8 +416,8 @@ game content, including plot outlines, narrative maps, puzzles, scenes, and mech
             ValueError: If content cannot be parsed
         &#34;&#34;&#34;
         try:
-            # Parse YAML content using metrics class
-            metrics = MechanicsMetrics.from_yaml_content(content)
+            # Parse JSON content using metrics class
+            metrics = MechanicsMetrics.from_json_content(content)
 
             # Get score and check if passes threshold
             score = metrics.get_score()
@@ -476,7 +476,7 @@ game content, including plot outlines, narrative maps, puzzles, scenes, and mech
         Generate detailed, actionable feedback for improvement.
 
         Args:
-            content: YAML string containing game mechanics
+            content: JSON string containing game mechanics
 
         Returns:
             Multi-line feedback with specific suggestions
@@ -534,7 +534,7 @@ game content, including plot outlines, narrative maps, puzzles, scenes, and mech
 including systems completeness, rules clarity, and balance.</p>
 <h2 id="example">Example</h2>
 <pre><code class="language-python-repl">&gt;&gt;&gt; evaluator = MechanicsEvaluator()
-&gt;&gt;&gt; score = evaluator.evaluate(mechanics_yaml_content)
+&gt;&gt;&gt; score = evaluator.evaluate(mechanics_json_content)
 &gt;&gt;&gt; print(f&quot;Score: {score.score}/10&quot;)
 &gt;&gt;&gt; print(score.feedback)
 </code></pre>
@@ -564,7 +564,7 @@ including systems completeness, rules clarity, and balance.</p>
     Evaluate game mechanics content.
 
     Args:
-        content: YAML string containing game mechanics
+        content: JSON string containing game mechanics
 
     Returns:
         QualityScore with evaluation results
@@ -573,8 +573,8 @@ including systems completeness, rules clarity, and balance.</p>
         ValueError: If content cannot be parsed
     &#34;&#34;&#34;
     try:
-        # Parse YAML content using metrics class
-        metrics = MechanicsMetrics.from_yaml_content(content)
+        # Parse JSON content using metrics class
+        metrics = MechanicsMetrics.from_json_content(content)
 
         # Get score and check if passes threshold
         score = metrics.get_score()
@@ -632,7 +632,7 @@ including systems completeness, rules clarity, and balance.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>content</code></strong></dt>
-<dd>YAML string containing game mechanics</dd>
+<dd>JSON string containing game mechanics</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>QualityScore with evaluation results</p>
@@ -655,7 +655,7 @@ including systems completeness, rules clarity, and balance.</p>
     Generate detailed, actionable feedback for improvement.
 
     Args:
-        content: YAML string containing game mechanics
+        content: JSON string containing game mechanics
 
     Returns:
         Multi-line feedback with specific suggestions
@@ -712,7 +712,7 @@ including systems completeness, rules clarity, and balance.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>content</code></strong></dt>
-<dd>YAML string containing game mechanics</dd>
+<dd>JSON string containing game mechanics</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>Multi-line feedback with specific suggestions</p></div>
@@ -723,7 +723,7 @@ including systems completeness, rules clarity, and balance.</p>
 <li><code><b><a title="space_hulk_game.quality.evaluator.QualityEvaluator" href="evaluator.html#space_hulk_game.quality.evaluator.QualityEvaluator">QualityEvaluator</a></b></code>:
 <ul class="hlist">
 <li><code><a title="space_hulk_game.quality.evaluator.QualityEvaluator.generate_feedback" href="evaluator.html#space_hulk_game.quality.evaluator.QualityEvaluator.generate_feedback">generate_feedback</a></code></li>
-<li><code><a title="space_hulk_game.quality.evaluator.QualityEvaluator.parse_yaml" href="evaluator.html#space_hulk_game.quality.evaluator.QualityEvaluator.parse_yaml">parse_yaml</a></code></li>
+<li><code><a title="space_hulk_game.quality.evaluator.QualityEvaluator.parse_json" href="evaluator.html#space_hulk_game.quality.evaluator.QualityEvaluator.parse_json">parse_json</a></code></li>
 <li><code><a title="space_hulk_game.quality.evaluator.QualityEvaluator.score" href="evaluator.html#space_hulk_game.quality.evaluator.QualityEvaluator.score">score</a></code></li>
 </ul>
 </li>
@@ -773,27 +773,27 @@ class MechanicsMetrics:
     min_clarity: float = 6.0  # Out of 10.0
 
     @classmethod
-    def from_yaml_content(cls, yaml_content: str) -&gt; &#34;MechanicsMetrics&#34;:
+    def from_json_content(cls, json_content: str) -&gt; &#34;MechanicsMetrics&#34;:
         &#34;&#34;&#34;
-        Create MechanicsMetrics from YAML content string.
+        Create MechanicsMetrics from JSON content string.
 
         Args:
-            yaml_content: YAML string containing PRD/mechanics data
+            json_content: JSON string containing PRD/mechanics data
 
         Returns:
             MechanicsMetrics instance with measured values
         &#34;&#34;&#34;
         try:
-            # Handle markdown-wrapped YAML
-            content = yaml_content.strip()
+            # Handle markdown-wrapped JSON
+            content = json_content.strip()
             if content.startswith(&#34;```&#34;):
                 lines = content.split(&#34;\n&#34;)
                 content = &#34;\n&#34;.join(lines[1:-1])
 
-            data = yaml.safe_load(content)
+            data = json.loads(content)
             return cls.from_dict(data)
         except Exception as e:
-            raise ValueError(f&#34;Failed to parse YAML content: {e}&#34;) from e
+            raise ValueError(f&#34;Failed to parse JSON content: {e}&#34;) from e
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -&gt; &#34;MechanicsMetrics&#34;:
@@ -1176,15 +1176,15 @@ class MechanicsMetrics:
 <h2 id="returns">Returns</h2>
 <p>MechanicsMetrics instance with measured values</p></div>
 </dd>
-<dt id="space_hulk_game.quality.MechanicsMetrics.from_yaml_content"><code class="name flex">
-<span>def <span class="ident">from_yaml_content</span></span>(<span>yaml_content: str) ‑> <a title="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics" href="mechanics_metrics.html#space_hulk_game.quality.mechanics_metrics.MechanicsMetrics">MechanicsMetrics</a></span>
+<dt id="space_hulk_game.quality.MechanicsMetrics.from_json_content"><code class="name flex">
+<span>def <span class="ident">from_json_content</span></span>(<span>json_content: str) ‑> <a title="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics" href="mechanics_metrics.html#space_hulk_game.quality.mechanics_metrics.MechanicsMetrics">MechanicsMetrics</a></span>
 </code></dt>
 <dd>
-<div class="desc"><p>Create MechanicsMetrics from YAML content string.</p>
+<div class="desc"><p>Create MechanicsMetrics from JSON content string.</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>yaml_content</code></strong></dt>
-<dd>YAML string containing PRD/mechanics data</dd>
+<dt><strong><code>json_content</code></strong></dt>
+<dd>JSON string containing PRD/mechanics data</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>MechanicsMetrics instance with measured values</p></div>
@@ -1423,7 +1423,7 @@ class MechanicsMetrics:
 
     Example:
         &gt;&gt;&gt; evaluator = NarrativeMapEvaluator()
-        &gt;&gt;&gt; score = evaluator.evaluate(narrative_yaml_content)
+        &gt;&gt;&gt; score = evaluator.evaluate(narrative_json_content)
         &gt;&gt;&gt; print(f&#34;Score: {score.score}/10&#34;)
         &gt;&gt;&gt; print(score.feedback)
     &#34;&#34;&#34;
@@ -1443,7 +1443,7 @@ class MechanicsMetrics:
         Evaluate narrative map content.
 
         Args:
-            content: YAML string containing narrative map
+            content: JSON string containing narrative map
 
         Returns:
             QualityScore with evaluation results
@@ -1452,8 +1452,8 @@ class MechanicsMetrics:
             ValueError: If content cannot be parsed
         &#34;&#34;&#34;
         try:
-            # Parse YAML content using metrics class
-            metrics = NarrativeMetrics.from_yaml_content(content)
+            # Parse JSON content using metrics class
+            metrics = NarrativeMetrics.from_json_content(content)
 
             # Get score and check if passes threshold
             score = metrics.get_score()
@@ -1507,7 +1507,7 @@ class MechanicsMetrics:
         Generate detailed, actionable feedback for improvement.
 
         Args:
-            content: YAML string containing narrative map
+            content: JSON string containing narrative map
 
         Returns:
             Multi-line feedback with specific suggestions
@@ -1573,7 +1573,7 @@ class MechanicsMetrics:
 including scene connectivity, completeness, and orphan detection.</p>
 <h2 id="example">Example</h2>
 <pre><code class="language-python-repl">&gt;&gt;&gt; evaluator = NarrativeMapEvaluator()
-&gt;&gt;&gt; score = evaluator.evaluate(narrative_yaml_content)
+&gt;&gt;&gt; score = evaluator.evaluate(narrative_json_content)
 &gt;&gt;&gt; print(f&quot;Score: {score.score}/10&quot;)
 &gt;&gt;&gt; print(score.feedback)
 </code></pre>
@@ -1603,7 +1603,7 @@ including scene connectivity, completeness, and orphan detection.</p>
     Evaluate narrative map content.
 
     Args:
-        content: YAML string containing narrative map
+        content: JSON string containing narrative map
 
     Returns:
         QualityScore with evaluation results
@@ -1612,8 +1612,8 @@ including scene connectivity, completeness, and orphan detection.</p>
         ValueError: If content cannot be parsed
     &#34;&#34;&#34;
     try:
-        # Parse YAML content using metrics class
-        metrics = NarrativeMetrics.from_yaml_content(content)
+        # Parse JSON content using metrics class
+        metrics = NarrativeMetrics.from_json_content(content)
 
         # Get score and check if passes threshold
         score = metrics.get_score()
@@ -1666,7 +1666,7 @@ including scene connectivity, completeness, and orphan detection.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>content</code></strong></dt>
-<dd>YAML string containing narrative map</dd>
+<dd>JSON string containing narrative map</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>QualityScore with evaluation results</p>
@@ -1689,7 +1689,7 @@ including scene connectivity, completeness, and orphan detection.</p>
     Generate detailed, actionable feedback for improvement.
 
     Args:
-        content: YAML string containing narrative map
+        content: JSON string containing narrative map
 
     Returns:
         Multi-line feedback with specific suggestions
@@ -1754,7 +1754,7 @@ including scene connectivity, completeness, and orphan detection.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>content</code></strong></dt>
-<dd>YAML string containing narrative map</dd>
+<dd>JSON string containing narrative map</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>Multi-line feedback with specific suggestions</p></div>
@@ -1765,7 +1765,7 @@ including scene connectivity, completeness, and orphan detection.</p>
 <li><code><b><a title="space_hulk_game.quality.evaluator.QualityEvaluator" href="evaluator.html#space_hulk_game.quality.evaluator.QualityEvaluator">QualityEvaluator</a></b></code>:
 <ul class="hlist">
 <li><code><a title="space_hulk_game.quality.evaluator.QualityEvaluator.generate_feedback" href="evaluator.html#space_hulk_game.quality.evaluator.QualityEvaluator.generate_feedback">generate_feedback</a></code></li>
-<li><code><a title="space_hulk_game.quality.evaluator.QualityEvaluator.parse_yaml" href="evaluator.html#space_hulk_game.quality.evaluator.QualityEvaluator.parse_yaml">parse_yaml</a></code></li>
+<li><code><a title="space_hulk_game.quality.evaluator.QualityEvaluator.parse_json" href="evaluator.html#space_hulk_game.quality.evaluator.QualityEvaluator.parse_json">parse_json</a></code></li>
 <li><code><a title="space_hulk_game.quality.evaluator.QualityEvaluator.score" href="evaluator.html#space_hulk_game.quality.evaluator.QualityEvaluator.score">score</a></code></li>
 </ul>
 </li>
@@ -1816,25 +1816,25 @@ class NarrativeMetrics:
             self.orphaned_scenes = []
 
     @classmethod
-    def from_yaml_content(cls, yaml_content: str) -&gt; &#34;NarrativeMetrics&#34;:
+    def from_json_content(cls, json_content: str) -&gt; &#34;NarrativeMetrics&#34;:
         &#34;&#34;&#34;
-        Create NarrativeMetrics from YAML content string.
+        Create NarrativeMetrics from JSON content string.
 
         Args:
-            yaml_content: YAML string containing narrative map data
+            json_content: JSON string containing narrative map data
 
         Returns:
             NarrativeMetrics instance with measured values
         &#34;&#34;&#34;
         try:
-            # Handle markdown-wrapped YAML
-            content = yaml_content.strip()
+            # Handle markdown-wrapped JSON
+            content = json_content.strip()
             if content.startswith(&#34;```&#34;):
                 lines = content.split(&#34;\n&#34;)
                 content = &#34;\n&#34;.join(lines[1:-1])
-                logger.debug(&#34;Stripped markdown fences from narrative YAML&#34;)
+                logger.debug(&#34;Stripped markdown fences from narrative JSON&#34;)
 
-            data = yaml.safe_load(content)
+            data = json.loads(content)
             metrics = cls.from_dict(data)
 
             if metrics.has_orphaned_scenes:
@@ -1847,8 +1847,8 @@ class NarrativeMetrics:
             )
             return metrics
         except Exception as e:
-            logger.error(f&#34;Failed to parse narrative YAML content: {e}&#34;)
-            raise ValueError(f&#34;Failed to parse YAML content: {e}&#34;) from e
+            logger.error(f&#34;Failed to parse narrative JSON content: {e}&#34;)
+            raise ValueError(f&#34;Failed to parse JSON content: {e}&#34;) from e
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -&gt; &#34;NarrativeMetrics&#34;:
@@ -2111,15 +2111,15 @@ class NarrativeMetrics:
 <h2 id="returns">Returns</h2>
 <p>NarrativeMetrics instance with measured values</p></div>
 </dd>
-<dt id="space_hulk_game.quality.NarrativeMetrics.from_yaml_content"><code class="name flex">
-<span>def <span class="ident">from_yaml_content</span></span>(<span>yaml_content: str) ‑> <a title="space_hulk_game.quality.narrative_metrics.NarrativeMetrics" href="narrative_metrics.html#space_hulk_game.quality.narrative_metrics.NarrativeMetrics">NarrativeMetrics</a></span>
+<dt id="space_hulk_game.quality.NarrativeMetrics.from_json_content"><code class="name flex">
+<span>def <span class="ident">from_json_content</span></span>(<span>json_content: str) ‑> <a title="space_hulk_game.quality.narrative_metrics.NarrativeMetrics" href="narrative_metrics.html#space_hulk_game.quality.narrative_metrics.NarrativeMetrics">NarrativeMetrics</a></span>
 </code></dt>
 <dd>
-<div class="desc"><p>Create NarrativeMetrics from YAML content string.</p>
+<div class="desc"><p>Create NarrativeMetrics from JSON content string.</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>yaml_content</code></strong></dt>
-<dd>YAML string containing narrative map data</dd>
+<dt><strong><code>json_content</code></strong></dt>
+<dd>JSON string containing narrative map data</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>NarrativeMetrics instance with measured values</p></div>
@@ -2333,7 +2333,7 @@ class NarrativeMetrics:
 
     Example:
         &gt;&gt;&gt; evaluator = PlotEvaluator()
-        &gt;&gt;&gt; score = evaluator.evaluate(plot_yaml_content)
+        &gt;&gt;&gt; score = evaluator.evaluate(plot_json_content)
         &gt;&gt;&gt; print(f&#34;Score: {score.score}/10&#34;)
         &gt;&gt;&gt; print(score.feedback)
     &#34;&#34;&#34;
@@ -2353,7 +2353,7 @@ class NarrativeMetrics:
         Evaluate plot outline content.
 
         Args:
-            content: YAML string containing plot outline
+            content: JSON string containing plot outline
 
         Returns:
             QualityScore with evaluation results
@@ -2362,8 +2362,8 @@ class NarrativeMetrics:
             ValueError: If content cannot be parsed
         &#34;&#34;&#34;
         try:
-            # Parse YAML content using metrics class
-            metrics = PlotMetrics.from_yaml_content(content)
+            # Parse JSON content using metrics class
+            metrics = PlotMetrics.from_json_content(content)
 
             # Get score and check if passes threshold
             score = metrics.get_score()
@@ -2419,7 +2419,7 @@ class NarrativeMetrics:
         Generate detailed, actionable feedback for improvement.
 
         Args:
-            content: YAML string containing plot outline
+            content: JSON string containing plot outline
 
         Returns:
             Multi-line feedback with specific suggestions
@@ -2473,7 +2473,7 @@ class NarrativeMetrics:
 including setting clarity, branching paths, endings, themes, and word count.</p>
 <h2 id="example">Example</h2>
 <pre><code class="language-python-repl">&gt;&gt;&gt; evaluator = PlotEvaluator()
-&gt;&gt;&gt; score = evaluator.evaluate(plot_yaml_content)
+&gt;&gt;&gt; score = evaluator.evaluate(plot_json_content)
 &gt;&gt;&gt; print(f&quot;Score: {score.score}/10&quot;)
 &gt;&gt;&gt; print(score.feedback)
 </code></pre>
@@ -2503,7 +2503,7 @@ including setting clarity, branching paths, endings, themes, and word count.</p>
     Evaluate plot outline content.
 
     Args:
-        content: YAML string containing plot outline
+        content: JSON string containing plot outline
 
     Returns:
         QualityScore with evaluation results
@@ -2512,8 +2512,8 @@ including setting clarity, branching paths, endings, themes, and word count.</p>
         ValueError: If content cannot be parsed
     &#34;&#34;&#34;
     try:
-        # Parse YAML content using metrics class
-        metrics = PlotMetrics.from_yaml_content(content)
+        # Parse JSON content using metrics class
+        metrics = PlotMetrics.from_json_content(content)
 
         # Get score and check if passes threshold
         score = metrics.get_score()
@@ -2568,7 +2568,7 @@ including setting clarity, branching paths, endings, themes, and word count.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>content</code></strong></dt>
-<dd>YAML string containing plot outline</dd>
+<dd>JSON string containing plot outline</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>QualityScore with evaluation results</p>
@@ -2591,7 +2591,7 @@ including setting clarity, branching paths, endings, themes, and word count.</p>
     Generate detailed, actionable feedback for improvement.
 
     Args:
-        content: YAML string containing plot outline
+        content: JSON string containing plot outline
 
     Returns:
         Multi-line feedback with specific suggestions
@@ -2644,7 +2644,7 @@ including setting clarity, branching paths, endings, themes, and word count.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>content</code></strong></dt>
-<dd>YAML string containing plot outline</dd>
+<dd>JSON string containing plot outline</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>Multi-line feedback with specific suggestions</p></div>
@@ -2655,7 +2655,7 @@ including setting clarity, branching paths, endings, themes, and word count.</p>
 <li><code><b><a title="space_hulk_game.quality.evaluator.QualityEvaluator" href="evaluator.html#space_hulk_game.quality.evaluator.QualityEvaluator">QualityEvaluator</a></b></code>:
 <ul class="hlist">
 <li><code><a title="space_hulk_game.quality.evaluator.QualityEvaluator.generate_feedback" href="evaluator.html#space_hulk_game.quality.evaluator.QualityEvaluator.generate_feedback">generate_feedback</a></code></li>
-<li><code><a title="space_hulk_game.quality.evaluator.QualityEvaluator.parse_yaml" href="evaluator.html#space_hulk_game.quality.evaluator.QualityEvaluator.parse_yaml">parse_yaml</a></code></li>
+<li><code><a title="space_hulk_game.quality.evaluator.QualityEvaluator.parse_json" href="evaluator.html#space_hulk_game.quality.evaluator.QualityEvaluator.parse_json">parse_json</a></code></li>
 <li><code><a title="space_hulk_game.quality.evaluator.QualityEvaluator.score" href="evaluator.html#space_hulk_game.quality.evaluator.QualityEvaluator.score">score</a></code></li>
 </ul>
 </li>
@@ -2705,38 +2705,38 @@ class PlotMetrics:
     min_word_count: int = 500
 
     @classmethod
-    def from_yaml_content(cls, yaml_content: str) -&gt; &#34;PlotMetrics&#34;:
+    def from_json_content(cls, json_content: str) -&gt; &#34;PlotMetrics&#34;:
         &#34;&#34;&#34;
-        Create PlotMetrics from YAML content string.
+        Create PlotMetrics from JSON content string.
 
         Args:
-            yaml_content: YAML string containing plot outline data
+            json_content: JSON string containing plot outline data
 
         Returns:
             PlotMetrics instance with measured values
 
         Example:
-            &gt;&gt;&gt; metrics = PlotMetrics.from_yaml_content(yaml_string)
+            &gt;&gt;&gt; metrics = PlotMetrics.from_json_content(json_string)
             &gt;&gt;&gt; print(metrics.passes_threshold())
         &#34;&#34;&#34;
         try:
-            # Handle markdown-wrapped YAML
-            content = yaml_content.strip()
+            # Handle markdown-wrapped JSON
+            content = json_content.strip()
             if content.startswith(&#34;```&#34;):
                 lines = content.split(&#34;\n&#34;)
                 # Remove first and last lines (markdown fences)
                 content = &#34;\n&#34;.join(lines[1:-1])
-                logger.debug(&#34;Stripped markdown fences from YAML content&#34;)
+                logger.debug(&#34;Stripped markdown fences from JSON content&#34;)
 
             # Try to parse as-is first
             try:
-                data = yaml.safe_load(content)
-            except yaml.YAMLError as parse_error:
-                # Attempt to fix common YAML syntax errors (e.g., unquoted colons in values)
-                logger.debug(f&#34;Initial YAML parse failed, attempting to fix: {parse_error}&#34;)
-                content = cls._fix_yaml_syntax(content)
-                data = yaml.safe_load(content)
-                logger.info(&#34;Successfully parsed YAML after fixing syntax errors&#34;)
+                data = json.loads(content)
+            except json.JSONDecodeError as parse_error:
+                # Attempt to fix common JSON syntax errors
+                logger.debug(f&#34;Initial JSON parse failed, attempting to fix: {parse_error}&#34;)
+                content = cls._fix_json_syntax(content)
+                data = json.loads(content)
+                logger.info(&#34;Successfully parsed JSON after fixing syntax errors&#34;)
 
             metrics = cls.from_dict(data)
             logger.info(
@@ -2744,51 +2744,26 @@ class PlotMetrics:
             )
             return metrics
         except Exception as e:
-            logger.error(f&#34;Failed to parse plot YAML content: {e}&#34;)
-            raise ValueError(f&#34;Failed to parse YAML content: {e}&#34;) from e
+            logger.error(f&#34;Failed to parse plot JSON content: {e}&#34;)
+            raise ValueError(f&#34;Failed to parse JSON content: {e}&#34;) from e
 
     @staticmethod
-    def _fix_yaml_syntax(content: str) -&gt; str:
+    def _fix_json_syntax(content: str) -&gt; str:
         &#34;&#34;&#34;
-        Fix common YAML syntax errors like unquoted colons in values.
+        Fix common JSON syntax errors like unquoted strings and trailing commas.
 
         Args:
-            content: YAML string with potential syntax errors
+            content: JSON string with potential syntax errors
 
         Returns:
-            Fixed YAML string
+            Fixed JSON string
         &#34;&#34;&#34;
-        lines = content.split(&#34;\n&#34;)
-        fixed_lines = []
-
-        for line in lines:
-            # Fix unquoted values with colons (e.g., &#34;title: Space Hulk: Derelict&#34;)
-            if &#34;:&#34; in line and not line.strip().startswith(&#34;-&#34;):
-                parts = line.split(&#34;:&#34;, 1)
-                if len(parts) == 2:
-                    key_part = parts[0]
-                    value_part = parts[1].strip()
-
-                    # If value has a colon and is not already quoted or is a nested structure
-                    if (
-                        &#34;:&#34; in value_part
-                        and value_part
-                        and not (
-                            (value_part.startswith(&#39;&#34;&#39;) and value_part.endswith(&#39;&#34;&#39;))
-                            or (value_part.startswith(&#34;&#39;&#34;) and value_part.endswith(&#34;&#39;&#34;))
-                            or value_part.startswith(&#34;[&#34;)
-                            or value_part.startswith(&#34;{&#34;)
-                        )
-                    ):
-                        # Quote the value
-                        fixed_line = f&#39;{key_part}: &#34;{value_part}&#34;&#39;
-                        fixed_lines.append(fixed_line)
-                        logger.debug(f&#34;Fixed YAML syntax: {line.strip()}&#34;)
-                        continue
-
-            fixed_lines.append(line)
-
-        return &#34;\n&#34;.join(fixed_lines)
+        # This is a basic fix - more complex errors may still occur
+        # Remove trailing commas before closing braces/brackets
+        content = content.replace(&#34;,}&#34;, &#34;}&#34;)
+        content = content.replace(&#34;,]&#34;, &#34;]&#34;)
+        logger.debug(&#34;Fixed common JSON syntax errors (trailing commas)&#34;)
+        return content
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -&gt; &#34;PlotMetrics&#34;:
@@ -3066,20 +3041,20 @@ class PlotMetrics:
 <h2 id="returns">Returns</h2>
 <p>PlotMetrics instance with measured values</p></div>
 </dd>
-<dt id="space_hulk_game.quality.PlotMetrics.from_yaml_content"><code class="name flex">
-<span>def <span class="ident">from_yaml_content</span></span>(<span>yaml_content: str) ‑> <a title="space_hulk_game.quality.plot_metrics.PlotMetrics" href="plot_metrics.html#space_hulk_game.quality.plot_metrics.PlotMetrics">PlotMetrics</a></span>
+<dt id="space_hulk_game.quality.PlotMetrics.from_json_content"><code class="name flex">
+<span>def <span class="ident">from_json_content</span></span>(<span>json_content: str) ‑> <a title="space_hulk_game.quality.plot_metrics.PlotMetrics" href="plot_metrics.html#space_hulk_game.quality.plot_metrics.PlotMetrics">PlotMetrics</a></span>
 </code></dt>
 <dd>
-<div class="desc"><p>Create PlotMetrics from YAML content string.</p>
+<div class="desc"><p>Create PlotMetrics from JSON content string.</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>yaml_content</code></strong></dt>
-<dd>YAML string containing plot outline data</dd>
+<dt><strong><code>json_content</code></strong></dt>
+<dd>JSON string containing plot outline data</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>PlotMetrics instance with measured values</p>
 <h2 id="example">Example</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; metrics = PlotMetrics.from_yaml_content(yaml_string)
+<pre><code class="language-python-repl">&gt;&gt;&gt; metrics = PlotMetrics.from_json_content(json_string)
 &gt;&gt;&gt; print(metrics.passes_threshold())
 </code></pre></div>
 </dd>
@@ -3293,7 +3268,7 @@ class PlotMetrics:
 
     Example:
         &gt;&gt;&gt; evaluator = PuzzleEvaluator()
-        &gt;&gt;&gt; score = evaluator.evaluate(puzzle_yaml_content)
+        &gt;&gt;&gt; score = evaluator.evaluate(puzzle_json_content)
         &gt;&gt;&gt; print(f&#34;Score: {score.score}/10&#34;)
         &gt;&gt;&gt; print(score.feedback)
     &#34;&#34;&#34;
@@ -3313,7 +3288,7 @@ class PlotMetrics:
         Evaluate puzzle design content.
 
         Args:
-            content: YAML string containing puzzle design
+            content: JSON string containing puzzle design
 
         Returns:
             QualityScore with evaluation results
@@ -3322,8 +3297,8 @@ class PlotMetrics:
             ValueError: If content cannot be parsed
         &#34;&#34;&#34;
         try:
-            # Parse YAML content using metrics class
-            metrics = PuzzleMetrics.from_yaml_content(content)
+            # Parse JSON content using metrics class
+            metrics = PuzzleMetrics.from_json_content(content)
 
             # Get score and check if passes threshold
             score = metrics.get_score()
@@ -3380,7 +3355,7 @@ class PlotMetrics:
         Generate detailed, actionable feedback for improvement.
 
         Args:
-            content: YAML string containing puzzle design
+            content: JSON string containing puzzle design
 
         Returns:
             Multi-line feedback with specific suggestions
@@ -3443,7 +3418,7 @@ class PlotMetrics:
 including clear solutions, narrative ties, and difficulty ratings.</p>
 <h2 id="example">Example</h2>
 <pre><code class="language-python-repl">&gt;&gt;&gt; evaluator = PuzzleEvaluator()
-&gt;&gt;&gt; score = evaluator.evaluate(puzzle_yaml_content)
+&gt;&gt;&gt; score = evaluator.evaluate(puzzle_json_content)
 &gt;&gt;&gt; print(f&quot;Score: {score.score}/10&quot;)
 &gt;&gt;&gt; print(score.feedback)
 </code></pre>
@@ -3473,7 +3448,7 @@ including clear solutions, narrative ties, and difficulty ratings.</p>
     Evaluate puzzle design content.
 
     Args:
-        content: YAML string containing puzzle design
+        content: JSON string containing puzzle design
 
     Returns:
         QualityScore with evaluation results
@@ -3482,8 +3457,8 @@ including clear solutions, narrative ties, and difficulty ratings.</p>
         ValueError: If content cannot be parsed
     &#34;&#34;&#34;
     try:
-        # Parse YAML content using metrics class
-        metrics = PuzzleMetrics.from_yaml_content(content)
+        # Parse JSON content using metrics class
+        metrics = PuzzleMetrics.from_json_content(content)
 
         # Get score and check if passes threshold
         score = metrics.get_score()
@@ -3539,7 +3514,7 @@ including clear solutions, narrative ties, and difficulty ratings.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>content</code></strong></dt>
-<dd>YAML string containing puzzle design</dd>
+<dd>JSON string containing puzzle design</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>QualityScore with evaluation results</p>
@@ -3562,7 +3537,7 @@ including clear solutions, narrative ties, and difficulty ratings.</p>
     Generate detailed, actionable feedback for improvement.
 
     Args:
-        content: YAML string containing puzzle design
+        content: JSON string containing puzzle design
 
     Returns:
         Multi-line feedback with specific suggestions
@@ -3624,7 +3599,7 @@ including clear solutions, narrative ties, and difficulty ratings.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>content</code></strong></dt>
-<dd>YAML string containing puzzle design</dd>
+<dd>JSON string containing puzzle design</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>Multi-line feedback with specific suggestions</p></div>
@@ -3635,7 +3610,7 @@ including clear solutions, narrative ties, and difficulty ratings.</p>
 <li><code><b><a title="space_hulk_game.quality.evaluator.QualityEvaluator" href="evaluator.html#space_hulk_game.quality.evaluator.QualityEvaluator">QualityEvaluator</a></b></code>:
 <ul class="hlist">
 <li><code><a title="space_hulk_game.quality.evaluator.QualityEvaluator.generate_feedback" href="evaluator.html#space_hulk_game.quality.evaluator.QualityEvaluator.generate_feedback">generate_feedback</a></code></li>
-<li><code><a title="space_hulk_game.quality.evaluator.QualityEvaluator.parse_yaml" href="evaluator.html#space_hulk_game.quality.evaluator.QualityEvaluator.parse_yaml">parse_yaml</a></code></li>
+<li><code><a title="space_hulk_game.quality.evaluator.QualityEvaluator.parse_json" href="evaluator.html#space_hulk_game.quality.evaluator.QualityEvaluator.parse_json">parse_json</a></code></li>
 <li><code><a title="space_hulk_game.quality.evaluator.QualityEvaluator.score" href="evaluator.html#space_hulk_game.quality.evaluator.QualityEvaluator.score">score</a></code></li>
 </ul>
 </li>
@@ -3680,27 +3655,27 @@ class PuzzleMetrics:
     min_solution_percentage: float = 80.0  # 80% should have clear solutions
 
     @classmethod
-    def from_yaml_content(cls, yaml_content: str) -&gt; &#34;PuzzleMetrics&#34;:
+    def from_json_content(cls, json_content: str) -&gt; &#34;PuzzleMetrics&#34;:
         &#34;&#34;&#34;
-        Create PuzzleMetrics from YAML content string.
+        Create PuzzleMetrics from JSON content string.
 
         Args:
-            yaml_content: YAML string containing puzzle design data
+            json_content: JSON string containing puzzle design data
 
         Returns:
             PuzzleMetrics instance with measured values
         &#34;&#34;&#34;
         try:
-            # Handle markdown-wrapped YAML
-            content = yaml_content.strip()
+            # Handle markdown-wrapped JSON
+            content = json_content.strip()
             if content.startswith(&#34;```&#34;):
                 lines = content.split(&#34;\n&#34;)
                 content = &#34;\n&#34;.join(lines[1:-1])
 
-            data = yaml.safe_load(content)
+            data = json.loads(content)
             return cls.from_dict(data)
         except Exception as e:
-            raise ValueError(f&#34;Failed to parse YAML content: {e}&#34;) from e
+            raise ValueError(f&#34;Failed to parse JSON content: {e}&#34;) from e
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -&gt; &#34;PuzzleMetrics&#34;:
@@ -3968,15 +3943,15 @@ class PuzzleMetrics:
 <h2 id="returns">Returns</h2>
 <p>PuzzleMetrics instance with measured values</p></div>
 </dd>
-<dt id="space_hulk_game.quality.PuzzleMetrics.from_yaml_content"><code class="name flex">
-<span>def <span class="ident">from_yaml_content</span></span>(<span>yaml_content: str) ‑> <a title="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics" href="puzzle_metrics.html#space_hulk_game.quality.puzzle_metrics.PuzzleMetrics">PuzzleMetrics</a></span>
+<dt id="space_hulk_game.quality.PuzzleMetrics.from_json_content"><code class="name flex">
+<span>def <span class="ident">from_json_content</span></span>(<span>json_content: str) ‑> <a title="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics" href="puzzle_metrics.html#space_hulk_game.quality.puzzle_metrics.PuzzleMetrics">PuzzleMetrics</a></span>
 </code></dt>
 <dd>
-<div class="desc"><p>Create PuzzleMetrics from YAML content string.</p>
+<div class="desc"><p>Create PuzzleMetrics from JSON content string.</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>yaml_content</code></strong></dt>
-<dd>YAML string containing puzzle design data</dd>
+<dt><strong><code>json_content</code></strong></dt>
+<dd>JSON string containing puzzle design data</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>PuzzleMetrics instance with measured values</p></div>
@@ -4191,7 +4166,7 @@ class PuzzleMetrics:
     &#34;&#34;&#34;
     Configuration for quality checking system.
 
-    Loads configuration from quality_config.yaml and environment variables.
+    Loads configuration from quality_config.json and environment variables.
     &#34;&#34;&#34;
 
     def __init__(self, config_path: str | None = None):
@@ -4199,14 +4174,14 @@ class PuzzleMetrics:
         Initialize quality check configuration.
 
         Args:
-            config_path: Path to quality_config.yaml (optional)
+            config_path: Path to quality_config.json (optional)
         &#34;&#34;&#34;
         self.config = self._load_config(config_path)
         self.task_configs = self._create_task_configs()
 
     def _load_config(self, config_path: str | Path | None = None) -&gt; dict[str, Any]:
         &#34;&#34;&#34;
-        Load configuration from YAML file.
+        Load configuration from JSON file.
 
         Args:
             config_path: Path to config file (optional)
@@ -4217,11 +4192,11 @@ class PuzzleMetrics:
         if config_path is None:
             # Default path relative to this module
             module_dir = Path(__file__).parent.parent
-            config_path = module_dir / &#34;config&#34; / &#34;quality_config.yaml&#34;
+            config_path = module_dir / &#34;config&#34; / &#34;quality_config.json&#34;
 
         try:
             with Path(config_path).open() as f:
-                config = yaml.safe_load(f)
+                config = json.load(f)
             logger.info(f&#34;Loaded quality configuration from {config_path}&#34;)
             return dict(config) if config else {}
         except FileNotFoundError:
@@ -4259,7 +4234,7 @@ class PuzzleMetrics:
         &#34;&#34;&#34;
         thresholds = self.config.get(&#34;thresholds&#34;, {})
 
-        # Map YAML keys to TaskType enum
+        # Map JSON keys to TaskType enum
         task_map = {
             &#34;plot&#34;: TaskType.PLOT,
             &#34;narrative&#34;: TaskType.NARRATIVE,
@@ -4269,12 +4244,12 @@ class PuzzleMetrics:
         }
 
         configs = {}
-        for yaml_key, task_type in task_map.items():
-            threshold_config = thresholds.get(yaml_key, {})
+        for json_key, task_type in task_map.items():
+            threshold_config = thresholds.get(json_key, {})
             configs[task_type] = {
                 &#34;enabled&#34;: threshold_config.get(&#34;enabled&#34;, True),
                 &#34;pass_threshold&#34;: self._get_env_override(
-                    f&#34;QUALITY_{yaml_key.upper()}_THRESHOLD&#34;,
+                    f&#34;QUALITY_{json_key.upper()}_THRESHOLD&#34;,
                     threshold_config.get(&#34;pass_threshold&#34;, 6.0),
                 ),
                 &#34;max_retries&#34;: self._get_env_override(
@@ -4339,12 +4314,12 @@ class PuzzleMetrics:
         )</code></pre>
 </details>
 <div class="desc"><p>Configuration for quality checking system.</p>
-<p>Loads configuration from quality_config.yaml and environment variables.</p>
+<p>Loads configuration from quality_config.json and environment variables.</p>
 <p>Initialize quality check configuration.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>config_path</code></strong></dt>
-<dd>Path to quality_config.yaml (optional)</dd>
+<dd>Path to quality_config.json (optional)</dd>
 </dl></div>
 <h3>Methods</h3>
 <dl>
@@ -4450,7 +4425,7 @@ class PuzzleMetrics:
         Evaluate content and return quality score.
 
         Args:
-            content: Content to evaluate (usually YAML string)
+            content: Content to evaluate (usually JSON string)
 
         Returns:
             QualityScore with evaluation results
@@ -4487,37 +4462,42 @@ class PuzzleMetrics:
         return result.feedback
 
     @staticmethod
-    def parse_yaml(content: str) -&gt; dict[str, Any]:
+    def parse_json(content: str) -&gt; dict[str, Any]:
         &#34;&#34;&#34;
-        Parse YAML content, handling markdown-wrapped YAML.
+        Parse JSON content, handling markdown-wrapped JSON.
 
-        NOTE: YAML sanitization happens in OutputSanitizer (Phase 1).
-        This method assumes YAML is already clean. If parsing fails, it&#39;s a real error.
+        NOTE: JSON sanitization happens in OutputSanitizer (Phase 1).
+        This method assumes JSON is already clean. If parsing fails, it&#39;s a real error.
 
         Args:
-            content: YAML string, optionally wrapped in markdown code fences
+            content: JSON string, optionally wrapped in markdown code fences
 
         Returns:
-            Parsed YAML as dictionary
+            Parsed JSON as dictionary
 
         Raises:
-            ValueError: If YAML cannot be parsed
+            ValueError: If JSON cannot be parsed
         &#34;&#34;&#34;
         try:
-            # Handle markdown-wrapped YAML
-            content_stripped = strip_markdown_yaml_blocks(content.strip())
-            logger.debug(&#34;Stripped markdown fences from YAML content&#34;)
+            # Handle markdown-wrapped JSON (remove ```json and ``` markers)
+            content_stripped = content.strip()
+            content_stripped = re.sub(
+                r&#34;^\s*```json\s*\n?&#34;, &#34;&#34;, content_stripped, flags=re.IGNORECASE | re.MULTILINE
+            )
+            content_stripped = re.sub(r&#34;\n?\s*```\s*$&#34;, &#34;&#34;, content_stripped, flags=re.MULTILINE)
+            content_stripped = content_stripped.strip()
+            logger.debug(&#34;Stripped markdown fences from JSON content&#34;)
 
-            data = yaml.safe_load(content_stripped)
+            data = json.loads(content_stripped)
             if data is None:
-                raise ValueError(&#34;YAML content is empty or invalid&#34;)
+                raise ValueError(&#34;JSON content is empty or invalid&#34;)
             return dict(data)
 
-        except yaml.YAMLError as e:
-            logger.error(f&#34;Failed to parse YAML: {e}&#34;)
-            raise ValueError(f&#34;Invalid YAML content: {e}&#34;) from e
+        except json.JSONDecodeError as e:
+            logger.error(f&#34;Failed to parse JSON: {e}&#34;)
+            raise ValueError(f&#34;Invalid JSON content: {e}&#34;) from e
         except Exception as e:
-            logger.error(f&#34;Unexpected error parsing YAML: {e}&#34;)
+            logger.error(f&#34;Unexpected error parsing JSON: {e}&#34;)
             raise ValueError(f&#34;Failed to parse content: {e}&#34;) from e
 
     def _create_score(
@@ -4601,8 +4581,8 @@ should inherit from this class and implement the required methods.</p>
 </ul>
 <h3>Static methods</h3>
 <dl>
-<dt id="space_hulk_game.quality.QualityEvaluator.parse_yaml"><code class="name flex">
-<span>def <span class="ident">parse_yaml</span></span>(<span>content: str) ‑> dict[str, typing.Any]</span>
+<dt id="space_hulk_game.quality.QualityEvaluator.parse_json"><code class="name flex">
+<span>def <span class="ident">parse_json</span></span>(<span>content: str) ‑> dict[str, typing.Any]</span>
 </code></dt>
 <dd>
 <details class="source">
@@ -4610,53 +4590,58 @@ should inherit from this class and implement the required methods.</p>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@staticmethod
-def parse_yaml(content: str) -&gt; dict[str, Any]:
+def parse_json(content: str) -&gt; dict[str, Any]:
     &#34;&#34;&#34;
-    Parse YAML content, handling markdown-wrapped YAML.
+    Parse JSON content, handling markdown-wrapped JSON.
 
-    NOTE: YAML sanitization happens in OutputSanitizer (Phase 1).
-    This method assumes YAML is already clean. If parsing fails, it&#39;s a real error.
+    NOTE: JSON sanitization happens in OutputSanitizer (Phase 1).
+    This method assumes JSON is already clean. If parsing fails, it&#39;s a real error.
 
     Args:
-        content: YAML string, optionally wrapped in markdown code fences
+        content: JSON string, optionally wrapped in markdown code fences
 
     Returns:
-        Parsed YAML as dictionary
+        Parsed JSON as dictionary
 
     Raises:
-        ValueError: If YAML cannot be parsed
+        ValueError: If JSON cannot be parsed
     &#34;&#34;&#34;
     try:
-        # Handle markdown-wrapped YAML
-        content_stripped = strip_markdown_yaml_blocks(content.strip())
-        logger.debug(&#34;Stripped markdown fences from YAML content&#34;)
+        # Handle markdown-wrapped JSON (remove ```json and ``` markers)
+        content_stripped = content.strip()
+        content_stripped = re.sub(
+            r&#34;^\s*```json\s*\n?&#34;, &#34;&#34;, content_stripped, flags=re.IGNORECASE | re.MULTILINE
+        )
+        content_stripped = re.sub(r&#34;\n?\s*```\s*$&#34;, &#34;&#34;, content_stripped, flags=re.MULTILINE)
+        content_stripped = content_stripped.strip()
+        logger.debug(&#34;Stripped markdown fences from JSON content&#34;)
 
-        data = yaml.safe_load(content_stripped)
+        data = json.loads(content_stripped)
         if data is None:
-            raise ValueError(&#34;YAML content is empty or invalid&#34;)
+            raise ValueError(&#34;JSON content is empty or invalid&#34;)
         return dict(data)
 
-    except yaml.YAMLError as e:
-        logger.error(f&#34;Failed to parse YAML: {e}&#34;)
-        raise ValueError(f&#34;Invalid YAML content: {e}&#34;) from e
+    except json.JSONDecodeError as e:
+        logger.error(f&#34;Failed to parse JSON: {e}&#34;)
+        raise ValueError(f&#34;Invalid JSON content: {e}&#34;) from e
     except Exception as e:
-        logger.error(f&#34;Unexpected error parsing YAML: {e}&#34;)
+        logger.error(f&#34;Unexpected error parsing JSON: {e}&#34;)
         raise ValueError(f&#34;Failed to parse content: {e}&#34;) from e</code></pre>
 </details>
-<div class="desc"><p>Parse YAML content, handling markdown-wrapped YAML.</p>
-<p>NOTE: YAML sanitization happens in OutputSanitizer (Phase 1).
-This method assumes YAML is already clean. If parsing fails, it's a real error.</p>
+<div class="desc"><p>Parse JSON content, handling markdown-wrapped JSON.</p>
+<p>NOTE: JSON sanitization happens in OutputSanitizer (Phase 1).
+This method assumes JSON is already clean. If parsing fails, it's a real error.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>content</code></strong></dt>
-<dd>YAML string, optionally wrapped in markdown code fences</dd>
+<dd>JSON string, optionally wrapped in markdown code fences</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>Parsed YAML as dictionary</p>
+<p>Parsed JSON as dictionary</p>
 <h2 id="raises">Raises</h2>
 <dl>
 <dt><code>ValueError</code></dt>
-<dd>If YAML cannot be parsed</dd>
+<dd>If JSON cannot be parsed</dd>
 </dl></div>
 </dd>
 </dl>
@@ -4676,7 +4661,7 @@ def evaluate(self, content: str) -&gt; QualityScore:
     Evaluate content and return quality score.
 
     Args:
-        content: Content to evaluate (usually YAML string)
+        content: Content to evaluate (usually JSON string)
 
     Returns:
         QualityScore with evaluation results
@@ -4690,7 +4675,7 @@ def evaluate(self, content: str) -&gt; QualityScore:
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>content</code></strong></dt>
-<dd>Content to evaluate (usually YAML string)</dd>
+<dd>Content to evaluate (usually JSON string)</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>QualityScore with evaluation results</p>
@@ -4765,6 +4750,7 @@ def evaluate(self, content: str) -&gt; QualityScore:
 <dt id="space_hulk_game.quality.QualityScore"><code class="flex name class">
 <span>class <span class="ident">QualityScore</span></span>
 <span>(</span><span>score: float,<br>passed: bool,<br>feedback: str,<br>details: dict[str, Any] = &lt;factory&gt;)</span>
+<span>(</span><span>score: float,<br>passed: bool,<br>feedback: str,<br>details: dict[str, Any] = &lt;factory&gt;)</span>
 </code></dt>
 <dd>
 <details class="source">
@@ -4775,6 +4761,9 @@ def evaluate(self, content: str) -&gt; QualityScore:
 class QualityScore:
     &#34;&#34;&#34;
     Standardized quality score returned by all evaluators.
+
+    NOTE: QualityScore is specialized for quality evaluation.
+    For general processing, use ProcessingResult from validation.types
 
     NOTE: QualityScore is specialized for quality evaluation.
     For general processing, use ProcessingResult from validation.types
@@ -4843,6 +4832,7 @@ class QualityScore:
         return json.dumps(self.to_dict(), indent=2)
 
     @classmethod
+    def from_dict(cls, data: dict[str, Any]) -&gt; QualityScore:
     def from_dict(cls, data: dict[str, Any]) -&gt; QualityScore:
         &#34;&#34;&#34;
         Create QualityScore from dictionary.
@@ -4923,8 +4913,39 @@ class QualityScore:
             corrections=[],
             metadata={&#34;score&#34;: self.score, &#34;feedback&#34;: self.feedback, &#34;details&#34;: self.details},
         )</code></pre>
+        return &#34;\n&#34;.join(lines)
+
+    def to_processing_result(self) -&gt; ProcessingResult:
+        &#34;&#34;&#34;Convert to unified ProcessingResult type.
+
+        Returns:
+            ProcessingResult instance with equivalent data.
+
+        Example:
+            &gt;&gt;&gt; score = QualityScore(
+            ...     score=8.5,
+            ...     passed=True,
+            ...     feedback=&#34;Good quality&#34;,
+            ...     details={&#34;word_count&#34;: 650}
+            ... )
+            &gt;&gt;&gt; processing_result = score.to_processing_result()
+            &gt;&gt;&gt; processing_result.metadata[&#39;score&#39;]
+            8.5
+        &#34;&#34;&#34;
+        from space_hulk_game.validation.types import ProcessingResult  # noqa: PLC0415
+
+        return ProcessingResult(
+            success=self.passed,
+            data=None,
+            errors=[],
+            warnings=[],
+            corrections=[],
+            metadata={&#34;score&#34;: self.score, &#34;feedback&#34;: self.feedback, &#34;details&#34;: self.details},
+        )</code></pre>
 </details>
 <div class="desc"><p>Standardized quality score returned by all evaluators.</p>
+<p>NOTE: QualityScore is specialized for quality evaluation.
+For general processing, use ProcessingResult from validation.types</p>
 <p>NOTE: QualityScore is specialized for quality evaluation.
 For general processing, use ProcessingResult from validation.types</p>
 <h2 id="attributes">Attributes</h2>
@@ -4951,6 +4972,7 @@ QualityScore(8.5/10, PASS)
 <h3>Static methods</h3>
 <dl>
 <dt id="space_hulk_game.quality.QualityScore.from_dict"><code class="name flex">
+<span>def <span class="ident">from_dict</span></span>(<span>data: dict[str, Any]) ‑> <a title="space_hulk_game.quality.score.QualityScore" href="score.html#space_hulk_game.quality.score.QualityScore">QualityScore</a></span>
 <span>def <span class="ident">from_dict</span></span>(<span>data: dict[str, Any]) ‑> <a title="space_hulk_game.quality.score.QualityScore" href="score.html#space_hulk_game.quality.score.QualityScore">QualityScore</a></span>
 </code></dt>
 <dd>
@@ -5143,6 +5165,57 @@ QualityScore(8.5/10, PASS)
 8.5
 </code></pre></div>
 </dd>
+<dt id="space_hulk_game.quality.QualityScore.to_processing_result"><code class="name flex">
+<span>def <span class="ident">to_processing_result</span></span>(<span>self) ‑> ProcessingResult</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def to_processing_result(self) -&gt; ProcessingResult:
+    &#34;&#34;&#34;Convert to unified ProcessingResult type.
+
+    Returns:
+        ProcessingResult instance with equivalent data.
+
+    Example:
+        &gt;&gt;&gt; score = QualityScore(
+        ...     score=8.5,
+        ...     passed=True,
+        ...     feedback=&#34;Good quality&#34;,
+        ...     details={&#34;word_count&#34;: 650}
+        ... )
+        &gt;&gt;&gt; processing_result = score.to_processing_result()
+        &gt;&gt;&gt; processing_result.metadata[&#39;score&#39;]
+        8.5
+    &#34;&#34;&#34;
+    from space_hulk_game.validation.types import ProcessingResult  # noqa: PLC0415
+
+    return ProcessingResult(
+        success=self.passed,
+        data=None,
+        errors=[],
+        warnings=[],
+        corrections=[],
+        metadata={&#34;score&#34;: self.score, &#34;feedback&#34;: self.feedback, &#34;details&#34;: self.details},
+    )</code></pre>
+</details>
+<div class="desc"><p>Convert to unified ProcessingResult type.</p>
+<h2 id="returns">Returns</h2>
+<p>ProcessingResult instance with equivalent data.</p>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; score = QualityScore(
+...     score=8.5,
+...     passed=True,
+...     feedback=&quot;Good quality&quot;,
+...     details={&quot;word_count&quot;: 650}
+... )
+&gt;&gt;&gt; processing_result = score.to_processing_result()
+&gt;&gt;&gt; processing_result.metadata['score']
+8.5
+</code></pre></div>
+</dd>
 </dl>
 </dd>
 <dt id="space_hulk_game.quality.SceneEvaluator"><code class="flex name class">
@@ -5164,7 +5237,7 @@ QualityScore(8.5/10, PASS)
 
     Example:
         &gt;&gt;&gt; evaluator = SceneEvaluator()
-        &gt;&gt;&gt; score = evaluator.evaluate(scene_yaml_content)
+        &gt;&gt;&gt; score = evaluator.evaluate(scene_json_content)
         &gt;&gt;&gt; print(f&#34;Score: {score.score}/10&#34;)
         &gt;&gt;&gt; print(score.feedback)
     &#34;&#34;&#34;
@@ -5184,7 +5257,7 @@ QualityScore(8.5/10, PASS)
         Evaluate scene text content.
 
         Args:
-            content: YAML string containing scene texts
+            content: JSON string containing scene texts
 
         Returns:
             QualityScore with evaluation results
@@ -5193,8 +5266,8 @@ QualityScore(8.5/10, PASS)
             ValueError: If content cannot be parsed
         &#34;&#34;&#34;
         try:
-            # Parse YAML content using metrics class
-            metrics = SceneMetrics.from_yaml_content(content)
+            # Parse JSON content using metrics class
+            metrics = SceneMetrics.from_json_content(content)
 
             # Get score and check if passes threshold
             score = metrics.get_score()
@@ -5252,7 +5325,7 @@ QualityScore(8.5/10, PASS)
         Generate detailed, actionable feedback for improvement.
 
         Args:
-            content: YAML string containing scene texts
+            content: JSON string containing scene texts
 
         Returns:
             Multi-line feedback with specific suggestions
@@ -5312,7 +5385,7 @@ including vivid descriptions, dialogue presence, tone consistency,
 and sensory details.</p>
 <h2 id="example">Example</h2>
 <pre><code class="language-python-repl">&gt;&gt;&gt; evaluator = SceneEvaluator()
-&gt;&gt;&gt; score = evaluator.evaluate(scene_yaml_content)
+&gt;&gt;&gt; score = evaluator.evaluate(scene_json_content)
 &gt;&gt;&gt; print(f&quot;Score: {score.score}/10&quot;)
 &gt;&gt;&gt; print(score.feedback)
 </code></pre>
@@ -5342,7 +5415,7 @@ and sensory details.</p>
     Evaluate scene text content.
 
     Args:
-        content: YAML string containing scene texts
+        content: JSON string containing scene texts
 
     Returns:
         QualityScore with evaluation results
@@ -5351,8 +5424,8 @@ and sensory details.</p>
         ValueError: If content cannot be parsed
     &#34;&#34;&#34;
     try:
-        # Parse YAML content using metrics class
-        metrics = SceneMetrics.from_yaml_content(content)
+        # Parse JSON content using metrics class
+        metrics = SceneMetrics.from_json_content(content)
 
         # Get score and check if passes threshold
         score = metrics.get_score()
@@ -5409,7 +5482,7 @@ and sensory details.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>content</code></strong></dt>
-<dd>YAML string containing scene texts</dd>
+<dd>JSON string containing scene texts</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>QualityScore with evaluation results</p>
@@ -5432,7 +5505,7 @@ and sensory details.</p>
     Generate detailed, actionable feedback for improvement.
 
     Args:
-        content: YAML string containing scene texts
+        content: JSON string containing scene texts
 
     Returns:
         Multi-line feedback with specific suggestions
@@ -5490,7 +5563,7 @@ and sensory details.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>content</code></strong></dt>
-<dd>YAML string containing scene texts</dd>
+<dd>JSON string containing scene texts</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>Multi-line feedback with specific suggestions</p></div>
@@ -5501,7 +5574,7 @@ and sensory details.</p>
 <li><code><b><a title="space_hulk_game.quality.evaluator.QualityEvaluator" href="evaluator.html#space_hulk_game.quality.evaluator.QualityEvaluator">QualityEvaluator</a></b></code>:
 <ul class="hlist">
 <li><code><a title="space_hulk_game.quality.evaluator.QualityEvaluator.generate_feedback" href="evaluator.html#space_hulk_game.quality.evaluator.QualityEvaluator.generate_feedback">generate_feedback</a></code></li>
-<li><code><a title="space_hulk_game.quality.evaluator.QualityEvaluator.parse_yaml" href="evaluator.html#space_hulk_game.quality.evaluator.QualityEvaluator.parse_yaml">parse_yaml</a></code></li>
+<li><code><a title="space_hulk_game.quality.evaluator.QualityEvaluator.parse_json" href="evaluator.html#space_hulk_game.quality.evaluator.QualityEvaluator.parse_json">parse_json</a></code></li>
 <li><code><a title="space_hulk_game.quality.evaluator.QualityEvaluator.score" href="evaluator.html#space_hulk_game.quality.evaluator.QualityEvaluator.score">score</a></code></li>
 </ul>
 </li>
@@ -5546,27 +5619,27 @@ class SceneMetrics:
     min_vivid_percentage: float = 70.0  # 70% should be vivid
 
     @classmethod
-    def from_yaml_content(cls, yaml_content: str) -&gt; &#34;SceneMetrics&#34;:
+    def from_json_content(cls, json_content: str) -&gt; &#34;SceneMetrics&#34;:
         &#34;&#34;&#34;
-        Create SceneMetrics from YAML content string.
+        Create SceneMetrics from JSON content string.
 
         Args:
-            yaml_content: YAML string containing scene texts data
+            json_content: JSON string containing scene texts data
 
         Returns:
             SceneMetrics instance with measured values
         &#34;&#34;&#34;
         try:
-            # Handle markdown-wrapped YAML
-            content = yaml_content.strip()
+            # Handle markdown-wrapped JSON
+            content = json_content.strip()
             if content.startswith(&#34;```&#34;):
                 lines = content.split(&#34;\n&#34;)
                 content = &#34;\n&#34;.join(lines[1:-1])
 
-            data = yaml.safe_load(content)
+            data = json.loads(content)
             return cls.from_dict(data)
         except Exception as e:
-            raise ValueError(f&#34;Failed to parse YAML content: {e}&#34;) from e
+            raise ValueError(f&#34;Failed to parse JSON content: {e}&#34;) from e
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -&gt; &#34;SceneMetrics&#34;:
@@ -5912,15 +5985,15 @@ class SceneMetrics:
 <h2 id="returns">Returns</h2>
 <p>SceneMetrics instance with measured values</p></div>
 </dd>
-<dt id="space_hulk_game.quality.SceneMetrics.from_yaml_content"><code class="name flex">
-<span>def <span class="ident">from_yaml_content</span></span>(<span>yaml_content: str) ‑> <a title="space_hulk_game.quality.scene_metrics.SceneMetrics" href="scene_metrics.html#space_hulk_game.quality.scene_metrics.SceneMetrics">SceneMetrics</a></span>
+<dt id="space_hulk_game.quality.SceneMetrics.from_json_content"><code class="name flex">
+<span>def <span class="ident">from_json_content</span></span>(<span>json_content: str) ‑> <a title="space_hulk_game.quality.scene_metrics.SceneMetrics" href="scene_metrics.html#space_hulk_game.quality.scene_metrics.SceneMetrics">SceneMetrics</a></span>
 </code></dt>
 <dd>
-<div class="desc"><p>Create SceneMetrics from YAML content string.</p>
+<div class="desc"><p>Create SceneMetrics from JSON content string.</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>yaml_content</code></strong></dt>
-<dd>YAML string containing scene texts data</dd>
+<dt><strong><code>json_content</code></strong></dt>
+<dd>JSON string containing scene texts data</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>SceneMetrics instance with measured values</p></div>
@@ -6681,7 +6754,7 @@ implementing a retry loop that provides feedback for improvement.</p>
 <li><code><a title="space_hulk_game.quality.MechanicsMetrics.average_rule_clarity" href="#space_hulk_game.quality.MechanicsMetrics.average_rule_clarity">average_rule_clarity</a></code></li>
 <li><code><a title="space_hulk_game.quality.MechanicsMetrics.completeness_percentage" href="#space_hulk_game.quality.MechanicsMetrics.completeness_percentage">completeness_percentage</a></code></li>
 <li><code><a title="space_hulk_game.quality.MechanicsMetrics.from_dict" href="#space_hulk_game.quality.MechanicsMetrics.from_dict">from_dict</a></code></li>
-<li><code><a title="space_hulk_game.quality.MechanicsMetrics.from_yaml_content" href="#space_hulk_game.quality.MechanicsMetrics.from_yaml_content">from_yaml_content</a></code></li>
+<li><code><a title="space_hulk_game.quality.MechanicsMetrics.from_json_content" href="#space_hulk_game.quality.MechanicsMetrics.from_json_content">from_json_content</a></code></li>
 <li><code><a title="space_hulk_game.quality.MechanicsMetrics.get_failures" href="#space_hulk_game.quality.MechanicsMetrics.get_failures">get_failures</a></code></li>
 <li><code><a title="space_hulk_game.quality.MechanicsMetrics.get_score" href="#space_hulk_game.quality.MechanicsMetrics.get_score">get_score</a></code></li>
 <li><code><a title="space_hulk_game.quality.MechanicsMetrics.has_balance_notes" href="#space_hulk_game.quality.MechanicsMetrics.has_balance_notes">has_balance_notes</a></code></li>
@@ -6711,7 +6784,7 @@ implementing a retry loop that provides feedback for improvement.</p>
 <li><code><a title="space_hulk_game.quality.NarrativeMetrics.all_connections_valid" href="#space_hulk_game.quality.NarrativeMetrics.all_connections_valid">all_connections_valid</a></code></li>
 <li><code><a title="space_hulk_game.quality.NarrativeMetrics.completeness_percentage" href="#space_hulk_game.quality.NarrativeMetrics.completeness_percentage">completeness_percentage</a></code></li>
 <li><code><a title="space_hulk_game.quality.NarrativeMetrics.from_dict" href="#space_hulk_game.quality.NarrativeMetrics.from_dict">from_dict</a></code></li>
-<li><code><a title="space_hulk_game.quality.NarrativeMetrics.from_yaml_content" href="#space_hulk_game.quality.NarrativeMetrics.from_yaml_content">from_yaml_content</a></code></li>
+<li><code><a title="space_hulk_game.quality.NarrativeMetrics.from_json_content" href="#space_hulk_game.quality.NarrativeMetrics.from_json_content">from_json_content</a></code></li>
 <li><code><a title="space_hulk_game.quality.NarrativeMetrics.get_failures" href="#space_hulk_game.quality.NarrativeMetrics.get_failures">get_failures</a></code></li>
 <li><code><a title="space_hulk_game.quality.NarrativeMetrics.get_score" href="#space_hulk_game.quality.NarrativeMetrics.get_score">get_score</a></code></li>
 <li><code><a title="space_hulk_game.quality.NarrativeMetrics.has_orphaned_scenes" href="#space_hulk_game.quality.NarrativeMetrics.has_orphaned_scenes">has_orphaned_scenes</a></code></li>
@@ -6738,7 +6811,7 @@ implementing a retry loop that provides feedback for improvement.</p>
 <li><code><a title="space_hulk_game.quality.PlotMetrics.branching_paths_count" href="#space_hulk_game.quality.PlotMetrics.branching_paths_count">branching_paths_count</a></code></li>
 <li><code><a title="space_hulk_game.quality.PlotMetrics.endings_count" href="#space_hulk_game.quality.PlotMetrics.endings_count">endings_count</a></code></li>
 <li><code><a title="space_hulk_game.quality.PlotMetrics.from_dict" href="#space_hulk_game.quality.PlotMetrics.from_dict">from_dict</a></code></li>
-<li><code><a title="space_hulk_game.quality.PlotMetrics.from_yaml_content" href="#space_hulk_game.quality.PlotMetrics.from_yaml_content">from_yaml_content</a></code></li>
+<li><code><a title="space_hulk_game.quality.PlotMetrics.from_json_content" href="#space_hulk_game.quality.PlotMetrics.from_json_content">from_json_content</a></code></li>
 <li><code><a title="space_hulk_game.quality.PlotMetrics.get_failures" href="#space_hulk_game.quality.PlotMetrics.get_failures">get_failures</a></code></li>
 <li><code><a title="space_hulk_game.quality.PlotMetrics.get_score" href="#space_hulk_game.quality.PlotMetrics.get_score">get_score</a></code></li>
 <li><code><a title="space_hulk_game.quality.PlotMetrics.has_acts" href="#space_hulk_game.quality.PlotMetrics.has_acts">has_acts</a></code></li>
@@ -6765,7 +6838,7 @@ implementing a retry loop that provides feedback for improvement.</p>
 <h4><code><a title="space_hulk_game.quality.PuzzleMetrics" href="#space_hulk_game.quality.PuzzleMetrics">PuzzleMetrics</a></code></h4>
 <ul class="">
 <li><code><a title="space_hulk_game.quality.PuzzleMetrics.from_dict" href="#space_hulk_game.quality.PuzzleMetrics.from_dict">from_dict</a></code></li>
-<li><code><a title="space_hulk_game.quality.PuzzleMetrics.from_yaml_content" href="#space_hulk_game.quality.PuzzleMetrics.from_yaml_content">from_yaml_content</a></code></li>
+<li><code><a title="space_hulk_game.quality.PuzzleMetrics.from_json_content" href="#space_hulk_game.quality.PuzzleMetrics.from_json_content">from_json_content</a></code></li>
 <li><code><a title="space_hulk_game.quality.PuzzleMetrics.get_failures" href="#space_hulk_game.quality.PuzzleMetrics.get_failures">get_failures</a></code></li>
 <li><code><a title="space_hulk_game.quality.PuzzleMetrics.get_score" href="#space_hulk_game.quality.PuzzleMetrics.get_score">get_score</a></code></li>
 <li><code><a title="space_hulk_game.quality.PuzzleMetrics.has_artifacts" href="#space_hulk_game.quality.PuzzleMetrics.has_artifacts">has_artifacts</a></code></li>
@@ -6793,12 +6866,13 @@ implementing a retry loop that provides feedback for improvement.</p>
 <ul class="">
 <li><code><a title="space_hulk_game.quality.QualityEvaluator.evaluate" href="#space_hulk_game.quality.QualityEvaluator.evaluate">evaluate</a></code></li>
 <li><code><a title="space_hulk_game.quality.QualityEvaluator.generate_feedback" href="#space_hulk_game.quality.QualityEvaluator.generate_feedback">generate_feedback</a></code></li>
-<li><code><a title="space_hulk_game.quality.QualityEvaluator.parse_yaml" href="#space_hulk_game.quality.QualityEvaluator.parse_yaml">parse_yaml</a></code></li>
+<li><code><a title="space_hulk_game.quality.QualityEvaluator.parse_json" href="#space_hulk_game.quality.QualityEvaluator.parse_json">parse_json</a></code></li>
 <li><code><a title="space_hulk_game.quality.QualityEvaluator.score" href="#space_hulk_game.quality.QualityEvaluator.score">score</a></code></li>
 </ul>
 </li>
 <li>
 <h4><code><a title="space_hulk_game.quality.QualityScore" href="#space_hulk_game.quality.QualityScore">QualityScore</a></code></h4>
+<ul class="">
 <ul class="">
 <li><code><a title="space_hulk_game.quality.QualityScore.details" href="#space_hulk_game.quality.QualityScore.details">details</a></code></li>
 <li><code><a title="space_hulk_game.quality.QualityScore.feedback" href="#space_hulk_game.quality.QualityScore.feedback">feedback</a></code></li>
@@ -6809,6 +6883,7 @@ implementing a retry loop that provides feedback for improvement.</p>
 <li><code><a title="space_hulk_game.quality.QualityScore.score" href="#space_hulk_game.quality.QualityScore.score">score</a></code></li>
 <li><code><a title="space_hulk_game.quality.QualityScore.to_dict" href="#space_hulk_game.quality.QualityScore.to_dict">to_dict</a></code></li>
 <li><code><a title="space_hulk_game.quality.QualityScore.to_json" href="#space_hulk_game.quality.QualityScore.to_json">to_json</a></code></li>
+<li><code><a title="space_hulk_game.quality.QualityScore.to_processing_result" href="#space_hulk_game.quality.QualityScore.to_processing_result">to_processing_result</a></code></li>
 <li><code><a title="space_hulk_game.quality.QualityScore.to_processing_result" href="#space_hulk_game.quality.QualityScore.to_processing_result">to_processing_result</a></code></li>
 </ul>
 </li>
@@ -6824,7 +6899,7 @@ implementing a retry loop that provides feedback for improvement.</p>
 <ul class="">
 <li><code><a title="space_hulk_game.quality.SceneMetrics.average_description_length" href="#space_hulk_game.quality.SceneMetrics.average_description_length">average_description_length</a></code></li>
 <li><code><a title="space_hulk_game.quality.SceneMetrics.from_dict" href="#space_hulk_game.quality.SceneMetrics.from_dict">from_dict</a></code></li>
-<li><code><a title="space_hulk_game.quality.SceneMetrics.from_yaml_content" href="#space_hulk_game.quality.SceneMetrics.from_yaml_content">from_yaml_content</a></code></li>
+<li><code><a title="space_hulk_game.quality.SceneMetrics.from_json_content" href="#space_hulk_game.quality.SceneMetrics.from_json_content">from_json_content</a></code></li>
 <li><code><a title="space_hulk_game.quality.SceneMetrics.get_failures" href="#space_hulk_game.quality.SceneMetrics.get_failures">get_failures</a></code></li>
 <li><code><a title="space_hulk_game.quality.SceneMetrics.get_score" href="#space_hulk_game.quality.SceneMetrics.get_score">get_score</a></code></li>
 <li><code><a title="space_hulk_game.quality.SceneMetrics.has_sensory_details" href="#space_hulk_game.quality.SceneMetrics.has_sensory_details">has_sensory_details</a></code></li>

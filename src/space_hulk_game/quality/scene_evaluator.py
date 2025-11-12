@@ -24,7 +24,7 @@ class SceneEvaluator(QualityEvaluator):
 
     Example:
         >>> evaluator = SceneEvaluator()
-        >>> score = evaluator.evaluate(scene_yaml_content)
+        >>> score = evaluator.evaluate(scene_json_content)
         >>> print(f"Score: {score.score}/10")
         >>> print(score.feedback)
     """
@@ -44,7 +44,7 @@ class SceneEvaluator(QualityEvaluator):
         Evaluate scene text content.
 
         Args:
-            content: YAML string containing scene texts
+            content: JSON string containing scene texts
 
         Returns:
             QualityScore with evaluation results
@@ -53,8 +53,8 @@ class SceneEvaluator(QualityEvaluator):
             ValueError: If content cannot be parsed
         """
         try:
-            # Parse YAML content using metrics class
-            metrics = SceneMetrics.from_yaml_content(content)
+            # Parse JSON content using metrics class
+            metrics = SceneMetrics.from_json_content(content)
 
             # Get score and check if passes threshold
             score = metrics.get_score()
@@ -112,7 +112,7 @@ class SceneEvaluator(QualityEvaluator):
         Generate detailed, actionable feedback for improvement.
 
         Args:
-            content: YAML string containing scene texts
+            content: JSON string containing scene texts
 
         Returns:
             Multi-line feedback with specific suggestions

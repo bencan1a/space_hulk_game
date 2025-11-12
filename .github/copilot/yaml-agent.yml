@@ -73,7 +73,7 @@ project_files:
         expected_output: >
           A detailed plot outline
         agent: plot_master
-        output_file: plot_outline.yaml
+        output_file: plot_outline.json
 
   game_design:
     path: src/space_hulk_game/config/gamedesign.yaml
@@ -81,22 +81,22 @@ project_files:
     structure: Game-specific configurations
 
   narrative_map:
-    path: narrative_map.yaml
+    path: narrative_map.json
     purpose: Scene connections and narrative flow
     structure: Scene graph with connections
 
   scene_texts:
-    path: scene_texts.yaml
+    path: scene_texts.json
     purpose: Scene descriptions and dialogue
     structure: Scene-by-scene text content
 
   plot_outline:
-    path: plot_outline.yaml
+    path: plot_outline.json
     purpose: Story structure and plot points
     structure: Hierarchical plot elements
 
   puzzle_design:
-    path: puzzle_design.yaml
+    path: puzzle_design.json
     purpose: Puzzle specifications
     structure: Puzzle definitions with solutions
 

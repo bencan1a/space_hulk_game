@@ -1422,10 +1422,10 @@ True
 </summary>
 <pre><code class="python">class ContentLoader:
     &#34;&#34;&#34;
-    Loads AI-generated YAML files and converts them into GameData.
+    Loads AI-generated JSON files and converts them into GameData.
 
     The ContentLoader implements a Facade pattern to simplify the complex process
-    of loading and merging multiple YAML files. It uses Strategy pattern internally
+    of loading and merging multiple JSON files. It uses Strategy pattern internally
     for handling different file formats and Builder pattern for constructing GameData.
 
     Attributes:
@@ -1443,7 +1443,7 @@ True
         &gt;&gt;&gt; game_data = loader.load_game(&#34;game-config/&#34;)
 
         Load individual files:
-        &gt;&gt;&gt; plot_data = loader.load_yaml(&#34;game-config/plot_outline.yaml&#34;)
+        &gt;&gt;&gt; plot_data = loader.load_json(&#34;game-config/plot_outline.json&#34;)
     &#34;&#34;&#34;
 
     def __init__(self, strict_mode: bool = False):
@@ -1459,14 +1459,14 @@ True
 
     def load_game(self, output_dir: str) -&gt; GameData:
         &#34;&#34;&#34;
-        Load all generated YAML files into a playable game.
+        Load all generated JSON files into a playable game.
 
         This is the main entry point for loading a complete game. It loads
-        all 5 YAML files, validates them, converts them to engine objects,
+        all 5 JSON files, validates them, converts them to engine objects,
         and merges them into a single GameData structure.
 
         Args:
-            output_dir: Directory containing the generated YAML files.
+            output_dir: Directory containing the generated JSON files.
 
         Returns:
             GameData object containing all loaded content.
@@ -1482,15 +1482,15 @@ True
         &#34;&#34;&#34;
         logger.info(f&#34;Loading game from directory: {output_dir}&#34;)
 
-        # Load all YAML files
+        # Load all JSON files
         base_path = Path(output_dir)
-        plot = self.load_yaml(str(base_path / &#34;plot_outline.yaml&#34;))
-        narrative = self.load_yaml(str(base_path / &#34;narrative_map.yaml&#34;))
-        puzzles = self.load_yaml(str(base_path / &#34;puzzle_design.yaml&#34;))
-        scenes = self.load_yaml(str(base_path / &#34;scene_texts.yaml&#34;))
-        mechanics = self.load_yaml(str(base_path / &#34;prd_document.yaml&#34;))
+        plot = self.load_json(str(base_path / &#34;plot_outline.json&#34;))
+        narrative = self.load_json(str(base_path / &#34;narrative_map.json&#34;))
+        puzzles = self.load_json(str(base_path / &#34;puzzle_design.json&#34;))
+        scenes = self.load_json(str(base_path / &#34;scene_texts.json&#34;))
+        mechanics = self.load_json(str(base_path / &#34;prd_document.json&#34;))
 
-        logger.info(&#34;All YAML files loaded successfully&#34;)
+        logger.info(&#34;All JSON files loaded successfully&#34;)
 
         # Merge into GameData
         game_data = self.merge_into_game_data(plot, narrative, puzzles, scenes, mechanics)
@@ -1577,6 +1577,85 @@ True
                 logger.warning(f&#34;Error loading file, returning empty dict: {filepath}&#34;)
                 return {}
 
+    def load_json(self, filepath: str) -&gt; dict[str, Any]:
+        &#34;&#34;&#34;
+        Load and parse a JSON file with error handling.
+
+        Handles common issues with AI-generated JSON:
+        - Markdown code fence wrapping (```json ... ```)
+        - Extra whitespace
+        - Missing files
+        - Invalid JSON syntax
+
+        Args:
+            filepath: Path to the JSON file to load.
+
+        Returns:
+            Parsed JSON content as a dictionary.
+
+        Raises:
+            LoaderError: If file is missing or cannot be parsed.
+
+        Examples:
+            &gt;&gt;&gt; loader = ContentLoader()
+            &gt;&gt;&gt; data = loader.load_json(&#34;game-config/plot_outline.json&#34;)
+            &gt;&gt;&gt; isinstance(data, dict)
+            True
+        &#34;&#34;&#34;
+        logger.debug(f&#34;Loading JSON file: {filepath}&#34;)
+
+        # Check if file exists
+        if not Path(filepath).exists():
+            error_msg = f&#34;File not found: {filepath}&#34;
+            logger.error(error_msg)
+            if self.strict_mode:
+                raise LoaderError(error_msg)
+            else:
+                logger.warning(f&#34;File missing, returning empty dict: {filepath}&#34;)
+                return {}
+
+        try:
+            # Read file content
+            with Path(filepath).open(encoding=&#34;utf-8&#34;) as f:
+                content = f.read()
+
+            # Clean up markdown wrapping (common AI output issue)
+            content = self._clean_json_content(content)
+
+            # Parse JSON
+            data = json.loads(content)
+
+            if data is None:
+                logger.warning(f&#34;Empty JSON file: {filepath}&#34;)
+                return {}
+
+            if not isinstance(data, dict):
+                error_msg = f&#34;Invalid JSON structure in {filepath}: expected dict, got {type(data)}&#34;
+                logger.error(error_msg)
+                if self.strict_mode:
+                    raise JSONParseError(error_msg)
+                return {}
+
+            logger.debug(f&#34;Successfully loaded {filepath}: {len(data)} top-level keys&#34;)
+            return data
+
+        except json.JSONDecodeError as e:
+            error_msg = f&#34;JSON parsing error in {filepath}: {e}&#34;
+            logger.error(error_msg)
+            if self.strict_mode:
+                raise JSONParseError(error_msg) from e
+            else:
+                logger.warning(f&#34;JSON error, returning empty dict: {filepath}&#34;)
+                return {}
+        except Exception as e:
+            error_msg = f&#34;Unexpected error loading {filepath}: {e}&#34;
+            logger.error(error_msg)
+            if self.strict_mode:
+                raise LoaderError(error_msg) from e
+            else:
+                logger.warning(f&#34;Error loading file, returning empty dict: {filepath}&#34;)
+                return {}
+
     def _clean_yaml_content(self, content: str) -&gt; str:
         &#34;&#34;&#34;
         Clean up common issues in AI-generated YAML content.
@@ -1600,6 +1679,29 @@ True
 
         return content
 
+    def _clean_json_content(self, content: str) -&gt; str:
+        &#34;&#34;&#34;
+        Clean up common issues in AI-generated JSON content.
+
+        Specifically, this method:
+            - Removes markdown code fences (e.g., ```json ... ```) that may wrap JSON content.
+            - Strips leading and trailing whitespace from the content.
+
+        Args:
+            content: Raw JSON content string.
+
+        Returns:
+            Cleaned JSON content with code fences and extraneous whitespace removed.
+        &#34;&#34;&#34;
+        # Remove markdown code fences
+        content = re.sub(r&#34;^\s*```json\s*\n?&#34;, &#34;&#34;, content, flags=re.IGNORECASE | re.MULTILINE)
+        content = re.sub(r&#34;\n?\s*```\s*$&#34;, &#34;&#34;, content, flags=re.MULTILINE)
+
+        # Strip leading/trailing whitespace
+        content = content.strip()
+
+        return content
+
     def merge_into_game_data(
         self,
         plot: dict[str, Any],
@@ -1609,17 +1711,17 @@ True
         mechanics: dict[str, Any],
     ) -&gt; GameData:
         &#34;&#34;&#34;
-        Merge all loaded YAML data into a GameData object.
+        Merge all loaded JSON data into a GameData object.
 
         This method implements the core conversion logic, transforming
-        the YAML structures into Scene, Item, NPC, and Event objects.
+        the JSON structures into Scene, Item, NPC, and Event objects.
 
         Args:
-            plot: Data from plot_outline.yaml
-            narrative: Data from narrative_map.yaml
-            puzzles: Data from puzzle_design.yaml
-            scenes_text: Data from scene_texts.yaml
-            mechanics: Data from prd_document.yaml
+            plot: Data from plot_outline.json
+            narrative: Data from narrative_map.json
+            puzzles: Data from puzzle_design.json
+            scenes_text: Data from scene_texts.json
+            mechanics: Data from prd_document.json
 
         Returns:
             Complete GameData object.
@@ -1627,7 +1729,7 @@ True
         Raises:
             ValidationError: If required data is missing.
         &#34;&#34;&#34;
-        logger.info(&#34;Merging YAML data into GameData&#34;)
+        logger.info(&#34;Merging JSON data into GameData&#34;)
 
         # Extract title and description
         title = self._extract_title(plot, narrative, mechanics)
@@ -2044,9 +2146,9 @@ True
             raise ValidationError(&#34;No starting scene found&#34;)
         return &#34;start&#34;</code></pre>
 </details>
-<div class="desc"><p>Loads AI-generated YAML files and converts them into GameData.</p>
+<div class="desc"><p>Loads AI-generated JSON files and converts them into GameData.</p>
 <p>The ContentLoader implements a Facade pattern to simplify the complex process
-of loading and merging multiple YAML files. It uses Strategy pattern internally
+of loading and merging multiple JSON files. It uses Strategy pattern internally
 for handling different file formats and Builder pattern for constructing GameData.</p>
 <h2 id="attributes">Attributes</h2>
 <dl>
@@ -2065,7 +2167,7 @@ If False, logs warnings and uses defaults.</dd>
 &gt;&gt;&gt; game_data = loader.load_game(&quot;game-config/&quot;)
 </code></pre>
 <p>Load individual files:</p>
-<pre><code class="language-python-repl">&gt;&gt;&gt; plot_data = loader.load_yaml(&quot;game-config/plot_outline.yaml&quot;)
+<pre><code class="language-python-repl">&gt;&gt;&gt; plot_data = loader.load_json(&quot;game-config/plot_outline.json&quot;)
 </code></pre>
 <p>Initialize the ContentLoader.</p>
 <h2 id="args">Args</h2>
@@ -2086,14 +2188,14 @@ If False, log warnings and use defaults.</dd>
 </summary>
 <pre><code class="python">def load_game(self, output_dir: str) -&gt; GameData:
     &#34;&#34;&#34;
-    Load all generated YAML files into a playable game.
+    Load all generated JSON files into a playable game.
 
     This is the main entry point for loading a complete game. It loads
-    all 5 YAML files, validates them, converts them to engine objects,
+    all 5 JSON files, validates them, converts them to engine objects,
     and merges them into a single GameData structure.
 
     Args:
-        output_dir: Directory containing the generated YAML files.
+        output_dir: Directory containing the generated JSON files.
 
     Returns:
         GameData object containing all loaded content.
@@ -2109,15 +2211,15 @@ If False, log warnings and use defaults.</dd>
     &#34;&#34;&#34;
     logger.info(f&#34;Loading game from directory: {output_dir}&#34;)
 
-    # Load all YAML files
+    # Load all JSON files
     base_path = Path(output_dir)
-    plot = self.load_yaml(str(base_path / &#34;plot_outline.yaml&#34;))
-    narrative = self.load_yaml(str(base_path / &#34;narrative_map.yaml&#34;))
-    puzzles = self.load_yaml(str(base_path / &#34;puzzle_design.yaml&#34;))
-    scenes = self.load_yaml(str(base_path / &#34;scene_texts.yaml&#34;))
-    mechanics = self.load_yaml(str(base_path / &#34;prd_document.yaml&#34;))
+    plot = self.load_json(str(base_path / &#34;plot_outline.json&#34;))
+    narrative = self.load_json(str(base_path / &#34;narrative_map.json&#34;))
+    puzzles = self.load_json(str(base_path / &#34;puzzle_design.json&#34;))
+    scenes = self.load_json(str(base_path / &#34;scene_texts.json&#34;))
+    mechanics = self.load_json(str(base_path / &#34;prd_document.json&#34;))
 
-    logger.info(&#34;All YAML files loaded successfully&#34;)
+    logger.info(&#34;All JSON files loaded successfully&#34;)
 
     # Merge into GameData
     game_data = self.merge_into_game_data(plot, narrative, puzzles, scenes, mechanics)
@@ -2125,14 +2227,14 @@ If False, log warnings and use defaults.</dd>
     logger.info(f&#34;Game loaded: &#39;{game_data.title}&#39; with {len(game_data.scenes)} scenes&#34;)
     return game_data</code></pre>
 </details>
-<div class="desc"><p>Load all generated YAML files into a playable game.</p>
+<div class="desc"><p>Load all generated JSON files into a playable game.</p>
 <p>This is the main entry point for loading a complete game. It loads
-all 5 YAML files, validates them, converts them to engine objects,
+all 5 JSON files, validates them, converts them to engine objects,
 and merges them into a single GameData structure.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>output_dir</code></strong></dt>
-<dd>Directory containing the generated YAML files.</dd>
+<dd>Directory containing the generated JSON files.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>GameData object containing all loaded content.</p>
@@ -2145,6 +2247,118 @@ and merges them into a single GameData structure.</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; loader = ContentLoader()
 &gt;&gt;&gt; game_data = loader.load_game(&quot;game-config/&quot;)
 &gt;&gt;&gt; len(game_data.scenes) &gt; 0
+True
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.engine.ContentLoader.load_json"><code class="name flex">
+<span>def <span class="ident">load_json</span></span>(<span>self, filepath: str) ‑> dict[str, typing.Any]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def load_json(self, filepath: str) -&gt; dict[str, Any]:
+    &#34;&#34;&#34;
+    Load and parse a JSON file with error handling.
+
+    Handles common issues with AI-generated JSON:
+    - Markdown code fence wrapping (```json ... ```)
+    - Extra whitespace
+    - Missing files
+    - Invalid JSON syntax
+
+    Args:
+        filepath: Path to the JSON file to load.
+
+    Returns:
+        Parsed JSON content as a dictionary.
+
+    Raises:
+        LoaderError: If file is missing or cannot be parsed.
+
+    Examples:
+        &gt;&gt;&gt; loader = ContentLoader()
+        &gt;&gt;&gt; data = loader.load_json(&#34;game-config/plot_outline.json&#34;)
+        &gt;&gt;&gt; isinstance(data, dict)
+        True
+    &#34;&#34;&#34;
+    logger.debug(f&#34;Loading JSON file: {filepath}&#34;)
+
+    # Check if file exists
+    if not Path(filepath).exists():
+        error_msg = f&#34;File not found: {filepath}&#34;
+        logger.error(error_msg)
+        if self.strict_mode:
+            raise LoaderError(error_msg)
+        else:
+            logger.warning(f&#34;File missing, returning empty dict: {filepath}&#34;)
+            return {}
+
+    try:
+        # Read file content
+        with Path(filepath).open(encoding=&#34;utf-8&#34;) as f:
+            content = f.read()
+
+        # Clean up markdown wrapping (common AI output issue)
+        content = self._clean_json_content(content)
+
+        # Parse JSON
+        data = json.loads(content)
+
+        if data is None:
+            logger.warning(f&#34;Empty JSON file: {filepath}&#34;)
+            return {}
+
+        if not isinstance(data, dict):
+            error_msg = f&#34;Invalid JSON structure in {filepath}: expected dict, got {type(data)}&#34;
+            logger.error(error_msg)
+            if self.strict_mode:
+                raise JSONParseError(error_msg)
+            return {}
+
+        logger.debug(f&#34;Successfully loaded {filepath}: {len(data)} top-level keys&#34;)
+        return data
+
+    except json.JSONDecodeError as e:
+        error_msg = f&#34;JSON parsing error in {filepath}: {e}&#34;
+        logger.error(error_msg)
+        if self.strict_mode:
+            raise JSONParseError(error_msg) from e
+        else:
+            logger.warning(f&#34;JSON error, returning empty dict: {filepath}&#34;)
+            return {}
+    except Exception as e:
+        error_msg = f&#34;Unexpected error loading {filepath}: {e}&#34;
+        logger.error(error_msg)
+        if self.strict_mode:
+            raise LoaderError(error_msg) from e
+        else:
+            logger.warning(f&#34;Error loading file, returning empty dict: {filepath}&#34;)
+            return {}</code></pre>
+</details>
+<div class="desc"><p>Load and parse a JSON file with error handling.</p>
+<p>Handles common issues with AI-generated JSON:
+- Markdown code fence wrapping (<code>json ...</code>)
+- Extra whitespace
+- Missing files
+- Invalid JSON syntax</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>filepath</code></strong></dt>
+<dd>Path to the JSON file to load.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Parsed JSON content as a dictionary.</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code><a title="space_hulk_game.engine.LoaderError" href="#space_hulk_game.engine.LoaderError">LoaderError</a></code></dt>
+<dd>If file is missing or cannot be parsed.</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; loader = ContentLoader()
+&gt;&gt;&gt; data = loader.load_json(&quot;game-config/plot_outline.json&quot;)
+&gt;&gt;&gt; isinstance(data, dict)
 True
 </code></pre></div>
 </dd>
@@ -2277,17 +2491,17 @@ True
     mechanics: dict[str, Any],
 ) -&gt; GameData:
     &#34;&#34;&#34;
-    Merge all loaded YAML data into a GameData object.
+    Merge all loaded JSON data into a GameData object.
 
     This method implements the core conversion logic, transforming
-    the YAML structures into Scene, Item, NPC, and Event objects.
+    the JSON structures into Scene, Item, NPC, and Event objects.
 
     Args:
-        plot: Data from plot_outline.yaml
-        narrative: Data from narrative_map.yaml
-        puzzles: Data from puzzle_design.yaml
-        scenes_text: Data from scene_texts.yaml
-        mechanics: Data from prd_document.yaml
+        plot: Data from plot_outline.json
+        narrative: Data from narrative_map.json
+        puzzles: Data from puzzle_design.json
+        scenes_text: Data from scene_texts.json
+        mechanics: Data from prd_document.json
 
     Returns:
         Complete GameData object.
@@ -2295,7 +2509,7 @@ True
     Raises:
         ValidationError: If required data is missing.
     &#34;&#34;&#34;
-    logger.info(&#34;Merging YAML data into GameData&#34;)
+    logger.info(&#34;Merging JSON data into GameData&#34;)
 
     # Extract title and description
     title = self._extract_title(plot, narrative, mechanics)
@@ -2344,21 +2558,21 @@ True
     logger.info(&#34;GameData merge complete&#34;)
     return game_data</code></pre>
 </details>
-<div class="desc"><p>Merge all loaded YAML data into a GameData object.</p>
+<div class="desc"><p>Merge all loaded JSON data into a GameData object.</p>
 <p>This method implements the core conversion logic, transforming
-the YAML structures into Scene, Item, NPC, and Event objects.</p>
+the JSON structures into Scene, Item, NPC, and Event objects.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>plot</code></strong></dt>
-<dd>Data from plot_outline.yaml</dd>
+<dd>Data from plot_outline.json</dd>
 <dt><strong><code>narrative</code></strong></dt>
-<dd>Data from narrative_map.yaml</dd>
+<dd>Data from narrative_map.json</dd>
 <dt><strong><code>puzzles</code></strong></dt>
-<dd>Data from puzzle_design.yaml</dd>
+<dd>Data from puzzle_design.json</dd>
 <dt><strong><code>scenes_text</code></strong></dt>
-<dd>Data from scene_texts.yaml</dd>
+<dd>Data from scene_texts.json</dd>
 <dt><strong><code>mechanics</code></strong></dt>
-<dd>Data from prd_document.yaml</dd>
+<dd>Data from prd_document.json</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>Complete GameData object.</p>
@@ -5284,6 +5498,28 @@ True
 </dd>
 </dl>
 </dd>
+<dt id="space_hulk_game.engine.JSONParseError"><code class="flex name class">
+<span>class <span class="ident">JSONParseError</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class JSONParseError(LoaderError):
+    &#34;&#34;&#34;Raised when JSON parsing fails.&#34;&#34;&#34;
+
+    pass</code></pre>
+</details>
+<div class="desc"><p>Raised when JSON parsing fails.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="space_hulk_game.engine.loader.LoaderError" href="loader.html#space_hulk_game.engine.loader.LoaderError">LoaderError</a></li>
+<li>builtins.Exception</li>
+<li>builtins.BaseException</li>
+</ul>
+</dd>
 <dt id="space_hulk_game.engine.LoaderError"><code class="flex name class">
 <span>class <span class="ident">LoaderError</span></span>
 <span>(</span><span>*args, **kwargs)</span>
@@ -5306,6 +5542,7 @@ True
 </ul>
 <h3>Subclasses</h3>
 <ul class="hlist">
+<li><a title="space_hulk_game.engine.loader.JSONParseError" href="loader.html#space_hulk_game.engine.loader.JSONParseError">JSONParseError</a></li>
 <li><a title="space_hulk_game.engine.loader.ValidationError" href="loader.html#space_hulk_game.engine.loader.ValidationError">ValidationError</a></li>
 <li><a title="space_hulk_game.engine.loader.YAMLParseError" href="loader.html#space_hulk_game.engine.loader.YAMLParseError">YAMLParseError</a></li>
 </ul>
@@ -9615,6 +9852,7 @@ False
 <h4><code><a title="space_hulk_game.engine.ContentLoader" href="#space_hulk_game.engine.ContentLoader">ContentLoader</a></code></h4>
 <ul class="">
 <li><code><a title="space_hulk_game.engine.ContentLoader.load_game" href="#space_hulk_game.engine.ContentLoader.load_game">load_game</a></code></li>
+<li><code><a title="space_hulk_game.engine.ContentLoader.load_json" href="#space_hulk_game.engine.ContentLoader.load_json">load_json</a></code></li>
 <li><code><a title="space_hulk_game.engine.ContentLoader.load_yaml" href="#space_hulk_game.engine.ContentLoader.load_yaml">load_yaml</a></code></li>
 <li><code><a title="space_hulk_game.engine.ContentLoader.merge_into_game_data" href="#space_hulk_game.engine.ContentLoader.merge_into_game_data">merge_into_game_data</a></code></li>
 </ul>
@@ -9714,6 +9952,9 @@ False
 <li><code><a title="space_hulk_game.engine.Item.use_text" href="#space_hulk_game.engine.Item.use_text">use_text</a></code></li>
 <li><code><a title="space_hulk_game.engine.Item.useable" href="#space_hulk_game.engine.Item.useable">useable</a></code></li>
 </ul>
+</li>
+<li>
+<h4><code><a title="space_hulk_game.engine.JSONParseError" href="#space_hulk_game.engine.JSONParseError">JSONParseError</a></code></h4>
 </li>
 <li>
 <h4><code><a title="space_hulk_game.engine.LoaderError" href="#space_hulk_game.engine.LoaderError">LoaderError</a></code></h4>

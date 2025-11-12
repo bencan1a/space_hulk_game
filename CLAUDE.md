@@ -223,7 +223,7 @@ PlotMasterAgent:  # Must match the key used in crew.py
 
 ### Output Structure
 
-Agent outputs are written to `game-config/*.yaml` based on templates defined there. The game generation creates structured YAML files containing:
+Agent outputs are written to `game-config/*.json` based on templates defined there. The game generation creates structured JSON files containing:
 - Plot outlines with branching paths
 - Scene maps and connections
 - Puzzle definitions
@@ -368,7 +368,7 @@ When writing new features, add unit tests with mocks first, then optionally vali
 - **LLM timeouts in Ollama**: Consider timeout detection in crew execution
 
 ### Output Files
-- Agent outputs write to `game-config/*.yaml`
+- Agent outputs write to `game-config/*.json`
 - Templates in `game-config/` define expected structure
 - Temporary debug scripts go in `tmp/` (gitignored)
 - Development plans go in `project-plans/`

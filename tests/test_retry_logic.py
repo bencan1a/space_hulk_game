@@ -84,30 +84,43 @@ class TestTaskWithQualityCheck(unittest.TestCase):
         # Create a task function that returns good quality output
         def good_task(**kwargs):
             return """
-title: "Excellent Adventure"
-setting: "A detailed and immersive setting description with rich atmosphere and clear stakes."
-themes:
-  - survival
-  - mystery
-  - horror
-tone: "Dark, tense, and atmospheric"
-main_branches:
-  - path: "Investigation Path"
-    description: "Search for clues about what happened to the crew"
-  - path: "Escape Path"
-    description: "Find a way to escape the derelict vessel"
-  - path: "Combat Path"
-    description: "Fight through hostile entities"
-endings:
-  - name: "Victory"
-    description: "Successfully escape with critical intelligence"
-    type: "victory"
-  - name: "Defeat"
-    description: "Overwhelmed by the hostile forces"
-    type: "defeat"
-  - name: "Sacrifice"
-    description: "Sacrifice yourself to save others"
-    type: "neutral"
+{
+  "title": "Excellent Adventure",
+  "setting": "A detailed and immersive setting description with rich atmosphere and clear stakes.",
+  "themes": ["survival", "mystery", "horror"],
+  "tone": "Dark, tense, and atmospheric",
+  "main_branches": [
+    {
+      "path": "Investigation Path",
+      "description": "Search for clues about what happened to the crew"
+    },
+    {
+      "path": "Escape Path",
+      "description": "Find a way to escape the derelict vessel"
+    },
+    {
+      "path": "Combat Path",
+      "description": "Fight through hostile entities"
+    }
+  ],
+  "endings": [
+    {
+      "name": "Victory",
+      "description": "Successfully escape with critical intelligence",
+      "type": "victory"
+    },
+    {
+      "name": "Defeat",
+      "description": "Overwhelmed by the hostile forces",
+      "type": "defeat"
+    },
+    {
+      "name": "Sacrifice",
+      "description": "Sacrifice yourself to save others",
+      "type": "neutral"
+    }
+  ]
+}
 """
 
         wrapper = TaskWithQualityCheck(task_type=TaskType.PLOT, pass_threshold=6.0, max_retries=3)
@@ -128,28 +141,38 @@ endings:
             call_count[0] += 1
             if call_count[0] == 1:
                 # First attempt: poor quality (minimal content)
-                return "title: Test\nsetting: Bad"
+                return '{"title": "Test", "setting": "Bad"}'
             else:
                 # Second attempt: good quality
                 return """
-title: "Improved Plot"
-setting: "A detailed and well-developed setting with clear atmosphere and stakes."
-themes:
-  - mystery
-  - horror
-tone: "Dark and atmospheric"
-main_branches:
-  - path: "Path A"
-    description: "A detailed branching path with clear choices and consequences"
-  - path: "Path B"
-    description: "An alternative path with different challenges"
-endings:
-  - name: "Victory"
-    description: "A satisfying victory ending"
-    type: "victory"
-  - name: "Defeat"
-    description: "A dramatic defeat ending"
-    type: "defeat"
+{
+  "title": "Improved Plot",
+  "setting": "A detailed and well-developed setting with clear atmosphere and stakes.",
+  "themes": ["mystery", "horror"],
+  "tone": "Dark and atmospheric",
+  "main_branches": [
+    {
+      "path": "Path A",
+      "description": "A detailed branching path with clear choices and consequences"
+    },
+    {
+      "path": "Path B",
+      "description": "An alternative path with different challenges"
+    }
+  ],
+  "endings": [
+    {
+      "name": "Victory",
+      "description": "A satisfying victory ending",
+      "type": "victory"
+    },
+    {
+      "name": "Defeat",
+      "description": "A dramatic defeat ending",
+      "type": "defeat"
+    }
+  ]
+}
 """
 
         wrapper = TaskWithQualityCheck(task_type=TaskType.PLOT, pass_threshold=6.0, max_retries=3)
@@ -168,7 +191,7 @@ endings:
 
         # Create a task that always fails quality checks
         def failing_task(**kwargs):
-            return "title: Bad\nsetting: Poor"
+            return '{"title": "Bad", "setting": "Poor"}'
 
         wrapper = TaskWithQualityCheck(task_type=TaskType.PLOT, pass_threshold=6.0, max_retries=3)
 
@@ -178,7 +201,7 @@ endings:
             )
 
         # Should return output even if it doesn't pass
-        self.assertIn("title: Bad", output)
+        self.assertIn('"title": "Bad"', output)
         self.assertFalse(quality.passed)
         self.assertEqual(attempts, 3)
 
@@ -198,7 +221,7 @@ endings:
                 feedback_received.append(list(kwargs["feedback_history"]))
 
             # Always return poor quality to test feedback accumulation
-            return "title: Test\nsetting: Bad"
+            return '{"title": "Test", "setting": "Bad"}'
 
         wrapper = TaskWithQualityCheck(task_type=TaskType.PLOT, pass_threshold=6.0, max_retries=3)
 
@@ -229,30 +252,43 @@ endings:
                 raise RuntimeError("Simulated task failure")
             # Second attempt succeeds with high quality output
             return """
-title: "Recovery Test: A Comprehensive Adventure"
-setting: "A detailed and richly described setting after recovery from error, with atmospheric details and clear stakes that draw the player into the narrative."
-themes:
-  - recovery
-  - resilience
-  - redemption
-tone: "Hopeful yet tense"
-main_branches:
-  - path: "Success Path"
-    description: "A detailed path to success after failure with clear challenges and rewards"
-  - path: "Alternative Route"
-    description: "An alternative approach with different consequences and opportunities"
-  - path: "Risk and Reward"
-    description: "A high-risk, high-reward path for bold adventurers"
-endings:
-  - name: "Victory"
-    description: "Overcame the challenge through perseverance and skill"
-    type: "victory"
-  - name: "Pyrrhic Victory"
-    description: "Success but at great cost"
-    type: "neutral"
-  - name: "Learning Experience"
-    description: "Failure that teaches valuable lessons"
-    type: "defeat"
+{
+  "title": "Recovery Test: A Comprehensive Adventure",
+  "setting": "A detailed and richly described setting after recovery from error, with atmospheric details and clear stakes that draw the player into the narrative.",
+  "themes": ["recovery", "resilience", "redemption"],
+  "tone": "Hopeful yet tense",
+  "main_branches": [
+    {
+      "path": "Success Path",
+      "description": "A detailed path to success after failure with clear challenges and rewards"
+    },
+    {
+      "path": "Alternative Route",
+      "description": "An alternative approach with different consequences and opportunities"
+    },
+    {
+      "path": "Risk and Reward",
+      "description": "A high-risk, high-reward path for bold adventurers"
+    }
+  ],
+  "endings": [
+    {
+      "name": "Victory",
+      "description": "Overcame the challenge through perseverance and skill",
+      "type": "victory"
+    },
+    {
+      "name": "Pyrrhic Victory",
+      "description": "Success but at great cost",
+      "type": "neutral"
+    },
+    {
+      "name": "Learning Experience",
+      "description": "Failure that teaches valuable lessons",
+      "type": "defeat"
+    }
+  ]
+}
 """
 
         wrapper = TaskWithQualityCheck(task_type=TaskType.PLOT, pass_threshold=6.0, max_retries=3)
@@ -284,7 +320,7 @@ endings:
 
         def task_with_bad_output(**kwargs):
             # Return output that causes evaluation error
-            return "{ invalid yaml: [unclosed"
+            return '{ "invalid": "json", "unclosed": ['
 
         wrapper = TaskWithQualityCheck(
             task_type=TaskType.PLOT,
@@ -297,7 +333,7 @@ endings:
         )
 
         # Should return output even if evaluation fails
-        self.assertIn("invalid yaml", output)
+        self.assertIn("invalid", output)
         self.assertFalse(quality.passed)
         self.assertEqual(quality.score, 0.0)
         # The feedback contains the parse error message
@@ -313,23 +349,34 @@ class TestExecuteWithQualityCheck(unittest.TestCase):
 
         def good_task(**kwargs):
             return """
-title: "Good Plot"
-setting: "A well-developed setting with clear details and atmosphere."
-themes:
-  - adventure
-tone: "Exciting"
-main_branches:
-  - path: "Path A"
-    description: "First branching path"
-  - path: "Path B"
-    description: "Second branching path"
-endings:
-  - name: "Victory"
-    description: "Success ending"
-    type: "victory"
-  - name: "Defeat"
-    description: "Failure ending"
-    type: "defeat"
+{
+  "title": "Good Plot",
+  "setting": "A well-developed setting with clear details and atmosphere.",
+  "themes": ["adventure"],
+  "tone": "Exciting",
+  "main_branches": [
+    {
+      "path": "Path A",
+      "description": "First branching path"
+    },
+    {
+      "path": "Path B",
+      "description": "Second branching path"
+    }
+  ],
+  "endings": [
+    {
+      "name": "Victory",
+      "description": "Success ending",
+      "type": "victory"
+    },
+    {
+      "name": "Defeat",
+      "description": "Failure ending",
+      "type": "defeat"
+    }
+  ]
+}
 """
 
         output, quality, attempts = execute_with_quality_check(
@@ -350,18 +397,25 @@ endings:
 
         def average_task(**kwargs):
             return """
-title: "Average Plot"
-setting: "A basic setting description."
-themes:
-  - action
-tone: "Standard"
-main_branches:
-  - path: "Path"
-    description: "A path"
-endings:
-  - name: "End"
-    description: "An ending"
-    type: "victory"
+{
+  "title": "Average Plot",
+  "setting": "A basic setting description.",
+  "themes": ["action"],
+  "tone": "Standard",
+  "main_branches": [
+    {
+      "path": "Path",
+      "description": "A path"
+    }
+  ],
+  "endings": [
+    {
+      "name": "End",
+      "description": "An ending",
+      "type": "victory"
+    }
+  ]
+}
 """
 
         # With higher threshold, might not pass
@@ -443,18 +497,25 @@ class TestRetryLoggingIntegration(unittest.TestCase):
 
         def good_task(**kwargs):
             return """
-title: "Test"
-setting: "A detailed setting with proper description and atmosphere."
-themes:
-  - test
-tone: "Test"
-main_branches:
-  - path: "A"
-    description: "Path description"
-endings:
-  - name: "End"
-    description: "Ending"
-    type: "victory"
+{
+  "title": "Test",
+  "setting": "A detailed setting with proper description and atmosphere.",
+  "themes": ["test"],
+  "tone": "Test",
+  "main_branches": [
+    {
+      "path": "A",
+      "description": "Path description"
+    }
+  ],
+  "endings": [
+    {
+      "name": "End",
+      "description": "Ending",
+      "type": "victory"
+    }
+  ]
+}
 """
 
         wrapper = TaskWithQualityCheck(task_type=TaskType.PLOT, pass_threshold=6.0, max_retries=3)
@@ -476,20 +537,27 @@ endings:
         def improving_task(**kwargs):
             call_count[0] += 1
             if call_count[0] == 1:
-                return "title: Bad\nsetting: Poor"
+                return '{"title": "Bad", "setting": "Poor"}'
             return """
-title: "Better"
-setting: "An improved setting with good details and atmosphere."
-themes:
-  - improvement
-tone: "Better"
-main_branches:
-  - path: "A"
-    description: "Path"
-endings:
-  - name: "End"
-    description: "End"
-    type: "victory"
+{
+  "title": "Better",
+  "setting": "An improved setting with good details and atmosphere.",
+  "themes": ["improvement"],
+  "tone": "Better",
+  "main_branches": [
+    {
+      "path": "A",
+      "description": "Path"
+    }
+  ],
+  "endings": [
+    {
+      "name": "End",
+      "description": "End",
+      "type": "victory"
+    }
+  ]
+}
 """
 
         wrapper = TaskWithQualityCheck(task_type=TaskType.PLOT, pass_threshold=6.0, max_retries=3)

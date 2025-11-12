@@ -1,0 +1,134 @@
+{
+  "scene_texts": {
+    "scenes": {
+      "scene_001_insertion": {
+        "name": "Insertion Point - Bridge of Despair",
+        "description": "The air crackles with ozone as ceramite boots meet the cold, scarred metal of the 'Perdition's Grasp'. The breach site coughs out a plume of superheated vapor, revealing the skeletal remains of what was once a grand starship bridge. Shattered command consoles jut like jagged teeth from the floor, their dormant screens reflecting the flickering ruby glow of emergency lighting. Dust motes dance in the sickly light, making the reek of ozone, stale death, and something indescribably alien even more oppressive. This is no mere derelict; it is a tomb, and your arrival has merely disturbed its restless dead. The primary mission, to make contact with First Squad and secure 'The Anathema', presses down with the weight of a thousand forgotten campaigns.",
+        "atmosphere": "Claustrophobic, grim, foreboding, decaying, tense.",
+        "initial_text": "You stand on the bridge of a forgotten hulk, the only sounds the hiss of your armor's environmental seals and the distant groans of metal.",
+        "examination_texts": {
+          "shattered_console": "The main command console, reduced to twisted metal and sparking wires. A faint, unintelligible data readout flickers erratically, too corrupted to decipher. It smells faintly of burnt flesh.",
+          "dead_crewman": "The desiccated remains of a human crewman, fused to a command chair, long since stripped of any useful gear. A silent monument to the cruelty of the void.",
+          "breach_site": "The angry, jagged hole your Thunderhawk created, framed by mangled bulkheads. Beyond, the black abyss of deep space beckons. No way back this way."
+        },
+        "dialogue": [
+          {
+            "speaker": "Brother-Captain Raphael",
+            "text": "All right, brothers. Standard sweep protocols. Valerius, comms. Claudius, check for structural integrity. Tiberius, sensors. Let's find out what silence swallowed First Squad whole.",
+            "context": "Upon entering the scene, assessing the situation."
+          },
+          {
+            "speaker": "Brother Claudius",
+            "text": "By the Emperor's will, Captain! Let's purge these xenos abominations from this vessel!",
+            "emotion": "Eager, zealous",
+            "context": "Fingering his bolter, looking for immediate action."
+          },
+          {
+            "speaker": "Brother-Captain Raphael",
+            "text": "Patience, Claudius. Zeal will not save us from a foe we do not understand. We hunt no mere pirates here. Keep your faith, but keep your senses sharper.",
+            "emotion": "Stern, world-weary",
+            "context": "Responding to Claudius's eagerness, a quiet warning."
+          },
+          {
+            "speaker": "Brother-Sergeant Valerius",
+            "text": "Comms still dead, Captain. And I'm getting... anomalous energy readings. Faint, but distinct. Not Imperial.",
+            "context": "After attempting to establish comms."
+          },
+          {
+            "speaker": "Brother Tiberius",
+            "text": "Structural stress points across this deck, Captain. Nothing critical yet, but this Hulk feels like it's holding its breath.",
+            "emotion": "Calm, analytical",
+            "context": "After scanning the environment."
+          }
+        ],
+        "narrative_notes": "Establishes the grim atmosphere and immediate objectives. Introduces the squad dynamics and initial character traits of Raphael's stoicism, Claudius's zeal, Valerius's pragmatism, and Tiberius's observational skills. Sets the stage for the unknown threat."
+      },
+      "scene_002_corridor_alpha": {
+        "name": "Corridor Alpha - Echoes of Battle",
+        "description": "The 'Bridge of Despair' gives way to Corridor Alpha, a skeletal artery of pitted metal and flickering emergency lights that plunge deeper into the Space Hulk's heart. Every surface is scarred – deep, gouging scorch marks spiderweb the bulkheads, a testament to violent energy discharges. Torn plasteel panels hang like ragged banners, revealing tangled conduits and the cold, dead vacuum beyond. Spent bolter casings, glinting dully, litter the deck, alongside what appear to be fragments of ceramite armor and the disturbing, slick trails of something not of this galaxy. The path ahead is partially choked with debris – twisted support beams and shattered equipment – forcing a careful, slow advance. Your auspex flickers with phantom signals, brief, then gone, a ghostly choir hinting at unseen horrors.",
+        "atmosphere": "Tense, silent, ominous, evidence of past conflict.",
+        "initial_text": "The corridor stretches before you, a winding path through the wreckage of a forgotten war. Every dent and scorch mark tells a story of ferocity and sacrifice.",
+        "examination_texts": {
+          "scorched_bulkhead": "Massive scorch marks, consistent with heavy bolter fire, but also something else – an acidic corrosive burn, deep enough to weaken the adamantium plating.",
+          "spent_bolter_casings": "Dozens of spent shells from Astartes bolters, scattered haphazardly, indicating a fierce, desperate fight. Some are melted, as if by extreme heat.",
+          "debris_pile": "A tangle of girders, electrical conduits, and human-sized equipment, seemingly thrown about with immense force. Among them, you spot what looks like a fragment of a Terminator pauldron, emblazoned with the faint insignia of the Blood Angels First Company."
+        },
+        "dialogue": [
+          {
+            "speaker": "Brother-Sergeant Valerius",
+            "text": "Heavy engagement here. Bolter fire, and... something else. The scorch marks aren't clean. Acidic residue, perhaps?",
+            "context": "Examining the damage on the bulkheads."
+          },
+          {
+            "speaker": "Brother Tiberius",
+            "text": "Structural integrity here is compromised. These support beams are barely holding. We proceed carefully, or we risk a cave-in.",
+            "emotion": "Measured, practical",
+            "context": "Assessing the debris and pathway."
+          },
+          {
+            "speaker": "Brother-Captain Raphael",
+            "text": "Tyranids. No doubt. The pattern of destruction, the sheer savagery... it bears their vile mark. First Squad met them here.",
+            "emotion": "Grim, resolute",
+            "context": "Drawing conclusions from the evidence."
+          },
+          {
+            "speaker": "Brother Claudius",
+            "text": "Then let us avenge them, Captain! For the Emperor!",
+            "emotion": "Vehement, determined",
+            "context": "Clenching his fists, eager for combat."
+          },
+          {
+            "speaker": "Brother-Captain Raphael",
+            "text": "We will, Brother. But first, we find what they died protecting. Move with purpose, brothers. And watch your flanks. The auspex is useless in this warp-tainted muck.",
+            "context": "Giving orders, reinforcing caution."
+          }
+        ],
+        "narrative_notes": "Reinforces the presence of an active Tyranid threat and the fate of First Squad. Highlights Valerius's tactical knowledge and Tiberius's structural assessment skills. Increases tension as the environment itself becomes a threat."
+      },
+      "scene_003_first_squad_fate": {
+        "name": "First Squad's Fate - The Hive Growth Chamber",
+        "description": "The corridor suddenly vomits you into a vast, pulsating organic chamber. The walls pulse with a sickly, bioluminescent green, adorned with grotesque fungal growths and iridescent membranes. The air is thick, humid, and smells of chitinous decay, fertile earth, and something metallic, like stale blood. This is a brood chamber, a living, breathing testament to the Tyranid Hive Mind's horrifying ingenuity. But then, you see them – the hulking forms of First Squad's Terminators, not fallen in battle, but utterly subsumed. Their ceramite shells are barely visible beneath layers of viscous, chitinous tissue, fused into the grotesque bio-structures, serving as incubators for squirming xenos larvae or grim, silent trophies. The rhythmic, sickening *thrum-thrum* of organic growth echoes through the chamber, and faint, chittering sounds suggest you are not alone. Genestealers emerge from the pulsing walls.",
+        "atmosphere": "Horrific, visceral, shocking, claustrophobic, alien.",
+        "initial_text": "A chamber of unspeakable horror unfurls before you, a living biome of xenos flesh and the gruesome remains of your fallen brothers. The air pulses with silent screams.",
+        "examination_texts": {
+          "assimilated_terminator": "The remains of Brother-Sergeant Kael. His Thunder Hammer, still clutched in a chitin-encased gauntlet, is fused into the bio-mass. Larvae writhe within the spaces where his visor once was. A truly abominable end.",
+          "pulsating_bio_mass": "The main organic growth dominates the chamber, pulsing like a monstrous heart. Faint psychic tendrils brush against your consciousness, a whisper of alien hunger.",
+          "first_squad_data_slate": "Near the horrifying remnants of Brother-Sergeant Kael, partially embedded in the bio-mass, you spot a data-slate. It glows faintly, indicating it might still contain crucial information. Retrieving it would mean closer proximity to the living horror."
+        },
+        "dialogue": [
+          {
+            "speaker": "Brother-Captain Raphael",
+            "text": "By the Emperor... no. Not like this.",
+            "emotion": "Visceral grief, raw fury",
+            "context": "Stunned by the horrifying sight of First Squad."
+          },
+          {
+            "speaker": "Brother Claudius",
+            "text": "This... this is an abomination! An affront to all life! They must pay!",
+            "emotion": "Shocked, then vengeful",
+            "context": "His zeal momentarily falters before hardening into grim resolve."
+          },
+          {
+            "speaker": "Brother-Sergeant Valerius",
+            "text": "Captain, look! Genestealers! Multiple contacts, emerging from the walls! This chamber is a nest. We cannot hold here indefinitely.",
+            "emotion": "Urgent, tactical",
+            "context": "As the first Genestealers appear."
+          },
+          {
+            "speaker": "Brother-Captain Raphael",
+            "text": "I see it, Valerius! For our fallen brothers! Unleash the Emperor's wrath! But secure that data-slate near Kael!",
+            "emotion": "Hardened resolve, commanding",
+            "context": "Leading the charge while prioritizing intelligence."
+          },
+          {
+            "speaker": "Brother Tiberius",
+            "text": "Data-slate appears functional, Captain. It's a high-risk retrieve, though. Too many hostiles and unstable bio-mass.",
+            "emotion": "Calm, analytical",
+            "context": "Assessing the data-slate's position and the surrounding threat."
+          }
+        ],
+        "narrative_notes": "Reveals the true horror of the Tyranid infestation and the fate of First Squad. This elicits a strong emotional response from Raphael and Claudius, while Valerius and Tiberius remain grounded in immediate threats and tactical assessment. Introduces the first direct combat with Genestealers and a critical decision point regarding the data-slate, directly impacting future intelligence."
+      }
+    }
+  }
+}

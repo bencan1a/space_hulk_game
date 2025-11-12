@@ -162,7 +162,7 @@ into the CrewAI task execution workflow.</p>
     &#34;&#34;&#34;
     Configuration for quality checking system.
 
-    Loads configuration from quality_config.yaml and environment variables.
+    Loads configuration from quality_config.json and environment variables.
     &#34;&#34;&#34;
 
     def __init__(self, config_path: str | None = None):
@@ -170,14 +170,14 @@ into the CrewAI task execution workflow.</p>
         Initialize quality check configuration.
 
         Args:
-            config_path: Path to quality_config.yaml (optional)
+            config_path: Path to quality_config.json (optional)
         &#34;&#34;&#34;
         self.config = self._load_config(config_path)
         self.task_configs = self._create_task_configs()
 
     def _load_config(self, config_path: str | Path | None = None) -&gt; dict[str, Any]:
         &#34;&#34;&#34;
-        Load configuration from YAML file.
+        Load configuration from JSON file.
 
         Args:
             config_path: Path to config file (optional)
@@ -188,11 +188,11 @@ into the CrewAI task execution workflow.</p>
         if config_path is None:
             # Default path relative to this module
             module_dir = Path(__file__).parent.parent
-            config_path = module_dir / &#34;config&#34; / &#34;quality_config.yaml&#34;
+            config_path = module_dir / &#34;config&#34; / &#34;quality_config.json&#34;
 
         try:
             with Path(config_path).open() as f:
-                config = yaml.safe_load(f)
+                config = json.load(f)
             logger.info(f&#34;Loaded quality configuration from {config_path}&#34;)
             return dict(config) if config else {}
         except FileNotFoundError:
@@ -230,7 +230,7 @@ into the CrewAI task execution workflow.</p>
         &#34;&#34;&#34;
         thresholds = self.config.get(&#34;thresholds&#34;, {})
 
-        # Map YAML keys to TaskType enum
+        # Map JSON keys to TaskType enum
         task_map = {
             &#34;plot&#34;: TaskType.PLOT,
             &#34;narrative&#34;: TaskType.NARRATIVE,
@@ -240,12 +240,12 @@ into the CrewAI task execution workflow.</p>
         }
 
         configs = {}
-        for yaml_key, task_type in task_map.items():
-            threshold_config = thresholds.get(yaml_key, {})
+        for json_key, task_type in task_map.items():
+            threshold_config = thresholds.get(json_key, {})
             configs[task_type] = {
                 &#34;enabled&#34;: threshold_config.get(&#34;enabled&#34;, True),
                 &#34;pass_threshold&#34;: self._get_env_override(
-                    f&#34;QUALITY_{yaml_key.upper()}_THRESHOLD&#34;,
+                    f&#34;QUALITY_{json_key.upper()}_THRESHOLD&#34;,
                     threshold_config.get(&#34;pass_threshold&#34;, 6.0),
                 ),
                 &#34;max_retries&#34;: self._get_env_override(
@@ -310,12 +310,12 @@ into the CrewAI task execution workflow.</p>
         )</code></pre>
 </details>
 <div class="desc"><p>Configuration for quality checking system.</p>
-<p>Loads configuration from quality_config.yaml and environment variables.</p>
+<p>Loads configuration from quality_config.json and environment variables.</p>
 <p>Initialize quality check configuration.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>config_path</code></strong></dt>
-<dd>Path to quality_config.yaml (optional)</dd>
+<dd>Path to quality_config.json (optional)</dd>
 </dl></div>
 <h3>Methods</h3>
 <dl>

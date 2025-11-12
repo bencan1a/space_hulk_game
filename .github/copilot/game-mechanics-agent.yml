@@ -86,23 +86,23 @@ design_patterns:
 # Game Design Files
 design_files:
   prd_document:
-    path: prd_document.yaml
+    path: prd_document.json
     purpose: Game mechanics and requirements documentation
 
   narrative_map:
-    path: narrative_map.yaml
+    path: narrative_map.json
     purpose: Story structure and scene connections
 
   scene_texts:
-    path: scene_texts.yaml
+    path: scene_texts.json
     purpose: Scene descriptions and dialogue
 
   plot_outline:
-    path: plot_outline.yaml
+    path: plot_outline.json
     purpose: Overarching story and plot points
 
   puzzle_design:
-    path: puzzle_design.yaml
+    path: puzzle_design.json
     purpose: Puzzle specifications and solutions
 
 # Space Hulk Specific Elements

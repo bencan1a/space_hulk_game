@@ -4,13 +4,13 @@ This directory contains game design configuration files that define examples and
 
 ## Contents
 
-These YAML files serve as **product code** - they define the structure and examples that guide the CrewAI agents in creating consistent, high-quality game content:
+These JSON files serve as **product code** - they define the structure and examples that guide the CrewAI agents in creating consistent, high-quality game content:
 
-- **plot_outline.yaml** - Example plot structure with branching narratives and multiple endings
-- **narrative_map.yaml** - Example scene structure showing how scenes connect and flow
-- **puzzle_design.yaml** - Example puzzle, artifact, NPC, and monster designs
-- **scene_texts.yaml** - Example scene descriptions and dialogue formatting
-- **prd_document.yaml** - Product requirements defining game mechanics and systems
+- **plot_outline.json** - Example plot structure with branching narratives and multiple endings
+- **narrative_map.json** - Example scene structure showing how scenes connect and flow
+- **puzzle_design.json** - Example puzzle, artifact, NPC, and monster designs
+- **scene_texts.json** - Example scene descriptions and dialogue formatting
+- **prd_document.json** - Product requirements defining game mechanics and systems
 
 ## Purpose
 
@@ -31,4 +31,4 @@ When working with the CrewAI system:
 
 ## Relationship to tasks.yaml
 
-The `src/space_hulk_game/config/tasks.yaml` file references these files in `output_file` settings, telling agents where to write their generated content based on these templates.
+The `src/space_hulk_game/config/tasks.yaml` file references these files in `output_file` settings, telling agents where to write their generated content based on these templates. The agents generate JSON output files instead of YAML for the game engine to load.

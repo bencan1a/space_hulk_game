@@ -93,27 +93,27 @@ class MechanicsMetrics:
     min_clarity: float = 6.0  # Out of 10.0
 
     @classmethod
-    def from_yaml_content(cls, yaml_content: str) -&gt; &#34;MechanicsMetrics&#34;:
+    def from_json_content(cls, json_content: str) -&gt; &#34;MechanicsMetrics&#34;:
         &#34;&#34;&#34;
-        Create MechanicsMetrics from YAML content string.
+        Create MechanicsMetrics from JSON content string.
 
         Args:
-            yaml_content: YAML string containing PRD/mechanics data
+            json_content: JSON string containing PRD/mechanics data
 
         Returns:
             MechanicsMetrics instance with measured values
         &#34;&#34;&#34;
         try:
-            # Handle markdown-wrapped YAML
-            content = yaml_content.strip()
+            # Handle markdown-wrapped JSON
+            content = json_content.strip()
             if content.startswith(&#34;```&#34;):
                 lines = content.split(&#34;\n&#34;)
                 content = &#34;\n&#34;.join(lines[1:-1])
 
-            data = yaml.safe_load(content)
+            data = json.loads(content)
             return cls.from_dict(data)
         except Exception as e:
-            raise ValueError(f&#34;Failed to parse YAML content: {e}&#34;) from e
+            raise ValueError(f&#34;Failed to parse JSON content: {e}&#34;) from e
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -&gt; &#34;MechanicsMetrics&#34;:
@@ -496,15 +496,15 @@ class MechanicsMetrics:
 <h2 id="returns">Returns</h2>
 <p>MechanicsMetrics instance with measured values</p></div>
 </dd>
-<dt id="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.from_yaml_content"><code class="name flex">
-<span>def <span class="ident">from_yaml_content</span></span>(<span>yaml_content: str) ‑> <a title="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics" href="#space_hulk_game.quality.mechanics_metrics.MechanicsMetrics">MechanicsMetrics</a></span>
+<dt id="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.from_json_content"><code class="name flex">
+<span>def <span class="ident">from_json_content</span></span>(<span>json_content: str) ‑> <a title="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics" href="#space_hulk_game.quality.mechanics_metrics.MechanicsMetrics">MechanicsMetrics</a></span>
 </code></dt>
 <dd>
-<div class="desc"><p>Create MechanicsMetrics from YAML content string.</p>
+<div class="desc"><p>Create MechanicsMetrics from JSON content string.</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>yaml_content</code></strong></dt>
-<dd>YAML string containing PRD/mechanics data</dd>
+<dt><strong><code>json_content</code></strong></dt>
+<dd>JSON string containing PRD/mechanics data</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>MechanicsMetrics instance with measured values</p></div>
@@ -746,7 +746,7 @@ class MechanicsMetrics:
 <li><code><a title="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.average_rule_clarity" href="#space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.average_rule_clarity">average_rule_clarity</a></code></li>
 <li><code><a title="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.completeness_percentage" href="#space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.completeness_percentage">completeness_percentage</a></code></li>
 <li><code><a title="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.from_dict" href="#space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.from_dict">from_dict</a></code></li>
-<li><code><a title="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.from_yaml_content" href="#space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.from_yaml_content">from_yaml_content</a></code></li>
+<li><code><a title="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.from_json_content" href="#space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.from_json_content">from_json_content</a></code></li>
 <li><code><a title="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.get_failures" href="#space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.get_failures">get_failures</a></code></li>
 <li><code><a title="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.get_score" href="#space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.get_score">get_score</a></code></li>
 <li><code><a title="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.has_balance_notes" href="#space_hulk_game.quality.mechanics_metrics.MechanicsMetrics.has_balance_notes">has_balance_notes</a></code></li>

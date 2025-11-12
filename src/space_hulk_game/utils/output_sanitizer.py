@@ -1,130 +1,158 @@
 """Output Sanitization Pipeline
 
-This module provides pre-write sanitization for YAML outputs from CrewAI agents.
-It orchestrates existing validation and correction layers to ensure clean YAML is
-written to disk, preventing common syntax errors like mixed quotes, invalid list
-markers, and unescaped apostrophes.
+This module provides pre-write sanitization for JSON outputs from CrewAI agents.
+With JSON mode enabled in the LLM, most syntax errors are eliminated. The sanitizer
+now focuses on:
+1. Stripping markdown fences (if present: ```json blocks)
+2. Validating JSON syntax
+3. Pretty-formatting JSON for readability
 
-The OutputSanitizer intercepts raw LLM output BEFORE it's written to disk, applying:
-1. Markdown fence stripping (removes ```yaml blocks)
-2. YAML syntax correction (fixes common errors)
-3. Schema validation and auto-correction (adds missing fields, fixes IDs)
-
-This solves the critical issue where CrewAI writes raw LLM output directly to disk,
-causing YAML syntax errors that break downstream processing.
+This is significantly simpler than the previous YAML pipeline, as JSON mode provides
+guaranteed valid syntax from the LLM.
 
 Example:
     >>> sanitizer = OutputSanitizer()
-    >>> raw_output = "```yaml\\ntitle: My Plot\\n```"
-    >>> clean_yaml = sanitizer.sanitize(raw_output, 'plot')
-    >>> print(clean_yaml)
-    title: My Plot
-    setting: ...
-    # (with all required fields added and validated)
+    >>> raw_output = '{"narrative_foundation": {"title": "My Plot"}}'
+    >>> clean_json = sanitizer.sanitize(raw_output, 'plot')
+    >>> print(clean_json)
+    {
+      "narrative_foundation": {
+        "title": "My Plot",
+        ...
+      }
+    }
 """
 
 from __future__ import annotations
 
+import json
 import logging
-
-from space_hulk_game.utils.yaml_processor import strip_markdown_yaml_blocks
+import re
 
 logger = logging.getLogger(__name__)
 
 
+def strip_markdown_yaml_blocks(content: str) -> str:
+    """Strip markdown code block markers from YAML content.
+
+    DEPRECATED: This function is kept for backward compatibility with deprecated
+    YAML validation modules (corrector.py, validator.py). New code should use
+    JSON format and _strip_markdown_json_blocks instead.
+
+    LLMs often wrap YAML in markdown code blocks like:
+    ```yaml
+    content: here
+    ```
+
+    This function removes those markers to produce clean YAML.
+
+    Args:
+        content: Raw content that may contain markdown markers
+
+    Returns:
+        Clean YAML content without markdown markers
+    """
+    # Remove leading ```yaml or ``` markers
+    content = re.sub(r"^```ya?ml\s*\n", "", content, flags=re.MULTILINE)
+    content = re.sub(r"^```\s*\n", "", content, flags=re.MULTILINE)
+
+    # Remove trailing ``` markers
+    content = re.sub(r"\n```\s*$", "", content, flags=re.MULTILINE)
+    content = re.sub(r"^```\s*$", "", content, flags=re.MULTILINE)
+
+    return content.strip()
+
+
 class OutputSanitizer:
-    """Pre-write sanitization pipeline for YAML outputs.
+    """Pre-write sanitization pipeline for JSON outputs.
 
-    This class orchestrates the existing YAML processing and correction layers
-    into a single sanitization pipeline that runs BEFORE CrewAI writes outputs
-    to disk. It ensures that YAML files are syntactically valid and schema-compliant.
-
-    The pipeline executes in two phases:
-    1. Strip markdown fences using yaml_processor
-    2. Apply type-specific correction using corrector
+    This class provides lightweight sanitization for JSON outputs from CrewAI agents.
+    With JSON mode enabled in the LLM, most syntax errors are eliminated, so the
+    sanitizer focuses on:
+    1. Stripping markdown fences (```json blocks, if present)
+    2. Validating JSON syntax
+    3. Pretty-formatting JSON for readability
 
     Features:
         - Handles all 5 output types (plot, narrative, puzzle, scene, mechanics)
         - Graceful error handling - returns best-effort sanitized output
         - Comprehensive logging of all sanitization steps
-        - Reuses existing validation/correction infrastructure
-
-    Attributes:
-        corrector: OutputCorrector instance for schema validation/correction
+        - Much simpler than YAML pipeline (JSON mode eliminates syntax errors)
 
     Example:
         >>> sanitizer = OutputSanitizer()
-        >>> # Raw output from LLM with markdown fences and missing fields
-        >>> raw_output = '''```yaml
-        ... title: "Space Hulk Adventure"
-        ... setting: "Abandoned ship"
+        >>> # Raw output from LLM (potentially with markdown fences)
+        >>> raw_output = '''```json
+        ... {"narrative_foundation": {"title": "Space Hulk Adventure"}}
         ... ```'''
         >>> # Sanitize before writing to disk
-        >>> clean_yaml = sanitizer.sanitize(raw_output, 'plot')
-        >>> # clean_yaml now has markdown stripped and all required fields added
-        >>> with open('plot_outline.yaml', 'w') as f:
-        ...     f.write(clean_yaml)
+        >>> clean_json = sanitizer.sanitize(raw_output, 'plot')
+        >>> # clean_json now has markdown stripped and is pretty-formatted
+        >>> with open('plot_outline.json', 'w') as f:
+        ...     f.write(clean_json)
     """
 
     def __init__(self) -> None:
-        """Initialize the output sanitizer with a corrector instance.
+        """Initialize the output sanitizer.
 
-        The corrector provides type-specific validation and auto-correction
-        for all five output types.
+        With JSON mode, we don't need the complex corrector infrastructure.
         """
-        # Lazy import to avoid circular dependency
-        from space_hulk_game.validation.corrector import OutputCorrector  # noqa: PLC0415
+        logger.info("OutputSanitizer initialized for JSON outputs")
 
-        self.corrector = OutputCorrector()
-        logger.info("OutputSanitizer initialized with OutputCorrector")
+    def _strip_markdown_json_blocks(self, content: str) -> str:
+        """Strip markdown JSON code blocks from content.
+
+        Removes ```json and ``` markers that LLMs might add (though JSON mode should prevent this).
+
+        Args:
+            content: Raw string that might contain markdown fences
+
+        Returns:
+            Content with markdown fences removed
+        """
+        # Remove ```json at the start (with optional whitespace)
+        content = re.sub(r"^\s*```json\s*\n?", "", content, flags=re.IGNORECASE)
+        # Remove ``` at the end (with optional whitespace)
+        content = re.sub(r"\n?\s*```\s*$", "", content)
+        return content.strip()
 
     def sanitize(self, raw_output: str, output_type: str) -> str:
         """Sanitize raw LLM output before writing to disk.
 
-        This method applies a two-phase sanitization pipeline:
-        1. Strip markdown code fences (```yaml blocks)
-        2. Apply type-specific correction (schema validation, error fixing)
+        This method applies a simple sanitization pipeline:
+        1. Strip markdown code fences (```json blocks, if present)
+        2. Validate JSON syntax with json.loads()
+        3. Pretty-format JSON with json.dumps()
 
-        The method uses graceful error handling - if correction fails at any
-        stage, it returns the best-effort sanitized output rather than raising
-        exceptions. This ensures that SOME output is written, even if not
-        perfectly validated.
+        The method uses graceful error handling - if parsing fails, it returns
+        the markdown-stripped version.
 
         Args:
-            raw_output: Raw YAML string from LLM, potentially with markdown fences,
-                       syntax errors, and missing required fields.
-            output_type: Type of output for type-specific correction. Valid values:
-                        - 'plot': Plot outline with plot_points, characters, conflicts
-                        - 'narrative': Narrative map with scenes and connections
-                        - 'puzzle': Puzzle design with puzzles, artifacts, monsters, npcs
-                        - 'scene': Scene texts with detailed descriptions and dialogue
-                        - 'mechanics': Game mechanics with systems and state
+            raw_output: Raw JSON string from LLM, potentially with markdown fences.
+            output_type: Type of output (plot, narrative, puzzle, scene, mechanics).
+                        Currently used only for logging.
 
         Returns:
-            Sanitized YAML string, ready to be written to disk. If correction
-            succeeds, the output is fully validated and schema-compliant. If
-            correction fails, returns the markdown-stripped version with warnings
-            logged.
+            Sanitized JSON string, ready to be written to disk. Pretty-formatted
+            with 2-space indentation for readability.
 
         Raises:
             No exceptions are raised - all errors are logged and handled gracefully.
 
         Example:
             >>> sanitizer = OutputSanitizer()
-            >>> # LLM output with markdown fences and mixed quotes
-            >>> raw = '''```yaml
-            ... title: "Space Hulk: Lost Vessel'
-            ... setting: 'A dark ship
+            >>> # LLM output with markdown fences
+            >>> raw = '''```json
+            ... {"narrative_foundation": {"title": "Space Hulk"}}
             ... ```'''
             >>> clean = sanitizer.sanitize(raw, 'plot')
-            >>> # clean now has fences stripped, quotes fixed, missing fields added
+            >>> # clean is now pretty-formatted JSON without fences
         """
-        logger.info(f"Sanitizing output as type: {output_type}")
+        logger.info(f"Sanitizing JSON output as type: {output_type}")
 
-        # Phase 1: Strip markdown fences
-        # This removes ```yaml and ``` markers that LLMs often add
+        # Phase 1: Strip markdown fences (if present)
         try:
-            markdown_stripped = strip_markdown_yaml_blocks(raw_output)
+            markdown_stripped = self._strip_markdown_json_blocks(raw_output)
             logger.debug(
                 f"Markdown fences stripped (length: {len(raw_output)} -> {len(markdown_stripped)})"
             )
@@ -135,50 +163,31 @@ class OutputSanitizer:
             )
             markdown_stripped = raw_output
 
-        # Phase 2: Apply type-specific correction
-        # This validates schema and fixes common errors
+        # Phase 2: Validate JSON syntax and pretty-format
         try:
-            if output_type == "plot":
-                result = self.corrector.correct_plot(markdown_stripped)
-            elif output_type == "narrative":
-                result = self.corrector.correct_narrative_map(markdown_stripped)
-            elif output_type == "puzzle":
-                result = self.corrector.correct_puzzle_design(markdown_stripped)
-            elif output_type == "scene":
-                result = self.corrector.correct_scene_texts(markdown_stripped)
-            elif output_type == "mechanics":
-                result = self.corrector.correct_game_mechanics(markdown_stripped)
-            else:
-                logger.warning(
-                    f"Unknown output type '{output_type}', skipping type-specific correction"
-                )
-                # Return markdown-stripped version for unknown types
-                return markdown_stripped
+            # Parse JSON to validate syntax
+            parsed_data = json.loads(markdown_stripped)
+            logger.info(f"JSON syntax validated successfully for {output_type}")
 
-            # Log correction results
-            if result.corrections:
-                logger.info(
-                    f"Applied {len(result.corrections)} corrections for {output_type}: "
-                    f"{result.corrections}"
-                )
+            # Pretty-format with 2-space indentation
+            pretty_json = json.dumps(parsed_data, indent=2, ensure_ascii=False)
+            logger.info(f"Sanitization successful for {output_type}")
+            return pretty_json
 
-            if result.success:
-                logger.info(f"Sanitization successful for {output_type}")
-                return result.corrected_yaml
-            else:
-                # Validation incomplete, but return corrected version anyway (best effort)
-                logger.warning(
-                    f"Sanitization incomplete for {output_type}, validation errors: "
-                    f"{result.validation_result.errors}"
-                )
-                logger.warning("Returning corrected YAML despite validation errors (best effort)")
-                return result.corrected_yaml
-
-        except Exception as e:
-            # Fallback: if correction fails completely, return markdown-stripped version
+        except json.JSONDecodeError as e:
+            # JSON parsing failed - log error and return markdown-stripped version
             logger.error(
-                f"Error during type-specific correction for {output_type}: {e}",
+                f"JSON parsing failed for {output_type}: {e}",
                 exc_info=True,
             )
-            logger.warning("Returning markdown-stripped output without type-specific correction")
+            logger.warning("Returning markdown-stripped output without validation (best effort)")
+            return markdown_stripped
+
+        except Exception as e:
+            # Unexpected error during sanitization
+            logger.error(
+                f"Unexpected error during sanitization for {output_type}: {e}",
+                exc_info=True,
+            )
+            logger.warning("Returning markdown-stripped output (fallback)")
             return markdown_stripped

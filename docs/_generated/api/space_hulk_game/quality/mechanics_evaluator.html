@@ -67,7 +67,7 @@ using MechanicsMetrics to score systems, rules clarity, and balance.</p>
 
     Example:
         &gt;&gt;&gt; evaluator = MechanicsEvaluator()
-        &gt;&gt;&gt; score = evaluator.evaluate(mechanics_yaml_content)
+        &gt;&gt;&gt; score = evaluator.evaluate(mechanics_json_content)
         &gt;&gt;&gt; print(f&#34;Score: {score.score}/10&#34;)
         &gt;&gt;&gt; print(score.feedback)
     &#34;&#34;&#34;
@@ -87,7 +87,7 @@ using MechanicsMetrics to score systems, rules clarity, and balance.</p>
         Evaluate game mechanics content.
 
         Args:
-            content: YAML string containing game mechanics
+            content: JSON string containing game mechanics
 
         Returns:
             QualityScore with evaluation results
@@ -96,8 +96,8 @@ using MechanicsMetrics to score systems, rules clarity, and balance.</p>
             ValueError: If content cannot be parsed
         &#34;&#34;&#34;
         try:
-            # Parse YAML content using metrics class
-            metrics = MechanicsMetrics.from_yaml_content(content)
+            # Parse JSON content using metrics class
+            metrics = MechanicsMetrics.from_json_content(content)
 
             # Get score and check if passes threshold
             score = metrics.get_score()
@@ -156,7 +156,7 @@ using MechanicsMetrics to score systems, rules clarity, and balance.</p>
         Generate detailed, actionable feedback for improvement.
 
         Args:
-            content: YAML string containing game mechanics
+            content: JSON string containing game mechanics
 
         Returns:
             Multi-line feedback with specific suggestions
@@ -214,7 +214,7 @@ using MechanicsMetrics to score systems, rules clarity, and balance.</p>
 including systems completeness, rules clarity, and balance.</p>
 <h2 id="example">Example</h2>
 <pre><code class="language-python-repl">&gt;&gt;&gt; evaluator = MechanicsEvaluator()
-&gt;&gt;&gt; score = evaluator.evaluate(mechanics_yaml_content)
+&gt;&gt;&gt; score = evaluator.evaluate(mechanics_json_content)
 &gt;&gt;&gt; print(f&quot;Score: {score.score}/10&quot;)
 &gt;&gt;&gt; print(score.feedback)
 </code></pre>
@@ -244,7 +244,7 @@ including systems completeness, rules clarity, and balance.</p>
     Evaluate game mechanics content.
 
     Args:
-        content: YAML string containing game mechanics
+        content: JSON string containing game mechanics
 
     Returns:
         QualityScore with evaluation results
@@ -253,8 +253,8 @@ including systems completeness, rules clarity, and balance.</p>
         ValueError: If content cannot be parsed
     &#34;&#34;&#34;
     try:
-        # Parse YAML content using metrics class
-        metrics = MechanicsMetrics.from_yaml_content(content)
+        # Parse JSON content using metrics class
+        metrics = MechanicsMetrics.from_json_content(content)
 
         # Get score and check if passes threshold
         score = metrics.get_score()
@@ -312,7 +312,7 @@ including systems completeness, rules clarity, and balance.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>content</code></strong></dt>
-<dd>YAML string containing game mechanics</dd>
+<dd>JSON string containing game mechanics</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>QualityScore with evaluation results</p>
@@ -335,7 +335,7 @@ including systems completeness, rules clarity, and balance.</p>
     Generate detailed, actionable feedback for improvement.
 
     Args:
-        content: YAML string containing game mechanics
+        content: JSON string containing game mechanics
 
     Returns:
         Multi-line feedback with specific suggestions
@@ -392,7 +392,7 @@ including systems completeness, rules clarity, and balance.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>content</code></strong></dt>
-<dd>YAML string containing game mechanics</dd>
+<dd>JSON string containing game mechanics</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>Multi-line feedback with specific suggestions</p></div>
@@ -403,7 +403,7 @@ including systems completeness, rules clarity, and balance.</p>
 <li><code><b><a title="space_hulk_game.quality.evaluator.QualityEvaluator" href="evaluator.html#space_hulk_game.quality.evaluator.QualityEvaluator">QualityEvaluator</a></b></code>:
 <ul class="hlist">
 <li><code><a title="space_hulk_game.quality.evaluator.QualityEvaluator.generate_feedback" href="evaluator.html#space_hulk_game.quality.evaluator.QualityEvaluator.generate_feedback">generate_feedback</a></code></li>
-<li><code><a title="space_hulk_game.quality.evaluator.QualityEvaluator.parse_yaml" href="evaluator.html#space_hulk_game.quality.evaluator.QualityEvaluator.parse_yaml">parse_yaml</a></code></li>
+<li><code><a title="space_hulk_game.quality.evaluator.QualityEvaluator.parse_json" href="evaluator.html#space_hulk_game.quality.evaluator.QualityEvaluator.parse_json">parse_json</a></code></li>
 <li><code><a title="space_hulk_game.quality.evaluator.QualityEvaluator.score" href="evaluator.html#space_hulk_game.quality.evaluator.QualityEvaluator.score">score</a></code></li>
 </ul>
 </li>

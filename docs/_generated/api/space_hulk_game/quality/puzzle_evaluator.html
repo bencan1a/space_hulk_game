@@ -67,7 +67,7 @@ using PuzzleMetrics to score puzzles, artifacts, and NPCs.</p>
 
     Example:
         &gt;&gt;&gt; evaluator = PuzzleEvaluator()
-        &gt;&gt;&gt; score = evaluator.evaluate(puzzle_yaml_content)
+        &gt;&gt;&gt; score = evaluator.evaluate(puzzle_json_content)
         &gt;&gt;&gt; print(f&#34;Score: {score.score}/10&#34;)
         &gt;&gt;&gt; print(score.feedback)
     &#34;&#34;&#34;
@@ -87,7 +87,7 @@ using PuzzleMetrics to score puzzles, artifacts, and NPCs.</p>
         Evaluate puzzle design content.
 
         Args:
-            content: YAML string containing puzzle design
+            content: JSON string containing puzzle design
 
         Returns:
             QualityScore with evaluation results
@@ -96,8 +96,8 @@ using PuzzleMetrics to score puzzles, artifacts, and NPCs.</p>
             ValueError: If content cannot be parsed
         &#34;&#34;&#34;
         try:
-            # Parse YAML content using metrics class
-            metrics = PuzzleMetrics.from_yaml_content(content)
+            # Parse JSON content using metrics class
+            metrics = PuzzleMetrics.from_json_content(content)
 
             # Get score and check if passes threshold
             score = metrics.get_score()
@@ -154,7 +154,7 @@ using PuzzleMetrics to score puzzles, artifacts, and NPCs.</p>
         Generate detailed, actionable feedback for improvement.
 
         Args:
-            content: YAML string containing puzzle design
+            content: JSON string containing puzzle design
 
         Returns:
             Multi-line feedback with specific suggestions
@@ -217,7 +217,7 @@ using PuzzleMetrics to score puzzles, artifacts, and NPCs.</p>
 including clear solutions, narrative ties, and difficulty ratings.</p>
 <h2 id="example">Example</h2>
 <pre><code class="language-python-repl">&gt;&gt;&gt; evaluator = PuzzleEvaluator()
-&gt;&gt;&gt; score = evaluator.evaluate(puzzle_yaml_content)
+&gt;&gt;&gt; score = evaluator.evaluate(puzzle_json_content)
 &gt;&gt;&gt; print(f&quot;Score: {score.score}/10&quot;)
 &gt;&gt;&gt; print(score.feedback)
 </code></pre>
@@ -247,7 +247,7 @@ including clear solutions, narrative ties, and difficulty ratings.</p>
     Evaluate puzzle design content.
 
     Args:
-        content: YAML string containing puzzle design
+        content: JSON string containing puzzle design
 
     Returns:
         QualityScore with evaluation results
@@ -256,8 +256,8 @@ including clear solutions, narrative ties, and difficulty ratings.</p>
         ValueError: If content cannot be parsed
     &#34;&#34;&#34;
     try:
-        # Parse YAML content using metrics class
-        metrics = PuzzleMetrics.from_yaml_content(content)
+        # Parse JSON content using metrics class
+        metrics = PuzzleMetrics.from_json_content(content)
 
         # Get score and check if passes threshold
         score = metrics.get_score()
@@ -313,7 +313,7 @@ including clear solutions, narrative ties, and difficulty ratings.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>content</code></strong></dt>
-<dd>YAML string containing puzzle design</dd>
+<dd>JSON string containing puzzle design</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>QualityScore with evaluation results</p>
@@ -336,7 +336,7 @@ including clear solutions, narrative ties, and difficulty ratings.</p>
     Generate detailed, actionable feedback for improvement.
 
     Args:
-        content: YAML string containing puzzle design
+        content: JSON string containing puzzle design
 
     Returns:
         Multi-line feedback with specific suggestions
@@ -398,7 +398,7 @@ including clear solutions, narrative ties, and difficulty ratings.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>content</code></strong></dt>
-<dd>YAML string containing puzzle design</dd>
+<dd>JSON string containing puzzle design</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>Multi-line feedback with specific suggestions</p></div>
@@ -409,7 +409,7 @@ including clear solutions, narrative ties, and difficulty ratings.</p>
 <li><code><b><a title="space_hulk_game.quality.evaluator.QualityEvaluator" href="evaluator.html#space_hulk_game.quality.evaluator.QualityEvaluator">QualityEvaluator</a></b></code>:
 <ul class="hlist">
 <li><code><a title="space_hulk_game.quality.evaluator.QualityEvaluator.generate_feedback" href="evaluator.html#space_hulk_game.quality.evaluator.QualityEvaluator.generate_feedback">generate_feedback</a></code></li>
-<li><code><a title="space_hulk_game.quality.evaluator.QualityEvaluator.parse_yaml" href="evaluator.html#space_hulk_game.quality.evaluator.QualityEvaluator.parse_yaml">parse_yaml</a></code></li>
+<li><code><a title="space_hulk_game.quality.evaluator.QualityEvaluator.parse_json" href="evaluator.html#space_hulk_game.quality.evaluator.QualityEvaluator.parse_json">parse_json</a></code></li>
 <li><code><a title="space_hulk_game.quality.evaluator.QualityEvaluator.score" href="evaluator.html#space_hulk_game.quality.evaluator.QualityEvaluator.score">score</a></code></li>
 </ul>
 </li>

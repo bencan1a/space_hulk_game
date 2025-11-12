@@ -23,7 +23,7 @@ class MechanicsEvaluator(QualityEvaluator):
 
     Example:
         >>> evaluator = MechanicsEvaluator()
-        >>> score = evaluator.evaluate(mechanics_yaml_content)
+        >>> score = evaluator.evaluate(mechanics_json_content)
         >>> print(f"Score: {score.score}/10")
         >>> print(score.feedback)
     """
@@ -43,7 +43,7 @@ class MechanicsEvaluator(QualityEvaluator):
         Evaluate game mechanics content.
 
         Args:
-            content: YAML string containing game mechanics
+            content: JSON string containing game mechanics
 
         Returns:
             QualityScore with evaluation results
@@ -52,8 +52,8 @@ class MechanicsEvaluator(QualityEvaluator):
             ValueError: If content cannot be parsed
         """
         try:
-            # Parse YAML content using metrics class
-            metrics = MechanicsMetrics.from_yaml_content(content)
+            # Parse JSON content using metrics class
+            metrics = MechanicsMetrics.from_json_content(content)
 
             # Get score and check if passes threshold
             score = metrics.get_score()
@@ -112,7 +112,7 @@ class MechanicsEvaluator(QualityEvaluator):
         Generate detailed, actionable feedback for improvement.
 
         Args:
-            content: YAML string containing game mechanics
+            content: JSON string containing game mechanics
 
         Returns:
             Multi-line feedback with specific suggestions

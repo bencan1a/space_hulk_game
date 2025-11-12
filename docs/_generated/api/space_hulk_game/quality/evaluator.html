@@ -38,7 +38,7 @@ el.replaceWith(d);
 <section id="section-intro">
 <p>Base quality evaluator class for content evaluation.</p>
 <p>This module defines the abstract base class for all content evaluators,
-providing common functionality for YAML parsing, error handling, and
+providing common functionality for JSON parsing, error handling, and
 standardized evaluation interface.</p>
 </section>
 <section>
@@ -92,7 +92,7 @@ standardized evaluation interface.</p>
         Evaluate content and return quality score.
 
         Args:
-            content: Content to evaluate (usually YAML string)
+            content: Content to evaluate (usually JSON string)
 
         Returns:
             QualityScore with evaluation results
@@ -129,37 +129,42 @@ standardized evaluation interface.</p>
         return result.feedback
 
     @staticmethod
-    def parse_yaml(content: str) -&gt; dict[str, Any]:
+    def parse_json(content: str) -&gt; dict[str, Any]:
         &#34;&#34;&#34;
-        Parse YAML content, handling markdown-wrapped YAML.
+        Parse JSON content, handling markdown-wrapped JSON.
 
-        NOTE: YAML sanitization happens in OutputSanitizer (Phase 1).
-        This method assumes YAML is already clean. If parsing fails, it&#39;s a real error.
+        NOTE: JSON sanitization happens in OutputSanitizer (Phase 1).
+        This method assumes JSON is already clean. If parsing fails, it&#39;s a real error.
 
         Args:
-            content: YAML string, optionally wrapped in markdown code fences
+            content: JSON string, optionally wrapped in markdown code fences
 
         Returns:
-            Parsed YAML as dictionary
+            Parsed JSON as dictionary
 
         Raises:
-            ValueError: If YAML cannot be parsed
+            ValueError: If JSON cannot be parsed
         &#34;&#34;&#34;
         try:
-            # Handle markdown-wrapped YAML
-            content_stripped = strip_markdown_yaml_blocks(content.strip())
-            logger.debug(&#34;Stripped markdown fences from YAML content&#34;)
+            # Handle markdown-wrapped JSON (remove ```json and ``` markers)
+            content_stripped = content.strip()
+            content_stripped = re.sub(
+                r&#34;^\s*```json\s*\n?&#34;, &#34;&#34;, content_stripped, flags=re.IGNORECASE | re.MULTILINE
+            )
+            content_stripped = re.sub(r&#34;\n?\s*```\s*$&#34;, &#34;&#34;, content_stripped, flags=re.MULTILINE)
+            content_stripped = content_stripped.strip()
+            logger.debug(&#34;Stripped markdown fences from JSON content&#34;)
 
-            data = yaml.safe_load(content_stripped)
+            data = json.loads(content_stripped)
             if data is None:
-                raise ValueError(&#34;YAML content is empty or invalid&#34;)
+                raise ValueError(&#34;JSON content is empty or invalid&#34;)
             return dict(data)
 
-        except yaml.YAMLError as e:
-            logger.error(f&#34;Failed to parse YAML: {e}&#34;)
-            raise ValueError(f&#34;Invalid YAML content: {e}&#34;) from e
+        except json.JSONDecodeError as e:
+            logger.error(f&#34;Failed to parse JSON: {e}&#34;)
+            raise ValueError(f&#34;Invalid JSON content: {e}&#34;) from e
         except Exception as e:
-            logger.error(f&#34;Unexpected error parsing YAML: {e}&#34;)
+            logger.error(f&#34;Unexpected error parsing JSON: {e}&#34;)
             raise ValueError(f&#34;Failed to parse content: {e}&#34;) from e
 
     def _create_score(
@@ -243,8 +248,8 @@ should inherit from this class and implement the required methods.</p>
 </ul>
 <h3>Static methods</h3>
 <dl>
-<dt id="space_hulk_game.quality.evaluator.QualityEvaluator.parse_yaml"><code class="name flex">
-<span>def <span class="ident">parse_yaml</span></span>(<span>content: str) ‑> dict[str, typing.Any]</span>
+<dt id="space_hulk_game.quality.evaluator.QualityEvaluator.parse_json"><code class="name flex">
+<span>def <span class="ident">parse_json</span></span>(<span>content: str) ‑> dict[str, typing.Any]</span>
 </code></dt>
 <dd>
 <details class="source">
@@ -252,53 +257,58 @@ should inherit from this class and implement the required methods.</p>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@staticmethod
-def parse_yaml(content: str) -&gt; dict[str, Any]:
+def parse_json(content: str) -&gt; dict[str, Any]:
     &#34;&#34;&#34;
-    Parse YAML content, handling markdown-wrapped YAML.
+    Parse JSON content, handling markdown-wrapped JSON.
 
-    NOTE: YAML sanitization happens in OutputSanitizer (Phase 1).
-    This method assumes YAML is already clean. If parsing fails, it&#39;s a real error.
+    NOTE: JSON sanitization happens in OutputSanitizer (Phase 1).
+    This method assumes JSON is already clean. If parsing fails, it&#39;s a real error.
 
     Args:
-        content: YAML string, optionally wrapped in markdown code fences
+        content: JSON string, optionally wrapped in markdown code fences
 
     Returns:
-        Parsed YAML as dictionary
+        Parsed JSON as dictionary
 
     Raises:
-        ValueError: If YAML cannot be parsed
+        ValueError: If JSON cannot be parsed
     &#34;&#34;&#34;
     try:
-        # Handle markdown-wrapped YAML
-        content_stripped = strip_markdown_yaml_blocks(content.strip())
-        logger.debug(&#34;Stripped markdown fences from YAML content&#34;)
+        # Handle markdown-wrapped JSON (remove ```json and ``` markers)
+        content_stripped = content.strip()
+        content_stripped = re.sub(
+            r&#34;^\s*```json\s*\n?&#34;, &#34;&#34;, content_stripped, flags=re.IGNORECASE | re.MULTILINE
+        )
+        content_stripped = re.sub(r&#34;\n?\s*```\s*$&#34;, &#34;&#34;, content_stripped, flags=re.MULTILINE)
+        content_stripped = content_stripped.strip()
+        logger.debug(&#34;Stripped markdown fences from JSON content&#34;)
 
-        data = yaml.safe_load(content_stripped)
+        data = json.loads(content_stripped)
         if data is None:
-            raise ValueError(&#34;YAML content is empty or invalid&#34;)
+            raise ValueError(&#34;JSON content is empty or invalid&#34;)
         return dict(data)
 
-    except yaml.YAMLError as e:
-        logger.error(f&#34;Failed to parse YAML: {e}&#34;)
-        raise ValueError(f&#34;Invalid YAML content: {e}&#34;) from e
+    except json.JSONDecodeError as e:
+        logger.error(f&#34;Failed to parse JSON: {e}&#34;)
+        raise ValueError(f&#34;Invalid JSON content: {e}&#34;) from e
     except Exception as e:
-        logger.error(f&#34;Unexpected error parsing YAML: {e}&#34;)
+        logger.error(f&#34;Unexpected error parsing JSON: {e}&#34;)
         raise ValueError(f&#34;Failed to parse content: {e}&#34;) from e</code></pre>
 </details>
-<div class="desc"><p>Parse YAML content, handling markdown-wrapped YAML.</p>
-<p>NOTE: YAML sanitization happens in OutputSanitizer (Phase 1).
-This method assumes YAML is already clean. If parsing fails, it's a real error.</p>
+<div class="desc"><p>Parse JSON content, handling markdown-wrapped JSON.</p>
+<p>NOTE: JSON sanitization happens in OutputSanitizer (Phase 1).
+This method assumes JSON is already clean. If parsing fails, it's a real error.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>content</code></strong></dt>
-<dd>YAML string, optionally wrapped in markdown code fences</dd>
+<dd>JSON string, optionally wrapped in markdown code fences</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>Parsed YAML as dictionary</p>
+<p>Parsed JSON as dictionary</p>
 <h2 id="raises">Raises</h2>
 <dl>
 <dt><code>ValueError</code></dt>
-<dd>If YAML cannot be parsed</dd>
+<dd>If JSON cannot be parsed</dd>
 </dl></div>
 </dd>
 </dl>
@@ -318,7 +328,7 @@ def evaluate(self, content: str) -&gt; QualityScore:
     Evaluate content and return quality score.
 
     Args:
-        content: Content to evaluate (usually YAML string)
+        content: Content to evaluate (usually JSON string)
 
     Returns:
         QualityScore with evaluation results
@@ -332,7 +342,7 @@ def evaluate(self, content: str) -&gt; QualityScore:
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>content</code></strong></dt>
-<dd>Content to evaluate (usually YAML string)</dd>
+<dd>Content to evaluate (usually JSON string)</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>QualityScore with evaluation results</p>
@@ -424,7 +434,7 @@ def evaluate(self, content: str) -&gt; QualityScore:
 <ul class="">
 <li><code><a title="space_hulk_game.quality.evaluator.QualityEvaluator.evaluate" href="#space_hulk_game.quality.evaluator.QualityEvaluator.evaluate">evaluate</a></code></li>
 <li><code><a title="space_hulk_game.quality.evaluator.QualityEvaluator.generate_feedback" href="#space_hulk_game.quality.evaluator.QualityEvaluator.generate_feedback">generate_feedback</a></code></li>
-<li><code><a title="space_hulk_game.quality.evaluator.QualityEvaluator.parse_yaml" href="#space_hulk_game.quality.evaluator.QualityEvaluator.parse_yaml">parse_yaml</a></code></li>
+<li><code><a title="space_hulk_game.quality.evaluator.QualityEvaluator.parse_json" href="#space_hulk_game.quality.evaluator.QualityEvaluator.parse_json">parse_json</a></code></li>
 <li><code><a title="space_hulk_game.quality.evaluator.QualityEvaluator.score" href="#space_hulk_game.quality.evaluator.QualityEvaluator.score">score</a></code></li>
 </ul>
 </li>

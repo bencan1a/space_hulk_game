@@ -2,17 +2,15 @@
 Base quality evaluator class for content evaluation.
 
 This module defines the abstract base class for all content evaluators,
-providing common functionality for YAML parsing, error handling, and
+providing common functionality for JSON parsing, error handling, and
 standardized evaluation interface.
 """
 
+import json
 import logging
+import re
 from abc import ABC, abstractmethod
 from typing import Any
-
-import yaml
-
-from space_hulk_game.utils.yaml_processor import strip_markdown_yaml_blocks
 
 from .score import QualityScore
 
@@ -56,7 +54,7 @@ class QualityEvaluator(ABC):
         Evaluate content and return quality score.
 
         Args:
-            content: Content to evaluate (usually YAML string)
+            content: Content to evaluate (usually JSON string)
 
         Returns:
             QualityScore with evaluation results
@@ -93,37 +91,42 @@ class QualityEvaluator(ABC):
         return result.feedback
 
     @staticmethod
-    def parse_yaml(content: str) -> dict[str, Any]:
+    def parse_json(content: str) -> dict[str, Any]:
         """
-        Parse YAML content, handling markdown-wrapped YAML.
+        Parse JSON content, handling markdown-wrapped JSON.
 
-        NOTE: YAML sanitization happens in OutputSanitizer (Phase 1).
-        This method assumes YAML is already clean. If parsing fails, it's a real error.
+        NOTE: JSON sanitization happens in OutputSanitizer (Phase 1).
+        This method assumes JSON is already clean. If parsing fails, it's a real error.
 
         Args:
-            content: YAML string, optionally wrapped in markdown code fences
+            content: JSON string, optionally wrapped in markdown code fences
 
         Returns:
-            Parsed YAML as dictionary
+            Parsed JSON as dictionary
 
         Raises:
-            ValueError: If YAML cannot be parsed
+            ValueError: If JSON cannot be parsed
         """
         try:
-            # Handle markdown-wrapped YAML
-            content_stripped = strip_markdown_yaml_blocks(content.strip())
-            logger.debug("Stripped markdown fences from YAML content")
+            # Handle markdown-wrapped JSON (remove ```json and ``` markers)
+            content_stripped = content.strip()
+            content_stripped = re.sub(
+                r"^\s*```json\s*\n?", "", content_stripped, flags=re.IGNORECASE | re.MULTILINE
+            )
+            content_stripped = re.sub(r"\n?\s*```\s*$", "", content_stripped, flags=re.MULTILINE)
+            content_stripped = content_stripped.strip()
+            logger.debug("Stripped markdown fences from JSON content")
 
-            data = yaml.safe_load(content_stripped)
+            data = json.loads(content_stripped)
             if data is None:
-                raise ValueError("YAML content is empty or invalid")
+                raise ValueError("JSON content is empty or invalid")
             return dict(data)
 
-        except yaml.YAMLError as e:
-            logger.error(f"Failed to parse YAML: {e}")
-            raise ValueError(f"Invalid YAML content: {e}") from e
+        except json.JSONDecodeError as e:
+            logger.error(f"Failed to parse JSON: {e}")
+            raise ValueError(f"Invalid JSON content: {e}") from e
         except Exception as e:
-            logger.error(f"Unexpected error parsing YAML: {e}")
+            logger.error(f"Unexpected error parsing JSON: {e}")
             raise ValueError(f"Failed to parse content: {e}") from e
 
     def _create_score(

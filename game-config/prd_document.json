@@ -1,0 +1,119 @@
+{
+  "prd_document": {
+    "game_title": "Space Hulk: Echoes of Perdition",
+    "game_systems": {
+      "movement": {
+        "description": "Players control Brother-Captain Raphael and his squad in a turn-based, grid-based tactical movement system. Each character has a set number of movement points per turn, influenced by armor and terrain. Movement is sequential, allowing for strategic positioning and flanking maneuvers. Environmental obstacles (debris, collapsed sections, organic growth) modify movement costs or block paths entirely.",
+        "commands": [
+          "move_square_up",
+          "move_square_down",
+          "move_square_left",
+          "move_square_right",
+          "rotate_facing"
+        ],
+        "narrative_purpose": "The grid-based, turn-based movement system, akin to the original Space Hulk board game, emphasizes the claustrophobia and tactical decision-making inherent in the Space Hulk environment. Limited movement points and the need for careful positioning reinforce the feeling of being outnumbered and constantly threatened. Navigating environmental obstacles directly relates to the 'Man vs. Environment' conflict, portraying the Hulk itself as an antagonist. It forces players to consider every step, fostering a sense of dread and vulnerability that enhances the grim tone of the narrative."
+      },
+      "inventory": {
+        "description": "Each Terminator has a personal inventory for weapons, limited ammunition, grenades, and mission-critical items (e.g., data-slates, med-kits). Capacity is fixed but items can be managed and shared between squad members. Unique chapter relics or specialized gear (e.g., Auspex, Demolitions Charges) occupy specific slots or are permanently equipped to certain characters.",
+        "capacity": 5,
+        "commands": [
+          "take_item",
+          "drop_item",
+          "use_item",
+          "transfer_item_to_squadmate"
+        ],
+        "narrative_purpose": "The limited inventory capacity reflects the isolated and resource-starved nature of the mission, reinforcing the 'Man vs. Environment' and 'Man vs. Alien' conflicts. Strategic management of ammunition and med-kits, especially, ties into the themes of scarcity and constant threat. Managing unique items like data-slates directly supports narrative progression and decision points (e.g., retrieving data in 'scene_003_first_squad_fate'). The sharing mechanism fosters squad cohesion, supporting team-based character arcs."
+      },
+      "combat": {
+        "description": "Combat is turn-based, focusing on ranged and limited melee engagements. Each Terminator has a weapon with specific range, damage, and ammunition stats. Actions include 'Attack', 'Overwatch' (sets up a reactive attack), 'Reload', 'Guard' (increases defense), and 'Special Ability'. Tyranid enemies often overwhelm with numbers, requiring players to utilize terrain, suppressive fire, and character abilities strategically. Psychological 'Strain' mechanics influence combat performance.",
+        "mechanics": [
+          {
+            "name": "Line of Sight & Cover",
+            "rules": "True line of sight rules affect ranged attacks. Partial and full cover reduces incoming damage. This incentivizes tactical positioning and reinforces the claustrophobic nature of the Space Hulk's corridors."
+          },
+          {
+            "name": "Overwatch System",
+            "rules": "Players can declare an 'Overwatch' zone, attacking any enemy moving into or through it during the enemy turn. This is crucial for controlling choke points and managing large swarms of Tyranids, reflecting the Space Marines' defensive prowess against overwhelming odds."
+          },
+          {
+            "name": "Ammunition Management",
+            "rules": "All ranged weapons have limited ammunition. Running out forces a reload action, leaving a Terminator vulnerable, or resorting to less effective melee. This reinforces the grim resource management aspect of the narrative."
+          },
+          {
+            "name": "Psychological Strain/Morale",
+            "rules": "Witnessing squadmate injury/death, prolonged exposure to psychic phenomena, or specific narrative events (e.g., 'first_squad_fate' scene) can induce 'Strain'. High Strain reduces accuracy, increases chance of 'Red Thirst' activation for Raphael, or causes minor negative combat penalties. Certain narrative choices (e.g., rescuing personnel) can mitigate Strain or boost Morale."
+          },
+          {
+            "name": "Character Specializations",
+            "rules": "Each squad member has unique combat abilities. Tiberius excels with heavy weapons and demolitions, Valerius with tactical coordination, Claudius with zealous close combat, and Raphael with leadership bonuses and powerful melee attacks. This encourages synergistic play and highlights individual character strengths described in their arcs."
+          }
+        ],
+        "narrative_purpose": "The combat system directly supports the 'Man vs. Alien' conflict by emphasizing the overwhelming nature of the Tyranid threat and the critical importance of tactical planning. Overwatch and Line of Sight mechanics highlight the confined, deadly environment. Ammunition management underscores the theme of scarcity and survival. The 'Psychological Strain' mechanic is crucial for the 'Man vs. Self' conflict, showing the mental toll of the mission on the Space Marines, particularly Raphael's struggle with the 'Red Thirst' and Claudius's wavering zeal. Character specializations allow each marine to demonstrate their unique skills as per their character arcs (e.g., Tiberius using demolitions, Valerius giving tactical advice) during gameplay."
+      },
+      "interaction": {
+        "description": "Players can interact with environmental objects (doors, consoles, debris), activate mission objectives, and occasionally engage in dialogue with squadmates or remnants of Imperial personnel. Interactions can reveal lore, open new paths, trigger events, or present narrative choices.",
+        "commands": [
+          "examine_object",
+          "interact_with_object",
+          "talk_to_squadmate"
+        ],
+        "narrative_purpose": "Interaction mechanics serve to deepen player immersion and advance the narrative. 'Examine' allows for environmental storytelling, revealing the Hulk's history and the Tyranid's horrors. 'Interact' triggers decision points (e.g., 'dp_first_squad_data', 'dp_trapped_personnel'), directly shaping the plot and character arcs. 'Talk to squadmate' allows players to hear character-specific dialogue and manifest character moments (e.g., Raphael's internal monologues, Valerius's pragmatic counsel, Claudius's zeal), fostering a richer understanding of their journeys and supporting the 'Man vs. Self' and character development themes."
+      }
+    },
+    "game_state": {
+      "tracked_variables": [
+        {
+          "variable": "squad_morale",
+          "purpose": "Reflects the overall psychological state of the squad. Influenced by narrative choices (e.g., rescuing personnel increases morale), combat outcomes (deaths decrease morale), and 'Psychological Strain'. Affects combat performance and certain dialogue options."
+        },
+        {
+          "variable": "raphael_red_thirst_level",
+          "purpose": "Specific to Brother-Captain Raphael. Increases with high 'Psychological Strain', witnessing gore, or prolonged combat. High levels can trigger temporary combat buffs but risk negative consequences (e.g., berserker rage, temporary loss of control), reflecting his character arc struggle."
+        },
+        {
+          "variable": "anathema_intel_level",
+          "purpose": "A numerical value representing the amount of information gathered about 'The Anathema'. Increases by retrieving the data-slate in 'scene_003_first_squad_fate'. Influences the clarity and options available during the final decision in 'scene_007_final_choice'."
+        },
+        {
+          "variable": "rescued_personnel_count",
+          "purpose": "Tracks if the optional rescue in 'scene_004_restricted_sector' was attempted and survivors were secured. Influences 'squad_morale' and potential dialogue/ending variations."
+        }
+      ],
+      "win_conditions": [
+        {
+          "condition": "Successfully extract from the Space Hulk with at least one Terminator alive after making a conclusive decision about 'The Anathema'."
+        }
+      ],
+      "lose_conditions": [
+        {
+          "condition": "All Terminators in Brother-Captain Raphael's squad are killed in action."
+        },
+        {
+          "condition": "Failure to complete a critical objective within a strict time limit (e.g., being overwhelmed in 'scene_008_extraction_destroy' if relevant)."
+        }
+      ]
+    },
+    "technical_requirements": [
+      {
+        "requirement": "Robust AI for Tyranid swarm behavior, including pathfinding through complex, dynamic environments (debris, organic growth).",
+        "justification": "Essential for providing a challenging 'Man vs. Alien' experience and accurately portraying the overwhelming nature of the Tyranid threat and their ability to adapt to the Space Hulk terrain. Directly supports the combat mechanic's emphasis on crowd control and tactical positioning."
+      },
+      {
+        "requirement": "Dynamic lighting and atmospheric particle effects to enhance claustrophobia and horror.",
+        "justification": "Crucial for establishing the grim, claustrophobic tone of the narrative and the 'Man vs. Environment' conflict. Flickering lights, shadows, and bio-luminescent spores ('scene_003_first_squad_fate') are key to creating the intended atmosphere and psychological dread."
+      },
+      {
+        "requirement": "Branching narrative system with persistent tracking of player choices and their impact on game state variables (morale, intel, character states).",
+        "justification": "Fundamental for supporting the narrative's emphasis on player agency, moral dilemmas ('plot4_moral_dilemma'), and character arcs. The outcomes of decision points like 'dp_first_squad_data' and 'dp_trapped_personnel' must have tangible, traceable effects on the game world and ending conditions."
+      },
+      {
+        "requirement": "Sound design emphasizing unsettling ambient noises, guttural Tyranid vocalizations, and the clanking of Terminator armor.",
+        "justification": "Critical for enhancing the sensory experience, reinforcing the claustrophobic tone, and building tension. The presence of unseen enemies and the distinct sounds of the Space Hulk contribute significantly to the game's horror elements."
+      },
+      {
+        "requirement": "Character voice acting for key narrative moments and squadmate interactions.",
+        "justification": "Voice acting enhances emotional impact during character moments (e.g., Raphael's internal monologues, Valerius's council, Claudius's zeal) and decision points, contributing significantly to character development and player immersion into the 'Man vs. Self' conflict."
+      }
+    ]
+  }
+}

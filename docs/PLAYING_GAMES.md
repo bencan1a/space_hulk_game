@@ -461,12 +461,12 @@ You can play custom games by specifying the game directory:
 demo_game --game-dir path/to/custom/game
 ```
 
-The directory should contain the required YAML files:
-- `plot_outline.yaml`
-- `narrative_map.yaml`
-- `puzzle_design.yaml`
-- `scene_texts.yaml`
-- `prd_document.yaml`
+The directory should contain the required JSON files:
+- `plot_outline.json`
+- `narrative_map.json`
+- `puzzle_design.json`
+- `scene_texts.json`
+- `prd_document.json`
 
 ### Custom Save Directories
 
@@ -508,7 +508,7 @@ A: Yes! Load a save or start a new game to try different approaches.
 A: Enable verbose mode (`--verbose`), reproduce the issue, and report it with the log output.
 
 **Q: Can I create my own games?**
-A: Yes! Use the CrewAI agents to generate new game content, or manually create YAML files following the schema.
+A: Yes! Use the CrewAI agents to generate new game content, or manually create JSON files following the schema.
 
 ## Getting Help
 

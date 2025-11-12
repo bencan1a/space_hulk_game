@@ -6,11 +6,10 @@ by the Space Hulk Game crew, including solution clarity, narrative integration,
 and appropriate difficulty.
 """
 
+import json
 import logging
 from dataclasses import dataclass
 from typing import Any
-
-import yaml
 
 logger = logging.getLogger(__name__)
 
@@ -45,27 +44,27 @@ class PuzzleMetrics:
     min_solution_percentage: float = 80.0  # 80% should have clear solutions
 
     @classmethod
-    def from_yaml_content(cls, yaml_content: str) -> "PuzzleMetrics":
+    def from_json_content(cls, json_content: str) -> "PuzzleMetrics":
         """
-        Create PuzzleMetrics from YAML content string.
+        Create PuzzleMetrics from JSON content string.
 
         Args:
-            yaml_content: YAML string containing puzzle design data
+            json_content: JSON string containing puzzle design data
 
         Returns:
             PuzzleMetrics instance with measured values
         """
         try:
-            # Handle markdown-wrapped YAML
-            content = yaml_content.strip()
+            # Handle markdown-wrapped JSON
+            content = json_content.strip()
             if content.startswith("```"):
                 lines = content.split("\n")
                 content = "\n".join(lines[1:-1])
 
-            data = yaml.safe_load(content)
+            data = json.loads(content)
             return cls.from_dict(data)
         except Exception as e:
-            raise ValueError(f"Failed to parse YAML content: {e}") from e
+            raise ValueError(f"Failed to parse JSON content: {e}") from e
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> "PuzzleMetrics":

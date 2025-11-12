@@ -1,172 +1,709 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-<meta name="generator" content="pdoc3 0.11.6">
-<title>space_hulk_game.utils.output_sanitizer API documentation</title>
-<meta name="description" content="Output Sanitization Pipeline …">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
-<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
-<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
-<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
-<script>window.addEventListener('DOMContentLoaded', () => {
-hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
-hljs.highlightAll();
-/* Collapse source docstrings */
-setTimeout(() => {
-[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
-.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
-.forEach(el => {
-let d = document.createElement('details');
-d.classList.add('hljs-string');
-d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
-el.replaceWith(d);
-});
-}, 100);
-})</script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <meta name="generator" content="pdoc3 0.11.6">
+    <title>space_hulk_game.utils.output_sanitizer API documentation</title>
+    <meta name="description" content="Output Sanitization Pipeline …">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css"
+        integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA=="
+        crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css"
+        integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA=="
+        crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"
+        crossorigin>
+    <style>
+        :root {
+            --highlight-color: #fe9
+        }
+
+        .flex {
+            display: flex !important
+        }
+
+        body {
+            line-height: 1.5em
+        }
+
+        #content {
+            padding: 20px
+        }
+
+        #sidebar {
+            padding: 1.5em;
+            overflow: hidden
+        }
+
+        #sidebar>*:last-child {
+            margin-bottom: 2cm
+        }
+
+        .http-server-breadcrumbs {
+            font-size: 130%;
+            margin: 0 0 15px 0
+        }
+
+        #footer {
+            font-size: .75em;
+            padding: 5px 30px;
+            border-top: 1px solid #ddd;
+            text-align: right
+        }
+
+        #footer p {
+            margin: 0 0 0 1em;
+            display: inline-block
+        }
+
+        #footer p:last-child {
+            margin-right: 30px
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-weight: 300
+        }
+
+        h1 {
+            font-size: 2.5em;
+            line-height: 1.1em
+        }
+
+        h2 {
+            font-size: 1.75em;
+            margin: 2em 0 .50em 0
+        }
+
+        h3 {
+            font-size: 1.4em;
+            margin: 1.6em 0 .7em 0
+        }
+
+        h4 {
+            margin: 0;
+            font-size: 105%
+        }
+
+        h1:target,
+        h2:target,
+        h3:target,
+        h4:target,
+        h5:target,
+        h6:target {
+            background: var(--highlight-color);
+            padding: .2em 0
+        }
+
+        a {
+            color: #058;
+            text-decoration: none;
+            transition: color .2s ease-in-out
+        }
+
+        a:visited {
+            color: #503
+        }
+
+        a:hover {
+            color: #b62
+        }
+
+        .title code {
+            font-weight: bold
+        }
+
+        h2[id^="header-"] {
+            margin-top: 2em
+        }
+
+        .ident {
+            color: #900;
+            font-weight: bold
+        }
+
+        pre code {
+            font-size: .8em;
+            line-height: 1.4em;
+            padding: 1em;
+            display: block
+        }
+
+        code {
+            background: #f3f3f3;
+            font-family: "DejaVu Sans Mono", monospace;
+            padding: 1px 4px;
+            overflow-wrap: break-word
+        }
+
+        h1 code {
+            background: transparent
+        }
+
+        pre {
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            margin: 1em 0
+        }
+
+        #http-server-module-list {
+            display: flex;
+            flex-flow: column
+        }
+
+        #http-server-module-list div {
+            display: flex
+        }
+
+        #http-server-module-list dt {
+            min-width: 10%
+        }
+
+        #http-server-module-list p {
+            margin-top: 0
+        }
+
+        .toc ul,
+        #index {
+            list-style-type: none;
+            margin: 0;
+            padding: 0
+        }
+
+        #index code {
+            background: transparent
+        }
+
+        #index h3 {
+            border-bottom: 1px solid #ddd
+        }
+
+        #index ul {
+            padding: 0
+        }
+
+        #index h4 {
+            margin-top: .6em;
+            font-weight: bold
+        }
+
+        @media (min-width:200ex) {
+            #index .two-column {
+                column-count: 2
+            }
+        }
+
+        @media (min-width:300ex) {
+            #index .two-column {
+                column-count: 3
+            }
+        }
+
+        dl {
+            margin-bottom: 2em
+        }
+
+        dl dl:last-child {
+            margin-bottom: 4em
+        }
+
+        dd {
+            margin: 0 0 1em 3em
+        }
+
+        #header-classes+dl>dd {
+            margin-bottom: 3em
+        }
+
+        dd dd {
+            margin-left: 2em
+        }
+
+        dd p {
+            margin: 10px 0
+        }
+
+        .name {
+            background: #eee;
+            font-size: .85em;
+            padding: 5px 10px;
+            display: inline-block;
+            min-width: 40%
+        }
+
+        .name:hover {
+            background: #e0e0e0
+        }
+
+        dt:target .name {
+            background: var(--highlight-color)
+        }
+
+        .name>span:first-child {
+            white-space: nowrap
+        }
+
+        .name.class>span:nth-child(2) {
+            margin-left: .4em
+        }
+
+        .inherited {
+            color: #999;
+            border-left: 5px solid #eee;
+            padding-left: 1em
+        }
+
+        .inheritance em {
+            font-style: normal;
+            font-weight: bold
+        }
+
+        .desc h2 {
+            font-weight: 400;
+            font-size: 1.25em
+        }
+
+        .desc h3 {
+            font-size: 1em
+        }
+
+        .desc dt code {
+            background: inherit
+        }
+
+        .source>summary,
+        .git-link-div {
+            color: #666;
+            text-align: right;
+            font-weight: 400;
+            font-size: .8em;
+            text-transform: uppercase
+        }
+
+        .source summary>* {
+            white-space: nowrap;
+            cursor: pointer
+        }
+
+        .git-link {
+            color: inherit;
+            margin-left: 1em
+        }
+
+        .source pre {
+            max-height: 500px;
+            overflow: auto;
+            margin: 0
+        }
+
+        .source pre code {
+            font-size: 12px;
+            overflow: visible;
+            min-width: max-content
+        }
+
+        .hlist {
+            list-style: none
+        }
+
+        .hlist li {
+            display: inline
+        }
+
+        .hlist li:after {
+            content: ',\2002'
+        }
+
+        .hlist li:last-child:after {
+            content: none
+        }
+
+        .hlist .hlist {
+            display: inline;
+            padding-left: 1em
+        }
+
+        img {
+            max-width: 100%
+        }
+
+        td {
+            padding: 0 .5em
+        }
+
+        .admonition {
+            padding: .1em 1em;
+            margin: 1em 0
+        }
+
+        .admonition-title {
+            font-weight: bold
+        }
+
+        .admonition.note,
+        .admonition.info,
+        .admonition.important {
+            background: #aef
+        }
+
+        .admonition.todo,
+        .admonition.versionadded,
+        .admonition.tip,
+        .admonition.hint {
+            background: #dfd
+        }
+
+        .admonition.warning,
+        .admonition.versionchanged,
+        .admonition.deprecated {
+            background: #fd4
+        }
+
+        .admonition.error,
+        .admonition.danger,
+        .admonition.caution {
+            background: lightpink
+        }
+    </style>
+    <style media="screen and (min-width: 700px)">
+        @media screen and (min-width:700px) {
+            #sidebar {
+                width: 30%;
+                height: 100vh;
+                overflow: auto;
+                position: sticky;
+                top: 0
+            }
+
+            #content {
+                width: 70%;
+                max-width: 100ch;
+                padding: 3em 4em;
+                border-left: 1px solid #ddd
+            }
+
+            pre code {
+                font-size: 1em
+            }
+
+            .name {
+                font-size: 1em
+            }
+
+            main {
+                display: flex;
+                flex-direction: row-reverse;
+                justify-content: flex-end
+            }
+
+            .toc ul ul,
+            #index ul ul {
+                padding-left: 1em
+            }
+
+            .toc>ul>li {
+                margin-top: .5em
+            }
+        }
+    </style>
+    <style media="print">
+        @media print {
+            #sidebar h1 {
+                page-break-before: always
+            }
+
+            .source {
+                display: none
+            }
+        }
+
+        @media print {
+            * {
+                background: transparent !important;
+                color: #000 !important;
+                box-shadow: none !important;
+                text-shadow: none !important
+            }
+
+            a[href]:after {
+                content: " (" attr(href) ")";
+                font-size: 90%
+            }
+
+            a[href][title]:after {
+                content: none
+            }
+
+            abbr[title]:after {
+                content: " (" attr(title) ")"
+            }
+
+            .ir a:after,
+            a[href^="javascript:"]:after,
+            a[href^="#"]:after {
+                content: ""
+            }
+
+            pre,
+            blockquote {
+                border: 1px solid #999;
+                page-break-inside: avoid
+            }
+
+            thead {
+                display: table-header-group
+            }
+
+            tr,
+            img {
+                page-break-inside: avoid
+            }
+
+            img {
+                max-width: 100% !important
+            }
+
+            @page {
+                margin: 0.5cm
+            }
+
+            p,
+            h2,
+            h3 {
+                orphans: 3;
+                widows: 3
+            }
+
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                page-break-after: avoid
+            }
+        }
+    </style>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+        integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
+        crossorigin></script>
+    <script>window.addEventListener('DOMContentLoaded', () => {
+            hljs.configure({ languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml'] });
+            hljs.highlightAll();
+            /* Collapse source docstrings */
+            setTimeout(() => {
+                [...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+                    .filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+                    .forEach(el => {
+                        let d = document.createElement('details');
+                        d.classList.add('hljs-string');
+                        d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+                        el.replaceWith(d);
+                    });
+            }, 100);
+        })</script>
 </head>
+
 <body>
-<main>
-<article id="content">
-<header>
-<h1 class="title">Module <code>space_hulk_game.utils.output_sanitizer</code></h1>
-</header>
-<section id="section-intro">
-<p>Output Sanitization Pipeline</p>
-<p>This module provides pre-write sanitization for YAML outputs from CrewAI agents.
-It orchestrates existing validation and correction layers to ensure clean YAML is
-written to disk, preventing common syntax errors like mixed quotes, invalid list
-markers, and unescaped apostrophes.</p>
-<p>The OutputSanitizer intercepts raw LLM output BEFORE it's written to disk, applying:
-1. Markdown fence stripping (removes ```yaml blocks)
-2. YAML syntax correction (fixes common errors)
-3. Schema validation and auto-correction (adds missing fields, fixes IDs)</p>
-<p>This solves the critical issue where CrewAI writes raw LLM output directly to disk,
-causing YAML syntax errors that break downstream processing.</p>
-<h2 id="example">Example</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; sanitizer = OutputSanitizer()
-&gt;&gt;&gt; raw_output = &quot;```yaml\ntitle: My Plot\n```&quot;
-&gt;&gt;&gt; clean_yaml = sanitizer.sanitize(raw_output, 'plot')
-&gt;&gt;&gt; print(clean_yaml)
-title: My Plot
-setting: ...
-# (with all required fields added and validated)
+    <main>
+        <article id="content">
+            <header>
+                <h1 class="title">Module <code>space_hulk_game.utils.output_sanitizer</code></h1>
+            </header>
+            <section id="section-intro">
+                <p>Output Sanitization Pipeline</p>
+                <p>This module provides pre-write sanitization for JSON outputs from CrewAI agents.
+                    With JSON mode enabled in the LLM, most syntax errors are eliminated. The sanitizer
+                    now focuses on:
+                    1. Stripping markdown fences (if present: ```json blocks)
+                    2. Validating JSON syntax
+                    3. Pretty-formatting JSON for readability</p>
+                <p>This is significantly simpler than the previous YAML pipeline, as JSON mode provides
+                    guaranteed valid syntax from the LLM.</p>
+                <h2 id="example">Example</h2>
+                <pre><code class="language-python-repl">&gt;&gt;&gt; sanitizer = OutputSanitizer()
+&gt;&gt;&gt; raw_output = '{&quot;narrative_foundation&quot;: {&quot;title&quot;: &quot;My Plot&quot;}}'
+&gt;&gt;&gt; clean_json = sanitizer.sanitize(raw_output, 'plot')
+&gt;&gt;&gt; print(clean_json)
+{
+  &quot;narrative_foundation&quot;: {
+    &quot;title&quot;: &quot;My Plot&quot;,
+    ...
+  }
+}
 </code></pre>
-</section>
-<section>
-</section>
-<section>
-</section>
-<section>
-</section>
-<section>
-<h2 class="section-title" id="header-classes">Classes</h2>
-<dl>
-<dt id="space_hulk_game.utils.output_sanitizer.OutputSanitizer"><code class="flex name class">
+            </section>
+            <section>
+            </section>
+            <section>
+            </section>
+            <section>
+                <h2 class="section-title" id="header-functions">Functions</h2>
+                <dl>
+                    <dt id="space_hulk_game.utils.output_sanitizer.strip_markdown_yaml_blocks"><code class="name flex">
+<span>def <span class="ident">strip_markdown_yaml_blocks</span></span>(<span>content: str) ‑> str</span>
+</code></dt>
+                    <dd>
+                        <details class="source">
+                            <summary>
+                                <span>Expand source code</span>
+                            </summary>
+                            <pre><code class="python">def strip_markdown_yaml_blocks(content: str) -&gt; str:
+    &#34;&#34;&#34;Strip markdown code block markers from YAML content.
+
+    DEPRECATED: This function is kept for backward compatibility with deprecated
+    YAML validation modules (corrector.py, validator.py). New code should use
+    JSON format and _strip_markdown_json_blocks instead.
+
+    LLMs often wrap YAML in markdown code blocks like:
+    ```yaml
+    content: here
+    ```
+
+    This function removes those markers to produce clean YAML.
+
+    Args:
+        content: Raw content that may contain markdown markers
+
+    Returns:
+        Clean YAML content without markdown markers
+    &#34;&#34;&#34;
+    # Remove leading ```yaml or ``` markers
+    content = re.sub(r&#34;^```ya?ml\s*\n&#34;, &#34;&#34;, content, flags=re.MULTILINE)
+    content = re.sub(r&#34;^```\s*\n&#34;, &#34;&#34;, content, flags=re.MULTILINE)
+
+    # Remove trailing ``` markers
+    content = re.sub(r&#34;\n```\s*$&#34;, &#34;&#34;, content, flags=re.MULTILINE)
+    content = re.sub(r&#34;^```\s*$&#34;, &#34;&#34;, content, flags=re.MULTILINE)
+
+    return content.strip()</code></pre>
+                        </details>
+                        <div class="desc">
+                            <p>Strip markdown code block markers from YAML content.</p>
+                            <p>DEPRECATED: This function is kept for backward compatibility with deprecated
+                                YAML validation modules (corrector.py, validator.py). New code should use
+                                JSON format and _strip_markdown_json_blocks instead.</p>
+                            <p>LLMs often wrap YAML in markdown code blocks like:</p>
+                            <pre><code class="language-yaml">content: here
+</code></pre>
+                            <p>This function removes those markers to produce clean YAML.</p>
+                            <h2 id="args">Args</h2>
+                            <dl>
+                                <dt><strong><code>content</code></strong></dt>
+                                <dd>Raw content that may contain markdown markers</dd>
+                            </dl>
+                            <h2 id="returns">Returns</h2>
+                            <p>Clean YAML content without markdown markers</p>
+                        </div>
+                    </dd>
+                </dl>
+            </section>
+            <section>
+                <h2 class="section-title" id="header-classes">Classes</h2>
+                <dl>
+                    <dt id="space_hulk_game.utils.output_sanitizer.OutputSanitizer"><code class="flex name class">
 <span>class <span class="ident">OutputSanitizer</span></span>
 </code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class OutputSanitizer:
-    &#34;&#34;&#34;Pre-write sanitization pipeline for YAML outputs.
+                    <dd>
+                        <details class="source">
+                            <summary>
+                                <span>Expand source code</span>
+                            </summary>
+                            <pre><code class="python">class OutputSanitizer:
+    &#34;&#34;&#34;Pre-write sanitization pipeline for JSON outputs.
 
-    This class orchestrates the existing YAML processing and correction layers
-    into a single sanitization pipeline that runs BEFORE CrewAI writes outputs
-    to disk. It ensures that YAML files are syntactically valid and schema-compliant.
-
-    The pipeline executes in two phases:
-    1. Strip markdown fences using yaml_processor
-    2. Apply type-specific correction using corrector
+    This class provides lightweight sanitization for JSON outputs from CrewAI agents.
+    With JSON mode enabled in the LLM, most syntax errors are eliminated, so the
+    sanitizer focuses on:
+    1. Stripping markdown fences (```json blocks, if present)
+    2. Validating JSON syntax
+    3. Pretty-formatting JSON for readability
 
     Features:
         - Handles all 5 output types (plot, narrative, puzzle, scene, mechanics)
         - Graceful error handling - returns best-effort sanitized output
         - Comprehensive logging of all sanitization steps
-        - Reuses existing validation/correction infrastructure
-
-    Attributes:
-        corrector: OutputCorrector instance for schema validation/correction
+        - Much simpler than YAML pipeline (JSON mode eliminates syntax errors)
 
     Example:
         &gt;&gt;&gt; sanitizer = OutputSanitizer()
-        &gt;&gt;&gt; # Raw output from LLM with markdown fences and missing fields
-        &gt;&gt;&gt; raw_output = &#39;&#39;&#39;```yaml
-        ... title: &#34;Space Hulk Adventure&#34;
-        ... setting: &#34;Abandoned ship&#34;
+        &gt;&gt;&gt; # Raw output from LLM (potentially with markdown fences)
+        &gt;&gt;&gt; raw_output = &#39;&#39;&#39;```json
+        ... {&#34;narrative_foundation&#34;: {&#34;title&#34;: &#34;Space Hulk Adventure&#34;}}
         ... ```&#39;&#39;&#39;
         &gt;&gt;&gt; # Sanitize before writing to disk
-        &gt;&gt;&gt; clean_yaml = sanitizer.sanitize(raw_output, &#39;plot&#39;)
-        &gt;&gt;&gt; # clean_yaml now has markdown stripped and all required fields added
-        &gt;&gt;&gt; with open(&#39;plot_outline.yaml&#39;, &#39;w&#39;) as f:
-        ...     f.write(clean_yaml)
+        &gt;&gt;&gt; clean_json = sanitizer.sanitize(raw_output, &#39;plot&#39;)
+        &gt;&gt;&gt; # clean_json now has markdown stripped and is pretty-formatted
+        &gt;&gt;&gt; with open(&#39;plot_outline.json&#39;, &#39;w&#39;) as f:
+        ...     f.write(clean_json)
     &#34;&#34;&#34;
 
     def __init__(self) -&gt; None:
-        &#34;&#34;&#34;Initialize the output sanitizer with a corrector instance.
+        &#34;&#34;&#34;Initialize the output sanitizer.
 
-        The corrector provides type-specific validation and auto-correction
-        for all five output types.
+        With JSON mode, we don&#39;t need the complex corrector infrastructure.
         &#34;&#34;&#34;
-        # Lazy import to avoid circular dependency
-        from space_hulk_game.validation.corrector import OutputCorrector  # noqa: PLC0415
+        logger.info(&#34;OutputSanitizer initialized for JSON outputs&#34;)
 
-        self.corrector = OutputCorrector()
-        logger.info(&#34;OutputSanitizer initialized with OutputCorrector&#34;)
+    def _strip_markdown_json_blocks(self, content: str) -&gt; str:
+        &#34;&#34;&#34;Strip markdown JSON code blocks from content.
+
+        Removes ```json and ``` markers that LLMs might add (though JSON mode should prevent this).
+
+        Args:
+            content: Raw string that might contain markdown fences
+
+        Returns:
+            Content with markdown fences removed
+        &#34;&#34;&#34;
+        # Remove ```json at the start (with optional whitespace)
+        content = re.sub(r&#34;^\s*```json\s*\n?&#34;, &#34;&#34;, content, flags=re.IGNORECASE)
+        # Remove ``` at the end (with optional whitespace)
+        content = re.sub(r&#34;\n?\s*```\s*$&#34;, &#34;&#34;, content)
+        return content.strip()
 
     def sanitize(self, raw_output: str, output_type: str) -&gt; str:
         &#34;&#34;&#34;Sanitize raw LLM output before writing to disk.
 
-        This method applies a two-phase sanitization pipeline:
-        1. Strip markdown code fences (```yaml blocks)
-        2. Apply type-specific correction (schema validation, error fixing)
+        This method applies a simple sanitization pipeline:
+        1. Strip markdown code fences (```json blocks, if present)
+        2. Validate JSON syntax with json.loads()
+        3. Pretty-format JSON with json.dumps()
 
-        The method uses graceful error handling - if correction fails at any
-        stage, it returns the best-effort sanitized output rather than raising
-        exceptions. This ensures that SOME output is written, even if not
-        perfectly validated.
+        The method uses graceful error handling - if parsing fails, it returns
+        the markdown-stripped version.
 
         Args:
-            raw_output: Raw YAML string from LLM, potentially with markdown fences,
-                       syntax errors, and missing required fields.
-            output_type: Type of output for type-specific correction. Valid values:
-                        - &#39;plot&#39;: Plot outline with plot_points, characters, conflicts
-                        - &#39;narrative&#39;: Narrative map with scenes and connections
-                        - &#39;puzzle&#39;: Puzzle design with puzzles, artifacts, monsters, npcs
-                        - &#39;scene&#39;: Scene texts with detailed descriptions and dialogue
-                        - &#39;mechanics&#39;: Game mechanics with systems and state
+            raw_output: Raw JSON string from LLM, potentially with markdown fences.
+            output_type: Type of output (plot, narrative, puzzle, scene, mechanics).
+                        Currently used only for logging.
 
         Returns:
-            Sanitized YAML string, ready to be written to disk. If correction
-            succeeds, the output is fully validated and schema-compliant. If
-            correction fails, returns the markdown-stripped version with warnings
-            logged.
+            Sanitized JSON string, ready to be written to disk. Pretty-formatted
+            with 2-space indentation for readability.
 
         Raises:
             No exceptions are raised - all errors are logged and handled gracefully.
 
         Example:
             &gt;&gt;&gt; sanitizer = OutputSanitizer()
-            &gt;&gt;&gt; # LLM output with markdown fences and mixed quotes
-            &gt;&gt;&gt; raw = &#39;&#39;&#39;```yaml
-            ... title: &#34;Space Hulk: Lost Vessel&#39;
-            ... setting: &#39;A dark ship
+            &gt;&gt;&gt; # LLM output with markdown fences
+            &gt;&gt;&gt; raw = &#39;&#39;&#39;```json
+            ... {&#34;narrative_foundation&#34;: {&#34;title&#34;: &#34;Space Hulk&#34;}}
             ... ```&#39;&#39;&#39;
             &gt;&gt;&gt; clean = sanitizer.sanitize(raw, &#39;plot&#39;)
-            &gt;&gt;&gt; # clean now has fences stripped, quotes fixed, missing fields added
+            &gt;&gt;&gt; # clean is now pretty-formatted JSON without fences
         &#34;&#34;&#34;
-        logger.info(f&#34;Sanitizing output as type: {output_type}&#34;)
+        logger.info(f&#34;Sanitizing JSON output as type: {output_type}&#34;)
 
-        # Phase 1: Strip markdown fences
-        # This removes ```yaml and ``` markers that LLMs often add
+        # Phase 1: Strip markdown fences (if present)
         try:
-            markdown_stripped = strip_markdown_yaml_blocks(raw_output)
+            markdown_stripped = self._strip_markdown_json_blocks(raw_output)
             logger.debug(
                 f&#34;Markdown fences stripped (length: {len(raw_output)} -&gt; {len(markdown_stripped)})&#34;
             )
@@ -177,146 +714,113 @@ setting: ...
             )
             markdown_stripped = raw_output
 
-        # Phase 2: Apply type-specific correction
-        # This validates schema and fixes common errors
+        # Phase 2: Validate JSON syntax and pretty-format
         try:
-            if output_type == &#34;plot&#34;:
-                result = self.corrector.correct_plot(markdown_stripped)
-            elif output_type == &#34;narrative&#34;:
-                result = self.corrector.correct_narrative_map(markdown_stripped)
-            elif output_type == &#34;puzzle&#34;:
-                result = self.corrector.correct_puzzle_design(markdown_stripped)
-            elif output_type == &#34;scene&#34;:
-                result = self.corrector.correct_scene_texts(markdown_stripped)
-            elif output_type == &#34;mechanics&#34;:
-                result = self.corrector.correct_game_mechanics(markdown_stripped)
-            else:
-                logger.warning(
-                    f&#34;Unknown output type &#39;{output_type}&#39;, skipping type-specific correction&#34;
-                )
-                # Return markdown-stripped version for unknown types
-                return markdown_stripped
+            # Parse JSON to validate syntax
+            parsed_data = json.loads(markdown_stripped)
+            logger.info(f&#34;JSON syntax validated successfully for {output_type}&#34;)
 
-            # Log correction results
-            if result.corrections:
-                logger.info(
-                    f&#34;Applied {len(result.corrections)} corrections for {output_type}: &#34;
-                    f&#34;{result.corrections}&#34;
-                )
+            # Pretty-format with 2-space indentation
+            pretty_json = json.dumps(parsed_data, indent=2, ensure_ascii=False)
+            logger.info(f&#34;Sanitization successful for {output_type}&#34;)
+            return pretty_json
 
-            if result.success:
-                logger.info(f&#34;Sanitization successful for {output_type}&#34;)
-                return result.corrected_yaml
-            else:
-                # Validation incomplete, but return corrected version anyway (best effort)
-                logger.warning(
-                    f&#34;Sanitization incomplete for {output_type}, validation errors: &#34;
-                    f&#34;{result.validation_result.errors}&#34;
-                )
-                logger.warning(&#34;Returning corrected YAML despite validation errors (best effort)&#34;)
-                return result.corrected_yaml
-
-        except Exception as e:
-            # Fallback: if correction fails completely, return markdown-stripped version
+        except json.JSONDecodeError as e:
+            # JSON parsing failed - log error and return markdown-stripped version
             logger.error(
-                f&#34;Error during type-specific correction for {output_type}: {e}&#34;,
+                f&#34;JSON parsing failed for {output_type}: {e}&#34;,
                 exc_info=True,
             )
-            logger.warning(&#34;Returning markdown-stripped output without type-specific correction&#34;)
+            logger.warning(&#34;Returning markdown-stripped output without validation (best effort)&#34;)
+            return markdown_stripped
+
+        except Exception as e:
+            # Unexpected error during sanitization
+            logger.error(
+                f&#34;Unexpected error during sanitization for {output_type}: {e}&#34;,
+                exc_info=True,
+            )
+            logger.warning(&#34;Returning markdown-stripped output (fallback)&#34;)
             return markdown_stripped</code></pre>
-</details>
-<div class="desc"><p>Pre-write sanitization pipeline for YAML outputs.</p>
-<p>This class orchestrates the existing YAML processing and correction layers
-into a single sanitization pipeline that runs BEFORE CrewAI writes outputs
-to disk. It ensures that YAML files are syntactically valid and schema-compliant.</p>
-<p>The pipeline executes in two phases:
-1. Strip markdown fences using yaml_processor
-2. Apply type-specific correction using corrector</p>
-<h2 id="features">Features</h2>
-<ul>
-<li>Handles all 5 output types (plot, narrative, puzzle, scene, mechanics)</li>
-<li>Graceful error handling - returns best-effort sanitized output</li>
-<li>Comprehensive logging of all sanitization steps</li>
-<li>Reuses existing validation/correction infrastructure</li>
-</ul>
-<h2 id="attributes">Attributes</h2>
-<dl>
-<dt><strong><code>corrector</code></strong></dt>
-<dd>OutputCorrector instance for schema validation/correction</dd>
-</dl>
-<h2 id="example">Example</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; sanitizer = OutputSanitizer()
-&gt;&gt;&gt; # Raw output from LLM with markdown fences and missing fields
-&gt;&gt;&gt; raw_output = '''```yaml
-... title: &quot;Space Hulk Adventure&quot;
-... setting: &quot;Abandoned ship&quot;
+                        </details>
+                        <div class="desc">
+                            <p>Pre-write sanitization pipeline for JSON outputs.</p>
+                            <p>This class provides lightweight sanitization for JSON outputs from CrewAI agents.
+                                With JSON mode enabled in the LLM, most syntax errors are eliminated, so the
+                                sanitizer focuses on:
+                                1. Stripping markdown fences (```json blocks, if present)
+                                2. Validating JSON syntax
+                                3. Pretty-formatting JSON for readability</p>
+                            <h2 id="features">Features</h2>
+                            <ul>
+                                <li>Handles all 5 output types (plot, narrative, puzzle, scene, mechanics)</li>
+                                <li>Graceful error handling - returns best-effort sanitized output</li>
+                                <li>Comprehensive logging of all sanitization steps</li>
+                                <li>Much simpler than YAML pipeline (JSON mode eliminates syntax errors)</li>
+                            </ul>
+                            <h2 id="example">Example</h2>
+                            <pre><code class="language-python-repl">&gt;&gt;&gt; sanitizer = OutputSanitizer()
+&gt;&gt;&gt; # Raw output from LLM (potentially with markdown fences)
+&gt;&gt;&gt; raw_output = '''```json
+... {&quot;narrative_foundation&quot;: {&quot;title&quot;: &quot;Space Hulk Adventure&quot;}}
 ... ```'''
 &gt;&gt;&gt; # Sanitize before writing to disk
-&gt;&gt;&gt; clean_yaml = sanitizer.sanitize(raw_output, 'plot')
-&gt;&gt;&gt; # clean_yaml now has markdown stripped and all required fields added
-&gt;&gt;&gt; with open('plot_outline.yaml', 'w') as f:
-...     f.write(clean_yaml)
+&gt;&gt;&gt; clean_json = sanitizer.sanitize(raw_output, 'plot')
+&gt;&gt;&gt; # clean_json now has markdown stripped and is pretty-formatted
+&gt;&gt;&gt; with open('plot_outline.json', 'w') as f:
+...     f.write(clean_json)
 </code></pre>
-<p>Initialize the output sanitizer with a corrector instance.</p>
-<p>The corrector provides type-specific validation and auto-correction
-for all five output types.</p></div>
-<h3>Methods</h3>
-<dl>
-<dt id="space_hulk_game.utils.output_sanitizer.OutputSanitizer.sanitize"><code class="name flex">
+                            <p>Initialize the output sanitizer.</p>
+                            <p>With JSON mode, we don't need the complex corrector infrastructure.</p>
+                        </div>
+                        <h3>Methods</h3>
+                        <dl>
+                            <dt id="space_hulk_game.utils.output_sanitizer.OutputSanitizer.sanitize"><code
+                                    class="name flex">
 <span>def <span class="ident">sanitize</span></span>(<span>self, raw_output: str, output_type: str) ‑> str</span>
 </code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def sanitize(self, raw_output: str, output_type: str) -&gt; str:
+                            <dd>
+                                <details class="source">
+                                    <summary>
+                                        <span>Expand source code</span>
+                                    </summary>
+                                    <pre><code class="python">def sanitize(self, raw_output: str, output_type: str) -&gt; str:
     &#34;&#34;&#34;Sanitize raw LLM output before writing to disk.
 
-    This method applies a two-phase sanitization pipeline:
-    1. Strip markdown code fences (```yaml blocks)
-    2. Apply type-specific correction (schema validation, error fixing)
+    This method applies a simple sanitization pipeline:
+    1. Strip markdown code fences (```json blocks, if present)
+    2. Validate JSON syntax with json.loads()
+    3. Pretty-format JSON with json.dumps()
 
-    The method uses graceful error handling - if correction fails at any
-    stage, it returns the best-effort sanitized output rather than raising
-    exceptions. This ensures that SOME output is written, even if not
-    perfectly validated.
+    The method uses graceful error handling - if parsing fails, it returns
+    the markdown-stripped version.
 
     Args:
-        raw_output: Raw YAML string from LLM, potentially with markdown fences,
-                   syntax errors, and missing required fields.
-        output_type: Type of output for type-specific correction. Valid values:
-                    - &#39;plot&#39;: Plot outline with plot_points, characters, conflicts
-                    - &#39;narrative&#39;: Narrative map with scenes and connections
-                    - &#39;puzzle&#39;: Puzzle design with puzzles, artifacts, monsters, npcs
-                    - &#39;scene&#39;: Scene texts with detailed descriptions and dialogue
-                    - &#39;mechanics&#39;: Game mechanics with systems and state
+        raw_output: Raw JSON string from LLM, potentially with markdown fences.
+        output_type: Type of output (plot, narrative, puzzle, scene, mechanics).
+                    Currently used only for logging.
 
     Returns:
-        Sanitized YAML string, ready to be written to disk. If correction
-        succeeds, the output is fully validated and schema-compliant. If
-        correction fails, returns the markdown-stripped version with warnings
-        logged.
+        Sanitized JSON string, ready to be written to disk. Pretty-formatted
+        with 2-space indentation for readability.
 
     Raises:
         No exceptions are raised - all errors are logged and handled gracefully.
 
     Example:
         &gt;&gt;&gt; sanitizer = OutputSanitizer()
-        &gt;&gt;&gt; # LLM output with markdown fences and mixed quotes
-        &gt;&gt;&gt; raw = &#39;&#39;&#39;```yaml
-        ... title: &#34;Space Hulk: Lost Vessel&#39;
-        ... setting: &#39;A dark ship
+        &gt;&gt;&gt; # LLM output with markdown fences
+        &gt;&gt;&gt; raw = &#39;&#39;&#39;```json
+        ... {&#34;narrative_foundation&#34;: {&#34;title&#34;: &#34;Space Hulk&#34;}}
         ... ```&#39;&#39;&#39;
         &gt;&gt;&gt; clean = sanitizer.sanitize(raw, &#39;plot&#39;)
-        &gt;&gt;&gt; # clean now has fences stripped, quotes fixed, missing fields added
+        &gt;&gt;&gt; # clean is now pretty-formatted JSON without fences
     &#34;&#34;&#34;
-    logger.info(f&#34;Sanitizing output as type: {output_type}&#34;)
+    logger.info(f&#34;Sanitizing JSON output as type: {output_type}&#34;)
 
-    # Phase 1: Strip markdown fences
-    # This removes ```yaml and ``` markers that LLMs often add
+    # Phase 1: Strip markdown fences (if present)
     try:
-        markdown_stripped = strip_markdown_yaml_blocks(raw_output)
+        markdown_stripped = self._strip_markdown_json_blocks(raw_output)
         logger.debug(
             f&#34;Markdown fences stripped (length: {len(raw_output)} -&gt; {len(markdown_stripped)})&#34;
         )
@@ -327,123 +831,111 @@ for all five output types.</p></div>
         )
         markdown_stripped = raw_output
 
-    # Phase 2: Apply type-specific correction
-    # This validates schema and fixes common errors
+    # Phase 2: Validate JSON syntax and pretty-format
     try:
-        if output_type == &#34;plot&#34;:
-            result = self.corrector.correct_plot(markdown_stripped)
-        elif output_type == &#34;narrative&#34;:
-            result = self.corrector.correct_narrative_map(markdown_stripped)
-        elif output_type == &#34;puzzle&#34;:
-            result = self.corrector.correct_puzzle_design(markdown_stripped)
-        elif output_type == &#34;scene&#34;:
-            result = self.corrector.correct_scene_texts(markdown_stripped)
-        elif output_type == &#34;mechanics&#34;:
-            result = self.corrector.correct_game_mechanics(markdown_stripped)
-        else:
-            logger.warning(
-                f&#34;Unknown output type &#39;{output_type}&#39;, skipping type-specific correction&#34;
-            )
-            # Return markdown-stripped version for unknown types
-            return markdown_stripped
+        # Parse JSON to validate syntax
+        parsed_data = json.loads(markdown_stripped)
+        logger.info(f&#34;JSON syntax validated successfully for {output_type}&#34;)
 
-        # Log correction results
-        if result.corrections:
-            logger.info(
-                f&#34;Applied {len(result.corrections)} corrections for {output_type}: &#34;
-                f&#34;{result.corrections}&#34;
-            )
+        # Pretty-format with 2-space indentation
+        pretty_json = json.dumps(parsed_data, indent=2, ensure_ascii=False)
+        logger.info(f&#34;Sanitization successful for {output_type}&#34;)
+        return pretty_json
 
-        if result.success:
-            logger.info(f&#34;Sanitization successful for {output_type}&#34;)
-            return result.corrected_yaml
-        else:
-            # Validation incomplete, but return corrected version anyway (best effort)
-            logger.warning(
-                f&#34;Sanitization incomplete for {output_type}, validation errors: &#34;
-                f&#34;{result.validation_result.errors}&#34;
-            )
-            logger.warning(&#34;Returning corrected YAML despite validation errors (best effort)&#34;)
-            return result.corrected_yaml
-
-    except Exception as e:
-        # Fallback: if correction fails completely, return markdown-stripped version
+    except json.JSONDecodeError as e:
+        # JSON parsing failed - log error and return markdown-stripped version
         logger.error(
-            f&#34;Error during type-specific correction for {output_type}: {e}&#34;,
+            f&#34;JSON parsing failed for {output_type}: {e}&#34;,
             exc_info=True,
         )
-        logger.warning(&#34;Returning markdown-stripped output without type-specific correction&#34;)
+        logger.warning(&#34;Returning markdown-stripped output without validation (best effort)&#34;)
+        return markdown_stripped
+
+    except Exception as e:
+        # Unexpected error during sanitization
+        logger.error(
+            f&#34;Unexpected error during sanitization for {output_type}: {e}&#34;,
+            exc_info=True,
+        )
+        logger.warning(&#34;Returning markdown-stripped output (fallback)&#34;)
         return markdown_stripped</code></pre>
-</details>
-<div class="desc"><p>Sanitize raw LLM output before writing to disk.</p>
-<p>This method applies a two-phase sanitization pipeline:
-1. Strip markdown code fences (```yaml blocks)
-2. Apply type-specific correction (schema validation, error fixing)</p>
-<p>The method uses graceful error handling - if correction fails at any
-stage, it returns the best-effort sanitized output rather than raising
-exceptions. This ensures that SOME output is written, even if not
-perfectly validated.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>raw_output</code></strong></dt>
-<dd>Raw YAML string from LLM, potentially with markdown fences,
-syntax errors, and missing required fields.</dd>
-<dt><strong><code>output_type</code></strong></dt>
-<dd>Type of output for type-specific correction. Valid values:
-- 'plot': Plot outline with plot_points, characters, conflicts
-- 'narrative': Narrative map with scenes and connections
-- 'puzzle': Puzzle design with puzzles, artifacts, monsters, npcs
-- 'scene': Scene texts with detailed descriptions and dialogue
-- 'mechanics': Game mechanics with systems and state</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<p>Sanitized YAML string, ready to be written to disk. If correction
-succeeds, the output is fully validated and schema-compliant. If
-correction fails, returns the markdown-stripped version with warnings
-logged.</p>
-<h2 id="raises">Raises</h2>
-<p>No exceptions are raised - all errors are logged and handled gracefully.</p>
-<h2 id="example">Example</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; sanitizer = OutputSanitizer()
-&gt;&gt;&gt; # LLM output with markdown fences and mixed quotes
-&gt;&gt;&gt; raw = '''```yaml
-... title: &quot;Space Hulk: Lost Vessel'
-... setting: 'A dark ship
+                                </details>
+                                <div class="desc">
+                                    <p>Sanitize raw LLM output before writing to disk.</p>
+                                    <p>This method applies a simple sanitization pipeline:
+                                        1. Strip markdown code fences (```json blocks, if present)
+                                        2. Validate JSON syntax with json.loads()
+                                        3. Pretty-format JSON with json.dumps()</p>
+                                    <p>The method uses graceful error handling - if parsing fails, it returns
+                                        the markdown-stripped version.</p>
+                                    <h2 id="args">Args</h2>
+                                    <dl>
+                                        <dt><strong><code>raw_output</code></strong></dt>
+                                        <dd>Raw JSON string from LLM, potentially with markdown fences.</dd>
+                                        <dt><strong><code>output_type</code></strong></dt>
+                                        <dd>Type of output (plot, narrative, puzzle, scene, mechanics).
+                                            Currently used only for logging.</dd>
+                                    </dl>
+                                    <h2 id="returns">Returns</h2>
+                                    <p>Sanitized JSON string, ready to be written to disk. Pretty-formatted
+                                        with 2-space indentation for readability.</p>
+                                    <h2 id="raises">Raises</h2>
+                                    <p>No exceptions are raised - all errors are logged and handled gracefully.</p>
+                                    <h2 id="example">Example</h2>
+                                    <pre><code class="language-python-repl">&gt;&gt;&gt; sanitizer = OutputSanitizer()
+&gt;&gt;&gt; # LLM output with markdown fences
+&gt;&gt;&gt; raw = '''```json
+... {&quot;narrative_foundation&quot;: {&quot;title&quot;: &quot;Space Hulk&quot;}}
 ... ```'''
 &gt;&gt;&gt; clean = sanitizer.sanitize(raw, 'plot')
-&gt;&gt;&gt; # clean now has fences stripped, quotes fixed, missing fields added
-</code></pre></div>
-</dd>
-</dl>
-</dd>
-</dl>
-</section>
-</article>
-<nav id="sidebar">
-<div class="toc">
-<ul></ul>
-</div>
-<ul id="index">
-<li><h3>Super-module</h3>
-<ul>
-<li><code><a title="space_hulk_game.utils" href="index.html">space_hulk_game.utils</a></code></li>
-</ul>
-</li>
-<li><h3><a href="#header-classes">Classes</a></h3>
-<ul>
-<li>
-<h4><code><a title="space_hulk_game.utils.output_sanitizer.OutputSanitizer" href="#space_hulk_game.utils.output_sanitizer.OutputSanitizer">OutputSanitizer</a></code></h4>
-<ul class="">
-<li><code><a title="space_hulk_game.utils.output_sanitizer.OutputSanitizer.sanitize" href="#space_hulk_game.utils.output_sanitizer.OutputSanitizer.sanitize">sanitize</a></code></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</nav>
-</main>
-<footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
-</footer>
+&gt;&gt;&gt; # clean is now pretty-formatted JSON without fences
+</code></pre>
+                                </div>
+                            </dd>
+                        </dl>
+                    </dd>
+                </dl>
+            </section>
+        </article>
+        <nav id="sidebar">
+            <div class="toc">
+                <ul></ul>
+            </div>
+            <ul id="index">
+                <li>
+                    <h3>Super-module</h3>
+                    <ul>
+                        <li><code><a title="space_hulk_game.utils" href="index.html">space_hulk_game.utils</a></code>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <h3><a href="#header-functions">Functions</a></h3>
+                    <ul class="">
+                        <li><code><a title="space_hulk_game.utils.output_sanitizer.strip_markdown_yaml_blocks" href="#space_hulk_game.utils.output_sanitizer.strip_markdown_yaml_blocks">strip_markdown_yaml_blocks</a></code>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <h3><a href="#header-classes">Classes</a></h3>
+                    <ul>
+                        <li>
+                            <h4><code><a title="space_hulk_game.utils.output_sanitizer.OutputSanitizer" href="#space_hulk_game.utils.output_sanitizer.OutputSanitizer">OutputSanitizer</a></code>
+                            </h4>
+                            <ul class="">
+                                <li><code><a title="space_hulk_game.utils.output_sanitizer.OutputSanitizer.sanitize" href="#space_hulk_game.utils.output_sanitizer.OutputSanitizer.sanitize">sanitize</a></code>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </main>
+    <footer id="footer">
+        <p>Generated by <a href="https://pdoc3.github.io/pdoc"
+                title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+    </footer>
 </body>
+
 </html>

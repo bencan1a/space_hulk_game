@@ -1,7 +1,7 @@
 """
 Unit tests for the Content Loader module.
 
-Tests ContentLoader's ability to load and parse YAML files,
+Tests ContentLoader's ability to load and parse JSON files,
 handle errors gracefully, and convert AI-generated content into
 engine-compatible GameData objects.
 """
@@ -220,45 +220,48 @@ class TestContentLoaderBasics(unittest.TestCase):
         loader2 = ContentLoader(strict_mode=True)
         self.assertTrue(loader2.strict_mode)
 
-    def test_load_yaml_valid_file(self):
-        """Test loading a valid YAML file."""
-        plot_file = self.fixtures_dir / "plot_outline.yaml"
-        data = self.loader.load_yaml(str(plot_file))
+    def test_load_json_valid_file(self):
+        """Test loading a valid JSON file."""
+        plot_file = self.fixtures_dir / "plot_outline.json"
+        data = self.loader.load_json(str(plot_file))
 
         self.assertIsInstance(data, dict)
         self.assertIn("narrative_foundation", data)
         self.assertEqual(data["narrative_foundation"]["title"], "Test Space Hulk Adventure")
 
-    def test_load_yaml_missing_file_lenient(self):
+    def test_load_json_missing_file_lenient(self):
         """Test loading missing file in lenient mode."""
-        data = self.loader.load_yaml("nonexistent.yaml")
+        data = self.loader.load_json("nonexistent.json")
         self.assertEqual(data, {})
 
-    def test_load_yaml_missing_file_strict(self):
+    def test_load_json_missing_file_strict(self):
         """Test loading missing file in strict mode raises error."""
         with self.assertRaises(LoaderError):
-            self.strict_loader.load_yaml("nonexistent.yaml")
+            self.strict_loader.load_json("nonexistent.json")
 
-    def test_clean_yaml_content_with_markdown(self):
-        """Test cleaning YAML content with markdown fences."""
-        content_with_fence = """```yaml
-key: value
-nested:
-  item: data
+    def test_clean_json_content_with_markdown(self):
+        """Test cleaning JSON content with markdown fences."""
+        content_with_fence = """```json
+{
+  "key": "value",
+  "nested": {
+    "item": "data"
+  }
+}
 ```"""
-        cleaned = self.loader._clean_yaml_content(content_with_fence)
+        cleaned = self.loader._clean_json_content(content_with_fence)
         self.assertNotIn("```", cleaned)
-        self.assertIn("key: value", cleaned)
+        self.assertIn('"key"', cleaned)
 
-    def test_clean_yaml_content_without_markdown(self):
-        """Test cleaning YAML content without markdown."""
-        content = "key: value\nnested:\n  item: data"
-        cleaned = self.loader._clean_yaml_content(content)
+    def test_clean_json_content_without_markdown(self):
+        """Test cleaning JSON content without markdown."""
+        content = '{"key": "value", "nested": {"item": "data"}}'
+        cleaned = self.loader._clean_json_content(content)
         self.assertEqual(cleaned.strip(), content.strip())
 
 
 class TestContentLoaderIntegration(unittest.TestCase):
-    """Test ContentLoader integration with complete YAML files."""
+    """Test ContentLoader integration with complete JSON files."""
 
     def setUp(self):
         """Set up test fixtures."""
@@ -403,17 +406,17 @@ class TestContentLoaderErrorHandling(unittest.TestCase):
 
     def test_load_game_missing_scenes_lenient(self):
         """Test loading game with missing scenes in lenient mode."""
-        # Create minimal YAMLs with no scenes
+        # Create minimal JSONs with no scenes
         for filename in [
-            "plot_outline.yaml",
-            "narrative_map.yaml",
-            "puzzle_design.yaml",
-            "scene_texts.yaml",
-            "prd_document.yaml",
+            "plot_outline.json",
+            "narrative_map.json",
+            "puzzle_design.json",
+            "scene_texts.json",
+            "prd_document.json",
         ]:
             filepath = os.path.join(self.temp_dir, filename)
             with open(filepath, "w") as f:
-                f.write("empty: {}")
+                f.write("{}")
 
         # Should create a default scene
         game_data = self.loader.load_game(self.temp_dir)

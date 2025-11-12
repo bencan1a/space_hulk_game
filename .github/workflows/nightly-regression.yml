@@ -33,22 +33,36 @@ jobs:
           echo "Running tests in mock mode..."
           python -m unittest discover -s tests -v
 
+      - name: Check for API keys
+        id: check-keys
+        env:
+          # ANTHROPIC_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: |
+          if [ -n "$ANTHROPIC_KEY" ] || [ -n "$OPENROUTER_KEY" ]; then
+            echo "available=true" >> $GITHUB_OUTPUT
+          else
+            echo "available=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Run real API tests
-        if: ${{ secrets.ANTHROPIC_API_KEY != '' || secrets.OPENROUTER_API_KEY != '' }}
+        if: steps.check-keys.outputs.available == 'true'
         env:
           PYTHONUTF8: "1"
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          # ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          OPENAI_MODEL_NAME: ${{ vars.OPENAI_MODEL_NAME }}
           RUN_REAL_API_TESTS: 1
         run: |
           echo "Running tests with real API..."
           python -m unittest discover -s tests -v
 
       - name: Validate API connectivity
-        if: ${{ secrets.ANTHROPIC_API_KEY != '' || secrets.OPENROUTER_API_KEY != '' }}
+        if: steps.check-keys.outputs.available == 'true'
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          # ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          OPENAI_MODEL_NAME: ${{ vars.OPENAI_MODEL_NAME }}
         run: python tools/validate_api.py
 
       - name: Generate comprehensive coverage
