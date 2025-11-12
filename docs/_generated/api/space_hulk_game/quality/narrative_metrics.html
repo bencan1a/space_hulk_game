@@ -95,25 +95,25 @@ class NarrativeMetrics:
             self.orphaned_scenes = []
 
     @classmethod
-    def from_yaml_content(cls, yaml_content: str) -&gt; &#34;NarrativeMetrics&#34;:
+    def from_json_content(cls, json_content: str) -&gt; &#34;NarrativeMetrics&#34;:
         &#34;&#34;&#34;
-        Create NarrativeMetrics from YAML content string.
+        Create NarrativeMetrics from JSON content string.
 
         Args:
-            yaml_content: YAML string containing narrative map data
+            json_content: JSON string containing narrative map data
 
         Returns:
             NarrativeMetrics instance with measured values
         &#34;&#34;&#34;
         try:
-            # Handle markdown-wrapped YAML
-            content = yaml_content.strip()
+            # Handle markdown-wrapped JSON
+            content = json_content.strip()
             if content.startswith(&#34;```&#34;):
                 lines = content.split(&#34;\n&#34;)
                 content = &#34;\n&#34;.join(lines[1:-1])
-                logger.debug(&#34;Stripped markdown fences from narrative YAML&#34;)
+                logger.debug(&#34;Stripped markdown fences from narrative JSON&#34;)
 
-            data = yaml.safe_load(content)
+            data = json.loads(content)
             metrics = cls.from_dict(data)
 
             if metrics.has_orphaned_scenes:
@@ -126,8 +126,8 @@ class NarrativeMetrics:
             )
             return metrics
         except Exception as e:
-            logger.error(f&#34;Failed to parse narrative YAML content: {e}&#34;)
-            raise ValueError(f&#34;Failed to parse YAML content: {e}&#34;) from e
+            logger.error(f&#34;Failed to parse narrative JSON content: {e}&#34;)
+            raise ValueError(f&#34;Failed to parse JSON content: {e}&#34;) from e
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -&gt; &#34;NarrativeMetrics&#34;:
@@ -390,15 +390,15 @@ class NarrativeMetrics:
 <h2 id="returns">Returns</h2>
 <p>NarrativeMetrics instance with measured values</p></div>
 </dd>
-<dt id="space_hulk_game.quality.narrative_metrics.NarrativeMetrics.from_yaml_content"><code class="name flex">
-<span>def <span class="ident">from_yaml_content</span></span>(<span>yaml_content: str) ‑> <a title="space_hulk_game.quality.narrative_metrics.NarrativeMetrics" href="#space_hulk_game.quality.narrative_metrics.NarrativeMetrics">NarrativeMetrics</a></span>
+<dt id="space_hulk_game.quality.narrative_metrics.NarrativeMetrics.from_json_content"><code class="name flex">
+<span>def <span class="ident">from_json_content</span></span>(<span>json_content: str) ‑> <a title="space_hulk_game.quality.narrative_metrics.NarrativeMetrics" href="#space_hulk_game.quality.narrative_metrics.NarrativeMetrics">NarrativeMetrics</a></span>
 </code></dt>
 <dd>
-<div class="desc"><p>Create NarrativeMetrics from YAML content string.</p>
+<div class="desc"><p>Create NarrativeMetrics from JSON content string.</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>yaml_content</code></strong></dt>
-<dd>YAML string containing narrative map data</dd>
+<dt><strong><code>json_content</code></strong></dt>
+<dd>JSON string containing narrative map data</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>NarrativeMetrics instance with measured values</p></div>
@@ -615,7 +615,7 @@ class NarrativeMetrics:
 <li><code><a title="space_hulk_game.quality.narrative_metrics.NarrativeMetrics.all_connections_valid" href="#space_hulk_game.quality.narrative_metrics.NarrativeMetrics.all_connections_valid">all_connections_valid</a></code></li>
 <li><code><a title="space_hulk_game.quality.narrative_metrics.NarrativeMetrics.completeness_percentage" href="#space_hulk_game.quality.narrative_metrics.NarrativeMetrics.completeness_percentage">completeness_percentage</a></code></li>
 <li><code><a title="space_hulk_game.quality.narrative_metrics.NarrativeMetrics.from_dict" href="#space_hulk_game.quality.narrative_metrics.NarrativeMetrics.from_dict">from_dict</a></code></li>
-<li><code><a title="space_hulk_game.quality.narrative_metrics.NarrativeMetrics.from_yaml_content" href="#space_hulk_game.quality.narrative_metrics.NarrativeMetrics.from_yaml_content">from_yaml_content</a></code></li>
+<li><code><a title="space_hulk_game.quality.narrative_metrics.NarrativeMetrics.from_json_content" href="#space_hulk_game.quality.narrative_metrics.NarrativeMetrics.from_json_content">from_json_content</a></code></li>
 <li><code><a title="space_hulk_game.quality.narrative_metrics.NarrativeMetrics.get_failures" href="#space_hulk_game.quality.narrative_metrics.NarrativeMetrics.get_failures">get_failures</a></code></li>
 <li><code><a title="space_hulk_game.quality.narrative_metrics.NarrativeMetrics.get_score" href="#space_hulk_game.quality.narrative_metrics.NarrativeMetrics.get_score">get_score</a></code></li>
 <li><code><a title="space_hulk_game.quality.narrative_metrics.NarrativeMetrics.has_orphaned_scenes" href="#space_hulk_game.quality.narrative_metrics.NarrativeMetrics.has_orphaned_scenes">has_orphaned_scenes</a></code></li>

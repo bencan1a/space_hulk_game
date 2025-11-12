@@ -2,6 +2,10 @@
 
 This module provides validation functionality for parsing and validating
 YAML outputs from AI agents against Pydantic schemas.
+
+DEPRECATED: This module is deprecated as the system has migrated to JSON outputs.
+JSON mode in LLMs guarantees valid syntax, so this YAML validation layer is no longer needed.
+The engine.validator module provides game playability validation and is still active.
 """
 
 from __future__ import annotations
@@ -18,7 +22,7 @@ from space_hulk_game.schemas.narrative_map import NarrativeMap
 from space_hulk_game.schemas.plot_outline import PlotOutline
 from space_hulk_game.schemas.puzzle_design import PuzzleDesign
 from space_hulk_game.schemas.scene_text import SceneTexts
-from space_hulk_game.utils.yaml_processor import strip_markdown_yaml_blocks
+from space_hulk_game.utils.output_sanitizer import strip_markdown_yaml_blocks
 
 if TYPE_CHECKING:
     from space_hulk_game.validation.types import ProcessingResult

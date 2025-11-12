@@ -63,12 +63,13 @@ Score range: 0.0 to 10.0
 ### Usage Example
 ```python
 from space_hulk_game.quality import PlotMetrics
+import json
 
-# From YAML file
-with open('game-config/plot_outline.yaml', 'r') as f:
-    content = f.read()
+# From JSON file
+with open('game-config/plot_outline.json', 'r') as f:
+    content = json.load(f)
 
-metrics = PlotMetrics.from_yaml_content(content)
+metrics = PlotMetrics.from_dict(content)
 
 print(f"Score: {metrics.get_score()}/10.0")
 print(f"Passes: {metrics.passes_threshold()}")
@@ -298,11 +299,11 @@ import yaml
 
 # Load all generated files
 files = {
-    'plot': 'game-config/plot_outline.yaml',
-    'narrative': 'game-config/narrative_map.yaml',
-    'puzzles': 'game-config/puzzle_design.yaml',
-    'scenes': 'game-config/scene_texts.yaml',
-    'mechanics': 'game-config/prd_document.yaml',
+    'plot': 'game-config/plot_outline.json',
+    'narrative': 'game-config/narrative_map.json',
+    'puzzles': 'game-config/puzzle_design.json',
+    'scenes': 'game-config/scene_texts.json',
+    'mechanics': 'game-config/prd_document.json',
 }
 
 metrics_classes = {

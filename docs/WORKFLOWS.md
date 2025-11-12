@@ -74,12 +74,12 @@ Quick setup:
 The workflow generates several artifacts:
 
 ##### 1. Game Configuration Files (`game-config-*`)
-Contains all generated YAML files from the agent execution:
-- `narrative_map.yaml`: Story structure and branching paths
-- `plot_outline.yaml`: Main plot points and narrative arc
-- `prd_document.yaml`: Product requirements for the game
-- `puzzle_design.yaml`: Puzzle mechanics and solutions
-- `scene_texts.yaml`: Detailed scene descriptions and dialogue
+Contains all generated JSON files from the agent execution:
+- `narrative_map.json`: Story structure and branching paths
+- `plot_outline.json`: Main plot points and narrative arc
+- `prd_document.json`: Product requirements for the game
+- `puzzle_design.json`: Puzzle mechanics and solutions
+- `scene_texts.json`: Detailed scene descriptions and dialogue
 
 **Retention**: 90 days
 
@@ -180,7 +180,7 @@ Estimated cost per run: $0.10 - $2.00 depending on scenario complexity and model
 1. Create a branch: feature/new-puzzle-agent
 2. Modify agents.yaml and tasks.yaml
 3. Run workflow from the feature branch
-4. Download and review generated puzzle_design.yaml
+4. Download and review generated puzzle_design.json
 5. Iterate on configuration based on results
 ```
 
@@ -188,7 +188,7 @@ Estimated cost per run: $0.10 - $2.00 depending on scenario complexity and model
 ```
 1. Run workflow with default settings
 2. Download game-config artifact
-3. Review narrative_map.yaml and scene_texts.yaml
+3. Review narrative_map.json and scene_texts.json
 4. Provide feedback or use in game development
 ```
 

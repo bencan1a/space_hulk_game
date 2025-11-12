@@ -109,45 +109,24 @@ scene texts, and game mechanics.</p>
         ... )
     &#34;&#34;&#34;
 
-    id: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Unique artifact identifier&#34;
-    )
-    name: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Human-readable artifact name&#34;
-    )
-    description: str = Field(
-        ...,
-        min_length=20,
-        description=&#34;Detailed artifact description&#34;
-    )
+    id: str = Field(..., min_length=1, max_length=200, description=&#34;Unique artifact identifier&#34;)
+    name: str = Field(..., min_length=1, max_length=200, description=&#34;Human-readable artifact name&#34;)
+    description: str = Field(..., min_length=20, description=&#34;Detailed artifact description&#34;)
     location: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Scene ID where artifact is located&#34;
+        ..., min_length=1, max_length=200, description=&#34;Scene ID where artifact is located&#34;
     )
     narrative_significance: str = Field(
-        ...,
-        min_length=20,
-        description=&#34;Narrative importance of this artifact&#34;
+        ..., min_length=20, description=&#34;Narrative importance of this artifact&#34;
     )
     properties: list[ArtifactProperty] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Artifact properties (at least 1)&#34;
+        ..., min_length=1, description=&#34;Artifact properties (at least 1)&#34;
     )
 
-    @field_validator(&#39;id&#39;)
+    @field_validator(&#34;id&#34;)
     @classmethod
     def validate_id_format(cls, v: str) -&gt; str:
         &#34;&#34;&#34;Ensure id follows naming convention.&#34;&#34;&#34;
-        if not v.replace(&#39;_&#39;, &#39;&#39;).replace(&#39;-&#39;, &#39;&#39;).isalnum():
+        if not v.replace(&#34;_&#34;, &#34;&#34;).replace(&#34;-&#34;, &#34;&#34;).isalnum():
             raise ValueError(
                 &#34;ID must contain only alphanumeric characters, underscores, and hyphens&#34;
             )
@@ -249,11 +228,7 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    property: str = Field(
-        ...,
-        min_length=5,
-        description=&#34;Artifact property description&#34;
-    )</code></pre>
+    property: str = Field(..., min_length=5, description=&#34;Artifact property description&#34;)</code></pre>
 </details>
 <div class="desc"><p>A property of an artifact.</p>
 <h2 id="attributes">Attributes</h2>
@@ -312,26 +287,11 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    name: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Full name of the character&#34;
-    )
-    role: str = Field(
-        ...,
-        min_length=1,
-        max_length=300,
-        description=&#34;Character&#39;s role or position&#34;
-    )
-    backstory: str = Field(
-        ...,
-        min_length=50,
-        description=&#34;Character background and history&#34;
-    )
+    name: str = Field(..., min_length=1, max_length=200, description=&#34;Full name of the character&#34;)
+    role: str = Field(..., min_length=1, max_length=300, description=&#34;Character&#39;s role or position&#34;)
+    backstory: str = Field(..., min_length=50, description=&#34;Character background and history&#34;)
     conflicts: list[str] | None = Field(
-        default=None,
-        description=&#34;Optional character-specific conflicts&#34;
+        default=None, description=&#34;Optional character-specific conflicts&#34;
     )</code></pre>
 </details>
 <div class="desc"><p>A character in the narrative.</p>
@@ -408,16 +368,9 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    character: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Character name&#34;
-    )
+    character: str = Field(..., min_length=1, max_length=200, description=&#34;Character name&#34;)
     arc_stages: list[CharacterArcStage] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Stages in the character&#39;s arc (at least 1)&#34;
+        ..., min_length=1, description=&#34;Stages in the character&#39;s arc (at least 1)&#34;
     )</code></pre>
 </details>
 <div class="desc"><p>Complete arc for a character across the narrative.</p>
@@ -482,15 +435,10 @@ validated to form a valid model.</p>
     &#34;&#34;&#34;
 
     stage: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Stage name in the character arc&#34;
+        ..., min_length=1, max_length=200, description=&#34;Stage name in the character arc&#34;
     )
     description: str = Field(
-        ...,
-        min_length=20,
-        description=&#34;Description of character state at this stage&#34;
+        ..., min_length=20, description=&#34;Description of character state at this stage&#34;
     )</code></pre>
 </details>
 <div class="desc"><p>A stage in a character's narrative arc.</p>
@@ -554,17 +502,8 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    character: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Character name&#34;
-    )
-    moment: str = Field(
-        ...,
-        min_length=20,
-        description=&#34;Description of the character moment&#34;
-    )</code></pre>
+    character: str = Field(..., min_length=1, max_length=200, description=&#34;Character name&#34;)
+    moment: str = Field(..., min_length=20, description=&#34;Description of the character moment&#34;)</code></pre>
 </details>
 <div class="desc"><p>A significant character moment within a scene.</p>
 <h2 id="attributes">Attributes</h2>
@@ -627,17 +566,8 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    name: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Mechanic name&#34;
-    )
-    rules: str = Field(
-        ...,
-        min_length=20,
-        description=&#34;Description of mechanic rules&#34;
-    )</code></pre>
+    name: str = Field(..., min_length=1, max_length=200, description=&#34;Mechanic name&#34;)
+    rules: str = Field(..., min_length=20, description=&#34;Description of mechanic rules&#34;)</code></pre>
 </details>
 <div class="desc"><p>A specific combat mechanic or rule.</p>
 <h2 id="attributes">Attributes</h2>
@@ -702,20 +632,12 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    description: str = Field(
-        ...,
-        min_length=50,
-        description=&#34;Description of combat system&#34;
-    )
+    description: str = Field(..., min_length=50, description=&#34;Description of combat system&#34;)
     mechanics: list[CombatMechanic] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Combat mechanics (at least 1)&#34;
+        ..., min_length=1, description=&#34;Combat mechanics (at least 1)&#34;
     )
     narrative_purpose: str = Field(
-        ...,
-        min_length=50,
-        description=&#34;Narrative purpose of combat system&#34;
+        ..., min_length=50, description=&#34;Narrative purpose of combat system&#34;
     )</code></pre>
 </details>
 <div class="desc"><p>Combat system configuration.</p>
@@ -786,17 +708,8 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    type: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Type or category of conflict&#34;
-    )
-    description: str = Field(
-        ...,
-        min_length=50,
-        description=&#34;Detailed description of the conflict&#34;
-    )</code></pre>
+    type: str = Field(..., min_length=1, max_length=200, description=&#34;Type or category of conflict&#34;)
+    description: str = Field(..., min_length=50, description=&#34;Detailed description of the conflict&#34;)</code></pre>
 </details>
 <div class="desc"><p>A conflict or tension in the narrative.</p>
 <h2 id="attributes">Attributes</h2>
@@ -861,21 +774,10 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    target: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Target scene ID&#34;
-    )
-    description: str = Field(
-        ...,
-        min_length=20,
-        description=&#34;Description of the transition&#34;
-    )
+    target: str = Field(..., min_length=1, max_length=200, description=&#34;Target scene ID&#34;)
+    description: str = Field(..., min_length=20, description=&#34;Description of the transition&#34;)
     condition: str | None = Field(
-        default=None,
-        max_length=500,
-        description=&#34;Optional condition for this connection&#34;
+        default=None, max_length=500, description=&#34;Optional condition for this connection&#34;
     )</code></pre>
 </details>
 <div class="desc"><p>A connection from one scene to another.</p>
@@ -948,21 +850,10 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    choice: str = Field(
-        ...,
-        min_length=10,
-        description=&#34;The decision choice text&#34;
-    )
-    outcome: str = Field(
-        ...,
-        min_length=20,
-        description=&#34;What happens if this choice is selected&#34;
-    )
+    choice: str = Field(..., min_length=10, description=&#34;The decision choice text&#34;)
+    outcome: str = Field(..., min_length=20, description=&#34;What happens if this choice is selected&#34;)
     target_scene: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Target scene ID for this choice&#34;
+        ..., min_length=1, max_length=200, description=&#34;Target scene ID for this choice&#34;
     )</code></pre>
 </details>
 <div class="desc"><p>An option in a decision point.</p>
@@ -1036,27 +927,18 @@ validated to form a valid model.</p>
     &#34;&#34;&#34;
 
     id: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Unique decision point identifier&#34;
+        ..., min_length=1, max_length=200, description=&#34;Unique decision point identifier&#34;
     )
-    prompt: str = Field(
-        ...,
-        min_length=20,
-        description=&#34;The decision prompt text&#34;
-    )
+    prompt: str = Field(..., min_length=20, description=&#34;The decision prompt text&#34;)
     options: list[DecisionOption] = Field(
-        ...,
-        min_length=2,
-        description=&#34;Available decision options (minimum 2)&#34;
+        ..., min_length=2, description=&#34;Available decision options (minimum 2)&#34;
     )
 
-    @field_validator(&#39;id&#39;)
+    @field_validator(&#34;id&#34;)
     @classmethod
     def validate_id_format(cls, v: str) -&gt; str:
         &#34;&#34;&#34;Ensure id follows naming convention.&#34;&#34;&#34;
-        if not v.replace(&#39;_&#39;, &#39;&#39;).replace(&#39;-&#39;, &#39;&#39;).isalnum():
+        if not v.replace(&#34;_&#34;, &#34;&#34;).replace(&#34;-&#34;, &#34;&#34;).isalnum():
             raise ValueError(
                 &#34;ID must contain only alphanumeric characters, underscores, and hyphens&#34;
             )
@@ -1146,24 +1028,11 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    game_title: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Title of the game&#34;
-    )
-    game_systems: GameSystems = Field(
-        ...,
-        description=&#34;Game systems configuration&#34;
-    )
-    game_state: GameState = Field(
-        ...,
-        description=&#34;Game state management&#34;
-    )
+    game_title: str = Field(..., min_length=1, max_length=200, description=&#34;Title of the game&#34;)
+    game_systems: GameSystems = Field(..., description=&#34;Game systems configuration&#34;)
+    game_state: GameState = Field(..., description=&#34;Game state management&#34;)
     technical_requirements: list[TechnicalRequirement] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Technical requirements (at least 1)&#34;
+        ..., min_length=1, description=&#34;Technical requirements (at least 1)&#34;
     )</code></pre>
 </details>
 <div class="desc"><p>Complete game mechanics and design document.</p>
@@ -1246,19 +1115,13 @@ validated to form a valid model.</p>
     &#34;&#34;&#34;
 
     tracked_variables: list[TrackedVariable] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Tracked variables (at least 1)&#34;
+        ..., min_length=1, description=&#34;Tracked variables (at least 1)&#34;
     )
     win_conditions: list[WinCondition] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Win conditions (at least 1)&#34;
+        ..., min_length=1, description=&#34;Win conditions (at least 1)&#34;
     )
     lose_conditions: list[LoseCondition] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Lose conditions (at least 1)&#34;
+        ..., min_length=1, description=&#34;Lose conditions (at least 1)&#34;
     )</code></pre>
 </details>
 <div class="desc"><p>Game state management configuration.</p>
@@ -1415,20 +1278,10 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    description: str = Field(
-        ...,
-        min_length=50,
-        description=&#34;Description of interaction system&#34;
-    )
-    commands: list[str] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Interaction commands (at least 1)&#34;
-    )
+    description: str = Field(..., min_length=50, description=&#34;Description of interaction system&#34;)
+    commands: list[str] = Field(..., min_length=1, description=&#34;Interaction commands (at least 1)&#34;)
     narrative_purpose: str = Field(
-        ...,
-        min_length=50,
-        description=&#34;Narrative purpose of interaction system&#34;
+        ..., min_length=50, description=&#34;Narrative purpose of interaction system&#34;
     )</code></pre>
 </details>
 <div class="desc"><p>Interaction system configuration.</p>
@@ -1503,26 +1356,11 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    description: str = Field(
-        ...,
-        min_length=50,
-        description=&#34;Description of inventory system&#34;
-    )
-    capacity: int = Field(
-        ...,
-        ge=1,
-        le=100,
-        description=&#34;Maximum inventory capacity (1-100)&#34;
-    )
-    commands: list[str] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Inventory commands (at least 1)&#34;
-    )
+    description: str = Field(..., min_length=50, description=&#34;Description of inventory system&#34;)
+    capacity: int = Field(..., ge=1, le=100, description=&#34;Maximum inventory capacity (1-100)&#34;)
+    commands: list[str] = Field(..., min_length=1, description=&#34;Inventory commands (at least 1)&#34;)
     narrative_purpose: str = Field(
-        ...,
-        min_length=50,
-        description=&#34;Narrative purpose of inventory system&#34;
+        ..., min_length=50, description=&#34;Narrative purpose of inventory system&#34;
     )</code></pre>
 </details>
 <div class="desc"><p>Inventory system configuration.</p>
@@ -1598,11 +1436,7 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    condition: str = Field(
-        ...,
-        min_length=20,
-        description=&#34;Description of the lose condition&#34;
-    )</code></pre>
+    condition: str = Field(..., min_length=20, description=&#34;Description of the lose condition&#34;)</code></pre>
 </details>
 <div class="desc"><p>A lose condition for the game.</p>
 <h2 id="attributes">Attributes</h2>
@@ -1666,50 +1500,26 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    id: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Unique monster identifier&#34;
-    )
-    name: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Human-readable monster name&#34;
-    )
-    description: str = Field(
-        ...,
-        min_length=20,
-        description=&#34;Detailed monster description&#34;
-    )
+    id: str = Field(..., min_length=1, max_length=200, description=&#34;Unique monster identifier&#34;)
+    name: str = Field(..., min_length=1, max_length=200, description=&#34;Human-readable monster name&#34;)
+    description: str = Field(..., min_length=20, description=&#34;Detailed monster description&#34;)
     locations: list[str] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Scene IDs where monster appears (at least 1)&#34;
+        ..., min_length=1, description=&#34;Scene IDs where monster appears (at least 1)&#34;
     )
-    narrative_role: str = Field(
-        ...,
-        min_length=20,
-        description=&#34;Monster&#39;s narrative role&#34;
-    )
-    abilities: list[str] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Monster abilities (at least 1)&#34;
-    )
+    narrative_role: str = Field(..., min_length=20, description=&#34;Monster&#39;s narrative role&#34;)
+    abilities: list[str] = Field(..., min_length=1, description=&#34;Monster abilities (at least 1)&#34;)
 
-    @field_validator(&#39;id&#39;)
+    @field_validator(&#34;id&#34;)
     @classmethod
     def validate_id_format(cls, v: str) -&gt; str:
         &#34;&#34;&#34;Ensure id follows naming convention.&#34;&#34;&#34;
-        if not v.replace(&#39;_&#39;, &#39;&#39;).replace(&#39;-&#39;, &#39;&#39;).isalnum():
+        if not v.replace(&#34;_&#34;, &#34;&#34;).replace(&#34;-&#34;, &#34;&#34;).isalnum():
             raise ValueError(
                 &#34;ID must contain only alphanumeric characters, underscores, and hyphens&#34;
             )
         return v
 
-    @field_validator(&#39;abilities&#39;)
+    @field_validator(&#34;abilities&#34;)
     @classmethod
     def validate_abilities_not_empty(cls, v: list[str]) -&gt; list[str]:
         &#34;&#34;&#34;Ensure all abilities are non-empty strings.&#34;&#34;&#34;
@@ -1823,20 +1633,10 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    description: str = Field(
-        ...,
-        min_length=50,
-        description=&#34;Description of movement system&#34;
-    )
-    commands: list[str] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Movement commands (at least 1)&#34;
-    )
+    description: str = Field(..., min_length=50, description=&#34;Description of movement system&#34;)
+    commands: list[str] = Field(..., min_length=1, description=&#34;Movement commands (at least 1)&#34;)
     narrative_purpose: str = Field(
-        ...,
-        min_length=50,
-        description=&#34;Narrative purpose of movement system&#34;
+        ..., min_length=50, description=&#34;Narrative purpose of movement system&#34;
     )</code></pre>
 </details>
 <div class="desc"><p>Movement system configuration.</p>
@@ -1915,51 +1715,28 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    id: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Unique NPC identifier&#34;
-    )
-    name: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Human-readable NPC name&#34;
-    )
-    role: str = Field(
-        ...,
-        min_length=1,
-        max_length=300,
-        description=&#34;NPC&#39;s role in the game&#34;
-    )
-    description: str = Field(
-        ...,
-        min_length=20,
-        description=&#34;Detailed NPC description&#34;
-    )
+    id: str = Field(..., min_length=1, max_length=200, description=&#34;Unique NPC identifier&#34;)
+    name: str = Field(..., min_length=1, max_length=200, description=&#34;Human-readable NPC name&#34;)
+    role: str = Field(..., min_length=1, max_length=300, description=&#34;NPC&#39;s role in the game&#34;)
+    description: str = Field(..., min_length=20, description=&#34;Detailed NPC description&#34;)
     locations: list[str] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Scene IDs where NPC appears (at least 1)&#34;
+        ..., min_length=1, description=&#34;Scene IDs where NPC appears (at least 1)&#34;
     )
     dialogue_themes: list[str] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Dialogue themes (at least 1)&#34;
+        ..., min_length=1, description=&#34;Dialogue themes (at least 1)&#34;
     )
 
-    @field_validator(&#39;id&#39;)
+    @field_validator(&#34;id&#34;)
     @classmethod
     def validate_id_format(cls, v: str) -&gt; str:
         &#34;&#34;&#34;Ensure id follows naming convention.&#34;&#34;&#34;
-        if not v.replace(&#39;_&#39;, &#39;&#39;).replace(&#39;-&#39;, &#39;&#39;).isalnum():
+        if not v.replace(&#34;_&#34;, &#34;&#34;).replace(&#34;-&#34;, &#34;&#34;).isalnum():
             raise ValueError(
                 &#34;ID must contain only alphanumeric characters, underscores, and hyphens&#34;
             )
         return v
 
-    @field_validator(&#39;dialogue_themes&#39;)
+    @field_validator(&#34;dialogue_themes&#34;)
     @classmethod
     def validate_themes_not_empty(cls, v: list[str]) -&gt; list[str]:
         &#34;&#34;&#34;Ensure all dialogue themes are non-empty strings.&#34;&#34;&#34;
@@ -2080,22 +1857,16 @@ validated to form a valid model.</p>
     &#34;&#34;&#34;
 
     start_scene: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;ID of the starting scene&#34;
+        ..., min_length=1, max_length=200, description=&#34;ID of the starting scene&#34;
     )
     scenes: dict[str, Scene] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Dictionary of scene_id to Scene (minimum 1 scene)&#34;
+        ..., min_length=1, description=&#34;Dictionary of scene_id to Scene (minimum 1 scene)&#34;
     )
     character_arcs: list[CharacterArc] | None = Field(
-        default=None,
-        description=&#34;Optional character development arcs&#34;
+        default=None, description=&#34;Optional character development arcs&#34;
     )
 
-    @field_validator(&#39;start_scene&#39;)
+    @field_validator(&#34;start_scene&#34;)
     @classmethod
     def validate_start_scene_exists(cls, v: str, _info) -&gt; str:
         &#34;&#34;&#34;Ensure start_scene exists in scenes dictionary.
@@ -2104,19 +1875,19 @@ validated to form a valid model.</p>
         so we can only do basic format validation here. Cross-field validation
         should be done via model_validator.
         &#34;&#34;&#34;
-        if not v.replace(&#39;_&#39;, &#39;&#39;).replace(&#39;-&#39;, &#39;&#39;).isalnum():
+        if not v.replace(&#34;_&#34;, &#34;&#34;).replace(&#34;-&#34;, &#34;&#34;).isalnum():
             raise ValueError(
                 &#34;start_scene must contain only alphanumeric characters, underscores, and hyphens&#34;
             )
         return v
 
-    @field_validator(&#39;scenes&#39;)
+    @field_validator(&#34;scenes&#34;)
     @classmethod
     def validate_scene_ids(cls, v: dict[str, Scene]) -&gt; dict[str, Scene]:
         &#34;&#34;&#34;Ensure all scene IDs are valid and all connections reference existing scenes.&#34;&#34;&#34;
         # Validate scene ID format
         for scene_id in v:
-            if not scene_id.replace(&#39;_&#39;, &#39;&#39;).replace(&#39;-&#39;, &#39;&#39;).isalnum():
+            if not scene_id.replace(&#34;_&#34;, &#34;&#34;).replace(&#34;-&#34;, &#34;&#34;).isalnum():
                 raise ValueError(
                     f&#34;Scene ID &#39;{scene_id}&#39; must contain only alphanumeric characters, &#34;
                     f&#34;underscores, and hyphens&#34;
@@ -2239,20 +2010,10 @@ should be done via model_validator.</p></div>
         ... )
     &#34;&#34;&#34;
 
-    path: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Branch path identifier&#34;
-    )
-    description: str = Field(
-        ...,
-        min_length=50,
-        description=&#34;Description of the branch narrative&#34;
-    )
+    path: str = Field(..., min_length=1, max_length=200, description=&#34;Branch path identifier&#34;)
+    description: str = Field(..., min_length=50, description=&#34;Description of the branch narrative&#34;)
     decision_point: str | None = Field(
-        default=None,
-        description=&#34;ID of the plot point where this branch occurs&#34;
+        default=None, description=&#34;ID of the plot point where this branch occurs&#34;
     )</code></pre>
 </details>
 <div class="desc"><p>A branching path in the narrative structure.</p>
@@ -2339,49 +2100,28 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    title: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Title of the narrative&#34;
-    )
+    title: str = Field(..., min_length=1, max_length=200, description=&#34;Title of the narrative&#34;)
     setting: str = Field(
-        ...,
-        min_length=50,
-        description=&#34;Detailed description of the setting and world&#34;
+        ..., min_length=50, description=&#34;Detailed description of the setting and world&#34;
     )
     themes: list[str] = Field(
-        ...,
-        min_length=1,
-        description=&#34;List of major themes (at least 1 required)&#34;
+        ..., min_length=1, description=&#34;List of major themes (at least 1 required)&#34;
     )
-    tone: str = Field(
-        ...,
-        min_length=10,
-        max_length=500,
-        description=&#34;Overall tone and atmosphere&#34;
-    )
+    tone: str = Field(..., min_length=10, max_length=500, description=&#34;Overall tone and atmosphere&#34;)
     plot_points: list[PlotPoint] = Field(
-        ...,
-        min_length=3,
-        description=&#34;Chronological list of major plot events (minimum 3)&#34;
+        ..., min_length=3, description=&#34;Chronological list of major plot events (minimum 3)&#34;
     )
     characters: list[Character] = Field(
-        ...,
-        min_length=1,
-        description=&#34;List of major characters (at least 1 required)&#34;
+        ..., min_length=1, description=&#34;List of major characters (at least 1 required)&#34;
     )
     conflicts: list[Conflict] = Field(
-        ...,
-        min_length=1,
-        description=&#34;List of major conflicts (at least 1 required)&#34;
+        ..., min_length=1, description=&#34;List of major conflicts (at least 1 required)&#34;
     )
     plot_branches: list[PlotBranch] | None = Field(
-        default=None,
-        description=&#34;Optional alternative narrative paths&#34;
+        default=None, description=&#34;Optional alternative narrative paths&#34;
     )
 
-    @field_validator(&#39;themes&#39;)
+    @field_validator(&#34;themes&#34;)
     @classmethod
     def validate_themes_not_empty(cls, v: list[str]) -&gt; list[str]:
         &#34;&#34;&#34;Ensure all themes are non-empty strings.&#34;&#34;&#34;
@@ -2389,7 +2129,7 @@ validated to form a valid model.</p>
             raise ValueError(&#34;All themes must be non-empty strings&#34;)
         return v
 
-    @field_validator(&#39;plot_points&#39;)
+    @field_validator(&#34;plot_points&#34;)
     @classmethod
     def validate_plot_point_ids_unique(cls, v: list[PlotPoint]) -&gt; list[PlotPoint]:
         &#34;&#34;&#34;Ensure all plot point IDs are unique.&#34;&#34;&#34;
@@ -2398,7 +2138,7 @@ validated to form a valid model.</p>
             raise ValueError(&#34;All plot point IDs must be unique&#34;)
         return v
 
-    @field_validator(&#39;characters&#39;)
+    @field_validator(&#34;characters&#34;)
     @classmethod
     def validate_character_names_unique(cls, v: list[Character]) -&gt; list[Character]:
         &#34;&#34;&#34;Ensure all character names are unique.&#34;&#34;&#34;
@@ -2535,28 +2275,18 @@ validated to form a valid model.</p>
     &#34;&#34;&#34;
 
     id: str = Field(
-        ...,
-        min_length=1,
-        max_length=100,
-        description=&#34;Unique identifier for the plot point&#34;
+        ..., min_length=1, max_length=100, description=&#34;Unique identifier for the plot point&#34;
     )
-    name: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Short descriptive name&#34;
-    )
+    name: str = Field(..., min_length=1, max_length=200, description=&#34;Short descriptive name&#34;)
     description: str = Field(
-        ...,
-        min_length=50,
-        description=&#34;Detailed description of the plot point&#34;
+        ..., min_length=50, description=&#34;Detailed description of the plot point&#34;
     )
 
-    @field_validator(&#39;id&#39;)
+    @field_validator(&#34;id&#34;)
     @classmethod
     def validate_id_format(cls, v: str) -&gt; str:
         &#34;&#34;&#34;Ensure id follows naming convention (lowercase, underscores).&#34;&#34;&#34;
-        if not v.replace(&#39;_&#39;, &#39;&#39;).replace(&#39;-&#39;, &#39;&#39;).isalnum():
+        if not v.replace(&#34;_&#34;, &#34;&#34;).replace(&#34;-&#34;, &#34;&#34;).isalnum():
             raise ValueError(
                 &#34;ID must contain only alphanumeric characters, underscores, and hyphens&#34;
             )
@@ -2649,49 +2379,25 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    id: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Unique puzzle identifier&#34;
-    )
-    name: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Human-readable puzzle name&#34;
-    )
-    description: str = Field(
-        ...,
-        min_length=50,
-        description=&#34;Detailed puzzle description&#34;
-    )
+    id: str = Field(..., min_length=1, max_length=200, description=&#34;Unique puzzle identifier&#34;)
+    name: str = Field(..., min_length=1, max_length=200, description=&#34;Human-readable puzzle name&#34;)
+    description: str = Field(..., min_length=50, description=&#34;Detailed puzzle description&#34;)
     location: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Scene ID where puzzle is located&#34;
+        ..., min_length=1, max_length=200, description=&#34;Scene ID where puzzle is located&#34;
     )
     narrative_purpose: str = Field(
-        ...,
-        min_length=20,
-        description=&#34;Why this puzzle exists narratively&#34;
+        ..., min_length=20, description=&#34;Why this puzzle exists narratively&#34;
     )
-    solution: PuzzleSolution = Field(
-        ...,
-        description=&#34;Puzzle solution structure&#34;
-    )
+    solution: PuzzleSolution = Field(..., description=&#34;Puzzle solution structure&#34;)
     difficulty: str = Field(
-        ...,
-        pattern=&#34;^(easy|medium|hard)$&#34;,
-        description=&#34;Difficulty level: easy, medium, or hard&#34;
+        ..., pattern=&#34;^(easy|medium|hard)$&#34;, description=&#34;Difficulty level: easy, medium, or hard&#34;
     )
 
-    @field_validator(&#39;id&#39;)
+    @field_validator(&#34;id&#34;)
     @classmethod
     def validate_id_format(cls, v: str) -&gt; str:
         &#34;&#34;&#34;Ensure id follows naming convention.&#34;&#34;&#34;
-        if not v.replace(&#39;_&#39;, &#39;&#39;).replace(&#39;-&#39;, &#39;&#39;).isalnum():
+        if not v.replace(&#34;_&#34;, &#34;&#34;).replace(&#34;-&#34;, &#34;&#34;).isalnum():
             raise ValueError(
                 &#34;ID must contain only alphanumeric characters, underscores, and hyphens&#34;
             )
@@ -2809,28 +2515,16 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    puzzles: list[Puzzle] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Puzzles in the game (at least 1)&#34;
-    )
+    puzzles: list[Puzzle] = Field(..., min_length=1, description=&#34;Puzzles in the game (at least 1)&#34;)
     artifacts: list[Artifact] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Artifacts in the game (at least 1)&#34;
+        ..., min_length=1, description=&#34;Artifacts in the game (at least 1)&#34;
     )
     monsters: list[Monster] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Monsters in the game (at least 1)&#34;
+        ..., min_length=1, description=&#34;Monsters in the game (at least 1)&#34;
     )
-    npcs: list[NPC] = Field(
-        ...,
-        min_length=1,
-        description=&#34;NPCs in the game (at least 1)&#34;
-    )
+    npcs: list[NPC] = Field(..., min_length=1, description=&#34;NPCs in the game (at least 1)&#34;)
 
-    @field_validator(&#39;puzzles&#39;)
+    @field_validator(&#34;puzzles&#34;)
     @classmethod
     def validate_puzzle_ids_unique(cls, v: list[Puzzle]) -&gt; list[Puzzle]:
         &#34;&#34;&#34;Ensure all puzzle IDs are unique.&#34;&#34;&#34;
@@ -2839,7 +2533,7 @@ validated to form a valid model.</p>
             raise ValueError(&#34;All puzzle IDs must be unique&#34;)
         return v
 
-    @field_validator(&#39;artifacts&#39;)
+    @field_validator(&#34;artifacts&#34;)
     @classmethod
     def validate_artifact_ids_unique(cls, v: list[Artifact]) -&gt; list[Artifact]:
         &#34;&#34;&#34;Ensure all artifact IDs are unique.&#34;&#34;&#34;
@@ -2848,7 +2542,7 @@ validated to form a valid model.</p>
             raise ValueError(&#34;All artifact IDs must be unique&#34;)
         return v
 
-    @field_validator(&#39;monsters&#39;)
+    @field_validator(&#34;monsters&#34;)
     @classmethod
     def validate_monster_ids_unique(cls, v: list[Monster]) -&gt; list[Monster]:
         &#34;&#34;&#34;Ensure all monster IDs are unique.&#34;&#34;&#34;
@@ -2857,7 +2551,7 @@ validated to form a valid model.</p>
             raise ValueError(&#34;All monster IDs must be unique&#34;)
         return v
 
-    @field_validator(&#39;npcs&#39;)
+    @field_validator(&#34;npcs&#34;)
     @classmethod
     def validate_npc_ids_unique(cls, v: list[NPC]) -&gt; list[NPC]:
         &#34;&#34;&#34;Ensure all NPC IDs are unique.&#34;&#34;&#34;
@@ -2970,19 +2664,12 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    type: str = Field(
-        ...,
-        min_length=3,
-        max_length=200,
-        description=&#34;Type of puzzle solution&#34;
-    )
+    type: str = Field(..., min_length=3, max_length=200, description=&#34;Type of puzzle solution&#34;)
     steps: list[PuzzleStep] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Steps to solve the puzzle (at least 1)&#34;
+        ..., min_length=1, description=&#34;Steps to solve the puzzle (at least 1)&#34;
     )
 
-    @field_validator(&#39;steps&#39;, mode=&#39;before&#39;)
+    @field_validator(&#34;steps&#34;, mode=&#34;before&#34;)
     @classmethod
     def convert_string_steps(cls, v):
         &#34;&#34;&#34;Convert plain string steps to PuzzleStep objects.&#34;&#34;&#34;
@@ -3069,11 +2756,7 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    step: str = Field(
-        ...,
-        min_length=10,
-        description=&#34;Description of the puzzle step&#34;
-    )</code></pre>
+    step: str = Field(..., min_length=10, description=&#34;Description of the puzzle step&#34;)</code></pre>
 </details>
 <div class="desc"><p>A single step in solving a puzzle.</p>
 <p>This model accepts either a plain string or a dict with 'step' key
@@ -3136,28 +2819,16 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    name: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Human-readable scene name&#34;
-    )
-    description: str = Field(
-        ...,
-        min_length=50,
-        description=&#34;Detailed scene description&#34;
-    )
+    name: str = Field(..., min_length=1, max_length=200, description=&#34;Human-readable scene name&#34;)
+    description: str = Field(..., min_length=50, description=&#34;Detailed scene description&#34;)
     connections: list[Connection] = Field(
-        default_factory=list,
-        description=&#34;Connections to other scenes&#34;
+        default_factory=list, description=&#34;Connections to other scenes&#34;
     )
     character_moments: list[CharacterMoment] | None = Field(
-        default=None,
-        description=&#34;Character moments in this scene&#34;
+        default=None, description=&#34;Character moments in this scene&#34;
     )
     decision_points: list[DecisionPoint] | None = Field(
-        default=None,
-        description=&#34;Decision points in this scene&#34;
+        default=None, description=&#34;Decision points in this scene&#34;
     )</code></pre>
 </details>
 <div class="desc"><p>A scene in the narrative map.</p>
@@ -3245,26 +2916,12 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    speaker: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Character name&#34;
-    )
-    text: str = Field(
-        ...,
-        min_length=5,
-        description=&#34;Dialogue text&#34;
-    )
+    speaker: str = Field(..., min_length=1, max_length=200, description=&#34;Character name&#34;)
+    text: str = Field(..., min_length=5, description=&#34;Dialogue text&#34;)
     emotion: str | None = Field(
-        default=None,
-        max_length=500,
-        description=&#34;Optional emotion or delivery style&#34;
+        default=None, max_length=500, description=&#34;Optional emotion or delivery style&#34;
     )
-    context: str | None = Field(
-        default=None,
-        description=&#34;Optional context for the dialogue&#34;
-    )</code></pre>
+    context: str | None = Field(default=None, description=&#34;Optional context for the dialogue&#34;)</code></pre>
 </details>
 <div class="desc"><p>A dialogue line in a scene.</p>
 <h2 id="attributes">Attributes</h2>
@@ -3354,43 +3011,23 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    name: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Human-readable scene name&#34;
-    )
-    description: str = Field(
-        ...,
-        min_length=50,
-        description=&#34;Main scene description&#34;
-    )
+    name: str = Field(..., min_length=1, max_length=200, description=&#34;Human-readable scene name&#34;)
+    description: str = Field(..., min_length=50, description=&#34;Main scene description&#34;)
     atmosphere: str = Field(
-        ...,
-        min_length=10,
-        max_length=500,
-        description=&#34;Atmospheric description or tags&#34;
+        ..., min_length=10, max_length=500, description=&#34;Atmospheric description or tags&#34;
     )
-    initial_text: str = Field(
-        ...,
-        min_length=10,
-        description=&#34;Text shown when entering the scene&#34;
-    )
+    initial_text: str = Field(..., min_length=10, description=&#34;Text shown when entering the scene&#34;)
     examination_texts: dict[str, str] = Field(
-        default_factory=dict,
-        description=&#34;Dictionary of examinable objects to descriptions&#34;
+        default_factory=dict, description=&#34;Dictionary of examinable objects to descriptions&#34;
     )
     dialogue: list[SceneDialogue] = Field(
-        default_factory=list,
-        description=&#34;List of dialogue in this scene&#34;
+        default_factory=list, description=&#34;List of dialogue in this scene&#34;
     )
     narrative_notes: str | None = Field(
-        default=None,
-        min_length=20,
-        description=&#34;Optional narrative purpose notes&#34;
+        default=None, min_length=20, description=&#34;Optional narrative purpose notes&#34;
     )
 
-    @field_validator(&#39;examination_texts&#39;)
+    @field_validator(&#34;examination_texts&#34;)
     @classmethod
     def validate_examination_texts(cls, v: dict[str, str]) -&gt; dict[str, str]:
         &#34;&#34;&#34;Ensure all examination texts are non-empty.&#34;&#34;&#34;
@@ -3398,9 +3035,7 @@ validated to form a valid model.</p>
             if not key.strip():
                 raise ValueError(&#34;Examination text keys must be non-empty&#34;)
             if not value.strip() or len(value) &lt; 10:
-                raise ValueError(
-                    f&#34;Examination text for &#39;{key}&#39; must be at least 10 characters&#34;
-                )
+                raise ValueError(f&#34;Examination text for &#39;{key}&#39; must be at least 10 characters&#34;)
         return v</code></pre>
 </details>
 <div class="desc"><p>Text content for a single scene.</p>
@@ -3515,24 +3150,22 @@ validated to form a valid model.</p>
     &#34;&#34;&#34;
 
     scenes: dict[str, SceneText] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Dictionary of scene_id to SceneText (minimum 1 scene)&#34;
+        ..., min_length=1, description=&#34;Dictionary of scene_id to SceneText (minimum 1 scene)&#34;
     )
 
-    @field_validator(&#39;scenes&#39;)
+    @field_validator(&#34;scenes&#34;)
     @classmethod
     def validate_scene_ids(cls, v: dict[str, SceneText]) -&gt; dict[str, SceneText]:
         &#34;&#34;&#34;Ensure all scene IDs follow naming convention.&#34;&#34;&#34;
         for scene_id in v:
-            if not scene_id.replace(&#39;_&#39;, &#39;&#39;).replace(&#39;-&#39;, &#39;&#39;).isalnum():
+            if not scene_id.replace(&#34;_&#34;, &#34;&#34;).replace(&#34;-&#34;, &#34;&#34;).isalnum():
                 raise ValueError(
                     f&#34;Scene ID &#39;{scene_id}&#39; must contain only alphanumeric characters, &#34;
                     f&#34;underscores, and hyphens&#34;
                 )
         return v
 
-    @field_validator(&#39;scenes&#39;)
+    @field_validator(&#34;scenes&#34;)
     @classmethod
     def validate_scene_names_match_keys(cls, v: dict[str, SceneText]) -&gt; dict[str, SceneText]:
         &#34;&#34;&#34;Validate that scene texts are properly structured.
@@ -3629,16 +3262,8 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    requirement: str = Field(
-        ...,
-        min_length=20,
-        description=&#34;Technical requirement description&#34;
-    )
-    justification: str = Field(
-        ...,
-        min_length=20,
-        description=&#34;Justification for the requirement&#34;
-    )</code></pre>
+    requirement: str = Field(..., min_length=20, description=&#34;Technical requirement description&#34;)
+    justification: str = Field(..., min_length=20, description=&#34;Justification for the requirement&#34;)</code></pre>
 </details>
 <div class="desc"><p>A technical requirement for the game.</p>
 <h2 id="attributes">Attributes</h2>
@@ -3701,17 +3326,8 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    variable: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Variable name&#34;
-    )
-    purpose: str = Field(
-        ...,
-        min_length=20,
-        description=&#34;Purpose and impact of the variable&#34;
-    )</code></pre>
+    variable: str = Field(..., min_length=1, max_length=200, description=&#34;Variable name&#34;)
+    purpose: str = Field(..., min_length=20, description=&#34;Purpose and impact of the variable&#34;)</code></pre>
 </details>
 <div class="desc"><p>A tracked game state variable.</p>
 <h2 id="attributes">Attributes</h2>
@@ -3772,11 +3388,7 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    condition: str = Field(
-        ...,
-        min_length=20,
-        description=&#34;Description of the win condition&#34;
-    )</code></pre>
+    condition: str = Field(..., min_length=20, description=&#34;Description of the win condition&#34;)</code></pre>
 </details>
 <div class="desc"><p>A win condition for the game.</p>
 <h2 id="attributes">Attributes</h2>

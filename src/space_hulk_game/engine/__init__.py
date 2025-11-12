@@ -25,7 +25,7 @@ from .engine import TextAdventureEngine
 from .entities import NPC, Event, Item
 from .game_data import GameData
 from .game_state import GameState
-from .loader import ContentLoader, LoaderError, ValidationError, YAMLParseError
+from .loader import ContentLoader, JSONParseError, LoaderError, ValidationError, YAMLParseError
 from .parser import CommandParser
 from .persistence import (
     PersistenceError,
@@ -52,6 +52,7 @@ __all__ = [
     "HelpAction",
     "InventoryAction",
     "Item",
+    "JSONParseError",
     "LoaderError",
     "LookAction",
     "MoveAction",

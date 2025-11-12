@@ -1,13 +1,13 @@
 """
 Content Loader Module
 
-Loads and converts AI-generated YAML files into playable game format.
+Loads and converts AI-generated JSON files into playable game format.
 This is the bridge between CrewAI agent outputs and the game engine.
 
 The ContentLoader handles:
-- Loading 5 YAML files (plot, narrative, puzzles, scenes, mechanics)
-- Parsing YAML with error handling for common AI output issues
-- Converting YAML structures to engine-compatible objects (Scene, Item, NPC, etc.)
+- Loading 5 JSON files (plot, narrative, puzzles, scenes, mechanics)
+- Parsing JSON with error handling for common AI output issues
+- Converting JSON structures to engine-compatible objects (Scene, Item, NPC, etc.)
 - Merging content from multiple files into a cohesive GameData structure
 - Graceful handling of missing or malformed data
 
@@ -18,6 +18,7 @@ Example:
     >>> print(game_data.title)
 """
 
+import json
 import logging
 import re
 from pathlib import Path
@@ -45,6 +46,12 @@ class YAMLParseError(LoaderError):
     pass
 
 
+class JSONParseError(LoaderError):
+    """Raised when JSON parsing fails."""
+
+    pass
+
+
 class ValidationError(LoaderError):
     """Raised when loaded content fails validation."""
 
@@ -53,10 +60,10 @@ class ValidationError(LoaderError):
 
 class ContentLoader:
     """
-    Loads AI-generated YAML files and converts them into GameData.
+    Loads AI-generated JSON files and converts them into GameData.
 
     The ContentLoader implements a Facade pattern to simplify the complex process
-    of loading and merging multiple YAML files. It uses Strategy pattern internally
+    of loading and merging multiple JSON files. It uses Strategy pattern internally
     for handling different file formats and Builder pattern for constructing GameData.
 
     Attributes:
@@ -74,7 +81,7 @@ class ContentLoader:
         >>> game_data = loader.load_game("game-config/")
 
         Load individual files:
-        >>> plot_data = loader.load_yaml("game-config/plot_outline.yaml")
+        >>> plot_data = loader.load_json("game-config/plot_outline.json")
     """
 
     def __init__(self, strict_mode: bool = False):
@@ -90,14 +97,14 @@ class ContentLoader:
 
     def load_game(self, output_dir: str) -> GameData:
         """
-        Load all generated YAML files into a playable game.
+        Load all generated JSON files into a playable game.
 
         This is the main entry point for loading a complete game. It loads
-        all 5 YAML files, validates them, converts them to engine objects,
+        all 5 JSON files, validates them, converts them to engine objects,
         and merges them into a single GameData structure.
 
         Args:
-            output_dir: Directory containing the generated YAML files.
+            output_dir: Directory containing the generated JSON files.
 
         Returns:
             GameData object containing all loaded content.
@@ -113,15 +120,15 @@ class ContentLoader:
         """
         logger.info(f"Loading game from directory: {output_dir}")
 
-        # Load all YAML files
+        # Load all JSON files
         base_path = Path(output_dir)
-        plot = self.load_yaml(str(base_path / "plot_outline.yaml"))
-        narrative = self.load_yaml(str(base_path / "narrative_map.yaml"))
-        puzzles = self.load_yaml(str(base_path / "puzzle_design.yaml"))
-        scenes = self.load_yaml(str(base_path / "scene_texts.yaml"))
-        mechanics = self.load_yaml(str(base_path / "prd_document.yaml"))
+        plot = self.load_json(str(base_path / "plot_outline.json"))
+        narrative = self.load_json(str(base_path / "narrative_map.json"))
+        puzzles = self.load_json(str(base_path / "puzzle_design.json"))
+        scenes = self.load_json(str(base_path / "scene_texts.json"))
+        mechanics = self.load_json(str(base_path / "prd_document.json"))
 
-        logger.info("All YAML files loaded successfully")
+        logger.info("All JSON files loaded successfully")
 
         # Merge into GameData
         game_data = self.merge_into_game_data(plot, narrative, puzzles, scenes, mechanics)
@@ -208,6 +215,85 @@ class ContentLoader:
                 logger.warning(f"Error loading file, returning empty dict: {filepath}")
                 return {}
 
+    def load_json(self, filepath: str) -> dict[str, Any]:
+        """
+        Load and parse a JSON file with error handling.
+
+        Handles common issues with AI-generated JSON:
+        - Markdown code fence wrapping (```json ... ```)
+        - Extra whitespace
+        - Missing files
+        - Invalid JSON syntax
+
+        Args:
+            filepath: Path to the JSON file to load.
+
+        Returns:
+            Parsed JSON content as a dictionary.
+
+        Raises:
+            LoaderError: If file is missing or cannot be parsed.
+
+        Examples:
+            >>> loader = ContentLoader()
+            >>> data = loader.load_json("game-config/plot_outline.json")
+            >>> isinstance(data, dict)
+            True
+        """
+        logger.debug(f"Loading JSON file: {filepath}")
+
+        # Check if file exists
+        if not Path(filepath).exists():
+            error_msg = f"File not found: {filepath}"
+            logger.error(error_msg)
+            if self.strict_mode:
+                raise LoaderError(error_msg)
+            else:
+                logger.warning(f"File missing, returning empty dict: {filepath}")
+                return {}
+
+        try:
+            # Read file content
+            with Path(filepath).open(encoding="utf-8") as f:
+                content = f.read()
+
+            # Clean up markdown wrapping (common AI output issue)
+            content = self._clean_json_content(content)
+
+            # Parse JSON
+            data = json.loads(content)
+
+            if data is None:
+                logger.warning(f"Empty JSON file: {filepath}")
+                return {}
+
+            if not isinstance(data, dict):
+                error_msg = f"Invalid JSON structure in {filepath}: expected dict, got {type(data)}"
+                logger.error(error_msg)
+                if self.strict_mode:
+                    raise JSONParseError(error_msg)
+                return {}
+
+            logger.debug(f"Successfully loaded {filepath}: {len(data)} top-level keys")
+            return data
+
+        except json.JSONDecodeError as e:
+            error_msg = f"JSON parsing error in {filepath}: {e}"
+            logger.error(error_msg)
+            if self.strict_mode:
+                raise JSONParseError(error_msg) from e
+            else:
+                logger.warning(f"JSON error, returning empty dict: {filepath}")
+                return {}
+        except Exception as e:
+            error_msg = f"Unexpected error loading {filepath}: {e}"
+            logger.error(error_msg)
+            if self.strict_mode:
+                raise LoaderError(error_msg) from e
+            else:
+                logger.warning(f"Error loading file, returning empty dict: {filepath}")
+                return {}
+
     def _clean_yaml_content(self, content: str) -> str:
         """
         Clean up common issues in AI-generated YAML content.
@@ -231,6 +317,29 @@ class ContentLoader:
 
         return content
 
+    def _clean_json_content(self, content: str) -> str:
+        """
+        Clean up common issues in AI-generated JSON content.
+
+        Specifically, this method:
+            - Removes markdown code fences (e.g., ```json ... ```) that may wrap JSON content.
+            - Strips leading and trailing whitespace from the content.
+
+        Args:
+            content: Raw JSON content string.
+
+        Returns:
+            Cleaned JSON content with code fences and extraneous whitespace removed.
+        """
+        # Remove markdown code fences
+        content = re.sub(r"^\s*```json\s*\n?", "", content, flags=re.IGNORECASE | re.MULTILINE)
+        content = re.sub(r"\n?\s*```\s*$", "", content, flags=re.MULTILINE)
+
+        # Strip leading/trailing whitespace
+        content = content.strip()
+
+        return content
+
     def merge_into_game_data(
         self,
         plot: dict[str, Any],
@@ -240,17 +349,17 @@ class ContentLoader:
         mechanics: dict[str, Any],
     ) -> GameData:
         """
-        Merge all loaded YAML data into a GameData object.
+        Merge all loaded JSON data into a GameData object.
 
         This method implements the core conversion logic, transforming
-        the YAML structures into Scene, Item, NPC, and Event objects.
+        the JSON structures into Scene, Item, NPC, and Event objects.
 
         Args:
-            plot: Data from plot_outline.yaml
-            narrative: Data from narrative_map.yaml
-            puzzles: Data from puzzle_design.yaml
-            scenes_text: Data from scene_texts.yaml
-            mechanics: Data from prd_document.yaml
+            plot: Data from plot_outline.json
+            narrative: Data from narrative_map.json
+            puzzles: Data from puzzle_design.json
+            scenes_text: Data from scene_texts.json
+            mechanics: Data from prd_document.json
 
         Returns:
             Complete GameData object.
@@ -258,7 +367,7 @@ class ContentLoader:
         Raises:
             ValidationError: If required data is missing.
         """
-        logger.info("Merging YAML data into GameData")
+        logger.info("Merging JSON data into GameData")
 
         # Extract title and description
         title = self._extract_title(plot, narrative, mechanics)

@@ -72,16 +72,9 @@ scenes, connections, character moments, decision points, and character arcs.</p>
         ... )
     &#34;&#34;&#34;
 
-    character: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Character name&#34;
-    )
+    character: str = Field(..., min_length=1, max_length=200, description=&#34;Character name&#34;)
     arc_stages: list[CharacterArcStage] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Stages in the character&#39;s arc (at least 1)&#34;
+        ..., min_length=1, description=&#34;Stages in the character&#39;s arc (at least 1)&#34;
     )</code></pre>
 </details>
 <div class="desc"><p>Complete arc for a character across the narrative.</p>
@@ -146,15 +139,10 @@ validated to form a valid model.</p>
     &#34;&#34;&#34;
 
     stage: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Stage name in the character arc&#34;
+        ..., min_length=1, max_length=200, description=&#34;Stage name in the character arc&#34;
     )
     description: str = Field(
-        ...,
-        min_length=20,
-        description=&#34;Description of character state at this stage&#34;
+        ..., min_length=20, description=&#34;Description of character state at this stage&#34;
     )</code></pre>
 </details>
 <div class="desc"><p>A stage in a character's narrative arc.</p>
@@ -218,17 +206,8 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    character: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Character name&#34;
-    )
-    moment: str = Field(
-        ...,
-        min_length=20,
-        description=&#34;Description of the character moment&#34;
-    )</code></pre>
+    character: str = Field(..., min_length=1, max_length=200, description=&#34;Character name&#34;)
+    moment: str = Field(..., min_length=20, description=&#34;Description of the character moment&#34;)</code></pre>
 </details>
 <div class="desc"><p>A significant character moment within a scene.</p>
 <h2 id="attributes">Attributes</h2>
@@ -293,21 +272,10 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    target: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Target scene ID&#34;
-    )
-    description: str = Field(
-        ...,
-        min_length=20,
-        description=&#34;Description of the transition&#34;
-    )
+    target: str = Field(..., min_length=1, max_length=200, description=&#34;Target scene ID&#34;)
+    description: str = Field(..., min_length=20, description=&#34;Description of the transition&#34;)
     condition: str | None = Field(
-        default=None,
-        max_length=500,
-        description=&#34;Optional condition for this connection&#34;
+        default=None, max_length=500, description=&#34;Optional condition for this connection&#34;
     )</code></pre>
 </details>
 <div class="desc"><p>A connection from one scene to another.</p>
@@ -380,21 +348,10 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    choice: str = Field(
-        ...,
-        min_length=10,
-        description=&#34;The decision choice text&#34;
-    )
-    outcome: str = Field(
-        ...,
-        min_length=20,
-        description=&#34;What happens if this choice is selected&#34;
-    )
+    choice: str = Field(..., min_length=10, description=&#34;The decision choice text&#34;)
+    outcome: str = Field(..., min_length=20, description=&#34;What happens if this choice is selected&#34;)
     target_scene: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Target scene ID for this choice&#34;
+        ..., min_length=1, max_length=200, description=&#34;Target scene ID for this choice&#34;
     )</code></pre>
 </details>
 <div class="desc"><p>An option in a decision point.</p>
@@ -468,27 +425,18 @@ validated to form a valid model.</p>
     &#34;&#34;&#34;
 
     id: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Unique decision point identifier&#34;
+        ..., min_length=1, max_length=200, description=&#34;Unique decision point identifier&#34;
     )
-    prompt: str = Field(
-        ...,
-        min_length=20,
-        description=&#34;The decision prompt text&#34;
-    )
+    prompt: str = Field(..., min_length=20, description=&#34;The decision prompt text&#34;)
     options: list[DecisionOption] = Field(
-        ...,
-        min_length=2,
-        description=&#34;Available decision options (minimum 2)&#34;
+        ..., min_length=2, description=&#34;Available decision options (minimum 2)&#34;
     )
 
-    @field_validator(&#39;id&#39;)
+    @field_validator(&#34;id&#34;)
     @classmethod
     def validate_id_format(cls, v: str) -&gt; str:
         &#34;&#34;&#34;Ensure id follows naming convention.&#34;&#34;&#34;
-        if not v.replace(&#39;_&#39;, &#39;&#39;).replace(&#39;-&#39;, &#39;&#39;).isalnum():
+        if not v.replace(&#34;_&#34;, &#34;&#34;).replace(&#34;-&#34;, &#34;&#34;).isalnum():
             raise ValueError(
                 &#34;ID must contain only alphanumeric characters, underscores, and hyphens&#34;
             )
@@ -580,22 +528,16 @@ validated to form a valid model.</p>
     &#34;&#34;&#34;
 
     start_scene: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;ID of the starting scene&#34;
+        ..., min_length=1, max_length=200, description=&#34;ID of the starting scene&#34;
     )
     scenes: dict[str, Scene] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Dictionary of scene_id to Scene (minimum 1 scene)&#34;
+        ..., min_length=1, description=&#34;Dictionary of scene_id to Scene (minimum 1 scene)&#34;
     )
     character_arcs: list[CharacterArc] | None = Field(
-        default=None,
-        description=&#34;Optional character development arcs&#34;
+        default=None, description=&#34;Optional character development arcs&#34;
     )
 
-    @field_validator(&#39;start_scene&#39;)
+    @field_validator(&#34;start_scene&#34;)
     @classmethod
     def validate_start_scene_exists(cls, v: str, _info) -&gt; str:
         &#34;&#34;&#34;Ensure start_scene exists in scenes dictionary.
@@ -604,19 +546,19 @@ validated to form a valid model.</p>
         so we can only do basic format validation here. Cross-field validation
         should be done via model_validator.
         &#34;&#34;&#34;
-        if not v.replace(&#39;_&#39;, &#39;&#39;).replace(&#39;-&#39;, &#39;&#39;).isalnum():
+        if not v.replace(&#34;_&#34;, &#34;&#34;).replace(&#34;-&#34;, &#34;&#34;).isalnum():
             raise ValueError(
                 &#34;start_scene must contain only alphanumeric characters, underscores, and hyphens&#34;
             )
         return v
 
-    @field_validator(&#39;scenes&#39;)
+    @field_validator(&#34;scenes&#34;)
     @classmethod
     def validate_scene_ids(cls, v: dict[str, Scene]) -&gt; dict[str, Scene]:
         &#34;&#34;&#34;Ensure all scene IDs are valid and all connections reference existing scenes.&#34;&#34;&#34;
         # Validate scene ID format
         for scene_id in v:
-            if not scene_id.replace(&#39;_&#39;, &#39;&#39;).replace(&#39;-&#39;, &#39;&#39;).isalnum():
+            if not scene_id.replace(&#34;_&#34;, &#34;&#34;).replace(&#34;-&#34;, &#34;&#34;).isalnum():
                 raise ValueError(
                     f&#34;Scene ID &#39;{scene_id}&#39; must contain only alphanumeric characters, &#34;
                     f&#34;underscores, and hyphens&#34;
@@ -739,28 +681,16 @@ should be done via model_validator.</p></div>
         ... )
     &#34;&#34;&#34;
 
-    name: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Human-readable scene name&#34;
-    )
-    description: str = Field(
-        ...,
-        min_length=50,
-        description=&#34;Detailed scene description&#34;
-    )
+    name: str = Field(..., min_length=1, max_length=200, description=&#34;Human-readable scene name&#34;)
+    description: str = Field(..., min_length=50, description=&#34;Detailed scene description&#34;)
     connections: list[Connection] = Field(
-        default_factory=list,
-        description=&#34;Connections to other scenes&#34;
+        default_factory=list, description=&#34;Connections to other scenes&#34;
     )
     character_moments: list[CharacterMoment] | None = Field(
-        default=None,
-        description=&#34;Character moments in this scene&#34;
+        default=None, description=&#34;Character moments in this scene&#34;
     )
     decision_points: list[DecisionPoint] | None = Field(
-        default=None,
-        description=&#34;Decision points in this scene&#34;
+        default=None, description=&#34;Decision points in this scene&#34;
     )</code></pre>
 </details>
 <div class="desc"><p>A scene in the narrative map.</p>

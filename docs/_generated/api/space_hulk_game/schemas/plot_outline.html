@@ -76,26 +76,11 @@ and overall story structure.</p>
         ... )
     &#34;&#34;&#34;
 
-    name: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Full name of the character&#34;
-    )
-    role: str = Field(
-        ...,
-        min_length=1,
-        max_length=300,
-        description=&#34;Character&#39;s role or position&#34;
-    )
-    backstory: str = Field(
-        ...,
-        min_length=50,
-        description=&#34;Character background and history&#34;
-    )
+    name: str = Field(..., min_length=1, max_length=200, description=&#34;Full name of the character&#34;)
+    role: str = Field(..., min_length=1, max_length=300, description=&#34;Character&#39;s role or position&#34;)
+    backstory: str = Field(..., min_length=50, description=&#34;Character background and history&#34;)
     conflicts: list[str] | None = Field(
-        default=None,
-        description=&#34;Optional character-specific conflicts&#34;
+        default=None, description=&#34;Optional character-specific conflicts&#34;
     )</code></pre>
 </details>
 <div class="desc"><p>A character in the narrative.</p>
@@ -172,17 +157,8 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    type: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Type or category of conflict&#34;
-    )
-    description: str = Field(
-        ...,
-        min_length=50,
-        description=&#34;Detailed description of the conflict&#34;
-    )</code></pre>
+    type: str = Field(..., min_length=1, max_length=200, description=&#34;Type or category of conflict&#34;)
+    description: str = Field(..., min_length=50, description=&#34;Detailed description of the conflict&#34;)</code></pre>
 </details>
 <div class="desc"><p>A conflict or tension in the narrative.</p>
 <h2 id="attributes">Attributes</h2>
@@ -250,20 +226,10 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    path: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Branch path identifier&#34;
-    )
-    description: str = Field(
-        ...,
-        min_length=50,
-        description=&#34;Description of the branch narrative&#34;
-    )
+    path: str = Field(..., min_length=1, max_length=200, description=&#34;Branch path identifier&#34;)
+    description: str = Field(..., min_length=50, description=&#34;Description of the branch narrative&#34;)
     decision_point: str | None = Field(
-        default=None,
-        description=&#34;ID of the plot point where this branch occurs&#34;
+        default=None, description=&#34;ID of the plot point where this branch occurs&#34;
     )</code></pre>
 </details>
 <div class="desc"><p>A branching path in the narrative structure.</p>
@@ -350,49 +316,28 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    title: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Title of the narrative&#34;
-    )
+    title: str = Field(..., min_length=1, max_length=200, description=&#34;Title of the narrative&#34;)
     setting: str = Field(
-        ...,
-        min_length=50,
-        description=&#34;Detailed description of the setting and world&#34;
+        ..., min_length=50, description=&#34;Detailed description of the setting and world&#34;
     )
     themes: list[str] = Field(
-        ...,
-        min_length=1,
-        description=&#34;List of major themes (at least 1 required)&#34;
+        ..., min_length=1, description=&#34;List of major themes (at least 1 required)&#34;
     )
-    tone: str = Field(
-        ...,
-        min_length=10,
-        max_length=500,
-        description=&#34;Overall tone and atmosphere&#34;
-    )
+    tone: str = Field(..., min_length=10, max_length=500, description=&#34;Overall tone and atmosphere&#34;)
     plot_points: list[PlotPoint] = Field(
-        ...,
-        min_length=3,
-        description=&#34;Chronological list of major plot events (minimum 3)&#34;
+        ..., min_length=3, description=&#34;Chronological list of major plot events (minimum 3)&#34;
     )
     characters: list[Character] = Field(
-        ...,
-        min_length=1,
-        description=&#34;List of major characters (at least 1 required)&#34;
+        ..., min_length=1, description=&#34;List of major characters (at least 1 required)&#34;
     )
     conflicts: list[Conflict] = Field(
-        ...,
-        min_length=1,
-        description=&#34;List of major conflicts (at least 1 required)&#34;
+        ..., min_length=1, description=&#34;List of major conflicts (at least 1 required)&#34;
     )
     plot_branches: list[PlotBranch] | None = Field(
-        default=None,
-        description=&#34;Optional alternative narrative paths&#34;
+        default=None, description=&#34;Optional alternative narrative paths&#34;
     )
 
-    @field_validator(&#39;themes&#39;)
+    @field_validator(&#34;themes&#34;)
     @classmethod
     def validate_themes_not_empty(cls, v: list[str]) -&gt; list[str]:
         &#34;&#34;&#34;Ensure all themes are non-empty strings.&#34;&#34;&#34;
@@ -400,7 +345,7 @@ validated to form a valid model.</p>
             raise ValueError(&#34;All themes must be non-empty strings&#34;)
         return v
 
-    @field_validator(&#39;plot_points&#39;)
+    @field_validator(&#34;plot_points&#34;)
     @classmethod
     def validate_plot_point_ids_unique(cls, v: list[PlotPoint]) -&gt; list[PlotPoint]:
         &#34;&#34;&#34;Ensure all plot point IDs are unique.&#34;&#34;&#34;
@@ -409,7 +354,7 @@ validated to form a valid model.</p>
             raise ValueError(&#34;All plot point IDs must be unique&#34;)
         return v
 
-    @field_validator(&#39;characters&#39;)
+    @field_validator(&#34;characters&#34;)
     @classmethod
     def validate_character_names_unique(cls, v: list[Character]) -&gt; list[Character]:
         &#34;&#34;&#34;Ensure all character names are unique.&#34;&#34;&#34;
@@ -546,28 +491,18 @@ validated to form a valid model.</p>
     &#34;&#34;&#34;
 
     id: str = Field(
-        ...,
-        min_length=1,
-        max_length=100,
-        description=&#34;Unique identifier for the plot point&#34;
+        ..., min_length=1, max_length=100, description=&#34;Unique identifier for the plot point&#34;
     )
-    name: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Short descriptive name&#34;
-    )
+    name: str = Field(..., min_length=1, max_length=200, description=&#34;Short descriptive name&#34;)
     description: str = Field(
-        ...,
-        min_length=50,
-        description=&#34;Detailed description of the plot point&#34;
+        ..., min_length=50, description=&#34;Detailed description of the plot point&#34;
     )
 
-    @field_validator(&#39;id&#39;)
+    @field_validator(&#34;id&#34;)
     @classmethod
     def validate_id_format(cls, v: str) -&gt; str:
         &#34;&#34;&#34;Ensure id follows naming convention (lowercase, underscores).&#34;&#34;&#34;
-        if not v.replace(&#39;_&#39;, &#39;&#39;).replace(&#39;-&#39;, &#39;&#39;).isalnum():
+        if not v.replace(&#34;_&#34;, &#34;&#34;).replace(&#34;-&#34;, &#34;&#34;).isalnum():
             raise ValueError(
                 &#34;ID must contain only alphanumeric characters, underscores, and hyphens&#34;
             )

@@ -1,11 +1,11 @@
 # Space Hulk Game - Project Summary
 
-Updated: 2025-11-11 17:10:44
+Updated: 2025-11-11 19:33:22
 
 ## Quick Stats
 
-- **Source Files:** 44
-- **Test Files:** 41
+- **Source Files:** 45
+- **Test Files:** 35
 - **Active Projects:** 1
 
 ## Active Projects

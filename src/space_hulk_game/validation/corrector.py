@@ -3,6 +3,10 @@
 This module provides automatic correction functionality for common YAML validation
 errors in AI agent outputs. It attempts to fix missing fields, syntax errors,
 and format violations while preserving the intent of the original content.
+
+DEPRECATED: This module is deprecated as the system has migrated to JSON outputs.
+JSON mode in LLMs guarantees valid syntax, eliminating the need for syntax correction.
+This module is kept for backward compatibility with old YAML-based workflows only.
 """
 
 from __future__ import annotations
@@ -14,7 +18,7 @@ from typing import TYPE_CHECKING
 
 import yaml
 
-from space_hulk_game.utils.yaml_processor import strip_markdown_yaml_blocks
+from space_hulk_game.utils.output_sanitizer import strip_markdown_yaml_blocks
 from space_hulk_game.validation.validator import OutputValidator, ValidationResult
 
 if TYPE_CHECKING:

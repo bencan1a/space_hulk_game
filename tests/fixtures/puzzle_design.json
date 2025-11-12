@@ -1,0 +1,85 @@
+{
+  "artifacts": {
+    "flashlight": {
+      "name": "Lumen Globe",
+      "description": "A dim glowing orb that provides light",
+      "takeable": true,
+      "useable": true,
+      "use_text": "The lumen globe flickers to life",
+      "effects": {
+        "light_source": true
+      }
+    },
+    "medkit": {
+      "name": "Medical Kit",
+      "description": "An Imperial Guard medical kit",
+      "takeable": true,
+      "useable": true,
+      "use_text": "You apply the medkit's contents to your wounds",
+      "effects": {
+        "heal": 30
+      }
+    },
+    "bridge_key": {
+      "name": "Access Card",
+      "description": "A corroded access card",
+      "takeable": true,
+      "useable": false,
+      "effects": {}
+    },
+    "dataslate": {
+      "name": "Ancient Dataslate",
+      "description": "A cracked dataslate with flickering text",
+      "takeable": true,
+      "useable": true,
+      "use_text": "The dataslate reveals critical information",
+      "effects": {
+        "set_flag": "mission_data_acquired"
+      }
+    }
+  },
+  "npcs": {
+    "servitor_wreck": {
+      "name": "Damaged Servitor",
+      "description": "A half-destroyed servitor slumped against the wall",
+      "dialogue": {
+        "greeting": "...power...failure...warning..."
+      },
+      "hostile": false,
+      "health": 10,
+      "gives_item": null
+    },
+    "survivor": {
+      "name": "Guardsman Kane",
+      "description": "A wounded Imperial Guardsman",
+      "dialogue": {
+        "greeting": "Thank the Emperor! You must warn the others!",
+        "quest": "There's something in the cargo bay... something terrible",
+        "help": "Take this. You'll need it more than I will"
+      },
+      "hostile": false,
+      "health": 50,
+      "gives_item": "medkit"
+    }
+  },
+  "monsters": {
+    "genestealer": {
+      "name": "Genestealer",
+      "description": "A horrifying xenos creature with razor claws",
+      "hostile": true,
+      "health": 100,
+      "damage": 30
+    }
+  },
+  "puzzles": {
+    "power_restoration": {
+      "name": "Restore Power",
+      "description": "Restore power to the ship's systems",
+      "required_items": [
+        "power_cell"
+      ],
+      "solution_flag": "power_restored",
+      "reward_text": "The lights flicker on throughout the vessel"
+    }
+  }
+}

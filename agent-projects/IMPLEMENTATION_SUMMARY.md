@@ -215,8 +215,8 @@ Per REVISED_RESTART_PLAN.md Phase 0 Success Criteria:
    Expected: Complete in ~10 minutes, generate 5 YAML files
 
 3. **Validate Outputs**:
-   - Check all 5 files exist: plot_outline.yaml, narrative_map.yaml, puzzle_design.yaml, scene_texts.yaml, prd_document.yaml
-   - Verify YAML is valid
+   - Check all 5 files exist: plot_outline.json, narrative_map.json, puzzle_design.json, scene_texts.json, prd_document.json
+   - Verify JSON is valid
    - Check content quality
 
 4. **Stress Test**:

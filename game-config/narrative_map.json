@@ -1,0 +1,399 @@
+{
+  "narrative_map": {
+    "start_scene": "scene_001_insertion",
+    "scenes": {
+      "scene_001_insertion": {
+        "name": "Insertion Point - Bridge of Despair",
+        "description": "Brother-Captain Raphael's Terminator squad breaches the hull of the 'Perdition's Grasp'. The breach site is a cavernous, derelict bridge, its command consoles shattered, flickering emergency lights barely illuminating the dust-choked air. The reek of ozone and ancient decay hangs heavy. The primary mission is to establish contact with the missing First Squad and secure 'The Anathema'.",
+        "connections": [
+          {
+            "target": "scene_002_corridor_alpha",
+            "condition": "Proceed through the main access tunnel",
+            "description": "Move further into the Space Hulk towards the last known coordinates of the First Squad."
+          }
+        ],
+        "character_moments": [
+          {
+            "character": "Brother-Captain Raphael",
+            "moment": "Internal monologue reflecting on past losses and the weight of command, steeling himself for the inevitable horrors ahead."
+          },
+          {
+            "character": "Brother Claudius",
+            "moment": "Expresses fervent zeal, eager to encounter the xenos and prove his worth."
+          }
+        ],
+        "decision_points": []
+      },
+      "scene_002_corridor_alpha": {
+        "name": "Corridor Alpha - Echoes of Battle",
+        "description": "A long, winding corridor leading deeper into the Hulk. Signs of a recent skirmish are evident: scorch marks, torn bulkheads, and spent bolter casings. The path is partially blocked by debris. Sporadic, faint blips appear on the squad's auspex, then vanish.",
+        "connections": [
+          {
+            "target": "scene_003_first_squad_fate",
+            "condition": "Navigate the debris and proceed",
+            "description": "Continue following the faint trail of the First Squad."
+          }
+        ],
+        "character_moments": [
+          {
+            "character": "Brother-Sergeant Valerius",
+            "moment": "Pragmatically assesses the damage, noting the nature of the destruction and confirming Tyranid presence."
+          },
+          {
+            "character": "Brother Tiberius",
+            "moment": "Silently observes the structural integrity, potentially identifying weakened sections."
+          }
+        ],
+        "decision_points": []
+      },
+      "scene_003_first_squad_fate": {
+        "name": "First Squad's Fate - The Hive Growth Chamber",
+        "description": "The corridor opens into a grotesque chamber. Here, the true horror of the infestation is revealed. The remnants of the First Squad's Terminators are discovered, assimilated into fleshy, chitinous bio-structures, used as incubators or grotesque trophies. The air is thick with bio-luminescent spores and the rhythmic pulses of organic growth. Initial contact with active Genestealers occurs here.",
+        "connections": [
+          {
+            "target": "scene_004_restricted_sector",
+            "condition": "Overcome the Genestealer resistance",
+            "description": "Push past the immediate threat and search for a data-slate or clue about 'The Anathema'."
+          }
+        ],
+        "character_moments": [
+          {
+            "character": "Brother-Captain Raphael",
+            "moment": "A moment of visceral grief and rage, reaffirming his resolve to complete the mission, no matter the cost."
+          },
+          {
+            "character": "Brother Claudius",
+            "moment": "Shocked by the horrific sight, his zeal momentarily wavers, replaced by grim determination."
+          },
+          {
+            "character": "Brother-Sergeant Valerius",
+            "moment": "Warns of the growing infestation and the futility of extended combat here, urging tactical withdrawal after securing objectives."
+          }
+        ],
+        "decision_points": [
+          {
+            "id": "dp_first_squad_data",
+            "prompt": "The First Squad's data-slate might contain crucial information about 'The Anathema' or the infestation. Do you retrieve it or prioritize immediate engagement?",
+            "options": [
+              {
+                "choice": "Attempt to retrieve the data-slate (risking more exposure)",
+                "outcome": "Gain valuable intelligence about 'The Anathema''s location and the Genestealer Patriarch's activity, but incur additional damage/strain on the squad. Unlocks 'scene_004_restricted_sector' with more intel."
+              },
+              {
+                "choice": "Press the attack immediately (prioritizing engagement)",
+                "outcome": "Avoid immediate further risk, but miss critical intelligence that could inform future decisions. Unlocks 'scene_004_restricted_sector' with less intel."
+              }
+            ]
+          }
+        ]
+      },
+      "scene_004_restricted_sector": {
+        "name": "Restricted Sector - The Warp-Damaged Reactor",
+        "description": "Through dense, bio-engineered tunnels, the squad enters a structurally compromised section of the Hulk. This area, possibly a former reactor core, hums with unstable energies. Warp-tainted anomalies flicker. Auspex readings confirm a rapidly growing organism, and potentially trapped Imperial personnel (engineers/servitors from the original crew of one of the fused ships).",
+        "connections": [
+          {
+            "target": "scene_005_hive_mind_presence",
+            "condition": "Navigate the unstable environment and potential threats",
+            "description": "Proceed towards the source of the growing psychic signature."
+          },
+          {
+            "target": "scene_004_1_rescue_attempt",
+            "condition": "Initiate rescue of trapped personnel (if decision taken)",
+            "description": "Divert resources to attempt to save the trapped Imperial personnel, potentially leading to a more complex route."
+          }
+        ],
+        "character_moments": [
+          {
+            "character": "Brother Tiberius",
+            "moment": "Identifies the structural weaknesses and suggests the most stable path, or warns against specific routes if a rescue is attempted."
+          }
+        ],
+        "decision_points": [
+          {
+            "id": "dp_trapped_personnel",
+            "prompt": "Faint signals indicate trapped Imperial personnel within a collapsed section. Do you attempt a rescue, risking time and resources, or maintain focus on the primary mission?",
+            "options": [
+              {
+                "choice": "Attempt to rescue the trapped personnel",
+                "outcome": "Squad morale slightly boosted, but resource drain, increased strain, and potential for additional combat. Leads to 'scene_004_1_rescue_attempt'."
+              },
+              {
+                "choice": "Prioritize the mission; leave the personnel",
+                "outcome": "Maintain resources, but slight dip in squad morale. Raphael grapples with the decision. Leads directly to 'scene_005_hive_mind_presence'."
+              }
+            ]
+          }
+        ]
+      },
+      "scene_004_1_rescue_attempt": {
+        "name": "Rescue Attempt - Collapsed Hab-Block",
+        "description": "The squad diverts into a crushed hab-block. They encounter a small group of desperate Imperial personnel (or servitors) under attack from minor Tyranid organisms. The rescue is not without cost.",
+        "connections": [
+          {
+            "target": "scene_005_hive_mind_presence",
+            "condition": "Complete the rescue and secure the area",
+            "description": "Continue the mission after the rescue."
+          }
+        ],
+        "character_moments": [
+          {
+            "character": "Brother-Captain Raphael",
+            "moment": "Reaffirms the value of every Imperial life, balancing duty with compassion despite the grim circumstances. Morale boost."
+          },
+          {
+            "character": "Brother Claudius",
+            "moment": "His faith is reinforced by the act of saving innocents, demonstrating the Imperium's protective role. Morale boost."
+          },
+          {
+            "character": "Brother-Sergeant Valerius",
+            "moment": "Understands the necessity but expresses pragmatic concerns about mission delay. Lowers morale slightly."
+          }
+        ],
+        "decision_points": []
+      },
+      "scene_005_hive_mind_presence": {
+        "name": "The Hive Mind's Caress - Psychic Nexus",
+        "description": "The psychic pressure intensifies, almost overwhelming the space marines' training. They enter a vast chamber pulsating with organic matter, where 'The Anathema' is partially embedded in a massive synapse creature or a nascent Tyranid bio-structure. The air crackles with latent psychic energy. Genestealer Patriarch signals are now extremely strong.",
+        "connections": [
+          {
+            "target": "scene_006_confrontation",
+            "condition": "Advance further into the nexus",
+            "description": "Proceed to directly confront 'The Anathema' and its guardians."
+          }
+        ],
+        "character_moments": [
+          {
+            "character": "Brother-Captain Raphael",
+            "moment": "Fights against the mental intrusion of the Hive Mind, drawing on his inner strength and duty. May hint at the 'Red Thirst' if chosen as a narrative element."
+          },
+          {
+            "character": "Brother Claudius",
+            "moment": "Struggles with the psychic onslaught, reinforcing his zeal through prayer and defiance."
+          }
+        ],
+        "decision_points": []
+      },
+      "scene_006_confrontation": {
+        "name": "Confrontation - The Patriarch's Lair",
+        "description": "Before 'The Anathema', the squad faces the Genestealer Patriarch, a colossal, grotesque creature radiating malevolent psychic power, surrounded by its favored brood. The final battle for the artifact and the Space Hulk begins.",
+        "connections": [
+          {
+            "target": "scene_007_final_choice",
+            "condition": "Defeat the Genestealer Patriarch and its brood",
+            "description": "Overcome the main antagonist and reach 'The Anathema'."
+          }
+        ],
+        "character_moments": [
+          {
+            "character": "Brother-Captain Raphael",
+            "moment": "Leads the charge with unyielding ferocity, pushing his body and mind to their limits."
+          },
+          {
+            "character": "Brother-Sergeant Valerius",
+            "moment": "Executes tactical maneuvers, protecting the captain and ensuring squad cohesion during the intense fight."
+          },
+          {
+            "character": "Brother Tiberius",
+            "moment": "Unleashes heavy weaponry with deadly precision, targeting the Patriarch's weak points identified earlier."
+          }
+        ],
+        "decision_points": []
+      },
+      "scene_007_final_choice": {
+        "name": "Final Choice - The Anathema's Embrace",
+        "description": "With the Patriarch vanquished (or driven off), 'The Anathema' is exposed. It pulses with dark psychic energy, clearly a xenos bio-artifact capable of drawing a Hive Fleet or becoming a potent synapse creature. The Space Hulk shudders around them, on the verge of collapse.",
+        "connections": [
+          {
+            "target": "scene_008_extraction_destroy",
+            "condition": "Decision to destroy 'The Anathema'",
+            "description": "Take action to eliminate the threat posed by the artifact."
+          },
+          {
+            "target": "scene_008_extraction_retrieve",
+            "condition": "Decision to retrieve 'The Anathema'",
+            "description": "Attempt to secure the artifact for Imperial study."
+          }
+        ],
+        "character_moments": [
+          {
+            "character": "Brother-Captain Raphael",
+            "moment": "Grapples with the weight of the final decision, considering potential consequences for the Imperium and his chapter."
+          },
+          {
+            "character": "Brother-Sergeant Valerius",
+            "moment": "Offers council, leaning towards the most pragmatic solution for survival and minimal risk."
+          },
+          {
+            "character": "Brother Claudius",
+            "moment": "Argues for the 'righteous' path, whether destroying a xenos abomination or recovering a potential weapon for the Imperium."
+          }
+        ],
+        "decision_points": [
+          {
+            "id": "dp_the_anathema",
+            "prompt": "'The Anathema' is before you. Do you attempt a difficult and dangerous retrieval to gain potential Imperial intelligence/weapon, or destroy it immediately to avert a greater Tyranid threat?",
+            "options": [
+              {
+                "choice": "Destroy 'The Anathema'",
+                "outcome": "The artifact is obliterated, causing immediate, catastrophic destabilization of the Space Hulk but preventing a larger Tyranid threat. Leads to 'scene_008_extraction_destroy'."
+              },
+              {
+                "choice": "Attempt to retrieve 'The Anathema'",
+                "outcome": "The retrieval is difficult, possibly incurring further losses or delays, and the artifact's psychic emanations attract more Tyranids, but it's secured. Leads to 'scene_008_extraction_retrieve'."
+              }
+            ]
+          }
+        ]
+      },
+      "scene_008_extraction_destroy": {
+        "name": "Rapid Extraction - Collapse Imminent",
+        "description": "The destruction of 'The Anathema' causes the Space Hulk to shudder violently, tearing itself apart. Hordes of frenzied Tyranids, now leaderless or driven by instinct, swarm towards the squad. The path to extraction is a race against time and structural collapse.",
+        "connections": [
+          {
+            "target": "scene_009_escape_or_doom",
+            "condition": "Fight through collapsing passages and Tyranid hordes",
+            "description": "Reach the designated extraction point amid utter chaos."
+          }
+        ],
+        "character_moments": [
+          {
+            "character": "Brother-Captain Raphael",
+            "moment": "Drives his squad forward, focusing solely on survival and escape."
+          }
+        ],
+        "decision_points": []
+      },
+      "scene_008_extraction_retrieve": {
+        "name": "Defensive Extraction - Hive Fleet's Echo",
+        "description": "Securing 'The Anathema' causes its psychic emanations to intensify, attracting a nascent Hive Fleet or awakening dormant Tyranid forms within the hulk. The extraction route is under heavy assault by highly organized Tyranid forces, drawn to the powerful psychic signal.",
+        "connections": [
+          {
+            "target": "scene_009_escape_or_doom",
+            "condition": "Defend the artifact and fight through coordinated Tyranid attacks",
+            "description": "Reach the designated extraction point while protecting the retrieved artifact."
+          }
+        ],
+        "character_moments": [
+          {
+            "character": "Brother-Captain Raphael",
+            "moment": "Leads a strategic retreat, attempting to minimize further losses while securing the artifact."
+          }
+        ],
+        "decision_points": []
+      },
+      "scene_009_escape_or_doom": {
+        "name": "Extraction Point - The Emperor's Deliverance (or Doom)",
+        "description": "The squad reaches the planned extraction point, an atmospheric shuttle bay. Depending on previous choices, the Space Hulk is either actively collapsing around them or swarming with a relentless Tyranid wave. The dropship approaches through heavy debris/Tyranid aerial assault.",
+        "connections": [],
+        "character_moments": [
+          {
+            "character": "Brother-Captain Raphael",
+            "moment": "Reflects on the mission's cost, the choices made, and the grim reality of their sacrifice."
+          }
+        ],
+        "decision_points": [
+          {
+            "id": "dp_final_stand",
+            "prompt": "The dropship is on approach, but the extraction point is compromised. Do you make a final, desperate stand, or attempt to force your way onto the dropship immediately, potentially leaving a squadmate behind in the chaos?",
+            "options": [
+              {
+                "choice": "Make a final stand to secure the dropship's approach",
+                "outcome": "High risk of squadmate injury or death, but ensures the dropship's safe landing and full extraction. Leads to triumphant/somber escape. (Ending 1 or 2)"
+              },
+              {
+                "choice": "Force immediate boarding, risking leaving someone",
+                "outcome": "Quicker escape, but potential loss of a squad member and a sense of regret/failure. Leads to a more tragic escape. (Ending 3)"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "character_arcs": [
+      {
+        "character": "Brother-Captain Raphael",
+        "arc_stages": [
+          {
+            "stage": "Beginning",
+            "description": "Taciturn, resolute, burdened by command and past losses, struggles with the 'Red Thirst'."
+          },
+          {
+            "stage": "Development",
+            "description": "Confronts moral dilemmas, makes difficult choices (rescue vs. mission), struggles with the Hive Mind's psychological assault. His actions define his leadership style – compassionate yet pragmatic, or ruthless for the greater good."
+          },
+          {
+            "stage": "Climax",
+            "description": "Defeats the Patriarch. Faces the ultimate decision regarding 'The Anathema', shaping his legacy."
+          },
+          {
+            "stage": "Resolution",
+            "description": "Emerges either as a grim hero who made necessary sacrifices, or a tormented survivor haunted by his choices and losses, with the 'Red Thirst' potentially more pronounced."
+          }
+        ]
+      },
+      {
+        "character": "Brother-Sergeant Valerius",
+        "arc_stages": [
+          {
+            "stage": "Beginning",
+            "description": "Experienced, pragmatic, cynical idealism, loyal to Raphael."
+          },
+          {
+            "stage": "Development",
+            "description": "Offers grounded advice, challenges Raphael's decisions with practicality, observes the horrific extent of the Xenos threat."
+          },
+          {
+            "stage": "Climax",
+            "description": "Provides critical tactical support during the Patriarch fight and offers pragmatic counsel for 'The Anathema' decision."
+          },
+          {
+            "stage": "Resolution",
+            "description": "His pragmatism is either validated by survival, or tested by the mission's true cost. His loyalty remains, but his cynicism deepens or softens depending on outcomes."
+          }
+        ]
+      },
+      {
+        "character": "Brother Claudius",
+        "arc_stages": [
+          {
+            "stage": "Beginning",
+            "description": "Young, zealous, eager for glory, sometimes reckless in his faith."
+          },
+          {
+            "stage": "Development",
+            "description": "Witnesses the true horror of the Tyranids, his zeal is either tempered by grim reality, or intensified into a fervent, almost fanatic, defiance. Struggles with the psychic presence."
+          },
+          {
+            "stage": "Climax",
+            "description": "Fights with reckless bravery, possibly arguing for a 'righteous' action regarding 'The Anathema'."
+          },
+          {
+            "stage": "Resolution",
+            "description": "Becomes either a hardened veteran with a clearer understanding of the galaxy's grimness, or a fanatic whose faith is his only anchor against despair."
+          }
+        ]
+      },
+      {
+        "character": "Brother Tiberius",
+        "arc_stages": [
+          {
+            "stage": "Beginning",
+            "description": "Quiet, observant, expert in demolitions and heavy weaponry, pragmatic."
+          },
+          {
+            "stage": "Development",
+            "description": "His technical expertise proves crucial in navigating the Hulk. His quiet observations might reveal hidden truths or alternative paths. Remains mostly stoic but might show flashes of unexpected pragmatism/ruthlessness."
+          },
+          {
+            "stage": "Climax",
+            "description": "Uses his unique skills during the Patriarch fight, potentially planting a critical charge or identifying a structural weakness."
+          },
+          {
+            "stage": "Resolution",
+            "description": "Maintains his quiet demeanor, but his efficiency and observations are recognized. His past 'unusual incidents' might remain a subtle underlying mystery, or his unique pragmatism is fully embraced."
+          }
+        ]
+      }
+    ]
+  }
+}

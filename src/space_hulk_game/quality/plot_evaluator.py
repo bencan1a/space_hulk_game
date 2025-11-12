@@ -23,7 +23,7 @@ class PlotEvaluator(QualityEvaluator):
 
     Example:
         >>> evaluator = PlotEvaluator()
-        >>> score = evaluator.evaluate(plot_yaml_content)
+        >>> score = evaluator.evaluate(plot_json_content)
         >>> print(f"Score: {score.score}/10")
         >>> print(score.feedback)
     """
@@ -43,7 +43,7 @@ class PlotEvaluator(QualityEvaluator):
         Evaluate plot outline content.
 
         Args:
-            content: YAML string containing plot outline
+            content: JSON string containing plot outline
 
         Returns:
             QualityScore with evaluation results
@@ -52,8 +52,8 @@ class PlotEvaluator(QualityEvaluator):
             ValueError: If content cannot be parsed
         """
         try:
-            # Parse YAML content using metrics class
-            metrics = PlotMetrics.from_yaml_content(content)
+            # Parse JSON content using metrics class
+            metrics = PlotMetrics.from_json_content(content)
 
             # Get score and check if passes threshold
             score = metrics.get_score()
@@ -109,7 +109,7 @@ class PlotEvaluator(QualityEvaluator):
         Generate detailed, actionable feedback for improvement.
 
         Args:
-            content: YAML string containing plot outline
+            content: JSON string containing plot outline
 
         Returns:
             Multi-line feedback with specific suggestions

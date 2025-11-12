@@ -6,11 +6,10 @@ by the Space Hulk Game crew, including structure, branching paths, endings,
 and narrative completeness.
 """
 
+import json
 import logging
 from dataclasses import dataclass
 from typing import Any
-
-import yaml
 
 logger = logging.getLogger(__name__)
 
@@ -50,38 +49,38 @@ class PlotMetrics:
     min_word_count: int = 500
 
     @classmethod
-    def from_yaml_content(cls, yaml_content: str) -> "PlotMetrics":
+    def from_json_content(cls, json_content: str) -> "PlotMetrics":
         """
-        Create PlotMetrics from YAML content string.
+        Create PlotMetrics from JSON content string.
 
         Args:
-            yaml_content: YAML string containing plot outline data
+            json_content: JSON string containing plot outline data
 
         Returns:
             PlotMetrics instance with measured values
 
         Example:
-            >>> metrics = PlotMetrics.from_yaml_content(yaml_string)
+            >>> metrics = PlotMetrics.from_json_content(json_string)
             >>> print(metrics.passes_threshold())
         """
         try:
-            # Handle markdown-wrapped YAML
-            content = yaml_content.strip()
+            # Handle markdown-wrapped JSON
+            content = json_content.strip()
             if content.startswith("```"):
                 lines = content.split("\n")
                 # Remove first and last lines (markdown fences)
                 content = "\n".join(lines[1:-1])
-                logger.debug("Stripped markdown fences from YAML content")
+                logger.debug("Stripped markdown fences from JSON content")
 
             # Try to parse as-is first
             try:
-                data = yaml.safe_load(content)
-            except yaml.YAMLError as parse_error:
-                # Attempt to fix common YAML syntax errors (e.g., unquoted colons in values)
-                logger.debug(f"Initial YAML parse failed, attempting to fix: {parse_error}")
-                content = cls._fix_yaml_syntax(content)
-                data = yaml.safe_load(content)
-                logger.info("Successfully parsed YAML after fixing syntax errors")
+                data = json.loads(content)
+            except json.JSONDecodeError as parse_error:
+                # Attempt to fix common JSON syntax errors
+                logger.debug(f"Initial JSON parse failed, attempting to fix: {parse_error}")
+                content = cls._fix_json_syntax(content)
+                data = json.loads(content)
+                logger.info("Successfully parsed JSON after fixing syntax errors")
 
             metrics = cls.from_dict(data)
             logger.info(
@@ -89,51 +88,26 @@ class PlotMetrics:
             )
             return metrics
         except Exception as e:
-            logger.error(f"Failed to parse plot YAML content: {e}")
-            raise ValueError(f"Failed to parse YAML content: {e}") from e
+            logger.error(f"Failed to parse plot JSON content: {e}")
+            raise ValueError(f"Failed to parse JSON content: {e}") from e
 
     @staticmethod
-    def _fix_yaml_syntax(content: str) -> str:
+    def _fix_json_syntax(content: str) -> str:
         """
-        Fix common YAML syntax errors like unquoted colons in values.
+        Fix common JSON syntax errors like unquoted strings and trailing commas.
 
         Args:
-            content: YAML string with potential syntax errors
+            content: JSON string with potential syntax errors
 
         Returns:
-            Fixed YAML string
+            Fixed JSON string
         """
-        lines = content.split("\n")
-        fixed_lines = []
-
-        for line in lines:
-            # Fix unquoted values with colons (e.g., "title: Space Hulk: Derelict")
-            if ":" in line and not line.strip().startswith("-"):
-                parts = line.split(":", 1)
-                if len(parts) == 2:
-                    key_part = parts[0]
-                    value_part = parts[1].strip()
-
-                    # If value has a colon and is not already quoted or is a nested structure
-                    if (
-                        ":" in value_part
-                        and value_part
-                        and not (
-                            (value_part.startswith('"') and value_part.endswith('"'))
-                            or (value_part.startswith("'") and value_part.endswith("'"))
-                            or value_part.startswith("[")
-                            or value_part.startswith("{")
-                        )
-                    ):
-                        # Quote the value
-                        fixed_line = f'{key_part}: "{value_part}"'
-                        fixed_lines.append(fixed_line)
-                        logger.debug(f"Fixed YAML syntax: {line.strip()}")
-                        continue
-
-            fixed_lines.append(line)
-
-        return "\n".join(fixed_lines)
+        # This is a basic fix - more complex errors may still occur
+        # Remove trailing commas before closing braces/brackets
+        content = content.replace(",}", "}")
+        content = content.replace(",]", "]")
+        logger.debug("Fixed common JSON syntax errors (trailing commas)")
+        return content
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> "PlotMetrics":

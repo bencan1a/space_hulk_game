@@ -1,0 +1,96 @@
+{
+  "narrative_foundation": {
+    "title": "Space Hulk: Echoes of Perdition",
+    "setting": "The game takes place aboard the 'Perdition's Grasp', a colossal, ancient Space Hulk adrift in the treacherous void of the Warhammer 40,000 galaxy. This Space Hulk is a amalgamation of derelict Imperial vessels, xenos craft, and forgotten space stations, fused together by aeons of warp-current travel. Its interior is a labyrinth of rusted bulkheads, decaying technology, and oppressive darkness, punctuated by glowing bio-luminescent fungi and the grotesque organic architecture of the Tyranid infestation. The atmosphere is one of claustrophobic dread and existential horror, where humanity's last stand against an unimaginable threat unfolds amidst the decaying grandeur of a corrupted past. The year is M41, and the Imperium is under siege from countless enemies.",
+    "themes": [
+      "The enduring human spirit against overwhelming odds",
+      "The futility of faith in the face of cosmic horror",
+      "The thin line between duty and fanaticism",
+      "The corrosive nature of isolation and despair",
+      "The sacrifice required for survival"
+    ],
+    "tone": "Gritty, dark, claustrophobic, hopeless, but with brief flashes of defiant heroism. The pervasive mood is one of dread and a constant struggle for survival against an inexorable, alien foe. Elements of psychological horror are integrated to emphasize the mental toll on the Space Marines.",
+    "plot_points": [
+      {
+        "id": "plot1_initial_contact",
+        "name": "Initial Contact & Discovery",
+        "description": "A contingent of Blood Angels Terminators is dispatched to investigate the 'Perdition's Grasp' after its erratic warp-signatures are detected near a vital Imperial world. They are tasked with recovering 'The Anathema', a rumored relic of immense psychic power believed to be onboard, and eradicating any threats. Upon boarding, they encounter a nascent but rapidly growing Tyranid Genestealer infestation."
+      },
+      {
+        "id": "plot2_lost_contact",
+        "name": "Lost Contact & Escalation",
+        "description": "Shortly after initial reports, communications with the lead Terminator squad are severed. The second squad, led by Brother-Captain Raphael, is sent to establish contact, reinforce, and complete the mission. They quickly discover the full extent of the Genestealer presence and the horrific fate of the first squad."
+      },
+      {
+        "id": "plot3_the_hive_mind_awakens",
+        "name": "The Hive Mind Awakens",
+        "description": "As the Terminators delve deeper, they realize the Space Hulk isn't merely infested; it's becoming a 'brood nest' for a larger Tyranid organism. The 'Anathema' is revealed to be a component of a nascent synapse creature, or a psychic beacon attracting further Tyranid vessels, making its destruction or retrieval paramount to preventing a sector-wide invasion."
+      },
+      {
+        "id": "plot4_moral_dilemma",
+        "name": "Moral Dilemma: Sacrifices",
+        "description": "The squad faces agonizing choices. Do they sacrifice valuable time and limited resources to rescue trapped Imperial personnel (or even their own injured)? Or do they prioritize the mission, potentially condemning innocents but increasing their chances against the overwhelming Tyranid threat? These choices impact squad morale and future mission parameters."
+      },
+      {
+        "id": "plot5_confrontation_and_choice",
+        "name": "Confrontation and Final Choice",
+        "description": "The Terminators finally reach 'The Anathema'. They discover that it is a xenos bio-artifact drawing psychic energy, threatening to awaken a dormant Hive Fleet or create a potent synapse creature. They must decide whether to attempt a difficult retrieval, risking further exposure and escalating the Tyranid threat, or destroy the artifact, potentially losing critical Imperial intelligence or a weapon that could be turned against the Xenos later. This choice directly impacts the ending."
+      },
+      {
+        "id": "plot6_escape_or_doom",
+        "name": "Escape or Doom",
+        "description": "Regardless of their final decision regarding 'The Anathema', the Space Hulk begins to destabilize due to either the destruction of the artifact, the awakening of the Hive Mind, or internal structural collapses caused by the ongoing conflict. The remaining Terminators must fight their way to an extraction point before the entire Space Hulk is consumed by the warp or utterly collapses."
+      }
+    ],
+    "characters": [
+      {
+        "name": "Brother-Captain Raphael",
+        "role": "Player Character - Taciturn and resolute Blood Angels Terminator Captain. Leads the second boarding contingent.",
+        "backstory": "A veteran of countless campaigns, Raphael carries the weight of past losses and the 'Red Thirst' of his chapter. He is known for his unwavering commitment to duty, even if it means making impossible choices. He believes in the Emperor's light but struggles with the grim realities of the galaxy."
+      },
+      {
+        "name": "Brother-Sergeant Valerius",
+        "role": "Squad Mate - Experienced, pragmatic, and resourceful.",
+        "backstory": "Valerius acts as Raphael's second-in-command, often offering a more grounded perspective. He's seen humanity at its worst and best, retaining a cynical idealism. His loyalty to Raphael and the Chapter is absolute, but he questions unnecessary sacrifices."
+      },
+      {
+        "name": "Brother Claudius",
+        "role": "Squad Mate - Young, zealous, and eager for glory.",
+        "backstory": "Claudius is a recent initiate to the Terminator ranks, enthusiastic to prove himself worthy. He represents the unshakeable faith and fervent devotion of the Imperium, sometimes to the point of recklessness. He idolizes Raphael and struggles with the moral ambiguities of warfare."
+      },
+      {
+        "name": "Brother Tiberius",
+        "role": "Squad Mate - Expert in demolitions and heavy weaponry, quiet and observant.",
+        "backstory": "Tiberius is a man of few words but deadly precision. His past involves several 'unusual' incidents of technical expertise, hinting at a darker, more pragmatic approach to warfare than his brethren. He often spots details others miss but rarely speaks his mind unless necessary."
+      },
+      {
+        "name": "The Hive Mind (Presence)",
+        "role": "Antagonist - The overarching consciousness controlling the Tyranid forces.",
+        "backstory": "An incomprehensible, extrasolar entity driven by insatiable hunger. It has no individual personality but exerts a palpable psychic pressure on the Space Hulk, driving its creatures to achieve its reproductive and consumption goals. Its presence grows stronger as the players delve deeper."
+      },
+      {
+        "name": "Genestealer Patriarch (Emergent Threat)",
+        "role": "Antagonist - The local progenitor of the Tyranid infestation within the Space Hulk.",
+        "backstory": "Born from the first infiltrator caste, this creature is the psychic and genetic linchpin of the Space Hulk's infestation. It commands the Genestealer Cult within and adapts the local fauna. It is cunning and territorial, a physical manifestation of the Hive Mind's will on a smaller scale."
+      }
+    ],
+    "conflicts": [
+      {
+        "type": "Man vs. Alien (Tyranids)",
+        "description": "The primary and most direct conflict: the highly trained Space Marines fighting against hordes of alien bioforms. This encompasses tactical combat, resource management, and the constant threat of being overwhelmed by sheer numbers and horrific biological adaptations."
+      },
+      {
+        "type": "Man vs. Environment (Space Hulk)",
+        "description": "The Space Hulk itself is a hostile entity. Claustrophobic corridors, environmental hazards, collapsing structures, power failures, and the psychological impact of being lost within a decaying, alien-infested labyrinth create a constant struggle for survival beyond direct combat."
+      },
+      {
+        "type": "Man vs. Self (Psychological/Moral)",
+        "description": "Space Marines grapple with their duty, the horrors they witness, the 'Red Thirst' (if Blood Angels), and the difficult moral choices presented by the mission. This includes questions of sacrifice, dogma vs. pragmatism, and maintaining their sanity amidst cosmic dread."
+      },
+      {
+        "type": "Man vs. Imperium (Ideological)",
+        "description": "Subtly, the conflict might involve the rigidity of Imperial dogma versus the pragmatic necessities of survival. Decisions made might go against standard Imperial protocols but are vital for stopping a larger threat, leading to internal conflict within the squad or potential censure."
+      }
+    ]
+  }
+}

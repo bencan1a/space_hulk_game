@@ -125,11 +125,11 @@ PlotMaster  PuzzleSmith  CreativeScribe
 
 After successful run, you'll find:
 
-- `plot_outline.yaml` - Overall narrative structure
-- `narrative_map.yaml` - Scene-by-scene breakdown
-- `puzzle_design.yaml` - Puzzles, artifacts, NPCs, monsters
-- `scene_texts.yaml` - Descriptions and dialogue
-- `prd_document.yaml` - Game mechanics and systems
+- `plot_outline.json` - Overall narrative structure
+- `narrative_map.json` - Scene-by-scene breakdown
+- `puzzle_design.json` - Puzzles, artifacts, NPCs, monsters
+- `scene_texts.json` - Descriptions and dialogue
+- `prd_document.json` - Game mechanics and systems
 
 ## Troubleshooting
 

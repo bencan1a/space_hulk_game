@@ -76,26 +76,12 @@ scene descriptions, atmosphere, examination texts, dialogue, and narrative notes
         ... )
     &#34;&#34;&#34;
 
-    speaker: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Character name&#34;
-    )
-    text: str = Field(
-        ...,
-        min_length=5,
-        description=&#34;Dialogue text&#34;
-    )
+    speaker: str = Field(..., min_length=1, max_length=200, description=&#34;Character name&#34;)
+    text: str = Field(..., min_length=5, description=&#34;Dialogue text&#34;)
     emotion: str | None = Field(
-        default=None,
-        max_length=500,
-        description=&#34;Optional emotion or delivery style&#34;
+        default=None, max_length=500, description=&#34;Optional emotion or delivery style&#34;
     )
-    context: str | None = Field(
-        default=None,
-        description=&#34;Optional context for the dialogue&#34;
-    )</code></pre>
+    context: str | None = Field(default=None, description=&#34;Optional context for the dialogue&#34;)</code></pre>
 </details>
 <div class="desc"><p>A dialogue line in a scene.</p>
 <h2 id="attributes">Attributes</h2>
@@ -185,43 +171,23 @@ validated to form a valid model.</p>
         ... )
     &#34;&#34;&#34;
 
-    name: str = Field(
-        ...,
-        min_length=1,
-        max_length=200,
-        description=&#34;Human-readable scene name&#34;
-    )
-    description: str = Field(
-        ...,
-        min_length=50,
-        description=&#34;Main scene description&#34;
-    )
+    name: str = Field(..., min_length=1, max_length=200, description=&#34;Human-readable scene name&#34;)
+    description: str = Field(..., min_length=50, description=&#34;Main scene description&#34;)
     atmosphere: str = Field(
-        ...,
-        min_length=10,
-        max_length=500,
-        description=&#34;Atmospheric description or tags&#34;
+        ..., min_length=10, max_length=500, description=&#34;Atmospheric description or tags&#34;
     )
-    initial_text: str = Field(
-        ...,
-        min_length=10,
-        description=&#34;Text shown when entering the scene&#34;
-    )
+    initial_text: str = Field(..., min_length=10, description=&#34;Text shown when entering the scene&#34;)
     examination_texts: dict[str, str] = Field(
-        default_factory=dict,
-        description=&#34;Dictionary of examinable objects to descriptions&#34;
+        default_factory=dict, description=&#34;Dictionary of examinable objects to descriptions&#34;
     )
     dialogue: list[SceneDialogue] = Field(
-        default_factory=list,
-        description=&#34;List of dialogue in this scene&#34;
+        default_factory=list, description=&#34;List of dialogue in this scene&#34;
     )
     narrative_notes: str | None = Field(
-        default=None,
-        min_length=20,
-        description=&#34;Optional narrative purpose notes&#34;
+        default=None, min_length=20, description=&#34;Optional narrative purpose notes&#34;
     )
 
-    @field_validator(&#39;examination_texts&#39;)
+    @field_validator(&#34;examination_texts&#34;)
     @classmethod
     def validate_examination_texts(cls, v: dict[str, str]) -&gt; dict[str, str]:
         &#34;&#34;&#34;Ensure all examination texts are non-empty.&#34;&#34;&#34;
@@ -229,9 +195,7 @@ validated to form a valid model.</p>
             if not key.strip():
                 raise ValueError(&#34;Examination text keys must be non-empty&#34;)
             if not value.strip() or len(value) &lt; 10:
-                raise ValueError(
-                    f&#34;Examination text for &#39;{key}&#39; must be at least 10 characters&#34;
-                )
+                raise ValueError(f&#34;Examination text for &#39;{key}&#39; must be at least 10 characters&#34;)
         return v</code></pre>
 </details>
 <div class="desc"><p>Text content for a single scene.</p>
@@ -346,24 +310,22 @@ validated to form a valid model.</p>
     &#34;&#34;&#34;
 
     scenes: dict[str, SceneText] = Field(
-        ...,
-        min_length=1,
-        description=&#34;Dictionary of scene_id to SceneText (minimum 1 scene)&#34;
+        ..., min_length=1, description=&#34;Dictionary of scene_id to SceneText (minimum 1 scene)&#34;
     )
 
-    @field_validator(&#39;scenes&#39;)
+    @field_validator(&#34;scenes&#34;)
     @classmethod
     def validate_scene_ids(cls, v: dict[str, SceneText]) -&gt; dict[str, SceneText]:
         &#34;&#34;&#34;Ensure all scene IDs follow naming convention.&#34;&#34;&#34;
         for scene_id in v:
-            if not scene_id.replace(&#39;_&#39;, &#39;&#39;).replace(&#39;-&#39;, &#39;&#39;).isalnum():
+            if not scene_id.replace(&#34;_&#34;, &#34;&#34;).replace(&#34;-&#34;, &#34;&#34;).isalnum():
                 raise ValueError(
                     f&#34;Scene ID &#39;{scene_id}&#39; must contain only alphanumeric characters, &#34;
                     f&#34;underscores, and hyphens&#34;
                 )
         return v
 
-    @field_validator(&#39;scenes&#39;)
+    @field_validator(&#34;scenes&#34;)
     @classmethod
     def validate_scene_names_match_keys(cls, v: dict[str, SceneText]) -&gt; dict[str, SceneText]:
         &#34;&#34;&#34;Validate that scene texts are properly structured.

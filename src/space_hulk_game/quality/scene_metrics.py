@@ -6,12 +6,11 @@ by the Space Hulk Game crew, including vivid descriptions, consistent tone,
 and appropriate dialogue.
 """
 
+import json
 import logging
 import re
 from dataclasses import dataclass
 from typing import Any
-
-import yaml
 
 logger = logging.getLogger(__name__)
 
@@ -46,27 +45,27 @@ class SceneMetrics:
     min_vivid_percentage: float = 70.0  # 70% should be vivid
 
     @classmethod
-    def from_yaml_content(cls, yaml_content: str) -> "SceneMetrics":
+    def from_json_content(cls, json_content: str) -> "SceneMetrics":
         """
-        Create SceneMetrics from YAML content string.
+        Create SceneMetrics from JSON content string.
 
         Args:
-            yaml_content: YAML string containing scene texts data
+            json_content: JSON string containing scene texts data
 
         Returns:
             SceneMetrics instance with measured values
         """
         try:
-            # Handle markdown-wrapped YAML
-            content = yaml_content.strip()
+            # Handle markdown-wrapped JSON
+            content = json_content.strip()
             if content.startswith("```"):
                 lines = content.split("\n")
                 content = "\n".join(lines[1:-1])
 
-            data = yaml.safe_load(content)
+            data = json.loads(content)
             return cls.from_dict(data)
         except Exception as e:
-            raise ValueError(f"Failed to parse YAML content: {e}") from e
+            raise ValueError(f"Failed to parse JSON content: {e}") from e
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> "SceneMetrics":

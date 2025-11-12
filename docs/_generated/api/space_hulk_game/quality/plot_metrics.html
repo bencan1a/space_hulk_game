@@ -94,38 +94,38 @@ class PlotMetrics:
     min_word_count: int = 500
 
     @classmethod
-    def from_yaml_content(cls, yaml_content: str) -&gt; &#34;PlotMetrics&#34;:
+    def from_json_content(cls, json_content: str) -&gt; &#34;PlotMetrics&#34;:
         &#34;&#34;&#34;
-        Create PlotMetrics from YAML content string.
+        Create PlotMetrics from JSON content string.
 
         Args:
-            yaml_content: YAML string containing plot outline data
+            json_content: JSON string containing plot outline data
 
         Returns:
             PlotMetrics instance with measured values
 
         Example:
-            &gt;&gt;&gt; metrics = PlotMetrics.from_yaml_content(yaml_string)
+            &gt;&gt;&gt; metrics = PlotMetrics.from_json_content(json_string)
             &gt;&gt;&gt; print(metrics.passes_threshold())
         &#34;&#34;&#34;
         try:
-            # Handle markdown-wrapped YAML
-            content = yaml_content.strip()
+            # Handle markdown-wrapped JSON
+            content = json_content.strip()
             if content.startswith(&#34;```&#34;):
                 lines = content.split(&#34;\n&#34;)
                 # Remove first and last lines (markdown fences)
                 content = &#34;\n&#34;.join(lines[1:-1])
-                logger.debug(&#34;Stripped markdown fences from YAML content&#34;)
+                logger.debug(&#34;Stripped markdown fences from JSON content&#34;)
 
             # Try to parse as-is first
             try:
-                data = yaml.safe_load(content)
-            except yaml.YAMLError as parse_error:
-                # Attempt to fix common YAML syntax errors (e.g., unquoted colons in values)
-                logger.debug(f&#34;Initial YAML parse failed, attempting to fix: {parse_error}&#34;)
-                content = cls._fix_yaml_syntax(content)
-                data = yaml.safe_load(content)
-                logger.info(&#34;Successfully parsed YAML after fixing syntax errors&#34;)
+                data = json.loads(content)
+            except json.JSONDecodeError as parse_error:
+                # Attempt to fix common JSON syntax errors
+                logger.debug(f&#34;Initial JSON parse failed, attempting to fix: {parse_error}&#34;)
+                content = cls._fix_json_syntax(content)
+                data = json.loads(content)
+                logger.info(&#34;Successfully parsed JSON after fixing syntax errors&#34;)
 
             metrics = cls.from_dict(data)
             logger.info(
@@ -133,51 +133,26 @@ class PlotMetrics:
             )
             return metrics
         except Exception as e:
-            logger.error(f&#34;Failed to parse plot YAML content: {e}&#34;)
-            raise ValueError(f&#34;Failed to parse YAML content: {e}&#34;) from e
+            logger.error(f&#34;Failed to parse plot JSON content: {e}&#34;)
+            raise ValueError(f&#34;Failed to parse JSON content: {e}&#34;) from e
 
     @staticmethod
-    def _fix_yaml_syntax(content: str) -&gt; str:
+    def _fix_json_syntax(content: str) -&gt; str:
         &#34;&#34;&#34;
-        Fix common YAML syntax errors like unquoted colons in values.
+        Fix common JSON syntax errors like unquoted strings and trailing commas.
 
         Args:
-            content: YAML string with potential syntax errors
+            content: JSON string with potential syntax errors
 
         Returns:
-            Fixed YAML string
+            Fixed JSON string
         &#34;&#34;&#34;
-        lines = content.split(&#34;\n&#34;)
-        fixed_lines = []
-
-        for line in lines:
-            # Fix unquoted values with colons (e.g., &#34;title: Space Hulk: Derelict&#34;)
-            if &#34;:&#34; in line and not line.strip().startswith(&#34;-&#34;):
-                parts = line.split(&#34;:&#34;, 1)
-                if len(parts) == 2:
-                    key_part = parts[0]
-                    value_part = parts[1].strip()
-
-                    # If value has a colon and is not already quoted or is a nested structure
-                    if (
-                        &#34;:&#34; in value_part
-                        and value_part
-                        and not (
-                            (value_part.startswith(&#39;&#34;&#39;) and value_part.endswith(&#39;&#34;&#39;))
-                            or (value_part.startswith(&#34;&#39;&#34;) and value_part.endswith(&#34;&#39;&#34;))
-                            or value_part.startswith(&#34;[&#34;)
-                            or value_part.startswith(&#34;{&#34;)
-                        )
-                    ):
-                        # Quote the value
-                        fixed_line = f&#39;{key_part}: &#34;{value_part}&#34;&#39;
-                        fixed_lines.append(fixed_line)
-                        logger.debug(f&#34;Fixed YAML syntax: {line.strip()}&#34;)
-                        continue
-
-            fixed_lines.append(line)
-
-        return &#34;\n&#34;.join(fixed_lines)
+        # This is a basic fix - more complex errors may still occur
+        # Remove trailing commas before closing braces/brackets
+        content = content.replace(&#34;,}&#34;, &#34;}&#34;)
+        content = content.replace(&#34;,]&#34;, &#34;]&#34;)
+        logger.debug(&#34;Fixed common JSON syntax errors (trailing commas)&#34;)
+        return content
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -&gt; &#34;PlotMetrics&#34;:
@@ -455,20 +430,20 @@ class PlotMetrics:
 <h2 id="returns">Returns</h2>
 <p>PlotMetrics instance with measured values</p></div>
 </dd>
-<dt id="space_hulk_game.quality.plot_metrics.PlotMetrics.from_yaml_content"><code class="name flex">
-<span>def <span class="ident">from_yaml_content</span></span>(<span>yaml_content: str) ‑> <a title="space_hulk_game.quality.plot_metrics.PlotMetrics" href="#space_hulk_game.quality.plot_metrics.PlotMetrics">PlotMetrics</a></span>
+<dt id="space_hulk_game.quality.plot_metrics.PlotMetrics.from_json_content"><code class="name flex">
+<span>def <span class="ident">from_json_content</span></span>(<span>json_content: str) ‑> <a title="space_hulk_game.quality.plot_metrics.PlotMetrics" href="#space_hulk_game.quality.plot_metrics.PlotMetrics">PlotMetrics</a></span>
 </code></dt>
 <dd>
-<div class="desc"><p>Create PlotMetrics from YAML content string.</p>
+<div class="desc"><p>Create PlotMetrics from JSON content string.</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>yaml_content</code></strong></dt>
-<dd>YAML string containing plot outline data</dd>
+<dt><strong><code>json_content</code></strong></dt>
+<dd>JSON string containing plot outline data</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>PlotMetrics instance with measured values</p>
 <h2 id="example">Example</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; metrics = PlotMetrics.from_yaml_content(yaml_string)
+<pre><code class="language-python-repl">&gt;&gt;&gt; metrics = PlotMetrics.from_json_content(json_string)
 &gt;&gt;&gt; print(metrics.passes_threshold())
 </code></pre></div>
 </dd>
@@ -685,7 +660,7 @@ class PlotMetrics:
 <li><code><a title="space_hulk_game.quality.plot_metrics.PlotMetrics.branching_paths_count" href="#space_hulk_game.quality.plot_metrics.PlotMetrics.branching_paths_count">branching_paths_count</a></code></li>
 <li><code><a title="space_hulk_game.quality.plot_metrics.PlotMetrics.endings_count" href="#space_hulk_game.quality.plot_metrics.PlotMetrics.endings_count">endings_count</a></code></li>
 <li><code><a title="space_hulk_game.quality.plot_metrics.PlotMetrics.from_dict" href="#space_hulk_game.quality.plot_metrics.PlotMetrics.from_dict">from_dict</a></code></li>
-<li><code><a title="space_hulk_game.quality.plot_metrics.PlotMetrics.from_yaml_content" href="#space_hulk_game.quality.plot_metrics.PlotMetrics.from_yaml_content">from_yaml_content</a></code></li>
+<li><code><a title="space_hulk_game.quality.plot_metrics.PlotMetrics.from_json_content" href="#space_hulk_game.quality.plot_metrics.PlotMetrics.from_json_content">from_json_content</a></code></li>
 <li><code><a title="space_hulk_game.quality.plot_metrics.PlotMetrics.get_failures" href="#space_hulk_game.quality.plot_metrics.PlotMetrics.get_failures">get_failures</a></code></li>
 <li><code><a title="space_hulk_game.quality.plot_metrics.PlotMetrics.get_score" href="#space_hulk_game.quality.plot_metrics.PlotMetrics.get_score">get_score</a></code></li>
 <li><code><a title="space_hulk_game.quality.plot_metrics.PlotMetrics.has_acts" href="#space_hulk_game.quality.plot_metrics.PlotMetrics.has_acts">has_acts</a></code></li>

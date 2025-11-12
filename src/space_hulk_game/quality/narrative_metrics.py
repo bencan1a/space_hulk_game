@@ -6,12 +6,11 @@ by the Space Hulk Game crew, including scene connectivity, completeness,
 and structural validity.
 """
 
+import json
 import logging
 from collections import deque
 from dataclasses import dataclass, field
 from typing import Any
-
-import yaml
 
 logger = logging.getLogger(__name__)
 
@@ -52,25 +51,25 @@ class NarrativeMetrics:
             self.orphaned_scenes = []
 
     @classmethod
-    def from_yaml_content(cls, yaml_content: str) -> "NarrativeMetrics":
+    def from_json_content(cls, json_content: str) -> "NarrativeMetrics":
         """
-        Create NarrativeMetrics from YAML content string.
+        Create NarrativeMetrics from JSON content string.
 
         Args:
-            yaml_content: YAML string containing narrative map data
+            json_content: JSON string containing narrative map data
 
         Returns:
             NarrativeMetrics instance with measured values
         """
         try:
-            # Handle markdown-wrapped YAML
-            content = yaml_content.strip()
+            # Handle markdown-wrapped JSON
+            content = json_content.strip()
             if content.startswith("```"):
                 lines = content.split("\n")
                 content = "\n".join(lines[1:-1])
-                logger.debug("Stripped markdown fences from narrative YAML")
+                logger.debug("Stripped markdown fences from narrative JSON")
 
-            data = yaml.safe_load(content)
+            data = json.loads(content)
             metrics = cls.from_dict(data)
 
             if metrics.has_orphaned_scenes:
@@ -83,8 +82,8 @@ class NarrativeMetrics:
             )
             return metrics
         except Exception as e:
-            logger.error(f"Failed to parse narrative YAML content: {e}")
-            raise ValueError(f"Failed to parse YAML content: {e}") from e
+            logger.error(f"Failed to parse narrative JSON content: {e}")
+            raise ValueError(f"Failed to parse JSON content: {e}") from e
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> "NarrativeMetrics":
