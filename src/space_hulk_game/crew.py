@@ -763,26 +763,6 @@ class SpaceHulkGame:
             verbose=True,
         )
 
-    @agent
-    def ProductDesignerAgent(self) -> Agent:
-        """
-        Returns the ProductDesignerAgent definition from agents.yaml.
-
-        This agent specializes in human-centered design, translating user needs into
-        detailed product requirements and ensuring excellent user experience design.
-
-        Note: The method name must match the agent name in the YAML file for CrewAI to properly
-        map between tasks and agents.
-        """
-        logger.info(
-            f"Creating ProductDesignerAgent with config: {self.agents_config.get('ProductDesignerAgent')}"
-        )
-        return Agent(  # type: ignore[call-arg]
-            config=self.agents_config["ProductDesignerAgent"],
-            llm=self.llm,  # Use the Ollama LLM configuration
-            verbose=True,
-        )
-
     # ---------------------------------
     # Tasks
     # ---------------------------------
