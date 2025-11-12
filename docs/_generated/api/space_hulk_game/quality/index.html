@@ -4750,6 +4750,7 @@ def evaluate(self, content: str) -&gt; QualityScore:
 <dt id="space_hulk_game.quality.QualityScore"><code class="flex name class">
 <span>class <span class="ident">QualityScore</span></span>
 <span>(</span><span>score: float,<br>passed: bool,<br>feedback: str,<br>details: dict[str, Any] = &lt;factory&gt;)</span>
+<span>(</span><span>score: float,<br>passed: bool,<br>feedback: str,<br>details: dict[str, Any] = &lt;factory&gt;)</span>
 </code></dt>
 <dd>
 <details class="source">
@@ -4760,6 +4761,9 @@ def evaluate(self, content: str) -&gt; QualityScore:
 class QualityScore:
     &#34;&#34;&#34;
     Standardized quality score returned by all evaluators.
+
+    NOTE: QualityScore is specialized for quality evaluation.
+    For general processing, use ProcessingResult from validation.types
 
     NOTE: QualityScore is specialized for quality evaluation.
     For general processing, use ProcessingResult from validation.types
@@ -4828,6 +4832,7 @@ class QualityScore:
         return json.dumps(self.to_dict(), indent=2)
 
     @classmethod
+    def from_dict(cls, data: dict[str, Any]) -&gt; QualityScore:
     def from_dict(cls, data: dict[str, Any]) -&gt; QualityScore:
         &#34;&#34;&#34;
         Create QualityScore from dictionary.
@@ -4908,8 +4913,39 @@ class QualityScore:
             corrections=[],
             metadata={&#34;score&#34;: self.score, &#34;feedback&#34;: self.feedback, &#34;details&#34;: self.details},
         )</code></pre>
+        return &#34;\n&#34;.join(lines)
+
+    def to_processing_result(self) -&gt; ProcessingResult:
+        &#34;&#34;&#34;Convert to unified ProcessingResult type.
+
+        Returns:
+            ProcessingResult instance with equivalent data.
+
+        Example:
+            &gt;&gt;&gt; score = QualityScore(
+            ...     score=8.5,
+            ...     passed=True,
+            ...     feedback=&#34;Good quality&#34;,
+            ...     details={&#34;word_count&#34;: 650}
+            ... )
+            &gt;&gt;&gt; processing_result = score.to_processing_result()
+            &gt;&gt;&gt; processing_result.metadata[&#39;score&#39;]
+            8.5
+        &#34;&#34;&#34;
+        from space_hulk_game.validation.types import ProcessingResult  # noqa: PLC0415
+
+        return ProcessingResult(
+            success=self.passed,
+            data=None,
+            errors=[],
+            warnings=[],
+            corrections=[],
+            metadata={&#34;score&#34;: self.score, &#34;feedback&#34;: self.feedback, &#34;details&#34;: self.details},
+        )</code></pre>
 </details>
 <div class="desc"><p>Standardized quality score returned by all evaluators.</p>
+<p>NOTE: QualityScore is specialized for quality evaluation.
+For general processing, use ProcessingResult from validation.types</p>
 <p>NOTE: QualityScore is specialized for quality evaluation.
 For general processing, use ProcessingResult from validation.types</p>
 <h2 id="attributes">Attributes</h2>
@@ -4936,6 +4972,7 @@ QualityScore(8.5/10, PASS)
 <h3>Static methods</h3>
 <dl>
 <dt id="space_hulk_game.quality.QualityScore.from_dict"><code class="name flex">
+<span>def <span class="ident">from_dict</span></span>(<span>data: dict[str, Any]) ‑> <a title="space_hulk_game.quality.score.QualityScore" href="score.html#space_hulk_game.quality.score.QualityScore">QualityScore</a></span>
 <span>def <span class="ident">from_dict</span></span>(<span>data: dict[str, Any]) ‑> <a title="space_hulk_game.quality.score.QualityScore" href="score.html#space_hulk_game.quality.score.QualityScore">QualityScore</a></span>
 </code></dt>
 <dd>
@@ -5076,6 +5113,57 @@ QualityScore(8.5/10, PASS)
 <div class="desc"><p>Convert quality score to JSON string.</p>
 <h2 id="returns">Returns</h2>
 <p>JSON string representation of the score</p></div>
+</dd>
+<dt id="space_hulk_game.quality.QualityScore.to_processing_result"><code class="name flex">
+<span>def <span class="ident">to_processing_result</span></span>(<span>self) ‑> ProcessingResult</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def to_processing_result(self) -&gt; ProcessingResult:
+    &#34;&#34;&#34;Convert to unified ProcessingResult type.
+
+    Returns:
+        ProcessingResult instance with equivalent data.
+
+    Example:
+        &gt;&gt;&gt; score = QualityScore(
+        ...     score=8.5,
+        ...     passed=True,
+        ...     feedback=&#34;Good quality&#34;,
+        ...     details={&#34;word_count&#34;: 650}
+        ... )
+        &gt;&gt;&gt; processing_result = score.to_processing_result()
+        &gt;&gt;&gt; processing_result.metadata[&#39;score&#39;]
+        8.5
+    &#34;&#34;&#34;
+    from space_hulk_game.validation.types import ProcessingResult  # noqa: PLC0415
+
+    return ProcessingResult(
+        success=self.passed,
+        data=None,
+        errors=[],
+        warnings=[],
+        corrections=[],
+        metadata={&#34;score&#34;: self.score, &#34;feedback&#34;: self.feedback, &#34;details&#34;: self.details},
+    )</code></pre>
+</details>
+<div class="desc"><p>Convert to unified ProcessingResult type.</p>
+<h2 id="returns">Returns</h2>
+<p>ProcessingResult instance with equivalent data.</p>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; score = QualityScore(
+...     score=8.5,
+...     passed=True,
+...     feedback=&quot;Good quality&quot;,
+...     details={&quot;word_count&quot;: 650}
+... )
+&gt;&gt;&gt; processing_result = score.to_processing_result()
+&gt;&gt;&gt; processing_result.metadata['score']
+8.5
+</code></pre></div>
 </dd>
 <dt id="space_hulk_game.quality.QualityScore.to_processing_result"><code class="name flex">
 <span>def <span class="ident">to_processing_result</span></span>(<span>self) ‑> ProcessingResult</span>
@@ -6785,6 +6873,7 @@ implementing a retry loop that provides feedback for improvement.</p>
 <li>
 <h4><code><a title="space_hulk_game.quality.QualityScore" href="#space_hulk_game.quality.QualityScore">QualityScore</a></code></h4>
 <ul class="">
+<ul class="">
 <li><code><a title="space_hulk_game.quality.QualityScore.details" href="#space_hulk_game.quality.QualityScore.details">details</a></code></li>
 <li><code><a title="space_hulk_game.quality.QualityScore.feedback" href="#space_hulk_game.quality.QualityScore.feedback">feedback</a></code></li>
 <li><code><a title="space_hulk_game.quality.QualityScore.from_dict" href="#space_hulk_game.quality.QualityScore.from_dict">from_dict</a></code></li>
@@ -6794,6 +6883,7 @@ implementing a retry loop that provides feedback for improvement.</p>
 <li><code><a title="space_hulk_game.quality.QualityScore.score" href="#space_hulk_game.quality.QualityScore.score">score</a></code></li>
 <li><code><a title="space_hulk_game.quality.QualityScore.to_dict" href="#space_hulk_game.quality.QualityScore.to_dict">to_dict</a></code></li>
 <li><code><a title="space_hulk_game.quality.QualityScore.to_json" href="#space_hulk_game.quality.QualityScore.to_json">to_json</a></code></li>
+<li><code><a title="space_hulk_game.quality.QualityScore.to_processing_result" href="#space_hulk_game.quality.QualityScore.to_processing_result">to_processing_result</a></code></li>
 <li><code><a title="space_hulk_game.quality.QualityScore.to_processing_result" href="#space_hulk_game.quality.QualityScore.to_processing_result">to_processing_result</a></code></li>
 </ul>
 </li>
