@@ -60,10 +60,6 @@ CorrectionResult: Result dataclass containing correction status and changes (DEP
 <dd>
 <div class="desc"><p>Unified result types for validation and processing operations …</p></div>
 </dd>
-<dt><code class="name"><a title="space_hulk_game.validation.types" href="types.html">space_hulk_game.validation.types</a></code></dt>
-<dd>
-<div class="desc"><p>Unified result types for validation and processing operations …</p></div>
-</dd>
 <dt><code class="name"><a title="space_hulk_game.validation.validator" href="validator.html">space_hulk_game.validation.validator</a></code></dt>
 <dd>
 <div class="desc"><p>Output validation for Space Hulk Game YAML outputs …</p></div>
@@ -80,7 +76,6 @@ CorrectionResult: Result dataclass containing correction status and changes (DEP
 <dt id="space_hulk_game.validation.CorrectionResult"><code class="flex name class">
 <span>class <span class="ident">CorrectionResult</span></span>
 <span>(</span><span>corrected_yaml: str,<br>corrections: list[str],<br>validation_result: <a title="space_hulk_game.validation.ValidationResult" href="#space_hulk_game.validation.ValidationResult">ValidationResult</a>,<br>success: bool)</span>
-<span>(</span><span>corrected_yaml: str,<br>corrections: list[str],<br>validation_result: <a title="space_hulk_game.validation.ValidationResult" href="#space_hulk_game.validation.ValidationResult">ValidationResult</a>,<br>success: bool)</span>
 </code></dt>
 <dd>
 <details class="source">
@@ -90,9 +85,6 @@ CorrectionResult: Result dataclass containing correction status and changes (DEP
 <pre><code class="python">@dataclass
 class CorrectionResult:
     &#34;&#34;&#34;Result of attempting to auto-correct YAML output.
-
-    NOTE: CorrectionResult is kept for backward compatibility.
-    New code should use ProcessingResult from validation.types
 
     NOTE: CorrectionResult is kept for backward compatibility.
     New code should use ProcessingResult from validation.types
@@ -144,39 +136,8 @@ class CorrectionResult:
             corrections=self.corrections,
             metadata={&#34;corrected_yaml&#34;: self.corrected_yaml},
         )</code></pre>
-    success: bool
-
-    def to_processing_result(self) -&gt; ProcessingResult:
-        &#34;&#34;&#34;Convert to unified ProcessingResult type.
-
-        Returns:
-            ProcessingResult instance with equivalent data.
-
-        Example:
-            &gt;&gt;&gt; result = CorrectionResult(
-            ...     corrected_yaml=&#34;title: Fixed&#34;,
-            ...     corrections=[&#34;Fixed ID&#34;],
-            ...     validation_result=ValidationResult(valid=True, data=None, errors=[]),
-            ...     success=True
-            ... )
-            &gt;&gt;&gt; processing_result = result.to_processing_result()
-            &gt;&gt;&gt; processing_result.is_valid
-            True
-        &#34;&#34;&#34;
-        from space_hulk_game.validation.types import ProcessingResult  # noqa: PLC0415
-
-        return ProcessingResult(
-            success=self.success,
-            data=None,  # corrected_yaml is in metadata
-            errors=self.validation_result.errors if self.validation_result else [],
-            warnings=self.validation_result.warnings if self.validation_result else [],
-            corrections=self.corrections,
-            metadata={&#34;corrected_yaml&#34;: self.corrected_yaml},
-        )</code></pre>
 </details>
 <div class="desc"><p>Result of attempting to auto-correct YAML output.</p>
-<p>NOTE: CorrectionResult is kept for backward compatibility.
-New code should use ProcessingResult from validation.types</p>
 <p>NOTE: CorrectionResult is kept for backward compatibility.
 New code should use ProcessingResult from validation.types</p>
 <h2 id="attributes">Attributes</h2>
@@ -215,60 +176,6 @@ New code should use ProcessingResult from validation.types</p>
 <dt id="space_hulk_game.validation.CorrectionResult.validation_result"><code class="name">var <span class="ident">validation_result</span> : <a title="space_hulk_game.validation.validator.ValidationResult" href="validator.html#space_hulk_game.validation.validator.ValidationResult">ValidationResult</a></code></dt>
 <dd>
 <div class="desc"></div>
-</dd>
-</dl>
-<h3>Methods</h3>
-<dl>
-<dt id="space_hulk_game.validation.CorrectionResult.to_processing_result"><code class="name flex">
-<span>def <span class="ident">to_processing_result</span></span>(<span>self) ‑> <a title="space_hulk_game.validation.ProcessingResult" href="#space_hulk_game.validation.ProcessingResult">ProcessingResult</a></span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def to_processing_result(self) -&gt; ProcessingResult:
-    &#34;&#34;&#34;Convert to unified ProcessingResult type.
-
-    Returns:
-        ProcessingResult instance with equivalent data.
-
-    Example:
-        &gt;&gt;&gt; result = CorrectionResult(
-        ...     corrected_yaml=&#34;title: Fixed&#34;,
-        ...     corrections=[&#34;Fixed ID&#34;],
-        ...     validation_result=ValidationResult(valid=True, data=None, errors=[]),
-        ...     success=True
-        ... )
-        &gt;&gt;&gt; processing_result = result.to_processing_result()
-        &gt;&gt;&gt; processing_result.is_valid
-        True
-    &#34;&#34;&#34;
-    from space_hulk_game.validation.types import ProcessingResult  # noqa: PLC0415
-
-    return ProcessingResult(
-        success=self.success,
-        data=None,  # corrected_yaml is in metadata
-        errors=self.validation_result.errors if self.validation_result else [],
-        warnings=self.validation_result.warnings if self.validation_result else [],
-        corrections=self.corrections,
-        metadata={&#34;corrected_yaml&#34;: self.corrected_yaml},
-    )</code></pre>
-</details>
-<div class="desc"><p>Convert to unified ProcessingResult type.</p>
-<h2 id="returns">Returns</h2>
-<p>ProcessingResult instance with equivalent data.</p>
-<h2 id="example">Example</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; result = CorrectionResult(
-...     corrected_yaml=&quot;title: Fixed&quot;,
-...     corrections=[&quot;Fixed ID&quot;],
-...     validation_result=ValidationResult(valid=True, data=None, errors=[]),
-...     success=True
-... )
-&gt;&gt;&gt; processing_result = result.to_processing_result()
-&gt;&gt;&gt; processing_result.is_valid
-True
-</code></pre></div>
 </dd>
 </dl>
 <h3>Methods</h3>
@@ -564,150 +471,6 @@ True
         logger.debug(&#34;Fixed unescaped apostrophes in single-quoted strings&#34;)
         return result
 
-    def _fix_mixed_quotes(self, content: str) -&gt; str:
-        &#34;&#34;&#34;Fix strings with mismatched quote delimiters.
-
-        Handles strings like &#34;entrance&#39; or &#39;corridor_1&#34; where the opening
-        and closing quotes don&#39;t match. Normalizes to the opening quote type.
-
-        Args:
-            content: Raw YAML string with potential mixed quotes.
-
-        Returns:
-            Fixed YAML string with consistent quote usage.
-
-        Example:
-            &gt;&gt;&gt; corrector = OutputCorrector()
-            &gt;&gt;&gt; corrector._fix_mixed_quotes(&#39;starting_scene: &#34;entrance\\&#39;&#39;)
-            &#39;starting_scene: &#34;entrance&#34;&#39;
-            &gt;&gt;&gt; corrector._fix_mixed_quotes(&#34;south: &#39;corridor_1\\&#34;&#34;)
-            &#34;south: &#39;corridor_1&#39;&#34;
-        &#34;&#34;&#34;
-        # Strategy: Look for strings that start with one quote type and end with another
-        # We need to be careful about apostrophes inside strings
-        # Pattern 1: &#34; ... &#39; at end of line (double quote start, single quote end)
-        # Pattern 2: &#39; ... &#34; at end of line (single quote start, double quote end)
-
-        # Use line-by-line processing to avoid matching across multiple values
-        lines = content.split(&#34;\n&#34;)
-        fixed_lines = []
-
-        for line in lines:
-            # Check for mismatched quotes on this line
-            # Pattern: starts with &#34; and ends with &#39; (at end of line)
-            if re.search(r&#39;:\s*&#34;[^&#34;]*\&#39;$&#39;, line):
-                # Replace the final &#39; with &#34;
-                line = re.sub(r&#34;\&#39;$&#34;, &#39;&#34;&#39;, line)  # noqa: PLW2901
-            # Pattern: starts with &#39; and ends with &#34; (at end of line)
-            elif re.search(r&#34;:\s*&#39;[^&#39;]*\&#34;$&#34;, line):
-                # Replace the final &#34; with &#39;
-                line = re.sub(r&#39;&#34;$&#39;, &#34;&#39;&#34;, line)  # noqa: PLW2901
-
-            fixed_lines.append(line)
-
-        content = &#34;\n&#34;.join(fixed_lines)
-        logger.debug(&#34;Fixed mixed quote delimiters&#34;)
-        return content
-
-    def _fix_invalid_list_markers(self, content: str) -&gt; str:
-        &#34;&#34;&#34;Fix invalid YAML list markers with multiple dashes.
-
-        Handles list items marked with multiple dashes (e.g., &#39;---------------- item&#39;)
-        and converts them to proper YAML list syntax (&#39;- item&#39;).
-
-        Args:
-            content: Raw YAML string with potential invalid list markers.
-
-        Returns:
-            Fixed YAML string with proper list markers.
-
-        Example:
-            &gt;&gt;&gt; corrector = OutputCorrector()
-            &gt;&gt;&gt; corrector._fix_invalid_list_markers(&#39;items:\\n  ---------------- flashlight&#39;)
-            &#39;items:\\n  - flashlight&#39;
-        &#34;&#34;&#34;
-        # Pattern: line starting with indentation, followed by 4+ dashes, then content
-        # Captures: (indentation) (4+ dashes) (optional spaces) (rest of line)
-        # Replace with: (indentation) - (rest of line)
-        content = re.sub(
-            r&#34;^(\s*)-{4,}\s*(.+)$&#34;,
-            r&#34;\1- \2&#34;,
-            content,
-            flags=re.MULTILINE,
-        )
-
-        logger.debug(&#34;Fixed invalid list markers&#34;)
-        return content
-
-    def _fix_unescaped_apostrophes(self, content: str) -&gt; str:
-        &#34;&#34;&#34;Fix unescaped apostrophes in single-quoted strings.
-
-        Handles apostrophes inside single-quoted strings (e.g., &#39;Ship&#39;s Bridge&#39;)
-        by converting them to double-quoted strings to avoid escaping.
-
-        Args:
-            content: Raw YAML string with potential unescaped apostrophes.
-
-        Returns:
-            Fixed YAML string with apostrophes properly handled.
-
-        Example:
-            &gt;&gt;&gt; corrector = OutputCorrector()
-            &gt;&gt;&gt; corrector._fix_unescaped_apostrophes(&#34;name: &#39;Ship&#39;s Bridge&#39;&#34;)
-            &#39;name: &#34;Ship\\&#39;s Bridge&#34;&#39;
-            &gt;&gt;&gt; corrector._fix_unescaped_apostrophes(&#34;description: &#39;The captain&#39;s quarters&#39;&#34;)
-            &#39;description: &#34;The captain\\&#39;s quarters&#34;&#39;
-        &#34;&#34;&#34;
-        # Pattern: find single-quoted strings that contain apostrophes
-        # We need to match the entire string including any apostrophes inside
-        # Strategy: Look for : &#39;some text with potential apostrophe&#39; pattern
-        # Use a greedy match to get everything between the outer quotes
-
-        def replace_single_quoted_with_apostrophe(match):
-            &#34;&#34;&#34;Replace single-quoted string containing apostrophe with double-quoted version.&#34;&#34;&#34;
-            prefix = match.group(1)  # Everything before the opening quote (: and spaces)
-            inner_content = match.group(2)  # Content inside the outer quotes
-
-            # Check if content contains an apostrophe (but not just the closing quote)
-            # We need to look for apostrophes that are NOT the final closing quote
-            if &#34;&#39;&#34; in inner_content:
-                # Convert to double-quoted string
-                # The content already has the apostrophes, just change the delimiters
-                return f&#39;{prefix}&#34;{inner_content}&#34;&#39;
-            else:
-                # Keep as-is
-                return match.group(0)
-
-        # Pattern: (: + optional spaces) &#39; (everything until last &#39;) &#39;
-        # This uses a possessive quantifier to match everything between outer quotes
-        # The pattern matches: colon, spaces, opening single quote, content (greedy), closing single quote
-        # We need to match the full quoted string, even if it contains apostrophes
-        # The key insight: match from &#39; to the LAST &#39; on the line
-        lines = content.split(&#34;\n&#34;)
-        fixed_lines = []
-
-        for line in lines:
-            # Look for pattern: key: &#39;value with potential apostrophes&#39;
-            # Use a more sophisticated approach: find : &#39; pairs and match to closing &#39;
-            if &#34;: &#39;&#34; in line or &#34;:\t&#39;&#34; in line:
-                # Find the position of &#34;: &#39;&#34;
-                match = re.search(r&#34;(\s*:\s*)&#39;(.+)&#39;$&#34;, line)
-                if match:
-                    prefix = match.group(1)
-                    inner = match.group(2)
-                    # Check if inner content has apostrophes
-                    if &#34;&#39;&#34; in inner:
-                        # Replace the line with double-quoted version
-                        fixed_line = line[: match.start()] + f&#39;{prefix}&#34;{inner}&#34;&#39;
-                        fixed_lines.append(fixed_line)
-                        continue
-            # No match or no apostrophes, keep original
-            fixed_lines.append(line)
-
-        result = &#34;\n&#34;.join(fixed_lines)
-        logger.debug(&#34;Fixed unescaped apostrophes in single-quoted strings&#34;)
-        return result
-
     def _parse_yaml_safe(self, raw_output: str) -&gt; tuple[dict | None, list[str]]:
         &#34;&#34;&#34;Safely parse YAML with error recovery.
 
@@ -723,12 +486,6 @@ True
         &#34;&#34;&#34;
         try:
             # Strip markdown fences first
-            clean_yaml = strip_markdown_yaml_blocks(raw_output)
-
-            # Apply syntax fixes BEFORE parsing
-            clean_yaml = self._fix_mixed_quotes(clean_yaml)
-            clean_yaml = self._fix_invalid_list_markers(clean_yaml)
-            clean_yaml = self._fix_unescaped_apostrophes(clean_yaml)
             clean_yaml = strip_markdown_yaml_blocks(raw_output)
 
             # Apply syntax fixes BEFORE parsing
@@ -754,12 +511,7 @@ True
             try:
                 # Common fix: remove duplicate colons, fix indentation issues
                 clean_yaml = strip_markdown_yaml_blocks(raw_output)
-                clean_yaml = strip_markdown_yaml_blocks(raw_output)
 
-                # NOTE: This is the ONLY implementation of colon-in-values fixing.
-                # Other modules (evaluator, crew) have been refactored to rely on this.
-                # Do not duplicate this logic elsewhere.
-                #
                 # NOTE: This is the ONLY implementation of colon-in-values fixing.
                 # Other modules (evaluator, crew) have been refactored to rely on this.
                 # Do not duplicate this logic elsewhere.
@@ -1116,7 +868,6 @@ True
                         )
                         corrections.append(
                             f&#34;Extended short scene description (was {len(original_desc)} chars)&#34;
-                            f&#34;Extended short scene description (was {len(original_desc)} chars)&#34;
                         )
                         logger.info(
                             f&#34;Extended scene description from {len(original_desc)} &#34;
@@ -1450,7 +1201,6 @@ True
                         )
                         corrections.append(
                             f&#34;Extended short scene description (was {len(original_desc)} chars)&#34;
-                            f&#34;Extended short scene description (was {len(original_desc)} chars)&#34;
                         )
                         logger.info(
                             f&#34;Extended scene description from {len(original_desc)} &#34;
@@ -1668,7 +1418,6 @@ True
                 {
                     &#34;requirement&#34;: (
                         &#34;Basic game engine functionality for managing game state and logic.&#34;
-                        &#34;Basic game engine functionality for managing game state and logic.&#34;
                     ),
                     &#34;justification&#34;: &#34;Required for the game to function properly.&#34;,
                 }
@@ -1876,7 +1625,6 @@ fix syntax errors, normalize field names, and correct ID format violations.</p>
             {
                 &#34;requirement&#34;: (
                     &#34;Basic game engine functionality for managing game state and logic.&#34;
-                    &#34;Basic game engine functionality for managing game state and logic.&#34;
                 ),
                 &#34;justification&#34;: &#34;Required for the game to function properly.&#34;,
             }
@@ -2032,7 +1780,6 @@ validation result, and success status.</p>
                         scene[&#34;description&#34;], 50
                     )
                     corrections.append(
-                        f&#34;Extended short scene description (was {len(original_desc)} chars)&#34;
                         f&#34;Extended short scene description (was {len(original_desc)} chars)&#34;
                     )
                     logger.info(
@@ -2681,7 +2428,6 @@ validation result, and success status.</p>
                     )
                     corrections.append(
                         f&#34;Extended short scene description (was {len(original_desc)} chars)&#34;
-                        f&#34;Extended short scene description (was {len(original_desc)} chars)&#34;
                     )
                     logger.info(
                         f&#34;Extended scene description from {len(original_desc)} &#34;
@@ -2837,7 +2583,6 @@ validation result, and success status.</p>
         try:
             # Strip markdown fences first
             clean_yaml = strip_markdown_yaml_blocks(raw_output)
-            clean_yaml = strip_markdown_yaml_blocks(raw_output)
 
             # Parse YAML
             data = yaml.safe_load(clean_yaml)
@@ -2878,9 +2623,6 @@ validation result, and success status.</p>
             error_type = error[&#34;type&#34;]
 
             # Create a detailed error message
-            ctx_dict = error.get(&#34;ctx&#34;)
-            if ctx_dict:
-                ctx = &#34;, &#34;.join(f&#34;{k}={v}&#34; for k, v in ctx_dict.items())
             ctx_dict = error.get(&#34;ctx&#34;)
             if ctx_dict:
                 ctx = &#34;, &#34;.join(f&#34;{k}={v}&#34; for k, v in ctx_dict.items())
@@ -3740,161 +3482,8 @@ def is_valid(self) -&gt; bool:
 </dd>
 </dl>
 </dd>
-<dt id="space_hulk_game.validation.ProcessingResult"><code class="flex name class">
-<span>class <span class="ident">ProcessingResult</span></span>
-<span>(</span><span>success: bool,<br>data: typing.Any | None = None,<br>errors: list[str] = &lt;factory&gt;,<br>warnings: list[str] = &lt;factory&gt;,<br>corrections: list[str] = &lt;factory&gt;,<br>metadata: dict[str, typing.Any] = &lt;factory&gt;)</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@dataclass
-class ProcessingResult:
-    &#34;&#34;&#34;Unified result type for YAML processing operations.
-
-    This replaces ValidationResult, CorrectionResult, and parts of QualityScore
-    to provide consistent error/warning/info reporting across all processing layers.
-
-    Attributes:
-        success: Whether the operation succeeded
-        data: The processed data (if successful)
-        errors: List of error messages (failures)
-        warnings: List of warning messages (non-critical issues)
-        corrections: List of corrections applied
-        metadata: Additional context (e.g., score for quality checks)
-
-    Examples:
-        &gt;&gt;&gt; result = ProcessingResult(
-        ...     success=True,
-        ...     data={&#39;title&#39;: &#39;Game&#39;},
-        ...     errors=[],
-        ...     warnings=[&#39;Missing optional field&#39;],
-        ...     corrections=[&#39;Added default value&#39;],
-        ...     metadata={&#39;score&#39;: 8.5}
-        ... )
-        &gt;&gt;&gt; result.is_valid
-        True
-    &#34;&#34;&#34;
-
-    success: bool
-    data: Any | None = None
-    errors: list[str] = field(default_factory=list)
-    warnings: list[str] = field(default_factory=list)
-    corrections: list[str] = field(default_factory=list)
-    metadata: dict[str, Any] = field(default_factory=dict)
-
-    @property
-    def is_valid(self) -&gt; bool:
-        &#34;&#34;&#34;Check if result is valid (successful and no errors).&#34;&#34;&#34;
-        return self.success and not self.errors
-
-    @property
-    def has_issues(self) -&gt; bool:
-        &#34;&#34;&#34;Check if result has any issues (errors or warnings).&#34;&#34;&#34;
-        return bool(self.errors or self.warnings)
-
-    def __str__(self) -&gt; str:
-        &#34;&#34;&#34;String representation of result.&#34;&#34;&#34;
-        status = &#34;SUCCESS&#34; if self.success else &#34;FAILED&#34;
-        parts = [f&#34;ProcessingResult({status})&#34;]
-
-        if self.errors:
-            parts.append(f&#34;{len(self.errors)} errors&#34;)
-        if self.warnings:
-            parts.append(f&#34;{len(self.warnings)} warnings&#34;)
-        if self.corrections:
-            parts.append(f&#34;{len(self.corrections)} corrections&#34;)
-
-        return &#34; - &#34;.join(parts)</code></pre>
-</details>
-<div class="desc"><p>Unified result type for YAML processing operations.</p>
-<p>This replaces ValidationResult, CorrectionResult, and parts of QualityScore
-to provide consistent error/warning/info reporting across all processing layers.</p>
-<h2 id="attributes">Attributes</h2>
-<dl>
-<dt><strong><code>success</code></strong></dt>
-<dd>Whether the operation succeeded</dd>
-<dt><strong><code>data</code></strong></dt>
-<dd>The processed data (if successful)</dd>
-<dt><strong><code>errors</code></strong></dt>
-<dd>List of error messages (failures)</dd>
-<dt><strong><code>warnings</code></strong></dt>
-<dd>List of warning messages (non-critical issues)</dd>
-<dt><strong><code>corrections</code></strong></dt>
-<dd>List of corrections applied</dd>
-<dt><strong><code>metadata</code></strong></dt>
-<dd>Additional context (e.g., score for quality checks)</dd>
-</dl>
-<h2 id="examples">Examples</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; result = ProcessingResult(
-...     success=True,
-...     data={'title': 'Game'},
-...     errors=[],
-...     warnings=['Missing optional field'],
-...     corrections=['Added default value'],
-...     metadata={'score': 8.5}
-... )
-&gt;&gt;&gt; result.is_valid
-True
-</code></pre></div>
-<h3>Instance variables</h3>
-<dl>
-<dt id="space_hulk_game.validation.ProcessingResult.corrections"><code class="name">var <span class="ident">corrections</span> : list[str]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.validation.ProcessingResult.data"><code class="name">var <span class="ident">data</span> : typing.Any | None</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.validation.ProcessingResult.errors"><code class="name">var <span class="ident">errors</span> : list[str]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.validation.ProcessingResult.has_issues"><code class="name">prop <span class="ident">has_issues</span> : bool</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@property
-def has_issues(self) -&gt; bool:
-    &#34;&#34;&#34;Check if result has any issues (errors or warnings).&#34;&#34;&#34;
-    return bool(self.errors or self.warnings)</code></pre>
-</details>
-<div class="desc"><p>Check if result has any issues (errors or warnings).</p></div>
-</dd>
-<dt id="space_hulk_game.validation.ProcessingResult.is_valid"><code class="name">prop <span class="ident">is_valid</span> : bool</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@property
-def is_valid(self) -&gt; bool:
-    &#34;&#34;&#34;Check if result is valid (successful and no errors).&#34;&#34;&#34;
-    return self.success and not self.errors</code></pre>
-</details>
-<div class="desc"><p>Check if result is valid (successful and no errors).</p></div>
-</dd>
-<dt id="space_hulk_game.validation.ProcessingResult.metadata"><code class="name">var <span class="ident">metadata</span> : dict[str, typing.Any]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.validation.ProcessingResult.success"><code class="name">var <span class="ident">success</span> : bool</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.validation.ProcessingResult.warnings"><code class="name">var <span class="ident">warnings</span> : list[str]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-</dl>
-</dd>
 <dt id="space_hulk_game.validation.ValidationResult"><code class="flex name class">
 <span>class <span class="ident">ValidationResult</span></span>
-<span>(</span><span>valid: bool,<br>data: Any | None,<br>errors: list[str],<br>warnings: list[str] = &lt;factory&gt;)</span>
 <span>(</span><span>valid: bool,<br>data: Any | None,<br>errors: list[str],<br>warnings: list[str] = &lt;factory&gt;)</span>
 </code></dt>
 <dd>
@@ -3909,14 +3498,10 @@ class ValidationResult:
     NOTE: ValidationResult is kept for backward compatibility.
     New code should use ProcessingResult from validation.types
 
-    NOTE: ValidationResult is kept for backward compatibility.
-    New code should use ProcessingResult from validation.types
-
     Attributes:
         valid: Whether the validation succeeded.
         data: Parsed Pydantic model if validation succeeded, None otherwise.
         errors: List of error messages if validation failed, empty list otherwise.
-        warnings: List of warning messages (non-critical issues).
         warnings: List of warning messages (non-critical issues).
 
     Example:
@@ -3954,35 +3539,8 @@ class ValidationResult:
             corrections=[],
             metadata={},
         )</code></pre>
-    errors: list[str]
-    warnings: list[str] = field(default_factory=list)
-
-    def to_processing_result(self) -&gt; ProcessingResult:
-        &#34;&#34;&#34;Convert to unified ProcessingResult type.
-
-        Returns:
-            ProcessingResult instance with equivalent data.
-
-        Example:
-            &gt;&gt;&gt; result = ValidationResult(valid=True, data=plot, errors=[])
-            &gt;&gt;&gt; processing_result = result.to_processing_result()
-            &gt;&gt;&gt; processing_result.is_valid
-            True
-        &#34;&#34;&#34;
-        from space_hulk_game.validation.types import ProcessingResult  # noqa: PLC0415
-
-        return ProcessingResult(
-            success=self.valid,
-            data=self.data,
-            errors=self.errors,
-            warnings=self.warnings,
-            corrections=[],
-            metadata={},
-        )</code></pre>
 </details>
 <div class="desc"><p>Result of validating YAML output against a schema.</p>
-<p>NOTE: ValidationResult is kept for backward compatibility.
-New code should use ProcessingResult from validation.types</p>
 <p>NOTE: ValidationResult is kept for backward compatibility.
 New code should use ProcessingResult from validation.types</p>
 <h2 id="attributes">Attributes</h2>
@@ -3993,8 +3551,6 @@ New code should use ProcessingResult from validation.types</p>
 <dd>Parsed Pydantic model if validation succeeded, None otherwise.</dd>
 <dt><strong><code>errors</code></strong></dt>
 <dd>List of error messages if validation failed, empty list otherwise.</dd>
-<dt><strong><code>warnings</code></strong></dt>
-<dd>List of warning messages (non-critical issues).</dd>
 <dt><strong><code>warnings</code></strong></dt>
 <dd>List of warning messages (non-critical issues).</dd>
 </dl>
@@ -4067,54 +3623,6 @@ New code should use ProcessingResult from validation.types</p>
 True
 </code></pre></div>
 </dd>
-<dt id="space_hulk_game.validation.ValidationResult.warnings"><code class="name">var <span class="ident">warnings</span> : list[str]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-</dl>
-<h3>Methods</h3>
-<dl>
-<dt id="space_hulk_game.validation.ValidationResult.to_processing_result"><code class="name flex">
-<span>def <span class="ident">to_processing_result</span></span>(<span>self) ‑> <a title="space_hulk_game.validation.ProcessingResult" href="#space_hulk_game.validation.ProcessingResult">ProcessingResult</a></span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def to_processing_result(self) -&gt; ProcessingResult:
-    &#34;&#34;&#34;Convert to unified ProcessingResult type.
-
-    Returns:
-        ProcessingResult instance with equivalent data.
-
-    Example:
-        &gt;&gt;&gt; result = ValidationResult(valid=True, data=plot, errors=[])
-        &gt;&gt;&gt; processing_result = result.to_processing_result()
-        &gt;&gt;&gt; processing_result.is_valid
-        True
-    &#34;&#34;&#34;
-    from space_hulk_game.validation.types import ProcessingResult  # noqa: PLC0415
-
-    return ProcessingResult(
-        success=self.valid,
-        data=self.data,
-        errors=self.errors,
-        warnings=self.warnings,
-        corrections=[],
-        metadata={},
-    )</code></pre>
-</details>
-<div class="desc"><p>Convert to unified ProcessingResult type.</p>
-<h2 id="returns">Returns</h2>
-<p>ProcessingResult instance with equivalent data.</p>
-<h2 id="example">Example</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; result = ValidationResult(valid=True, data=plot, errors=[])
-&gt;&gt;&gt; processing_result = result.to_processing_result()
-&gt;&gt;&gt; processing_result.is_valid
-True
-</code></pre></div>
-</dd>
 </dl>
 </dd>
 </dl>
@@ -4134,7 +3642,6 @@ True
 <ul>
 <li><code><a title="space_hulk_game.validation.corrector" href="corrector.html">space_hulk_game.validation.corrector</a></code></li>
 <li><code><a title="space_hulk_game.validation.types" href="types.html">space_hulk_game.validation.types</a></code></li>
-<li><code><a title="space_hulk_game.validation.types" href="types.html">space_hulk_game.validation.types</a></code></li>
 <li><code><a title="space_hulk_game.validation.validator" href="validator.html">space_hulk_game.validation.validator</a></code></li>
 </ul>
 </li>
@@ -4146,7 +3653,6 @@ True
 <li><code><a title="space_hulk_game.validation.CorrectionResult.corrected_yaml" href="#space_hulk_game.validation.CorrectionResult.corrected_yaml">corrected_yaml</a></code></li>
 <li><code><a title="space_hulk_game.validation.CorrectionResult.corrections" href="#space_hulk_game.validation.CorrectionResult.corrections">corrections</a></code></li>
 <li><code><a title="space_hulk_game.validation.CorrectionResult.success" href="#space_hulk_game.validation.CorrectionResult.success">success</a></code></li>
-<li><code><a title="space_hulk_game.validation.CorrectionResult.to_processing_result" href="#space_hulk_game.validation.CorrectionResult.to_processing_result">to_processing_result</a></code></li>
 <li><code><a title="space_hulk_game.validation.CorrectionResult.to_processing_result" href="#space_hulk_game.validation.CorrectionResult.to_processing_result">to_processing_result</a></code></li>
 <li><code><a title="space_hulk_game.validation.CorrectionResult.validation_result" href="#space_hulk_game.validation.CorrectionResult.validation_result">validation_result</a></code></li>
 </ul>
@@ -4185,27 +3691,12 @@ True
 </ul>
 </li>
 <li>
-<h4><code><a title="space_hulk_game.validation.ProcessingResult" href="#space_hulk_game.validation.ProcessingResult">ProcessingResult</a></code></h4>
-<ul class="two-column">
-<li><code><a title="space_hulk_game.validation.ProcessingResult.corrections" href="#space_hulk_game.validation.ProcessingResult.corrections">corrections</a></code></li>
-<li><code><a title="space_hulk_game.validation.ProcessingResult.data" href="#space_hulk_game.validation.ProcessingResult.data">data</a></code></li>
-<li><code><a title="space_hulk_game.validation.ProcessingResult.errors" href="#space_hulk_game.validation.ProcessingResult.errors">errors</a></code></li>
-<li><code><a title="space_hulk_game.validation.ProcessingResult.has_issues" href="#space_hulk_game.validation.ProcessingResult.has_issues">has_issues</a></code></li>
-<li><code><a title="space_hulk_game.validation.ProcessingResult.is_valid" href="#space_hulk_game.validation.ProcessingResult.is_valid">is_valid</a></code></li>
-<li><code><a title="space_hulk_game.validation.ProcessingResult.metadata" href="#space_hulk_game.validation.ProcessingResult.metadata">metadata</a></code></li>
-<li><code><a title="space_hulk_game.validation.ProcessingResult.success" href="#space_hulk_game.validation.ProcessingResult.success">success</a></code></li>
-<li><code><a title="space_hulk_game.validation.ProcessingResult.warnings" href="#space_hulk_game.validation.ProcessingResult.warnings">warnings</a></code></li>
-</ul>
-</li>
-<li>
 <h4><code><a title="space_hulk_game.validation.ValidationResult" href="#space_hulk_game.validation.ValidationResult">ValidationResult</a></code></h4>
 <ul class="">
 <li><code><a title="space_hulk_game.validation.ValidationResult.data" href="#space_hulk_game.validation.ValidationResult.data">data</a></code></li>
 <li><code><a title="space_hulk_game.validation.ValidationResult.errors" href="#space_hulk_game.validation.ValidationResult.errors">errors</a></code></li>
 <li><code><a title="space_hulk_game.validation.ValidationResult.to_processing_result" href="#space_hulk_game.validation.ValidationResult.to_processing_result">to_processing_result</a></code></li>
-<li><code><a title="space_hulk_game.validation.ValidationResult.to_processing_result" href="#space_hulk_game.validation.ValidationResult.to_processing_result">to_processing_result</a></code></li>
 <li><code><a title="space_hulk_game.validation.ValidationResult.valid" href="#space_hulk_game.validation.ValidationResult.valid">valid</a></code></li>
-<li><code><a title="space_hulk_game.validation.ValidationResult.warnings" href="#space_hulk_game.validation.ValidationResult.warnings">warnings</a></code></li>
 <li><code><a title="space_hulk_game.validation.ValidationResult.warnings" href="#space_hulk_game.validation.ValidationResult.warnings">warnings</a></code></li>
 </ul>
 </li>
