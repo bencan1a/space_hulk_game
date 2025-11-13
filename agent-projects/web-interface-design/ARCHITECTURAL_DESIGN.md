@@ -1058,7 +1058,7 @@ Load Balancer
 
 ### 11.2 Detailed Implementation Plan (Next Section)
 
-See [IMPLEMENTATION_PLAN.md](#) for:
+See [IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md) for:
 - Task breakdown by phase
 - Acceptance criteria per task
 - Dependencies and prerequisites
