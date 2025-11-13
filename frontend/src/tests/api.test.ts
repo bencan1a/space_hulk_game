@@ -50,6 +50,7 @@ describe('API Client', () => {
     // Dynamically import the API client after setting up mocks
     const apiModule = await import('../services/api')
     // Create a new instance of the ApiClient class
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const ClientClass = (apiModule.default as any).constructor
     ApiClient = new ClientClass()
   })
