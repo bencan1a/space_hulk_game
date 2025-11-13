@@ -10,8 +10,9 @@ RUN apt-get update && apt-get install -y \
 # Copy requirements
 COPY requirements.txt requirements-dev.txt ./
 
-# Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt -r requirements-dev.txt
+# Install Python dependencies (with trusted host for network restrictions)
+RUN pip install --no-cache-dir --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org \
+    -r requirements.txt -r requirements-dev.txt
 
 # Copy application code
 COPY . .
