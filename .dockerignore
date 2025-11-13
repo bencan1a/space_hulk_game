@@ -1,0 +1,24 @@
+# Backend
+backend/__pycache__
+backend/.pytest_cache
+backend/.mypy_cache
+backend/.ruff_cache
+backend/*.pyc
+backend/*.pyo
+backend/*.pyd
+backend/.env
+backend/venv
+backend/.venv
+
+# Frontend
+frontend/node_modules
+frontend/dist
+frontend/.env
+frontend/.env.local
+
+# Common
+.git
+.gitignore
+*.md
+docker-compose*.yml
+.DS_Store

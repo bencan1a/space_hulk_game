@@ -14,9 +14,7 @@ class Settings(BaseSettings):
     )
 
     # API Configuration
-    api_host: str = Field(
-        default="0.0.0.0", description="Host to bind the API server"
-    )
+    api_host: str = Field(default="0.0.0.0", description="Host to bind the API server")
     api_port: int = Field(default=8000, description="Port to bind the API server")
     api_environment: Literal["development", "staging", "production"] = Field(
         default="development", description="Runtime environment"
@@ -37,6 +35,12 @@ class Settings(BaseSettings):
     database_url: str = Field(
         default="sqlite:///./data/database.db",
         description="Database connection URL (placeholder for future use)",
+    )
+
+    # Redis - for Celery message broker
+    redis_url: str = Field(
+        default="redis://localhost:6379/0",
+        description="Redis connection URL for Celery",
     )
 
 

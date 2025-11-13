@@ -1,0 +1,48 @@
+version: '3.8'
+
+# Production Docker Compose Configuration
+# This file is a placeholder for future production deployment.
+# 
+# Key differences from development (docker-compose.yml):
+# - No volume mounts for hot reload
+# - Production-optimized builds
+# - PostgreSQL instead of SQLite
+# - Environment variables from secrets
+# - Health checks and restart policies
+# - Reverse proxy (nginx) for frontend/backend
+# - SSL/TLS termination
+# - Resource limits
+
+services:
+  # TODO: Add production-optimized service definitions
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile.prod
+  #   restart: always
+  #   ...
+
+  # backend:
+  #   build:
+  #     context: ./backend
+  #     dockerfile: Dockerfile.prod
+  #   restart: always
+  #   ...
+
+  # postgres:
+  #   image: postgres:15-alpine
+  #   restart: always
+  #   ...
+
+  # nginx:
+  #   image: nginx:alpine
+  #   restart: always
+  #   ...
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres-data:
+  static-files:
