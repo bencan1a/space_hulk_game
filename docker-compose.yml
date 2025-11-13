@@ -25,7 +25,7 @@ services:
       - "8000:8000"
     volumes:
       - ./backend:/app
-      - ./data:/app/data
+      - data:/app/data
     environment:
       - API_HOST=0.0.0.0
       - API_PORT=8000
@@ -52,7 +52,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./backend:/app
-      - ./data:/app/data
+      - data:/app/data
     environment:
       - DATABASE_URL=sqlite:///./data/database.db
       - REDIS_URL=redis://redis:6379/0
@@ -81,9 +81,11 @@ services:
   # postgres:
   #   image: postgres:15-alpine
   #   environment:
-  #     - POSTGRES_USER=space_hulk
-  #     - POSTGRES_PASSWORD=space_hulk_password
-  #     - POSTGRES_DB=space_hulk_db
+  #     # SECURITY WARNING: Change these default credentials before enabling this service!
+  #     # It is strongly recommended to use environment variables from .env file for production.
+  #     - POSTGRES_USER=${POSTGRES_USER:-space_hulk}
+  #     - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-change_this_in_production}
+  #     - POSTGRES_DB=${POSTGRES_DB:-space_hulk_db}
   #   ports:
   #     - "5432:5432"
   #   volumes:
@@ -91,7 +93,7 @@ services:
   #   networks:
   #     - app-network
   #   healthcheck:
-  #     test: ["CMD-SHELL", "pg_isready -U space_hulk"]
+  #     test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-space_hulk}"]
   #     interval: 5s
   #     timeout: 3s
   #     retries: 5
@@ -101,4 +103,5 @@ networks:
     driver: bridge
 
 volumes:
-  postgres-data:
+  data:  # Shared data volume for SQLite database
+  # postgres-data:  # Uncomment when enabling PostgreSQL service
