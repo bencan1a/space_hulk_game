@@ -62,7 +62,7 @@ def example_long_task(self, duration: int = 10) -> dict[str, Any]:
 
     except Exception as exc:
         # Retry with exponential backoff
-        raise self.retry(exc=exc, countdown=2**self.request.retries)
+        raise self.retry(exc=exc, countdown=2**self.request.retries) from exc
 
 
 @celery_app.task(name="app.tasks.example_failure_task")
