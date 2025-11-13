@@ -113,7 +113,7 @@ docker compose ps
 docker compose exec backend bash
 
 # Run backend tests
-docker compose exec backend pytest
+docker compose exec backend python -m unittest discover -s tests -v
 
 # Frontend shell
 docker compose exec frontend sh
