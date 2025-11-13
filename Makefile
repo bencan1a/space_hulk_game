@@ -32,7 +32,7 @@ help:
 	@echo "Maintenance:"
 	@echo "  make clean           - Remove cache files and old temp files"
 	@echo ""
-	@echo "NOTE: Always activate virtual environment first!"
+	@echo "NOTE: Ensure tools are available in PATH (activate venv or install system-wide)"
 	@echo "  source .venv/bin/activate  (Linux/macOS/WSL)"
 	@echo "  .venv\\Scripts\\activate     (Windows)"
 
@@ -50,15 +50,15 @@ dev: install-dev
 
 # Testing
 test:
-	.venv/bin/python -m unittest discover -b -q -s tests
+	python -m unittest discover -b -q -s tests
 
 test-real-api:
-	RUN_REAL_API_TESTS=1 .venv/bin/python -m unittest discover -s tests -v
+	RUN_REAL_API_TESTS=1 python -m unittest discover -s tests -v
 
 coverage:
-	.venv/bin/coverage run -m unittest discover -s tests
-	.venv/bin/coverage html
-	.venv/bin/coverage report
+	coverage run -m unittest discover -s tests
+	coverage html
+	coverage report
 	@echo "Coverage report generated in htmlcov/index.html"
 
 # Code Quality
@@ -78,13 +78,13 @@ type-check-pre-commit:
 	mypy --cache-dir=/dev/null src/space_hulk_game tests tools *.py
 
 security:
-	.venv/bin/bandit -r src/ -c pyproject.toml
+	bandit -r src/ -c pyproject.toml
 
 security-report:
-	.venv/bin/bandit -r src/ -c pyproject.toml -f json -o bandit-report.json
+	bandit -r src/ -c pyproject.toml -f json -o bandit-report.json
 
 check-yaml:
-	.venv/bin/yamllint .
+	yamllint .
 
 check-all: format lint type-check security check-yaml test
 	@echo "✅ All checks passed!"
@@ -146,10 +146,10 @@ run-crew:
 	crewai run
 
 validate-api:
-	.venv/bin/python tools/validate_api.py
+	python tools/validate_api.py
 
 validate-config:
-	.venv/bin/python -m space_hulk_game.main test 1 test-model
+	python -m space_hulk_game.main test 1 test-model
 
 # Maintenance
 clean:
