@@ -117,9 +117,9 @@ npm run build
 
 **Docker**:
 ```bash
-docker-compose up -d
+docker compose up -d
 curl http://localhost:8000/health
-docker-compose down
+docker compose down
 ```
 
 ## Status Badges
