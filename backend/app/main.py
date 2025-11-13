@@ -8,6 +8,7 @@ from datetime import datetime, timezone
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from . import __version__
 from .config import settings
 
 # Setup structured logging
@@ -29,7 +30,7 @@ async def lifespan(_app: FastAPI) -> AsyncGenerator[None, None]:
     Yields:
         None
     """
-    logger.info("Starting Space Hulk Game API", extra={"version": "1.0.0"})
+    logger.info("Starting Space Hulk Game API", extra={"version": __version__})
     yield
     logger.info("Shutting down Space Hulk Game API")
 
@@ -37,7 +38,7 @@ async def lifespan(_app: FastAPI) -> AsyncGenerator[None, None]:
 app = FastAPI(
     title="Space Hulk Game API",
     description="Browser-based game creation and play interface",
-    version="1.0.0",
+    version=__version__,
     lifespan=lifespan,
 )
 
@@ -65,6 +66,6 @@ async def health_check() -> dict[str, str]:
     """
     return {
         "status": "healthy",
-        "version": "1.0.0",
+        "version": __version__,
         "timestamp": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
     }

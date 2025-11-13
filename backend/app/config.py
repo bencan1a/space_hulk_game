@@ -2,6 +2,7 @@
 
 from typing import Literal
 
+from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -13,18 +14,30 @@ class Settings(BaseSettings):
     )
 
     # API Configuration
-    api_host: str = "0.0.0.0"
-    api_port: int = 8000
-    api_environment: Literal["development", "staging", "production"] = "development"
+    api_host: str = Field(
+        default="0.0.0.0", description="Host to bind the API server"
+    )
+    api_port: int = Field(default=8000, description="Port to bind the API server")
+    api_environment: Literal["development", "staging", "production"] = Field(
+        default="development", description="Runtime environment"
+    )
 
     # Logging
-    log_level: str = "INFO"
+    log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"] = Field(
+        default="INFO", description="Logging level"
+    )
 
     # CORS
-    cors_origins: list[str] = ["http://localhost:3000", "http://localhost:5173"]
+    cors_origins: list[str] = Field(
+        default=["http://localhost:3000", "http://localhost:5173"],
+        description="Allowed CORS origins for frontend integration",
+    )
 
     # Database - placeholder for future use
-    database_url: str = "sqlite:///./data/database.db"
+    database_url: str = Field(
+        default="sqlite:///./data/database.db",
+        description="Database connection URL (placeholder for future use)",
+    )
 
 
 settings = Settings()
