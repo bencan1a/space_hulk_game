@@ -3,22 +3,11 @@
 import time
 from typing import Any
 
-from celery import Task
-
 from ..celery_app import celery_app
-
-
-class CallbackTask(Task):
-    """Base task with callback support for progress tracking."""
-
-    def __call__(self, *args: Any, **kwargs: Any) -> Any:
-        """Execute task with progress tracking."""
-        return super().__call__(*args, **kwargs)
 
 
 @celery_app.task(
     bind=True,
-    base=CallbackTask,
     name="app.tasks.example_task",
     max_retries=3,
     default_retry_delay=60,

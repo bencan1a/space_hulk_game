@@ -12,8 +12,8 @@ logger = logging.getLogger(__name__)
 # Initialize Celery
 celery_app = Celery(
     "space_hulk_game",
-    broker=settings.redis_url,
-    backend=settings.redis_url,
+    broker=settings.celery_broker_url,
+    backend=settings.celery_result_backend,
     include=["app.tasks.example_task"],
 )
 

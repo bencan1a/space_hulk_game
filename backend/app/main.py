@@ -7,7 +7,7 @@ from datetime import datetime, timezone
 from typing import Any
 
 from celery.result import AsyncResult
-from fastapi import FastAPI
+from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
 
 from . import __version__
@@ -76,12 +76,14 @@ async def health_check() -> dict[str, str]:
 
 
 @app.post("/api/v1/tasks/example")
-async def trigger_example_task(duration: int = 10) -> dict[str, str]:
+async def trigger_example_task(
+    duration: int = Query(default=10, ge=1, le=300, description="Task duration in seconds"),
+) -> dict[str, str]:
     """
     Trigger an example long-running task.
 
     Args:
-        duration: How long the task should run (seconds)
+        duration: How long the task should run (seconds, 1-300)
 
     Returns:
         dict: Task ID for status checking
@@ -106,10 +108,11 @@ async def get_task_status(task_id: str) -> dict[str, Any]:
     if task_result.state == "PENDING":
         response = {"state": task_result.state, "status": "Task is waiting to start"}
     elif task_result.state == "PROGRESS":
+        info = task_result.info or {}
         response = {
             "state": task_result.state,
-            "progress": task_result.info.get("progress", 0),
-            "status": task_result.info.get("status", ""),
+            "progress": info.get("progress", 0),
+            "status": info.get("status", ""),
         }
     elif task_result.state == "SUCCESS":
         response = {"state": task_result.state, "result": task_result.result}

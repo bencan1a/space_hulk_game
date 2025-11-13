@@ -1,13 +1,6 @@
 """Tests for Celery task execution."""
 
-import sys
-from pathlib import Path
-
 import pytest
-
-# Add parent directory to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent))
-
 from app.celery_app import celery_app
 from app.tasks.example_task import example_failure_task, simple_add
 
@@ -26,10 +19,17 @@ def celery_config():
 @pytest.fixture(autouse=True)
 def setup_celery_test_mode(celery_config):
     """Set up Celery in test mode for all tests."""
+    # Store original config values
+    original_config = {
+        "task_always_eager": celery_app.conf.task_always_eager,
+        "task_eager_propagates": celery_app.conf.task_eager_propagates,
+        "broker_url": celery_app.conf.broker_url,
+        "result_backend": celery_app.conf.result_backend,
+    }
     celery_app.conf.update(celery_config)
     yield
-    # Reset after test
-    celery_app.conf.task_always_eager = False
+    # Restore original configuration
+    celery_app.conf.update(original_config)
 
 
 def test_simple_task_execution():

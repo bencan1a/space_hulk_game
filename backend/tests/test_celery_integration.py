@@ -1,29 +1,23 @@
 """Integration tests for Celery with FastAPI."""
 
-import asyncio
-import sys
-from pathlib import Path
-
 import pytest
-from httpx import ASGITransport, AsyncClient
-
-# Add parent directory to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent))
-
 from app.celery_app import celery_app
 from app.main import app
+from httpx import ASGITransport, AsyncClient
 
 
 @pytest.fixture(autouse=True)
 def setup_celery_eager_mode():
     """Set up Celery in eager mode for integration tests."""
+    original_eager = celery_app.conf.task_always_eager
+    original_propagates = celery_app.conf.task_eager_propagates
     celery_app.conf.task_always_eager = True
     celery_app.conf.task_eager_propagates = True
     celery_app.conf.broker_url = "memory://"
     celery_app.conf.result_backend = "cache+memory://"
     yield
-    celery_app.conf.task_always_eager = False
-    celery_app.conf.task_eager_propagates = False
+    celery_app.conf.task_always_eager = original_eager
+    celery_app.conf.task_eager_propagates = original_propagates
 
 
 @pytest.mark.asyncio
@@ -48,10 +42,7 @@ async def test_check_task_status_via_api():
         response = await client.post("/api/v1/tasks/example?duration=1")
         task_id = response.json()["task_id"]
 
-        # Wait a bit for eager mode to complete
-        await asyncio.sleep(0.1)
-
-        # Check status
+        # Check status (task already complete in eager mode)
         status_response = await client.get(f"/api/v1/tasks/{task_id}/status")
         assert status_response.status_code == 200
 
