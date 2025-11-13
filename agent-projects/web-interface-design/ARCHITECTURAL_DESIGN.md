@@ -434,7 +434,7 @@ class GameEngineWrapper:
 
 ```python
 # models/story.py
-from sqlalchemy import Column, Integer, String, DateTime, Text, JSON
+from sqlalchemy import Column, Integer, String, DateTime, Text, JSON, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
