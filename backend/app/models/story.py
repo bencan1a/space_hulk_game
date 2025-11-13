@@ -42,9 +42,7 @@ class Story(Base):
     game_file_path = Column(String(500), nullable=False, unique=True)
 
     # Metadata
-    created_at = Column(
-        DateTime, nullable=False, default=lambda: datetime.now(timezone.utc)
-    )
+    created_at = Column(DateTime, nullable=False, default=lambda: datetime.now(timezone.utc))
     updated_at = Column(
         DateTime,
         nullable=False,

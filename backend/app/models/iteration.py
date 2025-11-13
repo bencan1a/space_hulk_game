@@ -25,9 +25,7 @@ class Iteration(Base):
     __tablename__ = "iterations"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    story_id = Column(
-        Integer, ForeignKey("stories.id", ondelete="CASCADE"), nullable=False
-    )
+    story_id = Column(Integer, ForeignKey("stories.id", ondelete="CASCADE"), nullable=False)
 
     iteration_number = Column(Integer, nullable=False)
     feedback = Column(Text, nullable=False)
@@ -35,9 +33,7 @@ class Iteration(Base):
 
     # Result
     game_file_path = Column(String(500), nullable=False)
-    created_at = Column(
-        DateTime, nullable=False, default=lambda: datetime.now(timezone.utc)
-    )
+    created_at = Column(DateTime, nullable=False, default=lambda: datetime.now(timezone.utc))
 
     # Status
     status = Column(String(20), default="pending", nullable=False)
