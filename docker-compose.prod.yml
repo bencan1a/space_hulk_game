@@ -1,8 +1,6 @@
-version: '3.8'
-
 # Production Docker Compose Configuration
 # This file is a placeholder for future production deployment.
-# 
+#
 # Key differences from development (docker-compose.yml):
 # - No volume mounts for hot reload
 # - Production-optimized builds
@@ -15,25 +13,27 @@ version: '3.8'
 
 services:
   # TODO: Add production-optimized service definitions
+  # Example service configurations:
+  #
   # frontend:
   #   build:
   #     context: ./frontend
   #     dockerfile: Dockerfile.prod
   #   restart: always
   #   ...
-
+  #
   # backend:
   #   build:
   #     context: ./backend
   #     dockerfile: Dockerfile.prod
   #   restart: always
   #   ...
-
+  #
   # postgres:
   #   image: postgres:15-alpine
   #   restart: always
   #   ...
-
+  #
   # nginx:
   #   image: nginx:alpine
   #   restart: always

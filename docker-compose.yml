@@ -78,6 +78,7 @@ services:
       retries: 5
 
   # PostgreSQL (optional, for production)
+  # Uncomment the service below when you want to use PostgreSQL instead of SQLite
   # postgres:
   #   image: postgres:15-alpine
   #   environment:
