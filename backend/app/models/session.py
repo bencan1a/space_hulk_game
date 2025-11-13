@@ -25,17 +25,13 @@ class Session(Base):
     __tablename__ = "sessions"
 
     id = Column(String(36), primary_key=True)  # UUID
-    story_id = Column(
-        Integer, ForeignKey("stories.id", ondelete="SET NULL"), nullable=True
-    )
+    story_id = Column(Integer, ForeignKey("stories.id", ondelete="SET NULL"), nullable=True)
 
     status = Column(String(20), nullable=False)  # creating, iterating, complete, error
     current_step = Column(String(50), nullable=True)
     progress_percent = Column(Integer, default=0, nullable=False)
 
-    created_at = Column(
-        DateTime, nullable=False, default=lambda: datetime.now(timezone.utc)
-    )
+    created_at = Column(DateTime, nullable=False, default=lambda: datetime.now(timezone.utc))
     completed_at = Column(DateTime, nullable=True)
 
     error_message = Column(Text, nullable=True)

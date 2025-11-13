@@ -2,7 +2,7 @@
 
 from typing import Literal
 
-from pydantic import Field
+from pydantic import Field, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -37,11 +37,26 @@ class Settings(BaseSettings):
         description="Database connection URL (placeholder for future use)",
     )
 
-    # Redis - for Celery message broker
+    # Redis & Celery
     redis_url: str = Field(
         default="redis://localhost:6379/0",
         description="Redis connection URL for Celery",
     )
+    celery_broker_url: str = Field(
+        default="", description="Celery broker URL (auto-set from redis_url)"
+    )
+    celery_result_backend: str = Field(
+        default="", description="Celery result backend URL (auto-set from redis_url)"
+    )
+
+    @model_validator(mode="after")
+    def set_celery_urls(self) -> "Settings":
+        """Set Celery URLs from Redis URL if not provided."""
+        if not self.celery_broker_url:
+            self.celery_broker_url = self.redis_url
+        if not self.celery_result_backend:
+            self.celery_result_backend = self.redis_url
+        return self
 
 
 settings = Settings()

@@ -60,9 +60,7 @@ def upgrade() -> None:
         ),
         sa.PrimaryKeyConstraint("id"),
     )
-    op.create_index(
-        "idx_iterations_story", "iterations", ["story_id", "iteration_number"]
-    )
+    op.create_index("idx_iterations_story", "iterations", ["story_id", "iteration_number"])
 
     # Sessions table
     op.create_table(
