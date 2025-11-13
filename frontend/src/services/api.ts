@@ -61,18 +61,25 @@ class ApiClient {
         // Handle errors
         if (error.response) {
           // Server responded with error status
-          console.error('API Error Response:', error.response.status, error.response.data)
+          if (import.meta.env.DEV) {
+            console.error('API Error Response:', error.response.status, error.response.data)
+          }
         } else if (error.request) {
           // Request made but no response received
-          console.error('API No Response:', error.request)
+          if (import.meta.env.DEV) {
+            console.error('API No Response:', error.request)
+          }
         } else {
           // Error in request setup
-          console.error('API Request Error:', error.message)
+          if (import.meta.env.DEV) {
+            console.error('API Request Error:', error.message)
+          }
         }
 
         // Retry logic for specific errors
         if (this.shouldRetry(error)) {
-          return retryRequest(this.client, error.config!, 3)
+          if (!error.config) return Promise.reject(handleApiError(error))
+          return retryRequest(this.client, error.config, 3)
         }
 
         throw handleApiError(error)

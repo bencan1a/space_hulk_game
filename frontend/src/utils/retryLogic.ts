@@ -17,7 +17,9 @@ export async function retryRequest(
       if (i < maxRetries - 1) {
         // Exponential backoff
         const waitTime = delay * Math.pow(2, i)
-        console.log(`Retry ${i + 1}/${maxRetries} after ${waitTime}ms...`)
+        if (import.meta.env.DEV) {
+          console.log(`Retry ${i + 1}/${maxRetries} after ${waitTime}ms...`)
+        }
         await new Promise((resolve) => setTimeout(resolve, waitTime))
       }
     }
