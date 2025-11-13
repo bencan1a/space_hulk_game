@@ -9,7 +9,7 @@ docker compose up -d
 
 # Wait for services to be ready
 echo "Waiting for services to be ready..."
-sleep 10
+docker compose wait backend frontend || exit 1
 
 # Test backend health
 echo "Testing backend health endpoint..."
