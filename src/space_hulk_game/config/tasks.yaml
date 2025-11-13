@@ -503,7 +503,8 @@ TranslateNarrativeToGameStructure:
        - Use directional pairs: north↔south, east↔west, up↔down, forward↔back
        - Use location pairs: "corridor"↔"hangar", "airlock"↔"main deck", etc.
        - Example: If scene A has exit "north" → scene B, then scene B MUST have exit "south" → scene A
-       - Example: If scene A has exit "airlock" → scene B, then scene B MUST have exit "hangar" (or original location name) → scene A
+       - Example: If scene A has exit "airlock" → scene B, then scene B MUST have exit
+        "hangar" (or original location name) → scene A
 
        **Exit Naming Strategy:**
        - Prefer compass directions (north/south/east/west) for clear spatial relationships
@@ -651,7 +652,8 @@ TranslateNarrativeToGameStructure:
     MUST pass all validation checks:
     - All scenes are reachable from the starting scene
     - All exits point to valid scenes
-    - **ALL EXITS ARE BIDIRECTIONAL** - if scene A has exit "north" to scene B, then scene B MUST have exit "south" to scene A
+    - **ALL EXITS ARE BIDIRECTIONAL** - if scene A has exit "north" to scene B,
+      then scene B MUST have exit "south" to scene A
     - Exit names are grammatically correct and work with "There is an exit to the [NAME]"
     - Exit names use proper directional pairs (north↔south, east↔west, up↔down, forward↔back)
     - Decision points are mapped to multiple exits (NOT to events)

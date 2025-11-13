@@ -2,9 +2,9 @@
 
 ## Document Information
 
-**Version**: 1.0  
-**Created**: 2025-11-12  
-**Related**: PRD_WEB_INTERFACE.md  
+**Version**: 1.0
+**Created**: 2025-11-12
+**Related**: PRD_WEB_INTERFACE.md
 **Purpose**: Visual representations of user flows and system interactions
 
 ---
@@ -602,41 +602,33 @@ App
                   │Website           │
                   └────────┬─────────┘
                            │
-                    ┌──────▼──────┐
-                    │Has stories? │
-                    └──┬────────┬──┘
+                  ┌────────▼────────┐
+                  │  Landing Page   │
+                  │  (Story Library)│
+                  │                 │
+                  │ Two Options:    │
+                  │ • Browse/Play   │
+                  │ • Create New    │
+                  └────┬────────┬───┘
                        │        │
-                    Yes│        │No
+                Browse │        │ Create
                        │        │
          ┌─────────────┘        └──────────────┐
          │                                     │
 ┌────────▼────────┐                   ┌────────▼────────┐
-│Browse Library   │                   │Empty State      │
-│                 │                   │"Create First    │
-│Want to:         │                   │ Story" CTA      │
-│- Play existing  │                   └────────┬────────┘
-│- Create new     │                            │
-└────┬────────┬───┘                            │
-     │        │                                │
-  Play│       │Create                          │
-     │        │                                │
-     │        └────────────────────────────────┘
-     │                                         │
-     │                                         ▼
-     │                                ┌────────────────┐
-     │                                │Create New Story│
-     │                                │                │
-     │                                │Template or     │
-     │                                │Custom?         │
-     │                                └────┬──────┬────┘
-     │                                     │      │
-     │                              Template│    │Custom
-     │                                     │      │
-     │                                     ▼      ▼
-     │                               ┌─────────────────┐
-     │                               │Story Creation   │
-     │                               │Flow             │
-     │                               └─────────────────┘
+│Story Library    │                   │Create New Story │
+│                 │                   │                 │
+│Shows all stories│                   │Template or      │
+│(samples + user  │                   │Custom?          │
+│ created)        │                   └────┬──────┬─────┘
+│                 │                        │      │
+│Select story:    │                 Template│    │Custom
+│- Play           │                        │      │
+│- View details   │                        ▼      ▼
+│- Iterate        │                  ┌──────────────────┐
+└────┬────────────┘                  │Story Creation    │
+     │                               │Flow              │
+  Play│                               └─────────────────┘
      │
      ▼
 ┌─────────────┐
@@ -661,6 +653,5 @@ App
 - Identifying integration points
 - Designing UI/UX flows
 
-**Version**: 1.0  
+**Version**: 1.0
 **Last Updated**: 2025-11-12
-

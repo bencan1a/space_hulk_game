@@ -1,94 +1,104 @@
 {
   "narrative_foundation": {
-    "title": "Space Hulk: Echoes of the Void",
-    "setting": "The game takes place aboard the 'Goliath's Maw,' a titanic Space Hulk – a conglomeration of derelict starships, asteroids, and orbital debris, adrift in the Imperium's uncharted sectors. This particular Hulk is ancient, scarred by untold millennia of warp travel and xenos infestation, rumored to contain technological relics and secrets from humanity's golden age. Its interior is a labyrinth of decaying corridors, vast, silent chambers, and choked ventilation shafts, punctuated by the grotesque biology of Genestealer infestations and the spectral echoes of long-dead crews. The atmosphere is oppressive, dark, and claustrophobic, with artificial gravity flickering, power conduits sparking erratically, and the pervasive, chilling scent of ozone and rot. Beyond the immediate threat of the Genestealers, the Hulk itself is a character, its vastness and age hinting at cosmic horrors and forgotten histories.",
+    "title": "Terminus: Echoes of the Void",
+    "setting": "The immense, derelict Space Hulk known as the 'Leviathan's Wake' drifts through the Segmentum Pacificus. This colossal, biomechanical graveyard is an amalgam of countless fused starships, ancient alien vessels, and forgotten Imperial installations, stretching for thousands of kilometers. Its interior is a labyrinth of decaying corridors, zero-gravity chambers filled with centuries of void debris, and strange, bio-organic growths. The air is thick with dust, the stench of decay, and the metallic tang of stagnating machinery. Isolated pockets of dim, flickering emergency lighting barely pierce the oppressive gloom, leaving vast sections in perpetual darkness, humming with unsettling silence or the ominous creak of twisting metal. The environment is relentlessly claustrophobic, hostile, and constantly shifting, a monument to destruction and a breeding ground for unspeakable horrors.",
     "themes": [
-      "Survival vs. Sacrifice",
-      "Humanity's Frailty in the Face of the Alien",
-      "The Nature of Faith and Despair",
-      "Uncovering Lost Knowledge (and its Price)",
-      "The Corrupting Influence of the Warp"
+      "Survival against impossible odds",
+      "Sacrifice vs. self-preservation",
+      "The corrupting influence of the Warp / Xenos psychic presence",
+      "The nature of faith and duty in the grim darkness of the far future",
+      "The moral ambiguities of war and desperate measures",
+      "The horror of the unknown and the cosmic indifference of the void"
     ],
-    "tone": "Gritty, terrifying, desperate, and darkly epic. The narrative is infused with a sense of dread and existential horror, emphasizing the fragility of human life against overwhelming odds. Moments of heroism are grim and often come at a terrible cost, reinforcing the 'grimdark' aesthetic of the Warhammer 40,000 universe. The tone should evoke a constant feeling of claustrophobia, paranoia, and the creeping dread of being hunted.",
+    "tone": "Grimdark, suspenseful, claustrophobic, action-horror, desperate, subtly philosophical, with moments of visceral brutality and underlying existential dread.",
     "plot_points": [
       {
-        "id": "pp_01_insertion",
-        "name": "Insertion and Initial Contact",
-        "description": "A squad of Terminators from the Blood Angels Chapter's Death Company, accompanied by a seasoned Librarian, is deployed onto the 'Goliath's Maw.' Their mission: neutralise the Genestealer threat and retrieve a xenos artifact detected by Astropathic choirs. Almost immediately, they are separated and ambushed, suffering heavy casualties and losing critical equipment. The player character, Brother-Sergeant Valerius, finds himself isolated with a few remaining Terminators, deep within the Hulk."
+        "id": "plot1_distress_beacon",
+        "name": "The Distress Beacon",
+        "description": "A Deathwatch Kill Team, a small but elite detachment of genetically enhanced Space Marines, is dispatched to investigate an ancient, faint distress beacon emanating from the 'Leviathan's Wake.' The beacon's signal is anomalous, a blend of ancient Imperial codes and unknown xenos signatures, far beyond standard Imperial patrol routes. Their initial mission: identify the source, neutralize any immediate threats, and retrieve any valuable xenos archeotech or lost Imperial installations."
       },
       {
-        "id": "pp_02_reunion_and_objective",
-        "name": "Reunion and Re-establishing Objective",
-        "description": "Valerius navigates the treacherous corridors, reuniting with other scattered squad members, including the enigmatic Librarian, Brother Arion. Arion reveals the true nature of their primary objective: retrieving a C'tan Shard, a fragment of a star god, that was integrated into the Hulk's core millennia ago and is now causing dangerous warp fluctuations. The Genestealer infestation is merely a symptom of the shard's awakening."
+        "id": "plot2_descent_darkness",
+        "name": "Descent into Darkness",
+        "description": "Upon breaching the Space Hulk, the Kill Team discovers it is infested with a dormant Genestealer Cult, now awakening in response to their presence. The Kill Team quickly realizes this is no ordinary infestation; the cult operates with disturbing sophistication and scale. They also find unsettling evidence of previous, failed Imperial expeditions – fragmented logs, derelict voidships, and the grisly remains of other military units – hinting at a greater, more sinister presence within the hulk than mere Genestealers."
       },
       {
-        "id": "pp_03_the_hive_mind_manifests",
-        "name": "Encountering the Hive Mind's Will",
-        "description": "As the Terminators delve deeper, they encounter increasingly complex and aggressive Genestealer tactics, indicating the presence of a Broodlord or even a Patriarch directly influenced by the Hive Mind, which is drawn to the C'tan Shard's energy. They discover evidence of previous, failed attempts by other Imperial factions to cleanse the Hulk, their remnants providing both clues and warnings."
+        "id": "plot3_echoes_past",
+        "name": "Echoes of the Past",
+        "description": "As the Kill Team battles deeper into the Leviathan's Wake, they uncover ancient, fragmented logs and explore vast, non-Imperial structures within the hulk. These discoveries suggest the Space Hulk is not merely a collection of random wrecks, but a vessel of immense, possibly sentient, alien origin or one profoundly corrupted by an ancient evil, potentially a nascent Necron Tomb World or a colossal vessel from a long-forgotten xenos empire distorted by the Warp. They find increasingly disturbing signs of ritualistic sacrifice and arcane xenos glyphs, indicating the Genestealer Cult serves a larger, more ancient horror within the hulk, and that their awakening was deliberate."
       },
       {
-        "id": "pp_04_secrets_of_the_hulk",
-        "name": "Unveiling the Hulk's Secrets",
-        "description": "Valerius and his squad uncover fragmented data logs, ancient pict-recordings, and cryptic murals detailing the Hulk's origins. It is revealed that the 'Goliath's Maw' was once an experimental Imperial warship, lost during the Horus Heresy, and subsequently fused with xenos vessels and warp-tainted debris. The C'tan Shard was a captured weapon, intended for study, which escaped containment and began slowly corrupting the vessel, attracting all manner of horrors, including the Genestealers."
+        "id": "plot4_awakened_horror",
+        "name": "The Awakened Horror",
+        "description": "The Genestealer Cult's frantic awakening is revealed as merely a symptom, a prelude to a far greater cataclysm. The true horror lurking at the heart of the Leviathan's Wake is an ancient, dormant entity – 'The Heart of the Leviathan.' This could be a fragment of a C'tan, a powerful Warp daemon, a bio-weapon from an extinct xenos race, or an unfathomable cosmic intelligence. It has been slowly consuming the consciousness and materials of the hulk for millennia. The Genestealer Cult is striving to completely reanimate it, believing it to be a harbinger of their ultimate savior and the genesis of their galactic ascension."
       },
       {
-        "id": "pp_05_moral_dilemma_shard",
-        "name": "Moral Dilemma: The Shard's Power",
-        "description": "The Librarian, Brother Arion, begins to show signs of being subtly influenced by the C'tan Shard's psychic emanations. He presents a dangerous proposition: instead of destroying the shard, perhaps its immense power could be 'purified' and wielded by the Imperium against its foes. This creates a rift within the squad, forcing Valerius to choose between strict adherence to orders and the potential, albeit heretical, weaponization of a cosmic deity."
+        "id": "plot5_moral_crucible",
+        "name": "Moral Crucible",
+        "description": "Faced with the full horror of 'The Heart of the Leviathan' awakening, the Kill Team confronts a critical and agonizing moral choice. They can attempt to destroy the awakened entity, a feat that would likely require immense sacrifice, potentially detonating the entire Space Hulk and ensuring their own demise. Alternatively, they could try to contain it, risking its eventual escape and the devastation of vast swathes of the Segmentum. The desperate situation may also present options to sacrifice cult members, or even one of their own brothers for a tactical advantage, forcing the players to weigh duty, dogma, and their individual humanity."
       },
       {
-        "id": "pp_06_final_confrontation_and_choice",
-        "name": "Final Confrontation and Doomsday Protocol",
-        "description": "The squad reaches the heart of the Hulk, a chamber pulsating with unholy energy where the C'tan Shard resides, guarded by the empowered Genestealer Patriarch and its brood. A doomsday protocol, left by the original crew, is discovered – a way to destabilize the Hulk and detonate it, ensuring the shard's destruction, but at the cost of the squad's lives. Valerius must make a final, harrowing choice: activate the protocol, attempt to 'purify' the shard with Arion, or find another way to escape with the shard, risking its influence on the galaxy."
+        "id": "plot6_final_stand",
+        "name": "The Final Stand",
+        "description": "A climactic, desperate confrontation with the full might of the Genestealer Cult and the increasingly manifested 'Heart of the Leviathan.' The outcome hinges on the player's prior choices and tactical prowess. This could culminate in a desperate race against time to escape the crumbling hulk, a self-sacrificial act to detonate the Leviathan's Wake from within, or a brutal, close-quarters battle to contain or neutralize the ultimate threat, leaving the fate of the Segmentum hanging in the balance."
       }
     ],
     "characters": [
       {
-        "name": "Brother-Sergeant Valerius",
-        "role": "Player Character, Squad Leader (Blood Angels, Death Company)",
-        "backstory": "A veteran Terminator of the Blood Angels, recently inducted into the Death Company. He grapples with the Black Rage, a psychic curse that threatens to consume him, making his actions unpredictable and his resolve constantly tested. His tactical prowess is unmatched, but his mind is a battlefield. He is haunted by the past failures of his Chapter and seeks redemption through self-sacrifice."
+        "name": "Brother-Sergeant Kaelen",
+        "role": "Commander of the Deathwatch Kill Team. A veteran Ultramarine, rigid in his adherence to the Codex Astartes.",
+        "backstory": "Haunted by past failures on other Xenos expeditions, Kaelen is stoic and unyielding in his duty, often suppressing his emotions. He believes strictly in order and procedure as the only salvation, struggling with the moral flexibility required by the Deathwatch oath. His faith in the Emperor is absolute, but he grapples with the immense, unending horror of the galaxy."
       },
       {
-        "name": "Brother Arion",
-        "role": "Librarian (Blood Angels)",
-        "backstory": "A powerful psyker and scholar, Arion was assigned to the mission due to his knowledge of xenos artifacts and warp lore. He is intellectually curious, sometimes to a fault, pushing the boundaries of sanctioned knowledge. He believes that understanding is power, even if that understanding comes from forbidden sources. He becomes increasingly drawn to the C'tan Shard's energies, challenging his own faith and loyalty."
+        "name": "Brother Valerius",
+        "role": "Techmarine, revered for his technical prowess and analytical mind, hailing from the Iron Hands Chapter.",
+        "backstory": "Valerius is pragmatic and distrusts anything that cannot be quantified by science or logic. He values technology and strategic efficiency above all else, often clashing with his brothers' more faith-driven approaches. He is struggling with the continuous process of replacing his organic body with cybernetic enhancements, questioning what remains of his humanity."
       },
       {
-        "name": "Brother Tiberius",
-        "role": "Tactical Marine (Blood Angels, Death Company)",
-        "backstory": "A stoic and unwavering member of the Death Company, Tiberius is consumed by the Black Rage but maintains a disciplined ferocity. He is a grim reminder of Valerius's own potential fate. His actions are often driven by visions of Sanguinius's sacrifice, making him fiercely loyal but prone to acts of extreme violence."
+        "name": "Brother Tyberius",
+        "role": "Assault Marine, a whirlwind of furious combat from the Blood Angels Chapter.",
+        "backstory": "Impulsive, fiercely courageous, and relentlessly aggressive, Tyberius embodies the martial fury of the Blood Angels. He constantly struggles with the ominous whispers of the Black Rage and the Red Thirst, seeking redemption and a glorious end through self-sacrificial combat. He views every engagement as an opportunity to prove his worth and cleanse his soul."
       },
       {
-        "name": "The Patriarch",
-        "role": "Antagonist, Genestealer Leader",
-        "backstory": "An ancient and incredibly intelligent Genestealer Patriarch, it has presided over the infestation of the 'Goliath's Maw' for centuries. Its psychic prowess is amplified by the proximity of the C'tan Shard, making it a formidable foe. It acts as the local nexus for the Tyranid Hive Mind, orchestrating complex ambushes and evolving its brood's tactics."
+        "name": "Brother-Apothecary Lyra",
+        "role": "Combat medic and xenobiologist, a tactical and observant member from the Raven Guard Chapter.",
+        "backstory": "Lyra is the Kill Team's life-saver and keen observer, possessing a sharp intellect and a scientific curiosity that often borders on heresy. She is morally conflicted, understanding the extreme methods of the Imperium are necessary but often questioning their cost. Her desire to understand the xenos threats sometimes clashes with her duty to exterminate them."
       },
       {
-        "name": "The C'tan Shard (Subtle Influence)",
-        "role": "Antagonist, Cosmic Entity",
-        "backstory": "A fragmented piece of a Necron C'tan (Star God), it was once a colossal being capable of devouring stars. Imprisoned and weaponized by an ancient civilization (or possibly the Imperium itself in a forgotten era), it now radiates immense, raw cosmic and psychic energy, subtly corrupting life around it and attracting the Tyranids. Its influence is a slow, insidious horror, not a direct physical threat."
+        "name": "The Patriarch of the Cult",
+        "role": "The ancient, psychic leader of the Genestealer Cult, a cunning Purestrain Genestealer.",
+        "backstory": "Millennia old, this Purestrain Patriarch commands the Genestealer Cult with immense psychic power and insidious manipulation. It has orchestrated the awakening of 'The Heart of the Leviathan' over centuries, believing it to be a divine entity destined to lead them to galactic domination and ultimately 'consume' the false Emperor. It possesses a chilling intelligence and the ability to influence weak minds."
+      },
+      {
+        "name": "The Heart of the Leviathan",
+        "role": "The ancient, dormant/awakening cosmic entity residing at the core of the Space Hulk.",
+        "backstory": "Its true origin is shrouded in mystery. It could be a fragment of a C'tan, a primordial Warp daemon, a bio-weapon from an extinct xenos empire, or a unique cosmic intelligence trapped and distorted by time and Warp energies. Dormant for eons, it has been slowly absorbing biomass, psychic energy, and the very fabric of the Space Hulk to reconstitute itself. Its presence subtly influences the minds of those near it, driving madness and devotion in equal measure."
       }
     ],
     "conflicts": [
       {
-        "type": "Man vs. Alien/Xenos",
-        "description": "The primary physical conflict: the Blood Angels Terminators against the relentless, overwhelming hordes of Genestealers, adapted to the Space Hulk's environment and emboldened by a powerful Patriarch."
-      },
-      {
         "type": "Man vs. Environment",
-        "description": "The Space Hulk itself is a hostile entity – decaying infrastructure, treacherous navigation, failing life support, and unpredictable warp phenomena constantly imperil the squad. The claustrophobic and dark environment breeds fear and paranoia."
+        "description": "The Space Hulk itself is a hostile, ever-changing environment. Constant threats include collapsing structures, depressurization, zero-gravity sequences, hazardous waste, failing life support, and the sheer claustrophobia of its endless, dark corridors."
       },
       {
-        "type": "Man vs. Self (Internal Struggle)",
-        "description": "Valerius's battle with the Black Rage and the Red Thirst. The constant fight against succumbing to hereditary madness, balancing tactical acumen with raw, berserk fury. Brother Arion's internal struggle with forbidden knowledge and the allure of the C'tan Shard's power."
+        "type": "Man vs. Xenos",
+        "description": "The relentless, ever-increasing horde of Genestealers, Genestealer Hybrids, and other abominations of the cult. Players face overwhelming numbers, cunning ambushes, and specialized enemy types."
       },
       {
-        "type": "Man vs. The Unknown/Cosmic Horror",
-        "description": "The C'tan Shard represents a cosmic entity beyond human comprehension, its power and true intentions an existential threat. The ancient mysteries of the Hulk, hinting at forgotten atrocities and galactic-scale events, contribute to this sense of dread."
+        "type": "Man vs. The Unknown Terror",
+        "description": "The ancient, awakening entity deep within the Space Hulk. Its true nature, powers, and intentions are slowly revealed, building existential dread and forcing difficult philosophical considerations beyond typical xenos threats."
       },
       {
-        "type": "Ideological/Moral Conflict",
-        "description": "The clash between Imperial dogma (destroying xenos artifacts at all costs) and the temptation of heresy (weaponizing the C'tan Shard). This is embodied in the evolving relationship and opposing views of Valerius and Arion."
+        "type": "Internal (Character) Conflict",
+        "description": "Each Space Marine grapples with their individual Chapter's stringent doctrines, personal demons (such as the Black Rage, technological obsession, or moral doubt), and the increasingly desperate moral dilemmas presented by the mission."
+      },
+      {
+        "type": "Ideological Conflict",
+        "description": "The unwavering Imperial dogma and the necessity of absolute extermination clash with the terrifying reality of the xenos threat and the morally ambiguous measures required for survival. The conflicting priorities of retrieving valuable archeotech versus containing a galactic-level threat create tension within the Kill Team."
+      },
+      {
+        "type": "Time Constraint",
+        "description": "The Genestealer Cult's ritual to fully awaken 'The Heart of the Leviathan' acts as a relentless ticking clock. The team must complete their objectives before the entity reaches its full power, leading to irreversible catastrophe."
       }
     ]
   }

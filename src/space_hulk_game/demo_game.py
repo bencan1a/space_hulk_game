@@ -39,9 +39,9 @@ except ImportError:
         def __getattr__(self, name):
             return ""
 
-    Fore = Style = _DummyColor()
+    Fore = Style = _DummyColor()  # type: ignore[assignment]
 
-    def colorama_init(**_kwargs) -> None:
+    def colorama_init(**_kwargs) -> None:  # type: ignore[misc]
         pass
 
 

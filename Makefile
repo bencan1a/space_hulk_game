@@ -50,15 +50,15 @@ dev: install-dev
 
 # Testing
 test:
-	python -m unittest discover -b -q -s tests
+	.venv/bin/python -m unittest discover -b -q -s tests
 
 test-real-api:
-	RUN_REAL_API_TESTS=1 python -m unittest discover -s tests -v
+	RUN_REAL_API_TESTS=1 .venv/bin/python -m unittest discover -s tests -v
 
 coverage:
-	coverage run -m unittest discover -s tests
-	coverage html
-	coverage report
+	.venv/bin/coverage run -m unittest discover -s tests
+	.venv/bin/coverage html
+	.venv/bin/coverage report
 	@echo "Coverage report generated in htmlcov/index.html"
 
 # Code Quality
@@ -78,13 +78,13 @@ type-check-pre-commit:
 	mypy --cache-dir=/dev/null src/space_hulk_game tests tools *.py
 
 security:
-	bandit -r src/ -c pyproject.toml
+	.venv/bin/bandit -r src/ -c pyproject.toml
 
 security-report:
-	bandit -r src/ -c pyproject.toml -f json -o bandit-report.json
+	.venv/bin/bandit -r src/ -c pyproject.toml -f json -o bandit-report.json
 
 check-yaml:
-	yamllint .
+	.venv/bin/yamllint .
 
 check-all: format lint type-check security check-yaml test
 	@echo "✅ All checks passed!"
@@ -146,10 +146,10 @@ run-crew:
 	crewai run
 
 validate-api:
-	python tools/validate_api.py
+	.venv/bin/python tools/validate_api.py
 
 validate-config:
-	python -m space_hulk_game.main test 1 test-model
+	.venv/bin/python -m space_hulk_game.main test 1 test-model
 
 # Maintenance
 clean:

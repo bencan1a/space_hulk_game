@@ -1,141 +1,157 @@
 {
   "prd_document": {
-    "game_title": "Space Hulk: Echoes of the Void",
+    "game_title": "Terminus: Echoes of the Void",
     "game_systems": {
       "movement": {
-        "description": "Players navigate the claustrophobic corridors and vast derelict chambers of the Space Hulk from a first-person perspective. Movement is deliberately weighty and methodical, reflecting a Terminator's massive power armor. Environmental hazards (e.g., collapsed paths, live wires, vents) require tactical assessment. Limited sprint for short bursts.",
+        "description": "Players navigate the Space Hulk through a combination of standard infantry movement (walking, running), tactical dashing/vaulting over debris, and zero-gravity maneuvering using magnetic boots and occasional jetpack bursts in depressurized zones. Certain areas allow for environmental traversal like climbing or rappelling.",
         "commands": [
-          "move_forward",
-          "move_backward",
-          "strafe_left",
-          "strafe_right",
-          "interact",
-          "sprint"
+          "W/A/S/D (Move)",
+          "Shift (Run/Dash)",
+          "Space (Vault/Jump/Boost in Zero-G)",
+          "C (Crouch)",
+          "Ctrl (Magnetic Boots Toggle in Zero-G)"
         ],
-        "narrative_purpose": "Emphasizes the oppressive, maze-like nature of the Hulk and the heavy, powerful presence of a Terminator. Slow, deliberate movement builds tension and horror, making every step feel significant and dangerous. Environmental traversal challenges reinforce the Hulk as a character – a hostile, decaying entity."
+        "narrative_purpose": "Movement is designed to reinforce the claustrophobic, hazardous, and unpredictable nature of the Space Hulk. Zero-gravity segments create tension and vulnerability, emphasizing the alien environment and the Kill Team's adaptability. Tactical dashing allows for moments of desperate escape or aggressive closure, reflecting the 'survival against impossible odds' theme. Environmental traversal highlights the decaying, labyrinthine structure, reinforcing the 'Man vs. Environment' conflict and the sense of being trapped."
       },
       "inventory": {
-        "description": "Players manage a limited inventory of weapons, ammo, and utility items. Weapons include Bolters, Storm Bolters, Power Fists, Chainfists, and other iconic Terminator armaments. Utility items might include auspex scanners, medkits, demolition charges. Capacity is thematic, reflecting the gear a Terminator can carry, but not excessive.",
-        "capacity": 8,
+        "description": "Each Space Marine has a limited personal inventory for weapons, ammunition, grenades, and mission-critical items. Specialized items (e.g., Valerius's auspex, Lyra's narthecium) occupy dedicated slots. Capacity is restrictive per Marine, encouraging teamwork and resource management.",
+        "capacity": "Limited (Varies per Marine by role, e.g., Tyberius carries more ammo, Lyra utility items), encouraging difficult choices about what to carry. Shared reserves are accessible at designated points.",
         "commands": [
-          "equip_weapon",
-          "use_item",
-          "reload",
-          "drop_item",
-          "pick_up_item"
+          "'I' (Open Inventory)",
+          "'Left-Click' (Select/Use Item)",
+          "'Right-Click' (Inspect Item)",
+          "'Drag & Drop' (Transfer between Marines/Stash)"
         ],
-        "narrative_purpose": "Limited inventory reinforces the desperate survival theme and the severity of attrition. Players must make tactical choices about what gear to carry, echoing the resource scarcity of deep-space operations. Finding remnants of fallen comrades' gear (e.g., ammunition, ASTARTES relics) directly ties into 'Isolated Survival' and 'Deeper Hulk Investigation' scenes, adding emotional weight to resource acquisition."
+        "narrative_purpose": "The limited inventory emphasizes the 'survival against impossible odds' and 'resource scarcity' themes. Players must make tactical decisions about loadouts before missions and on the fly, reflecting the grim reality of Deathwatch operations deep behind enemy lines. Retrieving specific items or archeotech becomes more impactful due to the inventory constraints, tying directly into plot points like 'Retrieving Imperial artifacts' or 'Analyzing xenos tech' while highlighting the strategic decision-making of the Kill Team."
       },
       "combat": {
-        "description": "Tactical, brutal, and often overwhelming first-person combat against Genestealers. Emphasizes target prioritization, cover utilization, and managing the 'Black Rage' meter. Melee combat is powerful but risky. Ranged combat relies on accurate bursts and efficient ammo management. Genestealers attack from all angles, including vents and walls.",
+        "description": "Real-time tactical combat with a pause-and-plan system. Players control a squad of 1-4 Space Marines, issuing commands for movement, targeting, special abilities, and overwatch. Cover is critical, and enemy types necessitate varied tactical approaches. 'Stress' and 'Morale' mechanics affect combat effectiveness.",
         "mechanics": [
           {
-            "name": "Black Rage Meter",
-            "rules": "A dynamic UI element tracks Valerius's escalating Black Rage. This meter fills with prolonged combat, taking hits, or witnessing squadmates fall. As it fills, Valerius gains temporary buffs (melee damage, damage resistance) but suffers drawbacks (reduced ranged accuracy, tunnel vision, slower tactical awareness). Overfilling the meter can lead to a brief berserk state (uncontrollable melee attacks) or a 'critical rage' debuff after combat (temporary stat reduction). Players can attempt to manage the meter by conserving ammo, tactical retreats, or using specific 'calming' abilities/items (rare)."
+            "name": "Tactical Pause / Command Wheel",
+            "rules": "During combat, players can pause the action (or slow it significantly) to issue precise commands to each Kill Team member via a radial menu. This includes target prioritization, ability activation, movement orders, and cover assignments. This allows for strategic depth despite the real-time nature."
           },
           {
-            "name": "Squad Command & Morale",
-            "rules": "Players can issue simple commands to Arion and Tiberius (e.g., 'Hold Position,' 'Follow,' 'Focus Fire,' 'Use Ability'). Squadmates have their own specialized abilities (Arion: psychic attacks/support, Tiberius: berserk charge/melee tank). Squad morale is influenced by Valerius's Black Rage, combat performance, and narrative choices. Low morale can lead to less effective squadmate performance or even temporary insubordination (e.g., Tiberius rushing ahead). The player can use a 'Rally' command, briefly boosting morale at a cost (e.g., small Black Rage gain for Valerius)."
+            "name": "Cover System",
+            "rules": "Environmental objects provide soft or hard cover, reducing incoming damage and breaking line of sight. Utilizing cover effectively is paramount for survival. Enemies also use cover."
           },
           {
-            "name": "Environmental Interaction in Combat",
-            "rules": "Players can utilize environmental elements, such as blasting compromised bulkheads to create chokepoints, activating dormant defenses (if found and repaired), or sealing vents to prevent enemy flanking. Certain objects can be destroyed to collapse paths or create temporary cover."
+            "name": "Overwatch / Suppressive Fire",
+            "rules": "Marines can be ordered to enter 'Overwatch' mode, firing on any enemy that enters their cone of vision. Suppressive Fire can pin down enemies, reducing their accuracy and movement."
+          },
+          {
+            "name": "Character Abilities & Synergy",
+            "rules": "Each Marine has unique, cooldown-based abilities reflecting their Chapter and role (e.g., Kaelen's 'Tactical Command,' Valerius's 'Omnissian Blessing,' Tyberius's 'Furious Charge,' Lyra's 'Narthecium Heal' or 'Xenos Weakness Analysis'). Synergistic use of these abilities is crucial."
+          },
+          {
+            "name": "Stress & Morale",
+            "rules": "Marines accumulate 'Stress' from sustained combat, witnessing horrors, or taking heavy damage. High stress can lead to 'Morale Breaks' (temporary debuffs like reduced accuracy, panic, or even the manifestation of the 'Red Thirst' for Tyberius), reflecting inner conflicts and the psychological toll of the mission. Lyra's abilities can help manage stress."
           }
         ],
-        "narrative_purpose": "The 'Black Rage Meter' is central to Valerius's character arc, directly translating his internal struggle into a gameplay mechanic. It pressures the player to manage Valerius's sanity vs. combat effectiveness, fueling the 'Man vs. Self' conflict. Squad commands reflect Valerius's leadership role, with squad morale tying into the narrative's themes of camaraderie and the toll of the mission. Environmental combat emphasizes the Hulk's pervasive hostility and the tactical ingenuity required to survive, linking to the 'Man vs. Environment' conflict. The overwhelming odds against Genestealers reinforce the 'Man vs. Alien' horror."
+        "narrative_purpose": "Combat mechanically supports the 'Grimdark' and 'Action-Horror' tone. The Tactical Pause emphasizes the Kill Team's strategic superiority but also the need for calculated risk in the face of overwhelming odds. Cover system and Overwatch reflect realistic, brutal engagements against numerically superior foes, reinforcing 'Survival against impossible odds.' Character Abilities directly tie into individual character arcs and Chapter lore (e.g., Tyberius's Red Thirst mechanic for his arc development, Valerius's tech-focused abilities for his pragmatism). The Stress & Morale system directly portrays the 'Internal (Character) Conflict' and 'The corrupting influence/horror of the unknown,' forcing players to truly feel the psychological pressure on their Marines."
       },
       "interaction": {
-        "description": "Players interact with the environment, objects, and characters to progress the story, gather lore, and find resources. This includes inspecting ancient terminals, examining fallen comrades, or activating machinery.",
+        "description": "Players interact with the environment, objects, and characters. This includes examining points of interest, hacking terminals, opening doors, activating machinery, collecting resources, initiating dialogue, and making narrative choices.",
         "commands": [
-          "examine",
-          "talk",
-          "use",
-          "access_terminal",
-          "collect"
+          "'E' (Interact/Examine)",
+          "'F' (Toggle Flashlight)",
+          "'Q' (Quick Talk to nearest Teammate)"
         ],
-        "narrative_purpose": "Allows players to uncover the 'Secrets of the Hulk' by interacting with data logs and ancient pict-recordings. Examining fallen comrades' dog tags (Scene 02) deepens the sense of loss and grim reality. Dialogue with Arion and Tiberius drives the 'Moral Dilemma' and character arcs, allowing Valerius to influence their perspectives, or provoke ideological clashes."
+        "narrative_purpose": "Interaction drives the narrative forward and deepens immersion. 'Examine' allows for discovery of narrative clues (e.g., fragmented logs, xenos glyphs for plot points 2 & 3). Hacking/activating machinery (often Valerius's role) reinforces his pragmatism and reliance on technology. Dialogue with squad members serves 'Internal (Character) Conflict' and 'Ideological Conflict', exposing their distinct perspectives and emotional responses to the unfolding horror. Narrative choices, presented via dialogue or contextual prompts, are the primary mechanism for player agency in shaping character arcs and plot outcomes (e.g., the 'Moral Crucible' decision point)."
+      },
+      "choice_and_consequence": {
+        "description": "Throughout the game, players are presented with significant narrative decisions, often with no clear 'right' answer. These choices impact character relationships, access to information, tactical advantages/disadvantages, and ultimately lead to different narrative paths and endings.",
+        "commands": [
+          "'1', '2', '3' (Select Dialogue/Action Option)"
+        ],
+        "narrative_purpose": "This is the core mechanic for 'Moral Crucible' and 'Sacrifice vs. self-preservation' themes. It directly enables player agency in shaping the character arcs (e.g., Kaelen's adherence to protocol vs. pragmatic action; Valerius's approach to unknown tech; Tyberius's fury; Lyra's scientific curiosity). Decisions determine which 'Narrative Map' connections are taken, leading to alternate scenes and ultimately different endings (plot points 5 & 6), directly reflecting the 'grimdark' tone where decisions are hard and consequences are severe."
+      },
+      "resource_management": {
+        "description": "Beyond inventory, players manage broader resources like remaining ammunition, medical supplies, and squad integrity (health, stress levels). Certain actions (e.g., Lyra's complex medical procedures) consume specific resources or time.",
+        "commands": [
+          "No direct command, contextual management through inventory and ability use"
+        ],
+        "narrative_purpose": "Reinforces the 'Survival against impossible odds' and 'Resource Scarcity' themes. Managing limited resources creates continuous tension and forces hard choices, especially when medical supplies are low or ammunition runs out in critical moments. This ties into the 'Time Constraint' by making players weigh the cost of every action."
       }
     },
     "game_state": {
       "tracked_variables": [
         {
-          "variable": "Valerius_BlackRage_level",
-          "purpose": "Tracks current intensity of Valerius's Black Rage, influencing combat buffs/debuffs and visual/audio effects. Directly reflects his internal conflict and character arc."
+          "variable": "kill_team_morale",
+          "purpose": "Represents the overall psychological state of the squad, influenced by individual Marine stress levels, recent losses, and narrative events. Affects combat performance and dialogue."
         },
         {
-          "variable": "Arion_Influence_level",
-          "purpose": "A hidden variable reflecting Arion's susceptibility to the C'tan Shard's influence, based on player choices and interactions (e.g., encouraging his research vs. shutting him down). Affects his dialogue, abilities, and his stance in 'Moral Dilemma' scenes."
+          "variable": "heart_awakening_progress",
+          "purpose": "A hidden timer/meter representing how close 'The Heart of the Leviathan' is to fully awakening. Influenced by player actions (e.g., delay tactics vs. direct assault), cultist rituals. Directly impacts which ending paths are available."
         },
         {
-          "variable": "Tiberius_Rage_level",
-          "purpose": "Tracks the intensity of Tiberius's Black Rage, influencing his combat aggression and dialogue. This can increase due to specific events or player decisions, reflecting his linear descent into further madness."
+          "variable": "character_loyalty_kaelen",
+          "purpose": "Tracks Kaelen's adherence to formal protocol versus his grudging acceptance of more pragmatic/unorthodox methods. Influences his dialogue and specific leadership abilities."
         },
         {
-          "variable": "Lore_Fragments_Collected",
-          "purpose": "Number of discovered datalogs, pict-recordings, and murals. Unlocks optional codex entries and provides context for the 'Secrets of the Hulk' plot point, enriching player understanding of the cosmic horror."
+          "variable": "character_loyalty_valerius",
+          "purpose": "Tracks Valerius's trust in pure logic/tech vs. his exposure to and acceptance of unquantifiable cosmic horror. Affects his analytical abilities and willingness to interact with certain xenos tech."
         },
         {
-          "variable": "Current_Objective_Status",
-          "purpose": "Tracks the main mission progress, from 'Neutralize Genestealers' to 'Retrieve Shard' to 'Deal with Shard'. Dynamically updates dialogue and available interactions."
+          "variable": "character_loyalty_tyberius",
+          "purpose": "Tracks Tyberius's struggle with the Red Thirst, influenced by combat intensity and psychic exposure. Affects his combat effectiveness and risk of 'Black Rage' episodes."
         },
         {
-          "variable": "Squad_Disposition_Arion",
-          "purpose": "Reflects Arion's current attitude towards Valerius, influencing his willingness to follow commands or provide support, especially during the 'Moral Dilemma'."
+          "variable": "character_loyalty_lyra",
+          "purpose": "Tracks Lyra's scientific curiosity vs. her horror and duty, influenced by xenos discoveries. Affects her medical efficacy and ability to analyze xenos threats."
         },
         {
-          "variable": "Squad_Disposition_Tiberius",
-          "purpose": "Reflects Tiberius's current attitude towards Valerius and Arion, influencing his combat behavior and reactions to Arion's proposals."
+          "variable": "discovered_lore_fragments",
+          "purpose": "Counts the number of lore fragments, data logs, or xenos glyphs discovered. Unlocks deeper understanding of the plot and potential tactical advantages (e.g. enemy weaknesses)."
+        },
+        {
+          "variable": "cultist_strength_modifier",
+          "purpose": "Dynamic variable affecting Genestealer cultist numbers and aggression, influenced by player actions (e.g., stealth vs. loud approach, disrupting rituals). Directly relates to the 'Man vs. Xenos' conflict."
         }
       ],
       "win_conditions": [
         {
-          "condition": "Successfully destroy the C'tan Shard through conventional means and escape the Hulk ('Standard Victory Ending')."
+          "condition": "Successfully destroy 'The Heart of the Leviathan' through a self-sacrificial detonation of the Space Hulk (The Ragnarok Protocol)."
         },
         {
-          "condition": "Activate the Doomsday Protocol, destroying the Hulk and the Shard (and the squad) ('Martyrdom Ending')."
+          "condition": "Successfully contain 'The Heart of the Leviathan' within the Space Hulk, ensuring its temporary neutralization and escaping with the team."
         },
         {
-          "condition": "Assist Arion in 'purifying' or 'containing' the C'tan Shard, leading to a unique outcome based on previous choices ('Heretic/Power Ending' or 'Grave Risk Ending')."
-        },
-        {
-          "condition": "Complete the final objective and initiate extraction from the Space Hulk."
+          "condition": "Successfully escape the Space Hulk after making a critical sacrifice to buy time, allowing for strategic retreat and reporting the threat to the Imperium."
         }
       ],
       "lose_conditions": [
         {
-          "condition": "Valerius's health reaches zero (player death)."
+          "condition": "All Space Marines in the Kill Team are incapacitated or killed in action."
         },
         {
-          "condition": "All squadmates are permanently incapacitated or killed."
+          "condition": "'The Heart of the Leviathan' fully awakens and escapes containment, triggering a catastrophic sector-wide event (game-over)."
         },
         {
-          "condition": "Valerius succumbs entirely to the Black Rage, resulting in an uncontrollable and self-destructive frenzy leading to his death or mission failure."
-        },
-        {
-          "condition": "Failure to complete critical timed objectives (e.g., holding a position, performing a critical repair)."
+          "condition": "Failure to complete primary mission objectives within the narrative's unspoken time constraints (e.g., cultists complete a critical ritual without intervention)."
         }
       ]
     },
     "technical_requirements": [
       {
-        "requirement": "Dynamic Lighting and Shadow System",
-        "justification": "Essential for creating a claustrophobic, horror atmosphere within the Hulk's dark corridors. Key for visual storytelling, highlighting enemies, and environmental hazards that support the 'Man vs. Environment' and 'Man vs. Alien' conflicts."
+        "requirement": "Dynamic environment destruction and deformation system.",
+        "justification": "To visually represent the Space Hulk's decay, structural weaknesses, and the awakening of 'The Heart of the Leviathan,' enhancing immersion and narrative impact (Man vs. Environment conflict)."
       },
       {
-        "requirement": "Advanced AI for Genestealers (pathfinding, perception, coordinated attacks)",
-        "justification": "Required for creating believable, terrifying, and tactically challenging encounters that reflect the cunning of the Tyranid Hive Mind and Patriarch. Crucial for supporting the 'Man vs. Alien' conflict and the sense of being hunted."
+        "requirement": "Advanced AI for squad members and enemies, including pathfinding for zero-gravity and complex tactical behaviors.",
+        "justification": "Crucial for realistic tactical combat, ensuring squad members respond intelligently to commands, and enemies provide a challenging, unpredictable threat (Man vs. Xenos conflict)."
       },
       {
-        "requirement": "Robust Dialogue and Choice Branching System",
-        "justification": "Integral for implementing the 'Moral Dilemma' scenes, tracking player choices, and influencing character arcs (especially Arion) and the ultimate ending. Supports the 'Ideological/Moral Conflict' and 'Man vs. Self' themes."
+        "requirement": "Decision-making engine that tracks player choices and variables, branching narrative paths and multiple endings.",
+        "justification": "Essential for delivering on 'Moral Crucible' and 'Choice & Consequence' narratives, ensuring player agency significantly impacts the story and character arcs."
       },
       {
-        "requirement": "Particle and Post-Processing Effects for Black Rage",
-        "justification": "Visual and audio cues (e.g., red tint, distorted sounds, vignette) are necessary to convey the escalating intensity of Valerius's Black Rage, making the internal conflict tangible to the player and enhancing immersion."
+        "requirement": "Rich audio design with spatialized sound for creaking metal, distant roars, psychic whispers, and zero-G silence.",
+        "justification": "To reinforce the claustrophobic, horror atmosphere and the psychological impact of the 'The corrupting influence / horror of the unknown' theme."
       },
       {
-        "requirement": "Complex Environmental Interaction System",
-        "justification": "Allows players to dynamically affect the battleground (e.g., sealing vents, activating ancient tech), vital for tactical gameplay, and reinforces the Hulk as an active, hostile entity as per 'Man vs. Environment'."
+        "requirement": "Robust character progression system with skill trees that reflect individual character arcs and decision impact.",
+        "justification": "To give tangible meaning to player choices and character development, allowing the mechanical systems to reflect the narrative changes in Kaelen, Valerius, Tyberius, and Lyra. For example, Kaelen's 'Tactical Command' may branch into 'Strict Protocol' or 'Adaptive Tactics' based on his arc."
       }
     ]
   }

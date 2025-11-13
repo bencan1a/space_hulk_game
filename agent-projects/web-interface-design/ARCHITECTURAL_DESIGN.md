@@ -1,9 +1,9 @@
 # Web Interface Architectural Design
 ## Browser-Based Game Creation and Play Platform
 
-**Document Version**: 1.0  
-**Created**: 2025-11-12  
-**Author**: Principal Software Engineer (Architectural Review)  
+**Document Version**: 1.0
+**Created**: 2025-11-12
+**Author**: Principal Software Engineer (Architectural Review)
 **Status**: Ready for Engineering Review
 
 ---
@@ -28,12 +28,13 @@ This document provides a comprehensive architectural design for the browser-base
 3. [Component Design](#component-design)
 4. [Data Architecture](#data-architecture)
 5. [API Design](#api-design)
-6. [Security Architecture](#security-architecture)
-7. [Scalability & Performance](#scalability--performance)
-8. [Quality Attributes](#quality-attributes)
-9. [Technology Stack Rationale](#technology-stack-rationale)
-10. [Risk Assessment](#risk-assessment)
-11. [Implementation Phases](#implementation-phases)
+6. [Sample Content Strategy](#sample-content-strategy)
+7. [Security Architecture](#security-architecture)
+8. [Scalability & Performance](#scalability--performance)
+9. [Quality Attributes](#quality-attributes)
+10. [Technology Stack Rationale](#technology-stack-rationale)
+11. [Risk Assessment](#risk-assessment)
+12. [Implementation Phases](#implementation-phases)
 
 ---
 
@@ -334,7 +335,7 @@ from space_hulk_game.crew import SpaceHulkGame
 
 class CrewAIWrapper:
     """Wrapper for executing CrewAI agents asynchronously."""
-    
+
     @staticmethod
     def execute_generation(
         prompt: str,
@@ -343,25 +344,25 @@ class CrewAIWrapper:
     ) -> dict:
         """
         Execute CrewAI story generation.
-        
+
         Args:
             prompt: User prompt or template-based prompt
             iteration_context: Previous feedback for iterations
             progress_callback: Function to call on agent progress
-            
+
         Returns:
             dict: Game content structure (game.json)
         """
         crew = SpaceHulkGame()
-        
+
         # Use existing crew.crew() method
         inputs = {"prompt": prompt}
         if iteration_context:
             inputs["feedback"] = iteration_context.get("feedback")
-            
+
         # Execute with optional progress hooks
         result = crew.crew().kickoff(inputs=inputs)
-        
+
         return result
 ```
 
@@ -380,15 +381,15 @@ from space_hulk_game.engine import TextAdventureEngine
 
 class GameEngineWrapper:
     """Wrapper for game engine enabling stateful web sessions."""
-    
+
     def __init__(self, game_file: str):
         """Initialize engine with game JSON."""
         self.engine = TextAdventureEngine(game_file)
-        
+
     def process_command(self, command: str) -> dict:
         """
         Process player command and return response.
-        
+
         Returns:
             dict: {
                 "output": str,       # Game response text
@@ -404,11 +405,11 @@ class GameEngineWrapper:
             "valid": result.valid,
             "game_over": self.engine.is_game_over()
         }
-    
+
     def save_state(self) -> dict:
         """Export current state for persistence."""
         return self.engine.save_game()
-    
+
     def load_state(self, state: dict):
         """Restore game from saved state."""
         self.engine.load_game(state)
@@ -425,7 +426,7 @@ class GameEngineWrapper:
 
 ### 4.1 Database Schema (SQLite → PostgreSQL)
 
-**Design Philosophy**: 
+**Design Philosophy**:
 - Minimal schema for MVP (single user)
 - Clear migration path to PostgreSQL (multi-user)
 - Use SQLAlchemy ORM for database portability
@@ -442,32 +443,32 @@ Base = declarative_base()
 class Story(Base):
     """Story metadata and file references."""
     __tablename__ = "stories"
-    
+
     id = Column(Integer, primary_key=True)
     title = Column(String(200), nullable=False)
     description = Column(Text, nullable=True)
     theme_id = Column(String(50), default="warhammer40k")
-    
+
     # File system reference
     game_file_path = Column(String(500), nullable=False, unique=True)
-    
+
     # Metadata
     created_at = Column(DateTime, nullable=False)
     updated_at = Column(DateTime, nullable=False)
     play_count = Column(Integer, default=0)
     last_played = Column(DateTime, nullable=True)
-    
+
     # Generation info
     prompt = Column(Text, nullable=False)
     template_id = Column(String(50), nullable=True)
     iteration_count = Column(Integer, default=0)
-    
+
     # Statistics (extracted from game.json)
     scene_count = Column(Integer, nullable=True)
     item_count = Column(Integer, nullable=True)
     npc_count = Column(Integer, nullable=True)
     puzzle_count = Column(Integer, nullable=True)
-    
+
     # Optional tags for search/filter
     tags = Column(JSON, default=list)  # ["horror", "combat-heavy"]
 
@@ -475,18 +476,18 @@ class Story(Base):
 class Iteration(Base):
     """Iteration history for story refinement."""
     __tablename__ = "iterations"
-    
+
     id = Column(Integer, primary_key=True)
     story_id = Column(Integer, ForeignKey("stories.id"), nullable=False)
-    
+
     iteration_number = Column(Integer, nullable=False)
     feedback = Column(Text, nullable=False)
     changes_requested = Column(JSON, nullable=True)  # Structured feedback
-    
+
     # Result
     game_file_path = Column(String(500), nullable=False)
     created_at = Column(DateTime, nullable=False)
-    
+
     # Was this iteration accepted or rejected
     status = Column(String(20), default="pending")  # pending, accepted, rejected
 
@@ -494,17 +495,17 @@ class Iteration(Base):
 class Session(Base):
     """Active creation sessions (for progress tracking)."""
     __tablename__ = "sessions"
-    
+
     id = Column(String(36), primary_key=True)  # UUID
     story_id = Column(Integer, ForeignKey("stories.id"), nullable=True)
-    
+
     status = Column(String(20), nullable=False)  # creating, iterating, complete, error
     current_step = Column(String(50), nullable=True)  # agent name
     progress_percent = Column(Integer, default=0)
-    
+
     created_at = Column(DateTime, nullable=False)
     completed_at = Column(DateTime, nullable=True)
-    
+
     error_message = Column(Text, nullable=True)
 ```
 
@@ -584,170 +585,191 @@ Command → API → GameService (in-memory engine) → Process → Response
 
 ## 5. API Design
 
-### 5.1 REST API Endpoints
+### 5.1 API Specification Reference
 
-**Design Principles**:
-- RESTful resource-based URLs
+For complete REST and WebSocket API specifications, see **[API_SPECIFICATION.md](./API_SPECIFICATION.md)**.
+
+The API specification document provides:
+- Complete endpoint definitions with request/response examples
+- WebSocket protocol specifications
+- Standard error response formats
+- HTTP status code usage
+- Rate limiting policies
+- Versioning strategy
+
+**Quick Reference** (see API_SPECIFICATION.md for details):
+
+**REST Endpoints**:
+- `GET /api/v1/stories` - List stories with search/filter
+- `GET /api/v1/stories/{story_id}` - Get story details
+- `POST /api/v1/stories` - Start story generation
+- `POST /api/v1/stories/{story_id}/iterate` - Submit iteration feedback
+- `POST /api/v1/game/{story_id}/start` - Start game session
+- `POST /api/v1/game/{session_id}/command` - Process player command
+- `POST /api/v1/game/{session_id}/save` - Save game state
+- `POST /api/v1/game/load/{save_id}` - Load saved game
+- `GET /api/v1/templates` - List prompt templates
+- `GET /api/v1/themes` - List available themes
+
+**WebSocket**:
+- `WS /ws/generation/{generation_job_id}` - Real-time generation progress
+
+### 5.2 API Design Principles
+
+**RESTful Design**:
+- Resource-based URLs (nouns, not verbs)
 - Standard HTTP methods (GET, POST, PUT, DELETE)
-- JSON request/response bodies
-- Consistent error response format
+- Consistent versioning (`/api/v1/`)
+- Clear naming (distinguish `generation_job_id` from `game_session_id`)
 
-#### Story Management
-
-```http
-# List stories
-GET /api/stories?search={query}&theme={theme_id}&sort={field}&order={asc|desc}
-Response: {
-  "stories": [StoryMetadata],
-  "total": int,
-  "page": int,
-  "page_size": int
-}
-
-# Get story details
-GET /api/stories/{story_id}
-Response: StoryMetadata + game content summary
-
-# Get full game content
-GET /api/stories/{story_id}/content
-Response: Full game.json
-
-# Delete story
-DELETE /api/stories/{story_id}
-Response: 204 No Content
-```
-
-#### Story Generation
-
-```http
-# Start new story generation
-POST /api/generate
-Body: {
-  "prompt": str,
-  "template_id": str | null,
-  "theme_id": str
-}
-Response: {
-  "session_id": str,
-  "status": "queued",
-  "estimated_time": int  # seconds
-}
-
-# Get generation status
-GET /api/generate/{session_id}
-Response: {
-  "session_id": str,
-  "status": "creating|complete|error",
-  "progress": int,  # 0-100
-  "current_step": str,
-  "story_id": int | null,
-  "error": str | null
-}
-
-# Submit iteration feedback
-POST /api/stories/{story_id}/iterate
-Body: {
-  "feedback": str,
-  "changes": {
-    "tone": str | null,
-    "difficulty": str | null,
-    "focus": str | null
-  }
-}
-Response: {
-  "session_id": str,
-  "iteration_number": int
-}
-```
-
-#### Gameplay
-
-```http
-# Start game session
-POST /api/game/{story_id}/start
-Response: {
-  "session_id": str,
-  "initial_scene": str,
-  "state": GameState
-}
-
-# Process command
-POST /api/game/{session_id}/command
-Body: {
-  "command": str
-}
-Response: {
-  "output": str,
-  "state": GameState,
-  "valid": bool,
-  "game_over": bool
-}
-
-# Save game
-POST /api/game/{session_id}/save
-Body: {
-  "save_name": str | null
-}
-Response: {
-  "save_id": str,
-  "saved_at": datetime
-}
-
-# Load game
-POST /api/game/load/{save_id}
-Response: {
-  "session_id": str,
-  "state": GameState
-}
-```
-
-#### Themes
-
-```http
-# List available themes
-GET /api/themes
-Response: {
-  "themes": [ThemeMetadata]
-}
-
-# Get theme configuration
-GET /api/themes/{theme_id}
-Response: ThemeConfiguration (YAML parsed to JSON)
-```
-
-### 5.2 WebSocket Protocol
-
-**Connection**: `ws://localhost:8000/ws/progress/{session_id}`
-
-**Message Format**:
+**Standard Response Format**:
 ```json
 {
-  "type": "progress_update",
-  "session_id": "uuid",
-  "status": "creating",
-  "progress": 35,
-  "current_step": "NarrativeArchitect",
-  "message": "Designing story structure...",
-  "timestamp": "2025-11-12T21:00:00Z"
+  "data": { /* resource or collection */ },
+  "meta": {
+    "timestamp": "2025-11-12T20:00:00Z",
+    "version": "1.0"
+  }
 }
 ```
 
-**Message Types**:
-- `progress_update`: Agent progress (sent every 5-10 seconds)
-- `complete`: Generation finished successfully
-- `error`: Generation failed
-- `heartbeat`: Keep connection alive
-
-**Error Handling**:
-- Client reconnection logic with exponential backoff
-- Server gracefully handles dropped connections
-- Progress stored in DB, can resume after reconnect
+**Error Response Format**:
+```json
+{
+  "error": {
+    "code": "ERROR_CODE",
+    "message": "Technical error message",
+    "user_message": "User-friendly message",
+    "retry_possible": true
+  }
+}
+```
 
 ---
 
-## 6. Security Architecture
+## 6. Sample Content Strategy
 
-### 6.1 Security Requirements (Single User)
+### 6.1 Purpose
+
+Ensure first-time users have high-quality content to browse and play immediately, supporting the "discoverability" value proposition and enabling the "60% browse before creating" success metric.
+
+### 6.2 Sample Stories
+
+**Official Samples** (3-5 pre-generated stories included in initial deployment):
+
+1. **"Derelict's Nightmare"**
+   - Theme: Horror-focused Space Hulk exploration
+   - Difficulty: Moderate
+   - Highlights: Atmospheric writing, body horror, isolation
+   - Duration: ~30 minutes
+
+2. **"Artifact Hunt"**
+   - Theme: Exploration and discovery
+   - Difficulty: Easy (beginner-friendly)
+   - Highlights: Puzzle-solving, narrative branching
+   - Duration: ~20 minutes
+
+3. **"Last Stand"**
+   - Theme: Combat-heavy defensive scenario
+   - Difficulty: Hard
+   - Highlights: Tactical decisions, resource management
+   - Duration: ~40 minutes
+
+4. **"Rescue Mission"**
+   - Theme: Time-pressure rescue operation
+   - Difficulty: Moderate
+   - Highlights: Moral choices, multiple endings
+   - Duration: ~35 minutes
+
+5. **"Corruption Spreads"**
+   - Theme: Mystery investigation with chaos corruption
+   - Difficulty: Moderate
+   - Highlights: Investigative gameplay, character interaction
+   - Duration: ~30 minutes
+
+### 6.3 Implementation
+
+**Database Schema Extension**:
+```python
+class Story(Base):
+    # ... existing fields ...
+    is_sample = Column(Boolean, default=False, nullable=False)
+    sample_order = Column(Integer, nullable=True)  # Display order for samples
+```
+
+**Database Seeding**:
+```python
+# alembic/versions/003_seed_sample_stories.py
+from alembic import op
+from datetime import datetime
+
+def upgrade():
+    samples = [
+        {
+            'id': 'sample-001',
+            'title': "Derelict's Nightmare",
+            'description': 'Navigate a horror-filled derelict space station...',
+            'is_sample': True,
+            'sample_order': 1,
+            'current_version': 1,
+            'original_prompt': 'Create a horror-themed Space Hulk adventure...',
+            'game_data_path': 'data/stories/sample-001/game.json',
+            'tags': ['horror', 'atmospheric', 'moderate'],
+        },
+        # ... more samples
+    ]
+    op.bulk_insert(stories_table, samples)
+```
+
+**File Structure**:
+```
+data/
+└── samples/
+    ├── sample-001/
+    │   ├── game.json
+    │   ├── plot_outline.json
+    │   ├── narrative_map.json
+    │   ├── puzzle_design.json
+    │   └── scene_texts.json
+    ├── sample-002/
+    └── ...
+```
+
+**API Filtering**:
+```python
+# API supports filtering by sample status
+@router.get("/api/v1/stories")
+async def list_stories(
+    filter: str = "all",  # 'all', 'samples', 'user_created'
+    db: Session = Depends(get_db)
+):
+    query = db.query(Story)
+    if filter == "samples":
+        query = query.filter(Story.is_sample == True)
+    elif filter == "user_created":
+        query = query.filter(Story.is_sample == False)
+    # ... continue with pagination, sorting
+```
+
+**UI Presentation**:
+- Sample stories marked with "Official Sample" badge
+- Sample stories cannot be deleted (UI enforces, backend validates)
+- "Use as Template" option available for samples
+- Samples sorted by `sample_order` when filter is "samples"
+
+### 6.4 Content Generation Process
+
+1. **Initial Generation**: Use CrewAI to generate 5 diverse stories with carefully crafted prompts
+2. **Quality Curation**: Test and refine each sample through multiple iterations
+3. **Validation**: Ensure samples represent different themes, difficulties, and game styles
+4. **Version Control**: Store sample JSON files in repository for consistency
+5. **Updates**: Regenerate samples with major releases to showcase new features
+
+---
+
+## 7. Security Architecture
+
+### 7.1 Security Requirements (Single User)
 
 **Threat Model**:
 - **Low risk**: Single user on local/personal server
@@ -776,7 +798,7 @@ Response: ThemeConfiguration (YAML parsed to JSON)
    - Structured logging (not exposed to user)
    - Graceful degradation
 
-### 6.2 Future Security (Multi-User)
+### 7.2 Future Security (Multi-User)
 
 **Authentication & Authorization**:
 ```python
@@ -1092,13 +1114,16 @@ See [IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md) for:
 
 ### 12.3 References
 
-- **Internal**:
-  - PRD_WEB_INTERFACE.md (Requirements)
-  - ARCHITECTURE_WEB_INTERFACE.md (Technical details)
-  - THEMING_SYSTEM.md (Multi-genre support)
-  - CONTRIBUTING.md (Coding standards)
+- **Internal Documentation**:
+  - [ARCHITECTURE_WEB_INTERFACE.md](./ARCHITECTURE_WEB_INTERFACE.md) - High-level overview for all stakeholders
+  - [API_SPECIFICATION.md](./API_SPECIFICATION.md) - Canonical REST and WebSocket API reference
+  - [IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md) - 6-phase implementation roadmap
+  - [PRD_WEB_INTERFACE.md](./PRD_WEB_INTERFACE.md) - Product requirements and user stories
+  - [THEMING_SYSTEM.md](./THEMING_SYSTEM.md) - Multi-genre theming architecture
+  - [USER_JOURNEYS_DIAGRAMS.md](./USER_JOURNEYS_DIAGRAMS.md) - Visual user flows
+  - ../../docs/CONTRIBUTING.md - Coding standards
 
-- **External**:
+- **External Resources**:
   - FastAPI Documentation: https://fastapi.tiangolo.com/
   - React TypeScript: https://react-typescript-cheatsheet.netlify.app/
   - Celery Documentation: https://docs.celeryproject.org/

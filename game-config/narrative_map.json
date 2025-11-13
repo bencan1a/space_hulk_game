@@ -1,278 +1,451 @@
 {
   "narrative_map": {
-    "start_scene": "scene_01_insertion",
+    "start_scene": "scene_hulk_breach",
     "scenes": {
-      "scene_01_insertion": {
-        "name": "Insertion and Initial Contact",
-        "description": "The squad of Blood Angels Terminators, including Brother-Sergeant Valerius and Brother Arion, inserts onto the 'Goliath's Maw' to neutralize Genestealers and retrieve an artifact. Almost immediately, they are ambushed and separated, suffering heavy casualties. Valerius finds himself isolated amidst the chaotic aftermath.",
+      "scene_hulk_breach": {
+        "name": "Breaching the Leviathan's Wake",
+        "description": "The Kill Team's Thunderhawk gunship punches through the hull of the derelict Space Hulk. The interior is a labyrinth of decaying corridors, zero-gravity chambers, and oppressive darkness. The air is thick with dust and the stench of decay.",
         "connections": [
           {
-            "target": "scene_02_isolated_survival",
-            "condition": "Player navigates initial ambush site",
-            "description": "Proceed deeper into the Hulk after the ambush."
+            "target": "scene_beacon_source",
+            "condition": "Successful breach and initial navigation",
+            "description": "Proceeding to the distress beacon's source deeper within the hulk."
           }
         ],
         "character_moments": [
           {
-            "character": "Brother-Sergeant Valerius",
-            "moment": "Witnesses squad decimation, experiences surge of Black Rage, but maintains tactical composure under extreme duress."
+            "character": "Brother-Sergeant Kaelen",
+            "moment": "Kaelen reasserts adherence to protocol despite the alien environment, showcasing his rigid dedication to duty."
           },
           {
-            "character": "Brother Arion",
-            "moment": "Briefly shown using psychic power defensively before being separated, hinting at his abilities."
+            "character": "Brother Valerius",
+            "moment": "Valerius immediately scans the environment for structural integrity and energy signatures, prioritizing data collection."
           }
         ],
         "decision_points": []
       },
-      "scene_02_isolated_survival": {
-        "name": "Isolated Survival and Navigation",
-        "description": "Valerius navigates decaying corridors, battling isolated Genestealer encounters and environmental hazards. He finds remnants of his fallen brothers and scattered equipment, emphasizing the brutality of the initial assault and the Hulk's hostile nature.",
+      "scene_beacon_source": {
+        "name": "Locating the Anomaly",
+        "description": "The Kill Team navigates treacherous, debris-strewn corridors, following the fading distress signal. They encounter minor environmental hazards and faint, unsettling echoes. The signal leads them to a section of fused Imperial and xenos architecture.",
         "connections": [
           {
-            "target": "scene_03_reunion_arion",
-            "condition": "Valerius locates Arion's distress signal/trail",
-            "description": "Follow signs of life towards potential squad members."
+            "target": "scene_first_genestealers",
+            "condition": "Signal traced to a chamber with active xenos presence",
+            "description": "Following the signal to its source reveals an awakening threat."
           },
           {
-            "target": "scene_02_isolated_survival",
-            "condition": "Player chooses to explore alternate paths",
-            "description": "Further exploration of the immediate area."
+            "target": "scene_ancient_lore_clue",
+            "condition": "Extensive environmental scans by Valerius",
+            "description": "Valerius detects unusual energy readings implying deeper, older structures."
           }
         ],
         "character_moments": [
           {
-            "character": "Brother-Sergeant Valerius",
-            "moment": "Fights growing Black Rage during encounters, relying on training to survive. Collects dog tags of fallen comrades."
-          },
-          {
-            "character": "Brother Tiberius",
-            "moment": "Brief distant sighting or audio log of his berserk fighting, showing his state of Black Rage."
+            "character": "Brother-Apothecary Lyra",
+            "moment": "Lyra identifies traces of unusual bio-matter, hinting at a non-standard xenos threat, sparking her scientific curiosity."
           }
         ],
         "decision_points": [
           {
-            "id": "s02_d1_path_choice",
-            "prompt": "The corridor ahead is collapsed, but a maintenance shaft offers an alternative. Which path do you take?",
+            "id": "beacon_approach",
+            "prompt": "How to approach the anomalous signal's source?",
             "options": [
               {
-                "choice": "Clear rubble (slow, noisy)",
-                "outcome": "Attracts Genestealers, fight sequence, progress to 'scene_03_reunion_arion'"
+                "choice": "Direct Assault (Tyberius's suggestion)",
+                "outcome": "Leads to a quicker engagement, potentially outnumbered."
               },
               {
-                "choice": "Enter maintenance shaft (risky, quiet)",
-                "outcome": "Encounter smaller Genestealer patrols in cramped space, progress to 'scene_03_reunion_arion'"
+                "choice": "Cautious Recon (Kaelen's protocol)",
+                "outcome": "Allows for better tactical positioning but risks the signal fading."
               }
             ]
           }
         ]
       },
-      "scene_03_reunion_arion": {
-        "name": "Reunion with Arion and Objective Revealed",
-        "description": "Valerius reunites with Brother Arion and possibly Brother Tiberius. Arion reveals the true primary objective: the C'tan Shard, its warp fluctuations, and how it draws the Genestealers. The squad discusses their next move.",
+      "scene_first_genestealers": {
+        "name": "First Contact: The Awakening Cult",
+        "description": "Upon reaching the beacon's source, the Kill Team is ambushed by a small, but aggressive, contingent of Genestealer Hybrids. The beacon itself is revealed to be a primitive, corrupted device broadcasting a lure. The scale of the infestation hints at a larger, organized force.",
         "connections": [
           {
-            "target": "scene_04_deeper_hulk_investigation",
-            "condition": "Squad agrees to proceed to the core",
-            "description": "Head towards the Hulk's core, where the C'tan Shard is located."
+            "target": "scene_derelict_expedition",
+            "condition": "Genestealer threat neutralized, path secured",
+            "description": "The path forward reveals signs of a previous, failed Imperial expedition."
           }
         ],
         "character_moments": [
           {
-            "character": "Brother Arion",
-            "moment": "Exhibits subtle signs of C'tan Shard influence while explaining its nature, a slight intensity in his eyes."
+            "character": "Brother Tyberius",
+            "moment": "Tyberius enters a frenzied state in combat, showcasing his prowess but also a hint of the Red Thirst's influence."
           },
           {
-            "character": "Brother-Sergeant Valerius",
-            "moment": "Struggles with the heresy of the new objective vs. chain of command, his resolve tested."
-          },
-          {
-            "character": "Brother Tiberius",
-            "moment": "Expresses single-minded focus on destroying 'xenos filth' (Genestealers) without much concern for the secondary objective."
-          }
-        ],
-        "decision_points": []
-      },
-      "scene_04_deeper_hulk_investigation": {
-        "name": "Deeper into the Hulk - Growing Threat",
-        "description": "The squad navigates increasingly complex and dangerous areas. They encounter advanced Genestealer tactics and evidence of previous failed Imperial attempts to cleanse the Hulk (Imperial Guard/Astartes remnants). They may pick up minor upgrades or lore bits.",
-        "connections": [
-          {
-            "target": "scene_05_hulk_secrets_revealed",
-            "condition": "Squad accesses a secured data terminal or ancient pict-recorder",
-            "description": "Uncover significant lore about the Hulk's past."
-          },
-          {
-            "target": "scene_04_deeper_hulk_investigation",
-            "condition": "Player chooses to explore side areas",
-            "description": "Continue exploring for resources or alternate routes."
-          }
-        ],
-        "character_moments": [
-          {
-            "character": "Brother Arion",
-            "moment": "Becomes increasingly focused on deciphering ancient inscriptions or data, sometimes at the expense of immediate tactical awareness."
-          },
-          {
-            "character": "Brother-Sergeant Valerius",
-            "moment": "Observes Arion's increasing obsession, feeling a growing unease."
-          },
-          {
-            "character": "Brother Tiberius",
-            "moment": "Rages against the previous fallen, seeing them as weak, further hinting at his mental state."
+            "character": "Brother-Sergeant Kaelen",
+            "moment": "Kaelen adapts tactics swiftly, displaying leadership under unexpected pressure, but frustration at the deviation from his predicted threat profile."
           }
         ],
         "decision_points": [
           {
-            "id": "s04_d1_remnants_choice",
-            "prompt": "You find a cache of ancient Imperial Guard equipment. It could contain useful gear, but might be booby-trapped or contain something more sinister. Do you investigate?",
+            "id": "combat_strategy_genestealers",
+            "prompt": "How to handle the Genestealer ambush?",
             "options": [
               {
-                "choice": "Investigate thoroughly",
-                "outcome": "Find minor gear upgrade, but trigger a trap or dormant Genestealer attack."
+                "choice": "Focus fire on the largest threats",
+                "outcome": "Efficient combat, but may leave smaller, flanking threats active."
               },
               {
-                "choice": "Leave it be",
-                "outcome": "Conserve resources, avoid immediate danger, but miss potential item."
+                "choice": "Containment and Area Denial",
+                "outcome": "Safer, but might consume more ammunition/resources."
               }
             ]
           }
         ]
       },
-      "scene_05_hulk_secrets_revealed": {
-        "name": "Unveiling the Hulk's Secrets",
-        "description": "The squad uncovers fragmented data logs, ancient pict-recordings, or cryptic murals detailing the 'Goliath's Maw's' origins as an experimental Imperial warship, its loss during the Horus Heresy, and the C'tan Shard's eventual corruption of the vessel.",
+      "scene_derelict_expedition": {
+        "name": "Echoes of the Lost",
+        "description": "The Kill Team discovers a derelict Imperial voidship fused into the hulk, containing the grisly remains of a previous expedition. Fragmented data logs reveal they were overwhelmed by an 'unseen horror' and 'the whispers from within.' There are also signs of ritualistic defilement on the Imperial remains.",
         "connections": [
           {
-            "target": "scene_06_moral_dilemma",
-            "condition": "Squad absorbs the new information, reaches a narrative checkpoint",
-            "description": "Process the implications of the Hulk's history and the Shard's presence."
+            "target": "scene_xenos_cathedral",
+            "condition": "Following leads from the derelict logs and strange glyphs",
+            "description": "Investigating deeper anomalies mentioned in the logs."
           }
         ],
-        "character_moments": [
-          {
-            "character": "Brother Arion",
-            "moment": "Is revitalized by the discovery of forbidden knowledge, his arguments for 'understanding' the shard grow stronger."
-          },
-          {
-            "character": "Brother-Sergeant Valerius",
-            "moment": "Questions the true nature of his mission and the Imperium's past. The weight of hidden truths bears down on him."
-          }
-        ],
-        "decision_points": []
-      },
-      "scene_06_moral_dilemma": {
-        "name": "Moral Dilemma: The Shard's Power",
-        "description": "Brother Arion, now visibly influenced by the C'tan Shard's psychic emanations, proposes a dangerous alternative: instead of destroying the shard, they could 'purify' it and weaponize its power for the Imperium. This causes a significant ideological rift within the squad.",
-        "connections": [
-          {
-            "target": "scene_07_approaching_the_core",
-            "condition": "Valerius makes a choice regarding Arion's proposal",
-            "description": "Proceed towards the C'tan Shard chamber to enact chosen plan."
-          }
-        ],
-        "character_moments": [
-          {
-            "character": "Brother Arion",
-            "moment": "Displays aggressive conviction in his new 'vision' for the shard, his eyes glowing with latent psychic energy. He might try to subtly influence Valerius."
-          },
-          {
-            "character": "Brother-Sergeant Valerius",
-            "moment": "Struggles intensely with duty, faith, and the allure of power. His internal conflict with the Black Rage may manifest more strongly due to stress."
-          },
-          {
-            "character": "Brother Tiberius",
-            "moment": "Reacts with furious disgust at the idea of using xenos artifacts, demanding immediate destruction, potentially threatening Arion."
-          }
-        ],
+        "character_moments": [],
         "decision_points": [
           {
-            "id": "s06_d1_shard_approach",
-            "prompt": "Brother Arion proposes attempting to 'purify' and wield the C'tan Shard's power instead of destroying it. What is your response?",
+            "id": "log_analysis",
+            "prompt": "How to analyze the fragmented data logs?",
             "options": [
               {
-                "choice": "Agree to attempt purification with Arion",
-                "outcome": "Aligns with Arion, risks heresy, changes final confrontation dynamics. (Path A)"
+                "choice": "Prioritize technical data for escape routes (Valerius)",
+                "outcome": "Gains tactical information, potentially misses narrative clues."
               },
               {
-                "choice": "Reaffirm destruction protocol, ignore Arion",
-                "outcome": "Maintains Imperial orthodoxy, Arion feels betrayed, increases tension. (Path B)"
-              },
-              {
-                "choice": "Seek an alternative, non-destructive, non-weaponized containment method",
-                "outcome": "A risky third option, potentially alienating both Arion and Tiberius. (Path C)"
+                "choice": "Prioritize narrative logs for threat assessment (Lyra)",
+                "outcome": "Gains deeper understanding of enemy, potentially misses immediate threats."
               }
             ]
           }
         ]
       },
-      "scene_07_approaching_the_core": {
-        "name": "Approaching the Core - Patriarch's Domain",
-        "description": "The squad navigates the final approach to the C'tan Shard chamber. This area is heavily fortified and defended by the Patriarch and its elite brood. The psychic presence of both the Shard and the Patriarch is overwhelming.",
+      "scene_xenos_cathedral": {
+        "name": "The Xenos Cathedral",
+        "description": "Deep within the hulk, the team discovers a colossal chamber, not built by Imperial hands. It resembles a vast, organic cathedral pulsating with faint, unnatural light. Strange xenos glyphs cover the walls, and the air thrums with psychic energy. Genestealer cultists are performing a ritual around a central, dormant mass or structure.",
         "connections": [
           {
-            "target": "scene_08_final_confrontation",
-            "condition": "Squad breaches the final defenses",
-            "description": "Enter the C'tan Shard chamber for the ultimate showdown."
+            "target": "scene_confront_patron",
+            "condition": "Successful infiltration or direct assault on the ritual chamber",
+            "description": "Facing the leader of the Genestealer Cult."
           }
         ],
         "character_moments": [
           {
-            "character": "Brother Arion",
-            "moment": "His mental state is pushed to the limit, either a prophet of power or a terrified psyker, depending on previous choices."
+            "character": "Brother Valerius",
+            "moment": "Valerius struggles to rationalize the bio-mechanical horrors and the sheer scale of the xenos architecture, challenging his logical framework."
           },
           {
-            "character": "Brother-Sergeant Valerius",
-            "moment": "His Black Rage is on the verge of erupting, forcing him to channel it into cold, brutal efficiency."
+            "character": "Brother-Apothecary Lyra",
+            "moment": "Lyra's fascination overrides caution as she tries to decipher the glyphs, revealing more about the cult's true objective."
+          }
+        ],
+        "decision_points": [
+          {
+            "id": "approach_cathedral",
+            "prompt": "How to approach the ritual chamber?",
+            "options": [
+              {
+                "choice": "Stealth and reconnaissance",
+                "outcome": "Allows for observation and planning, but risks cultists completing the ritual."
+              },
+              {
+                "choice": "Direct assault",
+                "outcome": "Breaks the ritual immediately, but risks exposing the team to overwhelming numbers."
+              }
+            ]
+          }
+        ]
+      },
+      "scene_confront_patron": {
+        "name": "Confronting the Patriarch",
+        "description": "The Kill Team finally confronts the Patriarch of the Genestealer Cult. This ancient, psychic Purestrain Genestealer guards the dormant 'Heart of the Leviathan,' which is now visibly stirring and emitting powerful psionic pulses. The Patriarch reveals its true purpose: to awaken this entity, believing it to be a god.",
+        "connections": [
+          {
+            "target": "scene_awakened_heart_dilemma",
+            "condition": "Patriarch defeated, but the Heart of the Leviathan begins to awaken fully",
+            "description": "With the Patriarch gone, the Heart's awakening accelerates, posing a new, graver threat."
+          }
+        ],
+        "character_moments": [
+          {
+            "character": "Brother Tyberius",
+            "moment": "Tyberius engages in a brutal single combat with the Patriarch, pushing his limits and battling the Black Rage's influence in its presence."
           },
           {
-            "character": "Brother Tiberius",
-            "moment": "Fully consumed by the Black Rage, becomes a berserk engine of destruction, a powerful but fragile asset for the squad."
+            "character": "Brother-Sergeant Kaelen",
+            "moment": "Kaelen witnesses the Patriarch's psychic power and its devotion to the Heart, causing him to question the true nature of heresy and xenos threats."
+          }
+        ],
+        "decision_points": [
+          {
+            "id": "patriarch_tactic",
+            "prompt": "How to defeat the highly psychic Patriarch?",
+            "options": [
+              {
+                "choice": "Overwhelm with coordinated firepower",
+                "outcome": "Risks psychic counterattacks, but might end the fight quickly."
+              },
+              {
+                "choice": "Engage in close combat to disrupt psychic powers",
+                "outcome": "Highly dangerous for the engaged Brother, but might be more effective."
+              }
+            ]
+          }
+        ]
+      },
+      "scene_awakened_heart_dilemma": {
+        "name": "The Heart Awakens: A Moral Crucible",
+        "description": "The Patriarch is dead, but the 'Heart of the Leviathan' is awakening, pulsating with immense, dangerous energy. Vast sections of the Space Hulk distort and reconfigure around it. The Kill Team receives a fleeting, corrupted psychic impression: the entity's true nature as a cosmic horror, capable of consuming entire worlds if unleashed.",
+        "connections": [
+          {
+            "target": "scene_detonate_hulk_path",
+            "condition": "Decision: Destroy the Heart by detonating the Hulk",
+            "description": "Initiating procedures to destroy the Space Hulk."
+          },
+          {
+            "target": "scene_contain_entity_path",
+            "condition": "Decision: Attempt to contain the Heart within the Hulk",
+            "description": "Seeking methods to re-contain the cosmic entity."
+          },
+          {
+            "target": "scene_sacrifice_escape_path",
+            "condition": "Decision: Escape, leaving the Heart contained by a sacrifice",
+            "description": "Formulating an escape plan, possibly involving a sacrifice."
+          }
+        ],
+        "character_moments": [
+          {
+            "character": "Brother-Sergeant Kaelen",
+            "moment": "Kaelen faces a profound moral dilemma, torn between duty, self-preservation, and the unthinkable cost of containing or destroying the Heart. His rigid adherence to the Codex is shattered by the unprecedented threat."
+          },
+          {
+            "character": "Brother-Apothecary Lyra",
+            "moment": "Lyra's scientific curiosity is replaced by sheer horror and a desperate need to find a solution, even an impossible one."
+          },
+          {
+            "character": "Brother Valerius",
+            "moment": "Valerius frantically calculates the probability of success for various options, his pragmatism struggling against the existential horror."
+          }
+        ],
+        "decision_points": [
+          {
+            "id": "heart_dilemma",
+            "prompt": "The 'Heart of the Leviathan' is awakening. What is the Kill Team's priority?",
+            "options": [
+              {
+                "choice": "Destroy the Heart, even if it means detonating the Space Hulk and our own demise.",
+                "outcome": "Leads to a final, desperate self-sacrifice."
+              },
+              {
+                "choice": "Contain the Heart within the Hulk, securing it even temporarily, risking its eventual escape.",
+                "outcome": "A risky, engineering-focused solution with long-term consequences."
+              },
+              {
+                "choice": "Prioritize our escape and report, leaving the containment to a long-shot, potentially sacrificing one of our own.",
+                "outcome": "A pragmatic but morally compromising choice."
+              }
+            ]
+          }
+        ]
+      },
+      "scene_detonate_hulk_path": {
+        "name": "Self-Sacrifice: The Ragnarok Protocol",
+        "description": "The Kill Team initiates a desperate plan to trigger a catastrophic chain reaction within the Space Hulk's unstable core, ensuring the Heart's destruction and their own demise. This involves planting melta-charges in critical, often dangerous, locations.",
+        "connections": [
+          {
+            "target": "scene_final_detonation",
+            "condition": "All charges planted and activated",
+            "description": "Reaching the final trigger point."
+          }
+        ],
+        "character_moments": [
+          {
+            "character": "Brother-Sergeant Kaelen",
+            "moment": "Kaelen, having made the ultimate sacrifice decision, leads with grim resolve, accepting his fate for the good of the Imperium."
+          },
+          {
+            "character": "Brother Tyberius",
+            "moment": "Tyberius fights with suicidal courage, seeking a glorious end and the final obliteration of the xenos threat."
           }
         ],
         "decision_points": []
       },
-      "scene_08_final_confrontation": {
-        "name": "Final Confrontation and Doomsday Protocol",
-        "description": "In the chamber pulsating with unholy energy, the C'tan Shard resides, guarded by the empowered Patriarch. A doomsday protocol, left by the Hulk's original crew, is discovered.",
+      "scene_contain_entity_path": {
+        "name": "Desperate Containment",
+        "description": "Valerius formulates a complex plan to re-stabilize the most volatile energy conduits around the Heart and activate ancient, previously dormant stasis fields or gravitational anchors found within the xenos structures. This requires precise timing and warding off cultist interference.",
+        "connections": [
+          {
+            "target": "scene_containment_success_or_failure",
+            "condition": "Containment protocol initiated but not yet secure",
+            "description": "Verifying the success or failure of the containment attempt."
+          }
+        ],
+        "character_moments": [
+          {
+            "character": "Brother Valerius",
+            "moment": "Valerius pushes his cybernetic mind to its limits, attempting to solve an impossible engineering problem, showcasing his intellectual prowess and detachment."
+          },
+          {
+            "character": "Brother-Apothecary Lyra",
+            "moment": "Lyra aids Valerius, using her knowledge of xenos biology to identify weak points in the Heart's expanding influence field."
+          }
+        ],
+        "decision_points": [
+          {
+            "id": "containment_priority",
+            "prompt": "Which re-stabilization point to prioritize first under pressure?",
+            "options": [
+              {
+                "choice": "The most volatile energy conduit",
+                "outcome": "Higher risk, but potentially faster containment."
+              },
+              {
+                "choice": "The central gravitational anchor",
+                "outcome": "Lower risk, but might not prevent immediate expansion."
+              }
+            ]
+          }
+        ]
+      },
+      "scene_sacrifice_escape_path": {
+        "name": "The Unthinkable Bargain",
+        "description": "The Kill Team devises a risky escape plan. One Space Marine must remain behind to manually activate a failsafe or rig a localized detonation that will buy the others time to escape, condemning themselves to save the mission.",
+        "connections": [
+          {
+            "target": "scene_escape_climax",
+            "condition": "Sacrifice made, escape initiated",
+            "description": "The remaining team members make their desperate escape attempt."
+          }
+        ],
+        "character_moments": [
+          {
+            "character": "Brother-Sergeant Kaelen",
+            "moment": "Kaelen coldly justifies the sacrifice as necessary for the Imperium, but struggles privately with the weight of the command."
+          },
+          {
+            "character": "Brother Tyberius",
+            "moment": "Tyberius volunteers for the sacrifice, viewing it as an honorable death and redemption for his Chapter's curses."
+          },
+          {
+            "character": "Brother-Apothecary Lyra",
+            "moment": "Lyra argues pragmatically for who is most 'expendable' or best suited for the task, struggling with the moral calculus."
+          }
+        ],
+        "decision_points": [
+          {
+            "id": "who_sacrifices",
+            "prompt": "Which Marine will be sacrificed to ensure the others' escape?",
+            "options": [
+              {
+                "choice": "Brother Tyberius (Volunteers first)",
+                "outcome": "A brutal, heroic end for Tyberius."
+              },
+              {
+                "choice": "Brother Valerius (Tactically most useful for the task)",
+                "outcome": "Loss of critical technical expertise, but ensures the plan's best chance due to his skills."
+              },
+              {
+                "choice": "Brother Lyra (Could buy time with xenos knowledge)",
+                "outcome": "Tragic loss of xenobiologist, potentially more emotional impact on the team."
+              }
+            ]
+          }
+        ]
+      },
+      "scene_final_detonation": {
+        "name": "Oblivion's Embrace (Victory/Tragedy)",
+        "description": "The Space Hulk rips itself apart in a cataclysmic explosion, vaporizing the 'Heart of the Leviathan' and preventing its cosmic horror from ever reaching the Segmentum. The Kill Team perishes in the conflagration, a final, silent sacrifice for the Imperium.",
+        "connections": [],
+        "character_moments": [],
+        "decision_points": []
+      },
+      "scene_containment_success_or_failure": {
+        "name": "A Frail Prison (Uncertain Future)",
+        "description": "The 'Heart of the Leviathan' is temporarily contained, its expansion halted by the Kill Team's desperate measures. But the containment is fragile, and the entity's influence still slowly seeps. The Kill Team escapes, but the threat remains, a ticking time bomb for the Imperium.",
+        "connections": [
+          {
+            "target": "scene_escape_climax",
+            "condition": "Containment successful, team proceeds to escape",
+            "description": "The team leaves the contained threat and escapes."
+          }
+        ],
+        "character_moments": [
+          {
+            "character": "Brother-Sergeant Kaelen",
+            "moment": "Kaelen struggles with the unsatisfactory outcome, a temporary solution that goes against his desire for absolute destruction, emphasizing the grim reality."
+          }
+        ],
+        "decision_points": []
+      },
+      "scene_escape_climax": {
+        "name": "Desperate Flight",
+        "description": "The surviving Kill Team members make a perilous escape through the collapsing hulk, fighting off lingering cultist resistance and environmental hazards as they race towards their extraction point, forever changed by their encounter with the void's echo.",
         "connections": [],
         "character_moments": [
           {
-            "character": "Brother Arion",
-            "moment": "Either attempts to directly commune with/purify the shard, or desperately tries to assist the destruction, depending on previous decisions."
+            "character": "Brother-Sergeant Kaelen",
+            "moment": "Kaelen carries the burden of the decisions made, his faith and duty reaffirmed but now irrevocably scarred by the moral compromises."
           },
           {
-            "character": "Brother-Sergeant Valerius",
-            "moment": "Faces the ultimate choice, the weight of his Chapter's honor, the Imperium's safety, and the lives of his brothers on his shoulders. The Black Rage threatens to wholly consume him in this climactic moment."
+            "character": "Brother Valerius",
+            "moment": "Valerius grapples with the limitations of logic and technology against cosmic horror, forever altered by the experience."
           },
           {
-            "character": "Brother Tiberius",
-            "moment": "Fights with suicidal ferocity against the Patriarch and its brood, providing cover/distraction, potentially sacrificing himself regardless of Valerius's final choice."
+            "character": "Brother Tyberius",
+            "moment": "If he survived, Tyberius grapples with the survival rather than a glorious death, his rage now tempered by a profound understanding of sacrifice (or if he was sacrificed, his final, glorious moment)."
           },
           {
-            "character": "The Patriarch",
-            "moment": "Exudes immense psychic pressure, its intelligent tactics and physical prowess pushed to their peak, desperately defending the shard."
+            "character": "Brother-Apothecary Lyra",
+            "moment": "If she survived, Lyra's scientific curiosity is crushed, replaced by a haunting knowledge of incomprehensible evil, forever questioning her previous detached approach."
+          }
+        ],
+        "decision_points": []
+      },
+      "scene_ancient_lore_clue": {
+        "name": "Whispers of Ancient Evils",
+        "description": "Valerius detects very ancient, non-Imperial energy signatures, hinting at structures older than the Imperial wrecks, perhaps even pre-dating humanity. Lyra finds traces of energy readings consistent with complex, sophisticated xenos technology, suggesting the Hulk is more than just a random collection of wrecks, but an ancient, possibly sentient vessel in itself.",
+        "connections": [
+          {
+            "target": "scene_first_genestealers",
+            "condition": "Team decides to follow standard beacon protocol despite new discovery",
+            "description": "Despite intriguing new data, the Kill Team returns to the primary objective, leading them to the Genestealers."
+          },
+          {
+            "target": "scene_xenos_cathedral",
+            "condition": "Team decides to prioritize the ancient energy signatures",
+            "description": "Investigating these deeper energies leads them directly to the vast xenos structure and the cult's ritual."
+          }
+        ],
+        "character_moments": [
+          {
+            "character": "Brother Valerius",
+            "moment": "Valerius is deeply intrigued by the anomalous readings, his intellectual curiosity piqued beyond routine."
+          },
+          {
+            "character": "Brother-Apothecary Lyra",
+            "moment": "Lyra's fascination with unknown xenos origins becomes a driving force, pushing her to investigate further."
           }
         ],
         "decision_points": [
           {
-            "id": "s08_d1_ending_choice",
-            "prompt": "The C'tan Shard is before you, the Patriarch guards it, and the Hulk's doomsday protocol is revealed. What is your final action?",
+            "id": "investigate_ancient",
+            "prompt": "The beacon is one threat, but ancient, powerful signatures lie deeper. Which path to follow?",
             "options": [
               {
-                "choice": "Activate the Doomsday Protocol",
-                "outcome": "Hulk detonates, Shard destroyed, squad perishes (Martyrdom Ending)."
+                "choice": "Stick to the original mission: distress beacon and immediate neutralization.",
+                "outcome": "Leads to more direct confrontation with Genestealers earlier."
               },
               {
-                "choice": "Assist Arion in attempting to 'purify' the Shard (if option was chosen earlier)",
-                "outcome": "Risky purification attempt, variable success/failure, potential new threat/unforeseen outcome (Heretic/Power Ending)."
-              },
-              {
-                "choice": "Destroy the Shard through direct combat and conventional weapons",
-                "outcome": "Squad fights tooth and nail to shatter the shard, potentially escaping the collapsing Hulk (Standard Victory/Escape Ending)."
-              },
-              {
-                "choice": "Attempt to contain and escape with the Shard (if option was chosen earlier)",
-                "outcome": "A desperate attempt to flee with the cosmic entity, its influence a ticking time bomb (Grave Risk Ending)."
+                "choice": "Investigate the deeper, ancient signatures first.",
+                "outcome": "Potentially bypasses initial cult encounters, leading directly to the larger mystery."
               }
             ]
           }
@@ -281,87 +454,86 @@
     },
     "character_arcs": [
       {
-        "character": "Brother-Sergeant Valerius",
+        "character": "Brother-Sergeant Kaelen",
         "arc_stages": [
           {
             "stage": "Beginning",
-            "description": "Experienced Death Company Terminator, burdened by recent induction and the burgeoning Black Rage. Driven by duty and seeking redemption, but constantly tested by his internal demons."
+            "description": "Rigid adherence to Codex Astartes and protocols, attempts to suppress emotion, believes in clear duty."
           },
           {
             "stage": "Development",
-            "description": "Confronts moral dilemmas, witnesses Arion's descent/transformation, battles increasingly intense manifestations of the Black Rage, and questions the true nature of his Chapter's service and the Imperium's dogma. His leadership is severely tested."
+            "description": "Confronted with moral ambiguities and a threat beyond comprehension, his faith in absolute order is shaken. Begins to question the efficacy of rigid doctrine."
           },
           {
-            "stage": "Climax/Resolution",
-            "description": "Makes a harrowing choice that defines his legacy – martyrdom, heresy, standard victory, or a path of grave risk. Either succumbs to or transcends his inner demons, fulfilling (or failing) his quest for redemption."
+            "stage": "Climax",
+            "description": "Makes an agonizing decision that defies standard doctrine, accepting a greater truth about sacrifice or compromise for the Imperium's survival."
+          },
+          {
+            "stage": "Resolution (if survives)",
+            "description": "Forever scarred by the events, carrying the weight of his choices, understanding the grim realities beyond easy answers. Leads with a newfound, bleaker wisdom."
           }
         ]
       },
       {
-        "character": "Brother Arion",
+        "character": "Brother Valerius",
         "arc_stages": [
           {
             "stage": "Beginning",
-            "description": "Intrepid Blood Angels Librarian, scholar of xenos and warp lore, intellectually curious and perhaps overly confident in his abilities to study dangerous artifacts."
+            "description": "Pragmatic, logical, trusts in technology and quantifiable data, struggles with faith-based approaches. Values efficiency and objective analysis."
           },
           {
             "stage": "Development",
-            "description": "Becomes increasingly fascinated and subtly corrupted by the C'tan Shard's emanations. His drive for knowledge warps into a dangerous ambition to understand and wield forbidden forces, causing him to clash with Valerius and Imperial dogma."
+            "description": "Encounters phenomena that defy logic and technology, challenging his core beliefs about reality and the limits of science. Becomes horrified by the scale of the xenos monstrosity."
           },
           {
-            "stage": "Climax/Resolution",
-            "description": "His final actions are determined by Valerius's choices – either an attempted 'purification' (potentially leading to his apotheosis or destruction), a frustrated retreat, or a desperate last stand in adherence to Imperial creed."
+            "stage": "Climax",
+            "description": "Pushes his technical and analytical limits to solve an impossible problem, forced to improvise beyond established protocols. Confronts his own limitations."
+          },
+          {
+            "stage": "Resolution (if survives)",
+            "description": "Meticulous work scarred by the realization of unknowable cosmic horrors. His pragmatism remains, but is now tinged with a profound respect for the void's indifference and an acknowledgment of the limits of reason."
           }
         ]
       },
       {
-        "character": "Brother Tiberius",
+        "character": "Brother Tyberius",
         "arc_stages": [
           {
             "stage": "Beginning",
-            "description": "Stoic Death Company Marine, already deeply entrenched in the Black Rage, single-minded in his devotion to Sanguinius and hatred of xenos."
+            "description": "Impulsive, aggressive, seeking redemption through combat, struggles with the Black Rage/Red Thirst, views every fight as an opportunity for glory."
           },
           {
             "stage": "Development",
-            "description": "His Black Rage intensifies, making him a formidable but increasingly uncontrolled asset. He reacts with extreme prejudice to all xenos and displays increasing disdain for anything that deviates from direct destruction, particularly Arion's philosophical musings."
+            "description": "His ferocity is tested by overwhelming odds and horrors that inspire not just rage, but existential dread. Battles his inner demons more intensely in the presence of the Heart's psychic influence."
           },
           {
-            "stage": "Climax/Resolution",
-            "description": "Succumbs entirely to the Black Rage, becoming a berserk force of nature in the final battle. Likely sacrifices himself fighting the Patriarch and its brood, fulfilling his perceived duty with suicidal selflessness, a grim mirror of Sanguinius's ultimate sacrifice."
+            "stage": "Climax",
+            "description": "Confronts inevitable death (either a glorious sacrifice or near-overwhelming combat), finding a moment of clarity amidst the chaos, embodying his Chapter's last stand or finding a temporary peace."
+          },
+          {
+            "stage": "Resolution (if survives)",
+            "description": "If he survives, the experience instills a deeper, more somber understanding of sacrifice and duty beyond mere glorious death. If he perishes, it's a final, heroic, and redemptive act."
           }
         ]
       },
       {
-        "character": "The Patriarch",
+        "character": "Brother-Apothecary Lyra",
         "arc_stages": [
           {
             "stage": "Beginning",
-            "description": "Ancient and intelligent Genestealer Patriarch, influencing the Hulk's infestation via the Hive Mind, drawn to the C'tan Shard's energy."
+            "description": "Intellectual, observant, possessing a scientific curiosity that sometimes borders on heresy. Morally conflicted, questions the cost of Imperial methods."
           },
           {
             "stage": "Development",
-            "description": "As the squad approaches the core, the Patriarch's psychic prowess and tactical sophistication increase, indicating its growing empowerment from the C'tan Shard, leading to more complex and aggressive ambushes."
+            "description": "Her scientific fascination is replaced by growing horror as she uncovers the true nature and scale of the xenos threat. Forced to make difficult ethical compromises."
           },
           {
-            "stage": "Climax/Resolution",
-            "description": "Engages the squad in a climactic battle, wielding its full power to defend the C'tan Shard, acting as its personal guardian. Its fate is directly tied to the outcome of Valerius's final choice regarding the shard."
-          }
-        ]
-      },
-      {
-        "character": "The C'tan Shard",
-        "arc_stages": [
-          {
-            "stage": "Beginning",
-            "description": "A dormant, albeit radiating, cosmic entity, subtly attracting xenos and subtly influencing the Hulk."
+            "stage": "Climax",
+            "description": "Forced to apply her knowledge in life-or-death, morally ambiguous situations, directly confronting the cost of 'necessary evil.'"
           },
           {
-            "stage": "Development",
-            "description": "Its influence grows stronger as the narrative progresses, mentally affecting Arion and intensifying the Genestealer infestation. Its backstory is revealed, elevating it from mere MacGuffin to a significant cosmic threat."
-          },
-          {
-            "stage": "Climax/Resolution",
-            "description": "Its ultimate fate is decided by Valerius's final choice – destruction, attempted weaponization, or uncontained escape – each with galaxy-spanning implications."
+            "stage": "Resolution (if survives)",
+            "description": "Her scientific curiosity is profoundly dampened or completely broken, replaced by a grim awareness of cosmic malevolence. She is hardened and more jaded, understanding the true inhumanity inherent in the galaxy."
           }
         ]
       }

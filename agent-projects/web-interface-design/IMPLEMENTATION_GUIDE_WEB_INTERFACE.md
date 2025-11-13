@@ -2,9 +2,9 @@
 
 ## Document Information
 
-**Version**: 1.0  
-**Created**: 2025-11-12  
-**Related Documents**: PRD_WEB_INTERFACE.md, ARCHITECTURE_WEB_INTERFACE.md  
+**Version**: 1.0
+**Created**: 2025-11-12
+**Related Documents**: PRD_WEB_INTERFACE.md, ARCHITECTURE_WEB_INTERFACE.md
 **Target Audience**: Development Team
 
 ---
@@ -233,7 +233,7 @@ async def health_check():
 **File: backend/app/models/story.py**
 
 ```python
-from sqlalchemy import Column, String, Integer, DateTime, Text, JSON, ForeignKey
+from sqlalchemy import Column, String, Integer, DateTime, Text, JSON, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
 from datetime import datetime
 import uuid
@@ -244,10 +244,12 @@ def generate_uuid():
 
 class Story(Base):
     __tablename__ = "stories"
-    
+
     id = Column(String(36), primary_key=True, default=generate_uuid)
     title = Column(String(255), nullable=False)
     description = Column(Text)
+    is_sample = Column(Boolean, default=False, nullable=False)  # Official sample stories
+    sample_order = Column(Integer, nullable=True)  # Display order for samples
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     current_version = Column(Integer, default=1)
@@ -256,24 +258,24 @@ class Story(Base):
     original_prompt = Column(Text)
     game_data_path = Column(String(500))
     tags = Column(JSON)
-    
+
     versions = relationship("StoryVersion", back_populates="story", cascade="all, delete-orphan")
     generation_jobs = relationship("GenerationJob", back_populates="story", cascade="all, delete-orphan")
 
 class StoryVersion(Base):
     __tablename__ = "story_versions"
-    
+
     id = Column(String(36), primary_key=True, default=generate_uuid)
     story_id = Column(String(36), ForeignKey("stories.id", ondelete="CASCADE"))
     version = Column(Integer, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)
     feedback = Column(Text)
-    
+
     story = relationship("Story", back_populates="versions")
 
 class GenerationJob(Base):
     __tablename__ = "generation_jobs"
-    
+
     id = Column(String(36), primary_key=True, default=generate_uuid)
     story_id = Column(String(36), ForeignKey("stories.id", ondelete="CASCADE"))
     status = Column(String(20), default="queued")
@@ -282,7 +284,7 @@ class GenerationJob(Base):
     started_at = Column(DateTime)
     completed_at = Column(DateTime)
     error = Column(Text)
-    
+
     story = relationship("Story", back_populates="generation_jobs")
 ```
 
@@ -307,11 +309,12 @@ async def list_stories(
     per_page: int = 20,
     sort: str = "newest",
     search: str = None,
+    filter: str = "all",  # 'all', 'samples', 'user_created'
     db: Session = Depends(get_db)
 ):
     """List all stories with pagination and filtering."""
     service = StoryService(db)
-    return service.list_stories(page, per_page, sort, search)
+    return service.list_stories(page, per_page, sort, search, filter)
 
 @router.get("/{story_id}", response_model=StoryResponse)
 async def get_story(story_id: str, db: Session = Depends(get_db)):
@@ -334,11 +337,14 @@ async def create_story(
 
 @router.delete("/{story_id}")
 async def delete_story(story_id: str, db: Session = Depends(get_db)):
-    """Delete a story."""
+    """Delete a story (sample stories cannot be deleted)."""
     service = StoryService(db)
-    success = service.delete_story(story_id)
-    if not success:
+    story = service.get_story(story_id)
+    if not story:
         raise HTTPException(status_code=404, detail="Story not found")
+    if story.is_sample:
+        raise HTTPException(status_code=403, detail="Cannot delete sample stories")
+    success = service.delete_story(story_id)
     return {"success": True}
 ```
 
@@ -383,14 +389,14 @@ from datetime import datetime
 def generate_story_task(self, job_id: str, prompt: str, feedback: str = None):
     """Background task for story generation."""
     db = SessionLocal()
-    
+
     try:
         # Update job status
         job = db.query(GenerationJob).filter_by(id=job_id).first()
         job.status = "in_progress"
         job.started_at = datetime.utcnow()
         db.commit()
-        
+
         # Call CrewAI service
         crew_service = CrewService()
         result = crew_service.generate_story(
@@ -398,15 +404,15 @@ def generate_story_task(self, job_id: str, prompt: str, feedback: str = None):
             feedback=feedback,
             job_id=job_id
         )
-        
+
         # Update job status
         job.status = "completed"
         job.completed_at = datetime.utcnow()
         job.progress_percent = 100
         db.commit()
-        
+
         return result
-        
+
     except Exception as e:
         # Update job with error
         job = db.query(GenerationJob).filter_by(id=job_id).first()
@@ -448,18 +454,18 @@ export const api = axios.create({
 
 // Story API
 export const storyAPI = {
-  list: (params: { page?: number; per_page?: number; sort?: string; search?: string }) =>
+  list: (params: { page?: number; per_page?: number; sort?: string; search?: string; filter?: string }) =>
     api.get('/api/v1/stories', { params }),
-  
+
   get: (storyId: string) =>
     api.get(`/api/v1/stories/${storyId}`),
-  
+
   create: (prompt: string, templateId?: string) =>
     api.post('/api/v1/stories', { prompt, template_id: templateId }),
-  
+
   delete: (storyId: string) =>
     api.delete(`/api/v1/stories/${storyId}`),
-  
+
   iterate: (storyId: string, feedback: object) =>
     api.put(`/api/v1/stories/${storyId}/iterate`, { feedback }),
 };
@@ -468,7 +474,7 @@ export const storyAPI = {
 export const generationAPI = {
   getStatus: (jobId: string) =>
     api.get(`/api/v1/generation/${jobId}`),
-  
+
   cancel: (jobId: string) =>
     api.post(`/api/v1/generation/${jobId}/cancel`),
 };
@@ -477,7 +483,7 @@ export const generationAPI = {
 export const templateAPI = {
   list: () =>
     api.get('/api/v1/templates'),
-  
+
   get: (templateId: string) =>
     api.get(`/api/v1/templates/${templateId}`),
 };
@@ -506,15 +512,16 @@ const Home: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [sort, setSort] = useState('newest');
+  const [filter, setFilter] = useState<'all' | 'samples' | 'user_created'>('all');
 
   useEffect(() => {
     loadStories();
-  }, [search, sort]);
+  }, [search, sort, filter]);
 
   const loadStories = async () => {
     setLoading(true);
     try {
-      const response = await storyAPI.list({ search, sort });
+      const response = await storyAPI.list({ search, sort, filter });
       setStories(response.data.stories);
     } catch (error) {
       console.error('Failed to load stories:', error);
@@ -527,21 +534,64 @@ const Home: React.FC = () => {
     <div className="home-page">
       <header>
         <h1>Space Hulk Game Library</h1>
-        <SearchBar value={search} onChange={setSearch} />
-      </header>
-      
-      {loading ? (
-        <div>Loading...</div>
-      ) : stories.length === 0 ? (
-        <div className="empty-state">
-          <h2>No stories yet</h2>
-          <p>Create your first Space Hulk adventure!</p>
-          <button onClick={() => window.location.href = '/create'}>
-            Create First Story
+        <div className="header-actions">
+          <SearchBar value={search} onChange={setSearch} />
+          <button
+            className="create-button primary"
+            onClick={() => window.location.href = '/create'}
+          >
+            Create New Story
           </button>
         </div>
+      </header>
+
+      <div className="filter-bar">
+        <button
+          className={filter === 'all' ? 'active' : ''}
+          onClick={() => setFilter('all')}
+        >
+          All Stories
+        </button>
+        <button
+          className={filter === 'samples' ? 'active' : ''}
+          onClick={() => setFilter('samples')}
+        >
+          Official Samples
+        </button>
+        <button
+          className={filter === 'user_created' ? 'active' : ''}
+          onClick={() => setFilter('user_created')}
+        >
+          User Created
+        </button>
+      </div>
+
+      {loading ? (
+        <div className="loading-state">
+          <div className="spinner"></div>
+          <p>Loading stories...</p>
+        </div>
+      ) : stories.length === 0 ? (
+        <div className="empty-filtered-state">
+          <h2>No stories match your filters</h2>
+          <p>Try adjusting your search or filters, or create a new story!</p>
+          <div className="action-buttons">
+            <button onClick={() => { setSearch(''); setFilter('all'); }}>
+              Clear Filters
+            </button>
+            <button
+              className="primary"
+              onClick={() => window.location.href = '/create'}
+            >
+              Create New Story
+            </button>
+          </div>
+        </div>
       ) : (
-        <StoryGrid stories={stories} onStoryClick={(id) => window.location.href = `/story/${id}`} />
+        <StoryGrid
+          stories={stories}
+          onStoryClick={(id) => window.location.href = `/story/${id}`}
+        />
       )}
     </div>
   );
@@ -594,8 +644,8 @@ const TemplateGallery: React.FC<Props> = ({ onSelectTemplate }) => {
       <h2>Choose a Template</h2>
       <div className="template-grid">
         {templates.map(template => (
-          <div 
-            key={template.id} 
+          <div
+            key={template.id}
             className="template-card"
             onClick={() => onSelectTemplate(template)}
           >
@@ -792,16 +842,16 @@ describe('StoryCard', () => {
 
 ### Common Issues
 
-**Issue**: CrewAI integration hangs during generation  
+**Issue**: CrewAI integration hangs during generation
 **Solution**: Ensure timeouts are configured, check LLM service availability, review agent configuration
 
-**Issue**: WebSocket connections drop frequently  
+**Issue**: WebSocket connections drop frequently
 **Solution**: Check nginx/proxy timeout settings, implement reconnection logic, verify WebSocket protocol support
 
-**Issue**: Database migrations fail  
+**Issue**: Database migrations fail
 **Solution**: Check for schema conflicts, review migration order, ensure database permissions
 
-**Issue**: Frontend can't connect to backend  
+**Issue**: Frontend can't connect to backend
 **Solution**: Verify CORS configuration, check API_BASE_URL environment variable, ensure backend is running
 
 ---
@@ -824,7 +874,6 @@ describe('StoryCard', () => {
 
 ---
 
-**Document Version**: 1.0  
-**Last Updated**: 2025-11-12  
+**Document Version**: 1.0
+**Last Updated**: 2025-11-12
 **Status**: Ready for Development
-

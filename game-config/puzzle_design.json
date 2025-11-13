@@ -2,52 +2,49 @@
   "puzzle_design": {
     "puzzles": [
       {
-        "id": "puzzle_s02_collapsed_passage",
-        "name": "Collapsed Passage Re-route",
-        "description": "Valerius encounters a heavily collapsed section of the main corridor, blocking direct progress. A defunct servo-skull drone, partially buried, hints at an alternative maintenance shaft, but gaining access requires bypassing a rusted control panel.",
-        "location": "scene_02_isolated_survival",
-        "narrative_purpose": "Forces the player to choose between a direct, but risky, path or a technical bypass, reinforcing the 'isolated survival' theme and demonstrating Valerius's adaptability under pressure. Leads directly into Character Moment for Valerius to fight growing Black Rage or manage a direct, tactical choice.",
+        "id": "puzzle_breach_stabilization",
+        "name": "Thunderhawk Breach Stabilization",
+        "description": "After breaching the Space Hulk, the Thunderhawk's hull integrity is compromised, and auxiliary systems are failing. The Kill Team must quickly reroute power and seal critical breaches before decompression or system failure becomes critical. This emphasizes Valerius's technical skill and Kaelen's demand for protocol.",
+        "location": "scene_hulk_breach",
+        "narrative_purpose": "Introduces immediate environmental hazards and tests the team's ability to react under pressure. Highlights Valerius's pragmatism and Kaelen's focus on procedure. Sets the claustrophobic and dangerous tone of the hulk.",
         "solution": {
-          "type": "environmental_interaction_and_choice",
+          "type": "mini-game_system_repair",
           "steps": [
-            "Inspect collapsed corridor: reveals no immediate way through.",
-            "Locate defunct servo-skull: reveals a schematic for the alternate maintenance shaft entrance and a cryptic access code fragment.",
-            "Interact with rusted control panel: requires a minor logic-puzzle or quick-time event to re-route power, then inputting the fractured code. Success opens the shaft. Failure could trigger a minor Genestealer ambush.",
-            "Alternatively: Attempt to 'clear rubble' directly (s02_d1_path_choice), triggering a combat encounter and consuming more time/resources."
+            "Valerius identifies three critical system failures (e.g., primary power conduit severed, life support pressure drop, comms array offline).",
+            "Player chooses which system to prioritize based on Kaelen's directives (e.g., seal breach first for immediate survival) or Valerius's analytical assessment (e.g., restore comms for external contact).",
+            "Each system requires a quick sequence of button presses or a matching mini-game to reroute power/seal breaches, possibly with Tyberius physically bracing failing systems and Lyra providing emergency medical aid for minor injuries sustained."
           ]
         },
         "difficulty": "medium"
       },
       {
-        "id": "puzzle_s04_data_fragment_reconstruction",
-        "name": "Ancient Data-Slate Reconstruction",
-        "description": "In a forgotten utility station, Brother Arion discovers several heavily damaged and encrypted Imperial data-slates. Piecing together the fragments and decrypting the corrupted files could reveal crucial information about the Hulk's past and the C'tan Shard.",
-        "location": "scene_04_deeper_hulk_investigation",
-        "narrative_purpose": "Allows Brother Arion to showcase his intellectual curiosity and analytical skills while driving forward 'Unveiling the Hulk's Secrets'. It provides direct lore delivery, tying into plot point pp_04, and deepens the player's understanding of the context. This puzzle directly precedes and sets up 'Unveiling the Hulk's Secrets' (scene_05_hulk_secrets_revealed).",
+        "id": "puzzle_ancient_glyph_decipher",
+        "name": "Whispers of Eldritch Lore",
+        "description": "In 'scene_ancient_lore_clue' or 'scene_xenos_cathedral', the team encounters walls covered with complex, pulsating xenos glyphs. Lyra believes they hold vital information about the cult or the Heart of the Leviathan, but they defy known xenos languages.",
+        "location": "scene_ancient_lore_clue",
+        "narrative_purpose": "Emphasizes Lyra's scientific curiosity and intellectual prowess, potentially bordering on heresy. Provides narrative exposition about the true nature of the 'Heart' or the cult's motives. Serves as a branching point in the story, influencing whether the team focuses on immediate threats or deeper mysteries.",
         "solution": {
-          "type": "logic_and_decryption",
+          "type": "logic_deciphering",
           "steps": [
-            "Collect 3-5 data-slate fragments scattered in the station (minor exploration).",
-            "Bring fragments to Arion, who then initiates the reconstruction.",
-            "Player assists Arion in a mini-game: connecting corrupted data nodes (logic puzzle) and entering a series of keyword sequences (lore-based guesses/hints from environmental clues) to decrypt the files.",
-            "Successful decryption reveals logs detailing the Hulk's experimental warship origin, the captured C'tan Shard, and its subsequent influence."
+            "Lyra uses her auspex and xeno-data-slates to scan glowing glyphs, revealing patterns or echoes of meaning.",
+            "Player identifies repeating symbols or sequences (e.g., 'awakening', 'devour', 'god', 'truth') from a selection of fragmented options displayed.",
+            "Successful identification of key symbols (based on context clues from previous logs/observations) allows Lyra to piece together a fragmented warning or prophecy about the Heart's true nature or the Patriarch's ultimate goal. Valerius can assist by cross-referencing energy signatures."
           ]
         },
         "difficulty": "medium"
       },
       {
-        "id": "puzzle_s07_lockdown_override",
-        "name": "Core Chamber Lockdown Override",
-        "description": "The final approach to the C'tan Shard chamber is protected by a multi-layered security lockdown, remnants of the original crew's attempt to contain the growing threat. The controls are ancient and require precise, coordinated input to bypass.",
-        "location": "scene_07_approaching_the_core",
-        "narrative_purpose": "Provides a significant challenge before the final confrontation, increasing tension. It requires Valerius to utilize his tactical leadership (possibly by directing Arion or Tiberius's actions) and illustrates the desperation of the original Imperial crew. Success allows access to pp_06 and scene_08.",
+        "id": "puzzle_cult_ritual_interruption",
+        "name": "Disrupting the Awakening",
+        "description": "In 'scene_xenos_cathedral', the Genestealer Cult is performing a ritual around the dormant 'Heart'. The team needs to disrupt the ritual without triggering a full, overwhelming cultist response.",
+        "location": "scene_xenos_cathedral",
+        "narrative_purpose": "Provides a tactical challenge that blends stealth and combat. Highlights Kaelen's strategic thinking and the need for coordinated team effort. The outcome affects the difficulty of the subsequent 'Confronting the Patriarch' encounter.",
         "solution": {
-          "type": "timed_coordination_puzzle",
+          "type": "stealth_or_tactical_assault",
           "steps": [
-            "Player (Valerius) must activate a primary console to initiate the override sequence.",
-            "Another character (e.g., Arion or Tiberius depending on proximity/player choice) must activate secondary power conduits in sequence within a strict time limit.",
-            "Periodically during the override, Genestealer patrols are drawn to the activity, forcing a brief combat interruption.",
-            "Failure to complete a sequence on time triggers backup security (e.g., automated turrets or flood of lesser Genestealers) that must be incapacitated before retrying."
+            "Player chooses between stealth (Kaelen's preference for tactical advantage) or direct assault (Tyberius's inclination).",
+            "Stealth Path: Team navigates through cultist patrols using environmental cover, disabling key ritual components (e.g., bio-luminescent totems, psychic amplifiers) that empower the ritual. Requires timing and awareness checks. Failure results in immediate combat with alerted cultists.",
+            "Direct Assault Path: Initiates a multi-wave combat encounter where the team must rapidly eliminate cultists while dealing with environmental hazards (e.g., psychic feedback from ritual components). Prioritizing key cultists (e.g., Magus, Primus) can disrupt the ritual faster."
           ]
         },
         "difficulty": "hard"
@@ -55,193 +52,162 @@
     ],
     "artifacts": [
       {
-        "id": "artifact_ceremonial_dag",
-        "name": "Ceremonial Death Mask (Fragment)",
-        "description": "A shattered fragment of a Blood Angels Death Mask, bearing the stylized tear and winged skull. It radiates a faint psychic echo of despair and duty.",
-        "location": "scene_02_isolated_survival",
-        "narrative_significance": "Found on a fallen brother, this artifact deeply connects to Valerius's internal conflict. Collecting these fragments (additional fragments could be found in s04) could unlock lore entries about the Death Company or trigger Valerius's 'Black Rage' internal monologue moments, reinforcing his struggle with his inherited curse and the sacrifice of his brethren. It directly supports Valerius's character arc.",
+        "id": "artifact_commissar_log",
+        "name": "Commissar's Doomed Log-Vox",
+        "description": "A partially scorched and damaged Imperial log-vox module, recovered from the derelict voidship in 'scene_derelict_expedition'. It contains the last, frantic recordings of a Commissar who witnessed the awakening horror.",
+        "location": "scene_derelict_expedition",
+        "narrative_significance": "Provides direct narrative exposition from a human (Imperial) perspective, reinforcing the theme of 'unseen horror' and 'whispers from within'. The Commissar's descent into despair and eventual implied corruption or death foreshadows the true nature of the Heart and the moral crucible. Fuels Lyra's narrative investigation or Valerius's tactical assessment of threat amplification.",
         "properties": [
           {
-            "property": "triggers_dialogue",
-            "value": "Valerius reflection on the Death Company and Black Rage"
+            "property_type": "Data Logs",
+            "value": "Fragmented audio/text entries detailing initial encounter with cult, growing paranoia, mention of 'the whispers', increasing loss of Imperial morale, and a final, garbled transmission about 'a colossal eye that sees all'."
           },
           {
-            "property": "minor_sanity_drain_or_buff",
-            "value": "depending on player's current Black Rage level"
+            "property_type": "Corrupted Data",
+            "value": "A small portion of the log is warped by xenos influence, making it difficult to fully decrypt without Lyra's expertise."
           }
         ]
       },
       {
-        "id": "artifact_ctan_shard_data",
-        "name": "Corrupted Data-Slate (from C'tan Shard)",
-        "description": "A partially melted and heavily corrupted data-slate, emanating faint, unsettling energy. It seems to react to Brother Arion's presence.",
-        "location": "scene_04_deeper_hulk_investigation",
-        "narrative_significance": "This is a key artifact directly related to the C'tan Shard and Arion's growing obsession. When discovered, it triggers Arion's interest in 'purifying' and weaponizing the shard (pp_05). It acts as a physical manifestation of the Shard's influence and Arion's character arc development. Successfully deciphering it via the puzzle 'Ancient Data-Slate Reconstruction' reveals critical lore about the Shard's origins and capabilities, fueling Arion's arguments.",
+        "id": "artifact_xenos_psy_amplifier",
+        "name": "Xenos Psychic Amplifier Shard",
+        "description": "A crystalline shard found near the Genestealer cult's ritual grounds, pulsating faintly with captured psychic energy. It feels unnerving to touch, subtly projecting alien thoughts.",
+        "location": "scene_xenos_cathedral",
+        "narrative_significance": "Reveals insight into the Patriarch's psychic abilities and the cult's methods of amplifying the Heart's influence. Lyra can study it for vulnerabilities or insights into xenos bio-psychics, while Valerius might try to analyze its energy signature. Presents a potential tactical weakness or understanding of the enemy within 'scene_confront_patron'.",
         "properties": [
           {
-            "property": "emits_psychic_resonance",
-            "value": "high"
+            "property_type": "Psychic Resonance",
+            "value": "Slightly interferes with internal comms and causes minor headaches to non-psykers."
           },
           {
-            "property": "unlocks_arion_dialogue_tree",
-            "value": "regarding purification/weaponization"
+            "property_type": "Bio-Energy Signature",
+            "value": "Analysis by Lyra reveals it's composed of organic and synthetic compounds, enhancing localized psychic fields like a lens focusing light."
           },
           {
-            "property": "lore_source",
-            "value": "C'tan Shard history"
+            "property_type": "Fragility",
+            "value": "Can be destroyed to temporarily disrupt small cultist psychic abilities or communication."
           }
         ]
       },
       {
-        "id": "artifact_hulk_doomsday_key",
-        "name": "Doomsday Protocol Activation Key",
-        "description": "A heavy, archaic cogitator key shaped like an Aquila, designed for a singular, catastrophic purpose: the annihilation of the 'Goliath's Maw'. It is protected by hardened adamantium casing.",
-        "location": "scene_08_final_confrontation",
-        "narrative_significance": "The ultimate instrument of 'Survival vs. Sacrifice'. Finding this key presents Valerius with the 'Martyrdom Ending' option (s08_d1_ending_choice). Its presence raises the stakes of the final confrontation and forces the player to consider the ultimate cost of eliminating the C'tan Shard. It is the physical linchpin for one of the primary narrative resolutions.",
+        "id": "artifact_ancient_device_fragment",
+        "name": "Fragment of Ancient Stasis Device",
+        "description": "A piece of remarkably preserved, unknown xenos technology embedded within the walls of 'scene_ancient_lore_clue'. It hums faintly and seems to distort perception, suggesting a long-dormant containment or temporal manipulation function.",
+        "location": "scene_ancient_lore_clue",
+        "narrative_significance": "Introduces the possibility of ancient containment, directly relevant to the 'Contain the Heart' path ('scene_contain_entity_path'). Its discovery by Valerius reinforces his arc by presenting a technological solution to an impossible problem. Provides a tangible link to the 'Echoes of the Past' plot point and deepens the mystery of the hulk.",
         "properties": [
           {
-            "property": "activates_doomsday_protocol",
-            "value": "confirm_destruction_sequence"
+            "property_type": "Energy Signature",
+            "value": "Valerius can analyze its unique energy output, identifying it as a highly advanced gravimetric or stasis field generator component."
           },
           {
-            "property": "plot_critical",
-            "value": "ending_trigger"
+            "property_type": "Corrosion Resistance",
+            "value": "Shows incredible resilience to the corrosive environment of the hulk."
+          },
+          {
+            "property_type": "Schematics Fragment",
+            "value": "Valerius can extract partial schematics, suggesting how ancient containment fields might work, crucial for 'scene_contain_entity_path' options later."
           }
         ]
       }
     ],
     "monsters": [
       {
-        "id": "monster_genestealer_patrol",
-        "name": "Genestealer Patrol",
-        "description": "Standard Genestealer brood, fast, chitin-armored, and equipped with razor-sharp claws. They hunt in small packs and are adept at ambushes.",
+        "id": "monster_genestealer_hybrid_alpha",
+        "name": "Genestealer Hybrid Alpha",
+        "description": "A larger, stronger, and more cunning Genestealer Hybrid (typically 2nd or 3rd generation) encountered among the first wave of attackers. It displays rudimentary tactical intelligence, coordinating smaller Hybrids.",
         "locations": [
-          "scene_01_insertion",
-          "scene_02_isolated_survival",
-          "scene_04_deeper_hulk_investigation",
-          "scene_07_approaching_the_core"
+          "scene_first_genestealers",
+          "scene_xenos_cathedral"
         ],
-        "narrative_role": "The primary physical threat throughout the game. Their increasing numbers and tactical sophistication (from simple ambushes to coordinated attacks) reflect the growing influence of the Patriarch and C'tan Shard, serving the 'Man vs. Alien' theme. They provide continuous challenge and reinforce the grim reality of the Space Hulk.",
+        "narrative_role": "Serves as a mini-boss in early combat encounters, making the Genestealer threat feel more organized and intelligent than simple feral beasts. Reinforces Kaelen's initial underestimation of the cult and forces Tyberius to push his combat prowess. Provides a tactical challenge beyond mere mob encounters.",
         "abilities": [
-          "Claw attack",
-          "Ambush",
-          "Swarm tactics"
+          "Coordinated Strike (calls in flanking lesser Hybrids)",
+          "Enhanced Claws (high melee damage)",
+          "Thick Carapace (minor damage resistance)",
+          "Psionic Scream (briefly disorients nearby targets)"
         ]
       },
       {
-        "id": "monster_broodlord",
-        "name": "Broodlord (Enhanced)",
-        "description": "A larger, more aggressive Genestealer alpha, exhibiting rudimentary psychic abilities and enhanced resilience due to the C'tan Shard's influence. It leads larger broods.",
+        "id": "monster_psychic_cult_magus",
+        "name": "Psionic Cult Magus",
+        "description": "A leading member of the Genestealer Cult, gifted with potent psychic abilities by the Patriarch. Often a 4th generation Hybrid, appearing outwardly human but with subtle xenos mutations and a disturbing zealousness.",
         "locations": [
-          "scene_04_deeper_hulk_investigation",
-          "scene_07_approaching_the_core"
+          "scene_xenos_cathedral",
+          "scene_confront_patron"
         ],
-        "narrative_role": "Serves as a mini-boss or significant encounter that showcases the increasing threat of the Genestealer infestation (pp_03). Its psychic enhancement directly links to the C'tan Shard's corrupting influence, demonstrating the power that Arion seeks to control and the intensity of the Patriarch's domain. It highlights the growing pressure on Valerius and the squad.",
+        "narrative_role": "Directly links the cult's activities to the broader psychic influence of the 'Heart' and the Patriarch. Acts as an early source of psychic opposition, something the Space Marines are not inherently prepared for. Lyra can study its psychic signature as part of 'Whispers of Eldritch Lore' puzzle. Its defeat weakens the ritual's effectiveness.",
         "abilities": [
-          "Psychic Scream (disorient)",
-          "Coordinated Charge",
-          "Rending Claws",
-          "Area-of-effect aura (fear/slow)"
+          "Mind Scour (deals moderate psychic damage, debuffs accuracy)",
+          "Frenzied Zeal (buffs nearby cultists' attack and defense)",
+          "Warp Shield (briefly deflects ranged attacks)",
+          "Psychic Anchor (creates a psychic nexus that cultists draw strength from until destroyed)"
         ]
       },
       {
-        "id": "monster_patriarch_ascendant",
-        "name": "Genestealer Patriarch (Ascendant)",
-        "description": "The ancient and most formidable leader of the Hulk's Genestealer brood, significantly empowered by the C'tan Shard. It radiates a potent psychic presence, controls the entire infestation, and is a master tactician in battle.",
+        "id": "monster_gloom_stalker",
+        "name": "Gloom Stalker (Lurking Horror)",
+        "description": "Not a Genestealer, but a creature native to the deeper, more corrupted parts of the Space Hulk. It's a multi-limbed, chitinous predator adapted to zero-gravity and extreme darkness, often attacking from unexpected angles.",
         "locations": [
-          "scene_08_final_confrontation"
+          "scene_beacon_source",
+          "scene_derelict_expedition",
+          "scene_detonate_hulk_path"
         ],
-        "narrative_role": "The ultimate physical antagonist, representing the peak of the 'Man vs. Alien' conflict and the corrupting power of the C'tan Shard. Its heightened intelligence and psychic abilities are a direct consequence of the Shard (pp_03, pp_06). Defeating the Patriarch is a monumental task that tests all of Valerius's skills and the squad's cohesion, directly preceding the final choice regarding the Shard. Its death or survival is tied to the game's ending.",
+        "narrative_role": "Reinforces the 'Man vs. Environment' theme. Introduces an unexpected, non-cultist threat that relies on environmental advantages, forcing Valerius to utilize environmental scanning and Kaelen to adapt tactics. Represents the general pervasive horror and danger of the Space Hulk itself, separate from conscious xenos plotting.",
         "abilities": [
-          "Massive Psychic Blasts",
-          "Mind Control (on lesser Genestealers)",
-          "Devastating Melee",
-          "Hive Mind Command (spawns reinforcements)",
-          "Telekinetic Shield (briefly invulnerable)"
+          "Ambush Predator (high first-strike bonus from stealth)",
+          "Void Claws (bypasses armor, causes bleed)",
+          "Grapple (drags a target into darkness or hazardous areas)",
+          "Chitinous Camouflage (difficult to detect in low light/zero-G until it attacks)"
         ]
       }
     ],
     "npcs": [
       {
-        "id": "npc_sergeant_valerius",
-        "name": "Brother-Sergeant Valerius",
-        "role": "Player Character, Squad Leader",
-        "description": "A veteran Death Company Terminator, struggling against the Black Rage. His duty and faith are constantly tested by the grim reality of the Hulk and his internal demons. He is the player's avatar and moral compass.",
+        "id": "npc_dead_servicitor",
+        "name": "Malfunctioning Servitor (Scout)",
+        "role": "Remains of an Imperial Servitor from a previous expedition, still broadcasting corrupted data. Its function was likely reconnaissance.",
+        "description": "A partially intact, heavily damaged Imperial servitor found slumped against a console, flickering with failing diagnostic lights. Its internal vox-caster crackles with fragmented, looping data packets and distress signals.",
         "locations": [
-          "scene_01_insertion",
-          "scene_02_isolated_survival",
-          "scene_03_reunion_arion",
-          "scene_04_deeper_hulk_investigation",
-          "scene_05_hulk_secrets_revealed",
-          "scene_06_moral_dilemma",
-          "scene_07_approaching_the_core",
-          "scene_08_final_confrontation"
+          "scene_derelict_expedition"
         ],
         "dialogue_themes": [
-          "Duty and Sacrifice",
-          "Black Rage (internal struggle)",
-          "Faith vs. Heresy",
-          "Leadership",
-          "Redemption"
+          "Echoes of the Lost",
+          "Fragments of data about 'the whispers'",
+          "Locations of other failed Imperial assets",
+          "Corrupted Imperial protocols"
         ]
       },
       {
-        "id": "npc_arion",
-        "name": "Brother Arion",
-        "role": "Librarian, Moral Catalyst",
-        "description": "A highly intelligent Blood Angels Librarian, whose intellectual curiosity and thirst for forbidden knowledge lead him down a dangerous path of subtle corruption by the C'tan Shard. He challenges Valerius's Imperial orthodoxy.",
+        "id": "npc_cult_disciple_zealot",
+        "name": "Cult Disciple Zealot",
+        "role": "A fanatical human cultist, completely consumed by devotion to the Patriarch and the 'Heart'. Easily manipulated but fiercely protective of sacred sites.",
+        "description": "A gaunt, wild-eyed figure, crudely armored and wielding improvised bladed weapons. Its eyes burn with an unnatural fervor, and it mutters low, guttural blessings to its alien god.",
         "locations": [
-          "scene_03_reunion_arion",
-          "scene_04_deeper_hulk_investigation",
-          "scene_05_hulk_secrets_revealed",
-          "scene_06_moral_dilemma",
-          "scene_07_approaching_the_core",
-          "scene_08_final_confrontation"
+          "scene_first_genestealers",
+          "scene_xenos_cathedral"
         ],
         "dialogue_themes": [
-          "Knowledge and Power",
-          "Xenos Lore",
-          "Warp Influence",
-          "Purification vs. Destruction",
-          "Pragmatism vs. Ideology"
+          "Blind devotion and fanaticism",
+          "Prophecies of the 'Star-God's' awakening",
+          "Hatred for the 'false Emperor' and unbelievers",
+          "The 'Heart' as source of life and truth"
         ]
       },
       {
-        "id": "npc_tiberius",
-        "name": "Brother Tiberius",
-        "role": "Death Company Exemplar, Combat Support",
-        "description": "A stoic Death Company Marine, fully consumed by the Black Rage but channeling it into disciplined ferocity against xenos. He serves as a mirror to Valerius's potential fate and a staunch, albeit often unthinking, adherent to Imperial holy wrath.",
+        "id": "npc_dying_xenotech_adept",
+        "name": "Dying Xenotech Adept",
+        "role": "A member of a previous, doomed tech-priest expedition, discovered barely clinging to life. He holds vital but fragmented information.",
+        "description": "A skeletal figure encased in heavily scarred Mechanicus robes, half-assimilated into a bio-organic growth. His cybernetics are twisted, but his eyes glow with a desperate intelligence. He has a few moments of clarity before succumbing.",
         "locations": [
-          "scene_03_reunion_arion",
-          "scene_04_deeper_hulk_investigation",
-          "scene_06_moral_dilemma",
-          "scene_07_approaching_the_core",
-          "scene_08_final_confrontation"
+          "scene_ancient_lore_clue",
+          "scene_xenos_cathedral"
         ],
         "dialogue_themes": [
-          "Vengeance",
-          "Hatred of Xenos",
-          "Sanguinius's Sacrifice",
-          "Unyielding Faith",
-          "Brutal Efficiency"
-        ]
-      },
-      {
-        "id": "npc_ancient_comms_log",
-        "name": "Ancient (Automated) Comms Log",
-        "role": "Lore Provider, Atmospheric Element",
-        "description": "Fragmented, automated audio logs or visual recordings from the original Imperial crew of the 'Goliath's Maw' before its fall. The voices are often panicked, desperate, or filled with grim determination.",
-        "locations": [
-          "scene_04_deeper_hulk_investigation",
-          "scene_05_hulk_secrets_revealed"
-        ],
-        "narrative_role": "Provides critical backstory (pp_04) about the Hulk's origins, the C'tan Shard's capture, and the events leading to the ship's perdition. These logs reinforce the 'Cosmic Horror' theme and show the desperate struggle of previous Imperial forces against an unknowable threat, foreshadowing the gravity of Valerius's mission. Their fragmented nature adds to the mystery and allows for the 'Ancient Data-Slate Reconstruction' puzzle.",
-        "dialogue_themes": [
-          "Desperation",
-          "Discovery of the Shard",
-          "The Horus Heresy (references)",
-          "Failure of Containment",
-          "Doomsday Prep"
+          "The scale of the 'Heart's' influence",
+          "Warnings about psychic corruption",
+          "The true age and nature of the xenos structures",
+          "Fragments of data on ancient 'containment schema' (linking to 'artifact_ancient_device_fragment')"
         ]
       }
     ]

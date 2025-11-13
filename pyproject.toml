@@ -67,6 +67,12 @@ play_game = "space_hulk_game.demo_game:main"
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+[tool.hatchling.build.targets.wheel]
+packages = ["src/space_hulk_game"]
+
+[tool.hatchling.build.targets.wheel.force-include]
+"src/space_hulk_game/py.typed" = "space_hulk_game/py.typed"
+
 [tool.crewai]
 type = "crew"
 

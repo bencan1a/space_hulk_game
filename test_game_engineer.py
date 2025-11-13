@@ -84,7 +84,9 @@ def test_transformation():
                     game_structure["game"]["scenes"][target] = {
                         "id": target,
                         "name": target_narrative.get("name", "Unknown"),
-                        "description": target_text.get("description", target_narrative.get("description", "")),
+                        "description": target_text.get(
+                            "description", target_narrative.get("description", "")
+                        ),
                         "exits": {},
                         "items": [],
                         "npcs": [],
@@ -137,7 +139,11 @@ def test_transformation():
     # Option 1: Look for a scene with a name or property indicating it's the final scene
     final_scene_id = None
     for sid, scene in scenes_dict.items():
-        if "final" in scene["name"].lower() or "confrontation" in scene["name"].lower() or "escape" in scene["name"].lower():
+        if (
+            "final" in scene["name"].lower()
+            or "confrontation" in scene["name"].lower()
+            or "escape" in scene["name"].lower()
+        ):
             final_scene_id = sid
             break
     # Option 2: Fallback to last scene by sorted order if not found
