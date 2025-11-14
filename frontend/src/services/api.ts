@@ -53,7 +53,10 @@ class ApiClient {
       (response) => {
         // Log successful responses in dev mode
         if (import.meta.env.DEV) {
-          console.log(`API Response: ${response.config.method?.toUpperCase()} ${response.config.url}`, response.data)
+          console.log(
+            `API Response: ${response.config.method?.toUpperCase()} ${response.config.url}`,
+            response.data
+          )
         }
         return response
       },
@@ -102,7 +105,10 @@ class ApiClient {
     theme_id?: string
     tags?: string[]
   }): Promise<PaginatedResponse<Story>> {
-    const response = await this.client.get<ApiResponse<PaginatedResponse<Story>>>('/api/v1/stories', { params })
+    const response = await this.client.get<ApiResponse<PaginatedResponse<Story>>>(
+      '/api/v1/stories',
+      { params }
+    )
     return response.data.data
   }
 
@@ -122,13 +128,17 @@ class ApiClient {
 
   // Generation endpoints
   async getGenerationStatus(sessionId: string): Promise<GenerationSession> {
-    const response = await this.client.get<ApiResponse<GenerationSession>>(`/api/v1/generate/${sessionId}`)
+    const response = await this.client.get<ApiResponse<GenerationSession>>(
+      `/api/v1/generate/${sessionId}`
+    )
     return response.data.data
   }
 
   // Game endpoints
   async startGame(storyId: number): Promise<GameSession> {
-    const response = await this.client.post<ApiResponse<GameSession>>(`/api/v1/game/${storyId}/start`)
+    const response = await this.client.post<ApiResponse<GameSession>>(
+      `/api/v1/game/${storyId}/start`
+    )
     return response.data.data
   }
 

@@ -1,5 +1,9 @@
 # Space Hulk Game
 
+[![Backend CI](https://github.com/bencan1a/space_hulk_game/actions/workflows/backend-ci.yml/badge.svg)](https://github.com/bencan1a/space_hulk_game/actions/workflows/backend-ci.yml)
+[![Frontend CI](https://github.com/bencan1a/space_hulk_game/actions/workflows/frontend-ci.yml/badge.svg)](https://github.com/bencan1a/space_hulk_game/actions/workflows/frontend-ci.yml)
+[![Docker Build](https://github.com/bencan1a/space_hulk_game/actions/workflows/docker-build.yml/badge.svg)](https://github.com/bencan1a/space_hulk_game/actions/workflows/docker-build.yml)
+
 A text-based adventure game set in the Warhammer 40K universe, powered by CrewAI multi-agent system.
 
 ## 🎮 Play the Game

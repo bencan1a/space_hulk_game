@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 /**
  * API Client Usage Examples
- * 
+ *
  * This file demonstrates how to use the API client in your components.
  * DO NOT import this file - it's for documentation purposes only.
  */

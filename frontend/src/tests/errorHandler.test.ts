@@ -109,7 +109,9 @@ describe('Error Handler', () => {
     const result = handleApiError(axiosError)
 
     expect(result.code).toBe('NETWORK_ERROR')
-    expect(result.userMessage).toBe('Unable to connect to the server. Please check your internet connection.')
+    expect(result.userMessage).toBe(
+      'Unable to connect to the server. Please check your internet connection.'
+    )
     expect(result.retryPossible).toBe(true)
   })
 

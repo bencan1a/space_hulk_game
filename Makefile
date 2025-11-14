@@ -1,4 +1,4 @@
-.PHONY: help install install-dev dev test test-real-api coverage lint format format-check type-check type-check-pre-commit security security-report check-yaml check-all fix lint-files format-files type-check-files security-files check-yaml-files fix-files run-crew validate-api validate-config clean
+.PHONY: help install install-dev dev test test-real-api coverage lint format format-check format-frontend format-check-frontend type-check type-check-pre-commit security security-report check-yaml check-all fix lint-files format-files format-frontend-files type-check-files security-files check-yaml-files fix-files run-crew validate-api validate-config clean
 
 help:
 	@echo "Space Hulk Game - Development Commands"
@@ -14,15 +14,17 @@ help:
 	@echo "  make coverage        - Generate coverage report"
 	@echo ""
 	@echo "Code Quality:"
-	@echo "  make lint            - Check code with Ruff linter"
-	@echo "  make format          - Auto-format code using Ruff"
-	@echo "  make format-check    - Verify formatting without modifications"
-	@echo "  make type-check      - Run MyPy type validation"
-	@echo "  make security        - Execute Bandit security scanning"
-	@echo "  make security-report - Generate JSON security report (for CI)"
-	@echo "  make check-yaml      - Validate YAML files with yamllint"
-	@echo "  make check-all       - Run all checks sequentially"
-	@echo "  make fix             - Auto-fix linting issues and reformat"
+	@echo "  make lint                 - Check code with Ruff linter"
+	@echo "  make format               - Auto-format code using Ruff"
+	@echo "  make format-check         - Verify formatting without modifications"
+	@echo "  make format-frontend      - Format frontend code with Prettier"
+	@echo "  make format-check-frontend- Check frontend formatting with Prettier"
+	@echo "  make type-check           - Run MyPy type validation"
+	@echo "  make security             - Execute Bandit security scanning"
+	@echo "  make security-report      - Generate JSON security report (for CI)"
+	@echo "  make check-yaml           - Validate YAML files with yamllint"
+	@echo "  make check-all            - Run all checks sequentially"
+	@echo "  make fix                  - Auto-fix linting issues and reformat"
 	@echo ""
 	@echo "CrewAI Specific:"
 	@echo "  make run-crew        - Run CrewAI crew"
@@ -71,6 +73,12 @@ format:
 format-check:
 	ruff format --check .
 
+format-frontend:
+	cd frontend && npm run format
+
+format-check-frontend:
+	cd frontend && npx prettier --check "src/**/*.{ts,tsx,css}"
+
 type-check:
 	mypy src/space_hulk_game tests tools *.py
 
@@ -86,12 +94,13 @@ security-report:
 check-yaml:
 	yamllint .
 
-check-all: format lint type-check security check-yaml test
+check-all: format lint format-check-frontend type-check security check-yaml test
 	@echo "✅ All checks passed!"
 
 fix:
 	ruff check --fix .
 	ruff format .
+	@command -v npm >/dev/null 2>&1 && cd frontend && npm run format || echo "Skipping frontend format (npm not available)"
 	@echo "✅ Code fixed and formatted!"
 
 # Code Quality - File-specific targets (for pre-commit hooks)
@@ -108,6 +117,13 @@ format-files:
 		ruff format $(FILES); \
 	else \
 		ruff format .; \
+	fi
+
+format-frontend-files:
+	@if [ -n "$(FILES)" ]; then \
+		cd frontend && npx prettier --write $(FILES); \
+	else \
+		cd frontend && npm run format; \
 	fi
 
 type-check-files:
