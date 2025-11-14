@@ -4,6 +4,8 @@ import sys
 from pathlib import Path
 
 import pytest
+from app.database import get_db
+from app.main import app
 from app.models.base import Base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -20,11 +22,23 @@ def db_session():
     Base.metadata.create_all(engine)
     SessionLocal = sessionmaker(bind=engine)
     session = SessionLocal()
+
+    # Override the get_db dependency
+    def override_get_db():
+        try:
+            yield session
+        finally:
+            pass  # Don't close session here, let fixture handle it
+
+    app.dependency_overrides[get_db] = override_get_db
+
     try:
         yield session
     finally:
         session.close()
         engine.dispose()
+        # Clean up override
+        app.dependency_overrides.clear()
 
 
 @pytest.fixture
