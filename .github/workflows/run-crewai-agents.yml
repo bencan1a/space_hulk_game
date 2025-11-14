@@ -10,6 +10,10 @@ on:
         type: string
         default: 'example4_space_hulk'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   run-agents:
     name: Execute CrewAI Agent Crew
