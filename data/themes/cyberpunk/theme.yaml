@@ -1,0 +1,50 @@
+# Cyberpunk Theme Configuration
+id: cyberpunk
+name: "Cyberpunk"
+description: "High-tech dystopian future"
+
+colors:
+  primary: "#FF00FF"        # Neon magenta
+  secondary: "#00FFFF"      # Neon cyan
+  background: "#0A0A0A"     # Very dark
+  surface: "#1A1A2E"        # Dark blue
+  text: "#00FF00"           # Neon green
+  textSecondary: "#00AA00"  # Dimmer green
+  accent: "#FFFF00"         # Neon yellow
+  error: "#FF0000"
+  success: "#00FF00"
+  warning: "#FFAA00"
+
+typography:
+  fontFamily: "'Orbitron', 'Arial', sans-serif"
+  fontFamilyMono: "'Share Tech Mono', monospace"
+  fontSize:
+    xs: "0.75rem"
+    sm: "0.875rem"
+    base: "1rem"
+    lg: "1.125rem"
+    xl: "1.25rem"
+    xxl: "1.5rem"
+
+terminology:
+  story: "Run"
+  stories: "Runs"
+  character: "Runner"
+  characters: "Runners"
+  enemy: "Corp"
+  enemies: "Corps"
+  item: "Cyberware"
+  items: "Cyberware"
+  location: "Zone"
+  locations: "Zones"
+
+ui:
+  welcome: "Jack in to the grid"
+  createStory: "Start New Run"
+  libraryTitle: "Run Archive"
+  playButton: "Jack In"
+
+assets:
+  logo: "assets/logo.png"
+  background: "assets/background.jpg"
+  icon: "assets/icon.svg"
