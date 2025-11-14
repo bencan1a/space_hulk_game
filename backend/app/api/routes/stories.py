@@ -129,7 +129,7 @@ async def get_story_content(
 
     try:
         with game_file.open(encoding="utf-8") as f:
-            content = cast(dict[str, Any], json.load(f))
+            content = cast("dict[str, Any]", json.load(f))
         return content
     except json.JSONDecodeError as e:
         logger.error(f"Invalid JSON in game file: {story.game_file_path} - {e}")
