@@ -57,3 +57,11 @@ repos:
         entry: bash -c 'source .venv/bin/activate && make check-yaml-files FILES="$*"'
         language: system
         types: [yaml]
+
+      # Prettier formatting for frontend
+      - id: prettier
+        name: Prettier formatting (frontend)
+        entry: bash -c 'cd frontend && npx prettier --write "$@"'
+        language: system
+        files: ^frontend/.*\.(ts|tsx|css)$
+        pass_filenames: true
