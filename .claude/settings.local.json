@@ -21,7 +21,8 @@
       "Bash(mypy:*)",
       "Bash(make security:*)",
       "Bash(make check-all:*)",
-      "Bash(python tools/build_context.py:*)"
+      "Bash(python tools/build_context.py:*)",
+      "Bash(git add:*)"
     ],
     "deny": [],
     "ask": []
