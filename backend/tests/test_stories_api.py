@@ -349,4 +349,3 @@ async def test_get_story_content_path_traversal_blocked(db_session):
         # Should return 403 Forbidden for path traversal attempt
         assert response.status_code == 403
         assert "not allowed" in response.json()["detail"].lower()
-
