@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
-import styles from './SearchBar.module.css';
+import React, { useState, useEffect, useCallback, useRef } from 'react'
+import styles from './SearchBar.module.css'
 
 interface SearchBarProps {
-  onSearch: (query: string) => void;
-  placeholder?: string;
-  debounceMs?: number;
+  onSearch: (query: string) => void
+  placeholder?: string
+  debounceMs?: number
 }
 
 export const SearchBar: React.FC<SearchBarProps> = ({
@@ -12,27 +12,27 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   placeholder = 'Search stories...',
   debounceMs = 300,
 }) => {
-  const [value, setValue] = useState('');
-  const onSearchRef = useRef(onSearch);
+  const [value, setValue] = useState('')
+  const onSearchRef = useRef(onSearch)
 
   // Keep ref updated with latest onSearch callback
   useEffect(() => {
-    onSearchRef.current = onSearch;
-  }, [onSearch]);
+    onSearchRef.current = onSearch
+  }, [onSearch])
 
   // Debounced search
   useEffect(() => {
     const timer = setTimeout(() => {
-      onSearchRef.current(value);
-    }, debounceMs);
+      onSearchRef.current(value)
+    }, debounceMs)
 
-    return () => clearTimeout(timer);
-  }, [value, debounceMs]);
+    return () => clearTimeout(timer)
+  }, [value, debounceMs])
 
   const handleClear = useCallback(() => {
-    setValue('');
-    onSearchRef.current('');
-  }, []);
+    setValue('')
+    onSearchRef.current('')
+  }, [])
 
   return (
     <div className={styles.container}>
@@ -60,5 +60,5 @@ export const SearchBar: React.FC<SearchBarProps> = ({
         )}
       </div>
     </div>
-  );
-};
+  )
+}

@@ -28,7 +28,7 @@
 
 .input:focus {
   outline: none;
-  border-color: var(--color-primary, #8B0000);
+  border-color: var(--color-primary, #8b0000);
 }
 
 .input::placeholder {
@@ -55,7 +55,7 @@
 }
 
 .clearButton:focus {
-  outline: 2px solid var(--color-primary, #8B0000);
+  outline: 2px solid var(--color-primary, #8b0000);
   outline-offset: 2px;
   border-radius: 2px;
 }

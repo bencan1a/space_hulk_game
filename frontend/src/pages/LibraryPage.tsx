@@ -1,30 +1,30 @@
-import React, { useState, useCallback } from 'react';
-import { SearchBar, FilterPanel, StoryGrid } from '../components/library';
-import type { Story, StoryFilters } from '../types/story';
-import styles from './LibraryPage.module.css';
+import React, { useState, useCallback } from 'react'
+import { SearchBar, FilterPanel, StoryGrid } from '../components/library'
+import type { Story, StoryFilters } from '../types/story'
+import styles from './LibraryPage.module.css'
 
 export const LibraryPage: React.FC = () => {
-  const [filters, setFilters] = useState<StoryFilters>({});
+  const [filters, setFilters] = useState<StoryFilters>({})
 
   // TODO: Connect to real data in Task 2.6
-  const stories: Story[] = [];
-  const loading = false;
-  const error = null;
+  const stories: Story[] = []
+  const loading = false
+  const error = null
 
   const handleSearch = useCallback((query: string) => {
     // TODO: Implement search in Task 2.6
-    console.log('Search query:', query);
-  }, []);
+    console.log('Search query:', query)
+  }, [])
 
   const handleStoryClick = useCallback((story: Story) => {
     // TODO: Navigate to play page in Task 2.6
-    console.log('Navigate to story:', story.id);
-  }, []);
+    console.log('Navigate to story:', story.id)
+  }, [])
 
   const handleRetry = useCallback(() => {
     // TODO: Implement retry logic in Task 2.6
-    window.location.reload();
-  }, []);
+    window.location.reload()
+  }, [])
 
   return (
     <div className={styles.page}>
@@ -58,7 +58,7 @@ export const LibraryPage: React.FC = () => {
         </main>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default LibraryPage;
+export default LibraryPage

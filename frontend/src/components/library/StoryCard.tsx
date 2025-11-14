@@ -1,25 +1,25 @@
-import React from 'react';
-import styles from './StoryCard.module.css';
-import type { Story } from '../../types/story';
+import React from 'react'
+import styles from './StoryCard.module.css'
+import type { Story } from '../../types/story'
 
 interface StoryCardProps {
-  story: Story;
-  onClick?: (story: Story) => void;
+  story: Story
+  onClick?: (story: Story) => void
 }
 
 export const StoryCard: React.FC<StoryCardProps> = ({ story, onClick }) => {
   const handleClick = () => {
     if (onClick) {
-      onClick(story);
+      onClick(story)
     }
-  };
+  }
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      handleClick();
+      e.preventDefault()
+      handleClick()
     }
-  };
+  }
 
   return (
     <div
@@ -37,9 +37,7 @@ export const StoryCard: React.FC<StoryCardProps> = ({ story, onClick }) => {
         </span>
       </div>
 
-      {story.description && (
-        <p className={styles.description}>{story.description}</p>
-      )}
+      {story.description && <p className={styles.description}>{story.description}</p>}
 
       <div className={styles.tags} aria-label="Tags">
         {story.tags.map((tag) => (
@@ -65,5 +63,5 @@ export const StoryCard: React.FC<StoryCardProps> = ({ story, onClick }) => {
         </time>
       </div>
     </div>
-  );
-};
+  )
+}

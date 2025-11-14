@@ -1,7 +1,7 @@
-import { render, screen } from '@testing-library/react';
-import { StoryGrid } from '../../../components/library/StoryGrid';
-import type { Story } from '../../../types/story';
-import { describe, it, expect, vi } from 'vitest';
+import { render, screen } from '@testing-library/react'
+import { StoryGrid } from '../../../components/library/StoryGrid'
+import type { Story } from '../../../types/story'
+import { describe, it, expect, vi } from 'vitest'
 
 const mockStories: Story[] = [
   {
@@ -42,45 +42,45 @@ const mockStories: Story[] = [
     npc_count: 2,
     puzzle_count: 1,
   },
-];
+]
 
 describe('StoryGrid', () => {
   it('renders stories correctly', () => {
-    render(<StoryGrid stories={mockStories} />);
+    render(<StoryGrid stories={mockStories} />)
 
-    expect(screen.getByText('Story 1')).toBeInTheDocument();
-    expect(screen.getByText('Story 2')).toBeInTheDocument();
-  });
+    expect(screen.getByText('Story 1')).toBeInTheDocument()
+    expect(screen.getByText('Story 2')).toBeInTheDocument()
+  })
 
   it('displays loading state with skeleton cards', () => {
-    render(<StoryGrid stories={[]} loading={true} />);
+    render(<StoryGrid stories={[]} loading={true} />)
 
-    expect(screen.getByLabelText('Loading stories')).toBeInTheDocument();
-    expect(screen.getByLabelText('Loading stories')).toHaveAttribute('aria-busy', 'true');
-  });
+    expect(screen.getByLabelText('Loading stories')).toBeInTheDocument()
+    expect(screen.getByLabelText('Loading stories')).toHaveAttribute('aria-busy', 'true')
+  })
 
   it('displays error state', () => {
-    const errorMessage = 'Failed to load stories';
-    render(<StoryGrid stories={[]} error={errorMessage} />);
+    const errorMessage = 'Failed to load stories'
+    render(<StoryGrid stories={[]} error={errorMessage} />)
 
-    expect(screen.getByText(errorMessage)).toBeInTheDocument();
-    expect(screen.getByText('Retry')).toBeInTheDocument();
-  });
+    expect(screen.getByText(errorMessage)).toBeInTheDocument()
+    expect(screen.getByText('Retry')).toBeInTheDocument()
+  })
 
   it('displays empty state when no stories', () => {
-    render(<StoryGrid stories={[]} />);
+    render(<StoryGrid stories={[]} />)
 
-    expect(screen.getByText('No stories found')).toBeInTheDocument();
-    expect(screen.getByText(/Try adjusting your filters/i)).toBeInTheDocument();
-  });
+    expect(screen.getByText('No stories found')).toBeInTheDocument()
+    expect(screen.getByText(/Try adjusting your filters/i)).toBeInTheDocument()
+  })
 
   it('calls onStoryClick when a story card is clicked', () => {
-    const handleClick = vi.fn();
-    render(<StoryGrid stories={mockStories} onStoryClick={handleClick} />);
+    const handleClick = vi.fn()
+    render(<StoryGrid stories={mockStories} onStoryClick={handleClick} />)
 
-    const cards = screen.getAllByRole('button');
-    cards[0].click();
+    const cards = screen.getAllByRole('button')
+    cards[0].click()
 
-    expect(handleClick).toHaveBeenCalledWith(mockStories[0]);
-  });
-});
+    expect(handleClick).toHaveBeenCalledWith(mockStories[0])
+  })
+})

@@ -1,14 +1,14 @@
-import React from 'react';
-import { StoryCard } from './StoryCard';
-import styles from './StoryGrid.module.css';
-import type { Story } from '../../types/story';
+import React from 'react'
+import { StoryCard } from './StoryCard'
+import styles from './StoryGrid.module.css'
+import type { Story } from '../../types/story'
 
 interface StoryGridProps {
-  stories: Story[];
-  loading?: boolean;
-  error?: string | null;
-  onStoryClick?: (story: Story) => void;
-  onRetry?: () => void;
+  stories: Story[]
+  loading?: boolean
+  error?: string | null
+  onStoryClick?: (story: Story) => void
+  onRetry?: () => void
 }
 
 export const StoryGrid: React.FC<StoryGridProps> = ({
@@ -31,7 +31,7 @@ export const StoryGrid: React.FC<StoryGridProps> = ({
           </div>
         ))}
       </div>
-    );
+    )
   }
 
   // Error state
@@ -48,7 +48,7 @@ export const StoryGrid: React.FC<StoryGridProps> = ({
           Retry
         </button>
       </div>
-    );
+    )
   }
 
   // Empty state
@@ -59,19 +59,15 @@ export const StoryGrid: React.FC<StoryGridProps> = ({
         <p className={styles.emptyMessage}>No stories found</p>
         <p className={styles.emptyHint}>Try adjusting your filters or create a new story</p>
       </div>
-    );
+    )
   }
 
   // Success state
   return (
     <div className={styles.grid} role="list" aria-label="Story library">
       {stories.map((story) => (
-        <StoryCard
-          key={story.id}
-          story={story}
-          onClick={onStoryClick}
-        />
+        <StoryCard key={story.id} story={story} onClick={onStoryClick} />
       ))}
     </div>
-  );
-};
+  )
+}

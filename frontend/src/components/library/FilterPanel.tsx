@@ -1,12 +1,12 @@
-import React from 'react';
-import styles from './FilterPanel.module.css';
-import type { StoryFilters } from '../../types/story';
+import React from 'react'
+import styles from './FilterPanel.module.css'
+import type { StoryFilters } from '../../types/story'
 
 interface FilterPanelProps {
-  filters: StoryFilters;
-  onFilterChange: (filters: StoryFilters) => void;
-  availableThemes?: string[];
-  availableTags?: string[];
+  filters: StoryFilters
+  onFilterChange: (filters: StoryFilters) => void
+  availableThemes?: string[]
+  availableTags?: string[]
 }
 
 export const FilterPanel: React.FC<FilterPanelProps> = ({
@@ -19,26 +19,26 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
     onFilterChange({
       ...filters,
       theme_id: themeId === '' ? undefined : themeId,
-    });
-  };
+    })
+  }
 
   const handleTagToggle = (tag: string) => {
-    const currentTags = filters.tags || [];
+    const currentTags = filters.tags || []
     const newTags = currentTags.includes(tag)
       ? currentTags.filter((t) => t !== tag)
-      : [...currentTags, tag];
+      : [...currentTags, tag]
 
     onFilterChange({
       ...filters,
       tags: newTags.length > 0 ? newTags : undefined,
-    });
-  };
+    })
+  }
 
   const handleClearFilters = () => {
-    onFilterChange({});
-  };
+    onFilterChange({})
+  }
 
-  const hasActiveFilters = filters.theme_id || (filters.tags && filters.tags.length > 0);
+  const hasActiveFilters = filters.theme_id || (filters.tags && filters.tags.length > 0)
 
   return (
     <div className={styles.panel}>
@@ -92,5 +92,5 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
