@@ -13,6 +13,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from app.api.routes.themes import _get_media_type, get_theme_asset
 from app.main import app
+from app.services.theme_service import ThemeService
 
 
 @pytest.fixture
@@ -142,16 +143,19 @@ async def test_get_theme_asset_not_found():
 @pytest.mark.asyncio
 async def test_get_theme_asset_invalid_path():
     """Test getting asset with invalid path returns 400."""
+    # Create theme service instance for testing
+    theme_service = ThemeService()
+
     # Test the function directly with invalid paths
     # Test directory traversal
     with pytest.raises(HTTPException) as exc_info:
-        await get_theme_asset("warhammer40k", "../../../etc/passwd")
+        await get_theme_asset("warhammer40k", "../../../etc/passwd", theme_service)
     assert exc_info.value.status_code == 400
     assert "invalid" in exc_info.value.detail.lower()
 
     # Test absolute path
     with pytest.raises(HTTPException) as exc_info:
-        await get_theme_asset("warhammer40k", "/etc/passwd")
+        await get_theme_asset("warhammer40k", "/etc/passwd", theme_service)
     assert exc_info.value.status_code == 400
     assert "invalid" in exc_info.value.detail.lower()
 
@@ -206,9 +210,9 @@ async def test_list_themes_structure():
 
         # If themes exist, verify each theme has required fields
         for theme in data["data"]:
-            assert "id" in theme or theme.get("id") is None
-            assert "name" in theme or theme.get("name") is None
-            assert "description" in theme or theme.get("description") is None
+            assert "id" in theme
+            assert "name" in theme
+            assert "description" in theme
 
 
 @pytest.mark.asyncio
