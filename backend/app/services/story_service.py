@@ -51,7 +51,7 @@ class StoryService:
         self.db.commit()
         self.db.refresh(story)
 
-        logger.info(f"Created story: {story.id} - {story.title}")
+        logger.info("Created story: %s - %s", story.id, story.title)
         return story
 
     def get(self, story_id: int) -> Story | None:
