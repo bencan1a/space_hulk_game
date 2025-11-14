@@ -1,9 +1,9 @@
 # Implementation Plan: Browser-Based Game Interface
 ## Phased Delivery with AI-Agent-Scoped Tasks
 
-**Document Version**: 1.0  
-**Created**: 2025-11-12  
-**Author**: Principal Software Engineer  
+**Document Version**: 1.0
+**Created**: 2025-11-12
+**Author**: Principal Software Engineer
 **Related**: ARCHITECTURAL_DESIGN.md, PRD_WEB_INTERFACE.md
 
 ---
@@ -13,12 +13,12 @@
 This implementation plan breaks down the web interface project into **6 phases** over **16 weeks**, with each phase containing **AI-agent-scoped tasks**. Each task is designed to be:
 
 - **Self-contained**: Clear inputs, outputs, and success criteria
-- **Testable**: Includes specific test requirements  
+- **Testable**: Includes specific test requirements
 - **Scoped**: 1-3 days of work for an AI coding agent
 - **Documented**: Follows project coding and documentation standards
 
-**Total Effort Estimate**: 16 weeks  
-**Parallel Work Opportunities**: Marked with 🔁  
+**Total Effort Estimate**: 16 weeks
+**Parallel Work Opportunities**: Marked with 🔁
 **Critical Path**: Foundation → Story Creation → Gameplay
 
 ---
@@ -188,9 +188,9 @@ Each task follows this structure:
 
 ## Phase 2: Story Library (Weeks 5-6)
 
-**Objectives**: Story CRUD, library UI, theme system
+**Objectives**: Story CRUD, library UI, theme system, sample data
 
-**Deliverables**: Story API, library page, search/filter, theme loader
+**Deliverables**: Story API, library page, search/filter, theme loader, sample stories
 
 ### Task 2.1: Story Service & Repository [P0] [2 days]
 
@@ -314,6 +314,27 @@ Each task follows this structure:
 **Testing**: Theme selection, CSS variable update, persistence
 
 **Dependencies**: Task 2.4, Task 1.3
+
+### Task 2.8: Sample Story Data & Database Seeding [P1] [1 day]
+
+**Description**: Create sample stories and seed database for development/testing.
+
+**Outputs**:
+- `data/samples/sample-001/game.json` through `sample-005/game.json`
+- `backend/app/alembic/versions/002_seed_sample_stories.py`
+- Sample story metadata in database
+
+**Acceptance Criteria**:
+- [ ] 3-5 diverse sample stories (horror, exploration, combat, rescue, mystery)
+- [ ] Sample stories cover different themes, difficulties, and durations
+- [ ] Alembic seed migration populates database
+- [ ] Sample stories marked with `is_sample=True` flag
+- [ ] Sample stories cannot be deleted (enforced in API)
+- [ ] Each sample includes all game.json components
+
+**Testing**: Migration runs successfully, samples appear in library, deletion blocked
+
+**Dependencies**: Task 2.1, Task 2.2
 
 ---
 
@@ -835,7 +856,7 @@ Every task must include:
 
 1. **Task 3.2: CrewAI Wrapper** - Integration complexity
    - Mitigation: Extensive testing, mock mode
-   
+
 2. **Task 3.4: WebSocket Progress** - Real-time complexity
    - Mitigation: Reconnection logic, fallback to polling
 
@@ -858,14 +879,14 @@ Label: `technical-debt`
 | Phase | Tasks | Days |
 |-------|-------|------|
 | 1: Foundation | 7 | 8 |
-| 2: Story Library | 7 | 9.5 |
+| 2: Story Library | 8 | 10.5 |
 | 3: Story Creation | 9 | 17 |
 | 4: Iteration | 5 | 9 |
 | 5: Gameplay | 7 | 12 |
 | 6: Polish | 6 | 11 |
-| **Total** | **41** | **66.5** |
+| **Total** | **42** | **67.5** |
 
-At 5 days/week, 66.5 days ≈ 13.3 weeks, rounded to 16 weeks for buffer.
+At 5 days/week, 67.5 days ≈ 13.5 weeks, rounded to 16 weeks for buffer.
 
 ---
 

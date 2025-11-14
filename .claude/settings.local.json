@@ -22,7 +22,9 @@
       "Bash(make security:*)",
       "Bash(make check-all:*)",
       "Bash(python tools/build_context.py:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(gh label create:*)",
+      "Bash(gh issue create:*)"
     ],
     "deny": [],
     "ask": []
