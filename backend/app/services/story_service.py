@@ -37,22 +37,28 @@ class StoryService:
         Raises:
             ValueError: If game file path already exists
         """
-        # Check if game file path already exists
-        existing = (
-            self.db.query(Story).filter(Story.game_file_path == story_data.game_file_path).first()
-        )
-        if existing:
-            raise ValueError(
-                f"Story with game_file_path '{story_data.game_file_path}' already exists"
+        try:
+            # Check if game file path already exists
+            existing = (
+                self.db.query(Story)
+                .filter(Story.game_file_path == story_data.game_file_path)
+                .first()
             )
+            if existing:
+                raise ValueError(
+                    f"Story with game_file_path '{story_data.game_file_path}' already exists"
+                )
 
-        story = Story(**story_data.model_dump())
-        self.db.add(story)
-        self.db.commit()
-        self.db.refresh(story)
+            story = Story(**story_data.model_dump())
+            self.db.add(story)
+            self.db.commit()
+            self.db.refresh(story)
 
-        logger.info("Created story: %s - %s", story.id, story.title)
-        return story
+            logger.info("Created story: %s - %s", story.id, story.title)
+            return story
+        except Exception:
+            self.db.rollback()
+            raise
 
     def get(self, story_id: int) -> Story | None:
         """
@@ -97,12 +103,14 @@ class StoryService:
 
         # Apply search filter
         if search:
-            search_term = f"%{search}%"
+            # Escape LIKE wildcards to prevent unexpected pattern matching
+            escaped_search = search.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_")
+            search_term = f"%{escaped_search}%"
             query = query.filter(
                 or_(
-                    Story.title.ilike(search_term),
-                    Story.description.ilike(search_term),
-                    Story.tags.op("LIKE")(f'%"{search.lower()}"%'),
+                    Story.title.ilike(search_term, escape="\\"),
+                    Story.description.ilike(search_term, escape="\\"),
+                    Story.tags.op("LIKE")(f'%"{escaped_search.lower()}%" ESCAPE \'\\\''),
                 )
             )
 
@@ -155,16 +163,20 @@ class StoryService:
         if not story:
             return None
 
-        # Update only provided fields
-        update_dict = story_data.model_dump(exclude_unset=True)
-        for field, value in update_dict.items():
-            setattr(story, field, value)
+        try:
+            # Update only provided fields
+            update_dict = story_data.model_dump(exclude_unset=True)
+            for field, value in update_dict.items():
+                setattr(story, field, value)
 
-        self.db.commit()
-        self.db.refresh(story)
+            self.db.commit()
+            self.db.refresh(story)
 
-        logger.info("Updated story: %s", story.id)
-        return story
+            logger.info("Updated story: %s", story.id)
+            return story
+        except Exception:
+            self.db.rollback()
+            raise
 
     def delete(self, story_id: int) -> bool:
         """
@@ -180,11 +192,15 @@ class StoryService:
         if not story:
             return False
 
-        self.db.delete(story)
-        self.db.commit()
+        try:
+            self.db.delete(story)
+            self.db.commit()
 
-        logger.info("Deleted story: %s", story_id)
-        return True
+            logger.info("Deleted story: %s", story_id)
+            return True
+        except Exception:
+            self.db.rollback()
+            raise
 
     def increment_play_count(self, story_id: int) -> Story | None:
         """
@@ -196,19 +212,23 @@ class StoryService:
         Returns:
             Updated story or None if not found
         """
-        now = datetime.now(timezone.utc)
-        result = (
-            self.db.query(Story)
-            .filter(Story.id == story_id)
-            .update(
-                {
-                    Story.play_count: Story.play_count + 1,
-                    Story.last_played: now,
-                },
-                synchronize_session="fetch",
+        try:
+            now = datetime.now(timezone.utc)
+            result = (
+                self.db.query(Story)
+                .filter(Story.id == story_id)
+                .update(
+                    {
+                        Story.play_count: Story.play_count + 1,
+                        Story.last_played: now,
+                    },
+                    synchronize_session="fetch",
+                )
             )
-        )
-        if result == 0:
-            return None
-        self.db.commit()
-        return self.get(story_id)
+            if result == 0:
+                return None
+            self.db.commit()
+            return self.get(story_id)
+        except Exception:
+            self.db.rollback()
+            raise
