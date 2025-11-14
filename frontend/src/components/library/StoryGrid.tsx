@@ -8,6 +8,7 @@ interface StoryGridProps {
   loading?: boolean;
   error?: string | null;
   onStoryClick?: (story: Story) => void;
+  onRetry?: () => void;
 }
 
 export const StoryGrid: React.FC<StoryGridProps> = ({
@@ -15,6 +16,7 @@ export const StoryGrid: React.FC<StoryGridProps> = ({
   loading = false,
   error = null,
   onStoryClick,
+  onRetry,
 }) => {
   // Loading state
   if (loading) {
@@ -40,7 +42,8 @@ export const StoryGrid: React.FC<StoryGridProps> = ({
         <p className={styles.errorMessage}>{error}</p>
         <button
           className={styles.retryButton}
-          onClick={() => window.location.reload()}
+          onClick={onRetry || (() => window.location.reload())}
+          aria-label="Retry loading stories"
         >
           Retry
         </button>

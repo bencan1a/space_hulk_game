@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import styles from './SearchBar.module.css';
 
 interface SearchBarProps {
@@ -13,20 +13,26 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   debounceMs = 300,
 }) => {
   const [value, setValue] = useState('');
+  const onSearchRef = useRef(onSearch);
+
+  // Keep ref updated with latest onSearch callback
+  useEffect(() => {
+    onSearchRef.current = onSearch;
+  }, [onSearch]);
 
   // Debounced search
   useEffect(() => {
     const timer = setTimeout(() => {
-      onSearch(value);
+      onSearchRef.current(value);
     }, debounceMs);
 
     return () => clearTimeout(timer);
-  }, [value, debounceMs, onSearch]);
+  }, [value, debounceMs]);
 
   const handleClear = useCallback(() => {
     setValue('');
-    onSearch('');
-  }, [onSearch]);
+    onSearchRef.current('');
+  }, []);
 
   return (
     <div className={styles.container}>
