@@ -70,7 +70,8 @@ class StoryService:
         Returns:
             Story model or None if not found
         """
-        return self.db.query(Story).filter(Story.id == story_id).first()
+        result: Story | None = self.db.query(Story).filter(Story.id == story_id).first()
+        return result
 
     def list(
         self,
@@ -110,7 +111,7 @@ class StoryService:
                 or_(
                     Story.title.ilike(search_term, escape="\\"),
                     Story.description.ilike(search_term, escape="\\"),
-                    Story.tags.op("LIKE")(f'%"{escaped_search.lower()}%" ESCAPE \'\\\''),
+                    Story.tags.op("LIKE")(f"%\"{escaped_search.lower()}%\" ESCAPE '\\'"),
                 )
             )
 
