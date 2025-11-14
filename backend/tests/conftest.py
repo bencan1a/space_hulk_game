@@ -4,10 +4,9 @@ import sys
 from pathlib import Path
 
 import pytest
+from app.models.base import Base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-
-from app.models.base import Base
 
 # Add backend directory to Python path for imports
 backend_dir = Path(__file__).parent.parent

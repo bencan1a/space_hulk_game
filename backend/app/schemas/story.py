@@ -35,6 +35,14 @@ class StoryUpdate(BaseModel):
     description: str | None = Field(None, max_length=2000)
     tags: list[str] | None = None
 
+    @field_validator("tags")
+    @classmethod
+    def validate_tags(cls, v: list[str] | None) -> list[str] | None:
+        """Validate tags are lowercase and unique, or None if not provided."""
+        if v is None:
+            return None
+        return list({tag.lower().strip() for tag in v if tag.strip()})
+
 
 class StoryResponse(StoryBase):
     """Schema for story response."""

@@ -1,7 +1,6 @@
 """Tests for story service."""
 
 import pytest
-
 from app.schemas.story import StoryCreate, StoryUpdate
 from app.services.story_service import StoryService
 

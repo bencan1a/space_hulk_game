@@ -80,13 +80,18 @@ class StoryService:
         Args:
             page: Page number (1-indexed)
             page_size: Number of items per page (max 100)
-            search: Search query for title/description
+            search: Search query for title/description/tags
             theme_id: Filter by theme
             tags: Filter by tags (OR logic)
 
         Returns:
             Paginated story list
         """
+        # Validate page and page_size
+        page = max(page, 1)
+        if page_size < 1:
+            page_size = 20
+
         # Build query
         query = self.db.query(Story)
 
@@ -158,7 +163,7 @@ class StoryService:
         self.db.commit()
         self.db.refresh(story)
 
-        logger.info(f"Updated story: {story.id}")
+        logger.info("Updated story: %s", story.id)
         return story
 
     def delete(self, story_id: int) -> bool:
@@ -178,7 +183,7 @@ class StoryService:
         self.db.delete(story)
         self.db.commit()
 
-        logger.info(f"Deleted story: {story_id}")
+        logger.info("Deleted story: %s", story_id)
         return True
 
     def increment_play_count(self, story_id: int) -> Story | None:
@@ -191,14 +196,19 @@ class StoryService:
         Returns:
             Updated story or None if not found
         """
-        story = self.get(story_id)
-        if not story:
+        now = datetime.now(timezone.utc)
+        result = (
+            self.db.query(Story)
+            .filter(Story.id == story_id)
+            .update(
+                {
+                    Story.play_count: Story.play_count + 1,
+                    Story.last_played: now,
+                },
+                synchronize_session="fetch",
+            )
+        )
+        if result == 0:
             return None
-
-        story.play_count += 1  # type: ignore[assignment]
-        story.last_played = datetime.now(timezone.utc)  # type: ignore[assignment]
-
         self.db.commit()
-        self.db.refresh(story)
-
-        return story
+        return self.get(story_id)
