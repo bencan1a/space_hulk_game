@@ -328,3 +328,25 @@ async def test_list_stories_page_size_limit(db_session):  # noqa: ARG001 - fixtu
 
         # FastAPI validation should reject this
         assert response.status_code == 422  # Validation error
+
+
+@pytest.mark.asyncio
+async def test_get_story_content_path_traversal_blocked(db_session):
+    """Test that path traversal attempts are blocked for relative paths."""
+    service = StoryService(db_session)
+    story = service.create(
+        StoryCreate(
+            title="Malicious Story",
+            prompt="Test prompt with enough characters to meet the minimum length requirement",
+            game_file_path="../../../etc/passwd",  # Path traversal attempt
+        )
+    )
+
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as client:
+        response = await client.get(f"/api/v1/stories/{story.id}/content")
+
+        # Should return 403 Forbidden for path traversal attempt
+        assert response.status_code == 403
+        assert "not allowed" in response.json()["detail"].lower()
+

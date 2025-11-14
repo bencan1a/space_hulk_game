@@ -53,8 +53,8 @@ async def list_stories(
     Returns:
         Paginated list of stories
     """
-    # Parse tags from comma-separated string
-    tags_list = [tag.strip() for tag in tags.split(",")] if tags else None
+    # Parse tags from comma-separated string, filtering out empty tags
+    tags_list = [tag.strip() for tag in tags.split(",") if tag.strip()] if tags else None
 
     return service.list(
         page=page,
@@ -118,10 +118,25 @@ async def get_story_content(
             detail=f"Story with ID {story_id} not found",
         )
 
-    # Read game.json file
+    # Read game.json file with path validation
     game_file = Path(story.game_file_path)
+
+    # Prevent path traversal for relative paths
+    if not game_file.is_absolute():
+        # For relative paths, ensure they're within data/stories
+        resolved_file = game_file.resolve()
+        try:
+            allowed_base = Path("data/stories").resolve()
+            resolved_file.relative_to(allowed_base)
+        except ValueError as e:
+            logger.error("Invalid game file path attempted: %s", story.game_file_path)
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Access to this file path is not allowed",
+            ) from e
+
     if not game_file.exists():
-        logger.error(f"Game file not found: {story.game_file_path}")
+        logger.error("Game file not found: %s", story.game_file_path)
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Game file not found for story {story_id}",
@@ -132,13 +147,16 @@ async def get_story_content(
             content = cast("dict[str, Any]", json.load(f))
         return content
     except json.JSONDecodeError as e:
-        logger.error(f"Invalid JSON in game file: {story.game_file_path} - {e}")
+        logger.error("Invalid JSON in game file: %s - %s", story.game_file_path, e)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Game file contains invalid JSON",
         ) from e
-    except Exception as e:
-        logger.error(f"Error reading game file: {e}")
+    except HTTPException:
+        # Re-raise HTTPException from earlier in the function
+        raise
+    except OSError as e:
+        logger.error("Error reading game file: %s", e)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Failed to read game file",

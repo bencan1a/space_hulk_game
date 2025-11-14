@@ -21,21 +21,21 @@ def db_session():
     engine = create_engine("sqlite:///:memory:")
     Base.metadata.create_all(engine)
     SessionLocal = sessionmaker(bind=engine)
-    session = SessionLocal()
+    main_session = SessionLocal()
 
-    # Override the get_db dependency
+    # Override the get_db dependency for API tests
     def override_get_db():
         try:
-            yield session
+            yield main_session
         finally:
-            pass  # Don't close session here, let fixture handle it
+            pass  # Don't close here, let the fixture handle it
 
     app.dependency_overrides[get_db] = override_get_db
 
     try:
-        yield session
+        yield main_session
     finally:
-        session.close()
+        main_session.close()
         engine.dispose()
         # Clean up override
         app.dependency_overrides.clear()
