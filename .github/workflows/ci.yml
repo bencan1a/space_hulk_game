@@ -3,8 +3,14 @@ name: CI
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - 'frontend/**'
+      - 'backend/**'
   pull_request:
     branches: [main, develop]
+    paths-ignore:
+      - 'frontend/**'
+      - 'backend/**'
   workflow_dispatch:
 
 concurrency:
