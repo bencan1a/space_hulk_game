@@ -90,3 +90,6 @@ frontend/.vite/
 
 # Data directory (SQLite database)
 data/
+# But include theme configurations
+!data/themes/
+!data/themes/**

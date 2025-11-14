@@ -1,0 +1,54 @@
+# Warhammer 40K Theme Configuration
+id: warhammer40k
+name: "Warhammer 40,000"
+description: "Grimdark gothic sci-fi horror"
+
+# Visual Design
+colors:
+  primary: "#8B0000"        # Dark red
+  secondary: "#C0C0C0"      # Silver
+  background: "#1A1A1A"     # Near black
+  surface: "#2D2D2D"        # Dark gray
+  text: "#E0E0E0"           # Light gray
+  textSecondary: "#A0A0A0"  # Medium gray
+  accent: "#FFD700"         # Gold
+  error: "#FF4444"
+  success: "#44FF44"
+  warning: "#FFAA00"
+
+typography:
+  fontFamily: "'Cinzel', 'Georgia', serif"
+  fontFamilyMono: "'Courier New', monospace"
+  fontSize:
+    xs: "0.75rem"
+    sm: "0.875rem"
+    base: "1rem"
+    lg: "1.125rem"
+    xl: "1.25rem"
+    xxl: "1.5rem"
+
+# Terminology
+terminology:
+  story: "Mission"
+  stories: "Missions"
+  character: "Space Marine"
+  characters: "Space Marines"
+  enemy: "Xenos"
+  enemies: "Xenos"
+  item: "Artifact"
+  items: "Artifacts"
+  location: "Sector"
+  locations: "Sectors"
+
+# UI Text
+ui:
+  welcome: "Enter the grim darkness of the far future"
+  createStory: "Deploy New Mission"
+  libraryTitle: "Mission Archive"
+  playButton: "Deploy"
+
+# Assets (relative to theme directory)
+assets:
+  logo: "assets/logo.png"
+  background: "assets/background.jpg"
+  icon: "assets/icon.svg"
