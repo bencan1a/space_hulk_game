@@ -9,5 +9,12 @@ export default defineConfig({
     setupFiles: './src/tests/setup.ts',
     passWithNoTests: true,
     watch: false,
+    // Ensure tests exit properly in CI environments
+    pool: 'forks',
+    poolOptions: {
+      forks: {
+        singleFork: true,
+      },
+    },
   },
 })
