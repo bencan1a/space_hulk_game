@@ -122,23 +122,23 @@ class GenerationService:
 
         try:
             if status is not None:
-                setattr(session, "status", status)
+                session.status = status  # type: ignore[assignment]
 
             if current_step is not None:
-                setattr(session, "current_step", current_step)
+                session.current_step = current_step  # type: ignore[assignment]
 
             if progress_percent is not None:
-                setattr(session, "progress_percent", min(100, max(0, progress_percent)))
+                session.progress_percent = min(100, max(0, progress_percent))  # type: ignore[assignment]
 
             if error_message is not None:
-                setattr(session, "error_message", error_message)
+                session.error_message = error_message  # type: ignore[assignment]
 
             if story_id is not None:
-                setattr(session, "story_id", story_id)
+                session.story_id = story_id  # type: ignore[assignment]
 
             # Set completion timestamp if status is completed or failed
             if status in ("completed", "failed") and not session.completed_at:
-                setattr(session, "completed_at", datetime.now(timezone.utc))
+                session.completed_at = datetime.now(timezone.utc)  # type: ignore[assignment]
 
             self.db.commit()
             self.db.refresh(session)

@@ -208,8 +208,8 @@ def run_generation_crew(
         story = story_service.create(story_create)
         story_id = int(story.id)
 
-        # Update story statistics
-        from ..schemas.story import StoryUpdate
+        # Update story statistics (import here to avoid circular dependency)
+        from ..schemas.story import StoryUpdate  # noqa: PLC0415
 
         story_service.update(
             story_id,
