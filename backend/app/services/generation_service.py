@@ -128,7 +128,7 @@ class GenerationService:
                 session.current_step = current_step  # type: ignore[assignment]
 
             if progress_percent is not None:
-                session.progress_percent = min(100, max(0, progress_percent))  # type: ignore[assignment]
+                session.progress_percent = min(100, max(0, progress_percent))  # type: ignore[assignment,arg-type]
 
             if error_message is not None:
                 session.error_message = error_message  # type: ignore[assignment]
