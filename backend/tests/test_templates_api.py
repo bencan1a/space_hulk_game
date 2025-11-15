@@ -1,13 +1,11 @@
 """Tests for template API endpoints."""
 
-from pathlib import Path
 
 import pytest
 import yaml
-from fastapi.testclient import TestClient
-
 from app.main import app
 from app.services.template_service import TemplateService
+from fastapi.testclient import TestClient
 
 client = TestClient(app)
 

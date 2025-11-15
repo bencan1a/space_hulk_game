@@ -1,10 +1,8 @@
 """Tests for template service."""
 
-from pathlib import Path
 
 import pytest
 import yaml
-
 from app.services.template_service import TemplateService
 
 
