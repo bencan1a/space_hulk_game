@@ -1,6 +1,5 @@
 """Tests for template service."""
 
-
 import pytest
 import yaml
 from app.services.template_service import TemplateService
@@ -252,9 +251,7 @@ class TestTemplateService:
         """Test rendering a template with Jinja2 conditionals."""
         template_data = {
             "title": "Conditional Template",
-            "variables": [
-                {"name": "show_extra", "type": "boolean", "required": False}
-            ],
+            "variables": [{"name": "show_extra", "type": "boolean", "required": False}],
             "prompt": "Base text.{% if show_extra %} Extra text.{% endif %}",
         }
 

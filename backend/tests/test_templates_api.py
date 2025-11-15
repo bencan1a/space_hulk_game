@@ -1,6 +1,5 @@
 """Tests for template API endpoints."""
 
-
 import pytest
 import yaml
 from app.main import app
@@ -42,9 +41,7 @@ def mock_templates_dir(tmp_path, monkeypatch):
     def mock_template_service():
         return TemplateService(templates_dir=str(tmp_path))
 
-    monkeypatch.setattr(
-        "app.api.routes.templates.get_template_service", mock_template_service
-    )
+    monkeypatch.setattr("app.api.routes.templates.get_template_service", mock_template_service)
 
     return tmp_path
 
@@ -58,9 +55,7 @@ class TestListTemplates:
         def mock_template_service():
             return TemplateService(templates_dir=str(tmp_path))
 
-        monkeypatch.setattr(
-            "app.api.routes.templates.get_template_service", mock_template_service
-        )
+        monkeypatch.setattr("app.api.routes.templates.get_template_service", mock_template_service)
 
         response = client.get("/api/v1/templates")
 
@@ -114,9 +109,7 @@ class TestListTemplates:
         def mock_template_service():
             return TemplateService(templates_dir=str(nonexistent))
 
-        monkeypatch.setattr(
-            "app.api.routes.templates.get_template_service", mock_template_service
-        )
+        monkeypatch.setattr("app.api.routes.templates.get_template_service", mock_template_service)
 
         response = client.get("/api/v1/templates")
 
@@ -177,9 +170,7 @@ class TestGetTemplate:
         def mock_template_service():
             return TemplateService(templates_dir=str(tmp_path))
 
-        monkeypatch.setattr(
-            "app.api.routes.templates.get_template_service", mock_template_service
-        )
+        monkeypatch.setattr("app.api.routes.templates.get_template_service", mock_template_service)
 
         response = client.get("/api/v1/templates/invalid")
 

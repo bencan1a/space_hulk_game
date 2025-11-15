@@ -21,9 +21,7 @@ class TemplateMetadata(BaseModel):
     title: str = Field(..., description="Human-readable template title")
     description: str = Field(..., description="Template description")
     category: str = Field(..., description="Template category")
-    variables: list[dict[str, Any]] = Field(
-        ..., description="Template variable definitions"
-    )
+    variables: list[dict[str, Any]] = Field(..., description="Template variable definitions")
 
 
 class TemplateDetail(BaseModel):
@@ -33,9 +31,7 @@ class TemplateDetail(BaseModel):
     title: str = Field(..., description="Human-readable template title")
     description: str = Field(..., description="Template description")
     category: str = Field(..., description="Template category")
-    variables: list[dict[str, Any]] = Field(
-        ..., description="Template variable definitions"
-    )
+    variables: list[dict[str, Any]] = Field(..., description="Template variable definitions")
     prompt: str = Field(..., description="Template prompt content")
 
 

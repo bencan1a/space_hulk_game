@@ -24,9 +24,7 @@ class TemplateService:
         if templates_dir is None:
             # Default to ../data/templates relative to project root
             # (4 parent calls up from this file: services -> app -> backend -> root)
-            templates_dir = str(
-                Path(__file__).parent.parent.parent.parent / "data" / "templates"
-            )
+            templates_dir = str(Path(__file__).parent.parent.parent.parent / "data" / "templates")
         self.templates_dir = Path(templates_dir)
         self._templates_cache: dict[str, dict[str, Any]] = {}
         self._jinja_env = Environment(
@@ -44,12 +42,8 @@ class TemplateService:
             FileNotFoundError: If templates directory does not exist
         """
         if not self.templates_dir.exists():
-            logger.warning(
-                f"Templates directory does not exist: {self.templates_dir}"
-            )
-            raise FileNotFoundError(
-                f"Templates directory not found: {self.templates_dir}"
-            )
+            logger.warning(f"Templates directory does not exist: {self.templates_dir}")
+            raise FileNotFoundError(f"Templates directory not found: {self.templates_dir}")
 
         templates = []
         for template_file in self.templates_dir.glob("*.yaml"):
@@ -126,9 +120,7 @@ class TemplateService:
         ]
         missing_vars = [var for var in required_vars if var not in context]
         if missing_vars:
-            raise ValueError(
-                f"Missing required variables for template '{name}': {missing_vars}"
-            )
+            raise ValueError(f"Missing required variables for template '{name}': {missing_vars}")
 
         # Create a copy to avoid mutating the input context
         render_context = context.copy()
