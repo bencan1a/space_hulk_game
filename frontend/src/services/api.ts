@@ -10,8 +10,8 @@ import type {
   GameSession,
   GameCommand,
   GameResponse,
-  Theme,
 } from './types'
+import type { Theme, ThemeMetadata } from '../types/theme'
 
 class ApiClient {
   private client: AxiosInstance
@@ -159,8 +159,8 @@ class ApiClient {
   }
 
   // Theme endpoints
-  async getThemes(): Promise<Theme[]> {
-    const response = await this.client.get<ApiResponse<Theme[]>>('/api/v1/themes')
+  async getThemes(): Promise<ThemeMetadata[]> {
+    const response = await this.client.get<ApiResponse<ThemeMetadata[]>>('/api/v1/themes')
     return response.data.data
   }
 
