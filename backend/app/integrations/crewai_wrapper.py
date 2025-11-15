@@ -14,7 +14,6 @@ import logging
 import threading
 from collections.abc import Callable
 from concurrent.futures import Future, ThreadPoolExecutor, TimeoutError
-from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -118,7 +117,7 @@ class CrewAIWrapper:
                         """Monitor task completion in a separate thread."""
                         for i, task in enumerate(crew.tasks):
                             # Wait for task to start (simple polling)
-                            task_name = getattr(task, "name", f"Task {i+1}")
+                            task_name = getattr(task, "name", f"Task {i + 1}")
                             if progress_callback:
                                 try:
                                     progress_callback(
@@ -146,7 +145,7 @@ class CrewAIWrapper:
                 # we report completion after kickoff finishes
                 if progress_callback and hasattr(crew, "tasks"):
                     for i, task in enumerate(crew.tasks):
-                        task_name = getattr(task, "name", f"Task {i+1}")
+                        task_name = getattr(task, "name", f"Task {i + 1}")
                         try:
                             progress_callback(
                                 "task_completed",

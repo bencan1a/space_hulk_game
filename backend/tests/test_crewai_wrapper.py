@@ -299,9 +299,7 @@ def test_context_manager():
 
 def test_multiple_task_callbacks(wrapper):
     """Test callback called for each task."""
-    crew_with_many_tasks = MockCrew(
-        tasks=[MockTask(f"Task {i}") for i in range(5)]
-    )
+    crew_with_many_tasks = MockCrew(tasks=[MockTask(f"Task {i}") for i in range(5)])
     callback_calls = []
 
     def progress_callback(status, data):
@@ -337,6 +335,7 @@ def test_execute_generation_metadata(wrapper, mock_crew):
 
 def test_execute_generation_no_tasks(wrapper):
     """Test execution with crew that has no tasks attribute."""
+
     # Create a crew without tasks attribute that won't fail in kickoff
     class CrewNoTasks:
         def kickoff(self, inputs=None):  # noqa: ARG002
