@@ -1,0 +1,197 @@
+{
+  "title": "Rescue at Firebase Zeta",
+  "description": "Extract Imperial Guard survivors from an overrun firebase. Time is running out.",
+  "theme": "warhammer40k",
+  "metadata": {
+    "difficulty": "hard",
+    "estimated_duration": "35-50 minutes",
+    "themes": ["rescue", "action", "time-pressure"],
+    "tags": ["rescue", "action", "time-pressure"]
+  },
+  "player": {
+    "name": "Captain Thaddeus",
+    "class": "Space Marine Captain",
+    "inventory": ["power_sword", "storm_bolter", "frag_grenades"],
+    "stats": {
+      "health": 150,
+      "strength": 95,
+      "leadership": 90
+    }
+  },
+  "scenes": [
+    {
+      "id": "landing_zone",
+      "name": "Landing Zone",
+      "description": "Your Thunderhawk sets down in a storm of fire. Firebase Zeta burns in the distance. Ork war cries echo across the battlefield.",
+      "connections": ["firebase_perimeter"],
+      "items": ["combat_stimms"],
+      "npcs": [],
+      "events": [
+        {
+          "id": "mission_start",
+          "type": "narrative",
+          "trigger": "on_enter",
+          "text": "'Brethren, the Guard holds by a thread. We move fast. We move hard. For the Emperor!'"
+        }
+      ]
+    },
+    {
+      "id": "firebase_perimeter",
+      "name": "Firebase Perimeter",
+      "description": "Shattered defenses. Bodies of Guardsmen and Orks litter the ground. Gunfire rattles from the command bunker.",
+      "connections": ["landing_zone", "command_bunker"],
+      "items": ["demolition_charges"],
+      "npcs": ["ork_mob"],
+      "events": [
+        {
+          "id": "breach_fight",
+          "type": "combat",
+          "trigger": "on_enter",
+          "text": "Orks charge from the trenches! Cut them down!"
+        }
+      ]
+    },
+    {
+      "id": "command_bunker",
+      "name": "Command Bunker",
+      "description": "The last holdout. Wounded Guardsmen defend the entrance. Their commander salutes as you arrive.",
+      "connections": ["firebase_perimeter", "extraction_point"],
+      "items": ["medical_supplies"],
+      "npcs": ["guard_commander", "wounded_guardsmen"],
+      "puzzles": ["organize_evacuation"],
+      "events": [
+        {
+          "id": "survivors_found",
+          "type": "discovery",
+          "trigger": "on_enter",
+          "text": "'Emperor's mercy! We're saved! But we can't hold much longer—the Warboss is coming!'"
+        }
+      ]
+    },
+    {
+      "id": "extraction_point",
+      "name": "Extraction Point",
+      "description": "The extraction zone. But between you and safety stands the Ork Warboss and his elite guard.",
+      "connections": ["command_bunker"],
+      "items": [],
+      "npcs": ["ork_warboss", "nob_bodyguard"],
+      "events": [
+        {
+          "id": "final_stand",
+          "type": "boss_combat",
+          "trigger": "on_enter",
+          "text": "The Warboss bellows a challenge. 'SPACE MARINE! COME FIGHT DA BIGGEST AND DA BEST!'"
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "id": "power_sword",
+      "name": "Relic Power Sword",
+      "description": "An ancient blade crackling with energy. Cuts through armor like paper.",
+      "type": "weapon",
+      "properties": {
+        "damage": 60,
+        "armor_piercing": true
+      }
+    },
+    {
+      "id": "storm_bolter",
+      "name": "Storm Bolter",
+      "description": "Twin-linked bolter. Overwhelming firepower.",
+      "type": "weapon",
+      "properties": {
+        "damage": 35,
+        "ammo": 60,
+        "dual_wielding": true
+      }
+    },
+    {
+      "id": "combat_stimms",
+      "name": "Combat Stimulants",
+      "description": "Emergency medical boosters. For when the Emperor's work demands more.",
+      "type": "consumable",
+      "properties": {
+        "healing": 50,
+        "temporary_strength_boost": 10
+      }
+    }
+  ],
+  "npcs": [
+    {
+      "id": "ork_mob",
+      "name": "Ork Mob",
+      "description": "A group of savage greenskins. Crude but deadly.",
+      "type": "enemy_group",
+      "stats": {
+        "health": 80,
+        "damage": 25,
+        "count": 6
+      },
+      "hostile": true
+    },
+    {
+      "id": "guard_commander",
+      "name": "Commander Graves",
+      "description": "Veteran Guard officer. Wounded but unbowed.",
+      "type": "ally",
+      "stats": {
+        "health": 40,
+        "damage": 15
+      },
+      "dialogue": [
+        "We've held for three days. Thought we were done for.",
+        "The men are ready to move on your command, my lord."
+      ],
+      "hostile": false
+    },
+    {
+      "id": "wounded_guardsmen",
+      "name": "Surviving Guardsmen",
+      "description": "Twenty soldiers. Battle-scarred but determined.",
+      "type": "ally_group",
+      "stats": {
+        "health": 30,
+        "damage": 10,
+        "count": 20
+      },
+      "hostile": false
+    },
+    {
+      "id": "ork_warboss",
+      "name": "Warboss Skullkrakka",
+      "description": "Massive Ork warlord. Covered in scars and trophies. Living legend of brutality.",
+      "type": "boss",
+      "stats": {
+        "health": 250,
+        "damage": 60,
+        "armor": 30
+      },
+      "hostile": true
+    },
+    {
+      "id": "nob_bodyguard",
+      "name": "Nob Bodyguard",
+      "description": "Elite Ork warrior. Loyal to the Warboss unto death.",
+      "type": "elite_enemy",
+      "stats": {
+        "health": 120,
+        "damage": 40
+      },
+      "hostile": true
+    }
+  ],
+  "puzzles": [
+    {
+      "id": "organize_evacuation",
+      "name": "Organize the Evacuation",
+      "description": "Coordinate the Guardsmen and plan the escape route.",
+      "type": "tactical_puzzle",
+      "solution": {
+        "requires": ["medical_supplies"],
+        "success_text": "The wounded are stabilized. Formation ready. Now we fight our way out."
+      }
+    }
+  ]
+}

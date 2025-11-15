@@ -1,0 +1,227 @@
+{
+  "title": "The Ritual of Crimson Stars",
+  "description": "Investigate a mysterious cult in the underhive. Uncover ancient secrets and prevent a dark ritual.",
+  "theme": "warhammer40k",
+  "metadata": {
+    "difficulty": "medium",
+    "estimated_duration": "50-65 minutes",
+    "themes": ["mystery", "investigation", "horror"],
+    "tags": ["mystery", "investigation", "horror"]
+  },
+  "player": {
+    "name": "Inquisitor Valerius",
+    "class": "Inquisitor",
+    "inventory": ["laspistol", "investigation_kit", "holy_symbol"],
+    "stats": {
+      "health": 90,
+      "intelligence": 85,
+      "willpower": 80
+    }
+  },
+  "scenes": [
+    {
+      "id": "underhive_entrance",
+      "name": "Underhive Entrance",
+      "description": "The descent into darkness begins. Rusted metal stairs lead down into the forgotten levels beneath the hive city.",
+      "connections": ["slum_district"],
+      "items": ["torch"],
+      "npcs": [],
+      "events": [
+        {
+          "id": "entering_depths",
+          "type": "narrative",
+          "trigger": "on_enter",
+          "text": "The air grows thick with decay. Strange symbols mark the walls—symbols that should not exist."
+        }
+      ]
+    },
+    {
+      "id": "slum_district",
+      "name": "Slum District",
+      "description": "Desperate people huddle in the shadows. They avert their eyes as you pass. Fear hangs heavy in the air.",
+      "connections": ["underhive_entrance", "abandoned_chapel"],
+      "items": ["witness_testimony"],
+      "npcs": ["frightened_civilian"],
+      "events": []
+    },
+    {
+      "id": "abandoned_chapel",
+      "name": "Abandoned Chapel",
+      "description": "Once a place of worship to the God-Emperor. Now defiled with heretical symbols and strange offerings.",
+      "connections": ["slum_district", "hidden_passage"],
+      "items": ["heretical_tome"],
+      "npcs": [],
+      "puzzles": ["decipher_symbols"],
+      "events": [
+        {
+          "id": "discovery",
+          "type": "discovery",
+          "trigger": "examine_altar",
+          "text": "The altar bears recent bloodstains. A hidden mechanism clicks beneath your touch..."
+        }
+      ]
+    },
+    {
+      "id": "hidden_passage",
+      "name": "Hidden Passage",
+      "description": "A secret tunnel carved from the underhive's foundation. Ancient and purposeful.",
+      "connections": ["abandoned_chapel", "ritual_chamber"],
+      "items": ["ancient_key"],
+      "npcs": ["cultist_guard"],
+      "puzzles": ["unlock_door"],
+      "events": []
+    },
+    {
+      "id": "ritual_chamber",
+      "name": "Ritual Chamber",
+      "description": "The heart of darkness. Robed figures chant in forbidden tongues. A portal begins to tear reality itself.",
+      "connections": ["hidden_passage"],
+      "items": ["ritual_dagger"],
+      "npcs": ["cult_leader", "summoned_daemon"],
+      "puzzles": ["disrupt_ritual"],
+      "events": [
+        {
+          "id": "final_confrontation",
+          "type": "boss_combat",
+          "trigger": "on_enter",
+          "text": "The cult leader turns to face you. 'Too late, Inquisitor. The Crimson Stars align. Witness our ascension!'"
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "id": "laspistol",
+      "name": "Inquisitorial Laspistol",
+      "description": "A finely crafted weapon bearing the seal of the Inquisition.",
+      "type": "weapon",
+      "properties": {
+        "damage": 25,
+        "ammo": 20
+      }
+    },
+    {
+      "id": "investigation_kit",
+      "name": "Investigation Kit",
+      "description": "Tools for analyzing evidence and uncovering secrets.",
+      "type": "tool",
+      "properties": {
+        "investigation_bonus": 20
+      }
+    },
+    {
+      "id": "witness_testimony",
+      "name": "Witness Testimony",
+      "description": "A frightened civilian's account of strange gatherings.",
+      "type": "key_item",
+      "properties": {
+        "readable": true
+      }
+    },
+    {
+      "id": "heretical_tome",
+      "name": "Tome of Forbidden Knowledge",
+      "description": "A book that should be burned. But it contains clues...",
+      "type": "key_item",
+      "properties": {
+        "readable": true,
+        "dangerous": true
+      }
+    },
+    {
+      "id": "ancient_key",
+      "name": "Ancient Key",
+      "description": "A key of unknown origin. It thrums with unnatural energy.",
+      "type": "key_item",
+      "properties": {
+        "quest_item": true
+      }
+    },
+    {
+      "id": "ritual_dagger",
+      "name": "Ritual Dagger",
+      "description": "The ceremonial weapon used in the cult's dark practices.",
+      "type": "key_item",
+      "properties": {
+        "quest_item": true
+      }
+    }
+  ],
+  "npcs": [
+    {
+      "id": "frightened_civilian",
+      "name": "Terrified Resident",
+      "description": "A local who knows more than they're willing to say.",
+      "type": "neutral",
+      "stats": {
+        "health": 30,
+        "damage": 0
+      },
+      "dialogue": [
+        "Please, just leave us alone...",
+        "They take people in the night. We don't ask questions.",
+        "The chapel... something evil dwells there now."
+      ],
+      "hostile": false
+    },
+    {
+      "id": "cultist_guard",
+      "name": "Cult Sentinel",
+      "description": "A hooded figure guarding the passage. Armed and fanatical.",
+      "type": "enemy",
+      "stats": {
+        "health": 60,
+        "damage": 20
+      },
+      "hostile": true
+    },
+    {
+      "id": "cult_leader",
+      "name": "High Priest of the Crimson Stars",
+      "description": "The mastermind behind the ritual. Eyes burning with madness and power.",
+      "type": "boss",
+      "stats": {
+        "health": 100,
+        "damage": 30
+      },
+      "dialogue": [
+        "The old gods awaken!",
+        "Your Emperor is nothing before the Crimson Stars!"
+      ],
+      "hostile": true
+    }
+  ],
+  "puzzles": [
+    {
+      "id": "decipher_symbols",
+      "name": "Decipher Heretical Symbols",
+      "description": "Decode the symbols to reveal the hidden passage.",
+      "type": "investigation_puzzle",
+      "solution": {
+        "requires": ["investigation_kit", "heretical_tome"],
+        "success_text": "The symbols form a pattern. A hidden door opens with a grinding sound."
+      }
+    },
+    {
+      "id": "unlock_door",
+      "name": "Unlock the Sealed Door",
+      "description": "Use the ancient key to open the ritual chamber.",
+      "type": "key_item_puzzle",
+      "solution": {
+        "requires": ["ancient_key"],
+        "success_text": "The key turns. Beyond lies horror incarnate."
+      }
+    },
+    {
+      "id": "disrupt_ritual",
+      "name": "Disrupt the Ritual",
+      "description": "Destroy the ritual components before the portal fully opens.",
+      "type": "timed_puzzle",
+      "solution": {
+        "requires": ["ritual_dagger"],
+        "time_limit": 120,
+        "success_text": "You shatter the dagger on the altar. The portal collapses with a scream of rage."
+      }
+    }
+  ]
+}

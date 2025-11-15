@@ -1,0 +1,127 @@
+{
+  "title": "Neon Heist: The Arasaka Job",
+  "description": "Infiltrate a megacorp tower to steal valuable data. Stealth, hacking, and quick thinking required.",
+  "theme": "cyberpunk",
+  "metadata": {
+    "difficulty": "medium",
+    "estimated_duration": "40-55 minutes",
+    "themes": ["stealth", "hacking", "tech"],
+    "tags": ["cyberpunk", "stealth", "hacking"]
+  },
+  "player": {
+    "name": "Ghost",
+    "class": "Netrunner",
+    "inventory": ["cyberdeck", "silenced_pistol", "smoke_grenades"],
+    "stats": {
+      "health": 80,
+      "hacking": 95,
+      "stealth": 85
+    }
+  },
+  "scenes": [
+    {
+      "id": "lobby",
+      "name": "Corporate Lobby",
+      "description": "Gleaming chrome and neon. Corporate drones shuffle past security checkpoints.",
+      "connections": ["elevator_bay"],
+      "items": ["keycard_level_1"],
+      "npcs": ["security_guard"],
+      "events": []
+    },
+    {
+      "id": "elevator_bay",
+      "name": "Elevator Bay",
+      "description": "Multiple elevators lead to different tower levels. Security cameras sweep the area.",
+      "connections": ["lobby", "server_room"],
+      "items": [],
+      "npcs": [],
+      "puzzles": ["bypass_elevator_security"],
+      "events": []
+    },
+    {
+      "id": "server_room",
+      "name": "Data Center",
+      "description": "Rows of servers humming with data. This is the prize.",
+      "connections": ["elevator_bay"],
+      "items": ["corporate_data_chip"],
+      "npcs": ["ice_ai"],
+      "puzzles": ["hack_mainframe"],
+      "events": [
+        {
+          "id": "ice_encounter",
+          "type": "hacking_combat",
+          "trigger": "hack_attempt",
+          "text": "ICE detected! Defensive programs activating!"
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "id": "cyberdeck",
+      "name": "Military-Grade Cyberdeck",
+      "description": "Top-tier hacking hardware. State of the art.",
+      "type": "tool",
+      "properties": {
+        "hacking_bonus": 30
+      }
+    },
+    {
+      "id": "corporate_data_chip",
+      "name": "Encrypted Data Chip",
+      "description": "The payload. Billions in corporate secrets.",
+      "type": "quest_item",
+      "properties": {
+        "quest_item": true
+      }
+    }
+  ],
+  "npcs": [
+    {
+      "id": "security_guard",
+      "name": "Corp Security",
+      "description": "Standard rent-a-cop. Armed but not alert.",
+      "type": "enemy",
+      "stats": {
+        "health": 50,
+        "damage": 15
+      },
+      "hostile": true
+    },
+    {
+      "id": "ice_ai",
+      "name": "Black ICE Defense System",
+      "description": "Deadly AI defense program. Will fry your brain if you're not careful.",
+      "type": "digital_enemy",
+      "stats": {
+        "health": 100,
+        "damage": 40
+      },
+      "hostile": true
+    }
+  ],
+  "puzzles": [
+    {
+      "id": "bypass_elevator_security",
+      "name": "Bypass Elevator Lock",
+      "description": "Hack the elevator control system.",
+      "type": "hacking_puzzle",
+      "solution": {
+        "requires": ["cyberdeck"],
+        "difficulty": "medium",
+        "success_text": "Elevator unlocked. Access granted to level 47."
+      }
+    },
+    {
+      "id": "hack_mainframe",
+      "name": "Hack Corporate Mainframe",
+      "description": "Extract the data while avoiding ICE.",
+      "type": "hacking_puzzle",
+      "solution": {
+        "requires": ["cyberdeck"],
+        "difficulty": "hard",
+        "success_text": "Data extracted. Time to jack out before security arrives."
+      }
+    }
+  ]
+}

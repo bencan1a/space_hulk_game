@@ -1,0 +1,144 @@
+{
+  "title": "Hive Assault: Purge of Sector 7-G",
+  "description": "Lead a squad through a hive city's underbelly to eliminate a genestealer cult. Fast-paced combat and tactical decisions.",
+  "theme": "warhammer40k",
+  "metadata": {
+    "difficulty": "hard",
+    "estimated_duration": "30-45 minutes",
+    "themes": ["combat", "action", "tactical"],
+    "tags": ["action", "combat", "squad-based"]
+  },
+  "player": {
+    "name": "Sergeant Voss",
+    "class": "Space Marine Sergeant",
+    "inventory": ["bolter", "frag_grenades", "chainsword"],
+    "stats": {
+      "health": 120,
+      "strength": 90,
+      "leadership": 75
+    }
+  },
+  "scenes": [
+    {
+      "id": "drop_zone",
+      "name": "Drop Zone",
+      "description": "Your drop pod crashes into the hive's upper levels. Smoke and debris fill the air. Enemy contacts detected.",
+      "connections": ["hab_district"],
+      "items": ["ammo_bolter"],
+      "npcs": ["battle_brother_1", "battle_brother_2"],
+      "events": [
+        {
+          "id": "squad_assembles",
+          "type": "narrative",
+          "trigger": "on_enter",
+          "text": "'Brethren, form up! For the Emperor and Ultramar!'"
+        }
+      ]
+    },
+    {
+      "id": "hab_district",
+      "name": "Hab District",
+      "description": "Cramped living quarters. Civilians flee in terror. Cult ambush imminent.",
+      "connections": ["drop_zone", "cult_hideout"],
+      "items": [],
+      "npcs": ["cultist_squad_alpha"],
+      "events": [
+        {
+          "id": "ambush",
+          "type": "combat",
+          "trigger": "on_enter",
+          "text": "Cultists pour from the shadows! Contact front!"
+        }
+      ]
+    },
+    {
+      "id": "cult_hideout",
+      "name": "Cult Hideout",
+      "description": "A defiled shrine to the Four-Armed Emperor. Alien ichor stains the walls.",
+      "connections": ["hab_district"],
+      "items": ["sacred_icon"],
+      "npcs": ["genestealer_patriarch"],
+      "events": [
+        {
+          "id": "final_battle",
+          "type": "boss_combat",
+          "trigger": "on_enter",
+          "text": "The Patriarch emerges—massive, alien, utterly abominable. This ends here!"
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "id": "bolter",
+      "name": "Godwyn Pattern Bolter",
+      "description": "Standard Astartes bolter. Emperor's Wrath incarnate.",
+      "type": "weapon",
+      "properties": {
+        "damage": 40,
+        "ammo": 30,
+        "fire_mode": "auto"
+      }
+    },
+    {
+      "id": "frag_grenades",
+      "name": "Frag Grenades",
+      "description": "High-explosive anti-personnel grenades.",
+      "type": "weapon",
+      "properties": {
+        "damage": 50,
+        "area_effect": true,
+        "quantity": 3
+      }
+    }
+  ],
+  "npcs": [
+    {
+      "id": "battle_brother_1",
+      "name": "Brother Marcus",
+      "description": "Your tactical support. Reliable and steadfast.",
+      "type": "ally",
+      "stats": {
+        "health": 100,
+        "damage": 30
+      },
+      "hostile": false
+    },
+    {
+      "id": "battle_brother_2",
+      "name": "Brother Titus",
+      "description": "Heavy weapons specialist. Brings the firepower.",
+      "type": "ally",
+      "stats": {
+        "health": 110,
+        "damage": 35
+      },
+      "hostile": false
+    },
+    {
+      "id": "cultist_squad_alpha",
+      "name": "Cult Ambush Squad",
+      "description": "Fanatical cultists armed with autoguns and improvised weapons.",
+      "type": "enemy_group",
+      "stats": {
+        "health": 60,
+        "damage": 20,
+        "count": 5
+      },
+      "hostile": true
+    },
+    {
+      "id": "genestealer_patriarch",
+      "name": "Genestealer Patriarch",
+      "description": "Ancient, cunning, and deadly. Leader of the cult.",
+      "type": "boss",
+      "stats": {
+        "health": 200,
+        "damage": 50,
+        "speed": "fast"
+      },
+      "hostile": true
+    }
+  ],
+  "puzzles": []
+}
