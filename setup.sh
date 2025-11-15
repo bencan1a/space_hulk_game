@@ -69,6 +69,72 @@ print_header() {
     print_message "$BLUE" "=================================================="
 }
 
+# Install system dependencies
+install_system_dependencies() {
+    print_header "Installing System Dependencies"
+    local os
+    os=$(detect_os)
+
+    if [[ "$os" == "linux" ]]; then
+        print_message "$YELLOW" "Detected Linux. Installing 'make' using apt-get..."
+        if ! command_exists make; then
+            sudo apt-get update
+            sudo apt-get install -y make
+            print_message "$GREEN" "✓ 'make' installed successfully."
+        else
+            print_message "$GREEN" "✓ 'make' is already installed."
+        fi
+    elif [[ "$os" == "macos" ]]; then
+        print_message "$YELLOW" "Detected macOS. Checking for Homebrew..."
+        if ! command_exists brew; then
+            print_message "$RED" "Error: Homebrew is not installed."
+            print_message "$YELLOW" "Please install Homebrew first: https://brew.sh/"
+            exit 1
+        fi
+        print_message "$GREEN" "✓ Homebrew detected."
+        print_message "$YELLOW" "Installing 'make' using Homebrew..."
+        if ! command_exists make; then
+            brew install make
+            print_message "$GREEN" "✓ 'make' installed successfully."
+        else
+            print_message "$GREEN" "✓ 'make' is already installed."
+        fi
+    else
+        print_message "$YELLOW" "Warning: Unsupported OS detected. Please install 'make' manually."
+    fi
+}
+
+# Install Node.js and npm
+install_nodejs() {
+    print_header "Installing Node.js and npm"
+    if command_exists node && command_exists npm; then
+        print_message "$GREEN" "✓ Node.js and npm are already installed."
+        return
+    fi
+
+    local os
+    os=$(detect_os)
+
+    if [[ "$os" == "linux" ]]; then
+        print_message "$YELLOW" "Detected Linux. Installing Node.js and npm..."
+        # Add NodeSource repository for Node.js 20.x (LTS)
+        curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+        sudo apt-get install -y nodejs
+        print_message "$GREEN" "✓ Node.js and npm installed successfully."
+    elif [[ "$os" == "macos" ]]; then
+        print_message "$YELLOW" "Detected macOS. Installing Node.js using Homebrew..."
+        if ! command_exists brew; then
+            print_message "$RED" "Error: Homebrew is not installed."
+            print_message "$YELLOW" "Please install Homebrew first: https://brew.sh/"
+            exit 1
+        fi
+        brew install node
+        print_message "$GREEN" "✓ Node.js and npm installed successfully."
+    else
+        print_message "$YELLOW" "Warning: Unsupported OS detected. Please install Node.js and npm manually."
+    fi
+}
+
 # Check if command exists
 command_exists() {
     command -v "$1" >/dev/null 2>&1
@@ -423,6 +489,8 @@ main() {
     print_message "$YELLOW" "This script will install all required dependencies"
     echo ""
 
+    install_system_dependencies
+    install_nodejs
     check_python
     install_uv
     install_ollama

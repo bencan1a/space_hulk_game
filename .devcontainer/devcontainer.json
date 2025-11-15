@@ -1,11 +1,13 @@
 {
   "name": "Space Hulk Game Development",
-  "image": "mcr.microsoft.com/devcontainers/python:1-3.11-bullseye",
+  "image": "mcr.microsoft.com/devcontainers/python:1-3.13-bookworm",
   "features": {
     "ghcr.io/devcontainers/features/git:1": {},
     "ghcr.io/devcontainers/features/github-cli:1": {},
-    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
-    "ghcr.io/astral-sh/uv-devcontainer-feature/uv:latest": {}
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
+    },
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
   "customizations": {
     "vscode": {
@@ -29,8 +31,8 @@
           "editor.defaultFormatter": "charliermarsh.ruff",
           "editor.formatOnSave": true,
           "editor.codeActionsOnSave": {
-            "source.organizeImports": true,
-            "source.fixAll": true
+            "source.organizeImports": "explicit",
+            "source.fixAll": "explicit"
           }
         },
         "files.associations": {
@@ -47,7 +49,9 @@
         },
         "files.trimTrailingWhitespace": true,
         "files.insertFinalNewline": true,
-        "editor.rulers": [100],
+        "editor.rulers": [
+          100
+        ],
         "terminal.integrated.defaultProfile.linux": "bash",
         "git.autofetch": true,
         "extensions.autoUpdate": false
@@ -84,7 +88,7 @@
       "onAutoForward": "notify"
     }
   },
-  "postCreateCommand": "bash -c 'cd /workspaces/space_hulk_game && python3 -m venv .venv && source .venv/bin/activate && pip install --upgrade pip && pip install uv && uv pip install -e \".[dev]\" && pre-commit install && echo \"✅ Dev environment ready! Pre-commit hooks installed.\"'",
+  "postCreateCommand": "bash -c 'sudo apt-get update && sudo apt-get install -y make python3-venv && cd /workspaces/space_hulk_game && python3 -m venv .venv && source .venv/bin/activate && pip install --upgrade pip && pip install uv && uv pip install -e \".[dev]\" && pre-commit install && echo \"✅ Dev environment ready! Pre-commit hooks installed.\"'",
   "postStartCommand": "echo 'Space Hulk Game development environment is ready! 🚀'",
   "containerEnv": {
     "PYTHONPATH": "/workspaces/space_hulk_game/src",
@@ -95,14 +99,15 @@
   "workspaceFolder": "/workspaces/space_hulk_game",
   "remoteUser": "vscode",
   "mounts": [
-    "source=space-hulk-game-bashhistory,target=/home/vscode/.bash_history,type=volume",
-    "source=space-hulk-game-vscode-extensions,target=/home/vscode/.vscode-server/extensions,type=volume"
+    "source=space-hulk-game-bashhistory,target=/home/vscode/.bash_history,type=volume"
   ],
   "initializeCommand": "echo 'Initializing Space Hulk Game devcontainer...'",
   "onCreateCommand": "echo 'Creating Space Hulk Game development environment...'",
   "privileged": false,
   "capAdd": [],
-  "securityOpt": ["seccomp=unconfined"],
+  "securityOpt": [
+    "seccomp=unconfined"
+  ],
   "hostRequirements": {
     "cpus": 2,
     "memory": "4gb",
