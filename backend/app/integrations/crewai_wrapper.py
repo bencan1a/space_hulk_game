@@ -13,8 +13,29 @@ any CrewAI crew instance.
 import logging
 from collections.abc import Callable
 from concurrent.futures import Future, ThreadPoolExecutor, TimeoutError
+from typing import Protocol
 
 logger = logging.getLogger(__name__)
+
+
+class CrewProtocol(Protocol):
+    """Protocol defining the expected interface for a CrewAI crew.
+
+    This protocol documents the crew interface without requiring inheritance,
+    providing better type safety while remaining compatible with any crew
+    implementation that has these attributes/methods.
+    """
+
+    def kickoff(self, inputs: dict[str, object]) -> dict[str, object]:
+        """Execute the crew with the given inputs.
+
+        Args:
+            inputs: Dictionary of input parameters for the crew
+
+        Returns:
+            Dictionary containing the crew's output
+        """
+        ...
 
 
 class CrewExecutionError(Exception):
@@ -47,7 +68,7 @@ class CrewAIWrapper:
 
     def execute_generation(
         self,
-        crew: object,
+        crew: CrewProtocol,
         prompt: str,
         progress_callback: Callable[[str, dict[str, object]], None] | None = None,
         inputs: dict[str, object] | None = None,
@@ -59,6 +80,7 @@ class CrewAIWrapper:
 
         Args:
             crew: A CrewAI Crew instance (from SpaceHulkGame().crew() or similar)
+                  Must implement CrewProtocol (have kickoff method and optionally tasks)
             prompt: The user's generation prompt
             progress_callback: Optional callback function called with (status, data)
                 Status values:
@@ -104,7 +126,7 @@ class CrewAIWrapper:
                 logger.info("Executing crew.kickoff()...")
 
                 # Execute the crew
-                output = crew.kickoff(inputs=inputs)  # type: ignore[attr-defined]
+                output = crew.kickoff(inputs=inputs)
 
                 # Notify callback of task completions after execution finishes
                 # Since CrewAI doesn't provide built-in callbacks, we emit

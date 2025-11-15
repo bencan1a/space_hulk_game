@@ -11,6 +11,10 @@ from app.integrations.crewai_wrapper import (
     CrewTimeoutError,
 )
 
+# Test timing constants
+POLLING_INTERVAL_SECONDS = 0.02
+EXECUTION_START_TIMEOUT_SECONDS = 1.0
+
 
 class MockTask:
     """Mock task for testing."""
@@ -260,9 +264,9 @@ def test_is_executing(wrapper):
     # Wait for execution to start (polling with timeout)
     start_time = time.time()
     while not wrapper.is_executing():
-        if time.time() - start_time > 1.0:
+        if time.time() - start_time > EXECUTION_START_TIMEOUT_SECONDS:
             pytest.fail("wrapper.is_executing() did not become True within 1 second")
-        time.sleep(0.02)
+        time.sleep(POLLING_INTERVAL_SECONDS)
 
     # Wait for execution to complete
     thread.join(timeout=2)
@@ -341,8 +345,9 @@ def test_execute_generation_no_tasks(wrapper):
     """Test execution with crew that has no tasks attribute."""
 
     # Create a crew without tasks attribute that won't fail in kickoff
+    # Parameter name must match Protocol definition for proper type checking
     class CrewNoTasks:
-        def kickoff(self, inputs=None):  # noqa: ARG002
+        def kickoff(self, inputs: dict[str, object]) -> dict[str, object]:  # noqa: ARG002
             time.sleep(0.1)
             return {"raw": "Output without tasks", "metadata": {"status": "success"}}
 
@@ -370,7 +375,7 @@ def test_concurrent_executions_not_allowed():
                 prompt=f"Test {index}",
             )
             results.append(result)
-        except Exception as e:
+        except (CrewExecutionError, CrewTimeoutError) as e:
             results.append({"error": str(e)})
 
     # Start two concurrent executions
