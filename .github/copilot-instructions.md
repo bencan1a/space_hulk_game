@@ -55,7 +55,24 @@ space_hulk_game/
 - Add **logging** for important operations
 
 ### Pre-Checkin Requirements
-**ALWAYS run these commands before committing code:**
+
+**⚠️ CRITICAL: ALWAYS run `make check` before committing code!**
+
+This is the **required** command before any commit:
+```bash
+make check
+```
+
+This runs:
+1. **Linting** with Ruff (auto-fixes issues)
+2. **Type checking** with MyPy
+3. **Tests** with unittest
+
+**Alternative commands:**
+- `make fix` - Auto-fix linting and formatting issues
+- `make check-all` - Run comprehensive checks (recommended before PR)
+
+**Manual steps (if make is not available):**
 ```bash
 # 1. Auto-fix linting issues
 ruff check . --fix
@@ -74,6 +91,8 @@ mypy tools/         # Relaxed checking on tools
 # 5. Run tests
 python -m unittest discover -s tests -v
 ```
+
+**See `.github/PRE_CHECKIN.md` for detailed pre-checkin checklist.**
 
 **Note:** If `ruff` is not installed, run `pip install ruff` or `uv pip install -e ".[dev]"` first.
 
