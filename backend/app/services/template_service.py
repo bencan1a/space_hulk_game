@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Any
 
 import yaml
-from jinja2 import Environment, FileSystemLoader, Template
+from jinja2 import Environment, FileSystemLoader
 
 logger = logging.getLogger(__name__)
 
@@ -119,7 +119,7 @@ class TemplateService:
         if not prompt_template:
             raise ValueError(f"Template '{name}' missing 'prompt' field")
 
-        # Validate required variables
+        # Validate required variables and apply defaults
         required_vars = [
             var["name"]
             for var in template_data.get("variables", [])
@@ -131,9 +131,18 @@ class TemplateService:
                 f"Missing required variables for template '{name}': {missing_vars}"
             )
 
-        # Render the template
+        # Apply default values for optional variables not in context
+        for var in template_data.get("variables", []):
+            if (
+                not var.get("required", False)
+                and var["name"] not in context
+                and "default" in var
+            ):
+                context[var["name"]] = var["default"]
+
+        # Render the template using the Jinja environment
         try:
-            template = Template(prompt_template)
+            template = self._jinja_env.from_string(prompt_template)
             rendered = template.render(**context)
             return rendered
         except Exception as e:
