@@ -116,6 +116,37 @@
         "healing": 50,
         "temporary_strength_boost": 10
       }
+    },
+    {
+      "id": "frag_grenades",
+      "name": "Frag Grenades",
+      "description": "High-explosive anti-personnel grenades.",
+      "type": "weapon",
+      "properties": {
+        "damage": 50,
+        "area_effect": true,
+        "quantity": 3
+      }
+    },
+    {
+      "id": "demolition_charges",
+      "name": "Demolition Charges",
+      "description": "Powerful explosives for breaching or destroying objectives.",
+      "type": "tool",
+      "properties": {
+        "explosive_power": 100,
+        "quantity": 2
+      }
+    },
+    {
+      "id": "medical_supplies",
+      "name": "Medical Supplies",
+      "description": "Field medical kit for treating wounded Guardsmen.",
+      "type": "consumable",
+      "properties": {
+        "healing": 30,
+        "stabilize": true
+      }
     }
   ],
   "npcs": [

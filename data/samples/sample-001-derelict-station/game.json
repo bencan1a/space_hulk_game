@@ -116,6 +116,36 @@
       "properties": {
         "quest_item": true
       }
+    },
+    {
+      "id": "combat_knife",
+      "name": "Combat Knife",
+      "description": "Standard issue close combat blade.",
+      "type": "weapon",
+      "properties": {
+        "damage": 15,
+        "melee": true
+      }
+    },
+    {
+      "id": "auspex",
+      "name": "Auspex Scanner",
+      "description": "Multi-purpose scanning device for detecting threats and anomalies.",
+      "type": "tool",
+      "properties": {
+        "detection_range": 30,
+        "scan_bonus": 15
+      }
+    },
+    {
+      "id": "ammo_bolt",
+      "name": "Bolt Ammunition",
+      "description": "Explosive bolt rounds for bolt weapons.",
+      "type": "consumable",
+      "properties": {
+        "ammo_type": "bolt",
+        "quantity": 12
+      }
     }
   ],
   "npcs": [

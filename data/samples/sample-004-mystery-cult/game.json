@@ -145,6 +145,26 @@
       "properties": {
         "quest_item": true
       }
+    },
+    {
+      "id": "holy_symbol",
+      "name": "Holy Symbol of the Emperor",
+      "description": "Sacred icon of the God-Emperor. Provides spiritual protection.",
+      "type": "tool",
+      "properties": {
+        "faith_bonus": 10,
+        "ward_against_evil": true
+      }
+    },
+    {
+      "id": "torch",
+      "name": "Torch",
+      "description": "Simple light source for dark places.",
+      "type": "tool",
+      "properties": {
+        "illumination": 15,
+        "duration": 120
+      }
     }
   ],
   "npcs": [
@@ -188,6 +208,18 @@
         "The old gods awaken!",
         "Your Emperor is nothing before the Crimson Stars!"
       ],
+      "hostile": true
+    },
+    {
+      "id": "summoned_daemon",
+      "name": "Lesser Daemon",
+      "description": "A warp entity partially materialized through the failing ritual. Volatile and dangerous.",
+      "type": "boss",
+      "stats": {
+        "health": 80,
+        "damage": 35,
+        "ethereal": true
+      },
       "hostile": true
     }
   ],

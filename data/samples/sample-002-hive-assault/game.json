@@ -90,6 +90,36 @@
         "area_effect": true,
         "quantity": 3
       }
+    },
+    {
+      "id": "chainsword",
+      "name": "Chainsword",
+      "description": "Iconic Astartes melee weapon with roaring teeth.",
+      "type": "weapon",
+      "properties": {
+        "damage": 45,
+        "melee": true,
+        "armor_piercing": true
+      }
+    },
+    {
+      "id": "ammo_bolter",
+      "name": "Bolter Ammunition",
+      "description": "Magazines for bolter weapons.",
+      "type": "consumable",
+      "properties": {
+        "ammo_type": "bolter",
+        "quantity": 30
+      }
+    },
+    {
+      "id": "sacred_icon",
+      "name": "Defiled Sacred Icon",
+      "description": "A corrupted religious symbol. Evidence of heresy.",
+      "type": "key_item",
+      "properties": {
+        "quest_item": true
+      }
     }
   ],
   "npcs": [

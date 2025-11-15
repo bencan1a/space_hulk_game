@@ -74,6 +74,37 @@
       "properties": {
         "quest_item": true
       }
+    },
+    {
+      "id": "silenced_pistol",
+      "name": "Silenced Pistol",
+      "description": "Quiet and deadly. Perfect for stealth operations.",
+      "type": "weapon",
+      "properties": {
+        "damage": 25,
+        "ammo": 15,
+        "stealth": true
+      }
+    },
+    {
+      "id": "smoke_grenades",
+      "name": "Smoke Grenades",
+      "description": "Tactical smoke for cover and evasion.",
+      "type": "tool",
+      "properties": {
+        "concealment": true,
+        "duration": 30,
+        "quantity": 2
+      }
+    },
+    {
+      "id": "keycard_level_1",
+      "name": "Level 1 Keycard",
+      "description": "Standard access card for lower floors.",
+      "type": "key_item",
+      "properties": {
+        "access_level": 1
+      }
     }
   ],
   "npcs": [
