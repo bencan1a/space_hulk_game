@@ -59,7 +59,9 @@ export class APIClient {
   }
 
   async get<T>(endpoint: string, params?: Record<string, string | number | boolean>): Promise<T> {
-    const queryString = params ? '?' + new URLSearchParams(params as Record<string, string>).toString() : ''
+    const queryString = params
+      ? '?' + new URLSearchParams(params as Record<string, string>).toString()
+      : ''
 
     return this.request<T>(`${endpoint}${queryString}`, {
       method: 'GET',
