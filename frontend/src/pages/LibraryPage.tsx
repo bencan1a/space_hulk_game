@@ -1,49 +1,64 @@
 import React, { useState, useCallback } from 'react'
 import { SearchBar, FilterPanel, StoryGrid } from '../components/library'
+import { useStories } from '../hooks'
 import type { Story, StoryFilters } from '../types/story'
 import styles from './LibraryPage.module.css'
 
 export const LibraryPage: React.FC = () => {
-  const [filters, setFilters] = useState<StoryFilters>({})
+  const { stories, loading, error, filters, setFilters, fetchStories } = useStories()
+  const [searchQuery, setSearchQuery] = useState('')
 
-  // TODO: Connect to real data in Task 2.6
-  const stories: Story[] = []
-  const loading = false
-  const error = null
+  const handleSearch = useCallback(
+    (query: string) => {
+      setSearchQuery(query)
+      setFilters({ search: query || undefined })
+    },
+    [setFilters]
+  )
 
-  const handleSearch = useCallback((query: string) => {
-    // TODO: Implement search in Task 2.6
-    console.log('Search query:', query)
-  }, [])
+  const handleFilterChange = useCallback(
+    (newFilters: StoryFilters) => {
+      const mergedFilters = { ...newFilters }
+      if (searchQuery) {
+        mergedFilters.search = searchQuery
+      }
+      setFilters(mergedFilters)
+    },
+    [searchQuery, setFilters]
+  )
 
-  const handleStoryClick = useCallback((story: Story) => {
-    // TODO: Navigate to play page in Task 2.6
-    console.log('Navigate to story:', story.id)
-  }, [])
+  const handleStoryClick = (story: Story) => {
+    if (import.meta.env.DEV) {
+      console.log('Story clicked:', story.id)
+    }
+    // TODO: Navigate to play page
+    // navigate(`/play/${story.id}`);
+  }
+
+  const handleCreateStory = () => {
+    if (import.meta.env.DEV) {
+      console.log('Create new story')
+    }
+    // TODO: Navigate to create page
+    // navigate('/create');
+  }
 
   const handleRetry = useCallback(() => {
-    // TODO: Implement retry logic in Task 2.6
-    window.location.reload()
-  }, [])
+    fetchStories()
+  }, [fetchStories])
 
   return (
     <div className={styles.page}>
       <header className={styles.header}>
         <h1 className={styles.title}>Story Library</h1>
-        <button
-          className={styles.createButton}
-          onClick={() => {
-            // TODO: Navigate to create page
-          }}
-          aria-label="Create a new story"
-        >
+        <button className={styles.createButton} onClick={handleCreateStory}>
           + Create New Story
         </button>
       </header>
 
       <div className={styles.content}>
         <aside className={styles.sidebar}>
-          <FilterPanel filters={filters} onFilterChange={setFilters} />
+          <FilterPanel filters={filters} onFilterChange={handleFilterChange} />
         </aside>
 
         <main className={styles.main}>
