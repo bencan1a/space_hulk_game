@@ -85,12 +85,3 @@ export interface GameResponse {
   valid: boolean
   game_over: boolean
 }
-
-// Theme types
-export interface Theme {
-  id: string
-  name: string
-  description: string
-  colors: Record<string, string>
-  fonts: Record<string, string>
-}
