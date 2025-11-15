@@ -1,10 +1,20 @@
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+
+/**
+ * HomePage component that redirects to the Library page.
+ * 
+ * This provides a clean entry point while ensuring users land
+ * on the main library interface where they can browse and play games.
+ */
 function HomePage() {
-  return (
-    <div className="page">
-      <h2>Welcome to Space Hulk Game</h2>
-      <p>Browser-based game creation and play interface</p>
-    </div>
-  )
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    navigate('/library')
+  }, [navigate])
+
+  return null
 }
 
 export default HomePage
