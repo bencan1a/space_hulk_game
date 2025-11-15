@@ -257,10 +257,14 @@ def test_is_executing(wrapper):
     thread = threading.Thread(target=run_execution)
     thread.start()
 
-    # Give it a moment to start
-    time.sleep(0.1)
-    # Note: This test is timing-dependent, may need adjustment
-    # For safety, we'll just check it eventually completes
+    # Wait for execution to start (polling with timeout)
+    start_time = time.time()
+    while not wrapper.is_executing():
+        if time.time() - start_time > 1.0:
+            pytest.fail("wrapper.is_executing() did not become True within 1 second")
+        time.sleep(0.02)
+
+    # Wait for execution to complete
     thread.join(timeout=2)
     assert not wrapper.is_executing()
 
@@ -383,3 +387,41 @@ def test_concurrent_executions_not_allowed():
     # Both should complete (they use the same executor with max_workers=1)
     # So they'll execute sequentially
     assert len(results) == 2
+
+
+def test_execute_generation_custom_inputs(wrapper, mock_crew):
+    """Test execution with custom inputs parameter."""
+    custom_inputs = {
+        "prompt": "Create a test game",
+        "custom_key": "custom_value",
+        "another_key": 123,
+    }
+
+    result = wrapper.execute_generation(
+        crew=mock_crew,
+        prompt="Create a test game",
+        inputs=custom_inputs,
+    )
+
+    assert result["status"] == "success"
+    assert mock_crew.kickoff_called
+    # Verify custom inputs were passed to kickoff
+    assert mock_crew.kickoff_inputs == custom_inputs
+    assert "custom_key" in mock_crew.kickoff_inputs
+    assert mock_crew.kickoff_inputs["custom_key"] == "custom_value"
+
+
+def test_execute_generation_default_inputs(wrapper, mock_crew):
+    """Test execution uses default inputs when not provided."""
+    result = wrapper.execute_generation(
+        crew=mock_crew,
+        prompt="Test prompt",
+    )
+
+    assert result["status"] == "success"
+    assert mock_crew.kickoff_called
+    # Verify default inputs have both "prompt" and "game" keys
+    assert "prompt" in mock_crew.kickoff_inputs
+    assert "game" in mock_crew.kickoff_inputs
+    assert mock_crew.kickoff_inputs["prompt"] == "Test prompt"
+    assert mock_crew.kickoff_inputs["game"] == "Test prompt"

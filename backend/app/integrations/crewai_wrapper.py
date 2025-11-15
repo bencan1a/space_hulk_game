@@ -11,7 +11,6 @@ any CrewAI crew instance.
 """
 
 import logging
-import threading
 from collections.abc import Callable
 from concurrent.futures import Future, ThreadPoolExecutor, TimeoutError
 
@@ -51,6 +50,7 @@ class CrewAIWrapper:
         crew: object,
         prompt: str,
         progress_callback: Callable[[str, dict[str, object]], None] | None = None,
+        inputs: dict[str, object] | None = None,
     ) -> dict[str, object]:
         """Execute a CrewAI crew with progress monitoring and timeout.
 
@@ -68,6 +68,9 @@ class CrewAIWrapper:
                 - "completed": Execution completed successfully (data includes final output)
                 - "error": An error occurred (data includes error message)
                 - "timeout": Execution timed out
+            inputs: Optional custom inputs dict for crew.kickoff(). If None, defaults to
+                {"prompt": prompt, "game": prompt} for backward compatibility with
+                SpaceHulkGame crew which expects both "prompt" and "game" keys.
 
         Returns:
             dict: The crew execution result, including:
@@ -90,80 +93,53 @@ class CrewAIWrapper:
                 logger.warning(f"Progress callback error (started): {e}")
 
         # Prepare inputs for the crew
-        inputs = {"prompt": prompt, "game": prompt}
-
-        # Create a monitored execution context
-        result_container: dict[str, object | bool] = {
-            "output": None,
-            "error": None,
-            "completed": False,
-        }
+        # Default to {"prompt": prompt, "game": prompt} for backward compatibility
+        # with SpaceHulkGame crew which expects both keys
+        if inputs is None:
+            inputs = {"prompt": prompt, "game": prompt}
 
         def execute_with_monitoring() -> dict[str, object]:
             """Execute the crew with progress monitoring."""
             try:
                 logger.info("Executing crew.kickoff()...")
 
-                # Hook into crew execution to monitor task progress
-                # Note: We use crew's task list to track progress
-                if hasattr(crew, "tasks"):
-                    total_tasks = len(crew.tasks)
-                    logger.info(f"Crew has {total_tasks} tasks to execute")
-
-                    # Monitor task completion by checking task states
-                    # This is a simple polling-based approach since CrewAI
-                    # doesn't provide built-in callbacks
-                    def monitor_tasks() -> None:
-                        """Monitor task completion in a separate thread."""
-                        for i, task in enumerate(crew.tasks):
-                            # Wait for task to start (simple polling)
-                            task_name = getattr(task, "name", f"Task {i + 1}")
-                            if progress_callback:
-                                try:
-                                    progress_callback(
-                                        "task_started",
-                                        {
-                                            "task_index": i,
-                                            "task_name": task_name,
-                                            "total_tasks": total_tasks,
-                                        },
-                                    )
-                                except Exception as e:
-                                    logger.warning(f"Progress callback error (task_started): {e}")
-
-                    # Start monitoring in background
-                    monitor_thread = threading.Thread(target=monitor_tasks, daemon=True)
-                    monitor_thread.start()
-
                 # Execute the crew
                 output = crew.kickoff(inputs=inputs)  # type: ignore[attr-defined]
-                result_container["output"] = output
-                result_container["completed"] = True
 
-                # Notify callback of task completions
-                # Since we can't hook into individual task completions easily,
-                # we report completion after kickoff finishes
+                # Notify callback of task completions after execution finishes
+                # Since CrewAI doesn't provide built-in callbacks, we emit
+                # task_started and task_completed events after kickoff completes
                 if progress_callback and hasattr(crew, "tasks"):
+                    total_tasks = len(crew.tasks)
                     for i, task in enumerate(crew.tasks):
                         task_name = getattr(task, "name", f"Task {i + 1}")
                         try:
+                            # Emit task_started event
+                            progress_callback(
+                                "task_started",
+                                {
+                                    "task_index": i,
+                                    "task_name": task_name,
+                                    "total_tasks": total_tasks,
+                                },
+                            )
+                            # Emit task_completed event
                             progress_callback(
                                 "task_completed",
                                 {
                                     "task_index": i,
                                     "task_name": task_name,
-                                    "total_tasks": len(crew.tasks),
+                                    "total_tasks": total_tasks,
                                 },
                             )
                         except Exception as e:
-                            logger.warning(f"Progress callback error (task_completed): {e}")
+                            logger.warning(f"Progress callback error (task events): {e}")
 
                 logger.info("Crew execution completed successfully")
                 return output  # type: ignore[no-any-return]
 
             except Exception as e:
                 logger.error(f"Crew execution failed: {e}", exc_info=True)
-                result_container["error"] = str(e)
                 raise
 
         # Execute with timeout
