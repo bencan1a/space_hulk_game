@@ -13,6 +13,14 @@ interface ThemeProviderProps {
   children: React.ReactNode
 }
 
+/**
+ * ThemeProvider component that manages theme state and provides theme context to child components.
+ *
+ * Automatically loads available themes on mount and applies the saved theme from localStorage,
+ * or defaults to 'warhammer40k' if no preference is saved.
+ *
+ * @param props.children - Child components that will have access to the theme context
+ */
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const [currentTheme, setCurrentTheme] = useState<Theme | null>(null)
   const [availableThemes, setAvailableThemes] = useState<ThemeMetadata[]>([])
@@ -66,12 +74,13 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
    */
   const setTheme = useCallback(
     async (themeId: string) => {
+      if (loading) return // Prevent concurrent changes
       setLoading(true)
       setError(null)
       await loadTheme(themeId)
       setLoading(false)
     },
-    [loadTheme]
+    [loadTheme, loading]
   )
 
   /**

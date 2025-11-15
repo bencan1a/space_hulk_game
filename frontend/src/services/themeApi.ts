@@ -9,12 +9,7 @@ export const themeApi = {
    * Get list of available themes.
    */
   async getThemes(): Promise<ThemeMetadata[]> {
-    const response = await apiClient.getThemes()
-    return response.map((theme) => ({
-      id: theme.id,
-      name: theme.name,
-      description: theme.description,
-    }))
+    return await apiClient.getThemes()
   },
 
   /**

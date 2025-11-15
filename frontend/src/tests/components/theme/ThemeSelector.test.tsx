@@ -110,8 +110,12 @@ describe('ThemeSelector', () => {
     const trigger = await screen.findByLabelText('Select theme')
     fireEvent.click(trigger)
 
-    const selected = screen.getByRole('option', { selected: true })
+    // Find all options and check the one with aria-selected="true"
+    const options = screen.getAllByRole('option')
+    const selectedOption = options.find((option) => option.getAttribute('aria-selected') === 'true')
 
-    expect(selected).toHaveTextContent('✓')
+    expect(selectedOption).toBeDefined()
+    expect(selectedOption).toHaveTextContent('Warhammer 40K') // This is from availableThemes metadata
+    expect(selectedOption).toHaveTextContent('✓')
   })
 })

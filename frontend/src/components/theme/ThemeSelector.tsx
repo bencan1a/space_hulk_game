@@ -2,6 +2,16 @@ import React, { useState, useRef, useEffect } from 'react'
 import { useTheme } from '../../contexts/useTheme'
 import styles from './ThemeSelector.module.css'
 
+/**
+ * ThemeSelector component that displays a dropdown for switching between available themes.
+ *
+ * Features:
+ * - Shows current theme name with an icon
+ * - Displays all available themes in a dropdown menu
+ * - Indicates the currently selected theme with a checkmark
+ * - Supports keyboard navigation (Enter/Space to select, Escape to close)
+ * - Automatically closes when clicking outside
+ */
 export const ThemeSelector: React.FC = () => {
   const { currentTheme, availableThemes, setTheme } = useTheme()
   const [isOpen, setIsOpen] = useState(false)
@@ -28,6 +38,16 @@ export const ThemeSelector: React.FC = () => {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault()
       handleThemeSelect(themeId)
+    } else if (event.key === 'Escape') {
+      event.preventDefault()
+      setIsOpen(false)
+    }
+  }
+
+  const handleTriggerKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'Escape' && isOpen) {
+      event.preventDefault()
+      setIsOpen(false)
     }
   }
 
@@ -40,6 +60,7 @@ export const ThemeSelector: React.FC = () => {
       <button
         className={styles.trigger}
         onClick={() => setIsOpen(!isOpen)}
+        onKeyDown={handleTriggerKeyDown}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
         aria-label="Select theme"
