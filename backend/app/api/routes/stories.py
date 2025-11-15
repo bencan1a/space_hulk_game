@@ -126,27 +126,36 @@ async def get_story_content(
 
     # Prevent path traversal for relative paths
     if not game_file.is_absolute():
-        # For relative paths, try to find the file in the allowed directories
-        # Try from current directory first, then from parent directory (for tests)
-        candidates = []
-
-        for base in [".", ".."]:
-            for allowed_dir in ["data/stories", "data/samples"]:
-                candidate = (Path(base) / story.game_file_path).resolve()
-                try:
-                    allowed_base = (Path(base) / allowed_dir).resolve()
-                    # Check if candidate is within allowed base
-                    candidate.relative_to(allowed_base)
-                    candidates.append(candidate)
-                except ValueError:
-                    continue
-
-        # Find first existing candidate
+        # For relative paths, try to find the file from current or parent directory
+        # This handles both production (run from root) and test contexts (run from backend/)
         resolved_file = None
-        for candidate in candidates:
+
+        for base_dir in [".", ".."]:
+            candidate = (Path(base_dir) / story.game_file_path).resolve()
+
+            # Check if file exists and is within allowed directories
             if candidate.exists():
-                resolved_file = candidate
-                break
+                # Verify the path is within data/stories or data/samples
+                try:
+                    # Get the resolved base directory
+                    base_resolved = Path(base_dir).resolve()
+
+                    # Check against both allowed directories
+                    for allowed_subdir in ["data/stories", "data/samples"]:
+                        allowed_path = (base_resolved / allowed_subdir).resolve()
+                        try:
+                            candidate.relative_to(allowed_path)
+                            # Path is valid and within allowed directory
+                            resolved_file = candidate
+                            break
+                        except ValueError:
+                            # Not within this allowed directory, try next
+                            continue
+
+                    if resolved_file:
+                        break
+                except Exception:
+                    continue
 
         if resolved_file is None:
             logger.error("Invalid game file path attempted: %s", story.game_file_path)
