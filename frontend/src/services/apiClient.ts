@@ -15,10 +15,6 @@ export class APIError extends Error {
   }
 }
 
-export interface APIResponse<T> {
-  data: T
-}
-
 export class APIClient {
   private baseURL: string
 
@@ -60,7 +56,10 @@ export class APIClient {
 
   async get<T>(endpoint: string, params?: Record<string, string | number | boolean>): Promise<T> {
     const queryString = params
-      ? '?' + new URLSearchParams(params as Record<string, string>).toString()
+      ? '?' +
+        new URLSearchParams(
+          Object.fromEntries(Object.entries(params).map(([k, v]) => [k, String(v)]))
+        ).toString()
       : ''
 
     return this.request<T>(`${endpoint}${queryString}`, {

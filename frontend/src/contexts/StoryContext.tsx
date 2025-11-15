@@ -1,7 +1,7 @@
 /**
  * Story context for managing story state across the application.
  */
-import React, { createContext, useContext, useState, useCallback } from 'react'
+import React, { createContext, useContext, useState, useCallback, useMemo } from 'react'
 import { storyApi } from '../services/storyApi'
 import type { Story, StoryListResponse, StoryFilters } from '../types/story'
 
@@ -22,7 +22,6 @@ interface StoryContextState {
   fetchStories: () => Promise<void>
   setFilters: (filters: StoryFilters) => void
   setPage: (page: number) => void
-  refreshStories: () => Promise<void>
 }
 
 const StoryContext = createContext<StoryContextState | undefined>(undefined)
@@ -64,7 +63,9 @@ export const StoryProvider: React.FC<StoryProviderProps> = ({ children }) => {
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to fetch stories'
       setError(errorMessage)
-      console.error('Error fetching stories:', err)
+      if (import.meta.env.DEV) {
+        console.error('Error fetching stories:', err)
+      }
     } finally {
       setLoading(false)
     }
@@ -79,21 +80,19 @@ export const StoryProvider: React.FC<StoryProviderProps> = ({ children }) => {
     setPagination((prev) => ({ ...prev, page }))
   }, [])
 
-  const refreshStories = useCallback(async () => {
-    await fetchStories()
-  }, [fetchStories])
-
-  const value: StoryContextState = {
-    stories,
-    loading,
-    error,
-    filters,
-    pagination,
-    fetchStories,
-    setFilters,
-    setPage,
-    refreshStories,
-  }
+  const value: StoryContextState = useMemo(
+    () => ({
+      stories,
+      loading,
+      error,
+      filters,
+      pagination,
+      fetchStories,
+      setFilters,
+      setPage,
+    }),
+    [stories, loading, error, filters, pagination, fetchStories, setFilters, setPage]
+  )
 
   return <StoryContext.Provider value={value}>{children}</StoryContext.Provider>
 }

@@ -32,7 +32,9 @@ export const useStory = (storyId: number | null): UseStoryResult => {
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to fetch story'
       setError(errorMessage)
-      console.error('Error fetching story:', err)
+      if (import.meta.env.DEV) {
+        console.error('Error fetching story:', err)
+      }
     } finally {
       setLoading(false)
     }

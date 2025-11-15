@@ -5,39 +5,47 @@ import type { Story, StoryFilters } from '../types/story'
 import styles from './LibraryPage.module.css'
 
 export const LibraryPage: React.FC = () => {
-  const { stories, loading, error, filters, setFilters } = useStories()
+  const { stories, loading, error, filters, setFilters, fetchStories } = useStories()
   const [searchQuery, setSearchQuery] = useState('')
 
   const handleSearch = useCallback(
     (query: string) => {
       setSearchQuery(query)
-      setFilters({ ...filters, search: query || undefined })
+      setFilters({ search: query || undefined })
     },
-    [filters, setFilters]
+    [setFilters]
   )
 
   const handleFilterChange = useCallback(
     (newFilters: StoryFilters) => {
-      setFilters({ ...newFilters, search: searchQuery || undefined })
+      const mergedFilters = { ...newFilters }
+      if (searchQuery) {
+        mergedFilters.search = searchQuery
+      }
+      setFilters(mergedFilters)
     },
     [searchQuery, setFilters]
   )
 
   const handleStoryClick = (story: Story) => {
-    console.log('Story clicked:', story.id)
+    if (import.meta.env.DEV) {
+      console.log('Story clicked:', story.id)
+    }
     // TODO: Navigate to play page
     // navigate(`/play/${story.id}`);
   }
 
   const handleCreateStory = () => {
-    console.log('Create new story')
+    if (import.meta.env.DEV) {
+      console.log('Create new story')
+    }
     // TODO: Navigate to create page
     // navigate('/create');
   }
 
   const handleRetry = useCallback(() => {
-    window.location.reload()
-  }, [])
+    fetchStories()
+  }, [fetchStories])
 
   return (
     <div className={styles.page}>
