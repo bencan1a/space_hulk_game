@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { ThemeSelector } from '../theme'
 
 function Header() {
   return (
@@ -9,6 +10,7 @@ function Header() {
           <Link to="/">Home</Link>
           <Link to="/library">Library</Link>
           <Link to="/create">Create</Link>
+          <ThemeSelector />
         </nav>
       </div>
     </header>
