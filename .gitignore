@@ -96,3 +96,6 @@ data/
 # And include sample stories
 !data/samples/
 !data/samples/**
+# And include prompt templates
+!data/templates/
+!data/templates/**
