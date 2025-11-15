@@ -5,17 +5,17 @@
 
 :root {
   /* Colors - Default (Warhammer 40K) */
-  --color-primary: #8B0000;
-  --color-secondary: #C0C0C0;
-  --color-background: #1A1A1A;
-  --color-surface: #2D2D2D;
-  --color-surface-light: #3D3D3D;
-  --color-text: #E0E0E0;
-  --color-text-secondary: #A0A0A0;
-  --color-accent: #FFD700;
-  --color-error: #FF4444;
-  --color-success: #44FF44;
-  --color-warning: #FFAA00;
+  --color-primary: #8b0000;
+  --color-secondary: #c0c0c0;
+  --color-background: #1a1a1a;
+  --color-surface: #2d2d2d;
+  --color-surface-light: #3d3d3d;
+  --color-text: #e0e0e0;
+  --color-text-secondary: #a0a0a0;
+  --color-accent: #ffd700;
+  --color-error: #ff4444;
+  --color-success: #44ff44;
+  --color-warning: #ffaa00;
   --color-border: #444444;
 
   /* Typography */

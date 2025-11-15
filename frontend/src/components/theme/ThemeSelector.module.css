@@ -18,11 +18,11 @@
 }
 
 .trigger:hover {
-  border-color: var(--color-primary, #8B0000);
+  border-color: var(--color-primary, #8b0000);
 }
 
 .trigger:focus {
-  outline: 2px solid var(--color-primary, #8B0000);
+  outline: 2px solid var(--color-primary, #8b0000);
   outline-offset: 2px;
 }
 
@@ -89,7 +89,7 @@
 }
 
 .optionCheck {
-  color: var(--color-primary, #8B0000);
+  color: var(--color-primary, #8b0000);
   font-size: 1.125rem;
   font-weight: bold;
 }

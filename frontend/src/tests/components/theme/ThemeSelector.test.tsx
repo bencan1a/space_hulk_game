@@ -3,7 +3,7 @@ import { ThemeSelector } from '../../../components/theme/ThemeSelector'
 import { ThemeProvider } from '../../../contexts/ThemeContext'
 import { themeApi } from '../../../services/themeApi'
 import type { Theme } from '../../../types/theme'
-import { vi } from 'vitest'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
 
 vi.mock('../../../services/themeApi')
 
@@ -32,9 +32,9 @@ describe('ThemeSelector', () => {
         success: '#44FF44',
         warning: '#FFAA00',
       },
-      typography: { 
-        fontFamily: 'Cinzel', 
-        fontFamilyMono: 'Mono', 
+      typography: {
+        fontFamily: 'Cinzel',
+        fontFamilyMono: 'Mono',
         fontSize: {
           xs: '0.75rem',
           sm: '0.875rem',

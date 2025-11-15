@@ -3,7 +3,7 @@ import { ThemeProvider } from '../../contexts/ThemeContext'
 import { useTheme } from '../../contexts/useTheme'
 import { themeApi } from '../../services/themeApi'
 import type { Theme } from '../../types/theme'
-import { vi } from 'vitest'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
 
 vi.mock('../../services/themeApi')
 
@@ -36,7 +36,7 @@ describe('ThemeContext', () => {
       id: 'warhammer40k',
       name: 'Warhammer 40,000',
       description: 'Grimdark',
-      colors: { 
+      colors: {
         primary: '#8B0000',
         secondary: '#C0C0C0',
         background: '#1A1A1A',
@@ -48,9 +48,9 @@ describe('ThemeContext', () => {
         success: '#44FF44',
         warning: '#FFAA00',
       },
-      typography: { 
-        fontFamily: 'Cinzel', 
-        fontFamilyMono: 'Mono', 
+      typography: {
+        fontFamily: 'Cinzel',
+        fontFamilyMono: 'Mono',
         fontSize: {
           xs: '0.75rem',
           sm: '0.875rem',
@@ -124,9 +124,9 @@ describe('ThemeContext', () => {
         success: '#44FF44',
         warning: '#FFAA00',
       },
-      typography: { 
-        fontFamily: 'Cinzel', 
-        fontFamilyMono: 'Mono', 
+      typography: {
+        fontFamily: 'Cinzel',
+        fontFamilyMono: 'Mono',
         fontSize: {
           xs: '0.75rem',
           sm: '0.875rem',
@@ -177,9 +177,9 @@ describe('ThemeContext', () => {
         success: '#00FF00',
         warning: '#FFA500',
       },
-      typography: { 
-        fontFamily: 'Orbitron', 
-        fontFamilyMono: 'Mono', 
+      typography: {
+        fontFamily: 'Orbitron',
+        fontFamilyMono: 'Mono',
         fontSize: {
           xs: '0.75rem',
           sm: '0.875rem',
@@ -246,7 +246,7 @@ describe('ThemeContext', () => {
       id: 'warhammer40k',
       name: 'Warhammer 40,000',
       description: 'Grimdark',
-      colors: { 
+      colors: {
         primary: '#8B0000',
         secondary: '#C0C0C0',
         background: '#1A1A1A',
@@ -258,10 +258,10 @@ describe('ThemeContext', () => {
         success: '#44FF44',
         warning: '#FFAA00',
       },
-      typography: { 
-        fontFamily: 'Cinzel', 
-        fontFamilyMono: 'Mono', 
-        fontSize: { 
+      typography: {
+        fontFamily: 'Cinzel',
+        fontFamilyMono: 'Mono',
+        fontSize: {
           xs: '0.75rem',
           sm: '0.875rem',
           base: '1rem',
@@ -299,8 +299,8 @@ describe('ThemeContext', () => {
       id: 'cyberpunk',
       name: 'Cyberpunk',
       description: 'High-tech',
-      colors: { 
-        primary: '#FF00FF', 
+      colors: {
+        primary: '#FF00FF',
         background: '#0A0A0A',
         secondary: '#00FFFF',
         surface: '#1A1A1A',
@@ -311,10 +311,10 @@ describe('ThemeContext', () => {
         success: '#00FF00',
         warning: '#FFA500',
       },
-      typography: { 
-        fontFamily: 'Orbitron', 
-        fontFamilyMono: 'Mono', 
-        fontSize: { 
+      typography: {
+        fontFamily: 'Orbitron',
+        fontFamilyMono: 'Mono',
+        fontSize: {
           xs: '0.75rem',
           sm: '0.875rem',
           base: '1rem',
