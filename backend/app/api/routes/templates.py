@@ -1,7 +1,7 @@
 """Template management API endpoints."""
 
 import logging
-from functools import lru_cache
+from functools import cache
 from typing import Any
 
 from fastapi import APIRouter, HTTPException, status
@@ -46,7 +46,7 @@ class TemplateListResponse(BaseModel):
     total: int = Field(..., description="Total number of templates")
 
 
-@lru_cache
+@cache
 def get_template_service() -> TemplateService:
     """
     Dependency to get template service.

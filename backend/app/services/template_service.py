@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Any
 
 import yaml
-from jinja2 import Environment, FileSystemLoader
+from jinja2 import Environment
 
 logger = logging.getLogger(__name__)
 
@@ -23,15 +23,14 @@ class TemplateService:
         """
         if templates_dir is None:
             # Default to ../data/templates relative to project root
-            # (4 levels up from this file: services -> app -> backend -> root)
+            # (4 parent calls up from this file: services -> app -> backend -> root)
             templates_dir = str(
                 Path(__file__).parent.parent.parent.parent / "data" / "templates"
             )
         self.templates_dir = Path(templates_dir)
         self._templates_cache: dict[str, dict[str, Any]] = {}
         self._jinja_env = Environment(
-            loader=FileSystemLoader(str(self.templates_dir)),
-            autoescape=False,  # Disable autoescape for prompt templates
+            autoescape=False,  # Disabled for AI prompts - templates are trusted, not user input
         )
 
     def list_templates(self) -> list[dict[str, Any]]:
@@ -119,11 +118,11 @@ class TemplateService:
         if not prompt_template:
             raise ValueError(f"Template '{name}' missing 'prompt' field")
 
-        # Validate required variables and apply defaults
+        # Validate required variables
         required_vars = [
-            var["name"]
+            var.get("name")
             for var in template_data.get("variables", [])
-            if var.get("required", False)
+            if var.get("name") and var.get("required", False)
         ]
         missing_vars = [var for var in required_vars if var not in context]
         if missing_vars:
@@ -131,19 +130,24 @@ class TemplateService:
                 f"Missing required variables for template '{name}': {missing_vars}"
             )
 
+        # Create a copy to avoid mutating the input context
+        render_context = context.copy()
+
         # Apply default values for optional variables not in context
         for var in template_data.get("variables", []):
+            var_name = var.get("name")
             if (
-                not var.get("required", False)
-                and var["name"] not in context
+                var_name
+                and not var.get("required", False)
+                and var_name not in render_context
                 and "default" in var
             ):
-                context[var["name"]] = var["default"]
+                render_context[var_name] = var["default"]
 
         # Render the template using the Jinja environment
         try:
             template = self._jinja_env.from_string(prompt_template)
-            rendered = template.render(**context)
+            rendered = template.render(**render_context)
             return rendered
         except Exception as e:
             logger.error(f"Error rendering template '{name}': {e}")
