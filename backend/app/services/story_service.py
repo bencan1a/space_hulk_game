@@ -80,6 +80,7 @@ class StoryService:
         search: str | None = None,
         theme_id: str | None = None,
         tags: list[str] | None = None,
+        is_sample: bool | None = None,
     ) -> StoryListResponse:
         """
         List stories with pagination and filters.
@@ -90,6 +91,7 @@ class StoryService:
             search: Search query for title/description/tags
             theme_id: Filter by theme
             tags: Filter by tags (OR logic)
+            is_sample: Filter by sample status
 
         Returns:
             Paginated story list
@@ -129,6 +131,10 @@ class StoryService:
                 # This works with both SQLite and PostgreSQL
                 tag_filters.append(Story.tags.op("LIKE")(f'%"{tag}"%'))
             query = query.filter(or_(*tag_filters))
+
+        # Apply is_sample filter
+        if is_sample is not None:
+            query = query.filter(Story.is_sample == is_sample)
 
         # Get total count
         total = query.count()

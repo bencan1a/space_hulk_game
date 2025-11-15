@@ -1,0 +1,202 @@
+{
+  "title": "Derelict Station Omega-7",
+  "description": "Explore an abandoned space station in the Ghoul Stars sector. Uncover what happened to the crew while battling corrupted servitors and avoiding environmental hazards.",
+  "theme": "warhammer40k",
+  "metadata": {
+    "difficulty": "medium",
+    "estimated_duration": "45-60 minutes",
+    "themes": ["exploration", "horror", "mystery"],
+    "tags": ["horror", "atmospheric", "combat", "exploration"]
+  },
+  "player": {
+    "name": "Brother Cassius",
+    "class": "Space Marine Tactical",
+    "inventory": ["bolt_pistol", "combat_knife", "auspex"],
+    "stats": {
+      "health": 100,
+      "strength": 80,
+      "perception": 60
+    }
+  },
+  "scenes": [
+    {
+      "id": "entrance",
+      "name": "Station Entrance",
+      "description": "You board the derelict station through a shattered airlock. Emergency lighting flickers, casting eerie shadows down the corridor. The air is stale and cold.",
+      "connections": ["main_corridor"],
+      "items": ["medkit_basic"],
+      "npcs": [],
+      "events": [
+        {
+          "id": "first_contact",
+          "type": "narrative",
+          "trigger": "on_enter",
+          "text": "As you step inside, a corrupted vox-system crackles to life: 'Warning... contamination... breach detected...'"
+        }
+      ]
+    },
+    {
+      "id": "main_corridor",
+      "name": "Main Corridor",
+      "description": "A long corridor littered with debris and spent shell casings. Claw marks score the walls. Blood stains the floor—some human, some... other.",
+      "connections": ["entrance", "crew_quarters", "engineering"],
+      "items": ["ammo_bolt"],
+      "npcs": ["corrupted_servitor"],
+      "events": []
+    },
+    {
+      "id": "crew_quarters",
+      "name": "Crew Quarters",
+      "description": "Personal quarters in disarray. Belongings scattered, beds overturned. A dataslate flickers on a desk.",
+      "connections": ["main_corridor"],
+      "items": ["dataslate_log_1"],
+      "npcs": [],
+      "puzzles": ["decrypt_log"],
+      "events": [
+        {
+          "id": "log_found",
+          "type": "discovery",
+          "trigger": "examine_dataslate",
+          "text": "The log reveals the crew's final days: 'Day 47: The voices from the lower decks grow louder. We've sealed engineering. God-Emperor protect us.'"
+        }
+      ]
+    },
+    {
+      "id": "engineering",
+      "name": "Engineering Bay",
+      "description": "The station's heart. Machinery hums with unholy energy. Shadows move in the darkness beyond the plasma conduits.",
+      "connections": ["main_corridor"],
+      "items": ["power_cell"],
+      "npcs": ["possessed_tech_priest"],
+      "puzzles": ["restore_power"],
+      "events": [
+        {
+          "id": "boss_encounter",
+          "type": "combat",
+          "trigger": "on_enter",
+          "text": "A figure emerges from the shadows—a tech-priest, but twisted and corrupted. Binary cant becomes a scream as it charges!"
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "id": "bolt_pistol",
+      "name": "Bolt Pistol",
+      "description": "Standard issue Astartes sidearm. Fires explosive bolts.",
+      "type": "weapon",
+      "properties": {
+        "damage": 30,
+        "ammo": 12
+      }
+    },
+    {
+      "id": "medkit_basic",
+      "name": "Basic Medkit",
+      "description": "Emergency medical supplies.",
+      "type": "consumable",
+      "properties": {
+        "healing": 25
+      }
+    },
+    {
+      "id": "dataslate_log_1",
+      "name": "Crew Dataslate",
+      "description": "Personal log of Station Commander Varak.",
+      "type": "key_item",
+      "properties": {
+        "readable": true
+      }
+    },
+    {
+      "id": "power_cell",
+      "name": "Emergency Power Cell",
+      "description": "Portable power source for critical systems.",
+      "type": "key_item",
+      "properties": {
+        "quest_item": true
+      }
+    },
+    {
+      "id": "combat_knife",
+      "name": "Combat Knife",
+      "description": "Standard issue close combat blade.",
+      "type": "weapon",
+      "properties": {
+        "damage": 15,
+        "melee": true
+      }
+    },
+    {
+      "id": "auspex",
+      "name": "Auspex Scanner",
+      "description": "Multi-purpose scanning device for detecting threats and anomalies.",
+      "type": "tool",
+      "properties": {
+        "detection_range": 30,
+        "scan_bonus": 15
+      }
+    },
+    {
+      "id": "ammo_bolt",
+      "name": "Bolt Ammunition",
+      "description": "Explosive bolt rounds for bolt weapons.",
+      "type": "consumable",
+      "properties": {
+        "ammo_type": "bolt",
+        "quantity": 12
+      }
+    }
+  ],
+  "npcs": [
+    {
+      "id": "corrupted_servitor",
+      "name": "Corrupted Servitor",
+      "description": "A once-loyal machine servant, now twisted by Chaos.",
+      "type": "enemy",
+      "stats": {
+        "health": 40,
+        "damage": 15
+      },
+      "dialogue": [],
+      "hostile": true
+    },
+    {
+      "id": "possessed_tech_priest",
+      "name": "Possessed Tech-Priest Krell",
+      "description": "The station's chief engineer, now a vessel for something malevolent.",
+      "type": "boss",
+      "stats": {
+        "health": 120,
+        "damage": 35
+      },
+      "dialogue": [
+        "The Omnissiah... has shown me... the TRUTH!",
+        "Join us... in blessed corruption..."
+      ],
+      "hostile": true
+    }
+  ],
+  "puzzles": [
+    {
+      "id": "decrypt_log",
+      "name": "Decrypt Corrupted Log",
+      "description": "The dataslate is damaged. Restore power to read the full log.",
+      "type": "key_item_puzzle",
+      "solution": {
+        "requires": ["power_cell"],
+        "success_text": "The log reveals the station's dark secret..."
+      }
+    },
+    {
+      "id": "restore_power",
+      "name": "Restore Main Power",
+      "description": "Realign the plasma conduits to restore power.",
+      "type": "sequence_puzzle",
+      "solution": {
+        "sequence": ["conduit_a", "conduit_b", "conduit_c"],
+        "success_text": "Power surges through the station. Lights blaze to life."
+      }
+    }
+  ]
+}

@@ -93,3 +93,6 @@ data/
 # But include theme configurations
 !data/themes/
 !data/themes/**
+# And include sample stories
+!data/samples/
+!data/samples/**
