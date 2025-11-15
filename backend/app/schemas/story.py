@@ -60,6 +60,7 @@ class StoryResponse(StoryBase):
     item_count: int | None
     npc_count: int | None
     puzzle_count: int | None
+    is_sample: bool = False
 
     model_config = {"from_attributes": True}
 

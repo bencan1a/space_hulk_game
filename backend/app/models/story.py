@@ -2,7 +2,7 @@
 
 from datetime import datetime, timezone
 
-from sqlalchemy import JSON, Column, DateTime, Index, Integer, String, Text
+from sqlalchemy import JSON, Boolean, Column, DateTime, Index, Integer, String, Text
 
 from .base import Base
 
@@ -29,6 +29,7 @@ class Story(Base):
         npc_count: Number of NPCs in game
         puzzle_count: Number of puzzles in game
         tags: List of tags for search/filter
+        is_sample: Whether this is a sample story (protected from deletion)
     """
 
     __tablename__ = "stories"
@@ -65,6 +66,9 @@ class Story(Base):
 
     # Optional tags for search/filter
     tags = Column(JSON, default=list, nullable=False)
+
+    # Sample story flag
+    is_sample = Column(Boolean, default=False, nullable=False, index=True)
 
     # Indexes
     __table_args__ = (

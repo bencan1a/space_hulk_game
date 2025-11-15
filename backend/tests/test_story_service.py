@@ -66,15 +66,15 @@ def test_list_stories_pagination(db_session):
         )
         service.create(story_data)
 
-    # Test first page
-    result = service.list(page=1, page_size=10)
+    # Test first page (excluding samples)
+    result = service.list(page=1, page_size=10, is_sample=False)
     assert result.total == 25
     assert len(result.items) == 10
     assert result.page == 1
     assert result.total_pages == 3
 
     # Test second page
-    result = service.list(page=2, page_size=10)
+    result = service.list(page=2, page_size=10, is_sample=False)
     assert len(result.items) == 10
     assert result.page == 2
 
@@ -126,7 +126,7 @@ def test_list_stories_theme_filter(db_session):
         )
     )
 
-    result = service.list(theme_id="cyberpunk")
+    result = service.list(theme_id="cyberpunk", is_sample=False)
 
     assert result.total == 1
     assert result.items[0].theme_id == "cyberpunk"
@@ -153,7 +153,7 @@ def test_list_stories_tags_filter(db_session):
         )
     )
 
-    result = service.list(tags=["horror"])
+    result = service.list(tags=["horror"], is_sample=False)
 
     assert result.total == 1
     assert "horror" in result.items[0].tags

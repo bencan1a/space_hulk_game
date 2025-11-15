@@ -37,6 +37,7 @@ async def list_stories(
     search: str | None = Query(default=None, max_length=200, description="Search query"),
     theme_id: str | None = Query(default=None, max_length=50, description="Filter by theme"),
     tags: str | None = Query(default=None, description="Comma-separated tags"),
+    is_sample: bool | None = Query(default=None, description="Filter by sample status"),
     service: StoryService = Depends(get_story_service),
 ) -> StoryListResponse:
     """
@@ -48,6 +49,7 @@ async def list_stories(
         search: Search query for title/description
         theme_id: Filter by theme ID
         tags: Comma-separated list of tags
+        is_sample: Filter by sample status (true/false)
         service: Story service dependency
 
     Returns:
@@ -62,6 +64,7 @@ async def list_stories(
         search=search,
         theme_id=theme_id,
         tags=tags_list,
+        is_sample=is_sample,
     )
 
 
@@ -123,17 +126,36 @@ async def get_story_content(
 
     # Prevent path traversal for relative paths
     if not game_file.is_absolute():
-        # For relative paths, ensure they're within data/stories
-        resolved_file = game_file.resolve()
-        try:
-            allowed_base = Path("data/stories").resolve()
-            resolved_file.relative_to(allowed_base)
-        except ValueError as e:
+        # For relative paths, try to find the file in the allowed directories
+        # Try from current directory first, then from parent directory (for tests)
+        candidates = []
+
+        for base in [".", ".."]:
+            for allowed_dir in ["data/stories", "data/samples"]:
+                candidate = (Path(base) / story.game_file_path).resolve()
+                try:
+                    allowed_base = (Path(base) / allowed_dir).resolve()
+                    # Check if candidate is within allowed base
+                    candidate.relative_to(allowed_base)
+                    candidates.append(candidate)
+                except ValueError:
+                    continue
+
+        # Find first existing candidate
+        resolved_file = None
+        for candidate in candidates:
+            if candidate.exists():
+                resolved_file = candidate
+                break
+
+        if resolved_file is None:
             logger.error("Invalid game file path attempted: %s", story.game_file_path)
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
                 detail="Access to this file path is not allowed",
-            ) from e
+            )
+
+        game_file = resolved_file
 
     if not game_file.exists():
         logger.error("Game file not found: %s", story.game_file_path)
@@ -169,7 +191,7 @@ async def delete_story(
     service: StoryService = Depends(get_story_service),
 ) -> None:
     """
-    Delete a story.
+    Delete a story (sample stories cannot be deleted).
 
     Args:
         story_id: Story ID
@@ -177,7 +199,22 @@ async def delete_story(
 
     Raises:
         HTTPException: 404 if story not found
+        HTTPException: 403 if trying to delete a sample story
     """
+    story = service.get(story_id)
+    if not story:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Story with ID {story_id} not found",
+        )
+
+    # Protect sample stories from deletion
+    if story.is_sample:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Sample stories cannot be deleted",
+        )
+
     deleted = service.delete(story_id)
     if not deleted:
         raise HTTPException(

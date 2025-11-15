@@ -40,10 +40,10 @@ def invalid_json_file(tmp_path):
 
 @pytest.mark.asyncio
 async def test_list_stories_empty(db_session):  # noqa: ARG001 - fixture needed for dependency override
-    """Test listing stories when database is empty."""
+    """Test listing stories when database is empty (excluding samples)."""
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as client:
-        response = await client.get("/api/v1/stories")
+        response = await client.get("/api/v1/stories?is_sample=false")
 
         assert response.status_code == 200
         data = response.json()
@@ -69,7 +69,8 @@ async def test_list_stories_with_pagination(db_session):
 
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as client:
-        response = await client.get("/api/v1/stories?page=1&page_size=3")
+        # Filter out sample stories
+        response = await client.get("/api/v1/stories?page=1&page_size=3&is_sample=false")
 
         assert response.status_code == 200
         data = response.json()
@@ -139,15 +140,15 @@ async def test_list_stories_with_filters(db_session):
 
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as client:
-        # Test theme filter
-        response = await client.get("/api/v1/stories?theme_id=warhammer40k")
+        # Test theme filter (exclude samples)
+        response = await client.get("/api/v1/stories?theme_id=warhammer40k&is_sample=false")
         assert response.status_code == 200
         data = response.json()
         assert data["total"] == 1
         assert data["items"][0]["theme_id"] == "warhammer40k"
 
-        # Test tags filter
-        response = await client.get("/api/v1/stories?tags=horror,atmospheric")
+        # Test tags filter (exclude samples)
+        response = await client.get("/api/v1/stories?tags=horror,atmospheric&is_sample=false")
         assert response.status_code == 200
         data = response.json()
         assert data["total"] == 1
