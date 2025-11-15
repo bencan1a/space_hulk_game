@@ -21,49 +21,9 @@ export const themeApi = {
    * Get complete theme configuration.
    */
   async getTheme(themeId: string): Promise<Theme> {
+    // The backend returns data with this structure directly
     const response = await apiClient.getTheme(themeId)
-    // Map the API response to our full Theme type
-    return {
-      id: response.id,
-      name: response.name,
-      description: response.description,
-      colors: response.colors as Theme['colors'],
-      typography: {
-        fontFamily: response.fonts?.primary || 'Georgia, serif',
-        fontFamilyMono: response.fonts?.mono || 'Courier New, monospace',
-        fontSize: {
-          xs: '0.75rem',
-          sm: '0.875rem',
-          base: '1rem',
-          lg: '1.125rem',
-          xl: '1.25rem',
-          xxl: '1.5rem',
-        },
-      },
-      terminology: {
-        story: 'Story',
-        stories: 'Stories',
-        character: 'Character',
-        characters: 'Characters',
-        enemy: 'Enemy',
-        enemies: 'Enemies',
-        item: 'Item',
-        items: 'Items',
-        location: 'Location',
-        locations: 'Locations',
-      },
-      ui: {
-        welcome: 'Welcome',
-        createStory: 'Create Story',
-        libraryTitle: 'Story Library',
-        playButton: 'Play',
-      },
-      assets: {
-        logo: '',
-        background: '',
-        icon: '',
-      },
-    }
+    return response as unknown as Theme
   },
 
   /**
