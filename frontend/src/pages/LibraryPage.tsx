@@ -1,12 +1,19 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { SearchBar, FilterPanel, StoryGrid } from '../components/library'
 import { useStories } from '../hooks'
 import type { Story, StoryFilters } from '../types/story'
 import styles from './LibraryPage.module.css'
 
 export const LibraryPage: React.FC = () => {
+  const navigate = useNavigate()
   const { stories, loading, error, filters, setFilters, fetchStories } = useStories()
   const [searchQuery, setSearchQuery] = useState('')
+
+  // Fetch stories on mount
+  useEffect(() => {
+    fetchStories()
+  }, [fetchStories])
 
   const handleSearch = useCallback(
     (query: string) => {
@@ -28,19 +35,11 @@ export const LibraryPage: React.FC = () => {
   )
 
   const handleStoryClick = (story: Story) => {
-    if (import.meta.env.DEV) {
-      console.log('Story clicked:', story.id)
-    }
-    // TODO: Navigate to play page
-    // navigate(`/play/${story.id}`);
+    navigate(`/play/${story.id}`)
   }
 
   const handleCreateStory = () => {
-    if (import.meta.env.DEV) {
-      console.log('Create new story')
-    }
-    // TODO: Navigate to create page
-    // navigate('/create');
+    navigate('/create')
   }
 
   const handleRetry = useCallback(() => {
