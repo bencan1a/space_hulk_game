@@ -1,4 +1,4 @@
-.PHONY: help install install-dev dev test test-real-api coverage lint format format-check format-frontend format-check-frontend type-check type-check-pre-commit security security-report check-yaml check-all fix lint-files format-files format-frontend-files type-check-files security-files check-yaml-files fix-files run-crew validate-api validate-config clean
+.PHONY: help install install-dev dev test test-real-api coverage lint format format-check format-frontend format-check-frontend type-check type-check-pre-commit security security-report check-yaml check check-all fix lint-files format-files format-frontend-files type-check-files security-files check-yaml-files fix-files run-crew validate-api validate-config clean
 
 help:
 	@echo "Space Hulk Game - Development Commands"
@@ -23,6 +23,7 @@ help:
 	@echo "  make security             - Execute Bandit security scanning"
 	@echo "  make security-report      - Generate JSON security report (for CI)"
 	@echo "  make check-yaml           - Validate YAML files with yamllint"
+	@echo "  make check                - Run core checks before commit (lint, type, test)"
 	@echo "  make check-all            - Run all checks sequentially"
 	@echo "  make fix                  - Auto-fix linting issues and reformat"
 	@echo ""
@@ -93,6 +94,9 @@ security-report:
 
 check-yaml:
 	yamllint .
+
+check: lint type-check test
+	@echo "✅ Core checks passed! (lint, type-check, test)"
 
 check-all: format lint format-check-frontend type-check security check-yaml test
 	@echo "✅ All checks passed!"
