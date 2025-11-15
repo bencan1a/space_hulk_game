@@ -31,9 +31,13 @@ class StoryCreate(StoryBase):
 class StoryUpdate(BaseModel):
     """Schema for updating a story."""
 
-    title: str | None = Field(None, min_length=1, max_length=200)
-    description: str | None = Field(None, max_length=2000)
-    tags: list[str] | None = None
+    title: str | None = Field(default=None, min_length=1, max_length=200)
+    description: str | None = Field(default=None, max_length=2000)
+    tags: list[str] | None = Field(default=None)
+    scene_count: int | None = Field(default=None)
+    item_count: int | None = Field(default=None)
+    npc_count: int | None = Field(default=None)
+    puzzle_count: int | None = Field(default=None)
 
     @field_validator("tags")
     @classmethod
