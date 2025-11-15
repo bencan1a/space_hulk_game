@@ -71,7 +71,7 @@ class TestListTemplates:
         assert data["templates"] == []
         assert data["total"] == 0
 
-    def test_list_templates_success(self, mock_templates_dir):
+    def test_list_templates_success(self, mock_templates_dir):  # noqa: ARG002
         """Test listing templates successfully."""
         response = client.get("/api/v1/templates")
 
@@ -93,7 +93,7 @@ class TestListTemplates:
             assert "category" in template
             assert "variables" in template
 
-    def test_list_templates_includes_metadata(self, mock_templates_dir):
+    def test_list_templates_includes_metadata(self, mock_templates_dir):  # noqa: ARG002
         """Test that list includes template metadata."""
         response = client.get("/api/v1/templates")
 
@@ -127,7 +127,7 @@ class TestListTemplates:
 class TestGetTemplate:
     """Tests for GET /api/v1/templates/{name} endpoint."""
 
-    def test_get_template_success(self, mock_templates_dir):
+    def test_get_template_success(self, mock_templates_dir):  # noqa: ARG002
         """Test getting a template successfully."""
         response = client.get("/api/v1/templates/test1")
 
@@ -141,14 +141,14 @@ class TestGetTemplate:
         assert data["prompt"] == "Test prompt with {{ var1 }}"
         assert len(data["variables"]) == 1
 
-    def test_get_template_not_found(self, mock_templates_dir):
+    def test_get_template_not_found(self, mock_templates_dir):  # noqa: ARG002
         """Test getting a non-existent template."""
         response = client.get("/api/v1/templates/nonexistent")
 
         assert response.status_code == 404
         assert "not found" in response.json()["detail"].lower()
 
-    def test_get_template_includes_prompt(self, mock_templates_dir):
+    def test_get_template_includes_prompt(self, mock_templates_dir):  # noqa: ARG002
         """Test that get includes the full prompt."""
         response = client.get("/api/v1/templates/test2")
 
@@ -157,7 +157,7 @@ class TestGetTemplate:
 
         assert data["prompt"] == "Simple prompt"
 
-    def test_get_template_includes_variables(self, mock_templates_dir):
+    def test_get_template_includes_variables(self, mock_templates_dir):  # noqa: ARG002
         """Test that get includes variable definitions."""
         response = client.get("/api/v1/templates/test1")
 
