@@ -194,6 +194,68 @@ Returns the health status of the API.
 }
 ```
 
+### Story Generation
+
+#### Start Generation
+
+**POST** `/api/v1/generate`
+
+Start a new story generation task. Returns a session ID for tracking progress.
+
+**Request Body:**
+```json
+{
+  "prompt": "Create a horror story with body horror and isolation themes in the grimdark universe",
+  "template_id": "horror_exploration"  // optional
+}
+```
+
+**Validation:**
+- `prompt`: Required, 50-5000 characters
+- `template_id`: Optional, max 50 characters
+
+**Response (201 Created):**
+```json
+{
+  "session_id": "550e8400-e29b-41d4-a716-446655440000",
+  "status": "pending",
+  "message": "Generation task started successfully"
+}
+```
+
+**Error Responses:**
+- `400 Bad Request`: Invalid prompt (too short/long)
+- `500 Internal Server Error`: Failed to start generation
+
+#### Get Generation Status
+
+**GET** `/api/v1/generate/{session_id}`
+
+Get the current status and progress of a generation task.
+
+**Response (200 OK):**
+```json
+{
+  "session_id": "550e8400-e29b-41d4-a716-446655440000",
+  "status": "running",
+  "current_step": "Generating story content",
+  "progress_percent": 45,
+  "created_at": "2025-11-16T12:00:00.000000Z",
+  "completed_at": null,
+  "error_message": null,
+  "story_id": null
+}
+```
+
+**Status Values:**
+- `pending`: Task queued, waiting to start
+- `running`: Currently generating content
+- `completed`: Successfully finished (includes `story_id`)
+- `failed`: Generation failed (includes `error_message`)
+
+**Error Responses:**
+- `404 Not Found`: Session ID not found
+
 ## Logging
 
 The application uses structured JSON logging:
