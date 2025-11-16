@@ -18,8 +18,8 @@ RUN pip install --no-cache-dir --trusted-host pypi.org --trusted-host pypi.pytho
 # Copy application code
 COPY . .
 
-# Create data directory
-RUN mkdir -p /app/data
+# Create data directories
+RUN mkdir -p /app/data/stories
 
 # Expose port
 EXPOSE 8000
