@@ -14,7 +14,7 @@ celery_app = Celery(
     "space_hulk_game",
     broker=settings.celery_broker_url,
     backend=settings.celery_result_backend,
-    include=["app.tasks.example_task"],
+    include=["app.tasks.example_task", "app.tasks.generation_tasks"],
 )
 
 # Celery configuration

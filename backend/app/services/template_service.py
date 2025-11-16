@@ -140,7 +140,7 @@ class TemplateService:
         try:
             template = self._jinja_env.from_string(prompt_template)
             rendered = template.render(**render_context)
-            return rendered
+            return str(rendered)
         except Exception as e:
             logger.error(f"Error rendering template '{name}': {e}")
             raise ValueError(f"Failed to render template '{name}': {e}") from e

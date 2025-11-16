@@ -14,12 +14,12 @@ class Session(Base):
     Attributes:
         id: UUID primary key
         story_id: Foreign key to Story (nullable until story created)
-        status: creating, iterating, complete, or error
+        status: pending, running, completed, or failed
         current_step: Current agent name
         progress_percent: Progress percentage (0-100)
         created_at: Creation timestamp
         completed_at: Completion timestamp
-        error_message: Error message if status is error
+        error_message: Error message if status is failed
     """
 
     __tablename__ = "sessions"
@@ -27,7 +27,7 @@ class Session(Base):
     id = Column(String(36), primary_key=True)  # UUID
     story_id = Column(Integer, ForeignKey("stories.id", ondelete="SET NULL"), nullable=True)
 
-    status = Column(String(20), nullable=False)  # creating, iterating, complete, error
+    status = Column(String(20), nullable=False)  # pending, running, completed, failed
     current_step = Column(String(50), nullable=True)
     progress_percent = Column(Integer, default=0, nullable=False)
 

@@ -31,9 +31,13 @@ class StoryCreate(StoryBase):
 class StoryUpdate(BaseModel):
     """Schema for updating a story."""
 
-    title: str | None = Field(None, min_length=1, max_length=200)
-    description: str | None = Field(None, max_length=2000)
-    tags: list[str] | None = None
+    title: str | None = Field(default=None, min_length=1, max_length=200)
+    description: str | None = Field(default=None, max_length=2000)
+    tags: list[str] | None = Field(default=None)
+    scene_count: int | None = Field(default=None)
+    item_count: int | None = Field(default=None)
+    npc_count: int | None = Field(default=None)
+    puzzle_count: int | None = Field(default=None)
 
     @field_validator("tags")
     @classmethod
@@ -42,6 +46,14 @@ class StoryUpdate(BaseModel):
         if v is None:
             return None
         return list({tag.lower().strip() for tag in v if tag.strip()})
+
+    @field_validator("scene_count", "item_count", "npc_count", "puzzle_count")
+    @classmethod
+    def validate_counts(cls, v: int | None) -> int | None:
+        """Validate counts are non-negative."""
+        if v is not None and v < 0:
+            raise ValueError("Count must be non-negative")
+        return v
 
 
 class StoryResponse(StoryBase):
