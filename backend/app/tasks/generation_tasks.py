@@ -8,6 +8,7 @@ from typing import TYPE_CHECKING, Any
 if TYPE_CHECKING:
     from sqlalchemy.orm import Session
 
+from ..api.websocket import broadcast_progress
 from ..celery_app import celery_app
 from ..config import settings
 from ..database import SessionLocal
@@ -70,13 +71,19 @@ def run_generation_crew(
 
         # Define progress callback
         def progress_callback(status: str, data: dict[str, Any]) -> None:
-            """Update session with progress from CrewAI wrapper."""
+            """Update session with progress from CrewAI wrapper and broadcast via WebSocket."""
             try:
                 if status == "started":
                     gen_service.update_session(
                         session_id=session_id,
                         current_step="Starting AI crew",
                         progress_percent=10,
+                    )
+                    # Broadcast to WebSocket clients
+                    broadcast_progress(
+                        session_id,
+                        status,
+                        {"current_step": "Starting AI crew", "progress_percent": 10},
                     )
                 elif status == "task_started":
                     task_name = data.get("task_name", "Processing")
@@ -89,6 +96,18 @@ def run_generation_crew(
                         current_step=f"Running: {task_name}",
                         progress_percent=progress,
                     )
+                    # Broadcast to WebSocket clients
+                    broadcast_progress(
+                        session_id,
+                        status,
+                        {
+                            "task_name": task_name,
+                            "task_index": task_index,
+                            "total_tasks": total_tasks,
+                            "current_step": f"Running: {task_name}",
+                            "progress_percent": progress,
+                        },
+                    )
                 elif status == "task_completed":
                     task_name = data.get("task_name", "Task")
                     task_index = data.get("task_index", 0)
@@ -99,17 +118,39 @@ def run_generation_crew(
                         current_step=f"Completed: {task_name}",
                         progress_percent=progress,
                     )
+                    # Broadcast to WebSocket clients
+                    broadcast_progress(
+                        session_id,
+                        status,
+                        {
+                            "task_name": task_name,
+                            "task_index": task_index,
+                            "total_tasks": total_tasks,
+                            "current_step": f"Completed: {task_name}",
+                            "progress_percent": progress,
+                        },
+                    )
                 elif status == "completed":
                     gen_service.update_session(
                         session_id=session_id,
                         current_step="Finalizing generation",
                         progress_percent=95,
                     )
+                    # Broadcast to WebSocket clients
+                    broadcast_progress(
+                        session_id,
+                        status,
+                        {"current_step": "Finalizing generation", "progress_percent": 95},
+                    )
                 elif status == "error":
                     error_msg = data.get("error", "Unknown error")
                     logger.error(f"CrewAI error for session {session_id}: {error_msg}")
+                    # Broadcast error to WebSocket clients
+                    broadcast_progress(session_id, status, {"error": error_msg})
                 elif status == "timeout":
                     logger.error(f"CrewAI timeout for session {session_id}")
+                    # Broadcast timeout to WebSocket clients
+                    broadcast_progress(session_id, status, {})
 
             except Exception as e:
                 logger.warning(f"Error in progress callback: {e}")
