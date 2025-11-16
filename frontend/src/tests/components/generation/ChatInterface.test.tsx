@@ -99,7 +99,7 @@ describe('ChatInterface', () => {
     // Check that both assistant and user messages exist
     const assistantMessages = screen.getAllByLabelText('Assistant message')
     const userMessages = screen.getAllByLabelText('User message')
-    
+
     expect(assistantMessages.length).toBeGreaterThanOrEqual(1)
     expect(userMessages.length).toBeGreaterThanOrEqual(1)
   })

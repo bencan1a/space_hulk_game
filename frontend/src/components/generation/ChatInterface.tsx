@@ -140,16 +140,27 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
           aria-valuemax={questions.length}
           aria-valuetext={`Question ${Math.min(currentQuestionIndex + 1, questions.length)} of ${questions.length}`}
         >
-          <div className={styles.progressBar} style={{ width: `${(currentQuestionIndex / questions.length) * 100}%` }} />
+          <div
+            className={styles.progressBar}
+            style={{ width: `${(currentQuestionIndex / questions.length) * 100}%` }}
+          />
           <span className={styles.progressText}>
             Question {Math.min(currentQuestionIndex + 1, questions.length)} of {questions.length}
           </span>
         </div>
       </div>
 
-      <div className={styles.messagesContainer} role="log" aria-live="polite" aria-label="Chat messages">
+      <div
+        className={styles.messagesContainer}
+        role="log"
+        aria-live="polite"
+        aria-label="Chat messages"
+      >
         {messages.map((message) => (
-          <ChatMessage key={message.id || `${message.role}-${message.content.substring(0, 20)}`} {...message} />
+          <ChatMessage
+            key={message.id || `${message.role}-${message.content.substring(0, 20)}`}
+            {...message}
+          />
         ))}
         <div ref={messagesEndRef} />
       </div>
