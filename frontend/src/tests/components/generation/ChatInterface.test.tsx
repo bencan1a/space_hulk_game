@@ -96,7 +96,7 @@ describe('ChatInterface', () => {
       expect(screen.getByText('Sci-fi horror')).toBeInTheDocument()
     })
 
-    // Check that there are both assistant and user messages
+    // Check that both assistant and user messages exist
     const assistantMessages = screen.getAllByLabelText('Assistant message')
     const userMessages = screen.getAllByLabelText('User message')
     

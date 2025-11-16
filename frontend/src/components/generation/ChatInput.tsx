@@ -51,7 +51,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
 
     // Final validation
     if (trimmed.length < minLength) {
-      setError(`Please provide a response (minimum ${minLength} characters)`)
+      setError(validationMessage ?? `Please provide a response (minimum ${minLength} characters)`)
       return
     }
 

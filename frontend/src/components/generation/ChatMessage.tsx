@@ -5,6 +5,7 @@ export interface ChatMessageProps {
   role: 'user' | 'assistant'
   content: string
   timestamp?: string
+  id?: string
 }
 
 export const ChatMessage: React.FC<ChatMessageProps> = ({ role, content, timestamp }) => {

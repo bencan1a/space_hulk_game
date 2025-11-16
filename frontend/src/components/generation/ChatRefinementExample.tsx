@@ -11,7 +11,7 @@ import { spaceHulkQuestions } from './chatQuestions'
 
 // Example component demonstrating ChatInterface usage
 export const ChatRefinementExample: React.FC = () => {
-  const handleComplete = (answers: Record<string, string>) => {
+  const handleComplete = (answers: Record<string, string>): void => {
     console.log('Chat refinement complete!')
     console.log('User answers:', answers)
     console.log('Final prompt:', answers.finalPrompt)

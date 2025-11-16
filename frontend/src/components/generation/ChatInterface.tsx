@@ -40,14 +40,15 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
         {
           role: 'assistant',
           content: questions[0].question,
+          id: `assistant-${Date.now()}-0`,
         },
       ])
     }
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [messages.length, questions])
 
   // Auto-scroll to latest message
   useEffect(() => {
-    if (messagesEndRef.current && typeof messagesEndRef.current.scrollIntoView === 'function') {
+    if (messagesEndRef.current?.scrollIntoView) {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })
     }
   }, [messages])
@@ -59,6 +60,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
     const userMessage: ChatMessageProps = {
       role: 'user',
       content: response,
+      id: `user-${Date.now()}-${currentQuestionIndex}`,
     }
     setMessages((prev) => [...prev, userMessage])
 
@@ -78,6 +80,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
       const assistantMessage: ChatMessageProps = {
         role: 'assistant',
         content: nextQuestion.question,
+        id: `assistant-${Date.now()}-${nextIndex}`,
       }
       setMessages((prev) => [...prev, assistantMessage])
       setCurrentQuestionIndex(nextIndex)
@@ -87,6 +90,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
       const completionMessage: ChatMessageProps = {
         role: 'assistant',
         content: `Great! Based on your answers, I've generated a detailed prompt for your game:\n\n${finalPrompt}\n\nDoes this look good?`,
+        id: `assistant-${Date.now()}-complete`,
       }
       setMessages((prev) => [...prev, completionMessage])
       setCurrentQuestionIndex(nextIndex)
@@ -95,16 +99,18 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
   }
 
   const generateFinalPrompt = (userAnswers: Record<string, string>): string => {
-    // Combine all answers into a cohesive prompt
+    // Combine all answers into a cohesive, labeled prompt
     const parts: string[] = []
 
     for (const question of questions) {
       const answer = userAnswers[question.id]
       if (answer) {
-        parts.push(answer)
+        // Add answer ending with a period for clarity
+        parts.push(`${answer}.`)
       }
     }
 
+    // Join each answer with a space for readability
     return parts.join(' ')
   }
 
@@ -126,7 +132,14 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
       <div className={styles.header}>
         <h2 className={styles.title}>Chat Refinement</h2>
         <p className={styles.subtitle}>Answer a few questions to build your perfect game prompt</p>
-        <div className={styles.progress} role="progressbar" aria-valuenow={currentQuestionIndex} aria-valuemin={0} aria-valuemax={questions.length}>
+        <div
+          className={styles.progress}
+          role="progressbar"
+          aria-valuenow={currentQuestionIndex}
+          aria-valuemin={0}
+          aria-valuemax={questions.length}
+          aria-valuetext={`Question ${Math.min(currentQuestionIndex + 1, questions.length)} of ${questions.length}`}
+        >
           <div className={styles.progressBar} style={{ width: `${(currentQuestionIndex / questions.length) * 100}%` }} />
           <span className={styles.progressText}>
             Question {Math.min(currentQuestionIndex + 1, questions.length)} of {questions.length}
@@ -135,8 +148,8 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
       </div>
 
       <div className={styles.messagesContainer} role="log" aria-live="polite" aria-label="Chat messages">
-        {messages.map((message, index) => (
-          <ChatMessage key={index} {...message} />
+        {messages.map((message) => (
+          <ChatMessage key={message.id || `${message.role}-${message.content.substring(0, 20)}`} {...message} />
         ))}
         <div ref={messagesEndRef} />
       </div>
