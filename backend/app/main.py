@@ -1,6 +1,7 @@
 """FastAPI application initialization and configuration."""
 
 import asyncio
+import contextlib
 import logging
 from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
@@ -187,10 +188,8 @@ async def websocket_progress_endpoint(websocket: WebSocket, session_id: str) -> 
         # Cancel heartbeat task
         if "heartbeat_task" in locals():
             heartbeat_task.cancel()
-            try:
+            with contextlib.suppress(asyncio.CancelledError):
                 await heartbeat_task
-            except asyncio.CancelledError:
-                pass
 
         # Disconnect
         websocket_manager.disconnect(websocket, session_id)

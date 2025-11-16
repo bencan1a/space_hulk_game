@@ -5,7 +5,6 @@ from story generation tasks to connected clients.
 """
 
 import asyncio
-import json
 import logging
 from typing import Any
 
@@ -65,19 +64,18 @@ class ConnectionManager:
             websocket: The WebSocket connection to remove
             session_id: The session ID this connection was for
         """
-        if session_id in self.active_connections:
-            if websocket in self.active_connections[session_id]:
-                self.active_connections[session_id].remove(websocket)
+        if session_id in self.active_connections and websocket in self.active_connections[session_id]:
+            self.active_connections[session_id].remove(websocket)
 
-                logger.info(
-                    f"WebSocket disconnected for session {session_id}. "
-                    f"Remaining connections: {len(self.active_connections[session_id])}"
-                )
+            logger.info(
+                f"WebSocket disconnected for session {session_id}. "
+                f"Remaining connections: {len(self.active_connections[session_id])}"
+            )
 
-                # Clean up empty session lists
-                if not self.active_connections[session_id]:
-                    del self.active_connections[session_id]
-                    logger.info(f"Removed session {session_id} from active connections")
+            # Clean up empty session lists
+            if not self.active_connections[session_id]:
+                del self.active_connections[session_id]
+                logger.info(f"Removed session {session_id} from active connections")
 
     async def broadcast_to_session(self, session_id: str, message: dict[str, Any]) -> None:
         """Broadcast a message to all connections for a specific session.
@@ -208,7 +206,9 @@ def broadcast_progress(session_id: str, status: str, data: dict[str, Any]) -> No
         loop = asyncio.get_event_loop()
         if loop.is_running():
             # If loop is running, schedule the coroutine
-            asyncio.create_task(manager.broadcast_to_session(session_id, message))
+            # Note: We don't store the task reference since it's fire-and-forget
+            # and will be cleaned up automatically
+            _ = asyncio.create_task(manager.broadcast_to_session(session_id, message))  # noqa: RUF006
         else:
             # If loop is not running, run until complete
             loop.run_until_complete(manager.broadcast_to_session(session_id, message))
