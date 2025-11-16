@@ -9,19 +9,19 @@ variables:
     required: true
     description: "The primary location or environment for the horror story"
     example: "abandoned space hulk"
-  
+
   - name: "threat"
     type: "string"
     required: true
     description: "The primary threat or horror element"
     example: "genestealers"
-  
+
   - name: "atmosphere"
     type: "string"
     required: false
     default: "claustrophobic and oppressive"
     description: "The mood and atmosphere to establish"
-  
+
   - name: "duration"
     type: "string"
     required: false
@@ -42,15 +42,15 @@ prompt: |
   - **Body horror**: Include visceral, disturbing imagery when appropriate
   - **Limited resources**: Create scarcity to increase tension
   - **Sound design**: Use audio cues described in text to heighten fear
-  
+
   Design the game with:
   - Multiple branching paths based on player choices
   - Environmental storytelling through item descriptions and scene details
   - Gradual revelation of the true horror through exploration
   - Consequences for rash decisions
   - At least one "safe room" where players can catch their breath
-  
+
   Include puzzle elements that require observation and careful thinking, not just combat.
   The horror should be psychological as well as physical.
-  
+
   Generate a complete game.json structure with all necessary scenes, items, NPCs, and game logic.
