@@ -21,6 +21,7 @@ Templates are automatically loaded based on keywords in your prompt, enriching t
 **Theme:** Gothic horror emphasizing atmosphere, isolation, and psychological dread
 
 **Best For:**
+
 - Oppressive, claustrophobic narratives
 - Body horror and corruption themes
 - Slow-burn tension and revelations
@@ -30,12 +31,14 @@ Templates are automatically loaded based on keywords in your prompt, enriching t
 `horror`, `scary`, `terrifying`, `dread`, `fear`, `nightmare`, `corruption`
 
 **Example Prompt:**
+
 ```
 "Generate a terrifying horror scenario where a Space Marine squad investigates
 disturbing reports of corruption aboard an ancient derelict."
 ```
 
 **Key Features:**
+
 - Emphasis on atmosphere and sensory details
 - Required horror elements (body, psychological, cosmic, environmental)
 - Mandatory components like darkness segments and moral dilemmas
@@ -49,6 +52,7 @@ disturbing reports of corruption aboard an ancient derelict."
 **Theme:** Detective/investigation focusing on clue gathering and deduction
 
 **Best For:**
+
 - Cerebral, puzzle-focused narratives
 - Uncovering secrets and conspiracies
 - Logical deduction gameplay
@@ -58,12 +62,14 @@ disturbing reports of corruption aboard an ancient derelict."
 `mystery`, `investigation`, `detective`, `clue`, `solve`, `evidence`, `discover`
 
 **Example Prompt:**
+
 ```
 "Create a mystery investigation where a tech-priest must solve the puzzle of
 why an entire ship's crew died at their stations with no signs of violence."
 ```
 
 **Key Features:**
+
 - Multiple clue types (physical, documentary, testimonial)
 - Deduction mechanics and connection types
 - Investigation framework with logical consistency
@@ -77,6 +83,7 @@ why an entire ship's crew died at their stations with no signs of violence."
 **Theme:** Resource management and time pressure in desperate situations
 
 **Best For:**
+
 - High-tension escape scenarios
 - Resource scarcity challenges
 - Ticking clock narratives
@@ -86,12 +93,14 @@ why an entire ship's crew died at their stations with no signs of violence."
 `survival`, `escape`, `desperate`, `resource`, `trapped`, `flee`, `running`
 
 **Example Prompt:**
+
 ```
 "Design a desperate survival scenario where the team must escape a Space Hulk
 before the reactor goes critical, with limited oxygen and ammunition."
 ```
 
 **Key Features:**
+
 - Critical resource tracking (oxygen, ammo, medical supplies, time)
 - Escalating environmental hazards
 - Difficult resource allocation decisions
@@ -105,6 +114,7 @@ before the reactor goes critical, with limited oxygen and ammunition."
 **Theme:** Tactical combat and squad management in military operations
 
 **Best For:**
+
 - Action-oriented narratives
 - Tactical decision-making
 - Squad-based gameplay
@@ -114,12 +124,14 @@ before the reactor goes critical, with limited oxygen and ammunition."
 `combat`, `battle`, `tactical`, `squad`, `fight`, `warrior`, `assault`
 
 **Example Prompt:**
+
 ```
 "Create a tactical combat mission where a Space Marine squad must assault and
 clear a genestealer-infested section of the hulk."
 ```
 
 **Key Features:**
+
 - Detailed combat framework with encounter types
 - Squad composition and management
 - Tactical elements (cover, positioning, suppression)
@@ -186,6 +198,7 @@ Once loaded, template content becomes available to all agents:
 ### Example 1: Horror Game
 
 **Prompt:**
+
 ```bash
 crewai run --inputs "prompt: A lone Tech-Priest investigates terrifying signals
 from a Space Hulk, discovering evidence of daemonic corruption in the ship's
@@ -193,6 +206,7 @@ machine spirits."
 ```
 
 **Result:**
+
 - Loads `space_horror.yaml`
 - Generates gothic horror atmosphere
 - Includes body horror and corruption themes
@@ -203,6 +217,7 @@ machine spirits."
 ### Example 2: Mystery Game
 
 **Prompt:**
+
 ```bash
 crewai run --inputs "prompt: Investigate the mysterious disappearance of an
 entire crew, using clues scattered throughout the derelict to piece together
@@ -210,6 +225,7 @@ what happened in their final hours."
 ```
 
 **Result:**
+
 - Loads `mystery_investigation.yaml`
 - Creates logical clue chains
 - Emphasizes deduction and discovery
@@ -220,6 +236,7 @@ what happened in their final hours."
 ### Example 3: Survival Game
 
 **Prompt:**
+
 ```bash
 crewai run --inputs "prompt: Escape from a collapsing Space Hulk before the
 reactor goes critical, managing limited oxygen and medical supplies while
@@ -227,6 +244,7 @@ avoiding genestealer patrols."
 ```
 
 **Result:**
+
 - Loads `survival_escape.yaml`
 - Implements resource scarcity
 - Creates time pressure mechanics
@@ -237,6 +255,7 @@ avoiding genestealer patrols."
 ### Example 4: Combat Game
 
 **Prompt:**
+
 ```bash
 crewai run --inputs "prompt: Lead a Deathwatch kill-team in a tactical assault
 to clear and secure a strategic sector of the hulk, coordinating squad members
@@ -244,6 +263,7 @@ with different specialties."
 ```
 
 **Result:**
+
 - Loads `combat_focused.yaml`
 - Designs tactical encounters
 - Creates squad management mechanics
@@ -292,17 +312,20 @@ You can create your own templates by:
 ### Template Fields
 
 **Required Fields:**
+
 - `template_name`: Unique identifier
 - `template_version`: Version tracking
 - `description`: Purpose and usage
 
 **Recommended Fields:**
+
 - `narrative_focus`: Core thematic guidance
 - `required_elements`: Must-have components
 - `tone`: Mood and style guidelines
 - `example_scenes`: Concrete examples for agents
 
 **Optional Fields:**
+
 - `mechanics_suggestions`: Game system ideas
 - `quality_targets`: Quality criteria
 - `notes`: Additional context
@@ -314,12 +337,14 @@ You can create your own templates by:
 ### Prompt Engineering with Templates
 
 **Do:**
+
 - ✅ Use clear template keywords in your prompt
 - ✅ Describe the type of experience you want
 - ✅ Include specific scenario details
 - ✅ Combine template style with unique elements
 
 **Don't:**
+
 - ❌ Mix too many conflicting keywords
 - ❌ Assume templates restrict creativity
 - ❌ Expect templates to replace good prompts
@@ -386,6 +411,7 @@ space_hulk_game/
 ### Integration Points
 
 **In `crew.py` (`prepare_inputs` method):**
+
 ```python
 # Template loading (automatic)
 template_context = self._load_planning_template(inputs.get("prompt", ""))
@@ -417,12 +443,14 @@ For now, agents receive template context through the standard input mechanism an
 **Symptoms:** No template detected despite keywords
 
 **Solutions:**
+
 1. Check keyword spelling in prompt
 2. Verify template file exists in `planning_templates/`
 3. Review logs for detection messages
 4. Try more explicit keywords
 
 **Example:**
+
 ```bash
 # Vague (may not trigger)
 "Make a game about a ship"
@@ -436,11 +464,13 @@ For now, agents receive template context through the standard input mechanism an
 **Symptoms:** Unexpected template selected
 
 **Solutions:**
+
 1. Review keyword priority in `_load_planning_template()`
 2. Use more specific keywords for desired template
 3. Remove conflicting keywords from prompt
 
 **Example:**
+
 ```bash
 # Ambiguous (could load any)
 "A scary mystery with combat and survival"
@@ -454,6 +484,7 @@ For now, agents receive template context through the standard input mechanism an
 **Symptoms:** YAML parsing errors in logs
 
 **Solutions:**
+
 1. Validate YAML syntax with online validator
 2. Check for special characters or encoding issues
 3. Verify file is UTF-8 encoded
@@ -466,23 +497,27 @@ For now, agents receive template context through the standard input mechanism an
 Potential improvements for template system:
 
 1. **Explicit Template Selection**
+
    ```bash
    crewai run --template survival_escape --inputs "prompt: ..."
    ```
 
 2. **Template Blending**
+
    ```bash
    # Automatically blend multiple templates
    "horror mystery" → 70% horror + 30% mystery
    ```
 
 3. **User Custom Templates**
+
    ```bash
    # Load from user directory
    crewai run --template ~/my_templates/stealth.yaml
    ```
 
 4. **Template Inheritance**
+
    ```yaml
    # In custom template
    extends: "space_horror.yaml"

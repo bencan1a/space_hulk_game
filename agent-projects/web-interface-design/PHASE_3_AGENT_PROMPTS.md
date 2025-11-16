@@ -1,4 +1,5 @@
 # Phase 3 Agent Prompts: Content Generation Tasks
+
 ## Browser-Based Game Interface Implementation
 
 **Phase**: 3 - Content Generation (Weeks 7-10)
@@ -32,6 +33,7 @@
 You are creating a system for managing prompt templates that will guide the AI in generating game content. These templates, defined in YAML, will use Jinja2 for variable substitution, allowing for dynamic and structured prompt engineering.
 
 **Project Documentation**:
+
 - Implementation Plan: `IMPLEMENTATION_PLAN.md` Task 3.1
 
 ### Your Mission
@@ -74,6 +76,7 @@ tests/
 You are building a wrapper around the existing CrewAI execution logic to provide better control and monitoring. This wrapper will manage the execution of a generation crew, handle long-running processes, and provide real-time feedback via a callback system.
 
 **Project Documentation**:
+
 - Implementation Plan: `IMPLEMENTATION_PLAN.md` Task 3.2
 
 ### Your Mission
@@ -112,6 +115,7 @@ tests/
 To handle the long-running nature of AI content generation, you will create an asynchronous task using Celery. A `GenerationService` will act as the interface to start these tasks, which will run the `CrewAIWrapper` in the background.
 
 **Project Documentation**:
+
 - Implementation Plan: `IMPLEMENTATION_PLAN.md` Task 3.3
 
 ### Your Mission
@@ -152,6 +156,7 @@ backend/
 To provide a real-time user experience, you will implement a WebSocket endpoint that streams progress updates from the generation task to the frontend.
 
 **Project Documentation**:
+
 - Implementation Plan: `IMPLEMENTATION_PLAN.md` Task 3.4
 
 ### Your Mission
@@ -191,6 +196,7 @@ tests/
 You will create the REST API endpoints that the frontend will use to start and monitor the content generation process.
 
 **Project Documentation**:
+
 - Implementation Plan: `IMPLEMENTATION_PLAN.md` Task 3.5
 
 ### Your Mission
@@ -229,6 +235,7 @@ tests/
 You are building the user interface that allows users to choose how they want to generate a new game. This will include a gallery of predefined templates and an option for a fully custom prompt.
 
 **Project Documentation**:
+
 - Implementation Plan: `IMPLEMENTATION_PLAN.md` Task 3.6
 
 ### Your Mission
@@ -268,6 +275,7 @@ frontend/
 To help users create better prompts, you will build a conversational interface that guides them through a series of questions. This "chat refinement" process will progressively build a detailed prompt based on user answers.
 
 **Project Documentation**:
+
 - Implementation Plan: `IMPLEMENTATION_PLAN.md` Task 3.7
 
 ### Your Mission
@@ -307,6 +315,7 @@ frontend/
 You will build the UI that provides real-time feedback to the user while their game content is being generated. This interface will connect to the WebSocket endpoint and display live progress updates.
 
 **Project Documentation**:
+
 - Implementation Plan: `IMPLEMENTATION_PLAN.md` Task 3.8
 
 ### Your Mission
@@ -346,6 +355,7 @@ frontend/
 Once the content generation is complete, the user needs to see a summary of the generated story and decide on the next steps.
 
 **Project Documentation**:
+
 - Implementation Plan: `IMPLEMENTATION_PLAN.md` Task 3.9
 
 ### Your Mission

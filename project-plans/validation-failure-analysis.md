@@ -44,6 +44,7 @@ Looking at `game-config/narrative_map.json`, the agents DID create scene connect
 ### Data Structure Mismatch
 
 **What the Game Engine Expects** (`src/space_hulk_game/engine/scene.py:92`):
+
 ```python
 @dataclass
 class Scene:
@@ -52,6 +53,7 @@ class Scene:
 ```
 
 **What the AI Agents Produce** (`game-config/narrative_map.json`):
+
 ```json
 "connections": [
   {
@@ -63,6 +65,7 @@ class Scene:
 ```
 
 **Why the Validator Fails** (`src/space_hulk_game/engine/validator.py:328`):
+
 ```python
 def _find_reachable_scenes(...):
     # ...
@@ -75,6 +78,7 @@ The validator looks for `scene.exits` (a dictionary), but the agents produce `sc
 ### Why This Happened
 
 The task definition in `tasks.yaml:121-173` instructs the NarrativeArchitectAgent to create:
+
 - Rich narrative structures with conditions, descriptions, and character moments
 - Branching paths with decision points
 - Story-focused connections
@@ -103,12 +107,14 @@ We have two different data models serving different purposes:
 ## Impact Assessment
 
 ### What Works
+
 ✅ Agents successfully create coherent narrative structures
 ✅ Scene connections are logically defined with conditions
 ✅ Decision points and character arcs are well-designed
 ✅ Writing quality is high (descriptions, dialogue)
 
 ### What's Broken
+
 ❌ No translation from narrative structure to game mechanics
 ❌ Validator cannot verify playability
 ❌ Game engine cannot load the content
@@ -124,6 +130,7 @@ We have two different data models serving different purposes:
 **Responsibility:** Transform narrative outputs into playable game structures
 
 **New Task:** `TranslateNarrativeToGameStructure`
+
 - Input: narrative_map.json, scene_texts.json, puzzle_design.json
 - Output: playable_game.json (with proper exits, items, NPCs in game engine format)
 - Process:
@@ -134,12 +141,14 @@ We have two different data models serving different purposes:
   5. Generate proper Scene objects with exits dictionary
 
 **Benefits:**
+
 - Maintains separation of concerns (narrative vs. technical)
 - Preserves rich narrative structure for future use
 - Single agent responsible for playability
 - Can validate both narrative AND technical correctness
 
 **Task Definition Example:**
+
 ```yaml
 TranslateNarrativeToGameStructure:
   name: "Translate Narrative to Playable Game Structure"
@@ -185,6 +194,7 @@ TranslateNarrativeToGameStructure:
 ```
 
 **Agent Definition Example:**
+
 ```yaml
 GameEngineerAgent:
   role: "Game Systems Engineer"
@@ -207,10 +217,12 @@ GameEngineerAgent:
 **Alternative approach:** Update `CreateNarrativeMap` task to produce BOTH narrative structure AND exits dictionary.
 
 **Pros:**
+
 - Single agent output
 - No additional translation step
 
 **Cons:**
+
 - Mixes narrative and technical concerns
 - Agent needs dual expertise
 - More complex task definition
@@ -221,11 +233,13 @@ GameEngineerAgent:
 **Create a Python script** to transform narrative_map.json into game-ready format.
 
 **Pros:**
+
 - Deterministic transformation
 - Easy to test and debug
 - No LLM uncertainty
 
 **Cons:**
+
 - Requires hardcoded transformation logic
 - Less flexible than agent-based approach
 - May lose nuance in complex narrative structures
@@ -236,10 +250,12 @@ GameEngineerAgent:
 **Modify Scene class and validator** to understand connections array.
 
 **Pros:**
+
 - Preserves rich narrative structure
 - No translation needed
 
 **Cons:**
+
 - Major refactoring of game engine
 - Breaks existing validator logic
 - Complicates simple text adventure mechanics
@@ -272,6 +288,7 @@ GameEngineerAgent:
 ### Validation Enhancement
 
 Consider adding a **pre-flight validation task** that:
+
 1. Checks narrative structure for completeness
 2. Warns if connections don't form a complete graph
 3. Validates before transformation to game format
@@ -280,12 +297,14 @@ Consider adding a **pre-flight validation task** that:
 ### Quality Metrics
 
 Track both:
+
 - **Narrative Quality**: Story coherence, character arcs, thematic consistency
 - **Technical Quality**: Scene reachability, playability, game mechanics correctness
 
 ### Future Enhancements
 
 Once the bridge agent is working:
+
 1. **Bidirectional mapping**: Allow game state changes to update narrative context
 2. **Dynamic content**: Generate new content based on player choices
 3. **Save/Load**: Use rich narrative structure for story recap
@@ -294,6 +313,7 @@ Once the bridge agent is working:
 ## Success Criteria
 
 The solution is successful when:
+
 - ✅ All 10 scenes are reachable from the starting scene
 - ✅ Each scene has proper exits leading to other scenes
 - ✅ Game validator reports 0 critical issues

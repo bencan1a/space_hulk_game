@@ -25,9 +25,11 @@ See **[How to Play](docs/PLAYING_GAMES.md)** for detailed player guide and comma
 All documentation has been moved to the [`docs/`](docs/) folder:
 
 ### For Players
+
 - **[How to Play](docs/PLAYING_GAMES.md)** - Complete player guide with commands and tips
 
 ### For Developers
+
 - **[Getting Started](docs/README.md)** - Project overview and quick start guide
 - **[Setup Guide](docs/SETUP.md)** - Detailed installation instructions
 - **[Quick Start](docs/QUICKSTART.md)** - Quick setup and running guide
@@ -40,6 +42,7 @@ All documentation has been moved to the [`docs/`](docs/) folder:
 - **[CrewAI API Reference](docs/crewai-api-reference.md)** - CrewAI framework reference
 
 ### Browser-Based Interface (Planned)
+
 - **[Web Interface Overview](agent-projects/web-interface-design/WEB_INTERFACE_OVERVIEW.md)** - Complete project overview and navigation
 - **[Product Requirements (PRD)](agent-projects/web-interface-design/PRD_WEB_INTERFACE.md)** - Detailed product specification
 - **[Technical Architecture](agent-projects/web-interface-design/ARCHITECTURE_WEB_INTERFACE.md)** - System design and architecture
@@ -115,6 +118,7 @@ space_hulk_game/
 ## 🎯 Features
 
 ### Game Engine (v1.0)
+
 - ✅ **Text-based adventure engine** - Complete game loop with command parsing
 - ✅ **Rich game world** - Scenes, items, NPCs, events, and puzzles
 - ✅ **Save/load system** - Persistent game state with multiple save slots
@@ -122,11 +126,13 @@ space_hulk_game/
 - ✅ **Colorized CLI** - Beautiful terminal interface with color coding
 
 ### AI Content Generation
+
 - ✅ **Multi-agent system** - 6 specialized CrewAI agents collaborate to create games
 - ✅ **Procedural generation** - Unique stories, puzzles, and challenges
 - ✅ **Warhammer 40K themed** - Authentic grimdark atmosphere and lore
 
 ### Quality Assurance
+
 - ✅ **250+ tests** - Comprehensive test coverage (unit, integration, E2E)
 - ✅ **Type safety** - Full type hints and mypy checking
 - ✅ **Code quality** - PEP 8 compliant, linted with ruff and black

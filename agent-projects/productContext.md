@@ -27,6 +27,7 @@ To access information about specific CrewAI components, refer to the correspondi
 3. For information on **tools**, **flows**, **knowledge**, **processes**, **LLMs**, **memory**, and **planning**, see their respective sections.
 
 Each component section is structured consistently with:
+
 - Definition
 - Parameters
 - Syntax
@@ -35,6 +36,7 @@ Each component section is structured consistently with:
 - Examples
 
 This reference should be consulted when:
+
 - Implementing CrewAI components
 - Understanding component relationships
 - Identifying optimal patterns for specific use cases
@@ -69,6 +71,7 @@ Each agent is assigned specific tasks in a sequential workflow:
 #### Process Flow
 
 The system follows a sequential process where:
+
 1. The overarching plot is created first
 2. The narrative map is developed based on the plot
 3. Puzzles and artifacts are designed to fit into the narrative
@@ -78,6 +81,7 @@ The system follows a sequential process where:
 #### Implementation Extensions
 
 The implementation includes:
+
 - **Pre-processing hook**: Prepares inputs before the crew starts
 - **Post-processing hook**: Refines the output after the crew finishes
 - **YAML configuration**: All agents and tasks defined in external YAML files for easy editing

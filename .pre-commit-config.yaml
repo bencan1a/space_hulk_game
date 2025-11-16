@@ -43,6 +43,7 @@ repos:
         entry: bash -c 'source .venv/bin/activate && make type-check-files FILES="$*"'
         language: system
         types: [python]
+        exclude: ^(agent-projects/|agent-tmp/|game-config/)
 
       # Bandit security scanning (uses pyproject.toml config)
       - id: bandit
@@ -50,6 +51,7 @@ repos:
         entry: bash -c 'source .venv/bin/activate && make security-files FILES="$*"'
         language: system
         types: [python]
+        exclude: ^(agent-projects/|agent-tmp/|game-config/)
 
       # YAML validation (uses .yamllint config)
       - id: yamllint

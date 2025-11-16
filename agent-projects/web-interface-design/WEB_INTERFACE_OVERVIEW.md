@@ -9,11 +9,13 @@ This document provides an overview and navigation guide for the browser-based ga
 ## 📄 Document Index
 
 ### 1. **Product Requirements Document (PRD)**
+
 **File**: [PRD_WEB_INTERFACE.md](./PRD_WEB_INTERFACE.md)
 
 **Purpose**: Complete product specification for browser-based game creation and play interface
 
 **Contents**:
+
 - Executive summary and value propositions
 - Problem statement and pain points
 - Goals and success metrics
@@ -34,11 +36,13 @@ This document provides an overview and navigation guide for the browser-based ga
 ---
 
 ### 2. **Technical Architecture**
+
 **File**: [ARCHITECTURE_WEB_INTERFACE.md](./ARCHITECTURE_WEB_INTERFACE.md)
 
 **Purpose**: Detailed technical architecture and system design
 
 **Contents**:
+
 - High-level architecture diagrams
 - Component details (Frontend, Backend, Data Layer)
 - Technology stack specifications
@@ -59,11 +63,13 @@ This document provides an overview and navigation guide for the browser-based ga
 ---
 
 ### 3. **Implementation Guide**
+
 **File**: [IMPLEMENTATION_GUIDE_WEB_INTERFACE.md](./IMPLEMENTATION_GUIDE_WEB_INTERFACE.md)
 
 **Purpose**: Step-by-step guide for developers to implement the system
 
 **Contents**:
+
 - Development environment setup
 - Phase-by-phase implementation instructions
 - Code examples and boilerplate
@@ -79,11 +85,13 @@ This document provides an overview and navigation guide for the browser-based ga
 ---
 
 ### 4. **User Journey Diagrams**
+
 **File**: [USER_JOURNEYS_DIAGRAMS.md](./USER_JOURNEYS_DIAGRAMS.md)
 
 **Purpose**: Visual representations of user flows and system interactions
 
 **Contents**:
+
 - ASCII art user journey maps
 - System flow diagrams
 - State transition diagrams
@@ -96,11 +104,13 @@ This document provides an overview and navigation guide for the browser-based ga
 ---
 
 ### 5. **Theming System Design** ⭐ NEW
+
 **File**: [THEMING_SYSTEM.md](./THEMING_SYSTEM.md)
 
 **Purpose**: Multi-genre theme configuration for runtime customization
 
 **Contents**:
+
 - Theme architecture and configuration structure
 - Runtime theme loading and switching
 - Frontend/backend implementation patterns
@@ -127,7 +137,7 @@ A **browser-based interface** for text adventure game creation and play that ena
    - Refine prompts through AI chat
    - Monitor real-time generation progress
    - Select from multiple genre themes (Warhammer 40K default, expandable to cyberpunk, fantasy, etc.)
-   
+
 2. **Iteration & Feedback**: Users can improve generated stories
    - Provide structured feedback on plot, puzzles, writing, tone
    - Compare versions across iterations
@@ -148,12 +158,14 @@ A **browser-based interface** for text adventure game creation and play that ena
 ### Key Technologies
 
 **Frontend**:
+
 - React 18+ with TypeScript
 - Material-UI or Chakra UI
 - WebSocket for real-time updates
 - React Router for navigation
 
 **Backend**:
+
 - FastAPI (Python)
 - SQLAlchemy ORM
 - PostgreSQL database
@@ -162,6 +174,7 @@ A **browser-based interface** for text adventure game creation and play that ena
 - WebSocket support
 
 **Integration**:
+
 - Existing CrewAI agents (no changes)
 - Existing game engine (wrapped in API)
 - Existing JSON game format (maintained)
@@ -169,6 +182,7 @@ A **browser-based interface** for text adventure game creation and play that ena
 ### Timeline
 
 **16-week development cycle**:
+
 - Weeks 1-4: Backend foundation
 - Weeks 5-8: Story creation flow
 - Weeks 9-11: Iteration system
@@ -180,12 +194,14 @@ A **browser-based interface** for text adventure game creation and play that ena
 ## 🚀 Getting Started
 
 ### For Product Owners
+
 1. Read **PRD_WEB_INTERFACE.md** for complete requirements
 2. Review user personas and journeys
 3. Validate success metrics align with business goals
 4. Approve or provide feedback on open questions
 
 ### For Engineering Leads
+
 1. Read **PRD_WEB_INTERFACE.md** for requirements overview
 2. Review **ARCHITECTURE_WEB_INTERFACE.md** for technical design
 3. Assess technical feasibility and resource needs
@@ -193,6 +209,7 @@ A **browser-based interface** for text adventure game creation and play that ena
 5. Plan sprint breakdown based on phases
 
 ### For Developers
+
 1. Read **IMPLEMENTATION_GUIDE_WEB_INTERFACE.md** for setup
 2. Set up development environment
 3. Review code examples and patterns
@@ -200,6 +217,7 @@ A **browser-based interface** for text adventure game creation and play that ena
 5. Follow checklist for each phase
 
 ### For Designers
+
 1. Read **PRD_WEB_INTERFACE.md** sections on:
    - User personas
    - User journeys
@@ -213,6 +231,7 @@ A **browser-based interface** for text adventure game creation and play that ena
 ## 📊 Key Metrics
 
 ### Success Criteria (3 months post-launch)
+
 - 80% of users prefer web interface over CLI
 - 50% create custom story in first session
 - 70% story generation completion rate
@@ -220,6 +239,7 @@ A **browser-based interface** for text adventure game creation and play that ena
 - 4+ star average user satisfaction
 
 ### Technical Metrics
+
 - Story library loads in <2 seconds
 - Game commands respond in <500ms
 - Chat interactions respond in <3 seconds
@@ -231,6 +251,7 @@ A **browser-based interface** for text adventure game creation and play that ena
 ## 🔗 Integration Points
 
 ### Existing Systems
+
 1. **CrewAI Agents** (`src/space_hulk_game/crew.py`)
    - PlotMaster, NarrativeArchitect, PuzzleSmith, CreativeScribe, MechanicsGuru
    - No changes required to agents
@@ -251,6 +272,7 @@ A **browser-based interface** for text adventure game creation and play that ena
 ## ⚠️ Important Notes
 
 ### What's NOT Changing
+
 - ✅ CLI remains functional (parallel to web interface)
 - ✅ CrewAI agents unchanged
 - ✅ Game engine unchanged
@@ -258,6 +280,7 @@ A **browser-based interface** for text adventure game creation and play that ena
 - ✅ Existing games playable in both CLI and web
 
 ### What's Out of Scope (Phase 1)
+
 - ❌ User authentication (future Phase 2)
 - ❌ Community sharing (future Phase 2-3)
 - ❌ Mobile optimization (future Phase 3)
@@ -265,6 +288,7 @@ A **browser-based interface** for text adventure game creation and play that ena
 - ❌ Multiplayer (unlikely)
 
 ### Open Decisions Needed
+
 1. Backend framework confirmation (FastAPI recommended)
 2. Frontend UI library (Material-UI vs Chakra UI)
 3. WebSocket vs polling for progress (WebSocket recommended)
@@ -277,12 +301,14 @@ A **browser-based interface** for text adventure game creation and play that ena
 ## 📞 Contact & Support
 
 ### Project Stakeholders
+
 - **Product Owner**: [Name/Email]
 - **Engineering Lead**: [Name/Email]
 - **Design Lead**: [Name/Email]
 - **DevOps Lead**: [Name/Email]
 
 ### Communication Channels
+
 - Slack: #space-hulk-dev
 - GitHub Issues: [Repository URL]
 - Weekly Standup: [Time/Location]
@@ -324,4 +350,3 @@ A **browser-based interface** for text adventure game creation and play that ena
 **This project transforms the Space Hulk game from a CLI-only experience into an accessible, browser-based platform that empowers users to create, iterate, and play AI-generated adventures.**
 
 **Let's build something amazing! 🚀**
-

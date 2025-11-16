@@ -10,12 +10,14 @@
 ## Context
 
 The web interface architecture documentation listed several technology choices as "decision needed" or "to be determined." Before implementation begins in Phase 1, these decisions must be finalized to:
+
 - Enable consistent development environment setup
 - Avoid mid-implementation technology switches
 - Establish clear dependencies and build tooling
 - Provide concrete examples in implementation guides
 
 **Decisions Needed**:
+
 1. Frontend UI Component Library
 2. Frontend State Management Approach
 3. Frontend Build Tool
@@ -105,6 +107,7 @@ const warhammer40kTheme = createTheme({
 ### When to Migrate to Redux
 
 **Triggers for migration** (evaluate in Phase 4-5):
+
 - Frequent state updates causing re-renders (>100ms UI lag)
 - Need for time-travel debugging during complex bug investigation
 - Multi-user features requiring normalized state with entity adapters
@@ -203,6 +206,7 @@ npm run build  # → dist/
 ```
 
 **Configuration** (`vite.config.ts`):
+
 ```typescript
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
@@ -267,6 +271,7 @@ export default defineConfig({
 ### Implementation Details
 
 **Development** (`docker-compose.yml`):
+
 ```yaml
 version: '3.8'
 services:
@@ -295,6 +300,7 @@ services:
 ```
 
 **Production** (`docker-compose.prod.yml`):
+
 ```yaml
 version: '3.8'
 services:
@@ -314,6 +320,7 @@ services:
 ```
 
 **Deployment Steps**:
+
 1. Provision VPS (2GB RAM, 2 vCPU minimum)
 2. Install Docker + Docker Compose
 3. Clone repository, configure `.env`
@@ -324,6 +331,7 @@ services:
 ### Migration Path to Cloud
 
 **When to migrate** (evaluate in Phase 2):
+
 - Need auto-scaling (multiple concurrent users)
 - Want managed database/Redis (reduce ops burden)
 - Require CDN for global users

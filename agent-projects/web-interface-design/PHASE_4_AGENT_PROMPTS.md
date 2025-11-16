@@ -1,4 +1,5 @@
 # Phase 4 Agent Prompts: Iteration System Tasks
+
 ## Browser-Based Game Interface Implementation
 
 **Phase**: 4 - Iteration System (Weeks 11-12)
@@ -28,6 +29,7 @@
 You are implementing the backend service that powers the story iteration feature. This service will be responsible for taking user feedback, initiating new generation tasks with that feedback as context, and managing the relationship between different versions of a story.
 
 **Project Documentation**:
+
 - Implementation Plan: `IMPLEMENTATION_PLAN.md` Task 4.1
 
 ### Your Mission
@@ -66,6 +68,7 @@ tests/
 You will expose the `IterationService` functionality through a set of REST API endpoints. These endpoints will allow the frontend to submit feedback, start new iterations, and retrieve the history of versions for a story.
 
 **Project Documentation**:
+
 - Implementation Plan: `IMPLEMENTATION_PLAN.md` Task 4.2
 
 ### Your Mission
@@ -105,6 +108,7 @@ tests/
 You are building the user-facing form for collecting structured feedback on a generated story. This form will capture both qualitative and quantitative data to guide the next AI iteration.
 
 **Project Documentation**:
+
 - Implementation Plan: `IMPLEMENTATION_PLAN.md` Task 4.3
 
 ### Your Mission
@@ -126,9 +130,9 @@ frontend/
 ### Acceptance Criteria
 
 - [ ] A `FeedbackForm` component containing:
-    - A free-form textarea for detailed comments (minimum 100 characters).
-    - Sliders to adjust parameters like "Tone" (e.g., more horror) and "Difficulty".
-    - Checkboxes for focus areas (e.g., "More puzzles," "Deeper characters").
+  - A free-form textarea for detailed comments (minimum 100 characters).
+  - Sliders to adjust parameters like "Tone" (e.g., more horror) and "Difficulty".
+  - Checkboxes for focus areas (e.g., "More puzzles," "Deeper characters").
 - [ ] The form should display the current iteration count (e.g., "This will be iteration 2/5").
 - [ ] The `FeedbackPage` hosts the form and handles the submission logic, calling the iteration API.
 - [ ] Form validation to ensure all required fields are completed correctly.
@@ -147,6 +151,7 @@ frontend/
 To give users a clear overview of a story's evolution, you will create a UI to display the list of all its iterations.
 
 **Project Documentation**:
+
 - Implementation Plan: `IMPLEMENTATION_PLAN.md` Task 4.4
 
 ### Your Mission
@@ -186,6 +191,7 @@ frontend/
 A key feature of the iteration system is the ability to compare two versions of a story side-by-side. You will build a UI that highlights the differences between two selected versions.
 
 **Project Documentation**:
+
 - Implementation Plan: `IMPLEMENTATION_PLAN.md` Task 4.5
 
 ### Your Mission
@@ -209,8 +215,8 @@ frontend/
 - [ ] The `ComparePage` allows the user to select two versions of a story to compare (e.g., Version 1 and Version 3).
 - [ ] `VersionComparison` component displays the content of the two versions in a side-by-side split view.
 - [ ] The UI must visually highlight the differences between the two versions (e.g., using a library like `diff-match-patch` or similar).
-    - Additions should be highlighted in green.
-    - Deletions should be highlighted in red.
-    - Modifications should be highlighted in yellow.
+  - Additions should be highlighted in green.
+  - Deletions should be highlighted in red.
+  - Modifications should be highlighted in yellow.
 - [ ] The comparison should be easy to read and understand.
 - [ ] Unit and integration tests to ensure differences are correctly identified and highlighted.

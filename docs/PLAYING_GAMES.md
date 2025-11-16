@@ -65,6 +65,7 @@ s, e, w         - Shortcuts for other directions
 ```
 
 **Tips:**
+
 - Always `look` when entering a new room to see available exits
 - Some exits may be locked and require keys or items
 - Pay attention to scene descriptions for clues about hidden exits
@@ -80,6 +81,7 @@ examine <thing> - Closely inspect something
 ```
 
 **Examples:**
+
 ```
 look
 look at key
@@ -99,6 +101,7 @@ drop <item>     - Drop an item from inventory
 ```
 
 **Examples:**
+
 ```
 take key
 take power sword
@@ -107,6 +110,7 @@ i
 ```
 
 **Tips:**
+
 - Some items are too heavy or important to drop
 - Check your inventory regularly
 - Items may have multiple uses
@@ -122,6 +126,7 @@ use <item> with <target>    - Combine items
 ```
 
 **Examples:**
+
 ```
 use key
 use key on door
@@ -130,6 +135,7 @@ use power cell on terminal
 ```
 
 **Tips:**
+
 - Read item descriptions carefully for usage hints
 - Some items work automatically when in inventory
 - Try different combinations if stuck
@@ -145,6 +151,7 @@ ask <npc> about <topic>      - Alternative syntax
 ```
 
 **Examples:**
+
 ```
 talk to sergeant
 talk to tech priest about door
@@ -152,6 +159,7 @@ ask marine about mission
 ```
 
 **Tips:**
+
 - NPCs may provide crucial information or items
 - Some conversations unlock new areas or quests
 - Talk to everyone you meet!
@@ -189,6 +197,7 @@ The game provides information through text descriptions:
 3. Confirm the save
 
 **Save Tips:**
+
 - Save frequently, especially before dangerous situations
 - Use descriptive save names (e.g., "engineering_deck_cleared")
 - You can have multiple save files
@@ -206,11 +215,13 @@ The game provides information through text descriptions:
 The game tracks your progress through **flags** and **variables**:
 
 #### Flags (Boolean States)
+
 - `door_unlocked` - A specific door is unlocked
 - `npc_helped` - You've assisted an NPC
 - `boss_defeated` - You've defeated a boss enemy
 
 #### Variables (Numeric/String Values)
+
 - `health` - Your current health
 - `armor` - Your armor rating
 - `quest_stage` - Progress in a quest
@@ -222,12 +233,14 @@ You don't interact with these directly, but they affect what you can do.
 #### Winning the Game
 
 Win conditions vary by game but typically include:
+
 - Escaping the Space Hulk
 - Completing all objectives
 - Defeating the final boss
 - Retrieving the MacGuffin
 
 **Signs you're close to winning:**
+
 - NPCs mention "one final task"
 - You've explored all areas
 - All major puzzles are solved
@@ -235,11 +248,13 @@ Win conditions vary by game but typically include:
 #### Losing the Game
 
 Defeat conditions may include:
+
 - Health reaches zero
 - Critical failure in puzzle
 - Time running out (if timed)
 
 **When you lose:**
+
 - Game displays the defeat message
 - You can load a save to try again
 - Learn from mistakes!
@@ -266,21 +281,25 @@ Defeat conditions may include:
 #### Common Puzzle Types
 
 **Key and Lock Puzzles**
+
 - Find the key item
 - Use it on the locked exit/container
 - Remember: not all keys are physical objects!
 
 **Information Gathering**
+
 - Talk to NPCs for clues
 - Read item descriptions
 - Piece together the story
 
 **Sequence Puzzles**
+
 - Actions must be performed in order
 - Pay attention to sequence clues
 - Trial and error with saves
 
 **Resource Management**
+
 - Limited items or uses
 - Choose wisely what to use where
 - Some items have multiple uses
@@ -318,6 +337,7 @@ Defeat conditions may include:
 **Cause:** Command not recognized or malformed
 
 **Solutions:**
+
 - Type `help` to see available commands
 - Check spelling and syntax
 - Try simpler phrasing (e.g., "north" instead of "walk to the north")
@@ -328,6 +348,7 @@ Defeat conditions may include:
 **Cause:** Invalid exit or locked door
 
 **Solutions:**
+
 - Type `look` to see available exits
 - Check if the exit is locked
 - Look for keys or items to unlock it
@@ -338,6 +359,7 @@ Defeat conditions may include:
 **Cause:** Item not in inventory
 
 **Solutions:**
+
 - Type `inventory` to check what you have
 - Go back to where you saw the item
 - The item might be in a different scene
@@ -348,6 +370,7 @@ Defeat conditions may include:
 **Cause:** Action not applicable in current context
 
 **Solutions:**
+
 - Read the scene description again
 - Try a different approach
 - Some items only work in specific locations
@@ -462,6 +485,7 @@ demo_game --game-dir path/to/custom/game
 ```
 
 The directory should contain the required JSON files:
+
 - `plot_outline.json`
 - `narrative_map.json`
 - `puzzle_design.json`
@@ -485,6 +509,7 @@ demo_game --verbose
 ```
 
 This shows detailed information about:
+
 - Command parsing
 - State changes
 - Action execution

@@ -4,7 +4,7 @@ This document provides step-by-step instructions for validating that the OpenRou
 
 ## Prerequisites
 
-1. OpenRouter API key (from https://openrouter.ai/keys)
+1. OpenRouter API key (from <https://openrouter.ai/keys>)
 2. Python dependencies installed (`pip install -e .`)
 
 ## Quick Validation
@@ -23,6 +23,7 @@ python validate_api.py
 ```
 
 **Expected Output (Success):**
+
 ```
 ======================================================================
 OpenRouter API Validation
@@ -57,6 +58,7 @@ Or run integration tests:
 ```
 
 **Expected Output (Failure - No API Key):**
+
 ```
 ======================================================================
 OpenRouter API Validation
@@ -90,6 +92,7 @@ python -m unittest tests.test_api_validation -v
 ```
 
 **Expected Output:**
+
 ```
 test_api_error_handling ... ok
 test_environment_variables_documented ... ok
@@ -132,12 +135,14 @@ python -m unittest tests.test_integration_sequential -v
 ### Error: "Invalid API key"
 
 **Possible causes:**
+
 1. API key is incorrect or expired
 2. API key doesn't have sufficient permissions
 3. Network connectivity issues
 
 **Solutions:**
-- Verify your API key at https://openrouter.ai/
+
+- Verify your API key at <https://openrouter.ai/>
 - Check API key format (should start with `sk-or-v1-`)
 - Ensure you have API credits available
 - Test network connectivity: `curl https://openrouter.ai/api/v1/models`
@@ -145,34 +150,40 @@ python -m unittest tests.test_integration_sequential -v
 ### Error: "Model not available"
 
 **Possible causes:**
+
 1. Model name is incorrect
 2. Model requires additional permissions
 3. Model is temporarily unavailable
 
 **Solutions:**
-- Check available models at https://openrouter.ai/models
+
+- Check available models at <https://openrouter.ai/models>
 - Use full model path: `openrouter/provider/model-name`
 - Try a different model (e.g., `openrouter/anthropic/claude-3.5-sonnet`)
 
 ### Error: "Rate limit exceeded"
 
 **Possible causes:**
+
 1. Too many API requests in short time
 2. Account rate limits
 
 **Solutions:**
+
 - Wait a few seconds and try again
-- Check your rate limits at https://openrouter.ai/
+- Check your rate limits at <https://openrouter.ai/>
 - Consider upgrading your account tier
 
 ### Tests are slow
 
 **Normal behavior:**
+
 - Real API tests make actual network requests
 - Response times vary by model and server load
 - Expect 1-5 seconds per test with real API
 
 **To speed up:**
+
 - Use mock mode (default, no API key needed)
 - Set `SKIP_SLOW_TESTS=1` to skip optional tests
 - Only run specific test files you need
@@ -225,35 +236,40 @@ jobs:
 Once API validation is successful:
 
 1. **Run the full crew:**
+
    ```bash
    crewai run
    ```
 
 2. **Test with custom prompts:**
+
    ```bash
    crewai run --input '{"prompt": "Your custom game scenario"}'
    ```
 
 3. **Run integration tests:**
+
    ```bash
    export RUN_REAL_API_TESTS=1
    python -m unittest tests.test_integration_sequential -v
    ```
 
 4. **Monitor API usage:**
-   - Check usage at https://openrouter.ai/activity
+   - Check usage at <https://openrouter.ai/activity>
    - Set up billing alerts
    - Monitor costs per request
 
 ## Cost Considerations
 
 **Real API Testing:**
+
 - Each test makes 1-2 API calls
 - Cost depends on model choice
 - Example: Claude 3.5 Sonnet ~$0.003 per test
 - Full test suite: ~$0.05-0.10
 
 **Recommendations:**
+
 - Use mock mode for development (free)
 - Run real API tests before releases only
 - Monitor API usage dashboard
@@ -265,7 +281,7 @@ If you continue to have issues:
 
 1. Check the [tests/README.md](tests/README.md) for detailed testing documentation
 2. Review the [.env.example](.env.example) file for configuration options
-3. Visit https://openrouter.ai/docs for API documentation
+3. Visit <https://openrouter.ai/docs> for API documentation
 4. Check GitHub issues for known problems
 
 ## Summary Checklist

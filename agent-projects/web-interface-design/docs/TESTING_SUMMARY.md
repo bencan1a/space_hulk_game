@@ -1,4 +1,5 @@
 # Testing Strategy Summary
+
 ## Web Interface Testing Requirements at a Glance
 
 **Version**: 1.0
@@ -39,6 +40,7 @@
 ### Critical Path Modules (>95% Coverage Required)
 
 **Backend**:
+
 - `app/services/generation_service.py`
 - `app/services/game_service.py`
 - `app/integrations/crewai_wrapper.py`
@@ -48,6 +50,7 @@
 - `app/api/websocket.py`
 
 **Frontend**:
+
 - `src/contexts/GameContext.tsx`
 - `src/contexts/StoryContext.tsx`
 - `src/hooks/useWebSocket.ts`
@@ -60,27 +63,32 @@
 ## Test Requirements by Phase
 
 ### Phase 1: Foundation (Weeks 1-4)
+
 - **Unit Tests**: 15
 - **Integration Tests**: 5
 - **Target Coverage**: 85%
 
 **Key Tests**:
+
 - Database migrations (up/down)
 - Health check endpoint
 - Config loading
 - Docker Compose services communication
 
 ### Phase 2: Story Library (Weeks 5-6)
+
 - **Unit Tests**: 25 (15 backend + 10 frontend)
 - **Integration Tests**: 10
 - **Target Coverage**: 90% backend, 80% frontend
 
 **Key Tests**:
+
 - StoryService CRUD (15 tests)
 - StoryCard component (8 tests)
 - Search/filter API integration
 
 ### Phase 3: Story Creation (Weeks 7-10)
+
 - **Unit Tests**: 35 (20 backend + 15 frontend)
 - **Integration Tests**: 15
 - **E2E Tests**: 3
@@ -88,23 +96,27 @@
 - **Target Coverage**: 95% (critical path)
 
 **Key Tests**:
+
 - GenerationService (12 tests)
 - CrewAI wrapper (7 tests)
 - WebSocket progress (8 tests)
 - Complete generation workflow (E2E)
 
 ### Phase 4: Iteration System (Weeks 11-12)
+
 - **Unit Tests**: 15
 - **Integration Tests**: 5
 - **E2E Tests**: 2
 - **Target Coverage**: 90%
 
 **Key Tests**:
+
 - IterationService (8 tests)
 - Feedback validation
 - Iteration flow with context (E2E)
 
 ### Phase 5: Gameplay (Weeks 13-15)
+
 - **Unit Tests**: 25 (15 backend + 10 frontend)
 - **Integration Tests**: 10
 - **E2E Tests**: 5
@@ -112,12 +124,14 @@
 - **Target Coverage**: 95% (critical path)
 
 **Key Tests**:
+
 - GameService (10 tests)
 - Game wrapper (8 tests)
 - GameDisplay component (10 tests)
 - Complete gameplay session (E2E)
 
 ### Phase 6: Polish (Week 16)
+
 - **E2E Tests**: 5 (complete all 15)
 - **Accessibility Tests**: 20
 - **Security Tests**: 22
@@ -128,22 +142,26 @@
 ## Test Frameworks & Tools
 
 ### Backend
+
 - **Unit**: pytest, pytest-cov, pytest-mock, pytest-asyncio
 - **Integration**: pytest with PostgreSQL test instance
 - **API**: httpx AsyncClient
 - **Security**: Bandit, Safety, Semgrep
 
 ### Frontend
+
 - **Unit**: Jest, React Testing Library
 - **Integration**: Jest with mock API
 - **E2E**: Playwright (recommended) or Cypress
 - **Accessibility**: axe-core, Lighthouse
 
 ### Performance
+
 - **Load Testing**: k6 or Locust
 - **Monitoring**: Grafana, Prometheus
 
 ### CI/CD
+
 - **Platform**: GitHub Actions
 - **Coverage**: Codecov
 - **Containers**: Docker Compose
@@ -153,6 +171,7 @@
 ## Key Testing Patterns
 
 ### Backend Unit Test Pattern
+
 ```python
 @pytest.fixture
 def service(mock_db):
@@ -171,6 +190,7 @@ def test_method_success(service, sample_data):
 ```
 
 ### Frontend Unit Test Pattern
+
 ```typescript
 describe('Component', () => {
   it('renders correctly', () => {
@@ -189,6 +209,7 @@ describe('Component', () => {
 ```
 
 ### Integration Test Pattern
+
 ```python
 @pytest.mark.integration
 async def test_api_workflow(client, db_session):
@@ -205,6 +226,7 @@ async def test_api_workflow(client, db_session):
 ```
 
 ### E2E Test Pattern
+
 ```typescript
 test('user completes workflow', async ({ page }) => {
   // Navigate
@@ -234,6 +256,7 @@ test('user completes workflow', async ({ page }) => {
 | Library page load | <1s | <2s | <3s |
 
 **Concurrent Users**:
+
 - 100 concurrent API users
 - 10 concurrent story generations
 - 50 concurrent gameplay sessions
@@ -244,6 +267,7 @@ test('user completes workflow', async ({ page }) => {
 ## Accessibility Requirements (WCAG 2.1 AA)
 
 **Must Pass**:
+
 - [ ] All interactive elements keyboard accessible
 - [ ] Screen reader compatible
 - [ ] Color contrast ≥4.5:1
@@ -253,6 +277,7 @@ test('user completes workflow', async ({ page }) => {
 - [ ] Form field labels and errors
 
 **Tools**:
+
 - axe-core (automated)
 - NVDA, JAWS, VoiceOver (manual)
 - Lighthouse audit (score ≥95)
@@ -262,21 +287,25 @@ test('user completes workflow', async ({ page }) => {
 ## Security Testing Checklist
 
 **Input Validation**:
+
 - [ ] SQL injection blocked
 - [ ] XSS injection blocked
 - [ ] Path traversal blocked
 - [ ] Command injection blocked
 
 **File System**:
+
 - [ ] Access restricted to data/ directory
 - [ ] Symlink attacks prevented
 - [ ] File permissions correct
 
 **Rate Limiting**:
+
 - [ ] 1 concurrent generation per user
 - [ ] API rate limit enforced (future)
 
 **Resource Limits**:
+
 - [ ] Max file size enforced
 - [ ] Memory limits
 - [ ] Operation timeouts
@@ -286,6 +315,7 @@ test('user completes workflow', async ({ page }) => {
 ## CI/CD Requirements
 
 **All Tests Must Pass Before Merge**:
+
 - ✅ Backend unit tests (>90% coverage)
 - ✅ Frontend unit tests (>80% coverage)
 - ✅ Integration tests (all passing)
@@ -294,6 +324,7 @@ test('user completes workflow', async ({ page }) => {
 - ✅ Accessibility (no blocking violations)
 
 **CI Performance Targets**:
+
 - Unit tests: <5 minutes
 - Integration tests: <10 minutes
 - E2E tests: <30 minutes
@@ -324,12 +355,14 @@ test('user completes workflow', async ({ page }) => {
 ## Test Data Management
 
 **Test Database Strategy**:
+
 - Unit tests: SQLite in-memory
 - Integration tests: PostgreSQL test instance
 - Reset between tests
 - Seed with fixtures
 
 **Test Fixtures**:
+
 - `sample_story`: Complete story
 - `incomplete_story`: Story in generation
 - `generation_job_queued`: Queued job
@@ -337,6 +370,7 @@ test('user completes workflow', async ({ page }) => {
 - `sample_game_content`: Valid game.json
 
 **Test Data Files** (`tests/data/`):
+
 - `game-content/`: Valid, minimal, large, invalid game.json
 - `themes/`: Valid and invalid theme configs
 - `templates/`: Horror, rescue, artifact hunt templates
@@ -347,23 +381,27 @@ test('user completes workflow', async ({ page }) => {
 ## Example Test Files
 
 **Backend Unit Test**: [backend-unit-test-example.py](./testing-examples/backend-unit-test-example.py)
+
 - 15 StoryService tests
 - Fixtures, mocks, arrange-act-assert pattern
 - Success, error, and edge case tests
 
 **Frontend Unit Test**: [frontend-unit-test-example.tsx](./testing-examples/frontend-unit-test-example.tsx)
+
 - 8 StoryCard rendering tests
 - User interaction tests
 - Accessibility tests
 - Snapshot tests
 
 **Integration Test**: [integration-test-example.py](./testing-examples/integration-test-example.py)
+
 - Complete generation workflow (12 steps)
 - Iteration flow with feedback (8 steps)
 - Game session lifecycle (10 steps)
 - WebSocket progress updates (6 steps)
 
 **E2E Test**: [e2e-test-example.spec.ts](./testing-examples/e2e-test-example.spec.ts)
+
 - First-time user creates story (10 steps)
 - Generation timeout recovery
 - WebSocket reconnection
@@ -385,6 +423,7 @@ Every task in IMPLEMENTATION_PLAN.md must include:
 ```
 
 **Example for Task 2.1 (Story Service)**:
+
 ```markdown
 **Testing**:
 - [ ] 15 unit tests written (see testing-strategy.md section 2.1.1)
@@ -399,6 +438,7 @@ Every task in IMPLEMENTATION_PLAN.md must include:
 ## Quick Start
 
 ### Run All Tests
+
 ```bash
 # Backend
 pytest tests/ -v --cov=app --cov-report=html
@@ -414,6 +454,7 @@ k6 run tests/performance/load-test.js
 ```
 
 ### Run Specific Test Category
+
 ```bash
 # Unit tests only
 pytest tests/unit/ -v
@@ -429,6 +470,7 @@ npm run test:a11y
 ```
 
 ### Check Coverage
+
 ```bash
 # Backend coverage threshold
 pytest --cov=app --cov-fail-under=90
@@ -442,6 +484,7 @@ npm run test:coverage -- --coverageThreshold='{"global":{"lines":80}}'
 ## Resources
 
 **Full Documentation**:
+
 - [Complete Testing Strategy](./testing-strategy.md) (20+ pages)
 - [Backend Unit Test Example](./testing-examples/backend-unit-test-example.py)
 - [Frontend Unit Test Example](./testing-examples/frontend-unit-test-example.tsx)
@@ -449,6 +492,7 @@ npm run test:coverage -- --coverageThreshold='{"global":{"lines":80}}'
 - [E2E Test Example](./testing-examples/e2e-test-example.spec.ts)
 
 **Related Documents**:
+
 - [Architectural Design](../ARCHITECTURAL_DESIGN.md)
 - [Implementation Plan](../IMPLEMENTATION_PLAN.md)
 - [API Specification](../API_SPECIFICATION.md)

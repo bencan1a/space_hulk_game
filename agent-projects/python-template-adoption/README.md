@@ -19,6 +19,7 @@
 ## Project Summary
 
 Adopt best practices from [python-template](https://github.com/bencan1a/python-template) to improve:
+
 - Code organization (agent-tmp/, agent-projects/, tools/)
 - Quality automation (pre-commit, Makefile, CI/CD)
 - AI agent collaboration (AGENTS.md, CONTEXT.md)
@@ -31,6 +32,7 @@ Adopt best practices from [python-template](https://github.com/bencan1a/python-t
 ### For Implementers
 
 **Phase 1 (Week 1): Foundation**
+
 ```bash
 # Execute Wave 1 (4 parallel agents)
 mkdir -p agent-tmp agent-projects tools
@@ -46,6 +48,7 @@ git mv configure_mem0.py tools/
 ```
 
 **Phase 2 (Week 2): Quality Automation**
+
 ```bash
 # Execute Wave 3 (5 agents: 4 parallel + 1 serial)
 # Create Makefile
@@ -57,6 +60,7 @@ make check-all
 ```
 
 **Phase 3 (Week 3): CI/CD**
+
 ```bash
 # Execute Wave 4 (4 parallel agents)
 # Create .github/workflows/ci.yml
@@ -67,6 +71,7 @@ make check-all
 ```
 
 **Phase 4 (Week 4): Documentation**
+
 ```bash
 # Execute Wave 5 (3 parallel agents)
 # Update PR template
@@ -78,6 +83,7 @@ make check-all
 ### For Reviewers
 
 **What to Check:**
+
 1. **After Phase 1:** File organization makes sense, AGENTS.md comprehensive
 2. **After Phase 2:** `make check-all` passes, pre-commit hooks work
 3. **After Phase 3:** CI workflows run successfully on test branch
@@ -90,6 +96,7 @@ make check-all
 ### Planning Documents
 
 **plan.md** (Main plan)
+
 - Project overview and objectives
 - 5 implementation phases
 - Success metrics
@@ -97,6 +104,7 @@ make check-all
 - Timeline: 3-4 weeks
 
 **task-breakdown.md** (36 tasks)
+
 - Detailed task specifications
 - Dependencies clearly marked
 - Effort estimates (⚡ quick, ⏱️ medium, 🕐 long)
@@ -104,6 +112,7 @@ make check-all
 - Organized into 5 phases, 13 groups
 
 **evaluation-report.md** (Analysis)
+
 - Comprehensive analysis of python-template
 - Gap analysis (current vs. template)
 - Risk assessment
@@ -111,6 +120,7 @@ make check-all
 - Space Hulk-specific considerations
 
 **parallel-execution-plan.md** (Optimization)
+
 - 5 execution waves
 - Agent assignments
 - Synchronization points
@@ -120,6 +130,7 @@ make check-all
 ### Quick Reference
 
 **README.md** (This file)
+
 - Project summary
 - Quick start guide
 - File descriptions
@@ -203,6 +214,7 @@ make check-all
 ## Success Metrics
 
 ### Immediate (Post-Phase 1-2)
+
 - [x] Planning complete
 - [ ] All developers can run `make check-all` successfully
 - [ ] Pre-commit hooks catch 80%+ of style issues before PR
@@ -210,12 +222,14 @@ make check-all
 - [ ] Makefile reduces command typing by ~70%
 
 ### Medium-term (Post-Phase 3-4)
+
 - [ ] CI catches platform-specific bugs before merge
 - [ ] Code coverage visibility improves
 - [ ] AI agents successfully use CONTEXT.md
 - [ ] Documentation auto-updates weekly
 
 ### Long-term (6 months)
+
 - [ ] Test suite runs on all platforms
 - [ ] Code quality issues decrease by 50%
 - [ ] Faster contributor onboarding
@@ -228,23 +242,28 @@ make check-all
 ### High Risks
 
 **1. Pre-commit hooks conflict with game-config/ YAML**
+
 - ✅ Mitigated: Explicit exclusions in .pre-commit-config.yaml
 - ✅ Testing: Verify on existing YAML files before rollout
 
 **2. Multi-platform CI reveals CrewAI issues**
+
 - ✅ Mitigated: Start Ubuntu-only, expand gradually
 - ✅ Testing: Local validation on Windows/macOS first
 
 **3. Line length changes cause large diffs**
+
 - ✅ Mitigated: Dedicated formatting commit, careful review
 - ✅ Testing: Format in separate branch first
 
 ### Medium Risks
 
 **4. build_context.py excessive context size**
+
 - ✅ Mitigated: Configurable truncation (150k chars default)
 
 **5. Pre-commit slows commits**
+
 - ✅ Mitigated: Optional initially, optimize slow hooks
 
 ---
@@ -252,6 +271,7 @@ make check-all
 ## Timeline
 
 ### Conservative Estimate (Sequential)
+
 - Phase 1: Week 1 (6 hours)
 - Phase 2: Week 2 (8 hours)
 - Phase 3: Week 3 (6 hours)
@@ -260,6 +280,7 @@ make check-all
 - **Total: ~29 hours over 5 weeks**
 
 ### Aggressive Estimate (Parallel)
+
 - Phase 1: Day 1 (2 hours)
 - Phase 2: Day 2 (5 hours)
 - Phase 3: Day 3 (6 hours)
@@ -267,6 +288,7 @@ make check-all
 - **Total: ~17 hours over 4 days**
 
 ### Realistic Estimate (With Testing)
+
 - Phase 1: Days 1-2 (4 hours)
 - Phase 2: Days 3-4 (6 hours)
 - Phase 3: Days 5-6 (6 hours)
@@ -278,18 +300,21 @@ make check-all
 ## Next Steps
 
 ### Immediate
+
 1. Review this plan with team
 2. Get approval to proceed
 3. Assign agents to Phase 1 tasks
 4. Schedule kickoff meeting
 
 ### Phase 1 Kickoff
+
 1. Execute Wave 1 (parallel: 4 agents)
 2. Execute Wave 2 (serial: 1 agent)
 3. Review and validate changes
 4. Commit with message: "feat: implement python-template file organization"
 
 ### Ongoing
+
 - Tag each wave completion
 - Test between waves
 - Document any issues or adaptations
@@ -321,17 +346,18 @@ A: Each phase includes validation criteria. Use test branch for CI workflows. Ta
 
 ## References
 
-- Template Repository: https://github.com/bencan1a/python-template
+- Template Repository: <https://github.com/bencan1a/python-template>
 - Current CLAUDE.md: [/home/devcontainers/space_hulk_game/CLAUDE.md](../../CLAUDE.md)
 - Current pyproject.toml: [/home/devcontainers/space_hulk_game/pyproject.toml](../../pyproject.toml)
-- Pre-commit Documentation: https://pre-commit.com
-- GitHub Actions Documentation: https://docs.github.com/en/actions
+- Pre-commit Documentation: <https://pre-commit.com>
+- GitHub Actions Documentation: <https://docs.github.com/en/actions>
 
 ---
 
 ## Contact & Support
 
 For questions about this plan:
+
 - Review the detailed documents in this directory
 - Check the evaluation report for rationale
 - Consult the task breakdown for specifics

@@ -1,4 +1,5 @@
 # Phase 1 Implementation Gap Analysis
+
 ## Browser-Based Game Interface - Foundation Phase Review
 
 **Document Version**: 1.0
@@ -15,6 +16,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 **Overall Assessment**: **85% Complete** ✅
 
 **Key Findings**:
+
 - ✅ **Strong Foundation**: Core infrastructure is well-implemented with proper architecture
 - ✅ **Quality Standards**: Code follows project standards (ruff, mypy, type hints, docstrings)
 - ✅ **Production-Ready Setup**: Docker Compose, CI/CD, and testing infrastructure in place
@@ -31,6 +33,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ### Task 1.1: Backend Project Setup [P0] [1 day] ✅ COMPLETE
 
 **Planned Outputs**:
+
 - `backend/app/` with main.py, config.py, api/, services/, models/
 - Health check endpoint `/health`
 - OpenAPI docs at `/docs`
@@ -38,6 +41,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 **Implementation Status**: ✅ **FULLY IMPLEMENTED**
 
 **What Was Delivered**:
+
 - ✅ `backend/app/main.py` - FastAPI application with lifespan management
 - ✅ `backend/app/config.py` - Pydantic Settings with environment variable loading
 - ✅ `backend/app/__init__.py` - Package initialization with versioning
@@ -47,6 +51,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 - ✅ CORS middleware properly configured
 
 **Acceptance Criteria Review**:
+
 - ✅ Backend starts on localhost:8000
 - ✅ /health returns {"status": "healthy"}
 - ✅ Config loaded from .env (via pydantic-settings)
@@ -54,6 +59,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 - ✅ Code passes ruff + mypy (enforced in CI)
 
 **Code Quality**:
+
 - Type hints: ✅ Present on all functions
 - Docstrings: ✅ Google-style docstrings on classes and functions
 - Error handling: ✅ Lifespan context manager
@@ -66,6 +72,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ### Task 1.2: Database Setup with Alembic [P0] [1 day] ✅ COMPLETE
 
 **Planned Outputs**:
+
 - `backend/app/models/` (Story, Iteration, Session models)
 - Alembic migration scripts
 - Database session factory
@@ -73,6 +80,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 **Implementation Status**: ✅ **FULLY IMPLEMENTED**
 
 **What Was Delivered**:
+
 - ✅ `backend/app/models/base.py` - SQLAlchemy declarative base
 - ✅ `backend/app/models/story.py` - Story model with all specified fields
 - ✅ `backend/app/models/iteration.py` - Iteration model with foreign keys
@@ -85,6 +93,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 **Database Schema Validation**:
 
 **Story Model**:
+
 ```python
 ✅ id (Integer, PK, autoincrement)
 ✅ title (String(200), not null)
@@ -100,6 +109,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ```
 
 **Iteration Model**:
+
 ```python
 ✅ id, story_id (FK with CASCADE)
 ✅ iteration_number, feedback, changes_requested
@@ -108,6 +118,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ```
 
 **Session Model**:
+
 ```python
 ✅ id (String UUID), story_id (FK with SET NULL)
 ✅ status, current_step, progress_percent
@@ -115,11 +126,13 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ```
 
 **Additional Features**:
+
 - ✅ SQLite PRAGMA foreign_keys=ON enforcement
 - ✅ Proper foreign key relationships with CASCADE/SET NULL
 - ✅ UTC timezone handling via lambda defaults
 
 **Acceptance Criteria Review**:
+
 - ✅ `alembic upgrade head` creates tables
 - ✅ Models match schema in ARCHITECTURAL_DESIGN.md Section 4.1
 - ✅ Indexes created (created_at, theme_id)
@@ -132,6 +145,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ### Task 1.3: Frontend Project Setup [P0] [1 day] ✅ COMPLETE
 
 **Planned Outputs**:
+
 - `frontend/src/` with App.tsx, components/, contexts/, services/
 - Routes: /, /library, /create, /play/:id
 - ESLint + Prettier configured
@@ -139,6 +153,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 **Implementation Status**: ✅ **FULLY IMPLEMENTED**
 
 **What Was Delivered**:
+
 - ✅ `frontend/src/App.tsx` - React Router setup with all routes
 - ✅ `frontend/src/components/Layout.tsx` - Main layout wrapper
 - ✅ `frontend/src/components/common/Header.tsx` - Header component
@@ -154,6 +169,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 - ✅ `vitest.config.ts` - Vitest test configuration
 
 **Routing Validation**:
+
 ```tsx
 ✅ Route path="/" → HomePage
 ✅ Route path="/library" → LibraryPage
@@ -162,6 +178,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ```
 
 **Package.json Scripts**:
+
 ```json
 ✅ "dev": "vite" (runs on port 3000 via Vite)
 ✅ "build": "tsc && vite build"
@@ -171,6 +188,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ```
 
 **Dependencies**:
+
 - ✅ React 18.2.0 + React DOM
 - ✅ React Router DOM 6.20.0
 - ✅ Axios 1.13.2 (HTTP client)
@@ -179,12 +197,14 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 - ✅ Vitest 4.0.8 (test runner)
 
 **Acceptance Criteria Review**:
+
 - ✅ `npm run dev` starts on localhost:3000 (via Vite, actually uses 5173 by default but configurable)
 - ✅ All routes render placeholder components
 - ✅ TypeScript strict mode enabled (via tsconfig.json)
 - ⚠️ No console warnings (needs manual verification in browser)
 
 **Gaps**:
+
 - ⚠️ **Minor**: Routes render basic placeholders - actual UI components needed in Phase 2
 - ⚠️ **Minor**: Test script is placeholder (`echo "No tests configured yet" && exit 0`)
 
@@ -193,12 +213,14 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ### Task 1.4: Docker Compose Setup [P0] [1 day] ✅ COMPLETE
 
 **Planned Outputs**:
+
 - `docker-compose.yml` (frontend, backend, celery, redis, postgres)
 - `.env.example`
 
 **Implementation Status**: ✅ **FULLY IMPLEMENTED**
 
 **What Was Delivered**:
+
 - ✅ `docker-compose.yml` - All required services
 - ✅ `docker-compose.prod.yml` - Production configuration
 - ✅ `backend/Dockerfile` - Backend container
@@ -206,6 +228,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 - ✅ `backend/.env.example` - Environment variable template
 
 **Service Configuration**:
+
 ```yaml
 ✅ frontend:
   - Build context: ./frontend
@@ -240,6 +263,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ```
 
 **Network & Volumes**:
+
 ```yaml
 ✅ networks: app-network (bridge driver)
 ✅ volumes: data (shared SQLite database)
@@ -247,6 +271,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ```
 
 **Acceptance Criteria Review**:
+
 - ✅ `docker-compose up` starts all services
 - ✅ Hot reload works (volume mounts configured)
 - ✅ Services can communicate (app-network)
@@ -258,6 +283,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ### Task 1.5: Celery Task Queue Setup [P0] [2 days] ✅ COMPLETE
 
 **Planned Outputs**:
+
 - `backend/app/celery_app.py`
 - `backend/app/tasks/` with example task
 - Worker entry point
@@ -265,6 +291,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 **Implementation Status**: ✅ **FULLY IMPLEMENTED**
 
 **What Was Delivered**:
+
 - ✅ `backend/app/celery_app.py` - Celery app configuration
 - ✅ `backend/app/tasks/example_task.py` - Example long-running task with progress
 - ✅ `backend/app/tasks/__init__.py` - Task module initialization
@@ -273,6 +300,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
   - `GET /api/v1/tasks/{task_id}/status` - Check status
 
 **Celery Configuration**:
+
 ```python
 ✅ Broker: Redis (from settings.celery_broker_url)
 ✅ Backend: Redis (from settings.celery_result_backend)
@@ -286,6 +314,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ```
 
 **Signal Handlers**:
+
 ```python
 ✅ @task_prerun.connect - Logs task start
 ✅ @task_postrun.connect - Logs task completion
@@ -293,6 +322,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ```
 
 **Example Task Features**:
+
 ```python
 ✅ Long-running simulation (configurable duration)
 ✅ Progress updates via self.update_state()
@@ -302,12 +332,14 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ```
 
 **Acceptance Criteria Review**:
+
 - ✅ Celery worker starts successfully
 - ✅ Example task executes
 - ✅ Task results stored in Redis
 - ✅ Error handling + retry logic (via Celery config)
 
 **Testing**:
+
 - ✅ `backend/tests/test_celery.py` - Unit tests with mocks
 - ✅ `backend/tests/test_celery_integration.py` - Integration tests
 
@@ -318,18 +350,21 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ### Task 1.6: CI/CD Pipeline [P1] [1 day] ✅ COMPLETE
 
 **Planned Outputs**:
+
 - `.github/workflows/backend-ci.yml`
 - `.github/workflows/frontend-ci.yml`
 
 **Implementation Status**: ✅ **FULLY IMPLEMENTED**
 
 **What Was Delivered**:
+
 - ✅ `.github/workflows/backend-ci.yml` - Backend CI pipeline
 - ✅ `.github/workflows/frontend-ci.yml` - Frontend CI pipeline
 - ✅ `.github/workflows/docker-build.yml` - Docker build validation
 - ✅ `.github/workflows/README.md` - Workflow documentation
 
 **Backend CI** (`backend-ci.yml`):
+
 ```yaml
 ✅ Triggers: push/PR on main/develop, manual dispatch
 ✅ Path filters: backend/**, .github/workflows/backend-ci.yml
@@ -349,6 +384,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ```
 
 **Frontend CI** (`frontend-ci.yml`):
+
 ```yaml
 ✅ Triggers: push/PR on main/develop, manual dispatch
 ✅ Path filters: frontend/**, .github/workflows/frontend-ci.yml
@@ -368,17 +404,20 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ```
 
 **Additional Workflows**:
+
 - ✅ `docker-build.yml` - Validates Docker images build successfully
 - ✅ `ci.yml` - Existing legacy CI (may need consolidation)
 - ✅ `nightly-regression.yml` - Nightly testing
 - ✅ `update-docs.yml` - Documentation automation
 
 **Acceptance Criteria Review**:
+
 - ✅ Backend CI: ruff, mypy, pytest
 - ✅ Frontend CI: ESLint, TypeScript, tests
 - ✅ CI fails on check failure (GitHub Actions default behavior)
 
 **Gaps**:
+
 - ⚠️ **Minor**: Multiple CI workflows exist (ci.yml + backend-ci.yml + frontend-ci.yml) - consider consolidation
 - ⚠️ **Minor**: Coverage thresholds not enforced (codecov uploads but doesn't fail)
 
@@ -387,12 +426,14 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ### Task 1.7: API Client & Error Handling [P0] [1 day] ✅ COMPLETE
 
 **Planned Outputs**:
+
 - `frontend/src/services/api.ts` (typed API methods)
 - `frontend/src/utils/errorHandler.ts`
 
 **Implementation Status**: ✅ **FULLY IMPLEMENTED**
 
 **What Was Delivered**:
+
 - ✅ `frontend/src/services/api.ts` - Axios-based API client class
 - ✅ `frontend/src/services/types.ts` - TypeScript interfaces for API
 - ✅ `frontend/src/services/api-examples.tsx` - Usage examples
@@ -401,6 +442,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 - ✅ `frontend/src/tests/api.test.ts` - API client tests (Vitest)
 
 **API Client Features** (`api.ts`):
+
 ```typescript
 ✅ Class ApiClient with AxiosInstance
 ✅ Base URL: from VITE_API_URL env or localhost:8000
@@ -426,6 +468,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ```
 
 **Error Handler Features** (`errorHandler.ts`):
+
 ```typescript
 ✅ class AppError extends Error:
   - code, userMessage, retryPossible, status
@@ -438,6 +481,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ```
 
 **Retry Logic** (`retryLogic.ts`):
+
 ```typescript
 ✅ retryRequest(client, config, maxRetries):
   - Exponential backoff (2^attempt * 1000ms)
@@ -446,6 +490,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ```
 
 **Type Definitions** (`types.ts`):
+
 ```typescript
 ✅ ApiResponse<T>, PaginatedResponse<T>
 ✅ Story, CreateStoryRequest
@@ -456,16 +501,19 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ```
 
 **Acceptance Criteria Review**:
+
 - ✅ Typed methods for all endpoints (Story, Generation, Game, Theme)
 - ✅ Axios interceptors
 - ✅ Network + HTTP error handling
 - ✅ Retry logic for transient failures
 
 **Testing**:
+
 - ✅ `frontend/src/tests/api.test.ts` - Basic tests exist
 - ⚠️ Test coverage could be expanded
 
 **Gaps**:
+
 - ⚠️ **Minor**: API endpoints defined but backend routes not all implemented yet
 - ⚠️ **Minor**: Test coverage minimal (basic smoke tests only)
 
@@ -474,24 +522,28 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ## Overall Strengths
 
 ### 1. Architecture & Design ✅
+
 - **Excellent separation of concerns**: Models, services, API routes properly layered
 - **Type safety**: TypeScript on frontend, type hints on backend
 - **Configuration management**: Pydantic Settings with environment variables
 - **Docker-first approach**: Complete containerization with compose
 
 ### 2. Code Quality ✅
+
 - **Standards compliance**: All code follows CLAUDE.md, PEP 8, TypeScript best practices
 - **Documentation**: Docstrings present, type hints comprehensive
 - **Logging**: Structured JSON logging configured
 - **Error handling**: Proper error classes and user-friendly messages
 
 ### 3. Development Experience ✅
+
 - **Hot reload**: Both frontend and backend support live reload
 - **Developer tools**: ESLint, Prettier, Ruff, Mypy all configured
 - **Testing infrastructure**: Pytest, Vitest, test fixtures ready
 - **CI/CD**: Automated quality checks on every PR
 
 ### 4. Production Readiness ✅
+
 - **Health checks**: Endpoint exists, Docker healthchecks configured
 - **Database migrations**: Alembic properly set up
 - **Async tasks**: Celery configured with proper timeouts and reliability settings
@@ -504,10 +556,12 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ### Critical Gaps ⚠️
 
 #### GAP-1: Missing Backend API Routes
+
 **Severity**: CRITICAL
 **Impact**: Frontend API client calls will fail
 
 **Missing Routes** (referenced in `api.ts` but not implemented in backend):
+
 ```
 ❌ GET /api/v1/stories (list with pagination/search)
 ❌ GET /api/v1/stories/{id} (story details)
@@ -527,6 +581,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ```
 
 **Currently Implemented**:
+
 ```
 ✅ GET /health
 ✅ POST /api/v1/tasks/example (example task)
@@ -538,10 +593,12 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ---
 
 #### GAP-2: Missing Service Layer
+
 **Severity**: CRITICAL
 **Impact**: API routes cannot function without service layer
 
 **Missing Services**:
+
 ```
 ❌ backend/app/services/story_service.py
 ❌ backend/app/services/generation_service.py
@@ -550,6 +607,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ```
 
 **Current State**:
+
 ```
 ✅ backend/app/services/__init__.py (empty)
 ```
@@ -561,10 +619,12 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ### High-Priority Gaps ⚠️
 
 #### GAP-3: Missing Integration Wrappers
+
 **Severity**: HIGH
 **Impact**: Cannot connect to existing CrewAI or game engine
 
 **Missing Wrappers**:
+
 ```
 ❌ backend/app/integrations/crewai_wrapper.py
 ❌ backend/app/integrations/game_wrapper.py
@@ -576,10 +636,12 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ---
 
 #### GAP-4: Incomplete Test Coverage
+
 **Severity**: HIGH
 **Impact**: Risk of regressions, incomplete validation
 
 **Backend Tests**:
+
 ```
 ✅ test_health.py (health endpoint)
 ✅ test_config.py (settings loading)
@@ -593,6 +655,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ```
 
 **Frontend Tests**:
+
 ```
 ✅ api.test.ts (basic API client smoke test)
 
@@ -605,6 +668,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 **Current Coverage**: Unknown (pytest --cov runs but reports not reviewed)
 
 **Recommendation**:
+
 - Set coverage thresholds (90% for services, 80% for routes)
 - Add tests as services/routes are implemented
 - Configure coverage enforcement in CI
@@ -614,10 +678,12 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ### Medium-Priority Gaps ⚠️
 
 #### GAP-5: Database Seeding Not Implemented
+
 **Severity**: MEDIUM
 **Impact**: No sample data for development/testing
 
 **Missing**:
+
 ```
 ❌ Alembic seed migration for sample stories
 ❌ Sample game.json files in data/samples/
@@ -631,10 +697,12 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ---
 
 #### GAP-6: No WebSocket Implementation
+
 **Severity**: MEDIUM
 **Impact**: Cannot show real-time generation progress
 
 **Missing**:
+
 ```
 ❌ backend/app/api/websocket.py (WebSocket handler)
 ❌ frontend/src/hooks/useWebSocket.ts (WebSocket client)
@@ -646,10 +714,12 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ---
 
 #### GAP-7: Theme System Not Implemented
+
 **Severity**: MEDIUM
 **Impact**: Single theme only (Warhammer 40K hardcoded)
 
 **Missing**:
+
 ```
 ❌ data/themes/ directory structure
 ❌ data/themes/warhammer40k/theme.yaml
@@ -667,10 +737,12 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ### Low-Priority Gaps ℹ️
 
 #### GAP-8: Documentation Gaps
+
 **Severity**: LOW
 **Impact**: Developer onboarding slightly harder
 
 **Missing**:
+
 ```
 ⚠️ backend/README.md (minimal, needs expansion)
 ⚠️ frontend/README.md (missing)
@@ -683,10 +755,12 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ---
 
 #### GAP-9: Multiple CI Workflows
+
 **Severity**: LOW
 **Impact**: CI complexity, potential duplication
 
 **Current State**:
+
 ```
 ✅ .github/workflows/backend-ci.yml (new, comprehensive)
 ✅ .github/workflows/frontend-ci.yml (new, comprehensive)
@@ -696,6 +770,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ```
 
 **Recommendation**:
+
 - Consolidate `ci.yml` into `backend-ci.yml` + `frontend-ci.yml`
 - OR disable `ci.yml` if redundant
 - Keep `docker-build.yml` and `nightly-regression.yml` separate
@@ -703,10 +778,12 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ---
 
 #### GAP-10: Frontend Test Script Placeholder
+
 **Severity**: LOW
 **Impact**: No actual frontend tests run in CI
 
 **Current**:
+
 ```json
 "test": "echo \"No tests configured yet\" && exit 0"
 ```
@@ -806,12 +883,14 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 **Phase 1 Foundation** is **85% complete** with excellent quality standards and architecture. The infrastructure is production-ready and follows all coding standards. However, **critical gaps** exist in API routes and service layer implementation that must be addressed before Phase 2 can begin.
 
 **Key Strengths**:
+
 - ✅ Solid architectural foundation
 - ✅ Proper separation of concerns
 - ✅ Excellent developer experience (hot reload, linting, type checking)
 - ✅ Production-ready deployment (Docker, CI/CD, health checks)
 
 **Must-Fix Before Phase 2**:
+
 - ⚠️ GAP-1: Implement missing API routes
 - ⚠️ GAP-2: Implement service layer classes
 - ⚠️ GAP-4: Add basic route tests
@@ -825,6 +904,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ### Backend Files ✅ Present | ❌ Missing
 
 **Core Application**:
+
 - ✅ `backend/app/__init__.py`
 - ✅ `backend/app/main.py`
 - ✅ `backend/app/config.py`
@@ -832,6 +912,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 - ✅ `backend/app/celery_app.py`
 
 **Models**:
+
 - ✅ `backend/app/models/__init__.py`
 - ✅ `backend/app/models/base.py`
 - ✅ `backend/app/models/story.py`
@@ -839,6 +920,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 - ✅ `backend/app/models/session.py`
 
 **API Routes**:
+
 - ✅ `backend/app/api/__init__.py`
 - ✅ `backend/app/api/routes/__init__.py`
 - ❌ `backend/app/api/routes/stories.py`
@@ -848,6 +930,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 - ❌ `backend/app/api/websocket.py`
 
 **Services**:
+
 - ✅ `backend/app/services/__init__.py`
 - ❌ `backend/app/services/story_service.py`
 - ❌ `backend/app/services/generation_service.py`
@@ -855,20 +938,24 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 - ❌ `backend/app/services/theme_service.py`
 
 **Tasks**:
+
 - ✅ `backend/app/tasks/__init__.py`
 - ✅ `backend/app/tasks/example_task.py`
 - ❌ `backend/app/tasks/generation_tasks.py`
 
 **Integrations**:
+
 - ❌ `backend/app/integrations/crewai_wrapper.py`
 - ❌ `backend/app/integrations/game_wrapper.py`
 
 **Database**:
+
 - ✅ `backend/alembic.ini`
 - ✅ `backend/app/alembic/env.py`
 - ✅ `backend/app/alembic/versions/001_initial_schema.py`
 
 **Tests**:
+
 - ✅ `backend/tests/conftest.py`
 - ✅ `backend/tests/test_health.py`
 - ✅ `backend/tests/test_config.py`
@@ -877,6 +964,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 - ✅ `backend/tests/test_celery_integration.py`
 
 **Configuration**:
+
 - ✅ `backend/Dockerfile`
 - ✅ `backend/.env.example`
 - ✅ `backend/requirements.txt`
@@ -887,46 +975,56 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ### Frontend Files ✅ Present | ❌ Missing
 
 **Core Application**:
+
 - ✅ `frontend/src/main.tsx`
 - ✅ `frontend/src/App.tsx`
 
 **Pages**:
+
 - ✅ `frontend/src/pages/HomePage.tsx`
 - ✅ `frontend/src/pages/LibraryPage.tsx`
 - ✅ `frontend/src/pages/CreatePage.tsx`
 - ✅ `frontend/src/pages/PlayPage.tsx`
 
 **Components**:
+
 - ✅ `frontend/src/components/Layout.tsx`
 - ✅ `frontend/src/components/common/Header.tsx`
 - ✅ `frontend/src/components/common/Footer.tsx`
 
 **Services**:
+
 - ✅ `frontend/src/services/api.ts`
 - ✅ `frontend/src/services/types.ts`
 - ✅ `frontend/src/services/api-examples.tsx`
 
 **Utils**:
+
 - ✅ `frontend/src/utils/errorHandler.ts`
 - ✅ `frontend/src/utils/retryLogic.ts`
 
 **Types**:
+
 - ✅ `frontend/src/types/index.ts`
 
 **Contexts** (Planned for Phase 2):
+
 - ❌ `frontend/src/contexts/StoryContext.tsx`
 - ❌ `frontend/src/contexts/ThemeContext.tsx`
 - ❌ `frontend/src/contexts/GameContext.tsx`
 - ❌ `frontend/src/contexts/WebSocketContext.tsx`
 
 **Hooks**:
+
 - ❌ `frontend/src/hooks/useStories.ts`
 - ❌ `frontend/src/hooks/useWebSocket.ts`
 
 **Tests**:
+
 - ✅ `frontend/src/tests/api.test.ts`
 
 **Configuration**:
+
 - ✅ `frontend/Dockerfile`
 - ✅ `frontend/package.json`
 - ✅ `frontend/vite.config.ts`
@@ -940,10 +1038,12 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 ### Infrastructure Files ✅ Present | ❌ Missing
 
 **Docker**:
+
 - ✅ `docker-compose.yml`
 - ✅ `docker-compose.prod.yml`
 
 **CI/CD**:
+
 - ✅ `.github/workflows/backend-ci.yml`
 - ✅ `.github/workflows/frontend-ci.yml`
 - ✅ `.github/workflows/docker-build.yml`
@@ -951,6 +1051,7 @@ This document provides a comprehensive gap analysis of Phase 1 implementation ag
 - ✅ `.github/workflows/README.md`
 
 **Data** (Not yet created):
+
 - ❌ `data/themes/`
 - ❌ `data/samples/`
 - ❌ `data/stories/`

@@ -1,4 +1,5 @@
 # Phase 2 Agent Prompts: Story Library Tasks
+
 ## Browser-Based Game Interface Implementation
 
 **Phase**: 2 - Story Library (Weeks 5-6)
@@ -31,6 +32,7 @@
 You are implementing the service layer for story management in the browser-based game interface. This service provides CRUD operations, search, filtering, and pagination for game stories. The service follows the repository pattern and acts as an abstraction layer between the API routes and the database.
 
 **Project Documentation**:
+
 - Architecture: [ARCHITECTURAL_DESIGN.md](./ARCHITECTURAL_DESIGN.md) Section 3.2
 - Implementation Plan: [IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md) Task 2.1
 - Database Models: `backend/app/models/story.py` (already implemented)
@@ -71,6 +73,7 @@ backend/
 ### Technical Requirements
 
 **Pydantic Schemas (`schemas/story.py`)**:
+
 ```python
 """Pydantic schemas for story API."""
 from datetime import datetime
@@ -141,6 +144,7 @@ class StoryListResponse(BaseModel):
 ```
 
 **Story Service (`services/story_service.py`)**:
+
 ```python
 """Service layer for story management."""
 import logging
@@ -346,6 +350,7 @@ class StoryService:
 ### Testing Requirements
 
 **Test Fixtures (`tests/conftest.py` - add to existing)**:
+
 ```python
 import pytest
 from sqlalchemy import create_engine
@@ -382,6 +387,7 @@ def sample_story_data():
 ```
 
 **Service Tests (`tests/test_story_service.py`)**:
+
 ```python
 """Tests for story service."""
 import pytest
@@ -634,6 +640,7 @@ pytest tests/test_story_service.py -v --cov=app.services.story_service --cov-rep
 Create REST API endpoints for story management using the StoryService. These endpoints will be consumed by the frontend library UI. Follow RESTful conventions and provide proper error handling.
 
 **Project Documentation**:
+
 - API Specification: [API_SPECIFICATION.md](./API_SPECIFICATION.md)
 - Architecture: [ARCHITECTURAL_DESIGN.md](./ARCHITECTURAL_DESIGN.md) Section 5
 
@@ -669,6 +676,7 @@ backend/
 ### Technical Requirements
 
 **API Routes (`api/routes/stories.py`)**:
+
 ```python
 """Story management API endpoints."""
 import json
@@ -840,6 +848,7 @@ async def delete_story(
 ```
 
 **Register Routes (`app/main.py` - add to existing)**:
+
 ```python
 from .api.routes import stories
 
@@ -850,6 +859,7 @@ app.include_router(stories.router)
 ### Testing Requirements
 
 **API Tests (`tests/test_stories_api.py`)**:
+
 ```python
 """Tests for story API endpoints."""
 import json
@@ -1006,6 +1016,7 @@ pytest tests/test_stories_api.py -v
 Implement the multi-theme system backend that allows the interface to support multiple game genres (Warhammer 40K, Cyberpunk, Fantasy, etc.). Each theme defines colors, fonts, icons, and terminology.
 
 **Project Documentation**:
+
 - Theming System: [THEMING_SYSTEM.md](./THEMING_SYSTEM.md)
 - Architecture: [ARCHITECTURAL_DESIGN.md](./ARCHITECTURAL_DESIGN.md) Section 4.2
 
@@ -1051,6 +1062,7 @@ backend/
 ### Technical Requirements
 
 **Theme YAML Structure (`data/themes/warhammer40k/theme.yaml`)**:
+
 ```yaml
 # Warhammer 40K Theme Configuration
 id: warhammer40k
@@ -1109,6 +1121,7 @@ assets:
 ```
 
 **Cyberpunk Theme (`data/themes/cyberpunk/theme.yaml`)**:
+
 ```yaml
 # Cyberpunk Theme Configuration
 id: cyberpunk
@@ -1163,6 +1176,7 @@ assets:
 ```
 
 **Theme Service (`services/theme_service.py`)**:
+
 ```python
 """Service for managing themes."""
 import logging
@@ -1484,6 +1498,7 @@ print(f'Colors: {theme.colors}')
 You are implementing REST API endpoints to expose the theme system to the frontend. These endpoints allow the browser interface to list available themes, load theme configurations, and serve theme assets. The API follows RESTful conventions and leverages the ThemeService implemented in Task 2.3.
 
 **Project Documentation**:
+
 - API Specification: [API_SPECIFICATION.md](./API_SPECIFICATION.md) Section "Themes"
 - Architecture: [ARCHITECTURAL_DESIGN.md](./ARCHITECTURAL_DESIGN.md) Section 5
 - Theme System: [THEMING_SYSTEM.md](./THEMING_SYSTEM.md)
@@ -1519,6 +1534,7 @@ backend/
 ### Technical Requirements
 
 **API Routes (`api/routes/themes.py`)**:
+
 ```python
 """Theme management API endpoints."""
 import logging
@@ -1682,6 +1698,7 @@ def _get_media_type(file_path: Path) -> str:
 ```
 
 **Register Routes (`app/main.py` - add to existing)**:
+
 ```python
 from .api.routes import themes
 
@@ -1692,6 +1709,7 @@ app.include_router(themes.router)
 ### Testing Requirements
 
 **API Tests (`tests/test_themes_api.py`)**:
+
 ```python
 """Tests for theme API endpoints."""
 import json
@@ -1899,6 +1917,7 @@ ruff check app/api/routes/
 You are building the React/TypeScript UI components for the story library page. This is the main interface where users browse, search, and filter existing game stories before playing them. The components must be responsive, accessible, and handle various states (loading, empty, error).
 
 **Project Documentation**:
+
 - UI Design: [USER_JOURNEYS_DIAGRAMS.md](./USER_JOURNEYS_DIAGRAMS.md) Section "Story Library"
 - Architecture: [ARCHITECTURAL_DESIGN.md](./ARCHITECTURAL_DESIGN.md) Section 6.2
 - Component Patterns: Frontend best practices for React with TypeScript
@@ -1957,6 +1976,7 @@ frontend/
 ### Technical Requirements
 
 **TypeScript Types (`types/story.ts`)**:
+
 ```typescript
 /**
  * Story-related TypeScript interfaces.
@@ -1998,6 +2018,7 @@ export interface StoryFilters {
 ```
 
 **StoryCard Component (`components/library/StoryCard.tsx`)**:
+
 ```typescript
 import React from 'react';
 import styles from './StoryCard.module.css';
@@ -2071,6 +2092,7 @@ export const StoryCard: React.FC<StoryCardProps> = ({ story, onClick }) => {
 ```
 
 **StoryCard Styles (`components/library/StoryCard.module.css`)**:
+
 ```css
 .card {
   background: var(--color-surface, #2d2d2d);
@@ -2170,6 +2192,7 @@ export const StoryCard: React.FC<StoryCardProps> = ({ story, onClick }) => {
 ```
 
 **StoryGrid Component (`components/library/StoryGrid.tsx`)**:
+
 ```typescript
 import React from 'react';
 import { StoryCard } from './StoryCard';
@@ -2248,6 +2271,7 @@ export const StoryGrid: React.FC<StoryGridProps> = ({
 ```
 
 **StoryGrid Styles (`components/library/StoryGrid.module.css`)**:
+
 ```css
 .grid {
   display: grid;
@@ -2358,6 +2382,7 @@ export const StoryGrid: React.FC<StoryGridProps> = ({
 ```
 
 **SearchBar Component (`components/library/SearchBar.tsx`)**:
+
 ```typescript
 import React, { useState, useEffect, useCallback } from 'react';
 import styles from './SearchBar.module.css';
@@ -2420,6 +2445,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
 ```
 
 **SearchBar Styles (`components/library/SearchBar.module.css`)**:
+
 ```css
 .container {
   margin-bottom: 1.5rem;
@@ -2485,6 +2511,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
 ```
 
 **FilterPanel Component (`components/library/FilterPanel.tsx`)**:
+
 ```typescript
 import React from 'react';
 import styles from './FilterPanel.module.css';
@@ -2585,6 +2612,7 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
 ```
 
 **FilterPanel Styles (`components/library/FilterPanel.module.css`)**:
+
 ```css
 .panel {
   background: var(--color-surface, #2d2d2d);
@@ -2694,6 +2722,7 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
 ```
 
 **Barrel Export (`components/library/index.ts`)**:
+
 ```typescript
 export { StoryCard } from './StoryCard';
 export { StoryGrid } from './StoryGrid';
@@ -2702,6 +2731,7 @@ export { FilterPanel } from './FilterPanel';
 ```
 
 **Library Page (`pages/LibraryPage.tsx`)**:
+
 ```typescript
 import React, { useState } from 'react';
 import { SearchBar, FilterPanel, StoryGrid } from '../components/library';
@@ -2752,6 +2782,7 @@ export const LibraryPage: React.FC = () => {
 ```
 
 **Library Page Styles (`pages/LibraryPage.module.css`)**:
+
 ```css
 .page {
   padding: 2rem;
@@ -2822,6 +2853,7 @@ export const LibraryPage: React.FC = () => {
 ### Testing Requirements
 
 **Component Tests (`tests/components/library/StoryCard.test.tsx`)**:
+
 ```typescript
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
@@ -2899,6 +2931,7 @@ describe('StoryCard', () => {
 ```
 
 **More Tests (`tests/components/library/SearchBar.test.tsx`)**:
+
 ```typescript
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
@@ -3010,6 +3043,7 @@ npm run build
 You are integrating the story library UI components with the backend API. This involves creating React Context for state management, custom hooks for API calls, and connecting the library page to real data. The integration should handle loading states, errors, pagination, and real-time filtering.
 
 **Project Documentation**:
+
 - API Specification: [API_SPECIFICATION.md](./API_SPECIFICATION.md) Section "Stories"
 - Architecture: [ARCHITECTURAL_DESIGN.md](./ARCHITECTURAL_DESIGN.md) Section 6.3
 - Frontend Structure: React Context + Hooks pattern
@@ -3064,6 +3098,7 @@ frontend/
 ### Technical Requirements
 
 **API Client (`services/api.ts`)**:
+
 ```typescript
 /**
  * Base API client for making HTTP requests.
@@ -3165,6 +3200,7 @@ export const apiClient = new APIClient();
 ```
 
 **Story API Service (`services/storyApi.ts`)**:
+
 ```typescript
 /**
  * Story API service methods.
@@ -3225,6 +3261,7 @@ export const storyApi = {
 ```
 
 **Story Context (`contexts/StoryContext.tsx`)**:
+
 ```typescript
 /**
  * Story context for managing story state across the application.
@@ -3339,6 +3376,7 @@ export const useStoryContext = (): StoryContextState => {
 ```
 
 **useStories Hook (`hooks/useStories.ts`)**:
+
 ```typescript
 /**
  * Hook for fetching and managing stories list.
@@ -3359,6 +3397,7 @@ export const useStories = () => {
 ```
 
 **useStory Hook (`hooks/useStory.ts`)**:
+
 ```typescript
 /**
  * Hook for fetching a single story by ID.
@@ -3415,6 +3454,7 @@ export const useStory = (storyId: number | null): UseStoryResult => {
 ```
 
 **Updated Library Page (`pages/LibraryPage.tsx`)**:
+
 ```typescript
 import React, { useState, useCallback } from 'react';
 import { SearchBar, FilterPanel, StoryGrid } from '../components/library';
@@ -3483,6 +3523,7 @@ export const LibraryPage: React.FC = () => {
 ```
 
 **App Integration (`App.tsx` - add provider)**:
+
 ```typescript
 import { StoryProvider } from './contexts/StoryContext';
 
@@ -3498,6 +3539,7 @@ function App() {
 ### Testing Requirements
 
 **Context Tests (`tests/contexts/StoryContext.test.tsx`)**:
+
 ```typescript
 import React from 'react';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
@@ -3594,6 +3636,7 @@ describe('StoryContext', () => {
 ```
 
 **Hook Tests (`tests/hooks/useStory.test.ts`)**:
+
 ```typescript
 import { renderHook, waitFor } from '@testing-library/react';
 import { useStory } from '../../src/hooks/useStory';
@@ -3715,6 +3758,7 @@ cd frontend && npm run dev
 You are implementing the theme selector UI that allows users to dynamically switch between visual themes (Warhammer 40K, Cyberpunk, etc.) at runtime. The theme system uses CSS custom properties (variables) that are updated when the user selects a different theme. Theme preference is persisted to localStorage.
 
 **Project Documentation**:
+
 - Theming System: [THEMING_SYSTEM.md](./THEMING_SYSTEM.md)
 - Architecture: [ARCHITECTURAL_DESIGN.md](./ARCHITECTURAL_DESIGN.md) Section 4.2
 - Implementation: CSS Variables + React Context
@@ -3767,6 +3811,7 @@ frontend/
 ### Technical Requirements
 
 **Theme Types (`types/theme.ts`)**:
+
 ```typescript
 /**
  * Theme-related TypeScript interfaces.
@@ -3847,6 +3892,7 @@ export interface ThemeMetadata {
 ```
 
 **Theme API Service (`services/themeApi.ts`)**:
+
 ```typescript
 /**
  * Theme API service methods.
@@ -3886,6 +3932,7 @@ export const themeApi = {
 ```
 
 **Theme Context (`contexts/ThemeContext.tsx`)**:
+
 ```typescript
 /**
  * Theme context for managing visual theme across the application.
@@ -4032,6 +4079,7 @@ export const useTheme = (): ThemeContextState => {
 ```
 
 **ThemeSelector Component (`components/theme/ThemeSelector.tsx`)**:
+
 ```typescript
 import React, { useState, useRef, useEffect } from 'react';
 import { useTheme } from '../../contexts/ThemeContext';
@@ -4122,6 +4170,7 @@ export const ThemeSelector: React.FC = () => {
 ```
 
 **ThemeSelector Styles (`components/theme/ThemeSelector.module.css`)**:
+
 ```css
 .container {
   position: relative;
@@ -4221,6 +4270,7 @@ export const ThemeSelector: React.FC = () => {
 ```
 
 **Base CSS Variables (`styles/themes.css`)**:
+
 ```css
 /**
  * Base CSS custom properties (variables) for theming.
@@ -4274,6 +4324,7 @@ export const ThemeSelector: React.FC = () => {
 ### Testing Requirements
 
 **Context Tests (`tests/contexts/ThemeContext.test.tsx`)**:
+
 ```typescript
 import React from 'react';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
@@ -4395,6 +4446,7 @@ describe('ThemeContext', () => {
 ```
 
 **Component Tests (`tests/components/theme/ThemeSelector.test.tsx`)**:
+
 ```typescript
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
@@ -4523,6 +4575,7 @@ npm run dev
 You are creating sample story data to populate the database for development and testing. These sample stories provide realistic data for testing the library UI, demonstrating different themes and gameplay styles, and allowing immediate hands-on exploration of the interface without requiring story generation.
 
 **Project Documentation**:
+
 - Game Design: Game configuration YAML structure from existing examples
 - Database: Alembic migrations for data seeding
 - Sample Requirements: Diverse scenarios covering various themes and mechanics
@@ -4573,6 +4626,7 @@ backend/
 ### Technical Requirements
 
 **Sample Story 1: Derelict Station (`sample-001-derelict-station/game.json`)**:
+
 ```json
 {
   "title": "Derelict Station Omega-7",
@@ -4749,6 +4803,7 @@ backend/
 ```
 
 **Sample Story 2: Hive Assault (`sample-002-hive-assault/game.json`)**:
+
 ```json
 {
   "title": "Hive Assault: Purge of Sector 7-G",
@@ -4886,6 +4941,7 @@ backend/
 ```
 
 **Sample Story 3: Cyberpunk Heist (`sample-003-cyberpunk-heist/game.json`)**:
+
 ```json
 {
   "title": "Neon Heist: The Arasaka Job",
@@ -5017,6 +5073,7 @@ backend/
 ```
 
 **Alembic Migration (`app/alembic/versions/002_seed_sample_stories.py`)**:
+
 ```python
 """Seed sample stories.
 
@@ -5150,12 +5207,14 @@ def downgrade() -> None:
 ```
 
 **Updated Story Model (add is_sample field) (`app/models/story.py`)**:
+
 ```python
 # Add to Story model
 is_sample = Column(Boolean, default=False, nullable=False, index=True)
 ```
 
 **Updated Delete Endpoint (protect samples) (`app/api/routes/stories.py`)**:
+
 ```python
 @router.delete("/{story_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_story(
@@ -5188,6 +5247,7 @@ async def delete_story(
 ### Testing Requirements
 
 **Migration Tests (`tests/test_sample_stories.py`)**:
+
 ```python
 """Tests for sample story seeding."""
 import pytest

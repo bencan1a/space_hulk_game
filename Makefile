@@ -1,4 +1,4 @@
-.PHONY: help install install-dev dev test test-real-api coverage lint format format-check format-frontend format-check-frontend type-check type-check-pre-commit security security-report check-yaml check check-all fix lint-files format-files format-frontend-files type-check-files security-files check-yaml-files fix-files run-crew validate-api validate-config clean
+.PHONY: help install install-dev dev test test-real-api coverage lint format format-check format-frontend format-check-frontend type-check type-check-pre-commit security security-report check-yaml check-markdown check fix lint-files format-files format-frontend-files type-check-files security-files check-yaml-files check-markdown-files fix-files run-crew validate-api validate-config clean
 
 help:
 	@echo "Space Hulk Game - Development Commands"
@@ -23,9 +23,9 @@ help:
 	@echo "  make security             - Execute Bandit security scanning"
 	@echo "  make security-report      - Generate JSON security report (for CI)"
 	@echo "  make check-yaml           - Validate YAML files with yamllint"
-	@echo "  make check                - Run core checks before commit (lint, type, test)"
-	@echo "  make check-all            - Run all checks sequentially"
-	@echo "  make fix                  - Auto-fix linting issues and reformat"
+	@echo "  make check-markdown       - Validate and auto-fix Markdown files"
+	@echo "  make check                - Run all quality checks (auto-fix, lint, type, security, yaml, markdown, test)"
+	@echo "  make fix                  - Auto-fix linting issues and reformat code"
 	@echo ""
 	@echo "CrewAI Specific:"
 	@echo "  make run-crew        - Run CrewAI crew"
@@ -95,16 +95,20 @@ security-report:
 check-yaml:
 	yamllint .
 
-check: lint type-check test
-	@echo "✅ Core checks passed! (lint, type-check, test)"
+check-markdown:
+	@command -v markdownlint >/dev/null 2>&1 && markdownlint --fix "**/*.md" --ignore "**/node_modules/**" --ignore "**/.venv/**" --ignore ".venv/**" || echo "⚠️  Skipping markdown check (markdownlint not installed)"
 
-check-all: format lint format-check-frontend type-check security check-yaml test
-	@echo "✅ All checks passed!"
+check: fix check-yaml check-markdown type-check security test
+	@echo "✅ All checks passed! (format, lint, type-check, security, yaml, markdown, test)"
 
 fix:
 	ruff check --fix .
 	ruff format .
-	@command -v npm >/dev/null 2>&1 && cd frontend && npm run format || echo "Skipping frontend format (npm not available)"
+	@if [ -d "frontend" ] && command -v npm >/dev/null 2>&1; then \
+		cd frontend && npm run format 2>/dev/null || echo "⚠️  Skipping frontend format (dependencies not installed)"; \
+	else \
+		echo "⚠️  Skipping frontend format (frontend dir or npm not available)"; \
+	fi
 	@echo "✅ Code fixed and formatted!"
 
 # Code Quality - File-specific targets (for pre-commit hooks)
@@ -149,6 +153,13 @@ check-yaml-files:
 		yamllint $(FILES); \
 	else \
 		yamllint .; \
+	fi
+
+check-markdown-files:
+	@if [ -n "$(FILES)" ]; then \
+		command -v markdownlint >/dev/null 2>&1 && markdownlint --fix $(FILES) || echo "⚠️  Skipping markdown check (markdownlint not installed)"; \
+	else \
+		command -v markdownlint >/dev/null 2>&1 && markdownlint --fix "**/*.md" --ignore "**/node_modules/**" --ignore "**/.venv/**" --ignore ".venv/**" || echo "⚠️  Skipping markdown check (markdownlint not installed)"; \
 	fi
 
 fix-files:

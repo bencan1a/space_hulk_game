@@ -13,6 +13,7 @@ Test and fix in stages, from simplest to most complex.
 ## Prerequisites
 
 1. **Ollama running:**
+
    ```bash
    ollama list  # Check Ollama is installed
    ollama pull qwen2.5  # Ensure model is available
@@ -21,6 +22,7 @@ Test and fix in stages, from simplest to most complex.
 
 2. **Environment configured:**
    Create `.env` file:
+
    ```
    OPENAI_MODEL_NAME=ollama/qwen2.5
    OPENAI_API_BASE=http://localhost:11434
@@ -28,6 +30,7 @@ Test and fix in stages, from simplest to most complex.
    ```
 
 3. **Dependencies installed:**
+
    ```bash
    crewai install
    ```
@@ -41,6 +44,7 @@ Test and fix in stages, from simplest to most complex.
 **Steps:**
 
 1. **Switch to sequential crew:**
+
    ```bash
    # Backup current crew
    mv src/space_hulk_game/crew.py src/space_hulk_game/crew_hierarchical.py
@@ -50,6 +54,7 @@ Test and fix in stages, from simplest to most complex.
    ```
 
 2. **Run test:**
+
    ```bash
    python test_crew_generation.py --mode sequential --timeout 600
    ```
@@ -75,11 +80,13 @@ Test and fix in stages, from simplest to most complex.
 **Steps:**
 
 1. **Restore hierarchical crew:**
+
    ```bash
    mv src/space_hulk_game/crew_hierarchical.py src/space_hulk_game/crew.py
    ```
 
 2. **Run test with monitoring:**
+
    ```bash
    # In terminal 1: Watch logs
    tail -f run_log.txt
@@ -109,6 +116,7 @@ Test and fix in stages, from simplest to most complex.
 **Symptoms:** Hangs immediately, no tasks start
 
 **Fix:** Try larger model for manager
+
 ```python
 # In crew.py __init__:
 self.manager_llm = LLM(
@@ -131,6 +139,7 @@ return Crew(
 **Symptoms:** Hangs after first few tasks
 
 **Fix:** Simplify dependencies
+
 ```python
 # Remove complex evaluation tasks temporarily
 @crew
@@ -164,6 +173,7 @@ def crew(self) -> Crew:
 **Symptoms:** Long pauses, eventually fails
 
 **Fix:** Increase timeouts or use faster model
+
 ```python
 self.llm = LLM(
     model="ollama/qwen2.5:7b",  # Smaller = faster
@@ -188,6 +198,7 @@ done
 ```
 
 **Success Criteria:**
+
 - ✅ 3/3 runs complete successfully
 - ✅ All 5 outputs generated each time
 - ✅ Completes in < 10 minutes
@@ -200,17 +211,20 @@ done
 If hierarchical continues to be problematic, **sequential mode is a valid solution**:
 
 **Advantages:**
+
 - ✅ Proven to work
 - ✅ Simpler, more predictable
 - ✅ Easier to debug
 - ✅ Still generates all outputs
 
 **Disadvantages:**
+
 - ⚠️ No central quality oversight
 - ⚠️ No automatic iteration/refinement
 - ⚠️ Less sophisticated coordination
 
 **To use permanently:**
+
 ```bash
 # Keep sequential version
 cp crew_sequential.py src/space_hulk_game/crew.py
@@ -248,6 +262,7 @@ Once the crew reliably generates outputs:
 ## Getting Help
 
 If stuck, provide:
+
 1. Which test failed (sequential or hierarchical)
 2. Where it hung (last log message)
 3. Error messages (if any)

@@ -88,28 +88,33 @@ See **[THEMING_SYSTEM.md](./THEMING_SYSTEM.md)** for complete details on multi-g
 ## 🚀 Reading Guide by Audience
 
 ### Product Owners & Stakeholders
+
 1. **Start**: [ARCHITECTURE_WEB_INTERFACE.md](./ARCHITECTURE_WEB_INTERFACE.md) - High-level overview (3-4 pages)
 2. **Then**: [PRD_WEB_INTERFACE.md](./PRD_WEB_INTERFACE.md) - Product requirements and user stories
 3. **Visual**: [USER_JOURNEYS_DIAGRAMS.md](./USER_JOURNEYS_DIAGRAMS.md) - User flows
 
 ### Engineering Leads
+
 1. **Start**: [ARCHITECTURE_WEB_INTERFACE.md](./ARCHITECTURE_WEB_INTERFACE.md) - High-level overview
 2. **Then**: [ARCHITECTURAL_DESIGN.md](./ARCHITECTURAL_DESIGN.md) - Comprehensive technical details
 3. **Reference**: [API_SPECIFICATION.md](./API_SPECIFICATION.md) - Complete API reference
 
 ### Developers (Implementation)
+
 1. **Start**: [ARCHITECTURE_WEB_INTERFACE.md](./ARCHITECTURE_WEB_INTERFACE.md) - High-level overview
 2. **Plan**: [IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md) - Task breakdown and phases
 3. **Details**: [ARCHITECTURAL_DESIGN.md](./ARCHITECTURAL_DESIGN.md) - Code examples and patterns
 4. **API**: [API_SPECIFICATION.md](./API_SPECIFICATION.md) - Endpoint specifications
 
 ### Designers & UX
+
 1. **Start**: [ARCHITECTURE_WEB_INTERFACE.md](./ARCHITECTURE_WEB_INTERFACE.md) - High-level overview
 2. **Requirements**: [PRD_WEB_INTERFACE.md](./PRD_WEB_INTERFACE.md) - User stories and personas
 3. **Theming**: [THEMING_SYSTEM.md](./THEMING_SYSTEM.md) - Multi-genre visual architecture
 4. **Flows**: [USER_JOURNEYS_DIAGRAMS.md](./USER_JOURNEYS_DIAGRAMS.md) - User journey maps
 
 ### All Team Members
+
 1. **Quick Start**: [SUMMARY.md](./SUMMARY.md) - Executive summary
 2. **Overview**: [ARCHITECTURE_WEB_INTERFACE.md](./ARCHITECTURE_WEB_INTERFACE.md) - High-level architecture
 3. **Visual**: [USER_JOURNEYS_DIAGRAMS.md](./USER_JOURNEYS_DIAGRAMS.md) - Flowcharts and diagrams
@@ -149,6 +154,7 @@ See **[THEMING_SYSTEM.md](./THEMING_SYSTEM.md)** for complete details on multi-g
 ## ⚠️ Important Notes
 
 ### Theme System
+
 - **All visual styles and UI labels are configurable**
 - Warhammer 40K is the default, not the only option
 - Adding new themes requires only configuration files, no code changes
@@ -156,12 +162,14 @@ See **[THEMING_SYSTEM.md](./THEMING_SYSTEM.md)** for complete details on multi-g
 - Users can select theme during story creation
 
 ### Backward Compatibility
+
 - CLI interface remains fully functional
 - Existing games work in both CLI and web
 - No changes to CrewAI agents or game engine
 - JSON format maintained
 
 ### Out of Scope (MVP)
+
 - User authentication (future Phase 2)
 - Community sharing (future Phase 2-3)
 - Mobile optimization (future Phase 3)
@@ -170,6 +178,7 @@ See **[THEMING_SYSTEM.md](./THEMING_SYSTEM.md)** for complete details on multi-g
 ## 📞 Questions?
 
 For questions about this documentation:
+
 1. Check [WEB_INTERFACE_OVERVIEW.md](./WEB_INTERFACE_OVERVIEW.md) for navigation
 2. See specific documents for detailed information
 3. Contact project leads or raise GitHub issue

@@ -24,6 +24,7 @@ This master plan unifies all restart planning documents into a single, actionabl
 ### ✅ Completed Work
 
 **Phase 0 Foundation (Weeks 1-2 of original plan)**
+
 - [x] Sequential mode set as default in [crew.py](../src/space_hulk_game/crew.py)
 - [x] Hierarchical mode available via `create_hierarchical_crew()` method
 - [x] Memory and planning features disabled by default
@@ -34,6 +35,7 @@ This master plan unifies all restart planning documents into a single, actionabl
 - [x] Basic test suite exists (19 tests, some passing)
 
 **Phase 1 (Syntax & Bug Fixes) - COMPLETED MARCH 2025** ✅
+
 - [x] YAML configuration files syntax validated
 - [x] Input validation with default fallbacks
 - [x] Error recovery mechanisms in place
@@ -42,6 +44,7 @@ This master plan unifies all restart planning documents into a single, actionabl
 - **Evidence:** Code exists in [crew.py](../../src/space_hulk_game/crew.py) lines 119-189
 
 **Phase 2 (Hierarchical Structure) - COMPLETED MARCH 2025** ✅
+
 - [x] NarrativeDirectorAgent defined
 - [x] Evaluation tasks created for narrative integration
 - [x] Task dependency structure established
@@ -53,6 +56,7 @@ This master plan unifies all restart planning documents into a single, actionabl
 ### ⚠️ In Progress
 
 **Phase 0 Validation (Current Focus)**
+
 - [ ] Sequential mode end-to-end test (5 core tasks)
 - [ ] Sequential mode end-to-end test (all 11 tasks)
 - [ ] Hierarchical mode validation
@@ -74,6 +78,7 @@ This master plan unifies all restart planning documents into a single, actionabl
 ### Serial Dependencies (Must Complete in Order)
 
 **Critical Path:**
+
 ```
 Phase 0 Validation (BLOCKING)
    ↓
@@ -113,6 +118,7 @@ MVP Complete
 | B | Phase 6 (Memory System) | Independent of game engine |
 
 **Within Phase 3 (Quality System):**
+
 - Chunk 3.1 (Metrics) → SERIAL (first)
 - Chunks 3.2-3.4 → CAN PARALLELIZE after 3.1
   - 3.2 (Evaluators) - Depends on 3.1
@@ -120,6 +126,7 @@ MVP Complete
   - 3.4 (Planning Templates) - INDEPENDENT, can run anytime
 
 **Within Phase 4 (Game Engine):**
+
 - Chunks 4.1-4.6 → MOSTLY SERIAL
   - 4.1 (Game State) → First (SERIAL)
   - 4.2 (Command Parser) → After 4.1 (SERIAL)
@@ -129,23 +136,28 @@ MVP Complete
   - 4.6 (Demo & Integration) → After 4.5 (SERIAL)
 
 **Within Phase 5 (Output Validation):**
+
 - All chunks SERIAL (each builds on previous)
 
 **Within Phase 6 (Memory System):**
+
 - Chunks 6.1-6.2 → SERIAL
 - Chunks 6.3-6.4 → Can PARALLELIZE after 6.2
 
 **Within Phase 7 (Production Polish):**
+
 - Chunks 7.1-7.4 → CAN PARALLELIZE (all independent)
 
 ### Recommended Execution Plan
 
 **Week 1 (This Week):**
+
 ```
 SERIAL: Phase 0 Chunks 0.1 → 0.2 → 0.3
 ```
 
 **Weeks 2-3 (If Phase 0 passes):**
+
 ```
 PARALLEL:
 ├─ Track A: Phase 4 Chunks 4.1 → 4.2 → 4.3 (Critical)
@@ -153,6 +165,7 @@ PARALLEL:
 ```
 
 **Weeks 4-5:**
+
 ```
 PARALLEL:
 ├─ Track A: Phase 4 Chunks 4.4 → 4.5 → 4.6 (Complete game engine)
@@ -160,12 +173,14 @@ PARALLEL:
 ```
 
 **Weeks 6-7:**
+
 ```
 SERIAL (requires Phase 4 complete):
 Phase 5 Chunks 5.1 → 5.2 → 5.3 → 5.4
 ```
 
 **Weeks 8-9:**
+
 ```
 PARALLEL:
 ├─ Phase 6 Chunks 6.1 → 6.2 → 6.3 → 6.4
@@ -173,6 +188,7 @@ PARALLEL:
 ```
 
 **Week 10:**
+
 ```
 PARALLEL: Phase 7 Chunks 7.1, 7.3, 7.4 (all independent)
 ```
@@ -192,6 +208,7 @@ Each chunk is marked with an indicator showing its execution requirements:
 | 🟢 PARALLEL - INDEPENDENT | Fully independent, maximum parallelism | After prerequisites | No dependencies within phase |
 
 **Quick Reference:**
+
 - 🔴 = Must complete in order (serial)
 - 🟡 = Optional serial task
 - 🟠 = Can parallelize with planning
@@ -202,31 +219,37 @@ Each chunk is marked with an indicator showing its execution requirements:
 If you have multiple agents available simultaneously:
 
 **Immediate (After Phase 0):**
+
 - Agent 1: Phase 4.1 → 4.2 → 4.3 (Game Engine Core) - PRIORITY
 - Agent 2: Phase 3.4 (Planning Templates) - Can start immediately
 - Agent 3: Phase 6.1 → 6.2 (Memory Schema & Manager) - Can start immediately
 
 **Week 2-3:**
+
 - Agent 1: Phase 4.4 → 4.5 (Content Loader, Validator)
 - Agent 2: Phase 3.1 → 3.2 (Quality Metrics, Evaluators)
 - Agent 3: Phase 6.3 (Agent Integration)
 
 **Week 4:**
+
 - Agent 1: Phase 4.6 (Demo Game Integration)
 - Agent 2: Phase 3.3 (Retry Logic)
 - Agent 3: Phase 6.4 (Cross-Session Learning)
 
 **Week 5 (After Phase 4 complete):**
+
 - Agent 1: Phase 5.1 → 5.2 (Pydantic Models, Validators)
 - Agent 2: Phase 3.5 (Integration Testing)
 - Agent 3: Phase 7.2 (Example Games)
 
 **Week 6:**
+
 - Agent 1: Phase 5.3 → 5.4 (Auto-correction, Integration)
 - Agent 2: Phase 7.1 (Logging & Monitoring)
 - Agent 3: Phase 7.3 (Documentation)
 
 **Week 7:**
+
 - All Agents: Phase 7.4 (Performance Optimization) - Collaborative
 
 ---
@@ -255,6 +278,7 @@ Before proceeding to any other phase:
 #### Work Chunks for Agents
 
 **Chunk 0.1: Sequential Mode Validation (5 Core Tasks)** 🔴 SERIAL - BLOCKING
+
 ```yaml
 Objective: Validate sequential mode completes with 5 core tasks
 Agent: validation-agent or general-purpose agent
@@ -285,6 +309,7 @@ Validation Script:
 ```
 
 **Chunk 0.2: Sequential Mode Validation (All 11 Tasks)** 🔴 SERIAL - BLOCKING
+
 ```yaml
 Objective: Validate sequential mode completes with all tasks including evaluations
 Agent: validation-agent or general-purpose agent
@@ -311,6 +336,7 @@ Validation Script:
 ```
 
 **Chunk 0.3: Reliability Testing** 🔴 SERIAL - BLOCKING
+
 ```yaml
 Objective: Prove system is reliable across multiple runs
 Agent: validation-agent or general-purpose agent
@@ -339,6 +365,7 @@ Validation Script:
 ```
 
 **Chunk 0.4: Hierarchical Mode Validation (OPTIONAL)** 🟡 SERIAL - OPTIONAL
+
 ```yaml
 Objective: Test hierarchical mode with minimal tasks
 Agent: validation-agent or general-purpose agent
@@ -379,6 +406,7 @@ proceed with sequential mode for remaining phases.
 #### Overview
 
 Implement a quality measurement and feedback system that allows the crew to:
+
 - Evaluate generated content against defined metrics
 - Provide specific feedback for improvement
 - Retry failed tasks with guidance
@@ -387,6 +415,7 @@ Implement a quality measurement and feedback system that allows the crew to:
 #### Work Chunks for Agents
 
 **Chunk 3.1: Quality Metrics Definition** 🔴 SERIAL FIRST (within phase)
+
 ```yaml
 Objective: Define measurable quality criteria for each output type
 Agent: design-agent or general-purpose agent
@@ -440,6 +469,7 @@ Deliverables:
 ```
 
 **Chunk 3.2: Quality Evaluator Implementation** 🔴 SERIAL
+
 ```yaml
 Objective: Implement evaluators that score outputs against metrics
 Agent: implementation-agent or general-purpose agent
@@ -492,6 +522,7 @@ Validation:
 ```
 
 **Chunk 3.3: Retry Logic with Feedback** 🔴 SERIAL
+
 ```yaml
 Objective: Add retry mechanism for tasks that fail quality checks
 Agent: implementation-agent or general-purpose agent
@@ -541,7 +572,9 @@ Success Criteria:
 ✅ Quality scores logged for monitoring
 
 Validation:
+
 - tests/test_retry_logic.py with intentionally poor outputs
+
 ```
 
 **Chunk 3.4: Planning Templates** 🟢 PARALLEL - INDEPENDENT
@@ -586,6 +619,7 @@ Deliverables:
 ```
 
 **Chunk 3.5: Integration Testing** 🔴 SERIAL
+
 ```yaml
 Objective: Test quality system end-to-end with crew
 Agent: validation-agent or general-purpose agent
@@ -623,6 +657,7 @@ Validation:
 #### Overview
 
 **Why This is Critical:** Without a game engine, we cannot verify that:
+
 - Generated scenes are actually connected correctly
 - Puzzles are solvable by players
 - Game flow makes logical sense
@@ -633,6 +668,7 @@ The game engine is the ultimate validation tool for generated content.
 #### Work Chunks for Agents
 
 **Chunk 4.1: Game State Model** 🔴 SERIAL - CRITICAL PATH
+
 ```yaml
 Objective: Define data structures for game state
 Agent: implementation-agent or general-purpose agent
@@ -659,6 +695,7 @@ Tasks:
 
 2. Create Scene class:
    - File: src/space_hulk_game/engine/scene.py
+
    ```python
    @dataclass
    class Scene:
@@ -680,7 +717,9 @@ Success Criteria:
 ✅ Unit tests for data model
 
 Deliverables:
+
 - src/space_hulk_game/engine/ directory with data models
+
 ```
 
 **Chunk 4.2: Command Parser** 🔴 SERIAL - CRITICAL PATH
@@ -731,7 +770,9 @@ Success Criteria:
 ✅ Unit tests cover command variations
 
 Validation:
+
 - tests/test_command_parser.py with diverse inputs
+
 ```
 
 **Chunk 4.3: Game Engine Core** 🔴 SERIAL - CRITICAL PATH
@@ -794,7 +835,9 @@ Success Criteria:
 ✅ Save/load works reliably
 
 Validation:
+
 - tests/test_game_engine.py with scripted playthrough
+
 ```
 
 **Chunk 4.4: Content Loader** 🔴 SERIAL - CRITICAL PATH
@@ -844,7 +887,9 @@ Success Criteria:
 ✅ Integration test with real generated content
 
 Validation:
+
 - tests/test_content_loader.py with sample YAMLs
+
 ```
 
 **Chunk 4.5: Game Validator** 🔴 SERIAL - CRITICAL PATH
@@ -903,7 +948,9 @@ Success Criteria:
 ✅ Integration with content loader
 
 Validation:
+
 - tests/test_game_validator.py with broken content
+
 ```
 
 **Chunk 4.6: Demo Game & Integration** 🔴 SERIAL - CRITICAL PATH
@@ -963,6 +1010,7 @@ Deliverables:
 #### Work Chunks for Agents
 
 **Chunk 5.1: Pydantic Models Definition** 🔴 SERIAL
+
 ```yaml
 Objective: Define Pydantic models for all output types
 Agent: implementation-agent or general-purpose agent
@@ -1019,7 +1067,9 @@ Success Criteria:
 ✅ Models documented with examples
 
 Deliverables:
+
 - src/space_hulk_game/schemas/ with 5 model files
+
 ```
 
 **Chunk 5.2: Schema Validators** 🔴 SERIAL
@@ -1058,7 +1108,9 @@ Success Criteria:
 ✅ Invalid outputs are caught with clear errors
 
 Validation:
+
 - tests/test_validators.py with valid/invalid samples
+
 ```
 
 **Chunk 5.3: Auto-Correction** 🔴 SERIAL
@@ -1092,6 +1144,7 @@ Validation:
 ```
 
 **Chunk 5.4: Integration with Tasks** 🔴 SERIAL
+
 ```yaml
 Objective: Wire up validation into task execution
 Agent: implementation-agent or general-purpose agent
@@ -1132,6 +1185,7 @@ Validation:
 #### Work Chunks for Agents
 
 **Chunk 6.1: Memory Schema Design** 🔴 SERIAL FIRST
+
 ```yaml
 Objective: Define what to store in mem0
 Agent: design-agent or general-purpose agent
@@ -1158,6 +1212,7 @@ Deliverables:
 ```
 
 **Chunk 6.2: Memory Manager Implementation** 🔴 SERIAL
+
 ```yaml
 Objective: Create manager for mem0 operations
 Agent: implementation-agent or general-purpose agent
@@ -1187,6 +1242,7 @@ Validation:
 ```
 
 **Chunk 6.3: Agent Integration** 🟠 CAN PARALLEL
+
 ```yaml
 Objective: Give agents access to memory
 Agent: implementation-agent or general-purpose agent
@@ -1208,6 +1264,7 @@ Validation:
 ```
 
 **Chunk 6.4: Cross-Session Learning** 🟠 CAN PARALLEL
+
 ```yaml
 Objective: Enable improvement across generations
 Agent: implementation-agent or general-purpose agent
@@ -1242,6 +1299,7 @@ Validation:
 #### Work Chunks for Agents
 
 **Chunk 7.1: Logging & Monitoring** 🟢 PARALLEL - INDEPENDENT
+
 ```yaml
 Objective: Add structured logging and metrics
 Agent: implementation-agent
@@ -1263,6 +1321,7 @@ Deliverables:
 ```
 
 **Chunk 7.2: Example Games** 🟢 PARALLEL - INDEPENDENT
+
 ```yaml
 Objective: Create 3+ example games
 Agent: content-agent
@@ -1284,6 +1343,7 @@ Deliverables:
 ```
 
 **Chunk 7.3: Documentation** 🟢 PARALLEL - INDEPENDENT
+
 ```yaml
 Objective: Write comprehensive documentation
 Agent: documentation-agent
@@ -1306,6 +1366,7 @@ Deliverables:
 ```
 
 **Chunk 7.4: Performance Optimization** 🟢 PARALLEL - INDEPENDENT
+
 ```yaml
 Objective: Optimize performance
 Agent: optimization-agent
@@ -1346,11 +1407,13 @@ Validation:
 **Development Time:** 8-10 weeks at 10-15 hours/week = 80-150 hours total
 
 **Compute Resources:**
+
 - Local: Ollama with 8GB+ VRAM (recommended)
 - Cloud: Optional API access for complex tasks
 - Storage: ~100MB for generated games
 
 **Dependencies:**
+
 - Current: CrewAI, Ollama, mem0, PyYAML, unittest
 - New: Pydantic v2, structlog
 
@@ -1371,22 +1434,26 @@ Validation:
 ## Next Actions
 
 ### Immediate (This Week)
+
 1. [ ] Review and approve this master plan
 2. [ ] Execute Chunk 0.1: Sequential validation (5 tasks)
 3. [ ] Execute Chunk 0.2: Sequential validation (11 tasks)
 4. [ ] Execute Chunk 0.3: Reliability testing
 
 ### This Month
+
 - [ ] Complete Phase 0 validation
 - [ ] Begin Phase 4 (Game Engine) - CRITICAL PATH
 - [ ] Optionally begin Phase 3 (Quality System)
 
 ### Next Month
+
 - [ ] Complete Phase 4 (Game Engine)
 - [ ] Complete Phase 3 (Quality System)
 - [ ] Begin Phase 5 (Validation) and Phase 6 (Memory)
 
 ### Month 3
+
 - [ ] Complete Phases 5 and 6
 - [ ] Complete Phase 7 (Production Polish)
 - [ ] Production-ready release

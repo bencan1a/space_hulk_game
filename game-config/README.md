@@ -24,6 +24,7 @@ These files are **not** generated outputs to be ignored. They are:
 ## For Developers
 
 When working with the CrewAI system:
+
 - Agents read these files to understand output format requirements
 - The files define the structure of agent-generated content
 - Changes to these files affect how agents generate game content

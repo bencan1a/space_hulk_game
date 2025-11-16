@@ -5,6 +5,7 @@
 Phase 2 (Story Library) has been **substantially completed** with all backend and frontend core functionality implemented and tested. However, there are **critical integration gaps** that prevent the user journeys from working end-to-end.
 
 **Overall Assessment**: 85% Complete
+
 - **Backend**: 100% Complete ✅
 - **Frontend Components**: 100% Complete ✅
 - **Integration**: 50% Complete ⚠️
@@ -15,11 +16,13 @@ Phase 2 (Story Library) has been **substantially completed** with all backend an
 ## Test Results
 
 ### Backend Tests
+
 - **Status**: ✅ All 88 tests passing
 - **Coverage**: Stories API, Theme API, Services, Sample Data
 - **Quality**: Excellent - comprehensive test coverage
 
 ### Frontend Tests
+
 - **Status**: ✅ All 50 tests passing
 - **Coverage**: Components, Hooks, Contexts, Services
 - **Quality**: Excellent - good component and integration testing
@@ -29,9 +32,11 @@ Phase 2 (Story Library) has been **substantially completed** with all backend an
 ## Phase 2 Task Completion Status
 
 ### ✅ Task 2.1: Story Service & Repository [COMPLETE]
+
 **Status**: 100% Complete
 
 **Implemented**:
+
 - ✅ `backend/app/services/story_service.py` with full CRUD
 - ✅ Methods: create, get, list (with filters), update, delete
 - ✅ Search (case-insensitive, multi-field)
@@ -44,9 +49,11 @@ Phase 2 (Story Library) has been **substantially completed** with all backend an
 ---
 
 ### ✅ Task 2.2: Story API Endpoints [COMPLETE]
+
 **Status**: 100% Complete
 
 **Implemented**:
+
 - ✅ GET /api/v1/stories (list with query params)
 - ✅ GET /api/v1/stories/{id} (details)
 - ✅ GET /api/v1/stories/{id}/content (full game.json)
@@ -61,9 +68,11 @@ Phase 2 (Story Library) has been **substantially completed** with all backend an
 ---
 
 ### ✅ Task 2.3: Theme System - Backend [COMPLETE]
+
 **Status**: 100% Complete
 
 **Implemented**:
+
 - ✅ `backend/app/services/theme_service.py`
 - ✅ `data/themes/warhammer40k/theme.yaml`
 - ✅ `data/themes/cyberpunk/theme.yaml`
@@ -78,9 +87,11 @@ Phase 2 (Story Library) has been **substantially completed** with all backend an
 ---
 
 ### ✅ Task 2.4: Theme API Endpoints [COMPLETE]
+
 **Status**: 100% Complete
 
 **Implemented**:
+
 - ✅ GET /api/v1/themes (list)
 - ✅ GET /api/v1/themes/{theme_id} (config)
 - ✅ GET /api/v1/themes/{theme_id}/assets/{path}
@@ -93,9 +104,11 @@ Phase 2 (Story Library) has been **substantially completed** with all backend an
 ---
 
 ### ✅ Task 2.5: Story Library UI - Components [COMPLETE]
+
 **Status**: 100% Complete
 
 **Implemented**:
+
 - ✅ StoryCard component with full metadata display
 - ✅ StoryGrid component with loading/empty/error states
 - ✅ SearchBar component with debouncing
@@ -110,9 +123,11 @@ Phase 2 (Story Library) has been **substantially completed** with all backend an
 ---
 
 ### ✅ Task 2.6: Story Library UI - Integration [COMPLETE]
+
 **Status**: 100% Complete
 
 **Implemented**:
+
 - ✅ `frontend/src/contexts/StoryContext.tsx`
 - ✅ `frontend/src/hooks/useStories.ts`
 - ✅ StoryContext provides stories, loading, error
@@ -125,9 +140,11 @@ Phase 2 (Story Library) has been **substantially completed** with all backend an
 ---
 
 ### ✅ Task 2.7: Theme Selector UI [COMPLETE]
+
 **Status**: 100% Complete
 
 **Implemented**:
+
 - ✅ ThemeSelector component
 - ✅ `frontend/src/contexts/ThemeContext.tsx`
 - ✅ ThemeSelector dropdown
@@ -140,9 +157,11 @@ Phase 2 (Story Library) has been **substantially completed** with all backend an
 ---
 
 ### ✅ Task 2.8: Sample Story Data & Database Seeding [COMPLETE]
+
 **Status**: 100% Complete
 
 **Implemented**:
+
 - ✅ 5 sample stories (sample-001 through sample-005)
 - ✅ Diverse themes: Warhammer40k (3), Cyberpunk (2)
 - ✅ Diverse types: horror, exploration, heist, mystery, rescue
@@ -163,8 +182,9 @@ Phase 2 (Story Library) has been **substantially completed** with all backend an
 **Severity**: Critical
 **Impact**: Breaks User Journey 1 (First-Time Creator)
 
-**Issue**: 
+**Issue**:
 The Library page has commented-out navigation code:
+
 ```typescript
 // LibraryPage.tsx lines 34-36
 const handleStoryClick = (story: Story) => {
@@ -174,14 +194,17 @@ const handleStoryClick = (story: Story) => {
 ```
 
 **Expected Behavior** (from User Journey):
+
 - User clicks story card in library → Navigate to `/play/{id}`
 - User clicks "Create New Story" → Navigate to `/create`
 
 **Current Behavior**:
+
 - Clicking story card: console.log only (dev mode)
 - Clicking "Create New Story": console.log only (dev mode)
 
 **Fix Required**:
+
 1. Import and use `useNavigate` from react-router-dom
 2. Implement actual navigation in LibraryPage.tsx
 3. Add tests for navigation
@@ -199,13 +222,16 @@ const handleStoryClick = (story: Story) => {
 StoryContext is created but `fetchStories()` is never called automatically when the app loads.
 
 **Expected Behavior** (from Task 2.6):
+
 - Auto-fetch on page load
 
 **Current Behavior**:
+
 - StoryContext exists but requires manual `fetchStories()` call
 - LibraryPage uses the context but doesn't trigger initial fetch
 
 **Fix Required**:
+
 1. Add `useEffect` in StoryContext or LibraryPage to fetch on mount
 2. Add loading state management
 
@@ -222,10 +248,12 @@ StoryContext is created but `fetchStories()` is never called automatically when 
 CreatePage and PlayPage show placeholder content only.
 
 **Expected Behavior** (Phase 3):
+
 - CreatePage: Template gallery, chat refinement, generation
 - PlayPage: Game display, command input, inventory
 
 **Current Behavior**:
+
 - CreatePage: "Create New Game" heading + placeholder
 - PlayPage: "Play Game" heading + game ID display
 
@@ -246,6 +274,7 @@ LibraryPage has dedicated CSS module, but Create/Play pages use inline className
 Consistent styling approach across all pages
 
 **Current Behavior**:
+
 - LibraryPage: Uses LibraryPage.module.css ✅
 - CreatePage: Uses generic className="page" ⚠️
 - PlayPage: Uses generic className="page" ⚠️
@@ -264,6 +293,7 @@ Consistent styling approach across all pages
 ThemeContext exists and persists to localStorage, but CSS variable injection into `:root` may not be implemented.
 
 **Expected Behavior** (from Task 2.7):
+
 - CSS variables update on theme change
 - Applied globally to document root
 
@@ -271,6 +301,7 @@ ThemeContext exists and persists to localStorage, but CSS variable injection int
 Need to verify if theme CSS variables are actually injected into document
 
 **Fix Required** (if not implemented):
+
 1. Add CSS variable injection in ThemeContext
 2. Update `:root` when theme changes
 
@@ -285,6 +316,7 @@ Need to verify if theme CSS variables are actually injected into document
 
 **Issue**:
 App.tsx routes "/" to HomePage, but HomePage.tsx is minimal:
+
 ```typescript
 // HomePage.tsx
 function HomePage() {
@@ -302,6 +334,7 @@ Landing page should likely show library OR clear CTA to browse/create
 Separate HomePage with generic welcome message
 
 **Recommendation**:
+
 - Option A: Redirect "/" to "/library" (simpler)
 - Option B: Build rich landing page with hero section
 
@@ -328,6 +361,7 @@ Separate HomePage with generic welcome message
 | 8. Play Session | 🔴 Missing | Phase 5 work |
 
 **Blockers**:
+
 - GAP 1: Navigation not implemented
 - Phase 3 not started (expected)
 
@@ -348,6 +382,7 @@ Separate HomePage with generic welcome message
 | 7. Play Game | 🔴 Missing | Phase 5 work |
 
 **Blockers**:
+
 - GAP 1: Navigation not implemented
 
 ---
@@ -357,6 +392,7 @@ Separate HomePage with generic welcome message
 ### Priority 1: Fix Navigation (Critical)
 
 **Tasks**:
+
 1. Implement navigation in LibraryPage
    - Import `useNavigate` from react-router-dom
    - Remove TODO comments
@@ -375,6 +411,7 @@ Separate HomePage with generic welcome message
 ### Priority 2: Verify Theme System (Medium)
 
 **Tasks**:
+
 1. Verify CSS variable injection
 2. Test theme switching in browser
 3. Add visual indicators if missing
@@ -387,6 +424,7 @@ Separate HomePage with generic welcome message
 ### Priority 3: Document Phase 3 Dependencies (Low)
 
 **Tasks**:
+
 1. Create Phase 3 kickoff document
 2. Note dependencies on Phase 2 completion
 3. Define acceptance criteria for CreatePage
@@ -401,6 +439,7 @@ Separate HomePage with generic welcome message
 ### ✅ Security: Excellent
 
 **Strengths**:
+
 - ✅ Path traversal protection in story content endpoint
 - ✅ Path validation in theme assets endpoint
 - ✅ Sample story deletion protection

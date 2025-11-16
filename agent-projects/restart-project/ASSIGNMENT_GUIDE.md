@@ -42,6 +42,7 @@ project-plans/restart-project/master_implementation_plan.md → Phase [X] → Ch
 ### Available Now
 
 **Chunk 0.1** 🔴 BLOCKING
+
 ```
 Execute Chunk 0.1: Sequential Mode Validation (5 Core Tasks) from Phase 0
 
@@ -53,6 +54,7 @@ This is our HIGHEST PRIORITY task. It validates the basic crew works.
 ### After 0.1 Completes
 
 **Chunk 0.2** 🔴 BLOCKING
+
 ```
 Execute Chunk 0.2: Sequential Mode Validation (All 11 Tasks) from Phase 0
 
@@ -64,6 +66,7 @@ Validates full workflow including evaluation tasks.
 ### After 0.2 Completes
 
 **Chunk 0.3** 🔴 BLOCKING
+
 ```
 Execute Chunk 0.3: Reliability Testing from Phase 0
 
@@ -79,12 +82,14 @@ Runs 3 consecutive tests to prove reliability.
 Once Phase 0 completes, you can assign these in parallel:
 
 ### Critical Path (Priority 1)
+
 ```
 Agent 1: Execute Chunk 4.1: Game State Model from Phase 4
 Prerequisites: Phase 0 complete
 ```
 
 ### Enhancement Track (Priority 2)
+
 ```
 Agent 2: Execute Chunk 3.4: Planning Templates from Phase 3
 Prerequisites: Phase 0 complete
@@ -232,6 +237,7 @@ I'm investigating the issue you encountered with Chunk [X.Y].
 ## Assignment Checklist
 
 Before assigning:
+
 - [ ] Phase 0 complete? (if assigning Phase 3-7)
 - [ ] Prerequisites met?
 - [ ] Chunk indicator checked? (🔴 🟡 🟠 🟢)
@@ -239,6 +245,7 @@ Before assigning:
 - [ ] Agent has access to master plan?
 
 After assignment:
+
 - [ ] Agent acknowledged?
 - [ ] Execution started?
 - [ ] Progress updates received?

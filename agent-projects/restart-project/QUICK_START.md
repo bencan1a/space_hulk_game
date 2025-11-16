@@ -51,6 +51,7 @@ Every chunk has a colored indicator showing when it can run:
 - **🟢 PARALLEL - INDEPENDENT** → Can run anytime after prerequisites
 
 **Rule of Thumb:**
+
 - See 🔴? Must wait for prerequisites to finish
 - See 🟢? Can start immediately after prerequisites
 - See 🟠? Ask about parallelization strategy
@@ -89,11 +90,13 @@ When you finish a chunk, update [progress.md](progress.md) with:
 **Current Priority:** Prove sequential mode works
 
 **Available Chunks:**
+
 - **Chunk 0.1** 🔴 BLOCKING - Sequential validation (5 tasks) - Ready to start
 - **Chunk 0.2** 🔴 BLOCKING - Sequential validation (11 tasks) - Waiting for 0.1
 - **Chunk 0.3** 🔴 BLOCKING - Reliability testing - Waiting for 0.2
 
 **Next After Phase 0:**
+
 - **Track A:** Chunk 4.1 (Game Engine) - CRITICAL PATH
 - **Track B:** Chunk 3.4 (Planning Templates) - Can run in parallel
 - **Track C:** Chunk 6.1 (Memory Schema) - Can run in parallel
@@ -103,6 +106,7 @@ When you finish a chunk, update [progress.md](progress.md) with:
 ## ⚠️ Common Mistakes to Avoid
 
 **DON'T:**
+
 - ❌ Skip reading the full chunk specification
 - ❌ Start before prerequisites are met
 - ❌ Assume what's meant - ask for clarification
@@ -110,6 +114,7 @@ When you finish a chunk, update [progress.md](progress.md) with:
 - ❌ Forget to update progress.md
 
 **DO:**
+
 - ✅ Read the entire chunk spec before starting
 - ✅ Check prerequisites first
 - ✅ Follow instructions exactly
@@ -121,11 +126,13 @@ When you finish a chunk, update [progress.md](progress.md) with:
 ## 🔍 Finding Your Chunk
 
 ### Method 1: Search by Number
+
 1. Open [master_implementation_plan.md](master_implementation_plan.md)
 2. Search for `Chunk X.Y` (e.g., "Chunk 0.1")
 3. Read from the chunk header to the end of the code block
 
 ### Method 2: Browse by Phase
+
 1. Open [master_implementation_plan.md](master_implementation_plan.md)
 2. Find your phase heading (e.g., "Phase 0")
 3. Scroll to "Work Chunks for Agents" section
@@ -136,12 +143,14 @@ When you finish a chunk, update [progress.md](progress.md) with:
 ## 📞 Questions?
 
 **If blocked or unclear:**
+
 1. Check [master_implementation_plan.md](master_implementation_plan.md) for details
 2. Check [status_assessment.md](status_assessment.md) for context
 3. Check [AGENT_WORK_TEMPLATE.md](AGENT_WORK_TEMPLATE.md) for examples
 4. Ask for clarification (don't guess!)
 
 **If you find an issue with the plan:**
+
 1. Document it
 2. Report it
 3. Wait for guidance
@@ -151,12 +160,14 @@ When you finish a chunk, update [progress.md](progress.md) with:
 ## 🎓 Example Assignment
 
 **Assignment:**
+
 ```
 Execute Chunk 0.1: Sequential Mode Validation (5 Core Tasks)
 Prerequisites: None
 ```
 
 **Your Actions:**
+
 1. ✅ Open master_implementation_plan.md
 2. ✅ Search for "Chunk 0.1"
 3. ✅ Read objective: "Validate sequential mode completes with 5 core tasks"
@@ -166,6 +177,7 @@ Prerequisites: None
 7. ✅ Update progress.md with results
 
 **Expected Deliverables:**
+
 - Test results documented
 - Generated game-config/*.yaml files (5 files)
 - Validation script: tests/test_sequential_5_tasks.py
@@ -173,6 +185,7 @@ Prerequisites: None
 - Issues documented (if any)
 
 **Success Looks Like:**
+
 - ✅ All 5 core tasks complete
 - ✅ All 5 YAML files exist and are valid
 - ✅ Generation < 10 minutes
@@ -193,6 +206,7 @@ Good luck! 🎯
 ---
 
 **Quick Links:**
+
 - [Master Plan](master_implementation_plan.md) - The complete roadmap
 - [Agent Work Templates](AGENT_WORK_TEMPLATE.md) - How to work on chunks
 - [Progress Tracker](progress.md) - Where to report

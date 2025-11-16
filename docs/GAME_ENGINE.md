@@ -63,6 +63,7 @@ The engine follows a **layered architecture** with clear separation of concerns:
 **Purpose**: Main game loop and action orchestration
 
 **Responsibilities**:
+
 - Running the game loop
 - Processing player input
 - Executing actions
@@ -70,6 +71,7 @@ The engine follows a **layered architecture** with clear separation of concerns:
 - Checking victory/defeat conditions
 
 **Key Methods**:
+
 ```python
 def run(self) -> None:
     """Start the main game loop."""
@@ -88,12 +90,14 @@ def handle_move(self, direction: str) -> None:
 **Purpose**: Represents the current state of the game
 
 **Responsibilities**:
+
 - Tracking player location
 - Managing inventory
 - Storing flags and variables
 - Recording visited scenes
 
 **Key Attributes**:
+
 ```python
 current_scene: str        # Current scene ID
 inventory: List[Item]     # Player's items
@@ -109,12 +113,14 @@ visited_scenes: Set[str] # Exploration tracking
 **Purpose**: Represents a location in the game world
 
 **Responsibilities**:
+
 - Storing scene description
 - Managing exits (connections to other scenes)
 - Containing items and NPCs
 - Handling events and locked exits
 
 **Key Attributes**:
+
 ```python
 id: str                          # Unique identifier
 name: str                        # Display name
@@ -132,12 +138,14 @@ locked_exits: Dict[str, str]    # exit -> required_key_id
 **Purpose**: Loads AI-generated JSON files into game objects
 
 **Responsibilities**:
+
 - Loading 5 JSON files (plot, narrative, puzzles, scenes, mechanics)
 - Parsing JSON with error handling
 - Converting JSON to engine objects
 - Validating loaded content
 
 **Key Methods**:
+
 ```python
 def load_game(self, output_dir: str) -> GameData:
     """Load all generated JSON files into a playable game."""
@@ -153,12 +161,14 @@ def load_json(self, filepath: str) -> Dict[str, Any]:
 **Purpose**: Parses natural language commands into Action objects
 
 **Responsibilities**:
+
 - Tokenizing input
 - Recognizing command patterns
 - Creating Action objects
 - Handling ambiguous input
 
 **Supported Commands**:
+
 - Movement: `go north`, `north`, `n`
 - Items: `take key`, `drop sword`, `use key on door`
 - Interaction: `talk to npc`, `look`, `inventory`
@@ -171,6 +181,7 @@ def load_json(self, filepath: str) -> Dict[str, Any]:
 **Purpose**: Represents player actions as executable objects
 
 **Action Types**:
+
 ```python
 MoveAction       # Move to another scene
 TakeAction       # Pick up an item
@@ -189,12 +200,14 @@ HelpAction       # Display help
 **Purpose**: Saves and loads game state
 
 **Responsibilities**:
+
 - Serializing GameState to JSON
 - Deserializing JSON to GameState
 - Managing save files
 - Listing available saves
 
 **Key Methods**:
+
 ```python
 def save(self, game_state: GameState, save_name: str) -> None:
     """Save game state to file."""
@@ -210,12 +223,14 @@ def load(self, save_name: str) -> GameState:
 **Purpose**: Validates game content for correctness
 
 **Responsibilities**:
+
 - Checking scene connectivity
 - Verifying all exits lead to valid scenes
 - Validating item and NPC references
 - Detecting unreachable content
 
 **Key Methods**:
+
 ```python
 def validate_game(self, game_data: GameData) -> ValidationResult:
     """Validate a complete game for correctness."""
@@ -228,6 +243,7 @@ def validate_game(self, game_data: GameData) -> ValidationResult:
 **Purpose**: Command-line interface for playing games
 
 **Responsibilities**:
+
 - Title screen and menus
 - Colorized output
 - Save/load UI
@@ -263,25 +279,30 @@ def validate_game(self, game_data: GameData) -> ValidationResult:
 ### SOLID Principles
 
 **Single Responsibility Principle (SRP)**
+
 - Each class has one reason to change
 - `CommandParser` only parses commands
 - `SaveSystem` only handles persistence
 - `ContentLoader` only loads content
 
 **Open/Closed Principle (OCP)**
+
 - New action types can be added without modifying engine
 - New validation rules can be added to validator
 - Extensible through inheritance and composition
 
 **Liskov Substitution Principle (LSP)**
+
 - All `Action` subclasses can be used interchangeably
 - Custom loaders can replace `ContentLoader`
 
 **Interface Segregation Principle (ISP)**
+
 - Small, focused interfaces
 - Components only depend on methods they use
 
 **Dependency Inversion Principle (DIP)**
+
 - Engine depends on abstract `Action`, not concrete implementations
 - Custom I/O functions can be injected for testing
 
@@ -486,12 +507,14 @@ class CustomContentLoader(ContentLoader):
 ### Test Categories
 
 **1. Unit Tests**
+
 - Test individual components in isolation
 - Mock all dependencies
 - Fast execution (<1ms per test)
 - High coverage (>90%)
 
 Example:
+
 ```python
 def test_command_parser_move(self):
     """Test parsing move command."""
@@ -502,11 +525,13 @@ def test_command_parser_move(self):
 ```
 
 **2. Integration Tests**
+
 - Test component interaction
 - Minimal mocking
 - Medium speed (~10-100ms per test)
 
 Example:
+
 ```python
 def test_engine_with_loader(self):
     """Test engine with loaded content."""
@@ -517,11 +542,13 @@ def test_engine_with_loader(self):
 ```
 
 **3. End-to-End Tests**
+
 - Test complete workflows
 - No mocking
 - Slower execution (~100ms-1s per test)
 
 Example:
+
 ```python
 def test_full_game_workflow(self):
     """Test load → play → save → load → continue."""
@@ -572,6 +599,7 @@ def test_full_game_workflow(self):
 ### Scalability
 
 The engine is designed to handle:
+
 - **100+ scenes**: Tested with large game worlds
 - **1000+ items**: Efficient item lookup
 - **100+ NPCs**: Optimized NPC management

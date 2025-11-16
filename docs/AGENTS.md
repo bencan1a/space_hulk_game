@@ -20,18 +20,21 @@ GitHub Copilot agents are specialized AI assistants configured with project-spec
 **Purpose**: Provides general project guidance and helps navigate the codebase.
 
 **Best used for**:
+
 - Understanding project structure
 - Finding relevant files and documentation
 - Learning about the technology stack
 - General development questions
 
 **Key knowledge areas**:
+
 - Project architecture and organization
 - CrewAI framework basics
 - Configuration file locations
 - Common development tasks
 
 **Example use cases**:
+
 - "Where are the agent definitions stored?"
 - "How do I run the project?"
 - "What's the project structure?"
@@ -45,12 +48,14 @@ GitHub Copilot agents are specialized AI assistants configured with project-spec
 **Purpose**: Expert in Python development best practices for this project.
 
 **Best used for**:
+
 - Writing Python code following project conventions
 - Implementing error handling
 - Adding type hints
 - Structuring imports
 
 **Key knowledge areas**:
+
 - Python 3.10+ features
 - Type hints and annotations
 - Error handling patterns
@@ -58,6 +63,7 @@ GitHub Copilot agents are specialized AI assistants configured with project-spec
 - Project-specific Python patterns
 
 **Example use cases**:
+
 - "How should I handle errors in this function?"
 - "What's the correct import structure?"
 - "How do I add logging to this module?"
@@ -71,12 +77,14 @@ GitHub Copilot agents are specialized AI assistants configured with project-spec
 **Purpose**: Specialist in CrewAI framework patterns and multi-agent AI systems.
 
 **Best used for**:
+
 - Creating and configuring agents
 - Defining tasks and workflows
 - Implementing lifecycle hooks
 - Configuring LLMs and memory
 
 **Key knowledge areas**:
+
 - Agent and task configuration
 - CrewAI decorators (@agent, @task, @crew)
 - Sequential and hierarchical processes
@@ -85,6 +93,7 @@ GitHub Copilot agents are specialized AI assistants configured with project-spec
 - YAML configuration structure
 
 **Example use cases**:
+
 - "How do I add a new agent?"
 - "What parameters can I use in task definitions?"
 - "How do I configure memory for the crew?"
@@ -99,12 +108,14 @@ GitHub Copilot agents are specialized AI assistants configured with project-spec
 **Purpose**: Expert in text-based adventure game design and narrative systems.
 
 **Best used for**:
+
 - Designing game mechanics
 - Creating branching narratives
 - Developing puzzles and challenges
 - Balancing gameplay
 
 **Key knowledge areas**:
+
 - Text adventure game patterns
 - Branching narrative design
 - Puzzle and combat mechanics
@@ -112,6 +123,7 @@ GitHub Copilot agents are specialized AI assistants configured with project-spec
 - Interactive fiction best practices
 
 **Example use cases**:
+
 - "How should I structure a new area?"
 - "What makes a good text adventure puzzle?"
 - "How do I create meaningful player choices?"
@@ -126,12 +138,14 @@ GitHub Copilot agents are specialized AI assistants configured with project-spec
 **Purpose**: Specialist in YAML syntax, structure, and validation.
 
 **Best used for**:
+
 - Creating or modifying YAML configuration files
 - Validating YAML syntax
 - Organizing configuration data
 - Following YAML best practices
 
 **Key knowledge areas**:
+
 - YAML syntax and formatting
 - Multi-line strings (| and >)
 - Anchors and references
@@ -139,6 +153,7 @@ GitHub Copilot agents are specialized AI assistants configured with project-spec
 - Safe loading practices
 
 **Example use cases**:
+
 - "How do I format multiline text in YAML?"
 - "What's the correct structure for agent definitions?"
 - "How do I reference another section in YAML?"
@@ -153,12 +168,14 @@ GitHub Copilot agents are specialized AI assistants configured with project-spec
 **Purpose**: Expert in testing strategies, unittest framework, and test organization.
 
 **Best used for**:
+
 - Writing unit and integration tests
 - Mocking dependencies
 - Organizing test suites
 - Improving test coverage
 
 **Key knowledge areas**:
+
 - Python unittest framework
 - Mocking patterns (unittest.mock)
 - Test organization and naming
@@ -166,6 +183,7 @@ GitHub Copilot agents are specialized AI assistants configured with project-spec
 - CrewAI component testing
 
 **Example use cases**:
+
 - "How do I test this function?"
 - "How do I mock this CrewAI agent?"
 - "What's the proper test structure?"
@@ -226,18 +244,23 @@ GitHub Copilot intelligently selects which agent(s) to use based on:
 ## Benefits of Using These Agents
 
 ### Consistency
+
 All suggestions follow established project patterns and conventions.
 
 ### Learning
+
 Agents help you learn project-specific best practices as you work.
 
 ### Efficiency
+
 Reduce time spent looking up documentation and patterns.
 
 ### Quality
+
 Automatically follow coding standards and best practices.
 
 ### Context
+
 Get suggestions relevant to your specific task and file.
 
 ## Customizing Agents

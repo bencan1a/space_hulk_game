@@ -26,6 +26,7 @@ docker compose up --build
 ```
 
 This will:
+
 - Build the frontend (React + Vite) container
 - Build the backend (FastAPI) container
 - Pull Redis image
@@ -35,21 +36,23 @@ This will:
 
 Once all services are running:
 
-- **Frontend**: http://localhost:3000
-- **Backend API**: http://localhost:8000
-- **API Documentation**: http://localhost:8000/docs
-- **Health Check**: http://localhost:8000/health
+- **Frontend**: <http://localhost:3000>
+- **Backend API**: <http://localhost:8000>
+- **API Documentation**: <http://localhost:8000/docs>
+- **Health Check**: <http://localhost:8000/health>
 - **Redis**: localhost:6379 (internal only)
 
 ## Available Services
 
 ### Frontend Service
+
 - **Framework**: React with TypeScript + Vite
 - **Port**: 3000
 - **Hot Reload**: Enabled (changes to `frontend/src` will auto-reload)
 - **Environment**: Development mode
 
 ### Backend Service
+
 - **Framework**: FastAPI with Python 3.11
 - **Port**: 8000
 - **Hot Reload**: Enabled (changes to `backend/app` will auto-reload)
@@ -57,12 +60,14 @@ Once all services are running:
 - **Environment**: Development mode
 
 ### Celery Worker Service
+
 - **Purpose**: Asynchronous task processing
 - **Broker**: Redis
 - **Auto-restart**: Yes
 - **Log Level**: INFO
 
 ### Redis Service
+
 - **Version**: 7-alpine
 - **Port**: 6379 (exposed for debugging)
 - **Health Check**: Enabled
@@ -71,11 +76,13 @@ Once all services are running:
 ## Common Commands
 
 ### Start Services (Detached Mode)
+
 ```bash
 docker compose up -d
 ```
 
 ### View Logs
+
 ```bash
 # All services
 docker compose logs -f
@@ -88,26 +95,31 @@ docker compose logs -f redis
 ```
 
 ### Stop Services
+
 ```bash
 docker compose down
 ```
 
 ### Rebuild and Restart
+
 ```bash
 docker compose up --build
 ```
 
 ### Remove Everything (including volumes)
+
 ```bash
 docker compose down -v
 ```
 
 ### Check Service Status
+
 ```bash
 docker compose ps
 ```
 
 ### Execute Commands in Containers
+
 ```bash
 # Backend shell
 docker compose exec backend bash
@@ -127,11 +139,13 @@ docker compose exec redis redis-cli
 ### 1. Code Changes with Hot Reload
 
 **Backend Changes:**
+
 1. Edit files in `backend/app/`
 2. Uvicorn automatically detects changes and reloads
 3. Check logs: `docker compose logs -f backend`
 
 **Frontend Changes:**
+
 1. Edit files in `frontend/src/`
 2. Vite automatically detects changes and hot-reloads
 3. Browser will update automatically
@@ -139,10 +153,12 @@ docker compose exec redis redis-cli
 ### 2. Adding Dependencies
 
 **Backend (Python):**
+
 1. Add package to `backend/requirements.txt`
 2. Rebuild: `docker compose up --build backend`
 
 **Frontend (npm):**
+
 1. Add package to `frontend/package.json`
 2. Rebuild: `docker compose up --build frontend`
 
@@ -151,6 +167,7 @@ docker compose exec redis redis-cli
 The SQLite database is stored in `./data/database.db` and persists across container restarts.
 
 To reset the database:
+
 ```bash
 docker compose down
 rm -f ./data/database.db
@@ -167,6 +184,7 @@ chmod +x test_docker_setup.sh
 ```
 
 This script:
+
 - Starts all services
 - Waits for them to be ready
 - Tests backend health endpoint
@@ -272,6 +290,7 @@ docker compose up
 For production deployment, use `docker-compose.prod.yml` (currently a placeholder).
 
 Key differences for production:
+
 - Remove volume mounts (no hot reload)
 - Use production builds
 - Switch to PostgreSQL
@@ -286,6 +305,7 @@ Key differences for production:
 See `.env.example` for all available configuration options.
 
 Key variables for Docker:
+
 - `API_HOST` - Backend bind address (default: 0.0.0.0)
 - `API_PORT` - Backend port (default: 8000)
 - `DATABASE_URL` - Database connection string
@@ -298,6 +318,7 @@ Key variables for Docker:
 ⚠️ **Development Only**: This Docker Compose configuration is for local development only.
 
 For production:
+
 - Use secrets for sensitive environment variables
 - Don't expose Redis port
 - Use PostgreSQL with authentication
@@ -312,6 +333,7 @@ For production:
 2. **Layer Caching**: Order Dockerfile commands from least to most frequently changing
 3. **Multi-stage Builds**: Consider for production builds
 4. **Resource Limits**: Add in docker-compose.yml if needed:
+
    ```yaml
    deploy:
      resources:
@@ -323,6 +345,7 @@ For production:
 ## Support
 
 For issues or questions:
+
 1. Check the logs: `docker compose logs -f`
 2. Review this guide
 3. Check GitHub issues

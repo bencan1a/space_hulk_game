@@ -18,8 +18,8 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
-  lint-and-format:
-    name: Lint and Format Check
+  quality-checks:
+    name: Quality Checks (lint, type, security, yaml, markdown)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -37,69 +37,11 @@ jobs:
       - name: Install dependencies
         run: uv pip install --system -e ".[dev]"
 
-      - name: Auto-fix linting issues and format
-        run: make fix
-        continue-on-error: true
+      - name: Install markdownlint-cli
+        run: npm install -g markdownlint-cli
 
-      - name: Check formatting
-        run: make format-check
-
-      - name: Verify no linting errors
-        run: make lint
-
-      - name: Check YAML files
-        run: make check-yaml
-
-  type-check:
-    name: Type Check
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-          cache: 'pip'
-
-      - name: Install uv
-        run: pip install uv
-
-      - name: Install dependencies
-        run: uv pip install --system -e ".[dev]"
-
-      - name: Run type checking
-        run: make type-check
-
-  security-scan:
-    name: Security Scan
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-          cache: 'pip'
-
-      - name: Install uv
-        run: pip install uv
-
-      - name: Install dependencies
-        run: uv pip install --system -e ".[dev]"
-
-      - name: Run security scan
-        run: make security-report
-
-      - name: Upload security report
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: bandit-report
-          path: bandit-report.json
+      - name: Run all quality checks
+        run: make check
 
   test:
     name: Test - Python ${{ matrix.python-version }} on ${{ matrix.os }}

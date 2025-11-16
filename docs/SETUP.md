@@ -128,16 +128,19 @@ If you prefer to install dependencies manually or the automated script fails, fo
 UV is a fast Python package installer and resolver.
 
 **Linux/macOS:**
+
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
 **Windows:**
+
 ```powershell
 powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
 
 **Alternative (using pip):**
+
 ```bash
 pip install uv
 ```
@@ -147,11 +150,13 @@ pip install uv
 Ollama provides local LLM support. You can skip this if you plan to use OpenAI API.
 
 **Linux:**
+
 ```bash
 curl -fsSL https://ollama.com/install.sh | sh
 ```
 
 **macOS:**
+
 ```bash
 # Download from https://ollama.com/download
 # Or use Homebrew:
@@ -159,6 +164,7 @@ brew install ollama
 ```
 
 **Windows:**
+
 - Download installer from [ollama.com/download/windows](https://ollama.com/download/windows)
 
 ### 3. Download Qwen2.5 Model (Optional)
@@ -259,6 +265,7 @@ OPENAI_MODEL_NAME=claude-3-5-sonnet-20241022
 ```
 
 Available models:
+
 - `claude-3-5-sonnet-20241022` - Recommended, most capable
 - `claude-3-opus-20240229` - Most powerful, higher cost
 - `claude-3-sonnet-20240229` - Balanced performance and cost
@@ -313,6 +320,7 @@ OPENAI_MODEL_NAME=azure/your-deployment-name
 **Other Supported Providers:**
 
 Litellm supports many other providers including:
+
 - Cohere
 - Hugging Face
 - Replicate
@@ -376,6 +384,7 @@ services:
 **Environment Variable Priority:**
 
 The application checks for configuration in this order:
+
 1. Environment variables (highest priority)
 2. `.env` file in the project root
 3. Default values (for optional settings)
@@ -491,6 +500,7 @@ python -m space_hulk_game.main
 **Error:** `Error: Python version must be >=3.10 and <3.13`
 
 **Solution:**
+
 - Install Python 3.10, 3.11, or 3.12
 - Use `python3.10`, `python3.11`, or `python3.12` explicitly if you have multiple versions
 
@@ -499,6 +509,7 @@ python -m space_hulk_game.main
 **Error:** `command not found: uv`
 
 **Solution:**
+
 ```bash
 # Add UV to PATH
 export PATH="$HOME/.cargo/bin:$PATH"  # Linux/macOS
@@ -511,6 +522,7 @@ export PATH="$HOME/.cargo/bin:$PATH"  # Linux/macOS
 **Error:** `Connection refused to http://localhost:11434`
 
 **Solution:**
+
 ```bash
 # Start Ollama service
 ollama serve
@@ -525,6 +537,7 @@ tasklist | findstr ollama  # Windows
 **Error:** `Model 'qwen2.5' not found`
 
 **Solution:**
+
 ```bash
 # Pull the model
 ollama pull qwen2.5
@@ -535,6 +548,7 @@ ollama pull qwen2.5
 **Error:** `ModuleNotFoundError: No module named 'crewai'`
 
 **Solution:**
+
 ```bash
 # First, make sure virtual environment is activated
 source .venv/bin/activate      # Linux/macOS
@@ -554,6 +568,7 @@ pip install -e .
 **Error:** `Permission denied: ./setup.sh`
 
 **Solution:**
+
 ```bash
 # Make the script executable
 chmod +x setup.sh
@@ -567,6 +582,7 @@ chmod +x setup.sh
 **Error:** `running scripts is disabled on this system`
 
 **Solution:**
+
 ```powershell
 # Allow script execution for current user
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
@@ -601,6 +617,7 @@ uv pip install -e ".[dev]"
 ```
 
 This installs additional tools:
+
 - **pytest**: Testing framework
 - **pytest-cov**: Code coverage
 - **black**: Code formatter

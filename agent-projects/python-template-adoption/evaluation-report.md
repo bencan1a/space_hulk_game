@@ -1,7 +1,7 @@
 # Python Template Repository - Detailed Evaluation Report
 
 **Date:** 2025-11-10
-**Evaluated Repository:** https://github.com/bencan1a/python-template
+**Evaluated Repository:** <https://github.com/bencan1a/python-template>
 **Target Project:** Space Hulk Game (CrewAI-based)
 **Evaluator:** AI Agent Analysis
 
@@ -24,12 +24,14 @@ The python-template repository represents a mature, well-structured approach to 
 The template implements a three-tier organizational system:
 
 **Tier 1: Temporary (agent-tmp/)**
+
 - Purpose: Debugging, exploration, work-in-progress
 - Lifecycle: Auto-cleaned after 7 days
 - Status: Gitignored
 - Use Case: AI agents creating temporary analysis scripts
 
 **Tier 2: Active Projects (agent-projects/)**
+
 - Purpose: Ongoing development initiatives
 - Lifecycle: 21-day active window, then archived
 - Status: Committed to git
@@ -37,12 +39,14 @@ The template implements a three-tier organizational system:
 - Use Case: Tracking multi-day agent projects
 
 **Tier 3: Permanent (docs/)**
+
 - Purpose: Finalized documentation
 - Lifecycle: Permanent
 - Status: Committed to git
 - Use Case: API docs, architecture decisions, user guides
 
 **Tier 4: Utilities (tools/)**
+
 - Purpose: Development scripts
 - Lifecycle: Permanent
 - Status: Committed to git
@@ -59,6 +63,7 @@ The template implements a three-tier organizational system:
 The AGENTS.md file serves as the "first thing AI agents should read" and addresses common failure patterns.
 
 **Key Sections:**
+
 1. **Virtual Environment Warning (Prominent Placement)**
    - Addresses #1 failure mode: forgetting to activate venv
    - Uses visual emphasis, repetition
@@ -94,18 +99,21 @@ The AGENTS.md file serves as the "first thing AI agents should read" and address
 #### 3.1 Pre-commit Hooks
 
 **Implementation:**
+
 - Multi-repository approach (pre-commit-hooks, ruff, mypy, bandit)
 - Runs locally before commit
 - Catches issues immediately
 - Fast feedback loop
 
 **Hooks:**
+
 1. Standard checks (whitespace, YAML validation, large files, secrets)
 2. Ruff formatting + linting
 3. MyPy type checking (with exclusions for tests)
 4. Bandit security scanning
 
 **Space Hulk Adaptation:**
+
 - Need to exclude `game-config/*.yaml` from whitespace trimming
 - Preserve narrative text formatting
 - Relax mypy on tests/ and tools/
@@ -119,6 +127,7 @@ The AGENTS.md file serves as the "first thing AI agents should read" and address
 **Purpose:** Developer convenience, reduce typing
 
 **Commands Provided:**
+
 - Setup: install, install-dev, dev
 - Testing: test, test-verbose, coverage
 - Quality: lint, format, format-check, type-check, security, check-all, fix
@@ -126,6 +135,7 @@ The AGENTS.md file serves as the "first thing AI agents should read" and address
 - Publishing: publish-test, publish
 
 **Space Hulk Adaptations:**
+
 - Add CrewAI-specific commands: run-crew, validate-api, validate-config
 - Add agent-tmp/ cleanup to `make clean`
 - Adjust for unittest (current) vs pytest (template)
@@ -137,6 +147,7 @@ The AGENTS.md file serves as the "first thing AI agents should read" and address
 #### 3.3 CI/CD Pipelines
 
 **Template Approach:**
+
 - Separate jobs for lint, type-check, security, test
 - Multi-platform matrix (Ubuntu, Windows, macOS)
 - Python version matrix (3.10, 3.11, 3.12)
@@ -145,10 +156,12 @@ The AGENTS.md file serves as the "first thing AI agents should read" and address
 - Codecov integration
 
 **Workflows:**
+
 1. **ci.yml**: Main quality checks on push/PR (includes all PR validation)
 2. **nightly-regression.yml**: Comprehensive testing (inferred)
 
 **Space Hulk Considerations:**
+
 - CrewAI may have platform-specific behaviors
 - Mock mode vs real API testing
 - Need to handle LLM dependencies
@@ -163,6 +176,7 @@ The AGENTS.md file serves as the "first thing AI agents should read" and address
 #### 4.1 build_context.py Script
 
 **Functionality:**
+
 1. Generate API docs using pdoc3
 2. Collect active projects from agent-projects/
 3. Filter plans by age (<21 days)
@@ -173,6 +187,7 @@ The AGENTS.md file serves as the "first thing AI agents should read" and address
 **Purpose:** Provide AI agents with comprehensive codebase context without manual curation.
 
 **Space Hulk Adaptation:**
+
 - Include CrewAI agent/task definitions
 - Reference game-config/ structure
 - Summarize active narrative projects
@@ -185,11 +200,13 @@ The AGENTS.md file serves as the "first thing AI agents should read" and address
 #### 4.2 Documentation Workflow
 
 **Trigger Events:**
+
 - Push to main/develop affecting src/, docs/, agent-projects/
 - Nightly schedule (3 AM)
 - Manual dispatch
 
 **Actions:**
+
 - Run build_context.py
 - Auto-commit changes with [skip ci]
 - Use bot credentials
@@ -203,6 +220,7 @@ The AGENTS.md file serves as the "first thing AI agents should read" and address
 #### 5.1 pyproject.toml Configuration
 
 **Template Patterns:**
+
 - Comprehensive dev dependencies (pytest, hypothesis, factory-boy, faker, ipdb)
 - Extended Ruff rules (ARG, SIM, TCH, PTH, ERA, PL, RUF)
 - Strict MyPy settings (disallow_untyped_defs)
@@ -210,6 +228,7 @@ The AGENTS.md file serves as the "first thing AI agents should read" and address
 - Consistent line length (100 chars across all tools)
 
 **Space Hulk Gap:**
+
 - Line length inconsistency (Black: 88, Ruff: 100)
 - Missing advanced Ruff rules
 - Minimal dev dependencies
@@ -225,6 +244,7 @@ The AGENTS.md file serves as the "first thing AI agents should read" and address
 **Space Hulk:** Already has good .editorconfig
 
 **Differences:**
+
 - Template: 100 char line length for Python
 - Space Hulk: 88 char line length for Python
 
@@ -235,6 +255,7 @@ The AGENTS.md file serves as the "first thing AI agents should read" and address
 #### 5.3 DevContainer
 
 **Template Features:**
+
 - Auto-setup via postCreateCommand
 - Pre-installs dev dependencies
 - Configures VS Code settings
@@ -242,6 +263,7 @@ The AGENTS.md file serves as the "first thing AI agents should read" and address
 - Activates venv on terminal launch
 
 **Space Hulk Current:**
+
 - Basic devcontainer
 - Manual setup required
 
@@ -252,6 +274,7 @@ The AGENTS.md file serves as the "first thing AI agents should read" and address
 #### 5.4 Pull Request Template
 
 **Template Additions:**
+
 - Type of change checkboxes
 - Code quality verification section
 - Testing coverage requirements
@@ -259,6 +282,7 @@ The AGENTS.md file serves as the "first thing AI agents should read" and address
 - Reviewer checklist
 
 **Space Hulk Current:**
+
 - Basic PR template exists
 
 **Assessment:** **Low-medium value**. Nice to have but not critical.
@@ -297,27 +321,32 @@ The AGENTS.md file serves as the "first thing AI agents should read" and address
 ### High Priority Adaptations (Week 1-2)
 
 **1. File Organization**
+
 - Create agent-tmp/, agent-projects/, tools/
 - Move utility scripts to tools/
 - Update .gitignore
 
 **2. AGENTS.md Creation**
+
 - Consolidate AI guidance
 - Emphasize venv activation
 - Define file organization rules
 - Include CrewAI patterns
 
 **3. Makefile**
+
 - Standard quality commands
 - CrewAI-specific commands
 - Cleanup automation
 
 **4. Pre-commit Hooks**
+
 - Adapt template configuration
 - Exclude game-config/ from formatting
 - Test with CrewAI YAML files
 
 **5. pyproject.toml Fixes**
+
 - Align line lengths (100 chars)
 - Add extended Ruff rules
 - Expand dev dependencies
@@ -326,12 +355,14 @@ The AGENTS.md file serves as the "first thing AI agents should read" and address
 ### Medium Priority Adaptations (Week 3-4)
 
 **6. CI/CD Enhancement**
+
 - Multi-platform testing
 - Coverage reporting
 - Security scanning in CI
 - PR validation workflow
 
 **7. Documentation Automation**
+
 - Implement build_context.py
 - Create documentation workflow
 - Auto-generate API docs
@@ -339,16 +370,19 @@ The AGENTS.md file serves as the "first thing AI agents should read" and address
 ### Low Priority Adaptations (Week 5+)
 
 **8. DevContainer Improvements**
+
 - Auto-install pre-commit
 - Better VS Code integration
 
 **9. Enhanced PR Template**
+
 - Quality checklist
 - CrewAI validation section
 
 ### Deferred Adaptations
 
 **10. pytest Migration**
+
 - High effort, high disruption
 - Current unittest works well
 - Can revisit later if needed
@@ -360,18 +394,21 @@ The AGENTS.md file serves as the "first thing AI agents should read" and address
 ### High Risks
 
 **1. Pre-commit hooks may conflict with game-config/ YAML**
+
 - **Impact:** Could corrupt narrative text formatting
 - **Probability:** Medium
 - **Mitigation:** Explicit exclusions in .pre-commit-config.yaml
 - **Testing:** Verify on existing YAML files before team rollout
 
 **2. Multi-platform CI may reveal CrewAI issues**
+
 - **Impact:** Unknown compatibility problems
 - **Probability:** Low-Medium
 - **Mitigation:** Start Ubuntu-only, expand gradually
 - **Testing:** Local testing on Windows/macOS first
 
 **3. Line length changes cause widespread diffs**
+
 - **Impact:** Large PR with many file changes
 - **Probability:** High
 - **Mitigation:** Dedicated formatting commit, careful review
@@ -380,12 +417,14 @@ The AGENTS.md file serves as the "first thing AI agents should read" and address
 ### Medium Risks
 
 **4. build_context.py generates excessive context**
+
 - **Impact:** Context too large for AI consumption
 - **Probability:** Medium
 - **Mitigation:** Configurable truncation (CONTEXT_MAX_CHARS)
 - **Testing:** Test with current codebase size
 
 **5. Pre-commit slows commit workflow**
+
 - **Impact:** Developer frustration
 - **Probability:** Low
 - **Mitigation:** Make optional initially, optimize slow hooks
@@ -394,6 +433,7 @@ The AGENTS.md file serves as the "first thing AI agents should read" and address
 ### Low Risks
 
 **6. Directory reorganization breaks scripts**
+
 - **Impact:** Temporary breakage
 - **Probability:** Low
 - **Mitigation:** Update all references, test thoroughly
@@ -406,6 +446,7 @@ The AGENTS.md file serves as the "first thing AI agents should read" and address
 ### Phase Approach
 
 **Phase 1: Foundation (Week 1)**
+
 - Directory structure
 - AGENTS.md
 - Makefile
@@ -413,20 +454,24 @@ The AGENTS.md file serves as the "first thing AI agents should read" and address
 - Line length fix
 
 **Phase 2: Automation (Week 2)**
+
 - Pre-commit hooks
 - pyproject.toml enhancements
 - Extended Ruff rules
 
 **Phase 3: CI/CD (Week 3)**
+
 - Main CI workflow
 - PR validation
 - Nightly regression
 
 **Phase 4: Documentation (Week 4)**
+
 - build_context.py
 - Documentation workflow
 
 **Phase 5: Polish (Week 5)**
+
 - DevContainer
 - PR template
 - Final documentation
@@ -434,16 +479,19 @@ The AGENTS.md file serves as the "first thing AI agents should read" and address
 ### Success Metrics
 
 **Immediate (Post-Phase 1-2):**
+
 - 100% of commits pass pre-commit checks
 - Makefile reduces command typing by ~70%
 - Zero "forgot venv" incidents
 
 **Medium-term (Post-Phase 3-4):**
+
 - CI catches platform-specific bugs
 - Documentation updates automatically
 - Code coverage visible
 
 **Long-term (6 months):**
+
 - 50% reduction in code quality issues
 - Faster contributor onboarding
 - Systematic technical debt tracking
@@ -455,21 +503,25 @@ The AGENTS.md file serves as the "first thing AI agents should read" and address
 ### CrewAI Integration Points
 
 **1. YAML Configuration Sensitivity**
+
 - Agent/task definitions in YAML
 - Pre-commit must not break formatting
 - Need to preserve examples in gamedesign.yaml
 
 **2. LLM Dependencies**
+
 - Mock mode vs real API testing
 - API validation in CI (optional)
 - Secrets management for API keys
 
 **3. Game Content Preservation**
+
 - game-config/ contains narrative text
 - Must exclude from whitespace trimming
 - Preserve Warhammer 40K theme formatting
 
 **4. Multi-Agent Testing**
+
 - Complex agent interactions
 - Potential platform-specific behaviors
 - Need comprehensive integration tests
@@ -477,11 +529,13 @@ The AGENTS.md file serves as the "first thing AI agents should read" and address
 ### Warhammer 40K Theme
 
 **Documentation Tone:**
+
 - Maintain grimdark atmosphere in game content
 - Technical docs can be standard
 - Don't let tooling changes affect narrative
 
 **File Organization:**
+
 - Keep game-config/ separate from automation
 - Preserve project-plans/ for development
 - Maintain distinction between game docs and code docs
@@ -519,12 +573,14 @@ The python-template repository provides a battle-tested structure for Python dev
 The Space Hulk project has a strong foundation and can adopt ~80% of template patterns with minor adaptations for CrewAI and game content.
 
 **Critical Success Factors:**
+
 1. AGENTS.md is the single most important addition
 2. Pre-commit hooks provide fastest feedback loop
 3. File organization prevents root directory clutter
 4. Makefile standardizes commands across team
 
 **Recommended Approach:**
+
 - Implement high-priority items first (Phases 1-2)
 - Validate with team before proceeding to Phase 3
 - Phase 4-5 can be deferred if resources limited

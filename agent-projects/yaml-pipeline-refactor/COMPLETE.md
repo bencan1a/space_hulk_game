@@ -17,6 +17,7 @@ Successfully refactored the entire MD-to-YAML pipeline to eliminate the critical
 2. **Phase 2**: Consolidated duplicate code and unified error handling
 
 **Impact**:
+
 - CI test failures eliminated
 - 265 lines of duplicate code removed
 - Unified error handling across all layers
@@ -32,6 +33,7 @@ Successfully refactored the entire MD-to-YAML pipeline to eliminate the critical
 ### Implementation
 
 #### Chunk 1: OutputSanitizer Class
+
 - **File**: `src/space_hulk_game/utils/output_sanitizer.py` (186 lines)
 - **Purpose**: Orchestrates yaml_processor + corrector for pre-write sanitization
 - **Features**:
@@ -40,6 +42,7 @@ Successfully refactored the entire MD-to-YAML pipeline to eliminate the critical
   - Comprehensive logging
 
 #### Chunk 2: Error Handlers
+
 - **File**: `src/space_hulk_game/validation/corrector.py` (+149 lines)
 - **Added Methods**:
   - `_fix_mixed_quotes()` - Handles "text' and 'text" patterns
@@ -48,6 +51,7 @@ Successfully refactored the entire MD-to-YAML pipeline to eliminate the critical
 - **Tests**: 20 new unit tests added
 
 #### Chunk 3: Monkey-Patch Integration
+
 - **File**: `src/space_hulk_game/crew.py` (+92 lines)
 - **Implementation**: Intercepts `Task._save_file()` in `__init__()`
 - **Features**:
@@ -56,6 +60,7 @@ Successfully refactored the entire MD-to-YAML pipeline to eliminate the critical
   - Comprehensive logging and error handling
 
 #### Chunk 4: E2E Testing
+
 - **File**: `tests/test_output_sanitization.py` (806 lines, 20 tests)
 - **Coverage**:
   - All 3 error types (mixed quotes, invalid lists, apostrophes)
@@ -72,6 +77,7 @@ Successfully refactored the entire MD-to-YAML pipeline to eliminate the critical
 - **Original Failing Test**: ✅ NOW PASSES (`test_04_output_content_quality`)
 
 **Architecture Change**:
+
 ```
 Before: LLM → Raw write → Corrupted YAML on disk
 After:  LLM → OutputSanitizer → Clean YAML on disk
@@ -87,6 +93,7 @@ After:  LLM → OutputSanitizer → Clean YAML on disk
 ### Task 1: Consolidate Markdown Stripping
 
 **Implementations Removed**: 4 → 1
+
 - Kept: `yaml_processor.strip_markdown_yaml_blocks()`
 - Removed from: corrector.py, evaluator.py, crew.py, validator.py
 
@@ -96,6 +103,7 @@ After:  LLM → OutputSanitizer → Clean YAML on disk
 ### Task 2: Consolidate Colon Fixing
 
 **Implementations Removed**: 3 → 1
+
 - Kept: `corrector._parse_yaml_safe()` implementation
 - Removed from: evaluator.py, crew.py
 
@@ -106,6 +114,7 @@ After:  LLM → OutputSanitizer → Clean YAML on disk
 ### Task 3: Remove Post-Write Cleanup
 
 **Method Removed**: `crew.clean_yaml_output_files()` (118 lines)
+
 - **Rationale**: Redundant with Phase 1 pre-write sanitization
 - **Impact**: Simplified crew.py, clearer architecture
 
@@ -114,6 +123,7 @@ After:  LLM → OutputSanitizer → Clean YAML on disk
 ### Task 4: Unified ProcessingResult Type
 
 **New File**: `src/space_hulk_game/validation/types.py` (77 lines)
+
 - **Purpose**: Standardize error handling across validator, corrector, evaluator
 - **Approach**: Added conversion methods for backward compatibility
 - **Features**:
@@ -140,12 +150,14 @@ After:  LLM → OutputSanitizer → Clean YAML on disk
 ### Code Metrics
 
 **Overall Changes**:
+
 - 43 files changed
 - +2,689 insertions
 - -1,107 deletions
 - **Net: +1,582 lines** (includes comprehensive tests)
 
 **Quality Improvements**:
+
 - Eliminated 7 duplicate implementations
 - Added 20 comprehensive E2E tests
 - Unified error handling across 3 modules
@@ -155,6 +167,7 @@ After:  LLM → OutputSanitizer → Clean YAML on disk
 
 **Tests Added**: 20 new tests
 **Tests Passing**:
+
 - Phase 1-2 targeted: 83/86 (99.6%)
 - Total project: 512/514 (99.6%)
 
@@ -163,6 +176,7 @@ After:  LLM → OutputSanitizer → Clean YAML on disk
 ### Architecture Improvements
 
 **Before**:
+
 ```
 ┌─────────────┐
 │  LLM Output │
@@ -188,6 +202,7 @@ After:  LLM → OutputSanitizer → Clean YAML on disk
 ```
 
 **After**:
+
 ```
 ┌─────────────┐
 │  LLM Output │
@@ -217,16 +232,19 @@ After:  LLM → OutputSanitizer → Clean YAML on disk
 ### Code Quality
 
 **Duplication Eliminated**:
+
 - Markdown stripping: 4 implementations → 1
 - Colon fixing: 3 implementations → 1
 - Total: 7 duplicate implementations removed
 
 **Error Handling Unified**:
+
 - Created `ProcessingResult` base type
 - Added conversion methods to all result types
 - Full backward compatibility maintained
 
 **Maintainability**:
+
 - Single source of truth for each operation
 - Clear separation of concerns
 - Comprehensive documentation
@@ -237,10 +255,12 @@ After:  LLM → OutputSanitizer → Clean YAML on disk
 ## Key Files Modified
 
 ### New Files Created (2)
+
 1. `src/space_hulk_game/utils/output_sanitizer.py` - Orchestrator
 2. `src/space_hulk_game/validation/types.py` - Unified types
 
 ### Core Files Modified (6)
+
 1. `src/space_hulk_game/crew.py` - Monkey-patch + cleanup removal
 2. `src/space_hulk_game/validation/corrector.py` - Error handlers + consolidation
 3. `src/space_hulk_game/validation/validator.py` - Consolidation + conversion
@@ -249,6 +269,7 @@ After:  LLM → OutputSanitizer → Clean YAML on disk
 6. `src/space_hulk_game/validation/__init__.py` - Export ProcessingResult
 
 ### Test Files (2)
+
 1. `tests/test_output_sanitization.py` - NEW (806 lines, 20 tests)
 2. `tests/test_corrector.py` - UPDATED (+274 lines, 20 new tests)
 
@@ -314,15 +335,18 @@ After:  LLM → OutputSanitizer → Clean YAML on disk
 ## Future Work
 
 ### Immediate (Optional)
+
 - Remove temporary debug files in `tmp/`
 - Update CONTEXT.md with new architecture
 
 ### Medium-Term
+
 - Consolidate `PlotMetrics._fix_yaml_syntax()` (discovered in Phase 2)
 - Consider strictyaml for even stricter validation
 - Add metrics tracking for sanitization effectiveness
 
 ### Long-Term (Phase 3)
+
 - Integrate quality checking (currently disabled)
 - Explore LLM function calling for structured outputs
 - Add Task callbacks for per-task processing

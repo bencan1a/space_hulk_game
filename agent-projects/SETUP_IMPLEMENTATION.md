@@ -135,17 +135,20 @@ We have implemented a complete, automated setup system that allows developers to
 ## Features Implemented
 
 ### 1. Platform Support
+
 - ✅ Linux (tested on Ubuntu, should work on all distros)
 - ✅ macOS (tested syntax, Ollama requires manual install)
 - ✅ Windows (PowerShell script with full feature parity)
 
 ### 2. Installation Options
+
 - ✅ Automated one-command setup
 - ✅ Manual step-by-step installation
 - ✅ Customization flags for skipping components
 - ✅ Development environment setup
 
 ### 3. LLM Provider Support
+
 - ✅ Ollama (local, free, privacy-friendly)
 - ✅ OpenAI API (cloud, paid)
 - ✅ Anthropic Claude (cloud, paid)
@@ -153,6 +156,7 @@ We have implemented a complete, automated setup system that allows developers to
 - ✅ Any provider supported by litellm
 
 ### 4. Error Handling
+
 - ✅ Python version validation
 - ✅ Command availability checks
 - ✅ Installation verification
@@ -160,6 +164,7 @@ We have implemented a complete, automated setup system that allows developers to
 - ✅ Helpful error messages
 
 ### 5. User Experience
+
 - ✅ Colored output for clarity
 - ✅ Progress indicators
 - ✅ Verification summaries
@@ -171,10 +176,12 @@ We have implemented a complete, automated setup system that allows developers to
 All tests passing: **22/22 (100%)**
 
 ### Breakdown
+
 - Original tests: 4/4 ✅
 - New setup tests: 18/18 ✅
 
 ### Test Coverage
+
 - Setup file existence: ✅
 - Setup file permissions: ✅
 - Configuration validation: ✅
@@ -187,6 +194,7 @@ All tests passing: **22/22 (100%)**
 **CodeQL Results:** No security alerts found ✅
 
 ### Security Considerations
+
 - ✅ .env files excluded from version control (.gitignore)
 - ✅ .env.example contains no secrets
 - ✅ Setup scripts use HTTPS for downloads
@@ -196,6 +204,7 @@ All tests passing: **22/22 (100%)**
 ## Technical Debt
 
 None currently identified. The implementation follows best practices:
+
 - ✅ Well-documented code
 - ✅ Comprehensive error handling
 - ✅ Test coverage
@@ -207,6 +216,7 @@ None currently identified. The implementation follows best practices:
 While the current implementation is complete, potential future improvements include:
 
 ### Low Priority
+
 1. **Docker Support**: Create Dockerfile and docker-compose.yml for containerized setup
 2. **Conda Support**: Add environment.yml for conda users
 3. **GitHub Codespaces**: Add devcontainer.json for one-click cloud dev environment
@@ -218,6 +228,7 @@ These are noted for potential future work but are not required for the current s
 ## Usage Examples
 
 ### Quick Start (Linux/macOS)
+
 ```bash
 git clone https://github.com/bencan1a/space_hulk_game.git
 cd space_hulk_game
@@ -225,6 +236,7 @@ cd space_hulk_game
 ```
 
 ### Quick Start (Windows)
+
 ```powershell
 git clone https://github.com/bencan1a/space_hulk_game.git
 cd space_hulk_game
@@ -232,12 +244,14 @@ cd space_hulk_game
 ```
 
 ### Development Setup
+
 ```bash
 ./setup.sh --dev  # Linux/macOS
 .\setup.ps1 -Dev  # Windows
 ```
 
 ### Using OpenAI Instead of Ollama
+
 ```bash
 ./setup.sh --skip-ollama
 # Then edit .env and set OPENAI_API_KEY
@@ -278,6 +292,7 @@ crewai run
 ## Conclusion
 
 The setup automation is complete, tested, and ready for use. It provides:
+
 - ✅ Simple one-command setup for all platforms
 - ✅ Comprehensive documentation
 - ✅ Multiple LLM provider support

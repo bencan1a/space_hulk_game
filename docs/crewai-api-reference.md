@@ -5,9 +5,11 @@ Token-efficient reference for CrewAI framework components: agents, tasks, tools,
 ## Agents
 
 ### Definition
+
 Core entities that perform tasks with specific roles, goals, and backstories.
 
 ### Parameters
+
 - `role`: String - Agent's role/title
 - `goal`: String - Agent's primary objective
 - `backstory`: String - Background context
@@ -19,6 +21,7 @@ Core entities that perform tasks with specific roles, goals, and backstories.
 - `step_callback`: Function - Callback after each step
 
 ### Syntax
+
 ```python
 Agent(role="", goal="", backstory="", tools=[], allow_delegation=False)
 Agent(config=agent_config_dict)
@@ -26,18 +29,21 @@ Agent(config=agent_config_dict)
 ```
 
 ### Relationships
+
 - Assigned to Tasks via task.agent=agent_instance
 - Can use Tools assigned to them
 - Grouped in Crews
 - Can delegate Tasks to other Agents (if allow_delegation=True)
 
 ### Integration
+
 - YAML configuration: Define agent parameters in YAML
 - Decorator pattern: @agent for class-based definition
 - Delegation: Agents with allow_delegation=True can delegate tasks
 - Config-driven: Both programmatic and YAML-based configuration
 
 ### Examples
+
 ```python
 # Basic definition
 agent = Agent(role="Analyst", goal="Analyze data", backstory="Expert analyst")
@@ -55,9 +61,11 @@ def analyst_agent(self) -> Agent:
 ## Tasks
 
 ### Definition
+
 Units of work assigned to Agents, with descriptions and expected outputs.
 
 ### Parameters
+
 - `description`: String - Task instructions
 - `expected_output`: String - Description of desired result
 - `agent`: Agent - Agent assigned to task
@@ -68,6 +76,7 @@ Units of work assigned to Agents, with descriptions and expected outputs.
 - `callbacks`: Dict - Task lifecycle callbacks
 
 ### Syntax
+
 ```python
 Task(description="", expected_output="", agent=agent_instance)
 Task(config=task_config_dict, agent=agent_instance)
@@ -75,18 +84,21 @@ Task(config=task_config_dict, agent=agent_instance)
 ```
 
 ### Relationships
+
 - Executed by Agents
 - Can be sequenced in Processes
 - Can use Tools
 - Can pass outputs to other Tasks
 
 ### Integration
+
 - YAML configuration: Define task parameters in YAML
 - Decorator pattern: @task for class-based definition
 - Input interpolation: {placeholder} in descriptions
 - Chain tasks through dependencies
 
 ### Examples
+
 ```python
 # Basic definition
 task = Task(description="Analyze data", expected_output="Analysis report", agent=analyst)
@@ -107,14 +119,17 @@ def analysis_task(self) -> Task:
 ## Tools
 
 ### Definition
+
 Capabilities provided to Agents to interact with external systems, APIs, and data.
 
 ### Types
+
 - `BaseTool`: Abstract base class for all tools
 - `ToolWithActions`: Tools with predefined actions
 - `ToolWithLLM`: Tools utilizing LLMs
 
 ### Parameters
+
 - `name`: String - Tool identifier
 - `description`: String - Tool purpose and usage
 - `func`: Function - Implementation function
@@ -122,6 +137,7 @@ Capabilities provided to Agents to interact with external systems, APIs, and dat
 - `return_direct`: Bool - Return without additional processing
 
 ### Syntax
+
 ```python
 # Function-based tool
 @tool
@@ -138,17 +154,20 @@ class CustomTool(BaseTool):
 ```
 
 ### Relationships
+
 - Used by Agents during Task execution
 - Can be shared across multiple Agents
 - Can be contextual to specific Tasks
 
 ### Integration
+
 - Function decorator: @tool
 - Tool registry: Registered at runtime
 - Tool chaining: Tools calling other tools
 - LangChain compatibility: Can use LangChain tools
 
 ### Examples
+
 ```python
 # Function-based tool
 @tool
@@ -170,20 +189,24 @@ class DatabaseTool(BaseTool):
 ## Flows
 
 ### Definition
+
 Patterns that define how Agents collaborate and how Tasks are executed.
 
 ### Types
+
 - `Sequential`: Tasks execute in defined order
 - `Hierarchical`: Manager Agent delegates to sub-Agents
 - `Custom`: User-defined execution patterns
 
 ### Parameters
+
 - `process`: Process - Execution process type
 - `manager_llm`: LLM - Model for manager in hierarchical flows
 - `execution_mode`: String - Serial or parallel execution
 - `verbose`: Bool - Detailed logging
 
 ### Syntax
+
 ```python
 # Sequential flow
 crew = Crew(agents=agents, tasks=tasks, process=Process.sequential)
@@ -196,18 +219,21 @@ crew = Crew(agents=agents, tasks=tasks, process=custom_process_function)
 ```
 
 ### Relationships
+
 - Defines how Agents collaborate
 - Controls Task execution order
 - Influences Manager-Worker dynamics
 - Determines task output handling
 
 ### Integration
+
 - Process enum: Process.sequential, Process.hierarchical
 - Custom process functions
 - RPG mode: role-playing creative execution
 - Planning integration: Connects to planning systems
 
 ### Examples
+
 ```python
 # Sequential process where each agent completes their task in order
 crew = Crew(
@@ -227,15 +253,18 @@ crew = Crew(
 ## Knowledge
 
 ### Definition
+
 Information sources used by Agents to augment their capabilities.
 
 ### Types
+
 - `File-based`: Documents, PDFs, text files
 - `Vector stores`: Embeddings for semantic search
 - `Databases`: Structured data sources
 - `API integrations`: External knowledge services
 
 ### Parameters
+
 - `name`: String - Knowledge source identifier
 - `description`: String - Knowledge content description
 - `retrieval_method`: String - How agents access knowledge
@@ -243,6 +272,7 @@ Information sources used by Agents to augment their capabilities.
 - `chunk_size`: Int - Text chunking for embeddings
 
 ### Syntax
+
 ```python
 # Direct attachment
 agent = Agent(..., knowledge=[document1, document2])
@@ -253,18 +283,21 @@ agent = Agent(..., knowledge=kb)
 ```
 
 ### Relationships
+
 - Used by Agents during reasoning
 - Can be shared across Agents
 - Augments LLM capabilities
 - Integrates with Tools for retrieval
 
 ### Integration
+
 - Direct attachment: Assign to agents
 - Shared knowledge bases
 - RAG patterns: Retrieval-augmented generation
 - Dynamic knowledge loading
 
 ### Examples
+
 ```python
 # File-based knowledge
 agent = Agent(
@@ -283,21 +316,25 @@ agent = Agent(..., knowledge=kb)
 ## Processes
 
 ### Definition
+
 Execution models that determine how Tasks and Agents interact.
 
 ### Types
+
 - `sequential`: Tasks run in defined order
 - `hierarchical`: Manager delegates to workers
 - `parallel`: Multiple tasks run concurrently
 - `custom`: User-defined execution patterns
 
 ### Parameters
+
 - `process_type`: Process - Execution model enum
 - `max_iterations`: Int - Maximum execution cycles
 - `task_dependencies`: Dict - Task prerequisites
 - `error_handling`: String - Error handling strategy
 
 ### Syntax
+
 ```python
 # Using process enum
 crew = Crew(
@@ -315,18 +352,21 @@ crew = Crew(agents=agents, tasks=tasks, process=custom_process)
 ```
 
 ### Relationships
+
 - Controls Task execution flow
 - Defines Agent collaboration patterns
 - Handles outputs between Tasks
 - Manages execution lifecycle
 
 ### Integration
+
 - Process enum values
 - Custom process functions
 - Process callbacks and hooks
 - Error handling and recovery
 
 ### Examples
+
 ```python
 # Sequential process
 crew = Crew(
@@ -349,15 +389,18 @@ crew = Crew(agents=experts, tasks=analysis_tasks, process=expert_review_process)
 ## LLMs
 
 ### Definition
+
 Language models that power Agents' reasoning and responses.
 
 ### Types
+
 - `OpenAI`: GPT models (3.5-turbo, 4, etc.)
 - `Anthropic`: Claude models
 - `Local`: Local LLMs (Llama, etc.)
 - `Custom`: User-implemented LLMs
 
 ### Parameters
+
 - `model`: String - Model identifier
 - `api_key`: String - API authentication
 - `temperature`: Float - Response randomness
@@ -366,6 +409,7 @@ Language models that power Agents' reasoning and responses.
 - `context_window`: Int - Token context size
 
 ### Syntax
+
 ```python
 # OpenAI LLM
 from crewai import OpenAILLM
@@ -380,18 +424,21 @@ agent = Agent(..., llm=llm)
 ```
 
 ### Relationships
+
 - Powers Agent reasoning
 - Used in Tools for processing
 - Influences Task execution quality
 - Can be shared across Agents
 
 ### Integration
+
 - Direct instantiation
 - Environment variables
 - Custom LLM classes
 - Provider-specific parameters
 
 ### Examples
+
 ```python
 # OpenAI with custom parameters
 from crewai import OpenAILLM
@@ -413,21 +460,25 @@ writer = Agent(..., llm=claude_llm)
 ## Memory
 
 ### Definition
+
 Storage mechanisms that allow Agents to retain information between actions.
 
 ### Types
+
 - `ConversationMemory`: Chat history
 - `TaskMemory`: Task-specific information
 - `SharedMemory`: Cross-agent information
 - `PersistentMemory`: Saved between sessions
 
 ### Parameters
+
 - `memory_type`: String - Memory implementation
 - `max_tokens`: Int - Memory size limit
 - `relevance_threshold`: Float - Memory retrieval threshold
 - `storage_backend`: String - Where memories are saved
 
 ### Syntax
+
 ```python
 # Conversation memory
 from crewai import ConversationMemory
@@ -442,18 +493,21 @@ agent = Agent(..., memory=memory)
 ```
 
 ### Relationships
+
 - Used by Agents to maintain context
 - Shared between Task executions
 - Can persist across Crew sessions
 - Integrated with Knowledge retrieval
 
 ### Integration
+
 - Memory class instantiation
 - Agent.memory attribute
 - Task output storage
 - Persistent storage backends
 
 ### Examples
+
 ```python
 # Conversation memory with token limit
 memory = ConversationMemory(max_tokens=4000)
@@ -470,21 +524,25 @@ memory = PersistentMemory(storage_path="./memories/")
 ## Planning
 
 ### Definition
+
 Mechanisms for Agents to create execution plans for complex Tasks.
 
 ### Types
+
 - `SimplePlanner`: Basic sequential planning
 - `HierarchicalPlanner`: Manager-worker plans
 - `ReactivePlanner`: Adapts plans during execution
 - `CustomPlanner`: User-defined planning logic
 
 ### Parameters
+
 - `planner_type`: String - Planning implementation
 - `planning_prompt`: String - Guide for plan creation
 - `max_steps`: Int - Maximum plan steps
 - `verbose`: Bool - Detailed planning logs
 
 ### Syntax
+
 ```python
 # Enable planning
 crew = Crew(
@@ -504,18 +562,21 @@ crew = Crew(
 ```
 
 ### Relationships
+
 - Guides Agent task execution
 - Can span multiple Tasks
 - Works with Process flows
 - Affects delegation patterns
 
 ### Integration
+
 - Boolean flag activation
 - Custom planning functions
 - Planning lifecycle callbacks
 - Plan revision mechanisms
 
 ### Examples
+
 ```python
 # Basic planning enabled
 crew = Crew(

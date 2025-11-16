@@ -5,6 +5,7 @@ This guide explains how to use the quality checking and retry logic system in th
 ## Overview
 
 The quality checking system (implemented in Phase 3, Chunk 3.3) provides:
+
 - Automatic evaluation of generated content against quality metrics
 - Retry mechanism for tasks that fail quality checks
 - Specific feedback to improve outputs on each retry attempt
@@ -17,12 +18,14 @@ The quality checking system (implemented in Phase 3, Chunk 3.3) provides:
 Quality checking is **disabled by default**. To enable it:
 
 **Option 1: Environment Variable (Recommended for testing)**
+
 ```bash
 export QUALITY_CHECK_ENABLED=true
 crewai run
 ```
 
 **Option 2: Configuration File**
+
 ```bash
 # Edit src/space_hulk_game/config/quality_config.yaml
 # Set: global.enabled: true
@@ -41,6 +44,7 @@ thresholds:
 ```
 
 Or use environment variables:
+
 ```bash
 export QUALITY_PLOT_THRESHOLD=7.0
 export QUALITY_MAX_RETRIES=5
@@ -195,6 +199,7 @@ The system defines standard quality levels:
 Quality scores are calculated by evaluators specific to each content type:
 
 ### Plot Evaluator
+
 - Clear setting description
 - Multiple branching paths (≥2)
 - Multiple endings (≥2)
@@ -202,23 +207,27 @@ Quality scores are calculated by evaluators specific to each content type:
 - Adequate word count (≥500)
 
 ### Narrative Map Evaluator
+
 - All scenes have descriptions
 - Scene connections are valid
 - No orphaned/unreachable scenes
 - Minimum scene count (≥5)
 
 ### Puzzle Evaluator
+
 - Clear solutions described
 - Ties to narrative
 - Appropriate difficulty stated
 
 ### Scene Evaluator
+
 - Vivid descriptions
 - Consistent tone
 - Dialogue present where appropriate
 - Sensory details included
 
 ### Mechanics Evaluator
+
 - All systems described
 - Rules are clear
 - Balanced difficulty
@@ -278,16 +287,19 @@ python -m unittest tests.test_quality_metrics -v
 ## Troubleshooting
 
 ### Quality checking doesn't activate
+
 - Verify `QUALITY_CHECK_ENABLED=true` is set
 - Or check `global.enabled` in quality_config.yaml
 - Check logs for "Quality checking disabled" messages
 
 ### All outputs fail quality checks
+
 - Lower the pass_threshold in config
 - Review quality metrics for your content type
 - Check evaluator feedback for specific issues
 
 ### Tasks retry too many times
+
 - Reduce max_retries in config
 - Increase pass_threshold (if outputs are good)
 - Disable quality checking for specific task types

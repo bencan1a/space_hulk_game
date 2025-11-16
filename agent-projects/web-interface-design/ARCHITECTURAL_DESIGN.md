@@ -1,4 +1,5 @@
 # Web Interface Architectural Design
+
 ## Browser-Based Game Creation and Play Platform
 
 **Document Version**: 1.0
@@ -13,6 +14,7 @@
 This document provides a comprehensive architectural design for the browser-based Space Hulk game creation and play interface. The architecture is optimized for **single-user deployment** while maintaining clear paths for **horizontal scalability** in future iterations.
 
 **Key Architectural Decisions**:
+
 - **Deployment Model**: Single-user (local/personal) with containerized components
 - **Scalability Path**: Modular design allows transition to distributed architecture
 - **Integration Strategy**: Non-invasive wrapper around existing CrewAI and game engine
@@ -43,16 +45,19 @@ This document provides a comprehensive architectural design for the browser-base
 ### 1.1 Core Principles
 
 **YAGNI (You Aren't Gonna Need It)**
+
 - Build for current single-user requirements
 - Avoid premature optimization for multi-user scenarios
 - Add complexity only when needed
 
 **DRY (Don't Repeat Yourself)**
+
 - Leverage existing CrewAI agents without duplication
 - Reuse game engine logic through wrapper pattern
 - Single source of truth for game content (JSON files)
 
 **SOLID Principles**
+
 - **Single Responsibility**: Each component has one clear purpose
 - **Open/Closed**: Extensible for themes/features without modifying core
 - **Liskov Substitution**: Components can be swapped (SQLite → PostgreSQL)
@@ -60,6 +65,7 @@ This document provides a comprehensive architectural design for the browser-base
 - **Dependency Inversion**: Depend on abstractions (interfaces), not implementations
 
 **KISS (Keep It Simple, Stupid)**
+
 - Minimize architectural layers for single-user scenario
 - Direct integration with existing Python components
 - Straightforward request/response model
@@ -67,6 +73,7 @@ This document provides a comprehensive architectural design for the browser-base
 ### 1.2 Design Constraints
 
 **Must Haves**:
+
 - Zero changes to existing CrewAI agents or game engine
 - Backward compatibility with CLI interface
 - Support for runtime theme configuration
@@ -74,6 +81,7 @@ This document provides a comprehensive architectural design for the browser-base
 - Local file system storage for game content
 
 **Must Not Haves**:
+
 - User authentication (MVP scope - single user)
 - Multi-tenancy complexity (future phase)
 - Distributed transactions (single database)
@@ -151,17 +159,20 @@ This document provides a comprehensive architectural design for the browser-base
 ### 2.2 Architecture Characteristics
 
 **Monolithic with Clear Boundaries**
+
 - Single deployment unit (Docker container or systemd service)
 - Internal modular structure (services, not microservices)
 - Shared database and file system
 - Simpler for single-user, easier to maintain
 
 **Asynchronous Task Processing**
+
 - Background Celery worker for long-running generation
 - WebSocket for real-time progress updates
 - Non-blocking UI during AI agent execution
 
 **Stateful Design**
+
 - Server maintains session state
 - Database stores story metadata and iteration history
 - File system holds game content and saves
@@ -170,6 +181,7 @@ This document provides a comprehensive architectural design for the browser-base
 ### 2.3 Deployment Architecture (Single User)
 
 **Local Development**:
+
 ```
 docker-compose up
   ├── frontend:3000      (React dev server)
@@ -180,6 +192,7 @@ docker-compose up
 ```
 
 **Production (Personal Server)**:
+
 ```
 nginx:443 (reverse proxy + HTTPS)
   ├── frontend (static build)
@@ -236,6 +249,7 @@ App (Theme Provider, Router)
 #### State Management Strategy
 
 **Context API** (MVP - sufficient for single user):
+
 ```typescript
 // Contexts
 - ThemeContext         // Active theme configuration
@@ -250,14 +264,17 @@ App (Theme Provider, Router)
 #### Key Design Patterns
 
 **Container/Presenter Pattern**:
+
 - Containers: Connect to context, handle business logic
 - Presenters: Purely presentational, receive props
 
 **Error Boundary Pattern**:
+
 - Each major feature wrapped in error boundary
 - Graceful degradation on component failure
 
 **Higher-Order Component (HOC) for Theming**:
+
 ```typescript
 withTheme(Component) => Themed Component
 ```
@@ -299,26 +316,31 @@ integrations/
 #### Service Responsibilities
 
 **StoryService**:
+
 - CRUD operations for story metadata
 - Search and filter logic
 - File system interactions (read game.json)
 
 **GenerationService**:
+
 - Queue Celery task for CrewAI execution
 - Track generation progress via WebSocket
 - Handle iteration requests
 
 **GameService**:
+
 - Initialize game from game.json
 - Process player commands
 - Manage save/load operations
 
 **IterationService**:
+
 - Store feedback
 - Trigger regeneration with context
 - Version comparison logic
 
 **ThemeService**:
+
 - Load theme configurations from YAML
 - Validate theme structure
 - Serve theme assets
@@ -367,6 +389,7 @@ class CrewAIWrapper:
 ```
 
 **Pattern**: Adapter/Facade
+
 - Provides clean interface to existing complex system
 - Allows progress monitoring via callbacks
 - No changes to original crew code
@@ -416,6 +439,7 @@ class GameEngineWrapper:
 ```
 
 **Pattern**: Proxy/Wrapper
+
 - Stateful wrapper around stateless engine calls
 - Provides web-friendly interface (JSON in/out)
 - Enables save/load functionality
@@ -427,6 +451,7 @@ class GameEngineWrapper:
 ### 4.1 Database Schema (SQLite → PostgreSQL)
 
 **Design Philosophy**:
+
 - Minimal schema for MVP (single user)
 - Clear migration path to PostgreSQL (multi-user)
 - Use SQLAlchemy ORM for database portability
@@ -510,6 +535,7 @@ class Session(Base):
 ```
 
 **Indexes for Performance**:
+
 ```python
 # For single user, basic indexes sufficient
 Index("idx_stories_created", "created_at")
@@ -549,6 +575,7 @@ data/
 ```
 
 **Design Rationale**:
+
 - **Filesystem for game content**: Large JSON files, not suitable for DB BLOBs
 - **Database for metadata**: Fast queries, relationships, indexes
 - **Redundancy**: metadata.json mirrors DB for disaster recovery
@@ -557,6 +584,7 @@ data/
 ### 4.3 Data Flow Patterns
 
 **Story Creation Flow**:
+
 ```
 User Input → API → GenerationService → Celery Task → CrewAI Wrapper
                                                          ↓
@@ -566,6 +594,7 @@ Database ← StoryService ← API ← User (game.json path stored)
 ```
 
 **Iteration Flow**:
+
 ```
 Feedback → API → IterationService → Store feedback in DB
                                   → Queue Celery task with context
@@ -575,6 +604,7 @@ Feedback → API → IterationService → Store feedback in DB
 ```
 
 **Gameplay Flow**:
+
 ```
 Command → API → GameService (in-memory engine) → Process → Response
                      ↓ (periodic)
@@ -590,6 +620,7 @@ Command → API → GameService (in-memory engine) → Process → Response
 For complete REST and WebSocket API specifications, see **[API_SPECIFICATION.md](./API_SPECIFICATION.md)**.
 
 The API specification document provides:
+
 - Complete endpoint definitions with request/response examples
 - WebSocket protocol specifications
 - Standard error response formats
@@ -600,6 +631,7 @@ The API specification document provides:
 **Quick Reference** (see API_SPECIFICATION.md for details):
 
 **REST Endpoints**:
+
 - `GET /api/v1/stories` - List stories with search/filter
 - `GET /api/v1/stories/{story_id}` - Get story details
 - `POST /api/v1/stories` - Start story generation
@@ -612,17 +644,20 @@ The API specification document provides:
 - `GET /api/v1/themes` - List available themes
 
 **WebSocket**:
+
 - `WS /ws/generation/{generation_job_id}` - Real-time generation progress
 
 ### 5.2 API Design Principles
 
 **RESTful Design**:
+
 - Resource-based URLs (nouns, not verbs)
 - Standard HTTP methods (GET, POST, PUT, DELETE)
 - Consistent versioning (`/api/v1/`)
 - Clear naming (distinguish `generation_job_id` from `game_session_id`)
 
 **Standard Response Format**:
+
 ```json
 {
   "data": { /* resource or collection */ },
@@ -634,6 +669,7 @@ The API specification document provides:
 ```
 
 **Error Response Format**:
+
 ```json
 {
   "error": {
@@ -690,6 +726,7 @@ Ensure first-time users have high-quality content to browse and play immediately
 ### 6.3 Implementation
 
 **Database Schema Extension**:
+
 ```python
 class Story(Base):
     # ... existing fields ...
@@ -698,6 +735,7 @@ class Story(Base):
 ```
 
 **Database Seeding**:
+
 ```python
 # alembic/versions/003_seed_sample_stories.py
 from alembic import op
@@ -722,6 +760,7 @@ def upgrade():
 ```
 
 **File Structure**:
+
 ```
 data/
 └── samples/
@@ -736,6 +775,7 @@ data/
 ```
 
 **API Filtering**:
+
 ```python
 # API supports filtering by sample status
 @router.get("/api/v1/stories")
@@ -752,6 +792,7 @@ async def list_stories(
 ```
 
 **UI Presentation**:
+
 - Sample stories marked with "Official Sample" badge
 - Sample stories cannot be deleted (UI enforces, backend validates)
 - "Use as Template" option available for samples
@@ -772,6 +813,7 @@ async def list_stories(
 ### 7.1 Security Requirements (Single User)
 
 **Threat Model**:
+
 - **Low risk**: Single user on local/personal server
 - **No authentication** (MVP scope)
 - **Future**: Add authentication before any network exposure
@@ -801,6 +843,7 @@ async def list_stories(
 ### 7.2 Future Security (Multi-User)
 
 **Authentication & Authorization**:
+
 ```python
 # Future implementation
 - JWT tokens for API authentication
@@ -810,6 +853,7 @@ async def list_stories(
 ```
 
 **Data Security**:
+
 - HTTPS only (no HTTP)
 - Database encryption at rest
 - Secure credential storage (environment variables)
@@ -822,17 +866,20 @@ async def list_stories(
 ### 7.1 Single-User Performance Targets
 
 **Response Times**:
+
 - API requests: < 100ms (p95)
 - Story library load: < 2 seconds (p95)
 - Command processing: < 500ms (p95)
 - WebSocket latency: < 50ms
 
 **Throughput**:
+
 - Single concurrent generation (Celery worker)
 - Multiple concurrent gameplay sessions (stateful, in-memory)
 - 100+ stories in library (tested)
 
 **Resource Limits**:
+
 - Memory: 512MB - 1GB typical
 - CPU: 1-2 cores (2-4 for faster generation)
 - Disk: 10GB for 100 stories
@@ -843,6 +890,7 @@ async def list_stories(
 **Phase 1 → Phase 2 Migration Plan**:
 
 **Current (Single User)**:
+
 ```
 Monolith (FastAPI + Celery + SQLite)
 ├── Single web server
@@ -852,6 +900,7 @@ Monolith (FastAPI + Celery + SQLite)
 ```
 
 **Future (Multi-User)**:
+
 ```
 Load Balancer
 ├── Web Servers (N instances) [stateless]
@@ -861,6 +910,7 @@ Load Balancer
 ```
 
 **Refactoring Required**:
+
 1. **Externalize State**: Move session state from memory to Redis
 2. **Stateless API**: No in-memory game sessions, use DB
 3. **Database Migration**: SQLite → PostgreSQL
@@ -868,6 +918,7 @@ Load Balancer
 5. **Authentication**: Add user auth & multi-tenancy
 
 **Design Decisions Enabling Scale**:
+
 - ✅ Service layer separation (can extract to microservices)
 - ✅ Asynchronous task processing (Celery already distributed)
 - ✅ SQLAlchemy ORM (DB engine swappable)
@@ -877,10 +928,12 @@ Load Balancer
 ### 7.3 Caching Strategy
 
 **Current (Minimal)**:
+
 - In-memory theme config cache (rarely changes)
 - No other caching needed for single user
 
 **Future (Performance)**:
+
 - Redis cache for story metadata (reduce DB reads)
 - CDN for theme assets (if served over network)
 - HTTP caching headers for static content
@@ -892,17 +945,20 @@ Load Balancer
 ### 8.1 Testability
 
 **Unit Testing Strategy**:
+
 - Service layer: Mock database and integrations
 - API layer: Mock services, test request/response
 - Integration layer: Mock CrewAI and game engine
 - Frontend: Jest + React Testing Library
 
 **Integration Testing**:
+
 - API integration tests with test database
 - End-to-end tests with Playwright or Cypress
 - Celery task execution tests
 
 **Test Coverage Goals**:
+
 - Service layer: 90%+
 - API routes: 80%+
 - Critical paths (generation, gameplay): 95%+
@@ -910,18 +966,21 @@ Load Balancer
 ### 8.2 Maintainability
 
 **Code Organization**:
+
 - Clear separation of concerns (layers)
 - Small, focused modules (SRP)
 - Consistent naming conventions
 - Comprehensive docstrings
 
 **Documentation**:
+
 - API documentation (OpenAPI/Swagger)
 - Architecture diagrams (C4 model)
 - Code examples for common tasks
 - Deployment guides
 
 **Dependency Management**:
+
 - Minimal external dependencies
 - Pin versions in requirements.txt
 - Regular security updates
@@ -929,16 +988,19 @@ Load Balancer
 ### 8.3 Reliability
 
 **Error Handling**:
+
 - Graceful degradation on component failure
 - Retry logic for transient errors
 - Clear error messages for users
 
 **Data Integrity**:
+
 - Database transactions for consistency
 - File system redundancy (metadata.json)
 - Validation before persistence
 
 **Monitoring**:
+
 - Structured logging (JSON format)
 - Error tracking (future: Sentry)
 - Performance metrics (future: Prometheus)
@@ -950,6 +1012,7 @@ Load Balancer
 ### 9.1 Backend: FastAPI
 
 **Rationale**:
+
 - ✅ Modern, async Python framework (performance)
 - ✅ Automatic OpenAPI documentation (developer experience)
 - ✅ Pydantic validation (type safety, fewer bugs)
@@ -957,6 +1020,7 @@ Load Balancer
 - ✅ Excellent developer experience (fast iteration)
 
 **Alternatives Considered**:
+
 - Flask: Older, sync-only, lacks modern features
 - Django: Too heavy for single-user, opinionated ORM
 - Node.js: Different ecosystem, Python integration harder
@@ -964,6 +1028,7 @@ Load Balancer
 ### 9.2 Frontend: React + TypeScript
 
 **Rationale**:
+
 - ✅ Industry standard (large community, resources)
 - ✅ Component reusability (DRY principle)
 - ✅ TypeScript (type safety, fewer runtime errors)
@@ -971,6 +1036,7 @@ Load Balancer
 - ✅ Virtual DOM (performance for dynamic UIs)
 
 **Alternatives Considered**:
+
 - Vue.js: Smaller ecosystem, less corporate backing
 - Svelte: Newer, less mature, smaller community
 - Angular: Too heavy, steep learning curve
@@ -978,12 +1044,14 @@ Load Balancer
 ### 9.3 Task Queue: Celery
 
 **Rationale**:
+
 - ✅ De facto standard for Python async tasks
 - ✅ Robust, battle-tested (10+ years)
 - ✅ Good monitoring tools (Flower)
 - ✅ Supports distributed workers (scalability)
 
 **Alternatives Considered**:
+
 - RQ: Simpler but less features, no distributed mode
 - Dramatiq: Newer, less ecosystem, no Windows support
 - Python asyncio: Not designed for distributed tasks
@@ -991,11 +1059,13 @@ Load Balancer
 ### 9.4 Database: SQLite → PostgreSQL
 
 **Rationale**:
+
 - ✅ SQLite for MVP: Zero config, single file, perfect for one user
 - ✅ PostgreSQL for scale: Production-grade, JSON support, full-text search
 - ✅ SQLAlchemy ORM: Portable, swap DB without code changes
 
 **Alternatives Considered**:
+
 - MySQL: No advantages over PostgreSQL for this use case
 - MongoDB: Overkill, schema flexibility not needed
 - JSON files only: No queries, no relationships, not scalable
@@ -1017,6 +1087,7 @@ Load Balancer
 ### 10.2 Architectural Technical Debt
 
 **Intentional Debt (YAGNI)**:
+
 - No user authentication (defer until multi-user)
 - No distributed architecture (single server sufficient)
 - In-memory game sessions (refactor for scale)
@@ -1025,6 +1096,7 @@ Load Balancer
 **Mitigation**: Document all design decisions, clear upgrade path in Phase 2
 
 **Unintentional Debt (Watch For)**:
+
 - Tight coupling between API and services (enforce interfaces)
 - Insufficient error handling (comprehensive testing)
 - Poor test coverage (enforce minimum coverage)
@@ -1033,6 +1105,7 @@ Load Balancer
 ### 10.3 Risk Register
 
 **Create GitHub Issues for**:
+
 1. ⚠️ **CrewAI Progress Monitoring**: May require modifications to crew.py for detailed progress
 2. ⚠️ **Large Game File Performance**: JSON parsing performance for 1MB+ game files
 3. ⚠️ **Theme Validation**: Malformed theme configs could break UI
@@ -1046,33 +1119,39 @@ Load Balancer
 ### 11.1 Phase Overview (16 weeks total)
 
 **Phase 1: Foundation** (Weeks 1-4)
+
 - Backend infrastructure setup
 - Database schema and migrations
 - Basic API endpoints
 - Frontend scaffolding
 
 **Phase 2: Story Library** (Weeks 5-6)
+
 - Story CRUD operations
 - Search and filter UI
 - Theme system implementation
 
 **Phase 3: Story Creation** (Weeks 7-10)
+
 - Template gallery
 - Chat-based refinement
 - Generation workflow
 - Progress tracking (WebSocket)
 
 **Phase 4: Iteration System** (Weeks 11-12)
+
 - Feedback mechanism
 - Version management
 - Comparison UI
 
 **Phase 5: Gameplay** (Weeks 13-15)
+
 - Game session management
 - Command processing
 - Save/load system
 
 **Phase 6: Polish** (Week 16)
+
 - Performance optimization
 - Error handling
 - Documentation
@@ -1081,6 +1160,7 @@ Load Balancer
 ### 11.2 Detailed Implementation Plan (Next Section)
 
 See [IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md) for:
+
 - Task breakdown by phase
 - Acceptance criteria per task
 - Dependencies and prerequisites
@@ -1093,11 +1173,13 @@ See [IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md) for:
 ### 12.1 Design Patterns Used
 
 **Architectural Patterns**:
+
 - Layered Architecture (Presentation → Application → Integration)
 - Repository Pattern (Data access abstraction)
 - Service Layer Pattern (Business logic encapsulation)
 
 **Component Patterns**:
+
 - Adapter/Facade (CrewAI and Game Engine wrappers)
 - Proxy (GameEngineWrapper for state management)
 - Strategy (Theme loading and application)
@@ -1124,16 +1206,17 @@ See [IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md) for:
   - ../../docs/CONTRIBUTING.md - Coding standards
 
 - **External Resources**:
-  - FastAPI Documentation: https://fastapi.tiangolo.com/
-  - React TypeScript: https://react-typescript-cheatsheet.netlify.app/
-  - Celery Documentation: https://docs.celeryproject.org/
-  - SQLAlchemy ORM: https://docs.sqlalchemy.org/
+  - FastAPI Documentation: <https://fastapi.tiangolo.com/>
+  - React TypeScript: <https://react-typescript-cheatsheet.netlify.app/>
+  - Celery Documentation: <https://docs.celeryproject.org/>
+  - SQLAlchemy ORM: <https://docs.sqlalchemy.org/>
 
 ---
 
 ## Document Approval
 
 **Reviewed By**:
+
 - [ ] Engineering Lead
 - [ ] Product Owner
 - [ ] Security Team (future, before network deployment)
@@ -1144,6 +1227,7 @@ See [IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md) for:
 ---
 
 **Next Steps**:
+
 1. Review and approve this architectural design
 2. Create detailed implementation plan (task breakdown)
 3. Set up development environment

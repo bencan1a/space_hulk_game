@@ -2,9 +2,9 @@
 
 ## Document Information
 
-**Version**: 1.0  
-**Created**: 2025-11-12  
-**Related**: PRD_WEB_INTERFACE.md, ARCHITECTURE_WEB_INTERFACE.md  
+**Version**: 1.0
+**Created**: 2025-11-12
+**Related**: PRD_WEB_INTERFACE.md, ARCHITECTURE_WEB_INTERFACE.md
 **Purpose**: Define configurable theming system for multi-genre support
 
 ---
@@ -29,7 +29,7 @@ theme:
   id: "warhammer40k"
   name: "Warhammer 40,000"
   description: "Grimdark sci-fi horror in the far future"
-  
+
   # Color palette
   colors:
     primary: "#8B0000"           # Dark red - accent, CTAs
@@ -41,7 +41,7 @@ theme:
     success: "#2d5016"           # Dark green
     warning: "#cc5500"           # Orange
     error: "#dc143c"             # Crimson red
-  
+
   # Typography
   typography:
     headingFont: "Roboto Bold, sans-serif"
@@ -52,7 +52,7 @@ theme:
       h2: "24px"
       h3: "18px"
     bodySize: "16px"
-  
+
   # UI text and labels
   labels:
     createStory: "Generate New Mission"
@@ -60,7 +60,7 @@ theme:
     storyLibrary: "Mission Archives"
     newStory: "New Mission Briefing"
     savedGames: "Mission Logs"
-    
+
   # Game terminology
   terminology:
     story: "Mission"
@@ -69,7 +69,7 @@ theme:
     npc: "Character"
     puzzle: "Objective"
     player: "Space Marine"
-    
+
   # Visual assets
   assets:
     logo: "/themes/warhammer40k/logo.png"
@@ -78,7 +78,7 @@ theme:
     icons:
       combat: "/themes/warhammer40k/icons/combat.svg"
       exploration: "/themes/warhammer40k/icons/exploration.svg"
-      
+
   # Audio (optional)
   audio:
     ambientMusic: "/themes/warhammer40k/ambient.mp3"
@@ -95,14 +95,14 @@ theme:
   id: "cyberpunk"
   name: "Cyberpunk"
   description: "High-tech dystopian future"
-  
+
   colors:
     primary: "#00ff9f"           # Neon green
     secondary: "#ff006e"         # Hot pink
     background: "#0a0a0a"        # Near black
     surface: "#1a1a2e"           # Dark blue-gray
     # ... etc
-    
+
   labels:
     createStory: "Jack In New Story"
     playGame: "Enter the Matrix"
@@ -115,13 +115,13 @@ theme:
   id: "fantasy"
   name: "High Fantasy"
   description: "Medieval fantasy adventure"
-  
+
   colors:
     primary: "#8B4513"           # Brown
     secondary: "#FFD700"         # Gold
     background: "#2F4F2F"        # Forest green
     # ... etc
-    
+
   labels:
     createStory: "Weave New Tale"
     playGame: "Begin Adventure"
@@ -161,7 +161,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setThemeState] = useState<ThemeConfig | null>(null);
   const [availableThemes, setAvailableThemes] = useState<ThemeConfig[]>([]);
-  
+
   useEffect(() => {
     // Load available themes from API
     fetch('/api/v1/themes')
@@ -173,7 +173,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         setThemeState(defaultTheme);
       });
   }, []);
-  
+
   const setTheme = (themeId: string) => {
     const newTheme = availableThemes.find(t => t.id === themeId);
     if (newTheme) {
@@ -182,15 +182,15 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       applyCSSVariables(newTheme);
     }
   };
-  
+
   const getLabel = (key: string): string => {
     return theme?.labels[key] || key;
   };
-  
+
   const getTerm = (key: string): string => {
     return theme?.terminology[key] || key;
   };
-  
+
   return (
     <ThemeContext.Provider value={{ theme, availableThemes, setTheme, getLabel, getTerm }}>
       {children}
@@ -227,7 +227,7 @@ import { useTheme } from '../../contexts/ThemeContext';
 
 const StoryCard: React.FC<{ story: Story }> = ({ story }) => {
   const { getLabel, getTerm, theme } = useTheme();
-  
+
   return (
     <div className="story-card" style={{
       backgroundColor: `var(--color-surface)`,
@@ -261,7 +261,7 @@ from app.storage.database import Base
 class Theme(Base):
     """Theme configuration model."""
     __tablename__ = "themes"
-    
+
     id = Column(String(50), primary_key=True)
     name = Column(String(100), nullable=False)
     description = Column(String(500))
@@ -303,7 +303,7 @@ async def get_theme(theme_id: str, db: Session = Depends(get_db)):
     theme = db.query(Theme).filter_by(id=theme_id).first()
     if not theme:
         raise HTTPException(status_code=404, detail="Theme not found")
-    
+
     return {
         "id": theme.id,
         "name": theme.name,
@@ -320,7 +320,7 @@ from sqlalchemy import Column, String, ForeignKey
 
 class Story(Base):
     __tablename__ = "stories"
-    
+
     id = Column(String(36), primary_key=True)
     title = Column(String(255), nullable=False)
     # ... other fields ...
@@ -337,11 +337,11 @@ class Story(Base):
 1. **Template Selection Page**:
    - Each template can have a recommended theme
    - User can override with dropdown: "Choose aesthetic: [Warhammer 40K ▼]"
-   
+
 2. **Custom Prompt Page**:
    - Theme selector at top: "Story theme: [Warhammer 40K ▼]"
    - Selected theme affects template suggestions and examples
-   
+
 3. **Playing Games**:
    - Game interface automatically loads theme associated with story
    - User sees consistent aesthetic from library → creation → gameplay
@@ -372,11 +372,11 @@ class Story(Base):
   --color-success: #2d5016;
   --color-warning: #cc5500;
   --color-error: #dc143c;
-  
+
   --font-heading: 'Roboto Bold', sans-serif;
   --font-body: 'Open Sans', sans-serif;
   --font-monospace: 'Courier New', monospace;
-  
+
   /* Dynamically updated by ThemeProvider */
 }
 
@@ -422,24 +422,28 @@ class Story(Base):
 ## Migration Strategy
 
 ### Phase 1: Infrastructure (Week 1-2)
+
 - Create Theme database model
 - Add theme API endpoints
 - Implement ThemeProvider component
 - Convert hardcoded colors to CSS variables
 
 ### Phase 2: Label Extraction (Week 3-4)
+
 - Identify all hardcoded UI strings
 - Create theme label keys
 - Update components to use `getLabel()` and `getTerm()`
 - Test with Warhammer 40K theme (verify no visual changes)
 
 ### Phase 3: Additional Themes (Week 5-6)
+
 - Create cyberpunk theme configuration
 - Create fantasy theme configuration
 - Test theme switching
 - Document theme creation process
 
 ### Phase 4: User Features (Week 7-8)
+
 - Add theme selector to story creation
 - Add theme badge to story cards
 - Implement user preference storage
@@ -450,9 +454,11 @@ class Story(Base):
 ## Default Themes to Include
 
 ### MVP (Phase 1)
+
 1. **Warhammer 40,000** - Grimdark sci-fi (default, existing aesthetic)
 
 ### Post-MVP (Phase 2-3)
+
 2. **Cyberpunk** - High-tech dystopia
 3. **High Fantasy** - Medieval magic and dragons
 4. **Cosmic Horror** - Lovecraftian dread
@@ -466,6 +472,7 @@ class Story(Base):
 ## Documentation Updates
 
 Update all documentation to clarify:
+
 - Warhammer 40K is the **default** theme, not the only theme
 - System designed for multi-genre support
 - Theme configuration is runtime-loaded, not hardcoded
@@ -487,12 +494,14 @@ Update all documentation to clarify:
 ## Testing Strategy
 
 ### Theme Switching Tests
+
 - Verify CSS variables update correctly
 - Verify labels change based on theme
 - Verify terminology changes throughout UI
 - Verify assets load correctly
 
 ### Multi-Theme Tests
+
 - Create story with cyberpunk theme
 - Play story and verify cyberpunk aesthetic applied
 - Return to library and verify default theme restored
@@ -500,6 +509,7 @@ Update all documentation to clarify:
 - Verify each story maintains its own theme
 
 ### Performance Tests
+
 - Theme switching completes in <500ms
 - No visual flicker during theme change
 - CSS transitions smooth
@@ -518,7 +528,6 @@ Update all documentation to clarify:
 
 **This theming system ensures the web interface can support any genre, not just Warhammer 40K, while maintaining a polished, cohesive user experience for each aesthetic.**
 
-**Version**: 1.0  
-**Last Updated**: 2025-11-12  
+**Version**: 1.0
+**Last Updated**: 2025-11-12
 **Status**: Ready for Implementation
-

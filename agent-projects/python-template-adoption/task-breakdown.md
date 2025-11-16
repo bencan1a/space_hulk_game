@@ -5,6 +5,7 @@ This document breaks down the adoption plan into specific, agent-runnable tasks 
 ## Task Execution Guide
 
 **Notation:**
+
 - ✅ Can run in parallel with other tasks in same group
 - 🔗 Must run serially (depends on previous tasks)
 - ⚡ Quick task (<30 min)
@@ -16,20 +17,24 @@ This document breaks down the adoption plan into specific, agent-runnable tasks 
 ## PHASE 1: Foundation & Organization (CRITICAL)
 
 ### Group 1A: Directory Structure Creation ✅ PARALLEL
+
 All tasks in this group can run simultaneously.
 
 #### Task 1.1.1: Create agent-tmp Directory ⚡
+
 **Executor:** File System Agent
 **Effort:** 5 minutes
 **Dependencies:** None
 **Parallelizable:** Yes
 
 **Actions:**
+
 ```bash
 mkdir -p agent-tmp
 ```
 
 **Create:** `agent-tmp/README.md`
+
 ```markdown
 # Agent Temporary Files
 
@@ -70,17 +75,20 @@ This directory is gitignored. Nothing here will be committed to version control.
 ---
 
 #### Task 1.1.2: Create agent-projects Directory ⚡
+
 **Executor:** File System Agent
 **Effort:** 10 minutes
 **Dependencies:** None
 **Parallelizable:** Yes
 
 **Actions:**
+
 ```bash
 mkdir -p agent-projects
 ```
 
 **Create:** `agent-projects/README.md`
+
 ```markdown
 # Active Agent Projects
 
@@ -90,12 +98,14 @@ This directory contains active project folders for ongoing development initiativ
 
 Each project should be in its own subdirectory with:
 ```
+
 agent-projects/
 ├── project-name/
 │   ├── plan.md          # Required: Project plan with YAML frontmatter
 │   ├── notes.md         # Optional: Implementation notes
 │   ├── decisions.md     # Optional: Design decisions
 │   └── ...             # Other project-specific files
+
 ```
 
 ## Plan.md Format
@@ -139,6 +149,7 @@ priority: high|medium|low
 - Keep plans focused and scoped appropriately
 - Move to `docs/` when complete
 - Use `agent-tmp/` for temporary exploration before creating a formal project
+
 ```
 
 **Validation:** Directory exists with README.md
@@ -157,6 +168,7 @@ mkdir -p tools
 ```
 
 **Create:** `tools/README.md`
+
 ```markdown
 # Utility Tools
 
@@ -173,25 +185,31 @@ python tools/validate_api.py
 ```
 
 ### test_connectivity.py
+
 Tests network connectivity to various services.
 
 **Usage:**
+
 ```bash
 python tools/test_connectivity.py
 ```
 
 ### kloc_report.py
+
 Generates lines-of-code reports for the project.
 
 **Usage:**
+
 ```bash
 python tools/kloc_report.py
 ```
 
 ### configure_mem0.py
+
 Configures Mem0 memory system for CrewAI agents.
 
 **Usage:**
+
 ```bash
 python tools/configure_mem0.py
 ```
@@ -199,12 +217,14 @@ python tools/configure_mem0.py
 ## Adding New Tools
 
 When adding new utility scripts:
+
 1. Place in this `tools/` directory
 2. Add appropriate shebang (`#!/usr/bin/env python3`)
 3. Include comprehensive docstring
 4. Update this README
 5. Add to `pyproject.toml` [tool.pyright] include list
 6. Consider adding Makefile shortcut
+
 ```
 
 **Validation:** Directory exists with README.md
@@ -233,17 +253,20 @@ python -c "import sys; sys.path.insert(0, 'tools'); import validate_api"
 ```
 
 **Files to move:**
+
 - `validate_api.py` → `tools/validate_api.py`
 - `test_connectivity.py` → `tools/test_connectivity.py`
 - `kloc_report.py` → `tools/kloc_report.py`
 - `configure_mem0.py` → `tools/configure_mem0.py`
 
 **Update references in:**
+
 - `.github/workflows/run-kloc-report.yml` (update path to tools/kloc_report.py)
 - Any documentation referencing these scripts
 - CLAUDE.md (update command examples)
 
 **Validation:**
+
 - Scripts execute successfully from new location
 - No broken imports
 - Workflows still pass
@@ -251,6 +274,7 @@ python -c "import sys; sys.path.insert(0, 'tools'); import validate_api"
 ---
 
 #### Task 1.2.2: Update .gitignore ⚡
+
 **Executor:** Configuration Agent
 **Effort:** 10 minutes
 **Dependencies:** None
@@ -259,6 +283,7 @@ python -c "import sys; sys.path.insert(0, 'tools'); import validate_api"
 **Edit:** `.gitignore`
 
 **Add these entries:**
+
 ```gitignore
 # AI Agent outputs
 agent-tmp/
@@ -278,9 +303,11 @@ coverage.xml
 ---
 
 ### Group 1C: Documentation Updates ✅ PARALLEL
+
 Can run in parallel with each other, but after Group 1A/1B complete.
 
 #### Task 1.3.1: Create AGENTS.md ⏱️
+
 **Executor:** Documentation Agent
 **Effort:** 90 minutes
 **Dependencies:** None (can start anytime)
@@ -289,6 +316,7 @@ Can run in parallel with each other, but after Group 1A/1B complete.
 **Create:** `AGENTS.md` (root directory)
 
 **Content Structure:**
+
 1. **Virtual Environment Requirements** (PROMINENT - top of file)
 2. **Initial Setup Flow**
 3. **File Organization Standards**
@@ -322,11 +350,13 @@ Can run in parallel with each other, but after Group 1A/1B complete.
    - Hierarchical mode hanging issues
 
 **Source Material:**
+
 - Consolidate from CLAUDE.md (keep technical details there)
 - Add patterns from python-template AGENTS.md
 - Keep focused on "what AI agents need to know"
 
 **Validation:**
+
 - File reads clearly top-to-bottom
 - Venv activation prominently featured
 - Cross-reference with CLAUDE.md (no duplication)
@@ -334,6 +364,7 @@ Can run in parallel with each other, but after Group 1A/1B complete.
 ---
 
 #### Task 1.3.2: Update pyproject.toml - Line Length Fix ⚡
+
 **Executor:** Configuration Agent
 **Effort:** 10 minutes
 **Dependencies:** None
@@ -342,6 +373,7 @@ Can run in parallel with each other, but after Group 1A/1B complete.
 **Edit:** `pyproject.toml`
 
 **Change:**
+
 ```toml
 [tool.black]
 line-length = 100  # Changed from 88 to match ruff
@@ -355,6 +387,7 @@ target-version = ["py310", "py311", "py312"]
 ---
 
 #### Task 1.3.3: Update pyproject.toml - Add tools/ to Type Checking ⚡
+
 **Executor:** Configuration Agent
 **Effort:** 5 minutes
 **Dependencies:** Task 1.1.3 (tools/ directory exists)
@@ -363,6 +396,7 @@ target-version = ["py310", "py311", "py312"]
 **Edit:** `pyproject.toml`
 
 **Change:**
+
 ```toml
 [tool.pyright]
 include = ["src", "tests", "tools"]  # Added tools
@@ -379,6 +413,7 @@ exclude = [
 ```
 
 **Also update mypy:**
+
 ```toml
 [tool.mypy]
 # ... existing config ...
@@ -399,9 +434,11 @@ exclude = [
 ## PHASE 2: Quality Automation (HIGH PRIORITY)
 
 ### Group 2A: Makefile Creation ⏱️ SERIAL
+
 Must complete before pre-commit setup.
 
 #### Task 2.1.1: Create Makefile ⏱️
+
 **Executor:** Build System Agent
 **Effort:** 2 hours
 **Dependencies:** Phase 1 complete (directories exist, scripts moved)
@@ -410,115 +447,117 @@ Must complete before pre-commit setup.
 **Create:** `Makefile` (root directory)
 
 **Content:**
+
 ```makefile
 .PHONY: help install install-dev dev test test-real-api coverage lint format format-check type-check security check-all fix run-crew validate-api validate-config clean
 
 help:
-	@echo "Space Hulk Game - Development Commands"
-	@echo ""
-	@echo "Setup & Installation:"
-	@echo "  make install         - Install package in editable mode"
-	@echo "  make install-dev     - Install with dev dependencies and pre-commit hooks"
-	@echo "  make dev             - Complete development environment setup"
-	@echo ""
-	@echo "Testing:"
-	@echo "  make test            - Run tests (mock mode, no API required)"
-	@echo "  make test-real-api   - Run tests with real API (requires API key)"
-	@echo "  make coverage        - Generate coverage report"
-	@echo ""
-	@echo "Code Quality:"
-	@echo "  make lint            - Check code with Ruff linter"
-	@echo "  make format          - Auto-format code using Ruff"
-	@echo "  make format-check    - Verify formatting without modifications"
-	@echo "  make type-check      - Run MyPy type validation"
-	@echo "  make security        - Execute Bandit security scanning"
-	@echo "  make check-all       - Run all checks sequentially"
-	@echo "  make fix             - Auto-fix linting issues and reformat"
-	@echo ""
-	@echo "CrewAI Specific:"
-	@echo "  make run-crew        - Run CrewAI crew"
-	@echo "  make validate-api    - Validate API connectivity"
-	@echo "  make validate-config - Validate CrewAI configuration"
-	@echo ""
-	@echo "Maintenance:"
-	@echo "  make clean           - Remove cache files and old temp files"
-	@echo ""
-	@echo "NOTE: Always activate virtual environment first!"
-	@echo "  source .venv/bin/activate  (Linux/macOS/WSL)"
-	@echo "  .venv\\Scripts\\activate     (Windows)"
+ @echo "Space Hulk Game - Development Commands"
+ @echo ""
+ @echo "Setup & Installation:"
+ @echo "  make install         - Install package in editable mode"
+ @echo "  make install-dev     - Install with dev dependencies and pre-commit hooks"
+ @echo "  make dev             - Complete development environment setup"
+ @echo ""
+ @echo "Testing:"
+ @echo "  make test            - Run tests (mock mode, no API required)"
+ @echo "  make test-real-api   - Run tests with real API (requires API key)"
+ @echo "  make coverage        - Generate coverage report"
+ @echo ""
+ @echo "Code Quality:"
+ @echo "  make lint            - Check code with Ruff linter"
+ @echo "  make format          - Auto-format code using Ruff"
+ @echo "  make format-check    - Verify formatting without modifications"
+ @echo "  make type-check      - Run MyPy type validation"
+ @echo "  make security        - Execute Bandit security scanning"
+ @echo "  make check-all       - Run all checks sequentially"
+ @echo "  make fix             - Auto-fix linting issues and reformat"
+ @echo ""
+ @echo "CrewAI Specific:"
+ @echo "  make run-crew        - Run CrewAI crew"
+ @echo "  make validate-api    - Validate API connectivity"
+ @echo "  make validate-config - Validate CrewAI configuration"
+ @echo ""
+ @echo "Maintenance:"
+ @echo "  make clean           - Remove cache files and old temp files"
+ @echo ""
+ @echo "NOTE: Always activate virtual environment first!"
+ @echo "  source .venv/bin/activate  (Linux/macOS/WSL)"
+ @echo "  .venv\\Scripts\\activate     (Windows)"
 
 # Setup & Installation
 install:
-	uv pip install -e .
+ uv pip install -e .
 
 install-dev:
-	uv pip install -e ".[dev]"
-	pre-commit install || echo "pre-commit not available yet"
+ uv pip install -e ".[dev]"
+ pre-commit install || echo "pre-commit not available yet"
 
 dev: install-dev
-	@echo "Development environment ready!"
-	@echo "Remember to activate: source .venv/bin/activate"
+ @echo "Development environment ready!"
+ @echo "Remember to activate: source .venv/bin/activate"
 
 # Testing
 test:
-	python -m unittest discover -s tests -v
+ python -m unittest discover -s tests -v
 
 test-real-api:
-	RUN_REAL_API_TESTS=1 python -m unittest discover -s tests -v
+ RUN_REAL_API_TESTS=1 python -m unittest discover -s tests -v
 
 coverage:
-	coverage run -m unittest discover -s tests
-	coverage html
-	coverage report
-	@echo "Coverage report generated in htmlcov/index.html"
+ coverage run -m unittest discover -s tests
+ coverage html
+ coverage report
+ @echo "Coverage report generated in htmlcov/index.html"
 
 # Code Quality
 lint:
-	ruff check .
+ ruff check .
 
 format:
-	ruff format .
+ ruff format .
 
 format-check:
-	ruff format --check .
+ ruff format --check .
 
 type-check:
-	mypy src/ tools/
+ mypy src/ tools/
 
 security:
-	bandit -r src/ -c pyproject.toml
+ bandit -r src/ -c pyproject.toml
 
 check-all: format-check lint type-check security test
-	@echo "✅ All checks passed!"
+ @echo "✅ All checks passed!"
 
 fix:
-	ruff check --fix .
-	ruff format .
-	@echo "✅ Code fixed and formatted!"
+ ruff check --fix .
+ ruff format .
+ @echo "✅ Code fixed and formatted!"
 
 # CrewAI Specific
 run-crew:
-	crewai run
+ crewai run
 
 validate-api:
-	python tools/validate_api.py
+ python tools/validate_api.py
 
 validate-config:
-	python -m space_hulk_game.main test 1 test-model
+ python -m space_hulk_game.main test 1 test-model
 
 # Maintenance
 clean:
-	@echo "Cleaning cache files..."
-	find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
-	find . -type f -name "*.pyc" -delete 2>/dev/null || true
-	find . -type d -name "*.egg-info" -exec rm -rf {} + 2>/dev/null || true
-	rm -rf build/ dist/ .coverage htmlcov/ .pytest_cache/ .mypy_cache/ .ruff_cache/ .hypothesis/
-	@echo "Cleaning old agent-tmp files (>7 days)..."
-	find agent-tmp/ -type f -mtime +7 -delete 2>/dev/null || true
-	@echo "✅ Cleanup complete!"
+ @echo "Cleaning cache files..."
+ find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
+ find . -type f -name "*.pyc" -delete 2>/dev/null || true
+ find . -type d -name "*.egg-info" -exec rm -rf {} + 2>/dev/null || true
+ rm -rf build/ dist/ .coverage htmlcov/ .pytest_cache/ .mypy_cache/ .ruff_cache/ .hypothesis/
+ @echo "Cleaning old agent-tmp files (>7 days)..."
+ find agent-tmp/ -type f -mtime +7 -delete 2>/dev/null || true
+ @echo "✅ Cleanup complete!"
 ```
 
 **Validation:**
+
 - `make help` displays all commands
 - `make format` formats code
 - `make lint` runs without errors
@@ -528,9 +567,11 @@ clean:
 ---
 
 ### Group 2B: Pre-commit Configuration ⏱️ SERIAL
+
 Depends on Makefile and updated pyproject.toml.
 
 #### Task 2.2.1: Create .pre-commit-config.yaml ⏱️
+
 **Executor:** Configuration Agent
 **Effort:** 90 minutes
 **Dependencies:** Task 2.1.1 (Makefile exists), Task 1.3.2 (line length fixed)
@@ -539,6 +580,7 @@ Depends on Makefile and updated pyproject.toml.
 **Create:** `.pre-commit-config.yaml` (root directory)
 
 **Content:**
+
 ```yaml
 # Pre-commit hooks for Space Hulk Game
 # See https://pre-commit.com for more information
@@ -592,6 +634,7 @@ repos:
 ```
 
 **Testing Steps:**
+
 1. Install pre-commit: `pip install pre-commit`
 2. Install hooks: `pre-commit install`
 3. Test on all files: `pre-commit run --all-files`
@@ -599,6 +642,7 @@ repos:
 5. Make a test commit to verify hooks run
 
 **Validation:**
+
 - Hooks install successfully
 - Running on all files completes without errors
 - game-config/*.yaml files excluded from whitespace trimming
@@ -607,9 +651,11 @@ repos:
 ---
 
 ### Group 2C: pyproject.toml Enhancements ⏱️ PARALLEL
+
 Can run alongside pre-commit setup.
 
 #### Task 2.3.1: Add Extended Ruff Rules ⚡
+
 **Executor:** Configuration Agent
 **Effort:** 30 minutes
 **Dependencies:** None
@@ -618,6 +664,7 @@ Can run alongside pre-commit setup.
 **Edit:** `pyproject.toml`
 
 **Change:**
+
 ```toml
 [tool.ruff.lint]
 select = [
@@ -647,6 +694,7 @@ ignore = [
 ```
 
 **Testing:**
+
 ```bash
 ruff check .
 # Address any new issues found
@@ -658,6 +706,7 @@ ruff check .
 ---
 
 #### Task 2.3.2: Add pytest Configuration ⚡
+
 **Executor:** Configuration Agent
 **Effort:** 20 minutes
 **Dependencies:** None
@@ -666,6 +715,7 @@ ruff check .
 **Edit:** `pyproject.toml`
 
 **Add:**
+
 ```toml
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -720,6 +770,7 @@ directory = "htmlcov"
 ---
 
 #### Task 2.3.3: Add Development Dependencies ⚡
+
 **Executor:** Configuration Agent
 **Effort:** 15 minutes
 **Dependencies:** None
@@ -728,6 +779,7 @@ directory = "htmlcov"
 **Edit:** `pyproject.toml`
 
 **Update:**
+
 ```toml
 [project.optional-dependencies]
 dev = [
@@ -761,6 +813,7 @@ dev = [
 ```
 
 **Install updated dependencies:**
+
 ```bash
 uv pip install -e ".[dev]"
 ```
@@ -772,9 +825,11 @@ uv pip install -e ".[dev]"
 ## PHASE 3: CI/CD Enhancement (MEDIUM PRIORITY)
 
 ### Group 3A: Main CI Workflow 🕐 SERIAL
+
 Comprehensive CI pipeline.
 
 #### Task 3.1.1: Create .github/workflows/ci.yml 🕐
+
 **Executor:** CI/CD Agent
 **Effort:** 3 hours
 **Dependencies:** Phase 2 complete (tools in place)
@@ -783,6 +838,7 @@ Comprehensive CI pipeline.
 **Create:** `.github/workflows/ci.yml`
 
 **Content:**
+
 ```yaml
 name: CI
 
@@ -941,12 +997,14 @@ jobs:
 ```
 
 **Testing:**
+
 1. Push to a test branch
 2. Verify all jobs run
 3. Check multi-platform compatibility
 4. Verify coverage upload
 
 **Validation:**
+
 - Workflow runs successfully
 - All platforms tested
 - Coverage generated
@@ -954,9 +1012,11 @@ jobs:
 ---
 
 ### Group 3B: ~~PR Validation Workflow~~ (Merged into CI)
+
 **Note:** This task was initially planned as a separate workflow but was merged into ci.yml to avoid redundancy with the main CI workflow.
 
 #### Task 3.2.1: ~~Create .github/workflows/pr-validation.yml~~ (Obsolete)
+
 **Status:** Merged into ci.yml
 **Executor:** CI/CD Agent
 **Original Effort:** 1 hour
@@ -1011,6 +1071,7 @@ jobs:
           echo "✅ Formatting: Passed" >> $GITHUB_STEP_SUMMARY
           echo "✅ Linting: Passed" >> $GITHUB_STEP_SUMMARY
           echo "✅ Tests: Passed" >> $GITHUB_STEP_SUMMARY
+
 ```
 
 **Validation:** Create test PR and verify workflow runs
@@ -1115,6 +1176,7 @@ jobs:
 ### Group 4A: Build Context Script 🕐 SERIAL
 
 #### Task 4.1.1: Create tools/build_context.py 🕐
+
 **Executor:** Python Development Agent
 **Effort:** 4 hours
 **Dependencies:** Task 1.2.1 (tools/ directory ready)
@@ -1125,6 +1187,7 @@ jobs:
 **Content:** (See full script in evaluation report - 200+ lines)
 
 **Key Features:**
+
 1. Generate API docs using pdoc3
 2. Collect active plans from agent-projects/
 3. Parse plan metadata (YAML frontmatter)
@@ -1133,11 +1196,13 @@ jobs:
 6. Configurable via environment variables
 
 **Environment Variables:**
+
 - `CONTEXT_MAX_CHARS`: 150000 (default)
 - `PLANS_MAX_AGE_DAYS`: 21 (default)
 - `CLEAN_TMP_AGE_DAYS`: 7 (default)
 
 **Testing:**
+
 ```bash
 python tools/build_context.py
 # Check generated docs/_generated/api/
@@ -1146,6 +1211,7 @@ python tools/build_context.py
 ```
 
 **Validation:**
+
 - Script runs without errors
 - API docs generated
 - CONTEXT.md created
@@ -1154,9 +1220,11 @@ python tools/build_context.py
 ---
 
 ### Group 4B: Documentation Workflow ⏱️ SERIAL
+
 Depends on build_context.py existing.
 
 #### Task 4.2.1: Create .github/workflows/update-docs.yml ⏱️
+
 **Executor:** CI/CD Agent
 **Effort:** 90 minutes
 **Dependencies:** Task 4.1.1 (build_context.py exists)
@@ -1165,6 +1233,7 @@ Depends on build_context.py existing.
 **Create:** `.github/workflows/update-docs.yml`
 
 **Content:**
+
 ```yaml
 name: Update Documentation
 
@@ -1228,9 +1297,11 @@ jobs:
 ---
 
 ### Group 4C: Dependencies Update ⚡ PARALLEL
+
 Can run alongside script development.
 
 #### Task 4.3.1: Add pdoc3 to pyproject.toml ⚡
+
 **Executor:** Configuration Agent
 **Effort:** 5 minutes
 **Dependencies:** None
@@ -1239,6 +1310,7 @@ Can run alongside script development.
 **Edit:** `pyproject.toml`
 
 **Update dev dependencies:**
+
 ```toml
 [project.optional-dependencies]
 dev = [
@@ -1248,6 +1320,7 @@ dev = [
 ```
 
 **Install:**
+
 ```bash
 uv pip install -e ".[dev]"
 ```
@@ -1259,9 +1332,11 @@ uv pip install -e ".[dev]"
 ## PHASE 5: Polish (LOW PRIORITY)
 
 ### Group 5A: Enhanced Templates ✅ PARALLEL
+
 All tasks can run in parallel.
 
 #### Task 5.1.1: Update PR Template ⏱️
+
 **Executor:** Documentation Agent
 **Effort:** 1 hour
 **Dependencies:** None
@@ -1270,6 +1345,7 @@ All tasks can run in parallel.
 **Edit:** `.github/PULL_REQUEST_TEMPLATE.md`
 
 **Enhance with:**
+
 - Code quality checklist section
 - CrewAI-specific validation section
 - Testing coverage requirements
@@ -1283,6 +1359,7 @@ All tasks can run in parallel.
 ---
 
 #### Task 5.2.1: Enhance DevContainer Configuration ⏱️
+
 **Executor:** Configuration Agent
 **Effort:** 1 hour
 **Dependencies:** Phase 2 complete (pre-commit exists)
@@ -1291,12 +1368,14 @@ All tasks can run in parallel.
 **Edit:** `.devcontainer/devcontainer.json`
 
 **Updates:**
+
 - Auto-install pre-commit hooks in postCreateCommand
 - Enhanced VS Code settings
 - Additional extensions (ruff, mypy-type-checker)
 - Auto-activate venv on terminal launch
 
 **Testing:**
+
 1. Rebuild devcontainer
 2. Verify hooks installed
 3. Verify extensions loaded
@@ -1307,6 +1386,7 @@ All tasks can run in parallel.
 ---
 
 #### Task 5.3.1: Create Directory READMEs ⚡
+
 **Executor:** Documentation Agent
 **Effort:** 30 minutes
 **Dependencies:** Phase 1 complete
@@ -1319,6 +1399,7 @@ All tasks can run in parallel.
 ---
 
 #### Task 5.4.1: Update CLAUDE.md References ⚡
+
 **Executor:** Documentation Agent
 **Effort:** 30 minutes
 **Dependencies:** Phase 1, 2 complete
@@ -1327,6 +1408,7 @@ All tasks can run in parallel.
 **Edit:** `CLAUDE.md`
 
 **Updates:**
+
 - Reference new Makefile commands
 - Update file structure section (add agent-tmp/, agent-projects/, tools/)
 - Add reference to AGENTS.md
@@ -1340,9 +1422,11 @@ All tasks can run in parallel.
 ## PHASE 6: Future Enhancements (DEFERRED)
 
 ### Group 6A: Testing Framework Migration - DEFERRED
+
 High effort, high risk. Defer indefinitely.
 
 #### Task 6.1.1: Migrate to pytest (DEFERRED)
+
 **Executor:** Testing Specialist
 **Effort:** 20+ hours
 **Dependencies:** All previous phases complete
@@ -1350,6 +1434,7 @@ High effort, high risk. Defer indefinitely.
 **Status:** DEFERRED - Do not implement
 
 **Scope:**
+
 - Convert unittest tests to pytest
 - Implement pytest fixtures
 - Use pytest markers
@@ -1357,6 +1442,7 @@ High effort, high risk. Defer indefinitely.
 - Implement smart test selection
 
 **Rationale for Deferral:**
+
 - Current unittest framework works well
 - High disruption risk
 - Significant refactoring effort
@@ -1369,30 +1455,36 @@ High effort, high risk. Defer indefinitely.
 ### Can Run in Parallel (✅)
 
 **Phase 1 Group 1A:** (All simultaneously)
+
 - Task 1.1.1: Create agent-tmp/
 - Task 1.1.2: Create agent-projects/
 - Task 1.1.3: Create tools/
 - Task 1.2.2: Update .gitignore
 
 **Phase 1 Group 1C:** (After directories exist)
+
 - Task 1.3.1: Create AGENTS.md
 - Task 1.3.2: Fix line length
 - Task 1.3.3: Add tools/ to type checking
 
 **Phase 2 Group 2C:** (All simultaneously)
+
 - Task 2.3.1: Extended Ruff rules
 - Task 2.3.2: pytest config
 - Task 2.3.3: Dev dependencies
 
 **Phase 3:** (All workflows simultaneously after Phase 2)
+
 - Task 3.1.1: Main CI workflow
 - Task 3.2.1: PR validation workflow
 - Task 3.3.1: Nightly regression workflow
 
 **Phase 4 Group 4C:**
+
 - Task 4.3.1: Add pdoc3
 
 **Phase 5:** (All simultaneously)
+
 - Task 5.1.1: Update PR template
 - Task 5.2.1: Enhance DevContainer
 - Task 5.4.1: Update CLAUDE.md
@@ -1400,21 +1492,26 @@ High effort, high risk. Defer indefinitely.
 ### Must Run Serially (🔗)
 
 **Phase 1:**
+
 1. Group 1A (directories) → Task 1.2.1 (move scripts)
 2. Group 1A/1B complete → Group 1C (documentation)
 
 **Phase 2:**
+
 1. Phase 1 complete → Task 2.1.1 (Makefile)
 2. Task 2.1.1 complete → Task 2.2.1 (pre-commit)
 
 **Phase 3:**
+
 1. Phase 2 complete → CI workflows (can be parallel with each other)
 
 **Phase 4:**
+
 1. tools/ exists → Task 4.1.1 (build_context.py)
 2. Task 4.1.1 complete → Task 4.2.1 (docs workflow)
 
 **Phase 5:**
+
 1. Independent of each other, but after Phases 1-2
 
 ### Critical Path
@@ -1444,23 +1541,28 @@ With actual parallelization of independent tasks, estimated real time is **14-16
 ### Recommended Execution Strategy
 
 **Day 1 (4 hours):**
+
 - Run all Phase 1 tasks (serial where needed)
 - Start Makefile (Phase 2.1.1)
 
 **Day 2 (4 hours):**
+
 - Complete pre-commit setup (Phase 2.2.1)
 - Run Phase 2C tasks in parallel
 - Test all quality automation
 
 **Day 3 (4 hours):**
+
 - Run all Phase 3 workflows in parallel
 - Test CI/CD pipelines
 
 **Day 4 (4 hours):**
+
 - Complete Phase 4 (documentation automation)
 - Run Phase 5 tasks in parallel
 
 **Testing Buffer (2 hours):**
+
 - Integration testing across all phases
 - Documentation updates
 - Team walkthrough
@@ -1486,5 +1588,6 @@ graph TD
 ```
 
 **Legend:**
+
 - Solid arrows: Required dependencies
 - Dotted arrows: Soft dependencies (can start without, but better after)

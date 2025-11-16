@@ -21,6 +21,7 @@ This project uses five specialized AI agents working together to create a comple
 We provide automated setup scripts that handle all dependencies including Ollama and Python packages.
 
 **Linux/macOS:**
+
 ```bash
 git clone https://github.com/bencan1a/space_hulk_game.git
 cd space_hulk_game
@@ -28,6 +29,7 @@ cd space_hulk_game
 ```
 
 **Windows:**
+
 ```powershell
 git clone https://github.com/bencan1a/space_hulk_game.git
 cd space_hulk_game
@@ -35,6 +37,7 @@ cd space_hulk_game
 ```
 
 **What gets installed:**
+
 - ✓ UV package manager (fast Python package installer)
 - ✓ Ollama (local LLM runtime)
 - ✓ Qwen2.5 model for Ollama
@@ -50,6 +53,7 @@ If you prefer manual installation:
 1. **Install Python 3.10-3.12** from [python.org](https://www.python.org/downloads/)
 
 2. **Install UV package manager:**
+
    ```bash
    curl -LsSf https://astral.sh/uv/install.sh | sh  # Linux/macOS
    # OR
@@ -57,6 +61,7 @@ If you prefer manual installation:
    ```
 
 3. **Install dependencies:**
+
    ```bash
    uv pip install -e .
    ```
@@ -120,12 +125,14 @@ env:
 ### Prerequisites
 
 **If using Ollama (local LLM):**
+
 ```bash
 # Start Ollama service (if not already running)
 ollama serve
 ```
 
 **If using cloud LLM providers:**
+
 - **OpenAI**: Set `OPENAI_API_KEY` in `.env`
 - **Anthropic Claude**: Set `ANTHROPIC_API_KEY` in `.env`
 - **OpenRouter**: Set `OPENROUTER_API_KEY` in `.env` (provides access to multiple models)
@@ -158,6 +165,7 @@ The space_hulk_game Crew is composed of multiple AI agents, each with unique rol
 ✅ **CrewAI Best Practices Implemented** - The crew has been optimized following CrewAI framework best practices and the Phase 0 debugging strategy from `REVISED_RESTART_PLAN.md`.
 
 **Recent Improvements:**
+
 - ✅ Sequential process mode set as default (more reliable than hierarchical)
 - ✅ Enhanced error handling with graceful fallbacks
 - ✅ Comprehensive logging for debugging
@@ -168,12 +176,14 @@ The space_hulk_game Crew is composed of multiple AI agents, each with unique rol
 The crew is now configured for reliable operation. See `QUICKSTART.md` for usage instructions.
 
 **Key Documentation:**
+
 - `QUICKSTART.md` - Quick reference guide
 - `CREWAI_IMPROVEMENTS.md` - Complete improvement details
 - `IMPLEMENTATION_SUMMARY.md` - What was delivered
 - `REVISED_RESTART_PLAN.md` - Phase 0 strategy
 
 **Next Steps:**
+
 1. Run `python test_crew_init.py` to verify configuration
 2. Test sequential mode: `crewai run --inputs "prompt: Your scenario"`
 3. Validate outputs and performance
@@ -243,6 +253,7 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for deta
 ## Support
 
 For support, questions, or feedback:
+
 - Check the [CONTRIBUTING.md](CONTRIBUTING.md) guide
 - Review the Memory Bank documentation in `memory-bank/`
 - Visit crewAI [documentation](https://docs.crewai.com)

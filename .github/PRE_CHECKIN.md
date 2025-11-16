@@ -10,33 +10,25 @@ Before committing any code, **ALWAYS** run:
 make check
 ```
 
-This command runs the core quality checks:
-- **Linting** (`make lint`) - Runs Ruff linter with auto-fix
-- **Type Checking** (`make type-check`) - Runs MyPy type validation
-- **Tests** (`make test`) - Runs the test suite
+This command runs **all** quality checks:
+- **Auto-fix** - Ruff linting and formatting (auto-fixes issues)
+- **YAML Validation** - yamllint
+- **Markdown Linting** - markdownlint (auto-fixes issues)
+- **Type Checking** - MyPy type validation
+- **Security Scanning** - Bandit security scan
+- **Tests** - Full test suite
 
 ## Why This Matters
 
 Running `make check` before committing:
-- ✅ Catches linting errors early
-- ✅ Ensures type safety
+- ✅ Auto-fixes linting and formatting issues
+- ✅ Catches type safety issues early
+- ✅ Validates configuration files (YAML)
+- ✅ Ensures documentation quality (Markdown)
+- ✅ Identifies security vulnerabilities
 - ✅ Verifies tests pass
 - ✅ Prevents CI pipeline failures
 - ✅ Maintains code quality standards
-
-## Full Check Suite
-
-For comprehensive validation (recommended before creating a PR), run:
-
-```bash
-make check-all
-```
-
-This runs all checks including:
-- Code formatting
-- Security scanning
-- YAML validation
-- Frontend checks (if applicable)
 
 ## Auto-Fix Issues
 
@@ -61,16 +53,25 @@ To install pre-commit hooks:
 make install-dev
 ```
 
+**🚨 CRITICAL: Pre-commit Hook Policy**
+- Pre-commit hooks run automatically on every `git commit`
+- If hooks fail, **FIX THE ISSUES** - do NOT bypass hooks
+- **NEVER use `git commit --no-verify` or `git commit -n`**
+- Bypassing hooks violates code quality standards and will cause CI failures
+- If hooks fail repeatedly, run `make check` to identify and fix the root cause
+
 ## Quick Reference
 
 | Command | Purpose |
 |---------|---------|
-| `make check` | **Required before commit** - Run core checks |
-| `make fix` | Auto-fix linting and formatting issues |
-| `make check-all` | Run all quality checks |
+| `make check` | **Required before commit** - Run all quality checks (auto-fix, lint, type, security, yaml, markdown, test) |
+| `make fix` | Auto-fix linting and formatting issues only (without running checks) |
 | `make lint` | Check code with Ruff linter |
 | `make format` | Auto-format code |
 | `make type-check` | Run MyPy type validation |
+| `make security` | Run Bandit security scan |
+| `make check-yaml` | Validate YAML files |
+| `make check-markdown` | Validate and auto-fix Markdown files |
 | `make test` | Run test suite |
 
 ## For AI Agents

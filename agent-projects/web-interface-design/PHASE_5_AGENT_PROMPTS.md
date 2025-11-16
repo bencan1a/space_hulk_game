@@ -1,4 +1,5 @@
 # Phase 5 Agent Prompts: Gameplay Tasks
+
 ## Browser-Based Game Interface Implementation
 
 **Phase**: 5 - Gameplay (Weeks 13-15)
@@ -30,6 +31,7 @@
 You are building a wrapper around the existing text-based game engine to manage stateful game sessions. This wrapper will be the primary integration point between the web backend and the core game logic. It must encapsulate game state and expose methods for command processing and state serialization without modifying the original engine.
 
 **Project Documentation**:
+
 - Architecture: `ARCHITECTURAL_DESIGN.md`
 - Implementation Plan: `IMPLEMENTATION_PLAN.md` Task 5.1
 
@@ -61,6 +63,7 @@ tests/
 ### Technical Requirements
 
 **Game Wrapper (`integrations/game_wrapper.py`)**:
+
 ```python
 """Wrapper for managing stateful game engine sessions."""
 import logging
@@ -117,6 +120,7 @@ class GameWrapper:
 You are creating a service to manage active gameplay sessions. This `GameService` will be responsible for starting new games, handling player commands by delegating to the `GameWrapper`, and managing the lifecycle of game sessions, including persistence and timeouts.
 
 **Project Documentation**:
+
 - Implementation Plan: `IMPLEMENTATION_PLAN.md` Task 5.2
 
 ### Your Mission
@@ -161,6 +165,7 @@ backend/
 With the game service layer in place, you will now expose its functionality through a set of REST API endpoints. These endpoints will allow the frontend to start games, send commands, and manage save/load operations.
 
 **Project Documentation**:
+
 - Implementation Plan: `IMPLEMENTATION_PLAN.md` Task 5.3
 
 ### Your Mission
@@ -202,6 +207,7 @@ tests/
 You are building the core display components for the gameplay interface. This includes rendering the main scene description, the player's inventory, and a log of game output. These components should be dynamic and update based on the game state provided by the backend.
 
 **Project Documentation**:
+
 - Implementation Plan: `IMPLEMENTATION_PLAN.md` Task 5.4
 
 ### Your Mission
@@ -243,6 +249,7 @@ frontend/
 You will implement the user interaction elements for the gameplay screen. This includes the command input field and buttons for essential game actions like saving, loading, and quitting.
 
 **Project Documentation**:
+
 - Implementation Plan: `IMPLEMENTATION_PLAN.md` Task 5.5
 
 ### Your Mission
@@ -284,6 +291,7 @@ frontend/
 To connect the UI components to the backend API, you need a centralized state management solution for the active game session. A React Context will provide the game state and actions to all gameplay-related components.
 
 **Project Documentation**:
+
 - Implementation Plan: `IMPLEMENTATION_PLAN.md` Task 5.6
 
 ### Your Mission
@@ -320,6 +328,7 @@ frontend/
 The final piece of the gameplay loop is the user interface for saving and loading games. You will create modals that allow players to save their progress with a descriptive name and load a previous save from a list.
 
 **Project Documentation**:
+
 - Implementation Plan: `IMPLEMENTATION_PLAN.md` Task 5.7
 
 ### Your Mission

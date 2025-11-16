@@ -5,6 +5,7 @@ This directory contains active project folders for ongoing development initiativ
 ## Structure
 
 Each project should be in its own subdirectory with:
+
 ```
 agent-projects/
 ├── project-name/

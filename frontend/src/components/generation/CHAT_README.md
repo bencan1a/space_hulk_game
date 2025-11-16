@@ -9,21 +9,24 @@ This directory contains the Chat Refinement UI components that provide a convers
 Displays individual messages in the chat interface from either the user or the AI assistant.
 
 **Props:**
+
 - `role`: 'user' | 'assistant' - Determines message styling and layout
 - `content`: string - The message text to display
 - `timestamp?`: string - Optional timestamp to show when message was sent
 
 **Features:**
+
 - Distinct styling for user vs assistant messages
 - Slide-in animation for new messages
 - Responsive design with max-width constraints
 - Supports multiline content
 
 **Usage:**
+
 ```tsx
-<ChatMessage 
-  role="assistant" 
-  content="What theme would you like for your game?" 
+<ChatMessage
+  role="assistant"
+  content="What theme would you like for your game?"
   timestamp="12:34 PM"
 />
 ```
@@ -33,6 +36,7 @@ Displays individual messages in the chat interface from either the user or the A
 Input component for capturing user responses with built-in validation.
 
 **Props:**
+
 - `onSubmit`: (message: string) => void - Callback when user submits a message
 - `placeholder?`: string - Input placeholder text
 - `disabled?`: boolean - Whether input is disabled
@@ -42,6 +46,7 @@ Input component for capturing user responses with built-in validation.
 - `autoFocus?`: boolean - Whether to auto-focus the input
 
 **Features:**
+
 - Real-time character count display
 - Validation with error messages
 - Submit on Enter (Shift+Enter for new line)
@@ -50,6 +55,7 @@ Input component for capturing user responses with built-in validation.
 - Accessible with ARIA attributes
 
 **Usage:**
+
 ```tsx
 <ChatInput
   onSubmit={(message) => console.log(message)}
@@ -65,12 +71,14 @@ Input component for capturing user responses with built-in validation.
 Main component that orchestrates the conversational flow through a series of questions.
 
 **Props:**
+
 - `questions`: ChatQuestion[] - Array of questions to ask
 - `onComplete?`: (answers: Record<string, string>) => void - Callback when all questions answered
 - `onCancel?`: () => void - Callback when user cancels
 - `initialMessages?`: ChatMessageProps[] - Optional initial messages
 
 **ChatQuestion Type:**
+
 ```typescript
 interface ChatQuestion {
   id: string              // Unique identifier for the question
@@ -82,6 +90,7 @@ interface ChatQuestion {
 ```
 
 **Features:**
+
 - Sequential question flow with progress indicator
 - Stores all user answers with question IDs
 - Generates final combined prompt from all answers
@@ -90,6 +99,7 @@ interface ChatQuestion {
 - "Start Over" and "Generate Story" actions
 
 **Usage:**
+
 ```tsx
 const questions: ChatQuestion[] = [
   {
@@ -151,6 +161,7 @@ Each component has comprehensive test coverage:
 - **ChatInterface**: 13 tests covering question flow, progress, completion, cancellation
 
 Run tests with:
+
 ```bash
 npm test
 ```

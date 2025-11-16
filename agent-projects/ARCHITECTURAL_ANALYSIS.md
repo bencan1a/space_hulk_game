@@ -11,6 +11,7 @@ This document provides a comprehensive analysis of the Space Hulk text-based adv
 ## 1. Original Developer Vision
 
 ### Core Goals
+
 1. **Text-Based Adventure Generator**: Create engaging Space Hulk (Warhammer 40K) themed text adventures
 2. **Multi-Agent AI System**: Use specialized AI agents for different aspects of game design
 3. **Narrative-Driven**: Ensure narrative cohesion drives all game elements
@@ -18,6 +19,7 @@ This document provides a comprehensive analysis of the Space Hulk text-based adv
 5. **Structured Output**: Generate well-formatted, usable game content
 
 ### Intended Workflow
+
 ```
 Game Prompt → Plot Foundation → Narrative Structure → Specialized Content → Integration → Final Game
 ```
@@ -29,6 +31,7 @@ Game Prompt → Plot Foundation → Narrative Structure → Specialized Content 
 ### What's Been Implemented
 
 #### Phase 1: Foundations ✅
+
 - Input validation and error handling
 - YAML-driven configuration for agents and tasks
 - Proper file loading and method naming conventions
@@ -36,6 +39,7 @@ Game Prompt → Plot Foundation → Narrative Structure → Specialized Content 
 - Ollama integration for local LLM execution
 
 #### Phase 2: Hierarchical Structure ✅
+
 - 6 specialized agents:
   - **NarrativeDirectorAgent**: Central coordinator ensuring narrative cohesion
   - **PlotMasterAgent**: Creates narrative foundation and plot structure
@@ -52,16 +56,19 @@ Game Prompt → Plot Foundation → Narrative Structure → Specialized Content 
 ### What's Planned But Not Implemented
 
 #### Phase 3: Planning Integration
+
 - Custom planning functions for narrative-driven development
 - Quality evaluation metrics
 - Planning templates for different game types
 
 #### Phase 4: Output Format Standardization
+
 - JSON schemas for structured content
 - Format conversion functions
 - Output validation tools
 
 #### Phase 5: Iteration Mechanism
+
 - Shared memory for tracking iterations
 - Quality thresholds and revision triggers
 - Version control for content evolution
@@ -73,13 +80,16 @@ Game Prompt → Plot Foundation → Narrative Structure → Specialized Content 
 ### Current Industry Approaches (2025)
 
 #### 1. **Hierarchical Orchestration** (Current Implementation)
+
 **Pros:**
+
 - ✅ Clear authority structure
 - ✅ Centralized coordination
 - ✅ Well-suited for complex workflows with dependencies
 - ✅ Easy to implement quality gates
 
 **Cons:**
+
 - ⚠️ Single point of failure
 - ⚠️ Can become bottleneck
 - ⚠️ Less flexible for parallel work
@@ -87,12 +97,15 @@ Game Prompt → Plot Foundation → Narrative Structure → Specialized Content 
 **Assessment:** **This is appropriate for the project** because narrative cohesion requires central oversight.
 
 #### 2. **Autonomous Agent Swarms**
+
 **Pros:**
+
 - Emergent solutions
 - Highly parallel
 - Resilient to individual failures
 
 **Cons:**
+
 - Difficult to control quality
 - May diverge from goals
 - Hard to maintain coherence
@@ -100,12 +113,15 @@ Game Prompt → Plot Foundation → Narrative Structure → Specialized Content 
 **Assessment:** **Not suitable** - Would compromise narrative cohesion.
 
 #### 3. **Pipeline/Sequential Orchestration**
+
 **Pros:**
+
 - Simple to understand
 - Predictable execution
 - Easy to debug
 
 **Cons:**
+
 - No feedback loops
 - Can't handle complex dependencies
 - Limited iteration capability
@@ -113,12 +129,15 @@ Game Prompt → Plot Foundation → Narrative Structure → Specialized Content 
 **Assessment:** **Insufficient** - The project correctly evolved beyond this in Phase 2.
 
 #### 4. **Hybrid: Hierarchical with Specialized Teams**
+
 **Pros:**
+
 - Balance of control and autonomy
 - Parallel execution within constraints
 - Quality and efficiency
 
 **Cons:**
+
 - More complex implementation
 - Requires careful coordination design
 
@@ -240,6 +259,7 @@ NarrativeDirector → Parallel Specialist Teams → Quality Gates → Iteration 
 ```
 
 **Key Changes:**
+
 1. **Enable Parallel Execution**: Puzzle, Scene, and Mechanics agents can work in parallel after narrative approval
 2. **Quality Gates with Metrics**: Add quantitative quality checks, not just qualitative reviews
 3. **Automatic Retry Logic**: If quality gate fails, automatic revision with feedback
@@ -268,6 +288,7 @@ Simple Tasks (Scene writing): Smaller/Local models
 ```
 
 **Benefits:**
+
 - Optimize cost/performance
 - Faster iteration on simple tasks
 - Better quality on complex tasks
@@ -279,11 +300,13 @@ Simple Tasks (Scene writing): Smaller/Local models
 ### Phase 3: Enhanced Iteration & Quality (2-3 weeks)
 
 **Goals:**
+
 - Complete planned planning integration
 - Add quality metrics and gates
 - Implement retry logic
 
 **Tasks:**
+
 1. Define quality metrics for each output type
 2. Implement quality evaluation functions
 3. Add retry logic with feedback
@@ -291,6 +314,7 @@ Simple Tasks (Scene writing): Smaller/Local models
 5. Test iteration loop
 
 **Success Criteria:**
+
 - Agents automatically retry on quality failures
 - Quality improves through iterations
 - Process completes without manual intervention
@@ -298,11 +322,13 @@ Simple Tasks (Scene writing): Smaller/Local models
 ### Phase 4: Output Validation & Game Engine (3-4 weeks)
 
 **Goals:**
+
 - Standardize output formats
 - Build simple game runner
 - Validate generated content
 
 **Tasks:**
+
 1. Define Pydantic models for all outputs
 2. Implement schema validation
 3. Build text adventure parser
@@ -310,6 +336,7 @@ Simple Tasks (Scene writing): Smaller/Local models
 5. Test end-to-end: prompt → game → playable
 
 **Success Criteria:**
+
 - All outputs follow defined schemas
 - Generated games are playable
 - Content errors are caught early
@@ -317,11 +344,13 @@ Simple Tasks (Scene writing): Smaller/Local models
 ### Phase 5: Memory Enhancement (2 weeks)
 
 **Goals:**
+
 - Fully utilize mem0 capabilities
 - Enable cross-session learning
 - Improve agent collaboration
 
 **Tasks:**
+
 1. Design memory schema
 2. Implement memory operations in agents
 3. Add conversation history
@@ -329,6 +358,7 @@ Simple Tasks (Scene writing): Smaller/Local models
 5. Test memory persistence
 
 **Success Criteria:**
+
 - Agents remember past decisions
 - Consistent style across sessions
 - Improved output quality over time
@@ -336,11 +366,13 @@ Simple Tasks (Scene writing): Smaller/Local models
 ### Phase 6: Production Readiness (2-3 weeks)
 
 **Goals:**
+
 - Add monitoring and metrics
 - Improve error handling
 - Documentation and examples
 
 **Tasks:**
+
 1. Implement structured logging
 2. Add metrics collection
 3. Create user documentation
@@ -348,6 +380,7 @@ Simple Tasks (Scene writing): Smaller/Local models
 5. Performance optimization
 
 **Success Criteria:**
+
 - Production-ready codebase
 - Clear documentation
 - Demonstrable examples
@@ -361,6 +394,7 @@ Simple Tasks (Scene writing): Smaller/Local models
 **Approach:** Let agents self-organize without hierarchy
 
 **Why Rejected:**
+
 - Would compromise narrative cohesion
 - Difficult to ensure quality
 - No clear responsibility for final product
@@ -370,6 +404,7 @@ Simple Tasks (Scene writing): Smaller/Local models
 **Approach:** Use LangGraph for state machine-based orchestration
 
 **Why Deferred:**
+
 - Current architecture works well
 - Migration cost too high for marginal benefit
 - Can revisit if complexity grows significantly
@@ -379,6 +414,7 @@ Simple Tasks (Scene writing): Smaller/Local models
 **Approach:** Each agent as separate service
 
 **Why Rejected:**
+
 - Over-engineering for current scale
 - Adds deployment complexity
 - No clear benefit for creative generation
@@ -400,18 +436,21 @@ Simple Tasks (Scene writing): Smaller/Local models
 ## 10. Success Metrics
 
 ### Technical Metrics
+
 - [ ] 90%+ valid output schema compliance
 - [ ] < 5 minutes average game generation time
 - [ ] < $0.10 cost per game (if using cloud APIs)
 - [ ] 80%+ test coverage for core systems
 
 ### Quality Metrics
+
 - [ ] Playable games generated from simple prompts
 - [ ] Narrative coherence score > 8/10 (human evaluation)
 - [ ] Puzzle solvability > 95%
 - [ ] User satisfaction > 7/10 (sample testers)
 
 ### Developer Experience
+
 - [ ] Clear documentation for all components
 - [ ] Easy to add new agents/tasks
 - [ ] Fast iteration cycles (< 5 min for code → test)
@@ -431,6 +470,7 @@ Simple Tasks (Scene writing): Smaller/Local models
 ### Primary Recommendations
 
 #### ✅ DO: Continue Current Direction
+
 - Keep CrewAI framework
 - Keep hierarchical architecture
 - Keep Ollama for local execution
@@ -438,6 +478,7 @@ Simple Tasks (Scene writing): Smaller/Local models
 - Add game engine for validation
 
 #### ✅ DO: Strategic Enhancements
+
 - Add multi-model support
 - Implement quality metrics
 - Build simple game runner
@@ -445,6 +486,7 @@ Simple Tasks (Scene writing): Smaller/Local models
 - Add output validation
 
 #### ❌ DON'T: Major Rewrites
+
 - Don't switch to LangGraph or AutoGen
 - Don't move to microservices
 - Don't abandon local-first approach
@@ -455,6 +497,7 @@ Simple Tasks (Scene writing): Smaller/Local models
 This project is **well-positioned to succeed**. The original architectural vision was sound and aligns with 2025 best practices. The implementation quality is good. The main issue is incompleteness, not incorrectness.
 
 **Recommended Next Steps:**
+
 1. Complete Phase 3 (Planning & Quality) - Foundation for iteration
 2. Build simple game engine (Phase 4) - Validate outputs work
 3. Implement Phase 4 validation - Ensure quality outputs
@@ -472,6 +515,7 @@ This project is **well-positioned to succeed**. The original architectural visio
 **RECOMMENDATION: Restart project with focused enhancements to existing architecture**
 
 The project should:
+
 1. ✅ Keep current CrewAI-based hierarchical architecture
 2. ✅ Complete planned Phases 3-5 with modern enhancements
 3. ✅ Add critical missing component: game engine
@@ -479,6 +523,7 @@ The project should:
 5. ✅ Enhance rather than replace
 
 This approach:
+
 - Respects the solid work already done
 - Aligns with modern best practices
 - Provides clear path to completion

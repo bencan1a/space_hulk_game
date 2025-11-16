@@ -1,4 +1,5 @@
 # Phase 1 Agent Prompts: Foundation Tasks
+
 ## Browser-Based Game Interface Implementation
 
 **Phase**: 1 - Foundation (Weeks 1-4)
@@ -30,6 +31,7 @@
 You are implementing the backend for a browser-based game creation and play interface. This is the foundational task that establishes the FastAPI backend structure. The system will wrap existing CrewAI agents and a game engine **without modifying them**.
 
 **Project Documentation**:
+
 - Architecture: [ARCHITECTURAL_DESIGN.md](./ARCHITECTURAL_DESIGN.md)
 - Implementation Plan: [IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md)
 - API Specification: [API_SPECIFICATION.md](./API_SPECIFICATION.md)
@@ -41,6 +43,7 @@ Initialize a FastAPI backend with proper Python packaging structure, health chec
 ### Deliverables
 
 Create the following structure:
+
 ```
 backend/
 ├── app/
@@ -82,6 +85,7 @@ backend/
 ### Technical Requirements
 
 **FastAPI Application (`main.py`)**:
+
 ```python
 """FastAPI application initialization and configuration."""
 from contextlib import asynccontextmanager
@@ -141,6 +145,7 @@ async def health_check() -> dict[str, str]:
 ```
 
 **Configuration (`config.py`)**:
+
 ```python
 """Application configuration management."""
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -175,6 +180,7 @@ settings = Settings()
 ```
 
 **Dependencies (`requirements.txt`)**:
+
 ```txt
 fastapi>=0.104.0
 uvicorn[standard]>=0.24.0
@@ -184,6 +190,7 @@ python-dotenv>=1.0.0
 ```
 
 **Dev Dependencies (`requirements-dev.txt`)**:
+
 ```txt
 pytest>=7.4.0
 pytest-asyncio>=0.21.0
@@ -193,6 +200,7 @@ mypy>=1.7.0
 ```
 
 **Environment Template (`.env.example`)**:
+
 ```env
 # API Configuration
 API_HOST=0.0.0.0
@@ -212,6 +220,7 @@ DATABASE_URL=sqlite:///./data/database.db
 ### Testing Requirements
 
 **`tests/test_health.py`**:
+
 ```python
 """Tests for health check endpoint."""
 import pytest
@@ -254,6 +263,7 @@ async def test_health_timestamp_format():
 ```
 
 **`tests/test_config.py`**:
+
 ```python
 """Tests for configuration management."""
 import os
@@ -368,6 +378,7 @@ backend/
 ### Technical Requirements
 
 **Database Session Factory (`database.py`)**:
+
 ```python
 """Database connection and session management."""
 from sqlalchemy import create_engine
@@ -399,6 +410,7 @@ def get_db() -> Generator[Session, None, None]:
 ```
 
 **Base Model (`models/base.py`)**:
+
 ```python
 """SQLAlchemy declarative base."""
 from sqlalchemy.orm import DeclarativeBase
@@ -410,6 +422,7 @@ class Base(DeclarativeBase):
 ```
 
 **Story Model (`models/story.py`)**:
+
 ```python
 """Story model for game metadata."""
 from sqlalchemy import Column, Integer, String, DateTime, Text, JSON, Index
@@ -479,6 +492,7 @@ class Story(Base):
 ```
 
 **Iteration Model (`models/iteration.py`)**:
+
 ```python
 """Iteration model for story refinement history."""
 from sqlalchemy import Column, Integer, String, DateTime, Text, JSON, ForeignKey, Index
@@ -524,6 +538,7 @@ class Iteration(Base):
 ```
 
 **Session Model (`models/session.py`)**:
+
 ```python
 """Session model for tracking active creation sessions."""
 from sqlalchemy import Column, String, Integer, DateTime, Text, ForeignKey
@@ -562,6 +577,7 @@ class Session(Base):
 ```
 
 **Alembic Configuration (`alembic.ini`)**:
+
 ```ini
 [alembic]
 script_location = app/alembic
@@ -604,6 +620,7 @@ datefmt = %H:%M:%S
 ```
 
 **Initial Migration (`alembic/versions/001_initial_schema.py`)**:
+
 ```python
 """Initial schema
 
@@ -690,6 +707,7 @@ def downgrade() -> None:
 ### Testing Requirements
 
 **`tests/test_models.py`**:
+
 ```python
 """Tests for database models."""
 import pytest
@@ -893,6 +911,7 @@ frontend/
 ### Technical Requirements
 
 **Vite Configuration (`vite.config.ts`)**:
+
 ```typescript
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
@@ -916,6 +935,7 @@ export default defineConfig({
 ```
 
 **TypeScript Configuration (`tsconfig.json`)**:
+
 ```json
 {
   "compilerOptions": {
@@ -941,6 +961,7 @@ export default defineConfig({
 ```
 
 **App Component with Routing (`App.tsx`)**:
+
 ```typescript
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout'
@@ -968,6 +989,7 @@ export default App
 ```
 
 **Layout Component (`components/Layout.tsx`)**:
+
 ```typescript
 import { ReactNode } from 'react'
 import Header from './common/Header'
@@ -993,6 +1015,7 @@ export default Layout
 ```
 
 **Header Component (`components/common/Header.tsx`)**:
+
 ```typescript
 import { Link } from 'react-router-dom'
 
@@ -1015,6 +1038,7 @@ export default Header
 ```
 
 **Placeholder Page (`pages/HomePage.tsx`)**:
+
 ```typescript
 function HomePage() {
   return (
@@ -1029,6 +1053,7 @@ export default HomePage
 ```
 
 **Package.json**:
+
 ```json
 {
   "name": "space-hulk-frontend",
@@ -1064,6 +1089,7 @@ export default HomePage
 ```
 
 **ESLint Configuration (`.eslintrc.cjs`)**:
+
 ```javascript
 module.exports = {
   root: true,
@@ -1086,6 +1112,7 @@ module.exports = {
 ```
 
 **Prettier Configuration (`.prettierrc`)**:
+
 ```json
 {
   "semi": false,
@@ -1097,6 +1124,7 @@ module.exports = {
 ```
 
 **Basic Styles (`styles/index.css`)**:
+
 ```css
 * {
   margin: 0;
@@ -1242,6 +1270,7 @@ project-root/
 ### Technical Requirements
 
 **Docker Compose (`docker-compose.yml`)**:
+
 ```yaml
 version: '3.8'
 
@@ -1346,6 +1375,7 @@ volumes:
 ```
 
 **Backend Dockerfile (`backend/Dockerfile`)**:
+
 ```dockerfile
 FROM python:3.11-slim
 
@@ -1376,6 +1406,7 @@ CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
 ```
 
 **Frontend Dockerfile (`frontend/Dockerfile`)**:
+
 ```dockerfile
 FROM node:20-alpine
 
@@ -1398,6 +1429,7 @@ CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
 ```
 
 **Docker Ignore (`.dockerignore`)**:
+
 ```
 # Backend
 backend/__pycache__
@@ -1426,6 +1458,7 @@ docker-compose*.yml
 ```
 
 **Environment Template (`.env.example`)**:
+
 ```env
 # Backend Configuration
 API_HOST=0.0.0.0
@@ -1450,6 +1483,7 @@ VITE_API_URL=http://localhost:8000
 ### Testing Requirements
 
 **Test Script (`test_docker_setup.sh`)**:
+
 ```bash
 #!/bin/bash
 set -e
@@ -1583,6 +1617,7 @@ backend/
 ### Technical Requirements
 
 **Celery Application (`celery_app.py`)**:
+
 ```python
 """Celery application configuration."""
 from celery import Celery
@@ -1638,6 +1673,7 @@ def task_failure_handler(task_id, exception, *args, **kwargs):
 ```
 
 **Configuration Update (`config.py`)**:
+
 ```python
 # Add to Settings class:
 
@@ -1657,6 +1693,7 @@ def task_failure_handler(task_id, exception, *args, **kwargs):
 ```
 
 **Example Task (`tasks/example_task.py`)**:
+
 ```python
 """Example Celery task for testing."""
 import time
@@ -1736,6 +1773,7 @@ def simple_add(x: int, y: int) -> int:
 ```
 
 **FastAPI Integration (`main.py` - add endpoints)**:
+
 ```python
 from celery.result import AsyncResult
 
@@ -1801,6 +1839,7 @@ async def get_task_status(task_id: str) -> dict[str, Any]:
 ### Testing Requirements
 
 **`tests/test_celery.py`**:
+
 ```python
 """Tests for Celery task execution."""
 import pytest
@@ -1855,6 +1894,7 @@ def test_task_result_storage():
 ```
 
 **Integration Test (`tests/test_celery_integration.py`)**:
+
 ```python
 """Integration tests for Celery with FastAPI."""
 import pytest
@@ -1981,6 +2021,7 @@ Create GitHub Actions workflows that run on pull requests and pushes to main bra
 ### Technical Requirements
 
 **Backend CI Workflow (`.github/workflows/backend-ci.yml`)**:
+
 ```yaml
 name: Backend CI
 
@@ -2068,6 +2109,7 @@ jobs:
 ```
 
 **Frontend CI Workflow (`.github/workflows/frontend-ci.yml`)**:
+
 ```yaml
 name: Frontend CI
 
@@ -2150,6 +2192,7 @@ jobs:
 ```
 
 **Docker Build Workflow (`.github/workflows/docker-build.yml`)**:
+
 ```yaml
 name: Docker Build
 
@@ -2231,6 +2274,7 @@ jobs:
 ```
 
 **README Status Badges**:
+
 ```markdown
 # Add to project README.md
 
@@ -2242,6 +2286,7 @@ jobs:
 ### Testing Requirements
 
 **Test Workflow Locally with Act** (optional):
+
 ```bash
 # Install act (GitHub Actions local runner)
 # macOS: brew install act
@@ -2342,6 +2387,7 @@ frontend/
 ### Technical Requirements
 
 **API Types (`services/types.ts`)**:
+
 ```typescript
 // Common types
 export interface ApiResponse<T> {
@@ -2442,6 +2488,7 @@ export interface Theme {
 ```
 
 **API Client (`services/api.ts`)**:
+
 ```typescript
 import axios, { AxiosInstance, AxiosError, AxiosRequestConfig } from 'axios'
 import { retryRequest } from '../utils/retryLogic'
@@ -2603,6 +2650,7 @@ export default apiClient
 ```
 
 **Error Handler (`utils/errorHandler.ts`)**:
+
 ```typescript
 import { AxiosError } from 'axios'
 import type { ApiError } from '../services/types'
@@ -2719,6 +2767,7 @@ export function getErrorMessage(error: unknown): string {
 ```
 
 **Retry Logic (`utils/retryLogic.ts`)**:
+
 ```typescript
 import { AxiosInstance, AxiosRequestConfig } from 'axios'
 
@@ -2752,6 +2801,7 @@ export async function retryRequest(
 ### Testing Requirements
 
 **`tests/api.test.ts`**:
+
 ```typescript
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import axios from 'axios'
@@ -2810,6 +2860,7 @@ describe('API Client', () => {
 ```
 
 **Add to `package.json`**:
+
 ```json
 {
   "scripts": {
@@ -2864,6 +2915,7 @@ npm run dev
 After completing all 7 tasks, verify the following:
 
 ### Infrastructure
+
 - [ ] Backend API server runs on port 8000
 - [ ] Frontend dev server runs on port 3000
 - [ ] Docker Compose starts all services
@@ -2871,6 +2923,7 @@ After completing all 7 tasks, verify the following:
 - [ ] Database migrations run successfully
 
 ### Code Quality
+
 - [ ] All backend code passes `ruff check`
 - [ ] All backend code passes `mypy --strict`
 - [ ] All frontend code passes ESLint
@@ -2878,17 +2931,20 @@ After completing all 7 tasks, verify the following:
 - [ ] All tests pass (backend and frontend)
 
 ### CI/CD
+
 - [ ] GitHub Actions workflows run on PR
 - [ ] All CI checks pass
 - [ ] Status badges work in README
 
 ### Integration
+
 - [ ] Frontend can call backend API
 - [ ] Backend can connect to Redis
 - [ ] Celery worker can execute tasks
 - [ ] API client handles errors gracefully
 
 ### Documentation
+
 - [ ] README updated with setup instructions
 - [ ] Environment variables documented
 - [ ] API endpoints documented (OpenAPI)
@@ -2901,6 +2957,7 @@ After completing all 7 tasks, verify the following:
 Once Phase 1 is complete, you're ready to move on to:
 
 **Phase 2: Story Library (Weeks 5-6)**
+
 - Task 2.1: Story Service & Repository
 - Task 2.2: Story API Endpoints
 - Task 2.3: Theme System - Backend

@@ -199,6 +199,7 @@ When agent finishes a chunk:
 ## Tips for Effective Agent Work
 
 **Do:**
+
 - ✅ Read the entire chunk specification before starting
 - ✅ Follow instructions exactly as written
 - ✅ Validate work against success criteria
@@ -207,6 +208,7 @@ When agent finishes a chunk:
 - ✅ Update progress.md regularly
 
 **Don't:**
+
 - ❌ Skip prerequisite checks
 - ❌ Modify the plan without discussion
 - ❌ Assume what's meant - ask

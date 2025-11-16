@@ -75,11 +75,13 @@
 **HTTP Status**: N/A (WebSocket)
 
 **Recovery Strategy**:
+
 - **Retry Possible**: Yes (manual)
 - **User Action**: Modify prompt and retry
 - **System Action**: Clean up partial files, mark job as failed
 
 **Logging**:
+
 ```python
 logger.error(
     "Generation timeout",
@@ -94,6 +96,7 @@ logger.error(
 ```
 
 **UI Behavior**:
+
 - Show error modal with message
 - Provide "Try Again" button (returns to prompt editor)
 - Provide "Simplify Prompt" suggestions
@@ -112,11 +115,13 @@ logger.error(
 **HTTP Status**: N/A (WebSocket)
 
 **Recovery Strategy**:
+
 - **Retry Possible**: Yes (automatic once, then manual)
 - **User Action**: Retry generation
 - **System Action**: Retry job once automatically; if fails again, user intervention needed
 
 **Logging**:
+
 ```python
 logger.error(
     "Agent execution failed",
@@ -131,6 +136,7 @@ logger.error(
 ```
 
 **UI Behavior**:
+
 - Show "Retrying..." for automatic retry
 - If second failure, show error with "Try Again" button
 - Suggest simplifying prompt or using template
@@ -148,11 +154,13 @@ logger.error(
 **HTTP Status**: 206 Partial Content
 
 **Recovery Strategy**:
+
 - **Retry Possible**: Yes (via iteration)
 - **User Action**: Accept partial story and iterate, or regenerate
 - **System Action**: Mark story as "partial", allow play with warnings
 
 **Logging**:
+
 ```python
 logger.warning(
     "Incomplete generation",
@@ -166,6 +174,7 @@ logger.warning(
 ```
 
 **UI Behavior**:
+
 - Show warning badge on story ("Incomplete")
 - Allow playing with warning modal
 - Provide "Complete Story" button (triggers iteration)
@@ -183,11 +192,13 @@ logger.warning(
 **HTTP Status**: N/A (WebSocket)
 
 **Recovery Strategy**:
+
 - **Retry Possible**: Yes (automatic once)
 - **User Action**: Retry
 - **System Action**: Validate all JSON output, retry on validation failure
 
 **Logging**:
+
 ```python
 logger.error(
     "Invalid agent output",
@@ -215,6 +226,7 @@ logger.error(
 **HTTP Status**: 400 Bad Request
 
 **Examples**:
+
 ```json
 {
   "error": {
@@ -233,11 +245,13 @@ logger.error(
 ```
 
 **Recovery Strategy**:
+
 - **Retry Possible**: Yes (immediate)
 - **User Action**: Fix validation errors in form
 - **System Action**: Return validation errors with field mapping
 
 **Frontend Handling**:
+
 ```typescript
 if (error.code === 'VALIDATION_ERROR') {
   // Map error to form field
@@ -258,11 +272,13 @@ if (error.code === 'VALIDATION_ERROR') {
 **HTTP Status**: 404 Not Found
 
 **Recovery Strategy**:
+
 - **Retry Possible**: No
 - **User Action**: Return to library, select different story
 - **System Action**: None
 
 **UI Behavior**:
+
 - Redirect to library with toast notification
 - Remove story from any local caches
 
@@ -279,11 +295,13 @@ if (error.code === 'VALIDATION_ERROR') {
 **HTTP Status**: 409 Conflict
 
 **Recovery Strategy**:
+
 - **Retry Possible**: No
 - **User Action**: Accept story or create new one
 - **System Action**: Enforce iteration limit in database constraint
 
 **UI Behavior**:
+
 - Disable "Iterate" button after 5 iterations
 - Show iteration count: "4/5 iterations used"
 - Provide "Create New Version" option (duplicates story as new)
@@ -301,6 +319,7 @@ if (error.code === 'VALIDATION_ERROR') {
 **HTTP Status**: 429 Too Many Requests
 
 **Response Headers**:
+
 ```
 Retry-After: 30
 X-RateLimit-Limit: 100
@@ -309,11 +328,13 @@ X-RateLimit-Reset: 1699804830
 ```
 
 **Recovery Strategy**:
+
 - **Retry Possible**: Yes (after delay)
 - **User Action**: Wait and retry
 - **System Action**: Return Retry-After header
 
 **UI Behavior**:
+
 - Show countdown timer: "Please wait 30 seconds..."
 - Auto-retry after countdown
 - Disable submit buttons during cooldown
@@ -331,11 +352,13 @@ X-RateLimit-Reset: 1699804830
 **User Message**: `Unable to connect for real-time updates. You can still check progress by refreshing the page.`
 
 **Recovery Strategy**:
+
 - **Retry Possible**: Yes (automatic with exponential backoff)
 - **User Action**: None (automatic fallback to polling)
 - **System Action**: Fallback to polling API every 5 seconds
 
 **Reconnection Logic**:
+
 ```typescript
 const reconnectDelays = [1000, 2000, 4000, 8000, 16000, 30000];  // ms
 let reconnectAttempt = 0;
@@ -365,11 +388,13 @@ function reconnect() {
 **User Message**: `Connection interrupted. Reconnecting...`
 
 **Recovery Strategy**:
+
 - **Retry Possible**: Yes (automatic)
 - **User Action**: None (show reconnecting indicator)
 - **System Action**: Exponential backoff reconnection
 
 **UI Behavior**:
+
 - Show "Reconnecting..." banner at top
 - Progress bar continues with last known state
 - On reconnect, request current progress from API
@@ -385,11 +410,13 @@ function reconnect() {
 **User Message**: None (transparent recovery)
 
 **Recovery Strategy**:
+
 - **Retry Possible**: N/A (transparent)
 - **User Action**: None
 - **System Action**: On reconnect, fetch current progress, fill in gap
 
 **Implementation**:
+
 ```python
 @app.websocket('/ws/generation/{job_id}')
 async def websocket_progress(websocket: WebSocket, job_id: str):
@@ -419,11 +446,13 @@ async def websocket_progress(websocket: WebSocket, job_id: str):
 **HTTP Status**: 503 Service Unavailable
 
 **Recovery Strategy**:
+
 - **Retry Possible**: Yes (automatic with backoff)
 - **User Action**: Wait and retry
 - **System Action**: Connection pool retry (3 attempts, 1s, 2s, 4s delays)
 
 **Logging**:
+
 ```python
 logger.critical(
     "Database connection failed",
@@ -436,6 +465,7 @@ logger.critical(
 ```
 
 **Circuit Breaker Pattern**:
+
 ```python
 if consecutive_failures > 5:
     circuit_breaker_open = True
@@ -452,6 +482,7 @@ if consecutive_failures > 5:
 **Technical Message**: `Database constraint violation: {constraint_name}: {detail}`
 
 **User Message**: Depends on constraint:
+
 - **Unique**: `This {field} is already in use`
 - **Foreign Key**: `Referenced item no longer exists`
 - **Check**: `Invalid value for {field}`
@@ -459,11 +490,13 @@ if consecutive_failures > 5:
 **HTTP Status**: 409 Conflict
 
 **Recovery Strategy**:
+
 - **Retry Possible**: Yes (after fixing input)
 - **User Action**: Change conflicting value
 - **System Action**: Map constraint names to user-friendly messages
 
 **Constraint Mapping**:
+
 ```python
 CONSTRAINT_MESSAGES = {
     'stories_title_key': 'A story with this title already exists',
@@ -485,11 +518,13 @@ CONSTRAINT_MESSAGES = {
 **HTTP Status**: 409 Conflict (after retries exhausted)
 
 **Recovery Strategy**:
+
 - **Retry Possible**: Yes (automatic 3 times)
 - **User Action**: None (automatic retry)
 - **System Action**: Retry transaction with exponential backoff
 
 **Implementation**:
+
 ```python
 from sqlalchemy.exc import OperationalError
 
@@ -521,11 +556,13 @@ def execute_transaction(db_session, operations):
 **HTTP Status**: 507 Insufficient Storage (if disk full), 500 otherwise
 
 **Recovery Strategy**:
+
 - **Retry Possible**: Yes (after admin fixes storage)
 - **User Action**: Contact admin or retry later
 - **System Action**: Log error with disk usage metrics
 
 **Logging**:
+
 ```python
 import shutil
 
@@ -553,11 +590,13 @@ logger.error(
 **HTTP Status**: 200 OK (with warning flag)
 
 **Recovery Strategy**:
+
 - **Retry Possible**: Via iteration (regenerate)
 - **User Action**: Iterate to regenerate, or delete
 - **System Action**: Mark story with corruption flag, attempt partial recovery
 
 **Implementation**:
+
 ```python
 try:
     with open(game_file) as f:
@@ -594,6 +633,7 @@ except json.JSONDecodeError as e:
 **HTTP Status**: 503 Service Unavailable
 
 **Recovery Strategy**:
+
 - **Retry Possible**: Yes (automatic)
 - **User Action**: Retry or contact admin
 - **System Action**: Check CrewAI dependencies, log error
@@ -611,11 +651,13 @@ except json.JSONDecodeError as e:
 **HTTP Status**: 500 Internal Server Error
 
 **Recovery Strategy**:
+
 - **Retry Possible**: Yes (with different command)
 - **User Action**: Try different command or reload game
 - **System Action**: Log command history, rollback game state
 
 **Implementation**:
+
 ```python
 try:
     result = game_engine.process_command(command)
@@ -674,6 +716,7 @@ logger.error(
 ```
 
 **Output** (JSON format for log aggregation):
+
 ```json
 {
   "timestamp": "2025-11-12T20:00:00Z",

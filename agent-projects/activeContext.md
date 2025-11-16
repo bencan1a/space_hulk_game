@@ -27,6 +27,7 @@ The project has undergone a comprehensive architectural analysis and restart pla
 **Date**: 3/2/2025
 
 **Objectives**:
+
 - ✅ Identify cause of test failures
 - ✅ Remove validation methods and non-existent decorators
 - ✅ Fix import statements
@@ -118,6 +119,7 @@ The project has undergone a comprehensive architectural analysis and restart pla
 **Issue**: The CrewAI crew is failing to start due to syntax errors.
 
 **First Syntax Error**:
+
 - Error: ImportError: cannot import name 'SharedMemory' from 'crewai.memory'
 - Location: src/space_hulk_game/crew.py, line 9
 - Diagnosis: The 'SharedMemory' class doesn't exist in the current CrewAI version. According to the official documentation, CrewAI provides these memory classes instead:
@@ -126,6 +128,7 @@ The project has undergone a comprehensive architectural analysis and restart pla
   - EntityMemory: For entity information
 
 **Proposed Fix**:
+
 1. Update the import statement to use the correct memory classes
 2. Replace SharedMemory usage with the appropriate memory implementation (likely ShortTermMemory)
 3. Update any references to shared_memory in agent initialization

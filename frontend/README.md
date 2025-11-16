@@ -54,11 +54,13 @@ frontend/
 ## Installation
 
 1. Navigate to the frontend directory:
+
    ```bash
    cd frontend
    ```
 
 2. Install dependencies:
+
    ```bash
    npm install
    ```
@@ -71,12 +73,13 @@ frontend/
 npm run dev
 ```
 
-The application will be available at http://localhost:3000
+The application will be available at <http://localhost:3000>
 
 Features:
+
 - Hot Module Replacement (HMR)
 - Fast refresh for React components
-- API proxy to backend at http://localhost:8000
+- API proxy to backend at <http://localhost:8000>
 - WebSocket proxy for real-time updates
 
 ### Available Routes
@@ -97,6 +100,7 @@ npm run lint
 ```
 
 ESLint is configured with:
+
 - TypeScript support
 - React hooks rules
 - React Refresh plugin
@@ -153,6 +157,7 @@ The `vite.config.ts` file includes:
 ### TypeScript Configuration
 
 Strict mode enabled with:
+
 - No unused locals
 - No unused parameters
 - No fallthrough cases in switch statements

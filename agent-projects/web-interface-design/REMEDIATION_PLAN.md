@@ -3,10 +3,12 @@
 ## ✅ STATUS: COMPLETED
 
 All remediation tasks have been successfully completed. See commit history:
+
 - **Commit ed6bdf7**: Fixed navigation and auto-fetch issues
 - **Verified**: Theme system already had CSS variable injection implemented
 
 **Summary**:
+
 - ✅ Priority 1 (Navigation): Fixed in LibraryPage.tsx
 - ✅ Priority 2 (Theme System): Verified already implemented in ThemeContext.tsx
 - ✅ Priority 3 (HomePage): Implemented redirect to library
@@ -24,6 +26,7 @@ This document outlines the plan to address the gaps identified in the Phase 2 Ga
 ## Priority 1: Fix Navigation (CRITICAL)
 
 ### Issue
+
 LibraryPage has commented-out navigation code, preventing users from navigating to play and create pages.
 
 ### Changes Required
@@ -31,18 +34,21 @@ LibraryPage has commented-out navigation code, preventing users from navigating 
 #### File: `frontend/src/pages/LibraryPage.tsx`
 
 **Change 1: Import useNavigate**
+
 ```typescript
 // Add import at top of file
 import { useNavigate } from 'react-router-dom'
 ```
 
 **Change 2: Initialize navigate hook**
+
 ```typescript
 // Inside LibraryPage component, after other hooks
 const navigate = useNavigate()
 ```
 
 **Change 3: Implement handleStoryClick**
+
 ```typescript
 // Replace lines 30-36
 const handleStoryClick = (story: Story) => {
@@ -51,6 +57,7 @@ const handleStoryClick = (story: Story) => {
 ```
 
 **Change 4: Implement handleCreateStory**
+
 ```typescript
 // Replace lines 38-44
 const handleCreateStory = () => {
@@ -59,6 +66,7 @@ const handleCreateStory = () => {
 ```
 
 **Change 5: Add useEffect for auto-fetch**
+
 ```typescript
 // Add after state declarations
 useEffect(() => {
@@ -67,6 +75,7 @@ useEffect(() => {
 ```
 
 ### Testing
+
 1. Run frontend tests to ensure no regressions
 2. Manually test navigation:
    - Click story card → should navigate to `/play/{id}`
@@ -79,6 +88,7 @@ useEffect(() => {
 ## Priority 2: Verify Theme System
 
 ### Issue
+
 Need to verify that CSS variables are properly injected when theme changes.
 
 ### Investigation Steps
@@ -92,15 +102,16 @@ Need to verify that CSS variables are properly injected when theme changes.
 #### File: `frontend/src/contexts/ThemeContext.tsx`
 
 **Add CSS variable injection function**:
+
 ```typescript
 const applyThemeVariables = (theme: ThemeConfig) => {
   const root = document.documentElement
-  
+
   // Apply color variables
   Object.entries(theme.colors).forEach(([key, value]) => {
     root.style.setProperty(`--color-${key}`, value)
   })
-  
+
   // Apply typography variables
   if (theme.typography?.fontFamily) {
     root.style.setProperty('--font-family', theme.typography.fontFamily)
@@ -112,6 +123,7 @@ const applyThemeVariables = (theme: ThemeConfig) => {
 ```
 
 **Call in setTheme**:
+
 ```typescript
 const setTheme = async (themeId: string) => {
   // ... existing code ...
@@ -121,6 +133,7 @@ const setTheme = async (themeId: string) => {
 ```
 
 ### Testing
+
 1. Open browser dev tools
 2. Switch theme
 3. Inspect `:root` element → verify CSS variables updated
@@ -133,6 +146,7 @@ const setTheme = async (themeId: string) => {
 ## Priority 3: Improve HomePage (OPTIONAL)
 
 ### Issue
+
 HomePage is a minimal stub that doesn't guide users.
 
 ### Recommendation: Redirect to Library
@@ -142,17 +156,18 @@ This is the simplest approach and aligns with user journey expectations.
 #### File: `frontend/src/pages/HomePage.tsx`
 
 **Replace entire file**:
+
 ```typescript
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 function HomePage() {
   const navigate = useNavigate()
-  
+
   useEffect(() => {
     navigate('/library')
   }, [navigate])
-  
+
   return null
 }
 
@@ -162,6 +177,7 @@ export default HomePage
 ### Alternative: Rich Landing Page
 
 If product owner wants a landing page:
+
 - Add hero section with CTA buttons
 - Show featured sample stories
 - Display "Getting Started" guide
@@ -190,11 +206,11 @@ Phase 2 will be considered 100% complete when:
 1. **Fix Navigation** (30 min)
    - Highest impact
    - Unblocks user testing
-   
+
 2. **Verify/Fix Theme System** (1 hour)
    - Important for visual experience
    - May already be working
-   
+
 3. **Decide on HomePage** (TBD)
    - Can defer to Phase 3
    - Low priority for MVP
@@ -204,6 +220,7 @@ Phase 2 will be considered 100% complete when:
 ## Testing Checklist
 
 ### Manual Testing
+
 - [x] Start frontend dev server
 - [x] Navigate to `/library`
 - [x] Verify 5 sample stories appear
@@ -216,6 +233,7 @@ Phase 2 will be considered 100% complete when:
 - [x] Test theme selector → verify visual changes
 
 ### Automated Testing
+
 - [x] Backend tests: `cd backend && pytest` ✅ 88/88 passing
 - [x] Frontend tests: `cd frontend && npm test` ✅ 50/50 passing
 - [x] Linting: `cd backend && ruff check .` ✅ Passing
@@ -227,15 +245,18 @@ Phase 2 will be considered 100% complete when:
 ## Risk Assessment
 
 ### Low Risk
+
 - Navigation changes are straightforward
 - Well-tested components won't be modified
 - Changes are additive, not destructive
 
 ### Medium Risk
+
 - Theme CSS injection might require debugging
 - Need to test across browsers
 
 ### Mitigation
+
 - Test thoroughly in dev environment
 - Use feature flags if concerned
 - Can roll back easily via git
@@ -255,6 +276,7 @@ After remediation:
 ---
 
 **Next Steps**:
+
 1. Review this plan with team
 2. Implement Priority 1 (navigation)
 3. Test and verify

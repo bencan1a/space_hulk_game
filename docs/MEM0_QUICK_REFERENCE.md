@@ -101,6 +101,7 @@ ollama serve            # Restart Ollama
 ## Memory Benefits for Your Crew
 
 ### Token Reduction
+
 - **Without memory**: Each agent gets full context (10,000+ tokens)
 - **With memory**: Relevant info retrieved (1,000-2,000 tokens)
 - **Savings**: 70-90% reduction in tokens
@@ -119,12 +120,14 @@ ollama serve            # Restart Ollama
 ## Troubleshooting Quick Fixes
 
 ### "MEM0_API_KEY not found"
+
 ```bash
 # Add to .env
 echo "MEM0_API_KEY=m0-your-actual-key" >> .env
 ```
 
 ### "Cannot connect to Qdrant"
+
 ```bash
 # Check if running
 docker ps | grep qdrant
@@ -137,6 +140,7 @@ curl http://localhost:6333/collections
 ```
 
 ### "Embedding model not found"
+
 ```bash
 # Install the model
 ollama pull mxbai-embed-large
@@ -146,6 +150,7 @@ ollama list | grep mxbai
 ```
 
 ### "Memory not persisting"
+
 ```bash
 # For Qdrant, use persistent storage
 docker run -d -p 6333:6333 \
@@ -154,6 +159,7 @@ docker run -d -p 6333:6333 \
 ```
 
 ### "High token usage despite memory"
+
 ```bash
 # Verify memory is enabled
 python -c "from space_hulk_game.crew import SpaceHulkGame; \
@@ -283,6 +289,7 @@ MEM0_EMBEDDER_MODEL=text-embedding-3-large
 ## Memory Scoping Strategies
 
 ### Per-Game Session
+
 ```python
 # Each game generation gets its own memory scope
 memory_config = {
@@ -295,6 +302,7 @@ memory_config = {
 ```
 
 ### Shared Learning
+
 ```python
 # All generations share memory (learn from previous games)
 memory_config = {
@@ -307,6 +315,7 @@ memory_config = {
 ```
 
 ### Agent-Specific Memory
+
 ```python
 # Each agent has its own memory space
 # In agent definition:

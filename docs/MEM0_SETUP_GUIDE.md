@@ -24,6 +24,7 @@ The Space Hulk crew uses 6 specialized AI agents to collaboratively generate gam
 6. **MechanicsGuruAgent** - Defines game mechanics and systems
 
 Memory management is critical for:
+
 - **Entity consistency**: Artifacts, locations, characters, monsters
 - **Cross-agent context**: Each agent builds on previous outputs
 - **Narrative cohesion**: Evaluations reference earlier decisions
@@ -32,11 +33,13 @@ Memory management is critical for:
 ## Memory Benefits
 
 ### Token Consumption
+
 - **90% reduction** in context tokens vs. naive context passing
 - Agents retrieve relevant information instead of processing full history
 - Significant cost savings with cloud LLMs
 
 ### Quality Improvements
+
 - **26% accuracy improvement** vs. basic context strategies
 - Entity tracking ensures consistency (e.g., artifact names match across agents)
 - Long-term memory enables learning from previous generations
@@ -57,16 +60,19 @@ Memory management is critical for:
 ### Option 1: Basic Memory (Built-in, No Setup)
 
 **Pros:**
+
 - No external dependencies
 - Works immediately
 - Good for development/testing
 
 **Cons:**
+
 - Limited functionality
 - No cross-session learning
 - Basic entity tracking
 
 **Configuration:**
+
 ```python
 # In crew.py crew() method
 return Crew(
@@ -81,24 +87,29 @@ return Crew(
 ### Option 2: Cloud Mem0 (Recommended for Quick Start)
 
 **Pros:**
+
 - Advanced features immediately available
 - No infrastructure setup
 - Managed service (backups, scaling)
 
 **Cons:**
+
 - Requires API key (subscription)
 - Data stored externally
 - Ongoing costs
 
 **Setup:**
+
 1. Sign up at [https://mem0.ai/](https://mem0.ai/)
 2. Get API key from dashboard
 3. Add to `.env`:
+
    ```bash
    MEM0_API_KEY=m0-your-api-key-here
    ```
 
 **Configuration:**
+
 ```python
 # In crew.py crew() method
 return Crew(
@@ -120,12 +131,14 @@ return Crew(
 ### Option 3: Local Mem0 (Recommended for Production)
 
 **Pros:**
+
 - Complete data privacy
 - No ongoing costs
 - Full control over infrastructure
 - Works offline
 
 **Cons:**
+
 - Requires Qdrant or ChromaDB setup
 - More complex configuration
 - Self-managed infrastructure
@@ -135,11 +148,13 @@ return Crew(
 #### Step 1: Install Qdrant (Vector Database)
 
 **Using Docker (Recommended):**
+
 ```bash
 docker run -p 6333:6333 qdrant/qdrant
 ```
 
 **Using Docker Compose:**
+
 ```yaml
 # docker-compose.yml
 services:
@@ -152,11 +167,13 @@ services:
 ```
 
 Then run:
+
 ```bash
 docker-compose up -d
 ```
 
 **Alternative: ChromaDB (Embedded, No Server)**
+
 - No Docker required
 - Stores data in local directory
 - Simpler but less performant
@@ -164,6 +181,7 @@ docker-compose up -d
 #### Step 2: Install Embedding Model
 
 **For Ollama:**
+
 ```bash
 # Install best embedding model for narratives
 ollama pull mxbai-embed-large
@@ -173,6 +191,7 @@ ollama pull nomic-embed-text
 ```
 
 **For OpenAI:**
+
 - Uses `text-embedding-3-small` via API
 - No local installation needed
 - Requires `OPENAI_API_KEY`
@@ -218,6 +237,7 @@ See "Automated Configuration" section below.
 This validates memory improves your crew's output quality.
 
 1. **Enable basic memory:**
+
    ```python
    # In src/space_hulk_game/crew.py, line ~736
    return Crew(
@@ -230,6 +250,7 @@ This validates memory improves your crew's output quality.
    ```
 
 2. **Run the crew:**
+
    ```bash
    crewai run
    ```
@@ -248,11 +269,13 @@ Once basic memory works, upgrade to mem0 for advanced features.
    - Create API key in dashboard
 
 2. **Add to .env:**
+
    ```bash
    MEM0_API_KEY=m0-your-actual-key-here
    ```
 
 3. **Update crew.py:**
+
    ```python
    # In crew() method
    memory_config = {
@@ -274,6 +297,7 @@ Once basic memory works, upgrade to mem0 for advanced features.
    ```
 
 4. **Test:**
+
    ```bash
    crewai run
    ```
@@ -283,11 +307,13 @@ Once basic memory works, upgrade to mem0 for advanced features.
 For production use with complete data privacy.
 
 1. **Install Qdrant:**
+
    ```bash
    docker run -d -p 6333:6333 --name qdrant qdrant/qdrant
    ```
 
 2. **Install embedding model:**
+
    ```bash
    ollama pull mxbai-embed-large
    ```
@@ -296,6 +322,7 @@ For production use with complete data privacy.
    - Update `.env` with settings from Option 3 above
 
 4. **Use automated configuration:**
+
    ```bash
    python configure_mem0.py --mode local
    ```
@@ -307,6 +334,7 @@ For production use with complete data privacy.
    - Test the connection
 
 5. **Run the crew:**
+
    ```bash
    crewai run
    ```
@@ -359,6 +387,7 @@ python configure_mem0.py --mode local --vector-store chroma
 ### Script Location
 
 The configuration script is created at:
+
 ```
 space_hulk_game/
 └── configure_mem0.py
@@ -371,19 +400,23 @@ See the "Automated Configuration" section below for the complete script.
 ### Memory Storage Locations
 
 **Basic Memory:**
+
 - Windows: `C:\Users\{username}\AppData\Local\CrewAI\space_hulk_game\`
 - macOS: `~/Library/Application Support/CrewAI/space_hulk_game/`
 - Linux: `~/.local/share/CrewAI/space_hulk_game/`
 
 **Custom Location:**
+
 ```bash
 # In .env
 CREWAI_STORAGE_DIR=./memory_storage
 ```
 
 **Qdrant Storage:**
+
 - Default: In-memory (lost on restart)
 - Persistent: Mount volume in Docker
+
   ```bash
   docker run -p 6333:6333 -v $(pwd)/qdrant_storage:/qdrant/storage qdrant/qdrant
   ```
@@ -391,6 +424,7 @@ CREWAI_STORAGE_DIR=./memory_storage
 ### Checking Memory Contents
 
 **For Cloud Mem0:**
+
 ```python
 from mem0 import MemoryClient
 client = MemoryClient(api_key="your-key")
@@ -405,6 +439,7 @@ print(results)
 ```
 
 **For Qdrant:**
+
 ```bash
 # Access Qdrant web UI
 open http://localhost:6333/dashboard
@@ -416,6 +451,7 @@ curl http://localhost:6333/collections/space_hulk_narratives
 ### Debug Logging
 
 **Enable verbose memory logs:**
+
 ```python
 import logging
 logging.basicConfig(level=logging.DEBUG)
@@ -431,6 +467,7 @@ crew = Crew(
 ```
 
 **Environment variable:**
+
 ```bash
 # In .env
 LOG_LEVEL=DEBUG
@@ -466,6 +503,7 @@ Track these metrics to validate memory is working:
 ### Issue: "MEM0_API_KEY not found"
 
 **Solution:**
+
 ```bash
 # Verify .env file exists and has the key
 cat .env | grep MEM0_API_KEY
@@ -480,6 +518,7 @@ crewai run
 ### Issue: "Cannot connect to Qdrant at localhost:6333"
 
 **Solution:**
+
 ```bash
 # Check if Qdrant is running
 docker ps | grep qdrant
@@ -494,6 +533,7 @@ curl http://localhost:6333/collections
 ### Issue: "Embedding model not found: mxbai-embed-large"
 
 **Solution:**
+
 ```bash
 # Pull the embedding model
 ollama pull mxbai-embed-large
@@ -511,6 +551,7 @@ MEM0_EMBEDDER_MODEL=nomic-embed-text
 **Causes and Solutions:**
 
 1. **Using in-memory Qdrant:**
+
    ```bash
    # Use persistent storage
    docker run -d -p 6333:6333 \
@@ -519,6 +560,7 @@ MEM0_EMBEDDER_MODEL=nomic-embed-text
    ```
 
 2. **Different run_id each time:**
+
    ```python
    # In crew.py, use consistent user_id:
    "config": {
@@ -536,6 +578,7 @@ MEM0_EMBEDDER_MODEL=nomic-embed-text
 **Solutions:**
 
 1. **Verify memory is enabled:**
+
    ```python
    # Should see this in logs:
    # "Initializing memory system..."
@@ -548,6 +591,7 @@ MEM0_EMBEDDER_MODEL=nomic-embed-text
    - If retrieval count is 0, memory isn't being queried
 
 3. **Adjust retrieval parameters:**
+
    ```python
    # In memory_config, add:
    "config": {
@@ -562,6 +606,7 @@ MEM0_EMBEDDER_MODEL=nomic-embed-text
 **Solutions:**
 
 1. **Improve embedding quality:**
+
    ```python
    # Use better embedding model
    # For Ollama:
@@ -580,6 +625,7 @@ MEM0_EMBEDDER_MODEL=nomic-embed-text
 3. **Memory refresh:**
    - Clear old/incorrect memories
    - Rebuild vector database
+
    ```bash
    # Delete Qdrant collection
    curl -X DELETE http://localhost:6333/collections/space_hulk_narratives
@@ -697,6 +743,7 @@ def process_output(self, output):
    - Focus on entities, not full descriptions
 
 4. **Vector database tuning:**
+
    ```python
    # For Qdrant, tune HNSW parameters
    "vector_store": {

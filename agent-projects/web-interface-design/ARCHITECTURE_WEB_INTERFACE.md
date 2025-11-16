@@ -1,4 +1,5 @@
 # Web Interface Architecture Overview
+
 ## Browser-Based Game Creation and Play Platform
 
 **Version**: 2.0
@@ -13,6 +14,7 @@
 This document provides a high-level architectural overview of the browser-based Space Hulk game creation and play interface. It serves as an accessible introduction for all stakeholders.
 
 **For detailed technical specifications, see:**
+
 - [ARCHITECTURAL_DESIGN.md](./ARCHITECTURAL_DESIGN.md) - Comprehensive technical architecture
 - [API_SPECIFICATION.md](./API_SPECIFICATION.md) - Complete REST and WebSocket API reference
 - [IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md) - 6-phase implementation roadmap
@@ -73,16 +75,19 @@ The web interface transforms the existing command-line game creation system into
 ### Architecture Characteristics
 
 **Monolithic with Clear Boundaries**
+
 - Single deployment unit (simplicity for single user)
 - Internal modular structure (services, not microservices)
 - Easy migration to distributed architecture when needed
 
 **Asynchronous Task Processing**
+
 - Long-running AI generation runs in background (Celery)
 - Real-time progress updates via WebSocket
 - Non-blocking user interface
 
 **Stateful Design**
+
 - Server maintains session state (acceptable for single user)
 - Database stores story metadata and iteration history
 - File system holds game content and saves
@@ -96,6 +101,7 @@ The web interface transforms the existing command-line game creation system into
 **Purpose**: User interface for all interactions
 
 **Main Features**:
+
 - **Story Library**: Visual grid with search, filter, and pagination
 - **Story Creator**: Template gallery, custom prompts, chat refinement
 - **Game Player**: Command input, scene rendering, inventory management
@@ -112,6 +118,7 @@ The web interface transforms the existing command-line game creation system into
 **Purpose**: API server and business logic
 
 **Main Responsibilities**:
+
 - **REST API**: Story CRUD, generation orchestration, gameplay sessions
 - **WebSocket**: Real-time progress broadcasting
 - **Service Layer**: Business logic isolated from API routes
@@ -126,6 +133,7 @@ The web interface transforms the existing command-line game creation system into
 **Purpose**: Asynchronous execution of long-running AI generation
 
 **How It Works**:
+
 1. User submits generation request
 2. API queues Celery task and returns job ID
 3. Background worker executes CrewAI agents
@@ -139,12 +147,14 @@ The web interface transforms the existing command-line game creation system into
 ### 4. Data Layer
 
 **Database (SQLite → PostgreSQL)**:
+
 - Story metadata (title, description, tags, stats)
 - Iteration history (feedback, versions)
 - Generation job status (progress tracking)
 - Game sessions (active gameplay)
 
 **File System**:
+
 - Game content JSON files (plot, scenes, puzzles)
 - Save game files (serialized state)
 - Theme assets (CSS, images, configs)
@@ -154,11 +164,13 @@ The web interface transforms the existing command-line game creation system into
 ### 5. Integration Wrappers
 
 **CrewAI Wrapper**:
+
 - Executes existing `SpaceHulkGame.crew()` without modification
 - Provides progress callbacks for UI updates
 - Handles iteration context (feedback from previous versions)
 
 **Game Engine Wrapper**:
+
 - Wraps existing `TextAdventureEngine` for stateful web sessions
 - Provides JSON-friendly interface
 - Manages save/load operations
@@ -232,6 +244,7 @@ nginx:443 (reverse proxy + HTTPS)
 ### Future: Multi-User (Phase 2)
 
 **Changes Required**:
+
 1. **Stateless API** - Move session state to Redis
 2. **Database Migration** - SQLite → PostgreSQL
 3. **File Storage** - Local → S3 or shared NFS
@@ -239,6 +252,7 @@ nginx:443 (reverse proxy + HTTPS)
 5. **Horizontal Scaling** - Multiple web servers + workers behind load balancer
 
 **Enablers Already in Place**:
+
 - Service layer separation (can extract to microservices)
 - Asynchronous task processing (Celery already distributed)
 - SQLAlchemy ORM (database engine swappable)
@@ -269,6 +283,7 @@ class CrewAIWrapper:
 ```
 
 This pattern:
+
 - Provides clean interface to existing systems
 - Allows progress monitoring without changing core code
 - Enables future enhancements without risk to existing functionality
@@ -280,6 +295,7 @@ This pattern:
 For complete specifications, see [API_SPECIFICATION.md](./API_SPECIFICATION.md).
 
 **REST Endpoints**:
+
 - `GET /api/v1/stories` - List stories with search/filter
 - `POST /api/v1/stories` - Start story generation
 - `POST /api/v1/stories/{id}/iterate` - Submit feedback for iteration
@@ -287,9 +303,11 @@ For complete specifications, see [API_SPECIFICATION.md](./API_SPECIFICATION.md).
 - `POST /api/v1/game/{session_id}/command` - Process player command
 
 **WebSocket**:
+
 - `WS /ws/generation/{job_id}` - Real-time generation progress
 
 **Design Principles**:
+
 - RESTful resource-based URLs
 - Standard HTTP methods and status codes
 - JSON request/response bodies
@@ -319,21 +337,27 @@ For complete specifications, see [API_SPECIFICATION.md](./API_SPECIFICATION.md).
 ## Implementation Phases
 
 ### Phase 1: Foundation (Weeks 1-4)
+
 Backend infrastructure, database schema, basic API, frontend scaffolding
 
 ### Phase 2: Story Library (Weeks 5-6)
+
 Story CRUD, search/filter UI, theme system
 
 ### Phase 3: Story Creation (Weeks 7-10)
+
 Template gallery, chat refinement, generation workflow, progress tracking
 
 ### Phase 4: Iteration System (Weeks 11-12)
+
 Feedback mechanism, version management, comparison UI
 
 ### Phase 5: Gameplay (Weeks 13-15)
+
 Game sessions, command processing, save/load
 
 ### Phase 6: Polish (Week 16)
+
 Performance optimization, error handling, documentation, deployment
 
 **Detailed Plan**: See [IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md) for 41 AI-agent-scoped tasks.
@@ -380,6 +404,7 @@ This document provides a **high-level overview** accessible to all stakeholders.
 ### For Engineering Teams
 
 **Start with**:
+
 1. Read this overview
 2. Review [ARCHITECTURAL_DESIGN.md](./ARCHITECTURAL_DESIGN.md) for technical details
 3. See [IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md) for task breakdown
@@ -388,6 +413,7 @@ This document provides a **high-level overview** accessible to all stakeholders.
 ### For Product Teams
 
 **Start with**:
+
 1. Read this overview
 2. Review [PRD_WEB_INTERFACE.md](./PRD_WEB_INTERFACE.md) for requirements
 3. See [USER_JOURNEYS_DIAGRAMS.md](./USER_JOURNEYS_DIAGRAMS.md) for user flows
@@ -396,6 +422,7 @@ This document provides a **high-level overview** accessible to all stakeholders.
 ### For All Stakeholders
 
 **Approval Checklist**:
+
 - [ ] Architecture aligns with product vision
 - [ ] Technology stack is appropriate
 - [ ] Scalability path is clear

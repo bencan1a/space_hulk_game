@@ -11,6 +11,7 @@
 ## Problem Statement
 
 The web interface needs real-time progress updates during 5-10 minute story generation, but:
+
 - **Cannot modify `src/space_hulk_game/crew.py`** (design constraint)
 - **No built-in progress API** in CrewAI framework
 - **User experience requires** visible progress (not just spinner)
@@ -27,6 +28,7 @@ The web interface needs real-time progress updates during 5-10 minute story gene
 **Mechanism**: Monitor `game-config/` directory for JSON file creation.
 
 **How it works**:
+
 ```python
 import watchdog.observers as observers
 
@@ -40,11 +42,13 @@ def watch_game_config():
 ```
 
 **Pros**:
+
 - ✅ Non-invasive (no code changes)
 - ✅ Works with existing CrewAI output
 - ✅ Real progress (actual file creation)
 
 **Cons**:
+
 - ❌ Doesn't capture intermediate agent work (only file outputs)
 - ❌ Polling/watching overhead
 - ❌ File creation order may vary
@@ -59,6 +63,7 @@ def watch_game_config():
 **Mechanism**: Capture stdout/stderr from CrewAI, parse for agent names and task completions.
 
 **How it works**:
+
 ```python
 import subprocess
 import re
@@ -71,11 +76,13 @@ for line in proc.stdout:
 ```
 
 **Pros**:
+
 - ✅ Non-invasive
 - ✅ More granular than file watching
 - ✅ Can detect agent transitions
 
 **Cons**:
+
 - ❌ Fragile (log format may change)
 - ❌ Complex regex parsing
 - ❌ CrewAI logging may not be verbose enough
@@ -90,6 +97,7 @@ for line in proc.stdout:
 **Mechanism**: Use hardcoded time estimates per agent, update progress based on elapsed time.
 
 **How it works**:
+
 ```python
 AGENT_TIME_ESTIMATES = {
     'PlotMaster': (0, 20, 120),  # (start%, end%, seconds)
@@ -106,11 +114,13 @@ def estimate_progress(start_time, current_time):
 ```
 
 **Pros**:
+
 - ✅ Simple implementation
 - ✅ Smooth progress bar
 - ✅ Non-invasive
 
 **Cons**:
+
 - ❌ Inaccurate (actual times vary widely)
 - ❌ Users see "99%" for minutes if agent takes longer
 - ❌ No real feedback (just estimates)
@@ -125,16 +135,19 @@ def estimate_progress(start_time, current_time):
 **Mechanism**: Combine time-based estimates with file detection for validation.
 
 **How it works**:
+
 1. Start with time-based progress (smooth updates)
 2. When file appears, adjust estimate and jump to actual progress
 3. Learn from historical data to improve estimates
 
 **Pros**:
+
 - ✅ Smooth progress updates (time-based)
 - ✅ Accurate milestones (file detection)
 - ✅ Adaptive (learns from history)
 
 **Cons**:
+
 - ⚠️ More complex implementation
 - ⚠️ Still coarse-grained between files
 - ⚠️ Requires historical timing data
@@ -148,6 +161,7 @@ def estimate_progress(start_time, current_time):
 **Mechanism**: Execute CrewAI in separate thread, monitor both file creation AND crew execution stages.
 
 **How it works**:
+
 ```python
 import threading
 import time
@@ -243,6 +257,7 @@ class CrewAIMonitor:
 ```
 
 **Pros**:
+
 - ✅ Non-invasive (wraps crew.kickoff(), no crew.py changes)
 - ✅ Real progress (file detection validates completion)
 - ✅ Smooth updates (time-based estimates between files)
@@ -251,6 +266,7 @@ class CrewAIMonitor:
 - ✅ Granular updates (every 2 seconds)
 
 **Cons**:
+
 - ⚠️ Still estimates within-agent progress (acceptable trade-off)
 - ⚠️ Requires thread management (standard Python, not complex)
 
@@ -279,6 +295,7 @@ class CrewAIMonitor:
 ### WebSocket Message Format
 
 **In Progress**:
+
 ```json
 {
   "type": "progress",
@@ -294,6 +311,7 @@ class CrewAIMonitor:
 ```
 
 **Milestone Completed**:
+
 ```json
 {
   "type": "milestone",
@@ -306,6 +324,7 @@ class CrewAIMonitor:
 ```
 
 **Generation Complete**:
+
 ```json
 {
   "type": "complete",
@@ -318,6 +337,7 @@ class CrewAIMonitor:
 ```
 
 **Error**:
+
 ```json
 {
   "type": "error",
@@ -475,6 +495,7 @@ def test_full_generation_with_monitoring(test_db):
 **File**: `backend/app/integrations/crewai_monitor.py`
 
 **Integration Point**:
+
 ```python
 # backend/app/services/generation_service.py
 from app.integrations.crewai_monitor import CrewAIMonitor
@@ -520,12 +541,14 @@ def execute_generation(job_id, prompt, feedback=None):
 ## Future Enhancements
 
 **Phase 2 (If needed)**:
+
 1. **Historical Learning**: Track actual agent times, adjust estimates
 2. **Parallel Agent Detection**: If CrewAI runs agents in parallel (future), detect concurrency
 3. **Detailed Sub-Tasks**: If agents log sub-tasks, parse for finer progress
 4. **Agent Health Checks**: Detect hung agents (no file changes for > 5 minutes)
 
 **Phase 3 (If needed)**:
+
 1. **Progress Prediction ML**: Train model to predict completion time based on prompt length
 2. **Incremental Output**: If agents write partial JSON, parse for real-time progress
 

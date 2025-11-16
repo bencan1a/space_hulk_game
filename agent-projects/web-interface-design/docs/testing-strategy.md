@@ -1,4 +1,5 @@
 # Comprehensive Testing Strategy
+
 ## Web Interface Browser-Based Game Platform
 
 **Version**: 1.0
@@ -40,6 +41,7 @@
 ```
 
 **Distribution**:
+
 - **60% Unit Tests**: Fast, isolated, comprehensive coverage
 - **30% Integration Tests**: API contracts, database operations, component integration
 - **10% E2E Tests**: Critical user journeys, cross-browser validation
@@ -47,6 +49,7 @@
 ### 1.2 Coverage Targets
 
 **Backend (Python)**:
+
 - Overall coverage: **90%+**
 - Critical paths (generation, gameplay): **95%+**
 - Service layer: **95%+**
@@ -54,6 +57,7 @@
 - Models/repositories: **90%+**
 
 **Frontend (TypeScript/React)**:
+
 - Overall coverage: **80%+**
 - Critical components (creation flow, gameplay): **90%+**
 - Context providers: **85%+**
@@ -61,6 +65,7 @@
 - Utility functions: **95%+**
 
 **100% Coverage Required For**:
+
 - Authentication logic (future)
 - Payment processing (future)
 - Data deletion operations
@@ -70,6 +75,7 @@
 ### 1.3 Test-First Approach
 
 **High-Risk Components** (write tests before implementation):
+
 - CrewAI wrapper integration
 - Game engine wrapper
 - WebSocket progress handler
@@ -78,6 +84,7 @@
 - Database migrations
 
 **Standard Components** (test alongside implementation):
+
 - API endpoints
 - Service layer methods
 - React components
@@ -86,6 +93,7 @@
 ### 1.4 Testing Standards
 
 **All Tests Must**:
+
 - Be deterministic (no flaky tests)
 - Run in isolation (no shared state)
 - Have clear arrange-act-assert structure
@@ -102,6 +110,7 @@
 **Framework**: pytest with pytest-cov, pytest-mock, pytest-asyncio
 
 **Structure**:
+
 ```
 tests/
 ├── unit/
@@ -728,6 +737,7 @@ def test_state_consistency():
 **Framework**: Jest, React Testing Library, @testing-library/user-event
 
 **Structure**:
+
 ```
 frontend/tests/
 ├── unit/
@@ -932,6 +942,7 @@ describe('CommandInput', () => {
 **Modules Requiring >95% Coverage**:
 
 **Backend**:
+
 - `app/services/generation_service.py`
 - `app/services/game_service.py`
 - `app/integrations/crewai_wrapper.py`
@@ -941,6 +952,7 @@ describe('CommandInput', () => {
 - `app/api/websocket.py`
 
 **Frontend**:
+
 - `src/contexts/GameContext.tsx`
 - `src/contexts/StoryContext.tsx`
 - `src/hooks/useWebSocket.ts`
@@ -961,6 +973,7 @@ describe('CommandInput', () => {
 **Framework**: pytest with test database, httpx for async requests
 
 **Structure**:
+
 ```
 tests/
 ├── integration/
@@ -1666,6 +1679,7 @@ test('User navigates entire app with keyboard only', async ({ page }) => {
 ### 4.3 E2E Test Infrastructure
 
 **Setup**:
+
 ```typescript
 // tests/e2e/setup.ts
 import { test as base } from '@playwright/test';
@@ -1685,6 +1699,7 @@ export const test = base.extend({
 ```
 
 **Utilities**:
+
 ```typescript
 // tests/e2e/utils/helpers.ts
 export async function waitForGeneration(page, jobId, timeout = 600000) {
@@ -1868,12 +1883,14 @@ export default function () {
 | Game player initial load | <500ms | <1s | <2s |
 
 **Resource Limits**:
+
 - Memory: <2GB for 10 concurrent generations
 - CPU: <80% utilization under load
 - Database connections: <50 concurrent
 - Open file handles: <1000
 
 **Concurrent Users**:
+
 - 100 concurrent API users supported
 - 10 concurrent story generations
 - 50 concurrent gameplay sessions
@@ -1882,6 +1899,7 @@ export default function () {
 ### 5.4 Performance Monitoring
 
 **Metrics to Collect**:
+
 - Request duration histogram
 - Error rate
 - Throughput (requests/second)
@@ -1891,6 +1909,7 @@ export default function () {
 - WebSocket message latency
 
 **Tools**:
+
 - k6 Cloud for results visualization
 - Grafana dashboard for real-time monitoring
 - Prometheus for metrics collection
@@ -1957,31 +1976,37 @@ export default function () {
 ### 6.3 Component-Specific Accessibility Requirements
 
 **StoryCard**:
+
 - Semantic article/heading tags
 - Play button has aria-label
 - Keyboard accessible (Tab, Enter)
 - Focus indicator visible
 
 **SearchBar**:
+
 - Label associated with input
 - Live region announces results count
 - Clear button has aria-label
 
 **ChatInterface**:
+
 - Messages in list with role="log"
 - Input has label
 - Typing indicator announced
 
 **GameDisplay**:
+
 - Scene content in main landmark
 - Inventory list semantic
 - Command history navigable with arrows
 
 **GenerationProgress**:
+
 - Progress bar has aria-valuenow/valuemin/valuemax
 - Status updates announced (aria-live="polite")
 
 **Modal Dialogs**:
+
 - Focus trapped within modal
 - Escape key closes
 - Focus returned to trigger on close
@@ -1990,6 +2015,7 @@ export default function () {
 ### 6.4 Accessibility Testing Tools
 
 **Automated Testing**:
+
 ```typescript
 // tests/accessibility/a11y.test.ts
 import { test, expect } from '@playwright/test';
@@ -2018,6 +2044,7 @@ test('Create page keyboard navigable', async ({ page }) => {
 ```
 
 **Manual Testing**:
+
 - NVDA screen reader (Windows)
 - JAWS screen reader (Windows)
 - VoiceOver screen reader (macOS/iOS)
@@ -2027,11 +2054,13 @@ test('Create page keyboard navigable', async ({ page }) => {
 - 200% browser zoom
 
 **Lighthouse Audits**:
+
 ```bash
 lighthouse http://localhost:3000 --only-categories=accessibility --output=html
 ```
 
 **Target Scores**:
+
 - Lighthouse accessibility score: ≥95
 - axe-core violations: 0
 - Color contrast: All elements pass
@@ -2074,6 +2103,7 @@ describe('Screen Reader Support', () => {
 ### 7.1 Security Test Scope
 
 **Current (MVP - Single User)**:
+
 - Input validation
 - Path traversal prevention
 - XSS prevention
@@ -2081,6 +2111,7 @@ describe('Screen Reader Support', () => {
 - Resource limits
 
 **Future (Multi-User)**:
+
 - Authentication bypass
 - Authorization vulnerabilities
 - CSRF attacks
@@ -2217,6 +2248,7 @@ def test_database_connection_limit():
 ### 7.3 Security Scanning Tools
 
 **SAST (Static Application Security Testing)**:
+
 ```bash
 # Bandit for Python
 bandit -r backend/app/
@@ -2229,6 +2261,7 @@ semgrep --config=p/security-audit .
 ```
 
 **DAST (Dynamic Application Security Testing)**:
+
 ```bash
 # OWASP ZAP
 zap-cli quick-scan --self-contained http://localhost:8000
@@ -2238,6 +2271,7 @@ nuclei -u http://localhost:8000 -t security/
 ```
 
 **Dependency Scanning**:
+
 ```bash
 # Python dependencies
 safety check
@@ -2249,6 +2283,7 @@ snyk test
 ```
 
 **Secret Scanning**:
+
 ```bash
 # TruffleHog
 trufflehog git file://. --only-verified
@@ -2260,6 +2295,7 @@ detect-secrets scan --all-files
 ### 7.4 Security Test Execution
 
 **CI Integration**:
+
 ```yaml
 # .github/workflows/security.yml
 name: Security Scan
@@ -2282,6 +2318,7 @@ jobs:
 ```
 
 **Manual Penetration Testing**:
+
 - Perform before production deployment
 - Test all authentication mechanisms (future)
 - Test authorization boundaries (future)
@@ -2451,16 +2488,19 @@ export const mockGameSession = {
 ### 8.2 Test Database Strategy
 
 **Unit Tests**: SQLite in-memory
+
 ```python
 engine = create_engine("sqlite:///:memory:")
 ```
 
 **Integration Tests**: PostgreSQL test instance
+
 ```python
 engine = create_engine("postgresql://test:test@localhost:5432/test_db")
 ```
 
 **Database Reset Between Tests**:
+
 ```python
 @pytest.fixture(autouse=True)
 def reset_database(db_session):
@@ -2475,6 +2515,7 @@ def reset_database(db_session):
 ```
 
 **Seeding Test Data**:
+
 ```python
 def seed_test_stories(db_session, count=10):
     """Seed database with test stories."""
@@ -2494,6 +2535,7 @@ def seed_test_stories(db_session, count=10):
 **Location**: `tests/data/`
 
 **Files**:
+
 ```
 tests/data/
 ├── game-content/
@@ -2513,6 +2555,7 @@ tests/data/
 ```
 
 **Loading Test Data**:
+
 ```python
 import json
 from pathlib import Path
@@ -2761,6 +2804,7 @@ jobs:
 ### 9.2 CI Requirements
 
 **All Tests Must Pass Before Merge**:
+
 - Backend unit tests: ✅ >90% coverage
 - Frontend unit tests: ✅ >80% coverage
 - Integration tests: ✅ All passing
@@ -2769,12 +2813,14 @@ jobs:
 - Accessibility: ✅ No blocking violations
 
 **CI Performance Targets**:
+
 - Unit tests: <5 minutes
 - Integration tests: <10 minutes
 - E2E tests: <30 minutes
 - Full pipeline: <45 minutes
 
 **Fail Fast**:
+
 - Unit tests run first (fastest feedback)
 - Integration tests only if unit tests pass
 - E2E tests only if integration tests pass
@@ -2782,6 +2828,7 @@ jobs:
 ### 9.3 Coverage Reporting
 
 **Codecov Integration**:
+
 ```yaml
 # codecov.yml
 coverage:
@@ -2796,11 +2843,13 @@ coverage:
 ```
 
 **Coverage Badge**:
+
 ```markdown
 [![codecov](https://codecov.io/gh/username/repo/branch/main/graph/badge.svg)](https://codecov.io/gh/username/repo)
 ```
 
 **Coverage Trends**:
+
 - Track coverage over time
 - Alert on coverage decrease
 - Block PRs that reduce coverage >2%
@@ -2812,17 +2861,20 @@ coverage:
 ### 10.1 Phase-by-Phase Testing
 
 **Phase 1: Foundation** (Weeks 1-4)
+
 - **Unit Tests**: Database models, config loading
 - **Integration Tests**: Database migrations, API health checks
 - **Target Coverage**: 85% (foundational code)
 
 **Phase 2: Story Library** (Weeks 5-6)
+
 - **Unit Tests**: StoryService, theme loading, UI components
 - **Integration Tests**: Story CRUD API, theme API
 - **E2E Tests**: Browse library, search/filter
 - **Target Coverage**: 90% backend, 80% frontend
 
 **Phase 3: Story Creation** (Weeks 7-10)
+
 - **Unit Tests**: GenerationService, CrewAI wrapper, progress components
 - **Integration Tests**: Generation flow, WebSocket
 - **E2E Tests**: Create from template, monitor progress
@@ -2830,12 +2882,14 @@ coverage:
 - **Target Coverage**: 95% (critical path)
 
 **Phase 4: Iteration System** (Weeks 11-12)
+
 - **Unit Tests**: IterationService, feedback validation
 - **Integration Tests**: Iteration flow with feedback
 - **E2E Tests**: Submit feedback, review iteration
 - **Target Coverage**: 90%
 
 **Phase 5: Gameplay** (Weeks 13-15)
+
 - **Unit Tests**: GameService, game wrapper, UI components
 - **Integration Tests**: Game session lifecycle
 - **E2E Tests**: Play game, save/load
@@ -2843,6 +2897,7 @@ coverage:
 - **Target Coverage**: 95% (critical path)
 
 **Phase 6: Polish** (Week 16)
+
 - **E2E Tests**: All critical journeys
 - **Performance Tests**: Full load testing
 - **Accessibility Tests**: Complete WCAG audit
@@ -2854,33 +2909,39 @@ coverage:
 **Updated IMPLEMENTATION_PLAN.md with Test Requirements**:
 
 **Task 1.2: Database Setup**
+
 - [ ] 10 unit tests for CRUD operations
 - [ ] 5 integration tests for migrations
 - [ ] Coverage >95%
 
 **Task 2.1: Story Service**
+
 - [ ] 15 unit tests (see section 2.1.1)
 - [ ] 100% coverage of public methods
 - [ ] All error cases tested
 
 **Task 3.2: CrewAI Wrapper**
+
 - [ ] 7 unit tests (see section 2.1.6)
 - [ ] Mock CrewAI execution
 - [ ] Test progress callbacks
 - [ ] Coverage >95%
 
 **Task 3.8: Generation Progress UI**
+
 - [ ] 8 unit tests (see section 2.2.5)
 - [ ] WebSocket integration test
 - [ ] E2E test for progress monitoring
 - [ ] Coverage >90%
 
 **Task 5.2: Game Service**
+
 - [ ] 10 unit tests (see section 2.1.4)
 - [ ] Integration test for session lifecycle
 - [ ] Coverage >95%
 
 **Task 6.5: End-to-End Testing**
+
 - [ ] All 15 critical journeys implemented
 - [ ] Cross-browser testing (Chrome, Firefox, Safari)
 - [ ] Mobile viewport testing
@@ -2889,6 +2950,7 @@ coverage:
 ### 10.3 Test Metrics Dashboard
 
 **KPIs to Track**:
+
 - **Code Coverage**: Backend %, Frontend %
 - **Test Count**: Unit, Integration, E2E
 - **Test Execution Time**: By category
@@ -2898,6 +2960,7 @@ coverage:
 - **Test Maintenance Cost**: Time spent fixing tests
 
 **Dashboard Tools**:
+
 - Codecov for coverage trends
 - GitHub Actions for CI metrics
 - Grafana for performance trends
@@ -2906,6 +2969,7 @@ coverage:
 ### 10.4 Test Documentation
 
 **Required Documentation**:
+
 1. **Test Plan**: This document
 2. **Test Cases**: Inline in test files with docstrings
 3. **Test Data**: README in tests/data/
@@ -2913,6 +2977,7 @@ coverage:
 5. **Test Results**: CI artifacts and Codecov
 
 **Test Case Documentation Format**:
+
 ```python
 def test_function_name():
     """
@@ -2965,20 +3030,24 @@ def test_function_name():
 ### Testing Tools
 
 **Backend**:
+
 - pytest, pytest-cov, pytest-mock, pytest-asyncio
 - Bandit, Safety, Semgrep
 
 **Frontend**:
+
 - Jest, React Testing Library, @testing-library/user-event
 - Playwright or Cypress
 - axe-core, Lighthouse
 - ESLint security plugin
 
 **Performance**:
+
 - k6 or Locust
 - Grafana, Prometheus
 
 **CI/CD**:
+
 - GitHub Actions
 - Codecov
 - Docker Compose

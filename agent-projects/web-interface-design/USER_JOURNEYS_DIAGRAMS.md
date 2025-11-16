@@ -647,6 +647,7 @@ App
 ---
 
 **These diagrams provide visual representations of the user experiences and system flows described in the PRD. Use them for:**
+
 - Understanding user paths
 - Communicating with stakeholders
 - Planning development sprints

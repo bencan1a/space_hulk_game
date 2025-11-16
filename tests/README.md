@@ -5,23 +5,27 @@ This directory contains comprehensive tests for the Space Hulk Game implementati
 ## Test Files
 
 ### Unit Tests
+
 - **`test_space_hulk_game.py`**: Core functionality tests using mocks
 - **`test_crew_improvements.py`**: Crew configuration, agents, and tasks tests
 - **`test_setup_configuration.py`**: Project structure and setup validation
 
 ### Integration Tests
+
 - **`test_api_validation.py`**: OpenRouter API connectivity and LLM validation tests
 - **`test_integration_sequential.py`**: End-to-end sequential agent system tests
 
 ## Running Tests
 
 ### All Tests (Mock Mode - Default)
+
 ```bash
 # Run all tests with mocked responses (fast, no API required)
 python -m unittest discover -s tests -v
 ```
 
 ### API Validation Tests
+
 ```bash
 # Run with mocked API (no credentials needed)
 python -m unittest tests.test_api_validation -v
@@ -33,6 +37,7 @@ python -m unittest tests.test_api_validation -v
 ```
 
 ### Integration Tests
+
 ```bash
 # Run with mocked responses (fast)
 python -m unittest tests.test_integration_sequential -v
@@ -44,6 +49,7 @@ python -m unittest tests.test_integration_sequential -v
 ```
 
 ### Specific Test File
+
 ```bash
 python -m unittest tests.test_space_hulk_game -v
 ```
@@ -70,6 +76,7 @@ This will check your API key and make a test call to verify everything is workin
 ## Test Modes
 
 ### Mock Mode (Default)
+
 - ✅ No API credentials required
 - ✅ Fast execution
 - ✅ No API costs
@@ -77,6 +84,7 @@ This will check your API key and make a test call to verify everything is workin
 - Uses mocked LLM responses
 
 ### Real API Mode
+
 - ⚠️ Requires OPENROUTER_API_KEY
 - ⚠️ Makes actual API calls
 - ⚠️ Incurs API costs
@@ -86,6 +94,7 @@ This will check your API key and make a test call to verify everything is workin
 ## Setting Up
 
 ### 1. Install Dependencies
+
 ```bash
 pip install -e .
 ```
@@ -103,6 +112,7 @@ export OPENAI_MODEL_NAME=openrouter/anthropic/claude-3.5-sonnet
 ```
 
 Or create a `.env` file:
+
 ```bash
 cp .env.example .env
 # Edit .env and add your API key
@@ -151,21 +161,25 @@ Tests automatically run in mock mode if no API key is provided, making them suit
 ## Troubleshooting
 
 **Tests fail with "CrewAI not installed":**
+
 ```bash
 pip install -e .
 ```
 
 **Tests fail with "Invalid API key":**
-- Verify your API key at https://openrouter.ai/
+
+- Verify your API key at <https://openrouter.ai/>
 - Run `python validate_api.py` to diagnose
 - Ensure the key is properly exported
 
 **Tests are slow:**
+
 - Use mock mode (default) for faster tests
 - Set `SKIP_SLOW_TESTS=1`
 - Only use real API mode when necessary
 
 **Import errors:**
+
 ```bash
 # Run tests from project root
 cd /path/to/space_hulk_game

@@ -65,6 +65,7 @@ The workflow requires the following repository secrets to be configured:
 **To set up secrets and variables**, see the detailed guide: **[SECRETS_SETUP.md](SECRETS_SETUP.md)**
 
 Quick setup:
+
 1. Go to repository Settings → Secrets and variables → Actions
 2. Add secrets in the **Secrets** tab
 3. Add variables in the **Variables** tab (optional)
@@ -74,7 +75,9 @@ Quick setup:
 The workflow generates several artifacts:
 
 ##### 1. Game Configuration Files (`game-config-*`)
+
 Contains all generated JSON files from the agent execution:
+
 - `narrative_map.json`: Story structure and branching paths
 - `plot_outline.json`: Main plot points and narrative arc
 - `prd_document.json`: Product requirements for the game
@@ -84,14 +87,18 @@ Contains all generated JSON files from the agent execution:
 **Retention**: 90 days
 
 ##### 2. Execution Logs (`execution-logs-*`)
+
 Contains detailed logs from the workflow execution:
+
 - `crew_run_output.log`: Complete output from `crewai run`
 - `run_log.txt`: Additional runtime logs (if generated)
 
 **Retention**: 30 days
 
 ##### 3. Execution Summary (`execution-summary-*`)
+
 A markdown file summarizing:
+
 - Run timestamp and configuration
 - List of generated files with sizes
 - Links to other artifacts
@@ -101,6 +108,7 @@ A markdown file summarizing:
 #### Environment Details
 
 The workflow runs in a fresh Ubuntu environment with:
+
 - Python 3.11
 - UV package manager for fast dependency installation
 - All project dependencies installed from `pyproject.toml`
@@ -112,6 +120,7 @@ You can customize the workflow by:
 
 1. **Changing the LLM Model**:
    Edit the `OPENAI_MODEL_NAME` in the workflow file:
+
    ```yaml
    OPENAI_MODEL_NAME=openrouter/anthropic/claude-3.5-sonnet
    ```
@@ -119,16 +128,18 @@ You can customize the workflow by:
    Other options:
    - `openrouter/openai/gpt-4-turbo`
    - `openrouter/meta-llama/llama-3.1-70b-instruct`
-   - See all models at: https://openrouter.ai/models
+   - See all models at: <https://openrouter.ai/models>
 
 2. **Adjusting Artifact Retention**:
    Modify the `retention-days` parameter:
+
    ```yaml
    retention-days: 90  # Change to desired number of days
    ```
 
 3. **Adding Environment Variables**:
    Add variables to the "Configure environment variables" step:
+
    ```yaml
    DEBUG=true
    LITELLM_LOG=DEBUG
@@ -137,20 +148,24 @@ You can customize the workflow by:
 #### Troubleshooting
 
 **Workflow fails with "secrets not found"**:
+
 - Ensure `OPENROUTER_API_KEY` and `MEM0_API_KEY` are configured in repository secrets
 - Check that you have the required permissions to access secrets
 
 **No artifacts generated**:
+
 - Check the workflow logs for errors during execution
 - Verify that agents are writing to the `game-config/` directory
 - Ensure the workflow completed (even with errors, artifacts should be uploaded with `if: always()`)
 
 **Execution takes too long**:
+
 - The default timeout is 6 hours
 - For complex scenarios, consider breaking into smaller tasks
 - Check OpenRouter rate limits and quotas
 
 **Generated content differs from local runs**:
+
 - The workflow uses a clean environment each time
 - Mem0 memory may differ from your local state
 - LLM responses can vary between runs due to non-deterministic nature
@@ -158,6 +173,7 @@ You can customize the workflow by:
 #### Cost Considerations
 
 Running this workflow incurs costs from:
+
 - **OpenRouter**: Charges per token based on model used
 - **Mem0**: Charges based on memory operations
 - **GitHub Actions**: Free for public repos, minutes counted for private repos
@@ -176,6 +192,7 @@ Estimated cost per run: $0.10 - $2.00 depending on scenario complexity and model
 #### Example Use Cases
 
 ##### Scenario 1: Testing a New Agent Configuration
+
 ```
 1. Create a branch: feature/new-puzzle-agent
 2. Modify agents.yaml and tasks.yaml
@@ -185,6 +202,7 @@ Estimated cost per run: $0.10 - $2.00 depending on scenario complexity and model
 ```
 
 ##### Scenario 2: Generating Content for Review
+
 ```
 1. Run workflow with default settings
 2. Download game-config artifact
@@ -193,6 +211,7 @@ Estimated cost per run: $0.10 - $2.00 depending on scenario complexity and model
 ```
 
 ##### Scenario 3: Comparing Model Performance
+
 ```
 1. Run workflow with Claude 3.5 Sonnet
 2. Edit workflow to use GPT-4 Turbo

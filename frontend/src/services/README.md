@@ -32,6 +32,7 @@ try {
 ### Story Endpoints
 
 #### Get Stories (Paginated)
+
 ```typescript
 const stories = await apiClient.getStories({
   page: 1,
@@ -43,11 +44,13 @@ const stories = await apiClient.getStories({
 ```
 
 #### Get Single Story
+
 ```typescript
 const story = await apiClient.getStory(1)
 ```
 
 #### Create Story
+
 ```typescript
 const session = await apiClient.createStory({
   prompt: 'A story about exploring a derelict ship',
@@ -57,6 +60,7 @@ const session = await apiClient.createStory({
 ```
 
 #### Delete Story
+
 ```typescript
 await apiClient.deleteStory(1)
 ```
@@ -64,6 +68,7 @@ await apiClient.deleteStory(1)
 ### Generation Endpoints
 
 #### Check Generation Status
+
 ```typescript
 const status = await apiClient.getGenerationStatus('session-id')
 console.log(`Progress: ${status.progress_percent}%`)
@@ -72,12 +77,14 @@ console.log(`Progress: ${status.progress_percent}%`)
 ### Game Endpoints
 
 #### Start Game
+
 ```typescript
 const gameSession = await apiClient.startGame(1)
 console.log(`Session ID: ${gameSession.session_id}`)
 ```
 
 #### Send Command
+
 ```typescript
 const response = await apiClient.sendCommand('session-id', {
   command: 'look around'
@@ -86,6 +93,7 @@ console.log(response.output)
 ```
 
 #### Save Game
+
 ```typescript
 const saveData = await apiClient.saveGame('session-id', 'My Save')
 console.log(`Save ID: ${saveData.save_id}`)
@@ -94,11 +102,13 @@ console.log(`Save ID: ${saveData.save_id}`)
 ### Theme Endpoints
 
 #### Get All Themes
+
 ```typescript
 const themes = await apiClient.getThemes()
 ```
 
 #### Get Single Theme
+
 ```typescript
 const theme = await apiClient.getTheme('warhammer40k')
 ```
@@ -119,7 +129,7 @@ try {
     console.log(error.retryPossible) // Whether retry is possible
     console.log(error.status)        // HTTP status code
   }
-  
+
   // Or use the helper function
   console.error(getErrorMessage(error))
 }
@@ -146,7 +156,9 @@ The client automatically retries failed requests for transient errors:
 ## Configuration
 
 ### Base URL
+
 Set via environment variable:
+
 ```bash
 VITE_API_URL=http://localhost:8000
 ```
@@ -154,9 +166,11 @@ VITE_API_URL=http://localhost:8000
 Default: `http://localhost:8000`
 
 ### Timeout
+
 Default: 30 seconds
 
 Can be modified in `src/services/api.ts`:
+
 ```typescript
 this.client = axios.create({
   timeout: 30000, // 30 seconds
@@ -166,10 +180,12 @@ this.client = axios.create({
 ## Interceptors
 
 ### Request Interceptor
+
 - Adds `X-Request-Time` header to all requests
 - Ready for authentication token support
 
 ### Response Interceptor
+
 - Logs responses in development mode
 - Handles errors with detailed logging
 - Implements automatic retry logic
@@ -183,6 +199,7 @@ npm test
 ```
 
 Test files:
+
 - `src/tests/api.test.ts` - API client tests
 - `src/tests/errorHandler.test.ts` - Error handling tests
 
@@ -236,7 +253,7 @@ function StoriesPage() {
 
   if (loading) return <div>Loading...</div>
   if (error) return <div>Error: {error}</div>
-  
+
   return (
     <div>
       {stories.map((story) => (
@@ -250,16 +267,19 @@ function StoriesPage() {
 ## Development
 
 ### TypeScript Check
+
 ```bash
 npx tsc --noEmit
 ```
 
 ### Linting
+
 ```bash
 npm run lint
 ```
 
 ### Build
+
 ```bash
 npm run build
 ```

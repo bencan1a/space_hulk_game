@@ -53,22 +53,26 @@ See the detailed [docs/SETUP.md](docs/SETUP.md) guide for manual installation st
 **Quick manual setup:**
 
 1. Create virtual environment:
+
    ```bash
    python -m venv .venv
    ```
 
 2. Activate virtual environment:
+
    ```bash
    source .venv/bin/activate      # Linux/macOS/WSL
    .venv\Scripts\activate         # Windows
    ```
 
 3. Install UV package manager:
+
    ```bash
    pip install uv
    ```
 
 4. Install dependencies:
+
    ```bash
    uv pip install -e ".[dev]"
    ```
@@ -351,6 +355,7 @@ class TestMyFeature(unittest.TestCase):
 The project uses a clear documentation structure:
 
 **docs/** - User-facing product documentation:
+
 - **README.md**: Main project documentation
 - **SETUP.md**: Installation and setup instructions
 - **CONTRIBUTING.md**: Development guidelines (this file)
@@ -358,6 +363,7 @@ The project uses a clear documentation structure:
 - **crewai-api-reference.md**: CrewAI framework reference
 
 **project-plans/** - Development plans and architectural context:
+
 - **productContext.md**: Project architecture overview
 - **activeContext.md**: Current development focus
 - **progress.md**: Development history and timeline
@@ -365,6 +371,7 @@ The project uses a clear documentation structure:
 - **\*.yaml**: Agent-generated outputs (gitignored, regenerated each run)
 
 **tmp/** - Temporary files (gitignored):
+
 - Debug scripts, analysis reports, and working files
 - Not committed to version control
 

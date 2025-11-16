@@ -7,6 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 This is a text-based adventure game set in the Warhammer 40K Space Hulk universe, built using CrewAI's multi-agent AI framework. Five specialized AI agents collaborate to generate complete game narratives, puzzles, mechanics, and documentation.
 
 **Technology Stack:**
+
 - Python 3.10-3.12
 - CrewAI (multi-agent orchestration)
 - Ollama (local LLM, qwen2.5 model) + cloud LLM support
@@ -31,6 +32,7 @@ source .venv/bin/activate      # Linux/macOS/WSL
 **Note:** VS Code will automatically detect and use the `.venv` virtual environment after you reload the window.
 
 ### Running the Game
+
 ```bash
 # Ensure virtual environment is activated first!
 source .venv/bin/activate      # Linux/macOS/WSL
@@ -47,6 +49,7 @@ crewai run --inputs "prompt: Your scenario"
 ```
 
 ### Testing
+
 ```bash
 # Ensure virtual environment is activated first!
 source .venv/bin/activate      # Linux/macOS/WSL
@@ -70,6 +73,7 @@ python tools/validate_api.py
 ### Pre-commit Hooks
 
 Automatic quality checks before commit:
+
 ```bash
 # Install hooks (one-time setup)
 pre-commit install
@@ -82,6 +86,7 @@ git commit --no-verify -m "message"
 ```
 
 ### Setup & Dependencies
+
 ```bash
 # Automated setup (dependencies, .env, virtual environment)
 ./setup.sh              # Linux/macOS
@@ -116,6 +121,7 @@ ollama pull qwen2.5
 ```
 
 ### CrewAI Development Commands
+
 ```bash
 # Ensure virtual environment is activated first!
 source .venv/bin/activate      # Linux/macOS/WSL
@@ -134,6 +140,7 @@ python -m space_hulk_game.main test <iterations> <model_name>
 ### Makefile Commands (New!)
 
 Quick command shortcuts (run after activating venv):
+
 ```bash
 make help           # Show all available commands
 make test           # Run tests (mock mode)
@@ -156,6 +163,7 @@ make clean          # Clean cache and old files
 **Pre-commit Hooks** - 9 automatic quality checks before commit (see `.pre-commit-config.yaml`)
 
 **CI/CD Workflows** - 5 GitHub Actions workflows in `.github/workflows/`:
+
 - `ci.yml` - Multi-platform testing (Ubuntu, Windows, macOS) and PR validation
 - `nightly-regression.yml` - Daily comprehensive testing
 - `update-docs.yml` - Auto-generate documentation
@@ -163,6 +171,7 @@ make clean          # Clean cache and old files
 - `run-kloc-report.yml` - KLOC reporting
 
 **Documentation Automation** - `tools/build_context.py` generates:
+
 - API documentation (HTML, in `docs/_generated/api/`)
 - `CONTEXT.md` (unified context for AI agents)
 - `SUMMARY.md` (project quick stats)
@@ -186,12 +195,14 @@ The system orchestrates 6 specialized agents through CrewAI:
 ### Process Modes
 
 **Sequential Mode (Default):**
+
 - All agents work as peers in defined order
 - Simplest configuration, most reliable
 - No manager delegation overhead
 - Use this first to validate functionality
 
 **Hierarchical Mode (Advanced):**
+
 - NarrativeDirectorAgent acts as manager
 - Manager delegates tasks to worker agents
 - Enables feedback loops and iterative refinement
@@ -209,6 +220,7 @@ All agents and tasks are defined in YAML files under `src/space_hulk_game/config
 - **gamedesign.yaml**: Game design templates and examples for AI agents
 
 **CRITICAL:** Method names in `crew.py` must exactly match the keys in YAML config files (case-sensitive). For example:
+
 ```python
 # In crew.py
 @agent
@@ -224,6 +236,7 @@ PlotMasterAgent:  # Must match the key used in crew.py
 ### Output Structure
 
 Agent outputs are written to `game-config/*.json` based on templates defined there. The game generation creates structured JSON files containing:
+
 - Plot outlines with branching paths
 - Scene maps and connections
 - Puzzle definitions
@@ -235,24 +248,28 @@ Agent outputs are written to `game-config/*.json` based on templates defined the
 The project supports multiple LLM providers via litellm. Configure in `.env`:
 
 **Anthropic Claude (Recommended):**
+
 ```bash
 ANTHROPIC_API_KEY=sk-ant-your-key-here
 OPENAI_MODEL_NAME=claude-3-5-sonnet-20241022
 ```
 
 **OpenRouter (Access to multiple providers):**
+
 ```bash
 OPENROUTER_API_KEY=sk-or-v1-your-key-here
 OPENAI_MODEL_NAME=openrouter/anthropic/claude-3.5-sonnet
 ```
 
 **OpenAI:**
+
 ```bash
 OPENAI_API_KEY=sk-your-key-here
 OPENAI_MODEL_NAME=gpt-4
 ```
 
 **Ollama (Local, Optional):**
+
 ```bash
 OPENAI_MODEL_NAME=ollama/qwen2.5
 OLLAMA_BASE_URL=http://localhost:11434
@@ -263,6 +280,7 @@ The system is configured for cloud LLM services by default. If using Ollama loca
 ## Key Development Patterns
 
 ### CrewAI Agent Definition
+
 ```python
 @agent
 def agent_name(self) -> Agent:
@@ -274,6 +292,7 @@ def agent_name(self) -> Agent:
 ```
 
 ### CrewAI Task Definition
+
 ```python
 @task
 def task_name(self) -> Task:
@@ -283,6 +302,7 @@ def task_name(self) -> Task:
 ```
 
 ### Lifecycle Hooks
+
 ```python
 @before_kickoff
 def prepare_inputs(self, inputs: dict) -> dict:
@@ -307,6 +327,7 @@ def process_outputs(self, output) -> dict:
 - **Import organization**: standard library → third-party → local
 
 ### Error Handling Pattern
+
 ```python
 import logging
 logger = logging.getLogger(__name__)
@@ -326,18 +347,21 @@ except SpecificException as e:
 The project uses **unittest** with comprehensive mocking to allow tests to run without API access:
 
 **Mock Mode (Default):**
+
 - No API credentials required
 - Fast execution, no API costs
 - Suitable for CI/CD
 - Tests validate structure and logic
 
 **Real API Mode:**
+
 - Requires API keys
 - Validates actual LLM behavior
 - Use sparingly (costs, slower)
 - Set `RUN_REAL_API_TESTS=1`
 
 **Test Coverage:**
+
 - Unit tests with mocked dependencies
 - Integration tests for full crew execution
 - API validation tests
@@ -348,12 +372,14 @@ When writing new features, add unit tests with mocks first, then optionally vali
 ## Critical Implementation Notes
 
 ### YAML Configuration Rules
+
 1. **Method names in crew.py must match YAML keys exactly** (case-sensitive)
 2. Use folded style (`>`) for multi-line strings in YAML
 3. Task dependencies use `dependencies:` (execution order), not `context:`
 4. `context:` provides data flow between tasks without blocking
 
 ### CrewAI Best Practices (from REVISED_RESTART_PLAN.md)
+
 1. Start with sequential process (simplest)
 2. Validate all agents complete without hanging
 3. Test hierarchical with minimal tasks (3-5) first
@@ -362,12 +388,14 @@ When writing new features, add unit tests with mocks first, then optionally vali
 6. Debug specific issues before adding features
 
 ### Known Issues & Mitigations
+
 - **Hierarchical mode can hang with complex dependencies**: Use sequential first
 - **Memory/planning features can cause blocks**: Disabled until proven stable
 - **Evaluation tasks may create deadlocks**: Add incrementally
 - **LLM timeouts in Ollama**: Consider timeout detection in crew execution
 
 ### Output Files
+
 - Agent outputs write to `game-config/*.json`
 - Templates in `game-config/` define expected structure
 - Temporary debug scripts go in `tmp/` (gitignored)
@@ -423,6 +451,7 @@ For CI/CD environments, set API keys as environment variables instead of using `
 ## Warhammer 40K / Space Hulk Theme
 
 When working on game content, maintain these themes:
+
 - **Gothic horror**: Dark, oppressive atmosphere
 - **Grimdark**: No good choices, only survival
 - **Body horror**: Mutations, corruption

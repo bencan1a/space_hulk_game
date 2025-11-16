@@ -12,6 +12,7 @@ rules:
     spaces: 2
   comments:
     min-spaces-from-content: 1
+  comments-indentation: disable  # Allow flexible comment indentation for TODOs and descriptive comments
   document-start: disable  # Not required for our YAML files
   truthy:
     allowed-values: ['true', 'false', 'on', 'off']  # Allow 'on' for GitHub Actions

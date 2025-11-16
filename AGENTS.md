@@ -17,6 +17,7 @@ This is the #1 cause of command failures. Never skip this step.
 ## Quick Reference
 
 **File Organization:**
+
 - `agent-tmp/` - Temporary debugging outputs (gitignored, auto-cleaned after 7 days)
 - `agent-projects/` - Active project folders (committed, requires plan.md)
 - `docs/` - Permanent documentation (committed)
@@ -26,6 +27,7 @@ This is the #1 cause of command failures. Never skip this step.
 - `game-config/` - Game design templates (DO NOT auto-format YAML!)
 
 **Common Commands:**
+
 ```bash
 # Setup (after activating venv)
 ./setup.sh              # Linux/macOS
@@ -63,6 +65,7 @@ python tools/validate_api.py    # Validate API setup
 ### Where to Put Different Types of Content
 
 **agent-tmp/** (Gitignored, Temporary)
+
 - Debug scripts and analysis
 - Work-in-progress experiments
 - Temporary reports
@@ -70,6 +73,7 @@ python tools/validate_api.py    # Validate API setup
 - Use for: Quick exploration, debugging, throwaway code
 
 **agent-projects/** (Committed, Active Work)
+
 - Ongoing development initiatives
 - Each project in its own subdirectory
 - MUST have `plan.md` with YAML frontmatter
@@ -77,6 +81,7 @@ python tools/validate_api.py    # Validate API setup
 - Use for: Multi-day refactoring, feature development, structured projects
 
 **docs/** (Committed, Permanent)
+
 - User-facing documentation
 - Architecture decisions
 - API documentation (auto-generated)
@@ -84,12 +89,14 @@ python tools/validate_api.py    # Validate API setup
 - Use for: Finalized, permanent documentation
 
 **tools/** (Committed, Utilities)
+
 - Development scripts
 - Validation tools
 - Build automation
 - Use for: Reusable utility scripts
 
 **Root Directory** (Committed, Configuration Only)
+
 - Configuration files (pyproject.toml, .env, etc.)
 - Top-level documentation (README.md, CLAUDE.md, this file)
 - Setup scripts (setup.sh, setup.ps1)
@@ -111,6 +118,7 @@ Before committing code, ensure ALL of these pass:
 **Handling Unavoidable Warnings:**
 
 If a warning is unavoidable and justified, add explicit comments:
+
 ```python
 # noqa: E501 - Long URL cannot be split
 # type: ignore[attr-defined] - Dynamic attribute from CrewAI
@@ -124,6 +132,7 @@ Always include a brief justification for why the warning must be ignored.
 ## CrewAI Specific Patterns
 
 ### Agent Definition Pattern
+
 ```python
 @agent
 def agent_name(self) -> Agent:
@@ -135,6 +144,7 @@ def agent_name(self) -> Agent:
 ```
 
 ### Task Definition Pattern
+
 ```python
 @task
 def task_name(self) -> Task:
@@ -154,12 +164,14 @@ def task_name(self) -> Task:
 ### Process Modes
 
 **Sequential Mode (Default, Recommended):**
+
 - All agents work as peers in defined order
 - Simplest configuration, most reliable
 - No manager delegation overhead
 - Use this first to validate functionality
 
 **Hierarchical Mode (Advanced, Use Carefully):**
+
 - NarrativeDirectorAgent acts as manager
 - Manager delegates to worker agents
 - Can hang with complex dependencies
@@ -173,6 +185,7 @@ def task_name(self) -> Task:
 ## Testing Methodology
 
 ### Mock Mode (Default)
+
 - No API credentials required
 - Fast execution, no API costs
 - Suitable for CI/CD
@@ -180,12 +193,14 @@ def task_name(self) -> Task:
 - Run with: `python -m unittest discover -s tests -v`
 
 ### Real API Mode
+
 - Requires API keys in .env
 - Validates actual LLM behavior
 - Use sparingly (costs money, slower)
 - Run with: `RUN_REAL_API_TESTS=1 python -m unittest discover -s tests -v`
 
 ### Test Naming Convention
+
 ```python
 def test_function_when_condition_then_expected(self):
     """Test that function does X when Y happens"""
@@ -195,6 +210,7 @@ def test_function_when_condition_then_expected(self):
 ```
 
 ### Testing Best Practices
+
 - Establish baseline before writing new tests
 - One assertion per test (or closely related assertions)
 - Avoid conditional logic in tests
@@ -206,6 +222,7 @@ def test_function_when_condition_then_expected(self):
 ## Custom Agent Profiles
 
 Specialized agents available in `.github/agents/`:
+
 - **principal-engineer.md** - Architecture and design guidance
 - **python-developer.md** - Python best practices
 - **crewai-specialist.md** - CrewAI framework expertise
@@ -220,6 +237,7 @@ Invoke via GitHub Copilot workspace commands or reference directly.
 ## Warhammer 40K / Space Hulk Theme
 
 When working on game content, maintain these themes:
+
 - **Gothic horror:** Dark, oppressive atmosphere
 - **Grimdark:** No good choices, only survival
 - **Body horror:** Mutations, corruption (Genestealer influence)
@@ -234,26 +252,32 @@ When working on game content, maintain these themes:
 ## Common Pitfalls & Solutions
 
 ### Pitfall 1: Forgetting to Activate venv
+
 **Symptom:** ModuleNotFoundError, command not found
 **Solution:** `source .venv/bin/activate` (see top of this file)
 
 ### Pitfall 2: YAML Key Mismatch
+
 **Symptom:** CrewAI can't find agent/task configuration
 **Solution:** Ensure method name in crew.py matches key in YAML exactly (case-sensitive)
 
 ### Pitfall 3: Hierarchical Mode Hanging
+
 **Symptom:** Crew execution hangs indefinitely
 **Solution:** Use sequential mode first, simplify dependencies, disable memory/planning features
 
 ### Pitfall 4: Breaking game-config YAML
+
 **Symptom:** Narrative text formatting corrupted
 **Solution:** Exclude `game-config/*.yaml` from auto-formatting tools
 
 ### Pitfall 5: Missing API Keys
+
 **Symptom:** Real API tests fail, crew can't run
 **Solution:** Copy .env.example to .env, add your API keys, run `python tools/validate_api.py`
 
 ### Pitfall 6: Type Checking Errors on Third-party Libraries
+
 **Symptom:** mypy complains about crewai, litellm, mem0
 **Solution:** Already configured in pyproject.toml to ignore these, if you see errors run `mypy --ignore-missing-imports src/`
 
@@ -264,24 +288,28 @@ When working on game content, maintain these themes:
 The project supports multiple LLM providers via litellm. Configure in `.env`:
 
 **Anthropic Claude (Recommended):**
+
 ```bash
 ANTHROPIC_API_KEY=sk-ant-your-key-here
 OPENAI_MODEL_NAME=claude-3-5-sonnet-20241022
 ```
 
 **OpenRouter (Access to multiple providers):**
+
 ```bash
 OPENROUTER_API_KEY=sk-or-v1-your-key-here
 OPENAI_MODEL_NAME=openrouter/anthropic/claude-3.5-sonnet
 ```
 
 **OpenAI:**
+
 ```bash
 OPENAI_API_KEY=sk-your-key-here
 OPENAI_MODEL_NAME=gpt-4
 ```
 
 **Ollama (Local, Optional):**
+
 ```bash
 OPENAI_MODEL_NAME=ollama/qwen2.5
 OLLAMA_BASE_URL=http://localhost:11434
@@ -334,6 +362,7 @@ space_hulk_game/
 ## Getting Help
 
 If you encounter issues:
+
 1. Check this file for common pitfalls
 2. Verify virtual environment is activated
 3. Review CLAUDE.md for detailed guidance

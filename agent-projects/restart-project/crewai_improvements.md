@@ -26,6 +26,7 @@ def crew(self) -> Crew:
 ```
 
 **Benefits**:
+
 - ✅ No manager delegation overhead
 - ✅ No complex coordination logic
 - ✅ Clear, predictable execution order
@@ -33,6 +34,7 @@ def crew(self) -> Crew:
 - ✅ Matches Phase 0 debugging strategy
 
 **Testing Path**:
+
 1. Validate sequential mode works (all 11 tasks complete)
 2. Test with simple prompt → full game generation
 3. Run 3 times to verify reliability
@@ -63,6 +65,7 @@ def create_hierarchical_crew(self) -> Crew:
 **Key Fix**: Agent filtering now uses `agent.role != manager.role` instead of incorrect type comparison.
 
 **Testing Strategy** (per Phase 0):
+
 1. Start with 3 tasks only
 2. Incrementally add evaluation tasks
 3. Monitor for hanging at each step
@@ -82,6 +85,7 @@ def create_hierarchical_crew(self) -> Crew:
 ```
 
 **Rationale**:
+
 - Phase 0 requires proving basic generation works
 - Additional features add complexity and potential failure points
 - Re-enable incrementally after core stability achieved
@@ -91,6 +95,7 @@ def create_hierarchical_crew(self) -> Crew:
 **Improvements**:
 
 #### Input Validation (`@before_kickoff`)
+
 ```python
 @before_kickoff
 def prepare_inputs(self, inputs):
@@ -107,6 +112,7 @@ def prepare_inputs(self, inputs):
 ```
 
 #### Output Processing (`@after_kickoff`)
+
 ```python
 @after_kickoff
 def process_output(self, output):
@@ -125,6 +131,7 @@ def process_output(self, output):
 ```
 
 **Benefits**:
+
 - ✅ Better visibility into execution
 - ✅ Easier debugging when issues occur
 - ✅ Graceful handling prevents cascading failures
@@ -133,6 +140,7 @@ def process_output(self, output):
 ### 5. Comprehensive Documentation
 
 **Added to `crew.py`**:
+
 - Module-level docstring explaining architecture
 - Process mode comparison (sequential vs hierarchical)
 - Implementation notes referencing Phase 0 strategy
@@ -140,12 +148,14 @@ def process_output(self, output):
 - Usage examples for both modes
 
 **Added to `config/agents.yaml`**:
+
 - Architecture overview
 - Role descriptions for both modes
 - Best practices for agent configuration
 - Design philosophy explanation
 
 **Added to `config/tasks.yaml`**:
+
 - Task execution flow documentation
 - Context vs dependencies explanation
 - Simplified testing approach
@@ -156,6 +166,7 @@ def process_output(self, output):
 **Best Practices Applied**:
 
 #### Context vs Dependencies
+
 - **context**: Provides read-only access to previous task outputs
 - **dependencies**: Enforces execution order
 
@@ -169,6 +180,7 @@ CreateNarrativeMap:
 ```
 
 #### Linear Dependency Chains
+
 - Avoided circular dependencies
 - Kept evaluation tasks simple
 - Documented dependency rationale
@@ -204,6 +216,7 @@ crewai run --inputs "prompt: A Marine team boards the ancient vessel..."
 After sequential mode is proven stable:
 
 1. Modify `crew.py` to use hierarchical mode:
+
    ```python
    @crew
    def crew(self) -> Crew:
@@ -264,6 +277,7 @@ After Phase 0 success criteria are met:
 **Status**: Mitigated by using sequential as default
 
 **Potential Causes**:
+
 - Complex task dependencies
 - Manager delegation logic
 - Evaluation task feedback loops
@@ -276,6 +290,7 @@ After Phase 0 success criteria are met:
 **Status**: To be monitored in actual runs
 
 **Mitigation**:
+
 - Comprehensive logging to detect
 - Will add explicit timeout handling if observed
 - May need to adjust Ollama configuration
@@ -285,6 +300,7 @@ After Phase 0 success criteria are met:
 **Status**: Not yet observed, but possible
 
 **Mitigation**:
+
 - Tasks have explicit output_file assignments
 - Sequential execution prevents concurrent writes
 - Error handling preserves outputs
@@ -294,6 +310,7 @@ After Phase 0 success criteria are met:
 ### Minimal Test (5 Core Tasks)
 
 Comment out evaluation tasks and test with:
+
 1. GenerateOverarchingPlot
 2. CreateNarrativeMap
 3. DesignArtifactsAndPuzzles
@@ -305,6 +322,7 @@ Comment out evaluation tasks and test with:
 ### Full Test (11 Tasks)
 
 Run with all tasks including evaluations:
+
 - All 5 core tasks
 - 6 evaluation/integration tasks
 
@@ -313,6 +331,7 @@ Run with all tasks including evaluations:
 ### Stress Test (Multiple Runs)
 
 Run 3-5 times with different prompts to verify:
+
 - Consistency
 - No memory leaks
 - No degradation over time
@@ -327,6 +346,7 @@ Run 3-5 times with different prompts to verify:
 ## Summary
 
 These improvements implement the Phase 0 strategy from REVISED_RESTART_PLAN.md:
+
 1. ✅ Simplified to sequential process
 2. ✅ Removed complex features (memory, planning)
 3. ✅ Added comprehensive logging and error handling

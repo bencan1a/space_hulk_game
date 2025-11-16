@@ -56,21 +56,32 @@ space_hulk_game/
 
 ### Pre-Checkin Requirements
 
-**⚠️ CRITICAL: ALWAYS run `make check` before committing code!**
+**⚠️ CRITICAL: ALWAYS run `make check` AND fix any issues before committing code!**
 
 This is the **required** command before any commit:
 ```bash
 make check
 ```
 
+If any issues are found, fix them and re-run `make check` until all checks pass.
+
 This runs:
-1. **Linting** with Ruff (auto-fixes issues)
-2. **Type checking** with MyPy
-3. **Tests** with unittest
+1. **Auto-fix** - Ruff linting and formatting (auto-fixes issues)
+2. **YAML validation** - yamllint
+3. **Markdown linting** - markdownlint (auto-fixes issues)
+4. **Type checking** - MyPy
+5. **Security scanning** - Bandit
+6. **Tests** - unittest
+
+**🚨 CRITICAL: Pre-commit Hook Policy**
+- Pre-commit hooks will run automatically on `git commit`
+- If hooks fail, **FIX THE ISSUES** - do NOT bypass with `--no-verify`
+- **NEVER use `git commit --no-verify` or `git commit -n`** unless explicitly instructed
+- If hooks fail repeatedly, investigate and fix the root cause
+- Bypassing hooks is a violation of code quality standards
 
 **Alternative commands:**
-- `make fix` - Auto-fix linting and formatting issues
-- `make check-all` - Run comprehensive checks (recommended before PR)
+- `make fix` - Auto-fix linting and formatting issues only (without running checks)
 
 **Manual steps (if make is not available):**
 ```bash

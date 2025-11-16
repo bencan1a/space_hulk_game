@@ -1,4 +1,5 @@
 # Implementation Plan: Browser-Based Game Interface
+
 ## Phased Delivery with AI-Agent-Scoped Tasks
 
 **Document Version**: 1.0
@@ -60,11 +61,13 @@ Each task follows this structure:
 **Description**: Initialize FastAPI backend with proper Python packaging structure.
 
 **Outputs**:
+
 - `backend/app/` with main.py, config.py, api/, services/, models/
 - Health check endpoint `/health`
 - OpenAPI docs at `/docs`
 
 **Acceptance Criteria**:
+
 - [ ] Backend starts on localhost:8000
 - [ ] /health returns {"status": "healthy"}
 - [ ] Config loaded from .env
@@ -80,11 +83,13 @@ Each task follows this structure:
 **Description**: SQLAlchemy models + Alembic migrations for Story, Iteration, Session.
 
 **Outputs**:
+
 - `backend/app/models/` (Story, Iteration, Session models)
 - Alembic migration scripts
 - Database session factory
 
 **Acceptance Criteria**:
+
 - [ ] `alembic upgrade head` creates tables
 - [ ] Models match schema in ARCHITECTURAL_DESIGN.md Section 4.1
 - [ ] Indexes created (created_at, theme_id)
@@ -99,11 +104,13 @@ Each task follows this structure:
 **Description**: React TypeScript app with Vite, routing, base layout.
 
 **Outputs**:
+
 - `frontend/src/` with App.tsx, components/, contexts/, services/
 - Routes: /, /library, /create, /play/:id
 - ESLint + Prettier configured
 
 **Acceptance Criteria**:
+
 - [ ] `npm run dev` starts on localhost:3000
 - [ ] All routes render placeholder components
 - [ ] TypeScript strict mode enabled
@@ -118,10 +125,12 @@ Each task follows this structure:
 **Description**: Local development environment with all services.
 
 **Outputs**:
+
 - `docker-compose.yml` (frontend, backend, celery, redis, postgres)
 - `.env.example`
 
 **Acceptance Criteria**:
+
 - [ ] `docker-compose up` starts all services
 - [ ] Hot reload works
 - [ ] Services can communicate
@@ -135,11 +144,13 @@ Each task follows this structure:
 **Description**: Configure Celery with Redis for async tasks.
 
 **Outputs**:
+
 - `backend/app/celery_app.py`
 - `backend/app/tasks/` with example task
 - Worker entry point
 
 **Acceptance Criteria**:
+
 - [ ] Celery worker starts successfully
 - [ ] Example task executes
 - [ ] Task results stored in Redis
@@ -154,10 +165,12 @@ Each task follows this structure:
 **Description**: GitHub Actions for backend/frontend testing and linting.
 
 **Outputs**:
+
 - `.github/workflows/backend-ci.yml`
 - `.github/workflows/frontend-ci.yml`
 
 **Acceptance Criteria**:
+
 - [ ] Backend CI: ruff, mypy, pytest
 - [ ] Frontend CI: ESLint, TypeScript, tests
 - [ ] CI fails on check failure
@@ -171,10 +184,12 @@ Each task follows this structure:
 **Description**: TypeScript API client with error handling.
 
 **Outputs**:
+
 - `frontend/src/services/api.ts` (typed API methods)
 - `frontend/src/utils/errorHandler.ts`
 
 **Acceptance Criteria**:
+
 - [ ] Typed methods for all endpoints
 - [ ] Axios interceptors
 - [ ] Network + HTTP error handling
@@ -197,10 +212,12 @@ Each task follows this structure:
 **Description**: Service layer for story CRUD with repository pattern.
 
 **Outputs**:
+
 - `backend/app/services/story_service.py`
 - Pydantic schemas for request/response
 
 **Acceptance Criteria**:
+
 - [ ] Methods: create, get, list (with filters), update, delete
 - [ ] Search (case-insensitive, multi-field)
 - [ ] Pagination support
@@ -215,9 +232,11 @@ Each task follows this structure:
 **Description**: REST endpoints for story management.
 
 **Outputs**:
+
 - `backend/app/api/routes/stories.py`
 
 **Acceptance Criteria**:
+
 - [ ] GET /api/stories (list with query params)
 - [ ] GET /api/stories/{id} (details)
 - [ ] GET /api/stories/{id}/content (full game.json)
@@ -233,11 +252,13 @@ Each task follows this structure:
 **Description**: Theme loading with validation.
 
 **Outputs**:
+
 - `backend/app/services/theme_service.py`
 - `data/themes/warhammer40k/theme.yaml`
 - `data/themes/cyberpunk/theme.yaml`
 
 **Acceptance Criteria**:
+
 - [ ] Methods: load_theme, list_themes, validate_theme
 - [ ] Theme caching (in-memory)
 - [ ] Default theme fallback
@@ -252,9 +273,11 @@ Each task follows this structure:
 **Description**: Expose theme system via API.
 
 **Outputs**:
+
 - `backend/app/api/routes/themes.py`
 
 **Acceptance Criteria**:
+
 - [ ] GET /api/themes (list)
 - [ ] GET /api/themes/{theme_id} (config)
 - [ ] GET /api/themes/{theme_id}/assets/{path}
@@ -268,10 +291,12 @@ Each task follows this structure:
 **Description**: React components for story library.
 
 **Outputs**:
+
 - StoryCard, StoryGrid, SearchBar, FilterPanel
 - LibraryPage
 
 **Acceptance Criteria**:
+
 - [ ] Responsive grid layout
 - [ ] Debounced search (300ms)
 - [ ] Loading/empty/error states
@@ -286,10 +311,12 @@ Each task follows this structure:
 **Description**: Connect library UI to backend API.
 
 **Outputs**:
+
 - `frontend/src/contexts/StoryContext.tsx`
 - `frontend/src/hooks/useStories.ts`
 
 **Acceptance Criteria**:
+
 - [ ] StoryContext provides stories, loading, error
 - [ ] Auto-fetch on page load
 - [ ] Search/filter trigger API calls
@@ -303,10 +330,12 @@ Each task follows this structure:
 **Description**: Theme selector with runtime CSS variable switching.
 
 **Outputs**:
+
 - ThemeSelector component
 - `frontend/src/contexts/ThemeContext.tsx`
 
 **Acceptance Criteria**:
+
 - [ ] ThemeSelector dropdown
 - [ ] CSS variables update on theme change
 - [ ] Theme persisted in localStorage
@@ -320,11 +349,13 @@ Each task follows this structure:
 **Description**: Create sample stories and seed database for development/testing.
 
 **Outputs**:
+
 - `data/samples/sample-001/game.json` through `sample-005/game.json`
 - `backend/app/alembic/versions/002_seed_sample_stories.py`
 - Sample story metadata in database
 
 **Acceptance Criteria**:
+
 - [ ] 3-5 diverse sample stories (horror, exploration, combat, rescue, mystery)
 - [ ] Sample stories cover different themes, difficulties, and durations
 - [ ] Alembic seed migration populates database
@@ -349,11 +380,13 @@ Each task follows this structure:
 **Description**: Template configuration and loading.
 
 **Outputs**:
+
 - `data/templates/*.yaml` (horror, artifact hunt, rescue)
 - `backend/app/services/template_service.py`
 - API endpoints for templates
 
 **Acceptance Criteria**:
+
 - [ ] Template YAML with Jinja2 prompt templates
 - [ ] Template rendering with variables
 - [ ] GET /api/templates endpoints
@@ -367,10 +400,12 @@ Each task follows this structure:
 **Description**: Wrapper for executing CrewAI with progress monitoring.
 
 **Outputs**:
+
 - `backend/app/integrations/crewai_wrapper.py`
 - Progress callback system
 
 **Acceptance Criteria**:
+
 - [ ] execute_generation(prompt, callback)
 - [ ] Progress callback for each agent step
 - [ ] Error handling, timeout (15 min)
@@ -385,10 +420,12 @@ Each task follows this structure:
 **Description**: Generation service with async Celery task.
 
 **Outputs**:
+
 - `backend/app/services/generation_service.py`
 - `backend/app/tasks/generation_tasks.py`
 
 **Acceptance Criteria**:
+
 - [ ] start_generation returns session_id
 - [ ] Celery task creates/updates Session
 - [ ] Task creates Story on completion
@@ -403,10 +440,12 @@ Each task follows this structure:
 **Description**: WebSocket for real-time progress updates.
 
 **Outputs**:
+
 - `backend/app/api/websocket.py`
 - Connection manager
 
 **Acceptance Criteria**:
+
 - [ ] /ws/progress/{session_id} endpoint
 - [ ] Progress messages broadcast
 - [ ] Heartbeat every 30s
@@ -421,9 +460,11 @@ Each task follows this structure:
 **Description**: REST endpoints for generation.
 
 **Outputs**:
+
 - `backend/app/api/routes/generation.py`
 
 **Acceptance Criteria**:
+
 - [ ] POST /api/generate (start)
 - [ ] GET /api/generate/{session_id} (status)
 - [ ] Request validation
@@ -437,9 +478,11 @@ Each task follows this structure:
 **Description**: Template selection interface.
 
 **Outputs**:
+
 - TemplateGallery, TemplateCard, CustomPromptForm
 
 **Acceptance Criteria**:
+
 - [ ] Grid of template cards
 - [ ] Template selection
 - [ ] Custom prompt form with validation (50-1000 chars)
@@ -453,9 +496,11 @@ Each task follows this structure:
 **Description**: Conversational prompt refinement.
 
 **Outputs**:
+
 - ChatInterface, ChatMessage, ChatInput
 
 **Acceptance Criteria**:
+
 - [ ] Chat displays user/AI messages
 - [ ] Sequential question flow
 - [ ] Input validation
@@ -470,10 +515,12 @@ Each task follows this structure:
 **Description**: Real-time progress tracker.
 
 **Outputs**:
+
 - GenerationProgress, AgentStatusList
 - `frontend/src/hooks/useWebSocket.ts`
 
 **Acceptance Criteria**:
+
 - [ ] WebSocket connection
 - [ ] Progress bar updates real-time
 - [ ] Agent status icons (✓ → ○)
@@ -488,9 +535,11 @@ Each task follows this structure:
 **Description**: Display generated story summary.
 
 **Outputs**:
+
 - StoryPreview, ReviewPage
 
 **Acceptance Criteria**:
+
 - [ ] Display metadata and statistics
 - [ ] "Play Now" / "Give Feedback" buttons
 
@@ -511,9 +560,11 @@ Each task follows this structure:
 **Description**: Service for managing iterations with feedback.
 
 **Outputs**:
+
 - `backend/app/services/iteration_service.py`
 
 **Acceptance Criteria**:
+
 - [ ] submit_feedback, start_iteration, list_iterations
 - [ ] Iteration task passes feedback to CrewAI
 - [ ] Iteration limit enforced (max 5)
@@ -527,9 +578,11 @@ Each task follows this structure:
 **Description**: REST endpoints for iterations.
 
 **Outputs**:
+
 - `backend/app/api/routes/iterations.py`
 
 **Acceptance Criteria**:
+
 - [ ] POST /api/stories/{id}/iterate
 - [ ] GET /api/stories/{id}/iterations
 - [ ] Feedback validation
@@ -543,9 +596,11 @@ Each task follows this structure:
 **Description**: Structured feedback form.
 
 **Outputs**:
+
 - FeedbackForm, FeedbackPage
 
 **Acceptance Criteria**:
+
 - [ ] Free-form textarea (min 100 chars)
 - [ ] Tone/difficulty sliders
 - [ ] Focus checkboxes
@@ -560,9 +615,11 @@ Each task follows this structure:
 **Description**: List of iterations.
 
 **Outputs**:
+
 - IterationHistory, IterationCard
 
 **Acceptance Criteria**:
+
 - [ ] List iterations reverse chronological
 - [ ] Status badges (Pending/Accepted/Rejected)
 - [ ] "View Game" / "Compare" buttons
@@ -576,9 +633,11 @@ Each task follows this structure:
 **Description**: Side-by-side version comparison.
 
 **Outputs**:
+
 - VersionComparison, ComparePage
 
 **Acceptance Criteria**:
+
 - [ ] Split view (version A | version B)
 - [ ] Highlight differences (green/red/yellow)
 
@@ -599,10 +658,12 @@ Each task follows this structure:
 **Description**: Wrapper for stateful game sessions.
 
 **Outputs**:
+
 - `backend/app/integrations/game_wrapper.py`
 
 **Acceptance Criteria**:
-- [ ] __init__(game_file), process_command, get_state, save/load_state
+
+- [ ] **init**(game_file), process_command, get_state, save/load_state
 - [ ] **No changes to existing engine**
 
 **Testing**: Initialize, commands, save/load round-trip
@@ -614,10 +675,12 @@ Each task follows this structure:
 **Description**: Service for gameplay sessions.
 
 **Outputs**:
+
 - `backend/app/services/game_service.py`
 - GameSession model
 
 **Acceptance Criteria**:
+
 - [ ] start_game, process_command, save_game, load_game
 - [ ] In-memory session storage
 - [ ] Session timeout (1 hour)
@@ -631,9 +694,11 @@ Each task follows this structure:
 **Description**: REST endpoints for gameplay.
 
 **Outputs**:
+
 - `backend/app/api/routes/gameplay.py`
 
 **Acceptance Criteria**:
+
 - [ ] POST /api/game/{story_id}/start
 - [ ] POST /api/game/{session_id}/command
 - [ ] POST /api/game/{session_id}/save
@@ -648,9 +713,11 @@ Each task follows this structure:
 **Description**: Game display components.
 
 **Outputs**:
+
 - GameDisplay, SceneRenderer, InventoryPanel, OutputLog
 
 **Acceptance Criteria**:
+
 - [ ] Scene displays Markdown
 - [ ] Inventory shows items
 - [ ] Output log with auto-scroll
@@ -665,9 +732,11 @@ Each task follows this structure:
 **Description**: Command input and controls.
 
 **Outputs**:
+
 - CommandInput, GameControls, PlayerPage
 
 **Acceptance Criteria**:
+
 - [ ] Command input with Enter to submit
 - [ ] Command history (up/down arrows)
 - [ ] Save/Load/Quit buttons
@@ -682,9 +751,11 @@ Each task follows this structure:
 **Description**: Frontend state for active game.
 
 **Outputs**:
+
 - `frontend/src/contexts/GameContext.tsx`
 
 **Acceptance Criteria**:
+
 - [ ] GameContext provides session, scene, inventory, commands
 
 **Testing**: Context state, sendCommand updates
@@ -696,9 +767,11 @@ Each task follows this structure:
 **Description**: Complete save/load UI.
 
 **Outputs**:
+
 - SaveModal, LoadModal, SaveCard
 
 **Acceptance Criteria**:
+
 - [ ] SaveModal prompts for name
 - [ ] LoadModal displays saves with metadata
 - [ ] Delete save functionality
@@ -720,9 +793,11 @@ Each task follows this structure:
 **Description**: Optimize for performance targets.
 
 **Outputs**:
+
 - Optimized queries, code splitting, caching
 
 **Acceptance Criteria**:
+
 - [ ] Library loads <2s (p95)
 - [ ] API <100ms (p95)
 - [ ] Commands <500ms (p95)
@@ -737,10 +812,12 @@ Each task follows this structure:
 **Description**: Graceful error handling everywhere.
 
 **Outputs**:
+
 - `frontend/src/utils/errorMessages.ts`
 - Error boundaries
 
 **Acceptance Criteria**:
+
 - [ ] User-friendly error messages
 - [ ] Error boundaries catch React errors
 - [ ] No sensitive info in errors
@@ -754,11 +831,13 @@ Each task follows this structure:
 **Description**: Comprehensive user guides.
 
 **Outputs**:
+
 - `docs/USER_GUIDE.md`
 - `docs/API_REFERENCE.md`
 - `docs/DEPLOYMENT.md`
 
 **Acceptance Criteria**:
+
 - [ ] USER_GUIDE covers all features
 - [ ] Screenshots/GIFs for workflows
 - [ ] API docs auto-generated
@@ -772,11 +851,13 @@ Each task follows this structure:
 **Description**: Production Docker config.
 
 **Outputs**:
+
 - `docker-compose.prod.yml`
 - `nginx.conf`
 - Deployment docs
 
 **Acceptance Criteria**:
+
 - [ ] Production compose with nginx, Gunicorn
 - [ ] HTTPS reverse proxy
 - [ ] Database migration instructions
@@ -790,9 +871,11 @@ Each task follows this structure:
 **Description**: E2E test suite for critical journeys.
 
 **Outputs**:
+
 - `frontend/tests/e2e/` (Playwright/Cypress)
 
 **Acceptance Criteria**:
+
 - [ ] E2E tests for: library, creation, gameplay, iteration
 - [ ] CI integration
 
@@ -805,9 +888,11 @@ Each task follows this structure:
 **Description**: Final QA and bug fixes.
 
 **Outputs**:
+
 - Bug fixes, QA sign-off
 
 **Acceptance Criteria**:
+
 - [ ] All P0/P1 bugs fixed
 - [ ] Cross-browser tested
 - [ ] WCAG AA compliance
@@ -822,18 +907,22 @@ Each task follows this structure:
 ## Testing Strategy
 
 ### Unit Testing
+
 - **Backend**: pytest, 90%+ coverage
 - **Frontend**: Jest + RTL, 80%+ coverage
 
 ### Integration Testing
+
 - API integration tests with test DB
 - Component integration tests
 
 ### E2E Testing
+
 - Playwright/Cypress for critical journeys
 - Cross-browser compatibility
 
 ### Performance Testing
+
 - Load testing (k6/Locust)
 - Lighthouse audits
 
@@ -866,6 +955,7 @@ Every task must include:
 ### Technical Debt Tracking
 
 Create GitHub issues for:
+
 - In-memory game sessions (Task 5.2)
 - No authentication (MVP)
 - SQLite default (Task 1.2)

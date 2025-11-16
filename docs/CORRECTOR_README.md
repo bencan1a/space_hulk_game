@@ -67,6 +67,7 @@ The `CorrectionResult` dataclass contains:
 ### Plot Outline
 
 Fixes applied:
+
 - Adds missing `title`, `setting`, `themes`, `tone`
 - Adds minimal `plot_points` (3 minimum required)
 - Adds minimal `characters` and `conflicts`
@@ -77,6 +78,7 @@ Fixes applied:
 ### Narrative Map
 
 Fixes applied:
+
 - Adds missing `scenes` dictionary
 - Adds missing `start_scene` (uses first scene)
 - Fixes scene ID formats (lowercase, underscores)
@@ -88,6 +90,7 @@ Fixes applied:
 ### Puzzle Design
 
 Fixes applied:
+
 - Adds missing `puzzles`, `artifacts`, `monsters`, `npcs` lists
 - Fixes ID formats for all entity types
 - Extends short descriptions to 50+ characters
@@ -96,6 +99,7 @@ Fixes applied:
 ### Scene Texts
 
 Fixes applied:
+
 - Adds missing `scenes` dictionary
 - Fixes scene ID formats
 - Extends short descriptions to 100+ characters (scene texts requirement)
@@ -106,6 +110,7 @@ Fixes applied:
 ### Game Mechanics
 
 Fixes applied:
+
 - Adds missing `game_title`
 - Adds all four required game systems:
   - `movement` (with commands and narrative purpose)
@@ -135,6 +140,7 @@ When adding missing fields, the corrector uses:
 - **Extendable descriptions** that indicate need for refinement
 
 Example default plot point:
+
 ```yaml
 id: "pp_01_opening"
 name: "Opening"
@@ -161,6 +167,7 @@ Comprehensive test coverage includes:
 - Edge case testing (empty inputs, malformed YAML, etc.)
 
 Run tests:
+
 ```bash
 python -m unittest tests.test_corrector -v
 ```
@@ -170,6 +177,7 @@ python -m unittest tests.test_corrector -v
 See `examples/corrector_usage.py` for comprehensive usage examples covering all output types and common correction scenarios.
 
 Run examples:
+
 ```bash
 python examples/corrector_usage.py
 ```
@@ -219,6 +227,7 @@ The corrector logs all operations at appropriate levels:
 - **ERROR**: Unrecoverable errors
 
 Example log output:
+
 ```
 INFO: OutputCorrector initialized
 INFO: Attempting to correct plot outline YAML
@@ -241,11 +250,13 @@ INFO: Plot correction complete: 3 corrections, valid=True
 ### When to Use Manual Intervention
 
 Use the corrector for:
+
 - ✓ Quick fixes during development
 - ✓ Handling common AI output errors
 - ✓ Batch processing multiple outputs
 
 Manual intervention needed for:
+
 - ✗ Complex validation errors
 - ✗ Content quality improvement
 - ✗ Fundamental structural issues

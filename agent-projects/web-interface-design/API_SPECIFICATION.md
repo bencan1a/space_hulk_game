@@ -1,4 +1,5 @@
 # API Specification: Web Interface
+
 ## Canonical REST and WebSocket API Reference
 
 **Version**: 1.0
@@ -90,6 +91,7 @@ All paths below are relative to base URL.
 **Description**: Retrieve paginated list of stories with filtering and search.
 
 **Query Parameters**:
+
 - `page` (integer, optional, default: 1): Page number
 - `per_page` (integer, optional, default: 20, max: 100): Items per page
 - `sort` (string, optional, default: "newest"): Sort order
@@ -100,6 +102,7 @@ All paths below are relative to base URL.
 - `theme` (string, optional): Filter by theme_id
 
 **Response**: `200 OK`
+
 ```json
 {
   "data": [
@@ -131,6 +134,7 @@ All paths below are relative to base URL.
 ```
 
 **Errors**:
+
 - `400 Bad Request`: Invalid query parameters
 
 ---
@@ -142,9 +146,11 @@ All paths below are relative to base URL.
 **Description**: Retrieve detailed information about a specific story.
 
 **Path Parameters**:
+
 - `story_id` (string, required): UUID of the story
 
 **Response**: `200 OK`
+
 ```json
 {
   "data": {
@@ -172,6 +178,7 @@ All paths below are relative to base URL.
 ```
 
 **Errors**:
+
 - `404 Not Found`: Story does not exist
 
 ---
@@ -183,9 +190,11 @@ All paths below are relative to base URL.
 **Description**: Retrieve full game JSON content for a story.
 
 **Path Parameters**:
+
 - `story_id` (string, required): UUID of the story
 
 **Response**: `200 OK`
+
 ```json
 {
   "data": {
@@ -199,6 +208,7 @@ All paths below are relative to base URL.
 ```
 
 **Errors**:
+
 - `404 Not Found`: Story or content not found
 
 ---
@@ -210,11 +220,13 @@ All paths below are relative to base URL.
 **Description**: Delete a story and all associated data. Sample stories cannot be deleted.
 
 **Path Parameters**:
+
 - `story_id` (string, required): UUID of the story
 
 **Response**: `204 No Content`
 
 **Errors**:
+
 - `403 Forbidden`: Cannot delete sample stories
 - `404 Not Found`: Story does not exist
 
@@ -229,6 +241,7 @@ All paths below are relative to base URL.
 **Description**: Start asynchronous story generation process.
 
 **Request Body**:
+
 ```json
 {
   "prompt": "Create a horror-themed Space Hulk adventure with heavy atmosphere...",
@@ -238,11 +251,13 @@ All paths below are relative to base URL.
 ```
 
 **Validation**:
+
 - `prompt`: Required, 50-1000 characters
 - `template_id`: Optional, must exist if provided
 - `theme_id`: Optional, must exist if provided
 
 **Response**: `202 Accepted`
+
 ```json
 {
   "data": {
@@ -255,6 +270,7 @@ All paths below are relative to base URL.
 ```
 
 **Errors**:
+
 - `400 Bad Request`: Invalid prompt or parameters
 - `429 Too Many Requests`: Rate limit exceeded (1 concurrent generation per user)
 
@@ -267,9 +283,11 @@ All paths below are relative to base URL.
 **Description**: Check status of story generation job.
 
 **Path Parameters**:
+
 - `generation_job_id` (string, required): UUID of the generation job
 
 **Response**: `200 OK`
+
 ```json
 {
   "data": {
@@ -286,6 +304,7 @@ All paths below are relative to base URL.
 ```
 
 **Errors**:
+
 - `404 Not Found`: Job does not exist
 
 ---
@@ -297,9 +316,11 @@ All paths below are relative to base URL.
 **Description**: Submit feedback and start iteration/refinement process.
 
 **Path Parameters**:
+
 - `story_id` (string, required): UUID of the story
 
 **Request Body**:
+
 ```json
 {
   "feedback": "The puzzle in scene 2 needs better hints. The tone should be darker.",
@@ -315,10 +336,12 @@ All paths below are relative to base URL.
 ```
 
 **Validation**:
+
 - `feedback`: Required, minimum 20 characters
 - Iteration limit: Maximum 5 iterations per story
 
 **Response**: `202 Accepted`
+
 ```json
 {
   "data": {
@@ -331,6 +354,7 @@ All paths below are relative to base URL.
 ```
 
 **Errors**:
+
 - `400 Bad Request`: Invalid feedback
 - `409 Conflict`: Iteration limit reached (5 maximum)
 - `404 Not Found`: Story does not exist
@@ -344,9 +368,11 @@ All paths below are relative to base URL.
 **Description**: List all iterations/versions of a story.
 
 **Path Parameters**:
+
 - `story_id` (string, required): UUID of the story
 
 **Response**: `200 OK`
+
 ```json
 {
   "data": [
@@ -371,6 +397,7 @@ All paths below are relative to base URL.
 ```
 
 **Errors**:
+
 - `404 Not Found`: Story does not exist
 
 ---
@@ -384,6 +411,7 @@ All paths below are relative to base URL.
 **Description**: Get all available story templates.
 
 **Response**: `200 OK`
+
 ```json
 {
   "data": [
@@ -409,9 +437,11 @@ All paths below are relative to base URL.
 **Description**: Get detailed information about a specific template.
 
 **Path Parameters**:
+
 - `template_id` (string, required): Template identifier
 
 **Response**: `200 OK`
+
 ```json
 {
   "data": {
@@ -427,6 +457,7 @@ All paths below are relative to base URL.
 ```
 
 **Errors**:
+
 - `404 Not Found`: Template does not exist
 
 ---
@@ -440,6 +471,7 @@ All paths below are relative to base URL.
 **Description**: Get all available visual themes.
 
 **Response**: `200 OK`
+
 ```json
 {
   "data": [
@@ -467,9 +499,11 @@ All paths below are relative to base URL.
 **Description**: Get complete theme configuration including colors, labels, and assets.
 
 **Path Parameters**:
+
 - `theme_id` (string, required): Theme identifier
 
 **Response**: `200 OK`
+
 ```json
 {
   "data": {
@@ -486,6 +520,7 @@ All paths below are relative to base URL.
 ```
 
 **Errors**:
+
 - `404 Not Found`: Theme does not exist
 
 ---
@@ -499,9 +534,11 @@ All paths below are relative to base URL.
 **Description**: Initialize a new gameplay session.
 
 **Path Parameters**:
+
 - `story_id` (string, required): UUID of the story to play
 
 **Response**: `200 OK`
+
 ```json
 {
   "data": {
@@ -519,6 +556,7 @@ All paths below are relative to base URL.
 ```
 
 **Errors**:
+
 - `404 Not Found`: Story does not exist
 
 ---
@@ -530,9 +568,11 @@ All paths below are relative to base URL.
 **Description**: Submit player command and get game response.
 
 **Path Parameters**:
+
 - `game_session_id` (string, required): UUID of the active game session
 
 **Request Body**:
+
 ```json
 {
   "command": "examine door"
@@ -540,6 +580,7 @@ All paths below are relative to base URL.
 ```
 
 **Response**: `200 OK`
+
 ```json
 {
   "data": {
@@ -557,6 +598,7 @@ All paths below are relative to base URL.
 ```
 
 **Errors**:
+
 - `404 Not Found`: Game session does not exist or expired
 - `410 Gone`: Game session ended
 
@@ -569,9 +611,11 @@ All paths below are relative to base URL.
 **Description**: Save current game state.
 
 **Path Parameters**:
+
 - `game_session_id` (string, required): UUID of the active game session
 
 **Request Body**:
+
 ```json
 {
   "save_name": "Before boss fight"  // optional
@@ -579,6 +623,7 @@ All paths below are relative to base URL.
 ```
 
 **Response**: `200 OK`
+
 ```json
 {
   "data": {
@@ -592,6 +637,7 @@ All paths below are relative to base URL.
 ```
 
 **Errors**:
+
 - `404 Not Found`: Game session does not exist
 
 ---
@@ -603,9 +649,11 @@ All paths below are relative to base URL.
 **Description**: Load a previously saved game state.
 
 **Path Parameters**:
+
 - `save_id` (string, required): UUID of the save
 
 **Response**: `200 OK`
+
 ```json
 {
   "data": {
@@ -618,6 +666,7 @@ All paths below are relative to base URL.
 ```
 
 **Errors**:
+
 - `404 Not Found`: Save does not exist
 
 ---
@@ -629,9 +678,11 @@ All paths below are relative to base URL.
 **Description**: Get all saved games for a story.
 
 **Path Parameters**:
+
 - `story_id` (string, required): UUID of the story
 
 **Response**: `200 OK`
+
 ```json
 {
   "data": [
@@ -647,6 +698,7 @@ All paths below are relative to base URL.
 ```
 
 **Errors**:
+
 - `404 Not Found`: Story does not exist
 
 ---
@@ -660,6 +712,7 @@ All paths below are relative to base URL.
 **Description**: Real-time progress updates during story generation.
 
 **Connection**:
+
 ```javascript
 const ws = new WebSocket('ws://localhost:8000/ws/generation/660e8400-...');
 ```
@@ -675,6 +728,7 @@ const ws = new WebSocket('ws://localhost:8000/ws/generation/660e8400-...');
 **Server → Client Messages**:
 
 **Progress Update**:
+
 ```json
 {
   "type": "progress",
@@ -688,6 +742,7 @@ const ws = new WebSocket('ws://localhost:8000/ws/generation/660e8400-...');
 ```
 
 **Completion**:
+
 ```json
 {
   "type": "complete",
@@ -699,6 +754,7 @@ const ws = new WebSocket('ws://localhost:8000/ws/generation/660e8400-...');
 ```
 
 **Error**:
+
 ```json
 {
   "type": "error",
@@ -714,6 +770,7 @@ const ws = new WebSocket('ws://localhost:8000/ws/generation/660e8400-...');
 ```
 
 **Heartbeat** (every 30 seconds):
+
 ```json
 {
   "type": "heartbeat",
@@ -722,6 +779,7 @@ const ws = new WebSocket('ws://localhost:8000/ws/generation/660e8400-...');
 ```
 
 **Connection Handling**:
+
 - Clients should implement exponential backoff reconnection (1s, 2s, 4s, 8s, max 30s)
 - Maximum 10 reconnection attempts before falling back to polling
 - Server closes connection after generation completes or fails
@@ -753,11 +811,13 @@ const ws = new WebSocket('ws://localhost:8000/ws/generation/660e8400-...');
 **Current (MVP)**: No rate limiting (single user)
 
 **Future (Multi-user)**:
+
 - **Generation**: 1 concurrent generation per user
 - **API Requests**: 100 requests per minute per IP
 - **WebSocket Connections**: 5 concurrent connections per user
 
 **Rate Limit Headers**:
+
 ```
 X-RateLimit-Limit: 100
 X-RateLimit-Remaining: 95
@@ -771,6 +831,7 @@ X-RateLimit-Reset: 1699804800
 **Current**: v1 (stable)
 
 **Future Versions**:
+
 - Breaking changes increment major version (`/api/v2/`)
 - Non-breaking changes (new endpoints, optional fields) remain in v1
 - Old versions supported for 12 months after deprecation notice
@@ -829,6 +890,7 @@ app = FastAPI(
 ```
 
 **Documentation URLs**:
+
 - **Swagger UI**: `/api/v1/docs`
 - **ReDoc**: `/api/v1/redoc`
 - **OpenAPI JSON**: `/api/v1/openapi.json`

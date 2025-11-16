@@ -7,15 +7,18 @@ After extensive testing and multiple optimization attempts, hierarchical mode fa
 ## Tests Performed
 
 ### Test 1: Basic Hierarchical (1 task, 1 worker)
+
 - **Result**: ✅ SUCCESS
 - **Conclusion**: Minimal hierarchical works with simple prompts
 
 ### Test 2: With Real Tasks (Optimized LLM parameters)
+
 - **Result**: ❌ FAILED after 6.22 minutes
 - **Error**: "Invalid response from LLM call - None or empty"
 - **Observations**: 6+ delegation attempts before failure
 
 ### Test 3: Simplified Task Descriptions (90% shorter)
+
 - **Result**: ❌ FAILED after 1.76 minutes
 - **Error**: Same LLM response error
 - **Observations**: Failed faster than complex tasks
@@ -25,6 +28,7 @@ After extensive testing and multiple optimization attempts, hierarchical mode fa
 ### The Delegation Problem
 
 CrewAI's hierarchical mode uses a "Delegate work to coworker" tool that:
+
 1. Manager receives task
 2. Manager decides to delegate
 3. Manager creates delegation prompt for worker
@@ -61,6 +65,7 @@ CrewAI's hierarchical mode uses a "Delegate work to coworker" tool that:
 ## Why Sequential Mode Works
 
 Sequential mode:
+
 - **No delegation** - tasks execute directly
 - **Linear context** - each task gets clean context
 - **Predictable prompts** - no recursive nesting
@@ -71,32 +76,38 @@ Success rate: **100%** (4/4 tests passed)
 ## Recommendation: Use a Different LLM for Hierarchical Mode
 
 ### Option 1: OpenAI GPT-4 (Recommended)
+
 ```python
 manager_llm = LLM(
     model="gpt-4-turbo-preview",
     api_key=os.environ["OPENAI_API_KEY"]
 )
 ```
+
 **Pros**: Excellent delegation handling, proven with CrewAI
 **Cons**: Requires API key, costs money
 
 ### Option 2: Anthropic Claude 3.5 Sonnet
+
 ```python
 manager_llm = LLM(
     model="claude-3-5-sonnet-20241022",
     api_key=os.environ["ANTHROPIC_API_KEY"]
 )
 ```
+
 **Pros**: Very good at complex reasoning, handles delegation well
 **Cons**: Requires API key, costs money
 
 ### Option 3: Keep Sequential Mode (Current)
+
 **Pros**: Works perfectly, free (local), fast
 **Cons**: No hierarchical coordination (but not needed for MVP)
 
 ## Recommended Fix for Production
 
-### Immediate (MVP):
+### Immediate (MVP)
+
 ```python
 # Use sequential mode exclusively
 crew = Crew(
@@ -107,7 +118,8 @@ crew = Crew(
 )
 ```
 
-### Future Enhancement:
+### Future Enhancement
+
 ```python
 # Hierarchical with GPT-4 manager, Llama workers
 manager_llm = LLM(model="gpt-4-turbo-preview", api_key=...)
@@ -125,6 +137,7 @@ crew = Crew(
 ```
 
 This hybrid approach:
+
 - Uses expensive GPT-4 only for manager (few calls)
 - Uses free Llama for workers (many calls)
 - Gets best of both: good delegation + cost efficiency
@@ -132,6 +145,7 @@ This hybrid approach:
 ## Updated crew.py Implementation
 
 The `create_hierarchical_crew()` method has been updated with:
+
 1. Configurable max_iter (default: 10)
 2. Optimized manager LLM configuration
 3. Simplified manager backstory option
@@ -144,6 +158,7 @@ However, these optimizations are **insufficient** for Llama models. The fundamen
 **Hierarchical mode is not compatible with Llama 3.1 70B** for complex multi-task workflows.
 
 **Action**: Document this limitation and recommend:
+
 1. Use sequential mode for MVP (proven, reliable)
 2. Consider GPT-4/Claude for hierarchical mode in future
 3. Or implement a custom hybrid approach

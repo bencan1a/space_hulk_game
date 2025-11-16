@@ -49,17 +49,20 @@ backend/
 ### Installation
 
 1. Navigate to the backend directory:
+
    ```bash
    cd backend
    ```
 
 2. Install dependencies:
+
    ```bash
    pip install -r requirements.txt
    pip install -r requirements-dev.txt
    ```
 
 3. Create environment file:
+
    ```bash
    cp .env.example .env
    ```
@@ -83,10 +86,11 @@ uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 The API will be available at:
-- **API**: http://localhost:8000
-- **Health Check**: http://localhost:8000/health
-- **OpenAPI Docs**: http://localhost:8000/docs
-- **ReDoc**: http://localhost:8000/redoc
+
+- **API**: <http://localhost:8000>
+- **Health Check**: <http://localhost:8000/health>
+- **OpenAPI Docs**: <http://localhost:8000/docs>
+- **ReDoc**: <http://localhost:8000/redoc>
 
 ### Production Mode
 
@@ -101,21 +105,25 @@ uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 4
 ### Code Quality
 
 Run linting:
+
 ```bash
 ruff check .
 ```
 
 Auto-fix linting issues:
+
 ```bash
 ruff check . --fix
 ```
 
 Format code:
+
 ```bash
 ruff format .
 ```
 
 Type checking:
+
 ```bash
 mypy . --strict
 ```
@@ -123,16 +131,19 @@ mypy . --strict
 ### Testing
 
 Run all tests:
+
 ```bash
 pytest -v
 ```
 
 Run with coverage:
+
 ```bash
 pytest --cov=app --cov-report=html
 ```
 
 Run specific test file:
+
 ```bash
 pytest tests/test_health.py -v
 ```
@@ -186,6 +197,7 @@ print(settings.log_level)  # INFO
 Returns the health status of the API.
 
 **Response:**
+
 ```json
 {
   "status": "healthy",
@@ -203,6 +215,7 @@ Returns the health status of the API.
 Start a new story generation task. Returns a session ID for tracking progress.
 
 **Request Body:**
+
 ```json
 {
   "prompt": "Create a horror story with body horror and isolation themes in the grimdark universe",
@@ -211,10 +224,12 @@ Start a new story generation task. Returns a session ID for tracking progress.
 ```
 
 **Validation:**
+
 - `prompt`: Required, 50-5000 characters
 - `template_id`: Optional, max 50 characters
 
 **Response (201 Created):**
+
 ```json
 {
   "session_id": "550e8400-e29b-41d4-a716-446655440000",
@@ -224,6 +239,7 @@ Start a new story generation task. Returns a session ID for tracking progress.
 ```
 
 **Error Responses:**
+
 - `400 Bad Request`: Invalid prompt (too short/long)
 - `500 Internal Server Error`: Failed to start generation
 
@@ -234,6 +250,7 @@ Start a new story generation task. Returns a session ID for tracking progress.
 Get the current status and progress of a generation task.
 
 **Response (200 OK):**
+
 ```json
 {
   "session_id": "550e8400-e29b-41d4-a716-446655440000",
@@ -248,12 +265,14 @@ Get the current status and progress of a generation task.
 ```
 
 **Status Values:**
+
 - `pending`: Task queued, waiting to start
 - `running`: Currently generating content
 - `completed`: Successfully finished (includes `story_id`)
 - `failed`: Generation failed (includes `error_message`)
 
 **Error Responses:**
+
 - `404 Not Found`: Session ID not found
 
 ## Logging

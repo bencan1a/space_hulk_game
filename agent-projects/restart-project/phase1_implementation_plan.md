@@ -28,11 +28,13 @@ graph TD
 ### 1. YAML Syntax Review & Fixes
 
 **Files to Review:**
+
 - `src/space_hulk_game/config/agents.yaml`
 - `src/space_hulk_game/config/tasks.yaml`
 - `src/space_hulk_game/config/gamedesign.yaml`
 
 **Potential Issues to Address:**
+
 - Inconsistent indentation
 - Missing required fields
 - Improper formatting of multi-line strings
@@ -40,6 +42,7 @@ graph TD
 - Invalid YAML syntax
 
 **Implementation Approach:**
+
 - Use a YAML validator to check for syntax errors
 - Standardize indentation (2 spaces)
 - Ensure consistent formatting for multi-line strings
@@ -48,6 +51,7 @@ graph TD
 ### 2. Input Validation Implementation
 
 **Validation Hooks:**
+
 ```python
 @before_kickoff
 def prepare_inputs(self, inputs):
@@ -71,6 +75,7 @@ def prepare_inputs(self, inputs):
 ```
 
 **Task Input Validation:**
+
 ```python
 @before_task
 def validate_task_input(self, task, input_data):
@@ -96,6 +101,7 @@ def validate_task_input(self, task, input_data):
 ### 3. Output Validation Implementation
 
 **Task Output Validation:**
+
 ```python
 @after_task
 def validate_task_output(self, task, output_data):
@@ -121,6 +127,7 @@ def validate_task_output(self, task, output_data):
 ### 4. Error Handling Implementation
 
 **Core Error Handling:**
+
 ```python
 def handle_task_failure(self, task, exception):
     """Handle task execution failures with appropriate recovery mechanisms"""
@@ -151,6 +158,7 @@ def handle_task_failure(self, task, exception):
 ```
 
 **Implementation in Task Execution:**
+
 ```python
 try:
     task_result = task.execute()
@@ -161,6 +169,7 @@ except Exception as e:
 ### 5. Testing Framework
 
 **Test Cases:**
+
 - Basic input validation with valid prompt
 - Basic input validation with missing prompt
 - Task validation with missing required input
@@ -169,6 +178,7 @@ except Exception as e:
 - End-to-end execution with simple prompt
 
 **Test Implementation:**
+
 ```python
 def test_basic_functionality():
     """Test the basic functionality of the Space Hulk Game crew"""

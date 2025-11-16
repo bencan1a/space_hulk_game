@@ -2,10 +2,10 @@
 
 ## Document Information
 
-**Version**: 1.0  
-**Status**: Draft for Engineering Review  
-**Last Updated**: 2025-11-12  
-**Product Designer**: GitHub Copilot Product Designer Agent  
+**Version**: 1.0
+**Status**: Draft for Engineering Review
+**Last Updated**: 2025-11-12
+**Product Designer**: GitHub Copilot Product Designer Agent
 **Target Release**: Q1 2026
 
 ---
@@ -15,6 +15,7 @@
 This PRD defines requirements for a browser-based interface that enables users to create, iterate on, and play Space Hulk text adventure games. The interface will transform the current CLI-only experience into an accessible web application with two primary modes: **Story Creation Mode** (working with AI agents to generate game content) and **Play Mode** (experiencing the generated games).
 
 **Key Value Propositions**:
+
 - **Accessibility**: Web browser access removes installation barriers
 - **Discoverability**: Visual library of created games makes content browseable
 - **Iteration**: Direct feedback loop with AI agents for story refinement
@@ -27,6 +28,7 @@ This PRD defines requirements for a browser-based interface that enables users t
 ### Current Pain Points
 
 **Who experiences these problems?**
+
 1. **Game Creators**: Users who want to generate unique Space Hulk adventures
 2. **Players**: Users who want to play the generated games
 3. **Both**: Users who create and play (likely the majority)
@@ -63,7 +65,7 @@ This PRD defines requirements for a browser-based interface that enables users t
    - Can't easily switch between creating and playing
    - **Impact**: Fragmented user experience, cognitive overhead
 
-**Frequency**: Every interaction with the system  
+**Frequency**: Every interaction with the system
 **Impact if Unsolved**: Limited adoption, user frustration, underutilized AI capabilities
 
 ---
@@ -80,20 +82,24 @@ This PRD defines requirements for a browser-based interface that enables users t
 ### Success Metrics
 
 **Adoption Metrics**:
+
 - **Primary**: 80% of users access via web interface vs CLI within 3 months
 - **Secondary**: 50% of users create at least one custom story within first session
 
 **Engagement Metrics**:
+
 - **Iteration Rate**: Average 2.5 iterations per story creation
 - **Library Usage**: 60% of users browse library before creating new story
 - **Completion Rate**: 70% of started story creations result in playable game
 
 **Quality Metrics**:
+
 - **User Satisfaction**: 4+ stars average rating for interface (1-5 scale)
 - **Story Quality**: 75% of created stories marked as "satisfactory" by creators
 - **Retention**: 40% of users return within 7 days to create/play additional games
 
 **Technical Metrics**:
+
 - **Performance**: Story library loads in <2 seconds
 - **Reliability**: 99% uptime for web interface
 - **Responsiveness**: Chat interactions respond in <3 seconds
@@ -104,18 +110,20 @@ This PRD defines requirements for a browser-based interface that enables users t
 
 ### Persona 1: The Warhammer 40K Enthusiast
 
-**Name**: Marcus "The Lore Master"  
-**Age**: 32  
-**Background**: Long-time Warhammer 40K fan, familiar with Space Hulk board game  
-**Technical Skill**: Moderate (comfortable with web apps, not with CLIs)  
+**Name**: Marcus "The Lore Master"
+**Age**: 32
+**Background**: Long-time Warhammer 40K fan, familiar with Space Hulk board game
+**Technical Skill**: Moderate (comfortable with web apps, not with CLIs)
 **Gaming Experience**: Tabletop games, some video games
 
 **Goals**:
+
 - Create stories that match official Warhammer 40K lore
 - Explore different Space Hulk scenarios
 - Share stories with friends in the hobby
 
 **Pain Points**:
+
 - CLI intimidates them
 - Wants more control over story themes and tone
 - Needs lore accuracy validation
@@ -124,18 +132,20 @@ This PRD defines requirements for a browser-based interface that enables users t
 
 ### Persona 2: The Text Adventure Veteran
 
-**Name**: Sarah "The Puzzle Master"  
-**Age**: 45  
-**Background**: Grew up playing Zork, Infocom games  
-**Technical Skill**: High (could use CLI, but prefers not to)  
+**Name**: Sarah "The Puzzle Master"
+**Age**: 45
+**Background**: Grew up playing Zork, Infocom games
+**Technical Skill**: High (could use CLI, but prefers not to)
 **Gaming Experience**: 30+ years of text adventures
 
 **Goals**:
+
 - Create challenging, well-designed puzzles
 - Quality writing and narrative structure
 - Replayable stories with multiple paths
 
 **Pain Points**:
+
 - AI-generated content often lacks puzzle sophistication
 - Needs ability to critique and refine puzzle design
 - Wants to iterate until quality meets standards
@@ -144,18 +154,20 @@ This PRD defines requirements for a browser-based interface that enables users t
 
 ### Persona 3: The Curious Newcomer
 
-**Name**: Alex "The Explorer"  
-**Age**: 24  
-**Background**: Heard about AI-generated games, curious to try  
-**Technical Skill**: Low (uses web apps, no coding experience)  
+**Name**: Alex "The Explorer"
+**Age**: 24
+**Background**: Heard about AI-generated games, curious to try
+**Technical Skill**: Low (uses web apps, no coding experience)
 **Gaming Experience**: Casual mobile games, some RPGs
 
 **Goals**:
+
 - Try something new and interesting
 - Create a unique story easily
 - Share experience on social media
 
 **Pain Points**:
+
 - Doesn't know what "Space Hulk" is
 - Unfamiliar with text adventure conventions
 - Needs significant guidance and examples
@@ -226,18 +238,21 @@ This PRD defines requirements for a browser-based interface that enables users t
 ### Technology Stack
 
 **Frontend**:
+
 - React with TypeScript
 - Material-UI or custom components
 - WebSocket client for real-time updates
 - Local storage for session persistence
 
 **Backend**:
+
 - FastAPI (Python)
 - Celery for async task queue
 - SQLite (development) / PostgreSQL (production)
 - WebSocket support for progress updates
 
 **Integration**:
+
 - Existing CrewAI agents (no changes required)
 - Existing game engine (wrapped in API)
 - Existing JSON format (maintained for compatibility)
@@ -247,31 +262,37 @@ This PRD defines requirements for a browser-based interface that enables users t
 ## Implementation Roadmap
 
 ### Phase 1: MVP Foundation (Weeks 1-4)
+
 - Backend infrastructure setup
 - Story library UI
 - Basic API integration
 
 ### Phase 2: Story Creation (Weeks 5-8)
+
 - Template and custom prompt UI
 - AI chat interface
 - Generation flow with progress tracking
 
 ### Phase 3: Iteration System (Weeks 9-11)
+
 - Feedback mechanism
 - Version comparison
 - Iteration limits
 
 ### Phase 4: Gameplay Interface (Weeks 12-14)
+
 - Web game interface
 - Save/load system
 - Command processing
 
 ### Phase 5: Polish and Launch (Weeks 15-16)
+
 - Visual refinement
 - Performance optimization
 - Documentation and deployment
 
 ### Future Phases
+
 - User authentication
 - Community features
 - Advanced editing tools
@@ -296,18 +317,21 @@ This PRD defines requirements for a browser-based interface that enables users t
 ## Key Design Decisions
 
 ### Design Philosophy
+
 - **Accessibility First**: WCAG 2.1 Level AA compliance
 - **Progressive Disclosure**: Show complexity only when needed
 - **Warhammer 40K Aesthetic**: Grimdark theme with gothic elements
 - **Fail Gracefully**: Clear error messages with recovery paths
 
 ### User Experience Patterns
+
 - **Chat Interface**: Conversational UI for prompt refinement
 - **Progress Transparency**: Real-time agent activity visualization
 - **Iteration Feedback Loop**: Structured feedback with free-form text
 - **Visual Library**: Card-based grid for story browsing
 
 ### Technical Choices
+
 - **Backend**: FastAPI for modern async Python
 - **Frontend**: React for component reusability
 - **Real-time**: WebSocket for generation progress
@@ -319,6 +343,7 @@ This PRD defines requirements for a browser-based interface that enables users t
 ## Success Criteria
 
 **Launch Readiness**:
+
 - [ ] All P0 user stories implemented
 - [ ] 95%+ of acceptance criteria met
 - [ ] Performance targets achieved (library <2s, commands <500ms)
@@ -327,6 +352,7 @@ This PRD defines requirements for a browser-based interface that enables users t
 - [ ] Documentation complete (user guide, API docs)
 
 **Post-Launch (3 months)**:
+
 - [ ] 80% of users prefer web interface over CLI
 - [ ] 50% create custom story in first session
 - [ ] 70% completion rate for story generation
@@ -338,6 +364,7 @@ This PRD defines requirements for a browser-based interface that enables users t
 ## Open Questions & Decisions Needed
 
 **Product Decisions**:
+
 1. Template curation process and ownership
 2. Feedback form structure (free-form vs. structured)
 3. Acceptable generation time (current: 5-10 min)
@@ -361,19 +388,23 @@ This PRD defines requirements for a browser-based interface that enables users t
 ## Appendices
 
 ### A. Prompt Template Examples
+
 - Horror Infestation template
 - Artifact Hunt template
 - Rescue Mission template
 
 ### B. API Endpoint Specification
+
 - Complete REST API documentation
 - WebSocket protocol definition
 - Data model schemas
 
 ### C. Glossary
+
 - CrewAI, Space Hulk, Iteration, Template, CLI, Grimdark definitions
 
 ### D. References
+
 - Internal documentation links
 - External resources (React, FastAPI, WCAG)
 
@@ -381,8 +412,8 @@ This PRD defines requirements for a browser-based interface that enables users t
 
 ## Document Approval
 
-**Product Owner**: _______________ Date: ___________  
-**Engineering Lead**: _______________ Date: ___________  
+**Product Owner**: _______________ Date: ___________
+**Engineering Lead**: _______________ Date: ___________
 **Design Lead**: _______________ Date: ___________
 
 ---
@@ -393,7 +424,6 @@ This PRD defines requirements for a browser-based interface that enables users t
 
 ---
 
-*Document Version: 1.0*  
-*Last Updated: 2025-11-12*  
+*Document Version: 1.0*
+*Last Updated: 2025-11-12*
 *Status: Ready for Engineering Review*
-
