@@ -11,7 +11,7 @@ from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
 
 from . import __version__
-from .api.routes import stories, templates, themes
+from .api.routes import generation, stories, templates, themes
 from .celery_app import celery_app
 from .config import settings
 from .tasks.example_task import example_long_task
@@ -57,6 +57,7 @@ app.add_middleware(
 )
 
 # Register routers
+app.include_router(generation.router)
 app.include_router(stories.router)
 app.include_router(templates.router)
 app.include_router(themes.router)
