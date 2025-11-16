@@ -85,3 +85,30 @@ export interface GameResponse {
   valid: boolean
   game_over: boolean
 }
+
+// Template types
+export interface TemplateVariable {
+  name: string
+  type: string
+  required: boolean
+  description: string
+  example?: string
+  default?: string
+}
+
+export interface TemplateMetadata {
+  name: string
+  title: string
+  description: string
+  category: string
+  variables: TemplateVariable[]
+}
+
+export interface TemplateDetail extends TemplateMetadata {
+  prompt: string
+}
+
+export interface TemplateListResponse {
+  templates: TemplateMetadata[]
+  total: number
+}
