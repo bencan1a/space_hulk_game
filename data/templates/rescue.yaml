@@ -9,25 +9,25 @@ variables:
     required: true
     description: "Who needs to be rescued"
     example: "imperial officer"
-  
+
   - name: "location"
     type: "string"
     required: true
     description: "Where the target is being held"
     example: "enemy detention facility"
-  
+
   - name: "captors"
     type: "string"
     required: false
     default: "enemy forces"
     description: "Who is holding the rescue target"
-  
+
   - name: "target_condition"
     type: "string"
     required: false
     default: "unknown"
     description: "Known condition of the rescue target"
-  
+
   - name: "extraction_method"
     type: "string"
     required: false
@@ -49,36 +49,36 @@ prompt: |
   - **Time sensitivity**: The target's condition may deteriorate
   - **Stealth vs. Combat**: Players can choose their approach
   - **Escort mechanics**: Protecting the target during extraction
-  
+
   Design the game with:
   - A clear three-phase structure: infiltration, rescue, extraction
   - Multiple entry points and approaches to the facility
   - Alarm system that changes the mission if triggered
   - NPC allies who can provide support or distractions
   - Complications based on the target's condition
-  
+
   Include:
   - At least 2 different infiltration routes (stealth, disguise, or frontal assault)
   - Guards with patrol patterns that can be observed and exploited
   - Environmental hazards that can be used tactically
   - Moral choices (rescue everyone vs. just the primary target)
   - Time-sensitive decisions during the extraction phase
-  
+
   The target ({{ rescue_target }}) should:
   - Have personality and agency (not just a passive objective)
   - Potentially provide valuable information
   - Have specific needs based on their condition ({{ target_condition }})
   - Affect gameplay during the extraction phase
-  
+
   Extraction ({{ extraction_method }}) should:
   - Present unique challenges based on the method
   - Require defending the target until extraction is complete
   - Have potential complications that must be overcome
-  
+
   Include multiple endings:
   - Clean extraction with minimal casualties
   - Costly success with heavy losses
   - Failed rescue with consequences
   - Unexpected complications that change the mission
-  
+
   Generate a complete game.json structure with all necessary scenes, items, NPCs, and game logic.

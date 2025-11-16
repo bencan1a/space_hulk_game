@@ -13,7 +13,7 @@ from fastapi import FastAPI, Query, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 
 from . import __version__
-from .api.routes import stories, templates, themes
+from .api.routes import generation, stories, templates, themes
 from .api.websocket import manager as websocket_manager
 from .celery_app import celery_app
 from .config import settings
@@ -60,6 +60,7 @@ app.add_middleware(
 )
 
 # Register routers
+app.include_router(generation.router)
 app.include_router(stories.router)
 app.include_router(templates.router)
 app.include_router(themes.router)

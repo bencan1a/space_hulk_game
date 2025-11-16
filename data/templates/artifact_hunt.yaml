@@ -9,25 +9,25 @@ variables:
     required: true
     description: "Name of the artifact to be recovered"
     example: "Ancient Power Core"
-  
+
   - name: "location"
     type: "string"
     required: true
     description: "Location where the artifact is hidden"
     example: "derelict battleship"
-  
+
   - name: "opposition"
     type: "string"
     required: false
     default: "hostile forces"
     description: "Who or what is guarding the artifact"
-  
+
   - name: "difficulty"
     type: "string"
     required: false
     default: "challenging"
     description: "Overall difficulty level (easy/medium/challenging/hard)"
-  
+
   - name: "time_pressure"
     type: "boolean"
     required: false
@@ -49,25 +49,25 @@ prompt: |
   - **Obstacles**: Challenges that must be overcome to reach the artifact
   - **Risk vs. Reward**: Optional areas with valuable items but increased danger
   - **Discovery**: Uncover the history and significance of the artifact
-  
+
   Design the game with:
   - A clear objective: locate and secure the {{ artifact_name }}
   - Multiple paths to reach the artifact (stealth, combat, diplomacy)
   - Meaningful choices that affect the outcome
   - Resource management (equipment, supplies)
   - Potential complications if the artifact is activated incorrectly
-  
+
   Include:
   - At least 3 key puzzle or challenge areas
   - NPCs who may help or hinder the search
   - Lore entries that reveal the artifact's backstory
   - Multiple possible endings based on how the artifact is handled
-  
+
   {% if time_pressure %}
   Add time pressure elements:
   - Limited turns or time before reinforcements arrive
   - Consequences for taking too long
   - Environmental hazards that worsen over time
   {% endif %}
-  
+
   Generate a complete game.json structure with all necessary scenes, items, NPCs, and game logic.
