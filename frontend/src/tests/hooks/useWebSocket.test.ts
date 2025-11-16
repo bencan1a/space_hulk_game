@@ -25,7 +25,8 @@ class MockWebSocket {
     }, 0)
   }
 
-  send(data: string) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  send(_data: string) {
     if (this.readyState !== MockWebSocket.OPEN) {
       throw new Error('WebSocket is not open')
     }
@@ -43,12 +44,15 @@ describe('useWebSocket', () => {
   let originalWebSocket: typeof WebSocket
 
   beforeEach(() => {
-    originalWebSocket = global.WebSocket
-    global.WebSocket = MockWebSocket as unknown as typeof WebSocket
+    originalWebSocket = (globalThis as typeof globalThis & { WebSocket: typeof WebSocket })
+      .WebSocket
+    ;(globalThis as typeof globalThis & { WebSocket: typeof WebSocket }).WebSocket =
+      MockWebSocket as unknown as typeof WebSocket
   })
 
   afterEach(() => {
-    global.WebSocket = originalWebSocket
+    (globalThis as typeof globalThis & { WebSocket: typeof WebSocket }).WebSocket =
+      originalWebSocket
     vi.clearAllMocks()
   })
 
