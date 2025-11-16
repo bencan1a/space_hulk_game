@@ -9,7 +9,8 @@ if TYPE_CHECKING:
     from sqlalchemy.orm import Session
 
 from ..celery_app import celery_app
-from ..database import get_db
+from ..config import settings
+from ..database import SessionLocal
 from ..integrations.crewai_wrapper import CrewExecutionError, CrewTimeoutError
 from ..schemas.story import StoryCreate
 from ..services.generation_service import GenerationService
@@ -19,14 +20,13 @@ logger = logging.getLogger(__name__)
 
 
 @celery_app.task(
-    bind=True,
     name="app.tasks.generation_tasks.run_generation_crew",
     max_retries=0,  # Don't retry generation tasks - they're expensive
     task_time_limit=900,  # 15 minutes
     task_soft_time_limit=840,  # 14 minutes
 )
 def run_generation_crew(
-    self, session_id: str, prompt: str, template_id: str | None = None  # noqa: ARG001
+    session_id: str, prompt: str, template_id: str | None = None
 ) -> dict[str, Any]:
     """
     Run CrewAI generation in the background.
@@ -51,9 +51,10 @@ def run_generation_crew(
     """
     logger.info(f"Starting generation task for session: {session_id}")
 
-    # Get database session
-    db_gen = get_db()
-    db: Session = next(db_gen)  # type: ignore[assignment]
+    # Create database session directly
+    db: Session = SessionLocal()  # type: ignore[assignment]
+    gen_service: GenerationService | None = None
+    story_id: int | None = None
 
     try:
         gen_service = GenerationService(db)
@@ -173,7 +174,9 @@ def run_generation_crew(
             progress_percent=90,
         )
 
-        game_dir = Path(f"data/stories/{session_id}")
+        # Use configurable base directory for story files
+        base_dir = Path(settings.stories_data_dir).resolve()
+        game_dir = base_dir / session_id
         game_dir.mkdir(parents=True, exist_ok=True)
         game_file_path = game_dir / "game.json"
 
@@ -211,15 +214,24 @@ def run_generation_crew(
         # Update story statistics (import here to avoid circular dependency)
         from ..schemas.story import StoryUpdate  # noqa: PLC0415
 
-        story_service.update(
-            story_id,
-            StoryUpdate(
-                scene_count=scene_count,
-                item_count=item_count,
-                npc_count=npc_count,
-                puzzle_count=puzzle_count,
-            ),
-        )
+        try:
+            story_service.update(
+                story_id,
+                StoryUpdate(
+                    scene_count=scene_count,
+                    item_count=item_count,
+                    npc_count=npc_count,
+                    puzzle_count=puzzle_count,
+                ),
+            )
+        except Exception as update_exc:
+            # If update fails, try to clean up the created story
+            logger.error(f"Failed to update story statistics, cleaning up: {update_exc}")
+            try:
+                story_service.delete(story_id)
+            except Exception as delete_exc:
+                logger.error(f"Failed to delete story during cleanup: {delete_exc}")
+            raise
 
         logger.info(f"Created story record: {story.id}")
 
@@ -241,20 +253,22 @@ def run_generation_crew(
 
     except (CrewTimeoutError, CrewExecutionError) as exc:
         logger.error(f"CrewAI execution failed for session {session_id}: {exc}")
-        gen_service.update_session(
-            session_id=session_id,
-            status="failed",
-            error_message=str(exc),
-        )
+        if gen_service:
+            gen_service.update_session(
+                session_id=session_id,
+                status="failed",
+                error_message=str(exc),
+            )
         raise
 
     except Exception as exc:
         logger.error(f"Generation task failed for session {session_id}: {exc}", exc_info=True)
-        gen_service.update_session(
-            session_id=session_id,
-            status="failed",
-            error_message=str(exc),
-        )
+        if gen_service:
+            gen_service.update_session(
+                session_id=session_id,
+                status="failed",
+                error_message=str(exc),
+            )
         raise
 
     finally:

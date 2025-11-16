@@ -49,6 +49,12 @@ class Settings(BaseSettings):
         default="", description="Celery result backend URL (auto-set from redis_url)"
     )
 
+    # File Storage
+    stories_data_dir: str = Field(
+        default="data/stories",
+        description="Base directory for storing generated story files",
+    )
+
     @model_validator(mode="after")
     def set_celery_urls(self) -> "Settings":
         """Set Celery URLs from Redis URL if not provided."""

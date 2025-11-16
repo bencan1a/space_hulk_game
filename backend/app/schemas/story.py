@@ -47,6 +47,14 @@ class StoryUpdate(BaseModel):
             return None
         return list({tag.lower().strip() for tag in v if tag.strip()})
 
+    @field_validator("scene_count", "item_count", "npc_count", "puzzle_count")
+    @classmethod
+    def validate_counts(cls, v: int | None) -> int | None:
+        """Validate counts are non-negative."""
+        if v is not None and v < 0:
+            raise ValueError("Count must be non-negative")
+        return v
+
 
 class StoryResponse(StoryBase):
     """Schema for story response."""
