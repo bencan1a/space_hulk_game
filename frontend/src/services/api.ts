@@ -168,6 +168,21 @@ class ApiClient {
     const response = await this.client.get<ApiResponse<Theme>>(`/api/v1/themes/${themeId}`)
     return response.data.data
   }
+
+  // Template endpoints
+  async getTemplates(): Promise<import('./types').TemplateListResponse> {
+    const response = await this.client.get<import('./types').TemplateListResponse>(
+      '/api/v1/templates'
+    )
+    return response.data
+  }
+
+  async getTemplate(name: string): Promise<import('./types').TemplateDetail> {
+    const response = await this.client.get<import('./types').TemplateDetail>(
+      `/api/v1/templates/${name}`
+    )
+    return response.data
+  }
 }
 
 export const apiClient = new ApiClient()
