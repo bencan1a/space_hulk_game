@@ -1,5 +1,7 @@
 """FastAPI application initialization and configuration."""
 
+import asyncio
+import contextlib
 import logging
 from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
@@ -7,11 +9,12 @@ from datetime import datetime, timezone
 from typing import Any
 
 from celery.result import AsyncResult
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Query, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 
 from . import __version__
 from .api.routes import generation, stories, templates, themes
+from .api.websocket import manager as websocket_manager
 from .celery_app import celery_app
 from .config import settings
 from .tasks.example_task import example_long_task
@@ -129,3 +132,68 @@ async def get_task_status(task_id: str) -> dict[str, Any]:
         response = {"state": task_result.state, "status": "Unknown state"}
 
     return response
+
+
+@app.websocket("/ws/progress/{session_id}")
+async def websocket_progress_endpoint(websocket: WebSocket, session_id: str) -> None:
+    """
+    WebSocket endpoint for real-time progress updates.
+
+    Clients connect to this endpoint to receive real-time progress updates
+    for a specific generation session. The connection supports:
+    - Automatic heartbeat messages every 30 seconds to keep connection alive
+    - Progress messages broadcast from generation tasks
+    - Graceful disconnection handling
+
+    Args:
+        websocket: The WebSocket connection
+        session_id: The generation session ID to receive updates for
+
+    Example:
+        Connect via JavaScript:
+        ```javascript
+        const ws = new WebSocket('ws://localhost:8000/ws/progress/session-123');
+        ws.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            console.log('Progress:', data);
+        };
+        ```
+    """
+    await websocket_manager.connect(websocket, session_id)
+
+    # Initialize heartbeat_task to None for proper cleanup handling
+    heartbeat_task = None
+
+    try:
+        # Start heartbeat task
+        heartbeat_task = asyncio.create_task(
+            websocket_manager.send_heartbeat(websocket, session_id)
+        )
+
+        # Listen for client messages (mostly for connection management)
+        while True:
+            try:
+                # Wait for any message from client
+                data = await websocket.receive_text()
+                logger.debug(f"Received message from client for session {session_id}: {data}")
+
+                # Echo back acknowledgment (optional)
+                # Client messages are primarily to keep connection alive
+                # The main communication direction is server -> client
+
+            except WebSocketDisconnect:
+                logger.info(f"WebSocket disconnected for session {session_id}")
+                break
+
+    except Exception as e:
+        logger.error(f"WebSocket error for session {session_id}: {e}")
+
+    finally:
+        # Cancel heartbeat task
+        if heartbeat_task is not None:
+            heartbeat_task.cancel()
+            with contextlib.suppress(asyncio.CancelledError):
+                await heartbeat_task
+
+        # Disconnect
+        websocket_manager.disconnect(websocket, session_id)
