@@ -79,7 +79,7 @@ export const CustomPromptForm: React.FC<CustomPromptFormProps> = ({
         <div className={styles.footer}>
           <div className={charCountClass} aria-live="polite">
             {charCount} / {MAX_LENGTH} characters
-            {charCount < MIN_LENGTH && ` (minimum ${MIN_LENGTH})`}
+            {!isValid && charCount < MIN_LENGTH && ` (minimum ${MIN_LENGTH})`}
           </div>
 
           {error && (
