@@ -261,7 +261,7 @@ class TestWebSocketEndpoint(unittest.TestCase):
             # Receive the broadcast message
             # Note: This may be flaky in testing due to timing
             try:
-                data = websocket.receive_json(timeout=1.0)
+                data = websocket.receive_json()
                 self.assertEqual(data["type"], "progress")
                 self.assertEqual(data["status"], "started")
             except Exception:

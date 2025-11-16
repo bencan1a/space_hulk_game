@@ -25,7 +25,7 @@ class ConnectionManager:
         """Initialize the connection manager."""
         # Map of session_id -> list of active WebSocket connections
         self.active_connections: dict[str, list[WebSocket]] = {}
-        self._heartbeat_interval: int = 30  # seconds
+        self._heartbeat_interval: float = 30  # seconds
 
     async def connect(self, websocket: WebSocket, session_id: str) -> None:
         """Accept a new WebSocket connection and register it.
