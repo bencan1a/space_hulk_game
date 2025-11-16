@@ -8,7 +8,11 @@ interface TemplateCardProps {
   onClick?: (template: TemplateMetadata) => void
 }
 
-export const TemplateCard: React.FC<TemplateCardProps> = ({ template, selected = false, onClick }) => {
+export const TemplateCard: React.FC<TemplateCardProps> = ({
+  template,
+  selected = false,
+  onClick,
+}) => {
   const handleClick = () => {
     if (onClick) {
       onClick(template)

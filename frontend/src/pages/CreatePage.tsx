@@ -14,7 +14,10 @@ function CreatePage() {
 
   return (
     <div className="page">
-      <TemplateGallery onTemplateSelect={handleTemplateSelect} onCustomPrompt={handleCustomPrompt} />
+      <TemplateGallery
+        onTemplateSelect={handleTemplateSelect}
+        onCustomPrompt={handleCustomPrompt}
+      />
     </div>
   )
 }

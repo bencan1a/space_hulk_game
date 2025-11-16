@@ -171,9 +171,8 @@ class ApiClient {
 
   // Template endpoints
   async getTemplates(): Promise<import('./types').TemplateListResponse> {
-    const response = await this.client.get<import('./types').TemplateListResponse>(
-      '/api/v1/templates'
-    )
+    const response =
+      await this.client.get<import('./types').TemplateListResponse>('/api/v1/templates')
     return response.data
   }
 
