@@ -1,0 +1,230 @@
+/* Container */
+.container {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin: 0;
+  color: #1a1a1a;
+}
+
+.connectionStatus {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.statusConnected {
+  color: #10b981;
+}
+
+.statusConnecting {
+  color: #f59e0b;
+}
+
+.statusDisconnected {
+  color: #ef4444;
+}
+
+/* Progress Section */
+.progressSection {
+  margin-bottom: 2rem;
+}
+
+.progressHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.currentStep {
+  font-size: 1rem;
+  color: #374151;
+  font-weight: 500;
+}
+
+.progressPercent {
+  font-size: 1rem;
+  color: #6b7280;
+  font-weight: 600;
+}
+
+.progressBarContainer {
+  width: 100%;
+  height: 1.5rem;
+  background-color: #e5e7eb;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+.progressBar {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%);
+  transition: width 0.3s ease-in-out;
+  border-radius: 0.75rem;
+}
+
+/* Agent Section */
+.agentSection {
+  margin-bottom: 2rem;
+}
+
+.agentSectionTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+  color: #1f2937;
+}
+
+.agentList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.agentItem {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  background-color: #f9fafb;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+  transition: background-color 0.2s ease;
+}
+
+.agentItem:hover {
+  background-color: #f3f4f6;
+}
+
+.agentIcon {
+  font-size: 1.25rem;
+  margin-right: 0.75rem;
+  width: 1.5rem;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.agentIconPending {
+  color: #9ca3af;
+}
+
+.agentIconInProgress {
+  color: #3b82f6;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.agentIconCompleted {
+  color: #10b981;
+}
+
+.agentIconError {
+  color: #ef4444;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.agentName {
+  font-size: 0.9375rem;
+  color: #374151;
+  font-weight: 500;
+}
+
+/* Final Status */
+.finalStatus {
+  padding: 1.25rem 1.5rem;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  margin-top: 2rem;
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.finalStatusSuccess {
+  background-color: #d1fae5;
+  color: #065f46;
+  border: 2px solid #10b981;
+}
+
+.finalStatusError {
+  background-color: #fee2e2;
+  color: #991b1b;
+  border: 2px solid #ef4444;
+}
+
+.finalStatusIcon {
+  font-size: 1.5rem;
+  margin-right: 0.75rem;
+}
+
+.finalStatusText {
+  font-size: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .progressHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .agentItem {
+    padding: 0.625rem 0.875rem;
+  }
+
+  .finalStatus {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
