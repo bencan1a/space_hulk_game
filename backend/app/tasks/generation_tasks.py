@@ -129,18 +129,28 @@ def run_generation_crew(
         )
 
         # Simulate crew execution for MVP
-        logger.info(
-            f"Simulating generation for session {session_id} (TODO: integrate actual crew)"
-        )
+        logger.info(f"Simulating generation for session {session_id} (TODO: integrate actual crew)")
 
         # Simulate progress updates
         progress_callback("started", {"prompt": prompt})
-        progress_callback("task_started", {"task_index": 0, "task_name": "Story Design", "total_tasks": 3})
-        progress_callback("task_completed", {"task_index": 0, "task_name": "Story Design", "total_tasks": 3})
-        progress_callback("task_started", {"task_index": 1, "task_name": "Scene Creation", "total_tasks": 3})
-        progress_callback("task_completed", {"task_index": 1, "task_name": "Scene Creation", "total_tasks": 3})
-        progress_callback("task_started", {"task_index": 2, "task_name": "Game Assembly", "total_tasks": 3})
-        progress_callback("task_completed", {"task_index": 2, "task_name": "Game Assembly", "total_tasks": 3})
+        progress_callback(
+            "task_started", {"task_index": 0, "task_name": "Story Design", "total_tasks": 3}
+        )
+        progress_callback(
+            "task_completed", {"task_index": 0, "task_name": "Story Design", "total_tasks": 3}
+        )
+        progress_callback(
+            "task_started", {"task_index": 1, "task_name": "Scene Creation", "total_tasks": 3}
+        )
+        progress_callback(
+            "task_completed", {"task_index": 1, "task_name": "Scene Creation", "total_tasks": 3}
+        )
+        progress_callback(
+            "task_started", {"task_index": 2, "task_name": "Game Assembly", "total_tasks": 3}
+        )
+        progress_callback(
+            "task_completed", {"task_index": 2, "task_name": "Game Assembly", "total_tasks": 3}
+        )
 
         # Create simulated game.json output
         game_data = {
@@ -160,7 +170,13 @@ def run_generation_crew(
                     "items": ["flashlight"],
                 }
             ],
-            "items": [{"id": "flashlight", "name": "Flashlight", "description": "A standard issue flashlight"}],
+            "items": [
+                {
+                    "id": "flashlight",
+                    "name": "Flashlight",
+                    "description": "A standard issue flashlight",
+                }
+            ],
             "npcs": [],
             "puzzles": [],
         }

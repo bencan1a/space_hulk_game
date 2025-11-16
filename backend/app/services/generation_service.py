@@ -143,7 +143,9 @@ class GenerationService:
             self.db.commit()
             self.db.refresh(session)
 
-            logger.info(f"Updated session {session_id}: status={status}, progress={progress_percent}%")
+            logger.info(
+                f"Updated session {session_id}: status={status}, progress={progress_percent}%"
+            )
             return session
 
         except Exception:
