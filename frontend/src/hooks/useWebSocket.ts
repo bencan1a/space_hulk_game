@@ -183,9 +183,7 @@ export const useWebSocket = (
       maxReconnectDelay
     )
 
-    console.log(
-      `Scheduling reconnect attempt ${reconnectAttemptsRef.current + 1} in ${delay}ms`
-    )
+    console.log(`Scheduling reconnect attempt ${reconnectAttemptsRef.current + 1} in ${delay}ms`)
 
     reconnectTimeoutRef.current = window.setTimeout(() => {
       reconnectAttemptsRef.current++
@@ -275,18 +273,15 @@ export const useWebSocket = (
     setReadyState(WebSocket.CLOSED)
   }, [clearReconnectTimeout])
 
-  const send = useCallback(
-    (data: string | object) => {
-      if (!wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) {
-        console.warn('Cannot send message: WebSocket is not connected')
-        return
-      }
+  const send = useCallback((data: string | object) => {
+    if (!wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) {
+      console.warn('Cannot send message: WebSocket is not connected')
+      return
+    }
 
-      const message = typeof data === 'string' ? data : JSON.stringify(data)
-      wsRef.current.send(message)
-    },
-    []
-  )
+    const message = typeof data === 'string' ? data : JSON.stringify(data)
+    wsRef.current.send(message)
+  }, [])
 
   // Auto-connect on mount if enabled and URL is provided
   useEffect(() => {

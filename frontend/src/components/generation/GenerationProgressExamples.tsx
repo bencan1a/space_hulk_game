@@ -40,11 +40,7 @@ export const WithCallbacksExample: React.FC = () => {
   }
 
   return (
-    <GenerationProgress
-      sessionId={sessionId}
-      onComplete={handleComplete}
-      onError={handleError}
-    />
+    <GenerationProgress sessionId={sessionId} onComplete={handleComplete} onError={handleError} />
   )
 }
 
@@ -70,11 +66,7 @@ export const RouterIntegrationExample: React.FC = () => {
 
   return (
     <div style={{ maxWidth: '800px', margin: '2rem auto' }}>
-      <GenerationProgress
-        sessionId={sessionId}
-        onComplete={handleComplete}
-        onError={handleError}
-      />
+      <GenerationProgress sessionId={sessionId} onComplete={handleComplete} onError={handleError} />
     </div>
   )
 }
@@ -111,7 +103,10 @@ export const CustomWebSocketExample: React.FC = () => {
   return (
     <div>
       <h2>Custom WebSocket Integration</h2>
-      <p>Connection Status: {isConnecting ? 'Connecting...' : isConnected ? 'Connected' : 'Disconnected'}</p>
+      <p>
+        Connection Status:{' '}
+        {isConnecting ? 'Connecting...' : isConnected ? 'Connected' : 'Disconnected'}
+      </p>
       {lastMessage && (
         <pre style={{ background: '#f5f5f5', padding: '1rem', borderRadius: '4px' }}>
           {JSON.stringify(lastMessage, null, 2)}
@@ -159,11 +154,7 @@ export const StateManagementExample: React.FC = () => {
 
   return (
     <div>
-      <GenerationProgress
-        sessionId={sessionId}
-        onComplete={handleComplete}
-        onError={handleError}
-      />
+      <GenerationProgress sessionId={sessionId} onComplete={handleComplete} onError={handleError} />
     </div>
   )
 }

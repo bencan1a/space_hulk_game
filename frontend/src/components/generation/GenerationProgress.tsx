@@ -81,8 +81,15 @@ export const GenerationProgress: React.FC<GenerationProgressProps> = ({
       }
 
       if (message.type === 'progress') {
-        const { status, progress_percent, current_step, task_name, task_index, total_tasks, error } =
-          message
+        const {
+          status,
+          progress_percent,
+          current_step,
+          task_name,
+          task_index,
+          total_tasks,
+          error,
+        } = message
 
         // Update progress percentage
         if (progress_percent !== undefined) {
