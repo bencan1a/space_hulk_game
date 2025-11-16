@@ -160,6 +160,9 @@ async def websocket_progress_endpoint(websocket: WebSocket, session_id: str) -> 
     """
     await websocket_manager.connect(websocket, session_id)
 
+    # Initialize heartbeat_task to None for proper cleanup handling
+    heartbeat_task = None
+
     try:
         # Start heartbeat task
         heartbeat_task = asyncio.create_task(
@@ -186,7 +189,7 @@ async def websocket_progress_endpoint(websocket: WebSocket, session_id: str) -> 
 
     finally:
         # Cancel heartbeat task
-        if "heartbeat_task" in locals():
+        if heartbeat_task is not None:
             heartbeat_task.cancel()
             with contextlib.suppress(asyncio.CancelledError):
                 await heartbeat_task

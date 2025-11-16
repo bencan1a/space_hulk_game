@@ -1,16 +1,15 @@
 """Tests for WebSocket progress endpoints."""
 
 import asyncio
-import json
+import contextlib
 import unittest
 from typing import Any
 from unittest.mock import AsyncMock, MagicMock, patch
 
-from fastapi import WebSocket
-from fastapi.testclient import TestClient
-
 from app.api.websocket import ConnectionManager, broadcast_progress, manager
 from app.main import app
+from fastapi import WebSocket
+from fastapi.testclient import TestClient
 
 
 class TestConnectionManager(unittest.TestCase):
@@ -27,7 +26,7 @@ class TestConnectionManager(unittest.TestCase):
         self.assertEqual(self.manager._heartbeat_interval, 30)
 
     @patch("app.api.websocket.logger")
-    async def test_connect(self, mock_logger: MagicMock) -> None:
+    async def test_connect(self, _mock_logger: MagicMock) -> None:
         """Test connecting a WebSocket."""
         # Create mock WebSocket
         mock_websocket = AsyncMock(spec=WebSocket)
@@ -132,10 +131,8 @@ class TestConnectionManager(unittest.TestCase):
 
             # Cancel the task
             heartbeat_task.cancel()
-            try:
+            with contextlib.suppress(asyncio.CancelledError):
                 await heartbeat_task
-            except asyncio.CancelledError:
-                pass
 
             # Verify at least one heartbeat was sent
             self.assertGreater(mock_websocket.send_json.call_count, 0)
@@ -194,13 +191,21 @@ class TestBroadcastProgress(unittest.TestCase):
 
         # Call broadcast_progress
         # This function handles async/sync context, so we need to test it carefully
-        with patch("app.api.websocket.asyncio.get_event_loop") as mock_get_loop:
+        # Since get_running_loop() will raise RuntimeError when no loop is running,
+        # it should fall back to creating a new event loop
+        with (
+            patch("app.api.websocket.asyncio.new_event_loop") as mock_new_loop,
+            patch("app.api.websocket.asyncio.set_event_loop") as mock_set_loop,
+        ):
             mock_loop = MagicMock()
-            mock_loop.is_running.return_value = False
-            mock_get_loop.return_value = mock_loop
+            mock_new_loop.return_value = mock_loop
 
             broadcast_progress(session_id, status, data)
 
+            # Verify new_event_loop was called (fallback path)
+            mock_new_loop.assert_called_once()
+            # Verify set_event_loop was called
+            mock_set_loop.assert_called_once_with(mock_loop)
             # Verify loop.run_until_complete was called
             mock_loop.run_until_complete.assert_called_once()
 
@@ -245,9 +250,7 @@ class TestWebSocketEndpoint(unittest.TestCase):
             async def send_message() -> None:
                 await manager.broadcast_to_session(session_id, message)
 
-            # Run the async broadcast
-            import asyncio
-
+            # Use asyncio to run the broadcast
             loop = asyncio.new_event_loop()
             asyncio.set_event_loop(loop)
             try:
@@ -280,7 +283,7 @@ class TestWebSocketLoadHandling(unittest.TestCase):
 
         try:
             # Establish multiple connections
-            for i in range(num_connections):
+            for _ in range(num_connections):
                 ws = client.websocket_connect(f"/ws/progress/{session_id}")
                 ws.__enter__()
                 connections.append(ws)
@@ -295,10 +298,8 @@ class TestWebSocketLoadHandling(unittest.TestCase):
         finally:
             # Clean up all connections
             for ws in connections:
-                try:
+                with contextlib.suppress(Exception):
                     ws.__exit__(None, None, None)
-                except Exception:
-                    pass
 
     def test_multiple_sessions(self) -> None:
         """Test handling connections to multiple different sessions."""
@@ -330,10 +331,8 @@ class TestWebSocketLoadHandling(unittest.TestCase):
         finally:
             # Clean up all connections
             for ws, _ in connections:
-                try:
+                with contextlib.suppress(Exception):
                     ws.__exit__(None, None, None)
-                except Exception:
-                    pass
 
 
 def run_async_test(coro: Any) -> Any:

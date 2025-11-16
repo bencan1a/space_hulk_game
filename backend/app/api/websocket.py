@@ -25,7 +25,6 @@ class ConnectionManager:
         """Initialize the connection manager."""
         # Map of session_id -> list of active WebSocket connections
         self.active_connections: dict[str, list[WebSocket]] = {}
-        self._heartbeat_task: asyncio.Task[None] | None = None
         self._heartbeat_interval: int = 30  # seconds
 
     async def connect(self, websocket: WebSocket, session_id: str) -> None:
@@ -203,15 +202,11 @@ def broadcast_progress(session_id: str, status: str, data: dict[str, Any]) -> No
 
     # Create an event loop if one doesn't exist, or use existing one
     try:
-        loop = asyncio.get_event_loop()
-        if loop.is_running():
-            # If loop is running, schedule the coroutine
-            # Note: We don't store the task reference since it's fire-and-forget
-            # and will be cleaned up automatically
-            _ = asyncio.create_task(manager.broadcast_to_session(session_id, message))  # noqa: RUF006
-        else:
-            # If loop is not running, run until complete
-            loop.run_until_complete(manager.broadcast_to_session(session_id, message))
+        loop = asyncio.get_running_loop()
+        # If loop is running, schedule the coroutine
+        # Note: We don't store the task reference since it's fire-and-forget
+        # and will be cleaned up automatically
+        _ = asyncio.create_task(manager.broadcast_to_session(session_id, message))  # noqa: RUF006
     except RuntimeError:
         # No event loop in current thread, create a new one
         loop = asyncio.new_event_loop()
