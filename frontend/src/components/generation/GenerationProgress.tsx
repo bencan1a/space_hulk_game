@@ -111,10 +111,6 @@ export const GenerationProgress: React.FC<GenerationProgressProps> = ({
                 if (existingIndex >= 0) {
                   updated[existingIndex] = { name: task_name, status: 'in-progress' }
                 } else {
-                  // Initialize all tasks if this is the first one
-                  if (updated.length === 0) {
-                    // We'll add tasks as they come in
-                  }
                   updated.push({ name: task_name, status: 'in-progress' })
                 }
 
@@ -292,8 +288,11 @@ function getStatusIcon(status: AgentStatus['status']): string {
 }
 
 /**
- * Capitalize the first letter of a string
+ * Capitalize the first letter of each word in a hyphenated string (PascalCase)
  */
 function capitalize(str: string): string {
-  return str.charAt(0).toUpperCase() + str.slice(1).replace(/-/g, '')
+  return str
+    .split('-')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join('')
 }

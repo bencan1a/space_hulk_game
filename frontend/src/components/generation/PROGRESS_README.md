@@ -33,8 +33,10 @@ interface GenerationProgressProps {
 **Example Usage:**
 ```tsx
 import { GenerationProgress } from '@/components/generation/GenerationProgress'
+import { useNavigate } from 'react-router-dom'
 
 function MyPage() {
+  const navigate = useNavigate()
   const sessionId = 'session-123'
   
   return (

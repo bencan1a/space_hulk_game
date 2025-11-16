@@ -52,6 +52,8 @@ export const WithCallbacksExample: React.FC = () => {
  * Example 3: Full integration with React Router
  */
 export const RouterIntegrationExample: React.FC = () => {
+  // Note: In a real app, uncomment the next line and import useNavigate from 'react-router-dom'
+  // const navigate = useNavigate()
   const sessionId = 'my-session-789'
 
   const handleComplete = () => {
@@ -170,8 +172,10 @@ export const StateManagementExample: React.FC = () => {
  * Usage in your app:
  *
  * import { GenerationProgress } from '@/components/generation/GenerationProgress'
+ * import { useNavigate } from 'react-router-dom'
  *
  * function CreatePage() {
+ *   const navigate = useNavigate()
  *   const [sessionId, setSessionId] = useState<string | null>(null)
  *
  *   const handleStartGeneration = async (prompt: string) => {

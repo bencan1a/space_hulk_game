@@ -199,6 +199,8 @@ export const useWebSocket = (
       return
     }
 
+    clearReconnectTimeout()
+
     // Close existing connection if any
     if (wsRef.current) {
       wsRef.current.close()
