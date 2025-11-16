@@ -63,7 +63,10 @@ class ConnectionManager:
             websocket: The WebSocket connection to remove
             session_id: The session ID this connection was for
         """
-        if session_id in self.active_connections and websocket in self.active_connections[session_id]:
+        if (
+            session_id in self.active_connections
+            and websocket in self.active_connections[session_id]
+        ):
             self.active_connections[session_id].remove(websocket)
 
             logger.info(
