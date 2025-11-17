@@ -49,9 +49,7 @@
         },
         "files.trimTrailingWhitespace": true,
         "files.insertFinalNewline": true,
-        "editor.rulers": [
-          100
-        ],
+        "editor.rulers": [100],
         "terminal.integrated.defaultProfile.linux": "bash",
         "git.autofetch": true,
         "extensions.autoUpdate": false
@@ -79,16 +77,14 @@
       ]
     }
   },
-  "forwardPorts": [
-    11434
-  ],
+  "forwardPorts": [11434],
   "portsAttributes": {
     "11434": {
       "label": "Ollama API",
       "onAutoForward": "notify"
     }
   },
-  "postCreateCommand": "bash -c 'sudo apt-get update && sudo apt-get install -y make python3-venv && npm install -g markdownlint-cli && cd /workspaces/space_hulk_game && python3 -m venv .venv && source .venv/bin/activate && pip install --upgrade pip && pip install uv && uv pip install -e \".[dev]\" && pre-commit install && echo \"✅ Dev environment ready! Pre-commit hooks installed. All linters available.\"'",
+  "postCreateCommand": "bash -c 'sudo apt-get update && sudo apt-get install -y make python3-venv && npm install -g markdownlint-cli && cd /workspaces/space_hulk_game && python3 -m venv .venv && source .venv/bin/activate && pip install --upgrade pip && pip install uv && uv pip install -e \".[dev]\" && pre-commit install && cd /workspaces/space_hulk_game/frontend && npm install && cd /workspaces/space_hulk_game && echo \"✅ Dev environment ready! Pre-commit hooks installed. All linters available (including prettier).\"'",
   "postStartCommand": "echo 'Space Hulk Game development environment is ready! 🚀'",
   "containerEnv": {
     "PYTHONPATH": "/workspaces/space_hulk_game/src",
@@ -105,9 +101,7 @@
   "onCreateCommand": "echo 'Creating Space Hulk Game development environment...'",
   "privileged": false,
   "capAdd": [],
-  "securityOpt": [
-    "seccomp=unconfined"
-  ],
+  "securityOpt": ["seccomp=unconfined"],
   "hostRequirements": {
     "cpus": 2,
     "memory": "4gb",

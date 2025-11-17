@@ -24,6 +24,7 @@ I'm your expert guide for working with the CrewAI framework. I help you implemen
 **Definition**: Use `@agent` decorator to define agents with role, goal, and backstory.
 
 **Key Parameters**:
+
 - `role`: Agent's role in the crew (e.g., "Lead Plot Designer")
 - `goal`: What the agent aims to achieve
 - `backstory`: Agent's background and expertise
@@ -33,6 +34,7 @@ I'm your expert guide for working with the CrewAI framework. I help you implemen
 - `allow_delegation`: Allow agent to delegate tasks (boolean)
 
 **Example**:
+
 ```python
 @agent
 def plot_master_agent(self) -> Agent:
@@ -48,6 +50,7 @@ def plot_master_agent(self) -> Agent:
 **Definition**: Use `@task` decorator to define tasks with description and expected output.
 
 **Key Parameters**:
+
 - `description`: Clear task description
 - `expected_output`: What the task should produce
 - `agent`: Agent assigned to execute the task
@@ -56,6 +59,7 @@ def plot_master_agent(self) -> Agent:
 - `output_file`: File to save task output
 
 **Example**:
+
 ```python
 @task
 def generate_plot(self) -> Task:
@@ -69,6 +73,7 @@ def generate_plot(self) -> Task:
 **Definition**: Use `@crew` decorator to assemble agents and tasks.
 
 **Key Parameters**:
+
 - `agents`: List of agents in the crew
 - `tasks`: List of tasks to execute
 - `process`: `Process.sequential` or `Process.hierarchical`
@@ -79,6 +84,7 @@ def generate_plot(self) -> Task:
 - `planning`: Enable task planning
 
 **Example**:
+
 ```python
 @crew
 def crew(self) -> Crew:
@@ -96,6 +102,7 @@ def crew(self) -> Crew:
 ### Agent Specialization
 
 This project uses these specialized agents:
+
 - **Narrative Director**: Ensures narrative cohesion and manages the process
 - **Plot Master**: Creates overarching narratives and branching plots
 - **Narrative Architect**: Maps story structure into scenes
@@ -106,6 +113,7 @@ This project uses these specialized agents:
 ### Task Workflow
 
 The project uses:
+
 - **Sequential process flow** with narrative-driven dependencies
 - Tasks depend on previous task outputs via `context` and `dependencies`
 - Each task has clear expected output
@@ -114,6 +122,7 @@ The project uses:
 ### Memory Integration
 
 Memory configuration using Mem0:
+
 ```python
 from mem0 import MemoryClient
 
@@ -138,6 +147,7 @@ crew = Crew(
 ### LLM Configuration
 
 Ollama configuration for local LLM:
+
 ```python
 from crewai import LLM
 
@@ -246,6 +256,7 @@ def process_output(self, output):
 ## Common Patterns
 
 ### Loading Configuration
+
 ```python
 import yaml
 import os
@@ -262,6 +273,7 @@ with open(tasks_path, 'r') as file:
 ```
 
 ### Creating Agents from Config
+
 ```python
 @agent
 def my_agent(self) -> Agent:
@@ -274,6 +286,7 @@ def my_agent(self) -> Agent:
 ```
 
 ### Creating Tasks from Config
+
 ```python
 @task
 def my_task(self) -> Task:
@@ -292,6 +305,7 @@ def my_task(self) -> Task:
 ## How I Can Help
 
 Ask me to:
+
 - Create new agents or tasks
 - Configure CrewAI workflows
 - Implement lifecycle hooks

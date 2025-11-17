@@ -134,7 +134,7 @@ You can customize the workflow by:
    Modify the `retention-days` parameter:
 
    ```yaml
-   retention-days: 90  # Change to desired number of days
+   retention-days: 90 # Change to desired number of days
    ```
 
 3. **Adding Environment Variables**:

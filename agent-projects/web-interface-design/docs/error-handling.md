@@ -253,7 +253,7 @@ logger.error(
 **Frontend Handling**:
 
 ```typescript
-if (error.code === 'VALIDATION_ERROR') {
+if (error.code === "VALIDATION_ERROR") {
   // Map error to form field
   setFieldError(error.details.field, error.user_message);
 }
@@ -360,7 +360,7 @@ X-RateLimit-Reset: 1699804830
 **Reconnection Logic**:
 
 ```typescript
-const reconnectDelays = [1000, 2000, 4000, 8000, 16000, 30000];  // ms
+const reconnectDelays = [1000, 2000, 4000, 8000, 16000, 30000]; // ms
 let reconnectAttempt = 0;
 
 function reconnect() {
@@ -681,13 +681,13 @@ except GameEngineException as e:
 
 ### Log Levels
 
-| Level | When to Use | Example |
-|-------|-------------|---------|
-| **DEBUG** | Detailed flow for debugging | `Checking for file plot_outline.json` |
-| **INFO** | Normal operations | `Story 123 created successfully` |
-| **WARNING** | Unexpected but handled | `Incomplete generation, missing 1 file` |
-| **ERROR** | Operation failed, user impacted | `Agent timeout after 15 minutes` |
-| **CRITICAL** | System-level failure | `Database connection lost` |
+| Level        | When to Use                     | Example                                 |
+| ------------ | ------------------------------- | --------------------------------------- |
+| **DEBUG**    | Detailed flow for debugging     | `Checking for file plot_outline.json`   |
+| **INFO**     | Normal operations               | `Story 123 created successfully`        |
+| **WARNING**  | Unexpected but handled          | `Incomplete generation, missing 1 file` |
+| **ERROR**    | Operation failed, user impacted | `Agent timeout after 15 minutes`        |
+| **CRITICAL** | System-level failure            | `Database connection lost`              |
 
 ### Structured Logging Format
 
@@ -787,19 +787,19 @@ async function apiCall(endpoint: string, options: RequestInit) {
   } catch (error) {
     if (error instanceof APIError) {
       // Show user-friendly message
-      showToast(error.user_message, 'error');
+      showToast(error.user_message, "error");
 
       // Log technical details
       console.error(`API Error [${error.code}]:`, error.message);
 
       // Retry if appropriate
-      if (error.retry_possible && error.retry_strategy === 'automatic') {
+      if (error.retry_possible && error.retry_strategy === "automatic") {
         return retryWithBackoff(apiCall, endpoint, options);
       }
     } else {
       // Network error or other unexpected error
-      showToast('Network error. Please check your connection.', 'error');
-      console.error('Unexpected error:', error);
+      showToast("Network error. Please check your connection.", "error");
+      console.error("Unexpected error:", error);
     }
 
     throw error;

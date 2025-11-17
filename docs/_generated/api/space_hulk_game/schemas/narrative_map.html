@@ -1,64 +1,501 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-<meta name="generator" content="pdoc3 0.11.6">
-<title>space_hulk_game.schemas.narrative_map API documentation</title>
-<meta name="description" content="Pydantic models for narrative map validation …">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
-<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
-<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
-<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
-<script>window.addEventListener('DOMContentLoaded', () => {
-hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
-hljs.highlightAll();
-/* Collapse source docstrings */
-setTimeout(() => {
-[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
-.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
-.forEach(el => {
-let d = document.createElement('details');
-d.classList.add('hljs-string');
-d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
-el.replaceWith(d);
-});
-}, 100);
-})</script>
-</head>
-<body>
-<main>
-<article id="content">
-<header>
-<h1 class="title">Module <code>space_hulk_game.schemas.narrative_map</code></h1>
-</header>
-<section id="section-intro">
-<p>Pydantic models for narrative map validation.</p>
-<p>This module defines the schema for validating narrative map outputs including
-scenes, connections, character moments, decision points, and character arcs.</p>
-</section>
-<section>
-</section>
-<section>
-</section>
-<section>
-</section>
-<section>
-<h2 class="section-title" id="header-classes">Classes</h2>
-<dl>
-<dt id="space_hulk_game.schemas.narrative_map.CharacterArc"><code class="flex name class">
-<span>class <span class="ident">CharacterArc</span></span>
-<span>(</span><span>**data: Any)</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class CharacterArc(BaseModel):
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1"
+    />
+    <meta name="generator" content="pdoc3 0.11.6" />
+    <title>space_hulk_game.schemas.narrative_map API documentation</title>
+    <meta
+      name="description"
+      content="Pydantic models for narrative map validation …"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css"
+      integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA=="
+      crossorigin
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css"
+      integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA=="
+      crossorigin
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"
+      crossorigin
+    />
+    <style>
+      :root {
+        --highlight-color: #fe9;
+      }
+      .flex {
+        display: flex !important;
+      }
+      body {
+        line-height: 1.5em;
+      }
+      #content {
+        padding: 20px;
+      }
+      #sidebar {
+        padding: 1.5em;
+        overflow: hidden;
+      }
+      #sidebar > *:last-child {
+        margin-bottom: 2cm;
+      }
+      .http-server-breadcrumbs {
+        font-size: 130%;
+        margin: 0 0 15px 0;
+      }
+      #footer {
+        font-size: 0.75em;
+        padding: 5px 30px;
+        border-top: 1px solid #ddd;
+        text-align: right;
+      }
+      #footer p {
+        margin: 0 0 0 1em;
+        display: inline-block;
+      }
+      #footer p:last-child {
+        margin-right: 30px;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5 {
+        font-weight: 300;
+      }
+      h1 {
+        font-size: 2.5em;
+        line-height: 1.1em;
+      }
+      h2 {
+        font-size: 1.75em;
+        margin: 2em 0 0.5em 0;
+      }
+      h3 {
+        font-size: 1.4em;
+        margin: 1.6em 0 0.7em 0;
+      }
+      h4 {
+        margin: 0;
+        font-size: 105%;
+      }
+      h1:target,
+      h2:target,
+      h3:target,
+      h4:target,
+      h5:target,
+      h6:target {
+        background: var(--highlight-color);
+        padding: 0.2em 0;
+      }
+      a {
+        color: #058;
+        text-decoration: none;
+        transition: color 0.2s ease-in-out;
+      }
+      a:visited {
+        color: #503;
+      }
+      a:hover {
+        color: #b62;
+      }
+      .title code {
+        font-weight: bold;
+      }
+      h2[id^="header-"] {
+        margin-top: 2em;
+      }
+      .ident {
+        color: #900;
+        font-weight: bold;
+      }
+      pre code {
+        font-size: 0.8em;
+        line-height: 1.4em;
+        padding: 1em;
+        display: block;
+      }
+      code {
+        background: #f3f3f3;
+        font-family: "DejaVu Sans Mono", monospace;
+        padding: 1px 4px;
+        overflow-wrap: break-word;
+      }
+      h1 code {
+        background: transparent;
+      }
+      pre {
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        margin: 1em 0;
+      }
+      #http-server-module-list {
+        display: flex;
+        flex-flow: column;
+      }
+      #http-server-module-list div {
+        display: flex;
+      }
+      #http-server-module-list dt {
+        min-width: 10%;
+      }
+      #http-server-module-list p {
+        margin-top: 0;
+      }
+      .toc ul,
+      #index {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+      #index code {
+        background: transparent;
+      }
+      #index h3 {
+        border-bottom: 1px solid #ddd;
+      }
+      #index ul {
+        padding: 0;
+      }
+      #index h4 {
+        margin-top: 0.6em;
+        font-weight: bold;
+      }
+      @media (min-width: 200ex) {
+        #index .two-column {
+          column-count: 2;
+        }
+      }
+      @media (min-width: 300ex) {
+        #index .two-column {
+          column-count: 3;
+        }
+      }
+      dl {
+        margin-bottom: 2em;
+      }
+      dl dl:last-child {
+        margin-bottom: 4em;
+      }
+      dd {
+        margin: 0 0 1em 3em;
+      }
+      #header-classes + dl > dd {
+        margin-bottom: 3em;
+      }
+      dd dd {
+        margin-left: 2em;
+      }
+      dd p {
+        margin: 10px 0;
+      }
+      .name {
+        background: #eee;
+        font-size: 0.85em;
+        padding: 5px 10px;
+        display: inline-block;
+        min-width: 40%;
+      }
+      .name:hover {
+        background: #e0e0e0;
+      }
+      dt:target .name {
+        background: var(--highlight-color);
+      }
+      .name > span:first-child {
+        white-space: nowrap;
+      }
+      .name.class > span:nth-child(2) {
+        margin-left: 0.4em;
+      }
+      .inherited {
+        color: #999;
+        border-left: 5px solid #eee;
+        padding-left: 1em;
+      }
+      .inheritance em {
+        font-style: normal;
+        font-weight: bold;
+      }
+      .desc h2 {
+        font-weight: 400;
+        font-size: 1.25em;
+      }
+      .desc h3 {
+        font-size: 1em;
+      }
+      .desc dt code {
+        background: inherit;
+      }
+      .source > summary,
+      .git-link-div {
+        color: #666;
+        text-align: right;
+        font-weight: 400;
+        font-size: 0.8em;
+        text-transform: uppercase;
+      }
+      .source summary > * {
+        white-space: nowrap;
+        cursor: pointer;
+      }
+      .git-link {
+        color: inherit;
+        margin-left: 1em;
+      }
+      .source pre {
+        max-height: 500px;
+        overflow: auto;
+        margin: 0;
+      }
+      .source pre code {
+        font-size: 12px;
+        overflow: visible;
+        min-width: max-content;
+      }
+      .hlist {
+        list-style: none;
+      }
+      .hlist li {
+        display: inline;
+      }
+      .hlist li:after {
+        content: ",\2002";
+      }
+      .hlist li:last-child:after {
+        content: none;
+      }
+      .hlist .hlist {
+        display: inline;
+        padding-left: 1em;
+      }
+      img {
+        max-width: 100%;
+      }
+      td {
+        padding: 0 0.5em;
+      }
+      .admonition {
+        padding: 0.1em 1em;
+        margin: 1em 0;
+      }
+      .admonition-title {
+        font-weight: bold;
+      }
+      .admonition.note,
+      .admonition.info,
+      .admonition.important {
+        background: #aef;
+      }
+      .admonition.todo,
+      .admonition.versionadded,
+      .admonition.tip,
+      .admonition.hint {
+        background: #dfd;
+      }
+      .admonition.warning,
+      .admonition.versionchanged,
+      .admonition.deprecated {
+        background: #fd4;
+      }
+      .admonition.error,
+      .admonition.danger,
+      .admonition.caution {
+        background: lightpink;
+      }
+    </style>
+    <style media="screen and (min-width: 700px)">
+      @media screen and (min-width: 700px) {
+        #sidebar {
+          width: 30%;
+          height: 100vh;
+          overflow: auto;
+          position: sticky;
+          top: 0;
+        }
+        #content {
+          width: 70%;
+          max-width: 100ch;
+          padding: 3em 4em;
+          border-left: 1px solid #ddd;
+        }
+        pre code {
+          font-size: 1em;
+        }
+        .name {
+          font-size: 1em;
+        }
+        main {
+          display: flex;
+          flex-direction: row-reverse;
+          justify-content: flex-end;
+        }
+        .toc ul ul,
+        #index ul ul {
+          padding-left: 1em;
+        }
+        .toc > ul > li {
+          margin-top: 0.5em;
+        }
+      }
+    </style>
+    <style media="print">
+      @media print {
+        #sidebar h1 {
+          page-break-before: always;
+        }
+        .source {
+          display: none;
+        }
+      }
+      @media print {
+        * {
+          background: transparent !important;
+          color: #000 !important;
+          box-shadow: none !important;
+          text-shadow: none !important;
+        }
+        a[href]:after {
+          content: " (" attr(href) ")";
+          font-size: 90%;
+        }
+        a[href][title]:after {
+          content: none;
+        }
+        abbr[title]:after {
+          content: " (" attr(title) ")";
+        }
+        .ir a:after,
+        a[href^="javascript:"]:after,
+        a[href^="#"]:after {
+          content: "";
+        }
+        pre,
+        blockquote {
+          border: 1px solid #999;
+          page-break-inside: avoid;
+        }
+        thead {
+          display: table-header-group;
+        }
+        tr,
+        img {
+          page-break-inside: avoid;
+        }
+        img {
+          max-width: 100% !important;
+        }
+        @page {
+          margin: 0.5cm;
+        }
+        p,
+        h2,
+        h3 {
+          orphans: 3;
+          widows: 3;
+        }
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+          page-break-after: avoid;
+        }
+      }
+    </style>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+      integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
+      crossorigin
+    ></script>
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        hljs.configure({
+          languages: [
+            "bash",
+            "css",
+            "diff",
+            "graphql",
+            "ini",
+            "javascript",
+            "json",
+            "plaintext",
+            "python",
+            "python-repl",
+            "rust",
+            "shell",
+            "sql",
+            "typescript",
+            "xml",
+            "yaml",
+          ],
+        });
+        hljs.highlightAll();
+        /* Collapse source docstrings */
+        setTimeout(() => {
+          [...document.querySelectorAll(".hljs.language-python > .hljs-string")]
+            .filter(
+              (el) =>
+                el.innerHTML.length > 200 &&
+                ['"""', "'''"].includes(el.innerHTML.substring(0, 3)),
+            )
+            .forEach((el) => {
+              let d = document.createElement("details");
+              d.classList.add("hljs-string");
+              d.innerHTML =
+                '<summary>"""</summary>' + el.innerHTML.substring(3);
+              el.replaceWith(d);
+            });
+        }, 100);
+      });
+    </script>
+  </head>
+  <body>
+    <main>
+      <article id="content">
+        <header>
+          <h1 class="title">
+            Module <code>space_hulk_game.schemas.narrative_map</code>
+          </h1>
+        </header>
+        <section id="section-intro">
+          <p>Pydantic models for narrative map validation.</p>
+          <p>
+            This module defines the schema for validating narrative map outputs
+            including scenes, connections, character moments, decision points,
+            and character arcs.
+          </p>
+        </section>
+        <section></section>
+        <section></section>
+        <section></section>
+        <section>
+          <h2 class="section-title" id="header-classes">Classes</h2>
+          <dl>
+            <dt id="space_hulk_game.schemas.narrative_map.CharacterArc">
+              <code class="flex name class">
+                <span>class <span class="ident">CharacterArc</span></span>
+                <span>(</span><span>**data: Any)</span>
+              </code>
+            </dt>
+            <dd>
+              <details class="source">
+                <summary>
+                  <span>Expand source code</span>
+                </summary>
+                <pre><code class="python">class CharacterArc(BaseModel):
     &#34;&#34;&#34;Complete arc for a character across the narrative.
 
     Attributes:
@@ -76,55 +513,94 @@ scenes, connections, character moments, decision points, and character arcs.</p>
     arc_stages: list[CharacterArcStage] = Field(
         ..., min_length=1, description=&#34;Stages in the character&#39;s arc (at least 1)&#34;
     )</code></pre>
-</details>
-<div class="desc"><p>Complete arc for a character across the narrative.</p>
-<h2 id="attributes">Attributes</h2>
-<dl>
-<dt><strong><code>character</code></strong></dt>
-<dd>Name of the character.</dd>
-<dt><strong><code>arc_stages</code></strong></dt>
-<dd>List of stages in the character's development.</dd>
-</dl>
-<h2 id="example">Example</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; arc = CharacterArc(
+              </details>
+              <div class="desc">
+                <p>Complete arc for a character across the narrative.</p>
+                <h2 id="attributes">Attributes</h2>
+                <dl>
+                  <dt>
+                    <strong><code>character</code></strong>
+                  </dt>
+                  <dd>Name of the character.</dd>
+                  <dt>
+                    <strong><code>arc_stages</code></strong>
+                  </dt>
+                  <dd>List of stages in the character's development.</dd>
+                </dl>
+                <h2 id="example">Example</h2>
+                <pre><code class="language-python-repl">&gt;&gt;&gt; arc = CharacterArc(
 ...     character=&quot;Brother-Captain Tyberius&quot;,
 ...     arc_stages=[...]
 ... )
 </code></pre>
-<p>Create a new model by parsing and validating input data from keyword arguments.</p>
-<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
-validated to form a valid model.</p>
-<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li>pydantic.main.BaseModel</li>
-</ul>
-<h3>Class variables</h3>
-<dl>
-<dt id="space_hulk_game.schemas.narrative_map.CharacterArc.arc_stages"><code class="name">var <span class="ident">arc_stages</span> : list[<a title="space_hulk_game.schemas.narrative_map.CharacterArcStage" href="#space_hulk_game.schemas.narrative_map.CharacterArcStage">CharacterArcStage</a>]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.narrative_map.CharacterArc.character"><code class="name">var <span class="ident">character</span> : str</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.narrative_map.CharacterArc.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-</dl>
-</dd>
-<dt id="space_hulk_game.schemas.narrative_map.CharacterArcStage"><code class="flex name class">
-<span>class <span class="ident">CharacterArcStage</span></span>
-<span>(</span><span>**data: Any)</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class CharacterArcStage(BaseModel):
+                <p>
+                  Create a new model by parsing and validating input data from
+                  keyword arguments.
+                </p>
+                <p>
+                  Raises
+                  [<code>ValidationError</code>][pydantic_core.ValidationError]
+                  if the input data cannot be validated to form a valid model.
+                </p>
+                <p>
+                  <code>self</code> is explicitly positional-only to allow
+                  <code>self</code> as a field name.
+                </p>
+              </div>
+              <h3>Ancestors</h3>
+              <ul class="hlist">
+                <li>pydantic.main.BaseModel</li>
+              </ul>
+              <h3>Class variables</h3>
+              <dl>
+                <dt
+                  id="space_hulk_game.schemas.narrative_map.CharacterArc.arc_stages"
+                >
+                  <code class="name"
+                    >var <span class="ident">arc_stages</span> : list[<a
+                      title="space_hulk_game.schemas.narrative_map.CharacterArcStage"
+                      href="#space_hulk_game.schemas.narrative_map.CharacterArcStage"
+                      >CharacterArcStage</a
+                    >]</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt
+                  id="space_hulk_game.schemas.narrative_map.CharacterArc.character"
+                >
+                  <code class="name"
+                    >var <span class="ident">character</span> : str</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt
+                  id="space_hulk_game.schemas.narrative_map.CharacterArc.model_config"
+                >
+                  <code class="name"
+                    >var <span class="ident">model_config</span></code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+              </dl>
+            </dd>
+            <dt id="space_hulk_game.schemas.narrative_map.CharacterArcStage">
+              <code class="flex name class">
+                <span>class <span class="ident">CharacterArcStage</span></span>
+                <span>(</span><span>**data: Any)</span>
+              </code>
+            </dt>
+            <dd>
+              <details class="source">
+                <summary>
+                  <span>Expand source code</span>
+                </summary>
+                <pre><code class="python">class CharacterArcStage(BaseModel):
     &#34;&#34;&#34;A stage in a character&#39;s narrative arc.
 
     Attributes:
@@ -144,55 +620,93 @@ validated to form a valid model.</p>
     description: str = Field(
         ..., min_length=20, description=&#34;Description of character state at this stage&#34;
     )</code></pre>
-</details>
-<div class="desc"><p>A stage in a character's narrative arc.</p>
-<h2 id="attributes">Attributes</h2>
-<dl>
-<dt><strong><code>stage</code></strong></dt>
-<dd>Name of the arc stage (e.g., 'Beginning', 'Development', 'Climax/Resolution').</dd>
-<dt><strong><code>description</code></strong></dt>
-<dd>Description of the character's state at this stage.</dd>
-</dl>
-<h2 id="example">Example</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; stage = CharacterArcStage(
+              </details>
+              <div class="desc">
+                <p>A stage in a character's narrative arc.</p>
+                <h2 id="attributes">Attributes</h2>
+                <dl>
+                  <dt>
+                    <strong><code>stage</code></strong>
+                  </dt>
+                  <dd>
+                    Name of the arc stage (e.g., 'Beginning', 'Development',
+                    'Climax/Resolution').
+                  </dd>
+                  <dt>
+                    <strong><code>description</code></strong>
+                  </dt>
+                  <dd>Description of the character's state at this stage.</dd>
+                </dl>
+                <h2 id="example">Example</h2>
+                <pre><code class="language-python-repl">&gt;&gt;&gt; stage = CharacterArcStage(
 ...     stage=&quot;Beginning&quot;,
 ...     description=&quot;Jaded but fiercely loyal, carries the burden of command...&quot;
 ... )
 </code></pre>
-<p>Create a new model by parsing and validating input data from keyword arguments.</p>
-<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
-validated to form a valid model.</p>
-<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li>pydantic.main.BaseModel</li>
-</ul>
-<h3>Class variables</h3>
-<dl>
-<dt id="space_hulk_game.schemas.narrative_map.CharacterArcStage.description"><code class="name">var <span class="ident">description</span> : str</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.narrative_map.CharacterArcStage.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.narrative_map.CharacterArcStage.stage"><code class="name">var <span class="ident">stage</span> : str</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-</dl>
-</dd>
-<dt id="space_hulk_game.schemas.narrative_map.CharacterMoment"><code class="flex name class">
-<span>class <span class="ident">CharacterMoment</span></span>
-<span>(</span><span>**data: Any)</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class CharacterMoment(BaseModel):
+                <p>
+                  Create a new model by parsing and validating input data from
+                  keyword arguments.
+                </p>
+                <p>
+                  Raises
+                  [<code>ValidationError</code>][pydantic_core.ValidationError]
+                  if the input data cannot be validated to form a valid model.
+                </p>
+                <p>
+                  <code>self</code> is explicitly positional-only to allow
+                  <code>self</code> as a field name.
+                </p>
+              </div>
+              <h3>Ancestors</h3>
+              <ul class="hlist">
+                <li>pydantic.main.BaseModel</li>
+              </ul>
+              <h3>Class variables</h3>
+              <dl>
+                <dt
+                  id="space_hulk_game.schemas.narrative_map.CharacterArcStage.description"
+                >
+                  <code class="name"
+                    >var <span class="ident">description</span> : str</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt
+                  id="space_hulk_game.schemas.narrative_map.CharacterArcStage.model_config"
+                >
+                  <code class="name"
+                    >var <span class="ident">model_config</span></code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt
+                  id="space_hulk_game.schemas.narrative_map.CharacterArcStage.stage"
+                >
+                  <code class="name"
+                    >var <span class="ident">stage</span> : str</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+              </dl>
+            </dd>
+            <dt id="space_hulk_game.schemas.narrative_map.CharacterMoment">
+              <code class="flex name class">
+                <span>class <span class="ident">CharacterMoment</span></span>
+                <span>(</span><span>**data: Any)</span>
+              </code>
+            </dt>
+            <dd>
+              <details class="source">
+                <summary>
+                  <span>Expand source code</span>
+                </summary>
+                <pre><code class="python">class CharacterMoment(BaseModel):
     &#34;&#34;&#34;A significant character moment within a scene.
 
     Attributes:
@@ -208,55 +722,92 @@ validated to form a valid model.</p>
 
     character: str = Field(..., min_length=1, max_length=200, description=&#34;Character name&#34;)
     moment: str = Field(..., min_length=20, description=&#34;Description of the character moment&#34;)</code></pre>
-</details>
-<div class="desc"><p>A significant character moment within a scene.</p>
-<h2 id="attributes">Attributes</h2>
-<dl>
-<dt><strong><code>character</code></strong></dt>
-<dd>Name of the character experiencing the moment.</dd>
-<dt><strong><code>moment</code></strong></dt>
-<dd>Description of what happens to the character in this scene.</dd>
-</dl>
-<h2 id="example">Example</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; moment = CharacterMoment(
+              </details>
+              <div class="desc">
+                <p>A significant character moment within a scene.</p>
+                <h2 id="attributes">Attributes</h2>
+                <dl>
+                  <dt>
+                    <strong><code>character</code></strong>
+                  </dt>
+                  <dd>Name of the character experiencing the moment.</dd>
+                  <dt>
+                    <strong><code>moment</code></strong>
+                  </dt>
+                  <dd>
+                    Description of what happens to the character in this scene.
+                  </dd>
+                </dl>
+                <h2 id="example">Example</h2>
+                <pre><code class="language-python-repl">&gt;&gt;&gt; moment = CharacterMoment(
 ...     character=&quot;Brother-Captain Tyberius&quot;,
 ...     moment=&quot;Struggles to re-establish comms and locate his dispersed squad...&quot;
 ... )
 </code></pre>
-<p>Create a new model by parsing and validating input data from keyword arguments.</p>
-<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
-validated to form a valid model.</p>
-<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li>pydantic.main.BaseModel</li>
-</ul>
-<h3>Class variables</h3>
-<dl>
-<dt id="space_hulk_game.schemas.narrative_map.CharacterMoment.character"><code class="name">var <span class="ident">character</span> : str</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.narrative_map.CharacterMoment.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.narrative_map.CharacterMoment.moment"><code class="name">var <span class="ident">moment</span> : str</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-</dl>
-</dd>
-<dt id="space_hulk_game.schemas.narrative_map.Connection"><code class="flex name class">
-<span>class <span class="ident">Connection</span></span>
-<span>(</span><span>**data: Any)</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class Connection(BaseModel):
+                <p>
+                  Create a new model by parsing and validating input data from
+                  keyword arguments.
+                </p>
+                <p>
+                  Raises
+                  [<code>ValidationError</code>][pydantic_core.ValidationError]
+                  if the input data cannot be validated to form a valid model.
+                </p>
+                <p>
+                  <code>self</code> is explicitly positional-only to allow
+                  <code>self</code> as a field name.
+                </p>
+              </div>
+              <h3>Ancestors</h3>
+              <ul class="hlist">
+                <li>pydantic.main.BaseModel</li>
+              </ul>
+              <h3>Class variables</h3>
+              <dl>
+                <dt
+                  id="space_hulk_game.schemas.narrative_map.CharacterMoment.character"
+                >
+                  <code class="name"
+                    >var <span class="ident">character</span> : str</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt
+                  id="space_hulk_game.schemas.narrative_map.CharacterMoment.model_config"
+                >
+                  <code class="name"
+                    >var <span class="ident">model_config</span></code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt
+                  id="space_hulk_game.schemas.narrative_map.CharacterMoment.moment"
+                >
+                  <code class="name"
+                    >var <span class="ident">moment</span> : str</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+              </dl>
+            </dd>
+            <dt id="space_hulk_game.schemas.narrative_map.Connection">
+              <code class="flex name class">
+                <span>class <span class="ident">Connection</span></span>
+                <span>(</span><span>**data: Any)</span>
+              </code>
+            </dt>
+            <dd>
+              <details class="source">
+                <summary>
+                  <span>Expand source code</span>
+                </summary>
+                <pre><code class="python">class Connection(BaseModel):
     &#34;&#34;&#34;A connection from one scene to another.
 
     Attributes:
@@ -277,62 +828,107 @@ validated to form a valid model.</p>
     condition: str | None = Field(
         default=None, max_length=500, description=&#34;Optional condition for this connection&#34;
     )</code></pre>
-</details>
-<div class="desc"><p>A connection from one scene to another.</p>
-<h2 id="attributes">Attributes</h2>
-<dl>
-<dt><strong><code>target</code></strong></dt>
-<dd>ID of the target scene.</dd>
-<dt><strong><code>description</code></strong></dt>
-<dd>Description of why/how the player transitions.</dd>
-<dt><strong><code>condition</code></strong></dt>
-<dd>Optional condition that must be met for this connection.</dd>
-</dl>
-<h2 id="example">Example</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; conn = Connection(
+              </details>
+              <div class="desc">
+                <p>A connection from one scene to another.</p>
+                <h2 id="attributes">Attributes</h2>
+                <dl>
+                  <dt>
+                    <strong><code>target</code></strong>
+                  </dt>
+                  <dd>ID of the target scene.</dd>
+                  <dt>
+                    <strong><code>description</code></strong>
+                  </dt>
+                  <dd>Description of why/how the player transitions.</dd>
+                  <dt>
+                    <strong><code>condition</code></strong>
+                  </dt>
+                  <dd>
+                    Optional condition that must be met for this connection.
+                  </dd>
+                </dl>
+                <h2 id="example">Example</h2>
+                <pre><code class="language-python-repl">&gt;&gt;&gt; conn = Connection(
 ...     target=&quot;scene_whispers_in_the_dark&quot;,
 ...     description=&quot;Proceed deeper into the Hulk...&quot;,
 ...     condition=None
 ... )
 </code></pre>
-<p>Create a new model by parsing and validating input data from keyword arguments.</p>
-<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
-validated to form a valid model.</p>
-<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li>pydantic.main.BaseModel</li>
-</ul>
-<h3>Class variables</h3>
-<dl>
-<dt id="space_hulk_game.schemas.narrative_map.Connection.condition"><code class="name">var <span class="ident">condition</span> : str | None</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.narrative_map.Connection.description"><code class="name">var <span class="ident">description</span> : str</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.narrative_map.Connection.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.narrative_map.Connection.target"><code class="name">var <span class="ident">target</span> : str</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-</dl>
-</dd>
-<dt id="space_hulk_game.schemas.narrative_map.DecisionOption"><code class="flex name class">
-<span>class <span class="ident">DecisionOption</span></span>
-<span>(</span><span>**data: Any)</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class DecisionOption(BaseModel):
+                <p>
+                  Create a new model by parsing and validating input data from
+                  keyword arguments.
+                </p>
+                <p>
+                  Raises
+                  [<code>ValidationError</code>][pydantic_core.ValidationError]
+                  if the input data cannot be validated to form a valid model.
+                </p>
+                <p>
+                  <code>self</code> is explicitly positional-only to allow
+                  <code>self</code> as a field name.
+                </p>
+              </div>
+              <h3>Ancestors</h3>
+              <ul class="hlist">
+                <li>pydantic.main.BaseModel</li>
+              </ul>
+              <h3>Class variables</h3>
+              <dl>
+                <dt
+                  id="space_hulk_game.schemas.narrative_map.Connection.condition"
+                >
+                  <code class="name"
+                    >var <span class="ident">condition</span> : str | None</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt
+                  id="space_hulk_game.schemas.narrative_map.Connection.description"
+                >
+                  <code class="name"
+                    >var <span class="ident">description</span> : str</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt
+                  id="space_hulk_game.schemas.narrative_map.Connection.model_config"
+                >
+                  <code class="name"
+                    >var <span class="ident">model_config</span></code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt
+                  id="space_hulk_game.schemas.narrative_map.Connection.target"
+                >
+                  <code class="name"
+                    >var <span class="ident">target</span> : str</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+              </dl>
+            </dd>
+            <dt id="space_hulk_game.schemas.narrative_map.DecisionOption">
+              <code class="flex name class">
+                <span>class <span class="ident">DecisionOption</span></span>
+                <span>(</span><span>**data: Any)</span>
+              </code>
+            </dt>
+            <dd>
+              <details class="source">
+                <summary>
+                  <span>Expand source code</span>
+                </summary>
+                <pre><code class="python">class DecisionOption(BaseModel):
     &#34;&#34;&#34;An option in a decision point.
 
     Attributes:
@@ -353,62 +949,105 @@ validated to form a valid model.</p>
     target_scene: str = Field(
         ..., min_length=1, max_length=200, description=&#34;Target scene ID for this choice&#34;
     )</code></pre>
-</details>
-<div class="desc"><p>An option in a decision point.</p>
-<h2 id="attributes">Attributes</h2>
-<dl>
-<dt><strong><code>choice</code></strong></dt>
-<dd>The text of the decision choice.</dd>
-<dt><strong><code>outcome</code></strong></dt>
-<dd>What happens if this choice is selected.</dd>
-<dt><strong><code>target_scene</code></strong></dt>
-<dd>The scene ID this choice leads to.</dd>
-</dl>
-<h2 id="example">Example</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; option = DecisionOption(
+              </details>
+              <div class="desc">
+                <p>An option in a decision point.</p>
+                <h2 id="attributes">Attributes</h2>
+                <dl>
+                  <dt>
+                    <strong><code>choice</code></strong>
+                  </dt>
+                  <dd>The text of the decision choice.</dd>
+                  <dt>
+                    <strong><code>outcome</code></strong>
+                  </dt>
+                  <dd>What happens if this choice is selected.</dd>
+                  <dt>
+                    <strong><code>target_scene</code></strong>
+                  </dt>
+                  <dd>The scene ID this choice leads to.</dd>
+                </dl>
+                <h2 id="example">Example</h2>
+                <pre><code class="language-python-repl">&gt;&gt;&gt; option = DecisionOption(
 ...     choice=&quot;Initiate self-destruct sequence on the alien core&quot;,
 ...     outcome=&quot;The squad prepares for their final, desperate stand...&quot;,
 ...     target_scene=&quot;scene_climax_core_overload&quot;
 ... )
 </code></pre>
-<p>Create a new model by parsing and validating input data from keyword arguments.</p>
-<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
-validated to form a valid model.</p>
-<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li>pydantic.main.BaseModel</li>
-</ul>
-<h3>Class variables</h3>
-<dl>
-<dt id="space_hulk_game.schemas.narrative_map.DecisionOption.choice"><code class="name">var <span class="ident">choice</span> : str</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.narrative_map.DecisionOption.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.narrative_map.DecisionOption.outcome"><code class="name">var <span class="ident">outcome</span> : str</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.narrative_map.DecisionOption.target_scene"><code class="name">var <span class="ident">target_scene</span> : str</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-</dl>
-</dd>
-<dt id="space_hulk_game.schemas.narrative_map.DecisionPoint"><code class="flex name class">
-<span>class <span class="ident">DecisionPoint</span></span>
-<span>(</span><span>**data: Any)</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class DecisionPoint(BaseModel):
+                <p>
+                  Create a new model by parsing and validating input data from
+                  keyword arguments.
+                </p>
+                <p>
+                  Raises
+                  [<code>ValidationError</code>][pydantic_core.ValidationError]
+                  if the input data cannot be validated to form a valid model.
+                </p>
+                <p>
+                  <code>self</code> is explicitly positional-only to allow
+                  <code>self</code> as a field name.
+                </p>
+              </div>
+              <h3>Ancestors</h3>
+              <ul class="hlist">
+                <li>pydantic.main.BaseModel</li>
+              </ul>
+              <h3>Class variables</h3>
+              <dl>
+                <dt
+                  id="space_hulk_game.schemas.narrative_map.DecisionOption.choice"
+                >
+                  <code class="name"
+                    >var <span class="ident">choice</span> : str</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt
+                  id="space_hulk_game.schemas.narrative_map.DecisionOption.model_config"
+                >
+                  <code class="name"
+                    >var <span class="ident">model_config</span></code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt
+                  id="space_hulk_game.schemas.narrative_map.DecisionOption.outcome"
+                >
+                  <code class="name"
+                    >var <span class="ident">outcome</span> : str</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt
+                  id="space_hulk_game.schemas.narrative_map.DecisionOption.target_scene"
+                >
+                  <code class="name"
+                    >var <span class="ident">target_scene</span> : str</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+              </dl>
+            </dd>
+            <dt id="space_hulk_game.schemas.narrative_map.DecisionPoint">
+              <code class="flex name class">
+                <span>class <span class="ident">DecisionPoint</span></span>
+                <span>(</span><span>**data: Any)</span>
+              </code>
+            </dt>
+            <dd>
+              <details class="source">
+                <summary>
+                  <span>Expand source code</span>
+                </summary>
+                <pre><code class="python">class DecisionPoint(BaseModel):
     &#34;&#34;&#34;A decision point in the narrative.
 
     Attributes:
@@ -441,71 +1080,124 @@ validated to form a valid model.</p>
                 &#34;ID must contain only alphanumeric characters, underscores, and hyphens&#34;
             )
         return v</code></pre>
-</details>
-<div class="desc"><p>A decision point in the narrative.</p>
-<h2 id="attributes">Attributes</h2>
-<dl>
-<dt><strong><code>id</code></strong></dt>
-<dd>Unique identifier for the decision point.</dd>
-<dt><strong><code>prompt</code></strong></dt>
-<dd>The decision prompt presented to the player.</dd>
-<dt><strong><code>options</code></strong></dt>
-<dd>List of available choices.</dd>
-</dl>
-<h2 id="example">Example</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; decision = DecisionPoint(
+              </details>
+              <div class="desc">
+                <p>A decision point in the narrative.</p>
+                <h2 id="attributes">Attributes</h2>
+                <dl>
+                  <dt>
+                    <strong><code>id</code></strong>
+                  </dt>
+                  <dd>Unique identifier for the decision point.</dd>
+                  <dt>
+                    <strong><code>prompt</code></strong>
+                  </dt>
+                  <dd>The decision prompt presented to the player.</dd>
+                  <dt>
+                    <strong><code>options</code></strong>
+                  </dt>
+                  <dd>List of available choices.</dd>
+                </dl>
+                <h2 id="example">Example</h2>
+                <pre><code class="language-python-repl">&gt;&gt;&gt; decision = DecisionPoint(
 ...     id=&quot;decision_hulk_fate&quot;,
 ...     prompt=&quot;The Serpent's Coil must be stopped. How do you attempt to avert this catastrophe?&quot;,
 ...     options=[...]
 ... )
 </code></pre>
-<p>Create a new model by parsing and validating input data from keyword arguments.</p>
-<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
-validated to form a valid model.</p>
-<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li>pydantic.main.BaseModel</li>
-</ul>
-<h3>Class variables</h3>
-<dl>
-<dt id="space_hulk_game.schemas.narrative_map.DecisionPoint.id"><code class="name">var <span class="ident">id</span> : str</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.narrative_map.DecisionPoint.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.narrative_map.DecisionPoint.options"><code class="name">var <span class="ident">options</span> : list[<a title="space_hulk_game.schemas.narrative_map.DecisionOption" href="#space_hulk_game.schemas.narrative_map.DecisionOption">DecisionOption</a>]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.narrative_map.DecisionPoint.prompt"><code class="name">var <span class="ident">prompt</span> : str</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-</dl>
-<h3>Static methods</h3>
-<dl>
-<dt id="space_hulk_game.schemas.narrative_map.DecisionPoint.validate_id_format"><code class="name flex">
-<span>def <span class="ident">validate_id_format</span></span>(<span>v: str) ‑> str</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Ensure id follows naming convention.</p></div>
-</dd>
-</dl>
-</dd>
-<dt id="space_hulk_game.schemas.narrative_map.NarrativeMap"><code class="flex name class">
-<span>class <span class="ident">NarrativeMap</span></span>
-<span>(</span><span>**data: Any)</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class NarrativeMap(BaseModel):
+                <p>
+                  Create a new model by parsing and validating input data from
+                  keyword arguments.
+                </p>
+                <p>
+                  Raises
+                  [<code>ValidationError</code>][pydantic_core.ValidationError]
+                  if the input data cannot be validated to form a valid model.
+                </p>
+                <p>
+                  <code>self</code> is explicitly positional-only to allow
+                  <code>self</code> as a field name.
+                </p>
+              </div>
+              <h3>Ancestors</h3>
+              <ul class="hlist">
+                <li>pydantic.main.BaseModel</li>
+              </ul>
+              <h3>Class variables</h3>
+              <dl>
+                <dt id="space_hulk_game.schemas.narrative_map.DecisionPoint.id">
+                  <code class="name"
+                    >var <span class="ident">id</span> : str</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt
+                  id="space_hulk_game.schemas.narrative_map.DecisionPoint.model_config"
+                >
+                  <code class="name"
+                    >var <span class="ident">model_config</span></code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt
+                  id="space_hulk_game.schemas.narrative_map.DecisionPoint.options"
+                >
+                  <code class="name"
+                    >var <span class="ident">options</span> : list[<a
+                      title="space_hulk_game.schemas.narrative_map.DecisionOption"
+                      href="#space_hulk_game.schemas.narrative_map.DecisionOption"
+                      >DecisionOption</a
+                    >]</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt
+                  id="space_hulk_game.schemas.narrative_map.DecisionPoint.prompt"
+                >
+                  <code class="name"
+                    >var <span class="ident">prompt</span> : str</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+              </dl>
+              <h3>Static methods</h3>
+              <dl>
+                <dt
+                  id="space_hulk_game.schemas.narrative_map.DecisionPoint.validate_id_format"
+                >
+                  <code class="name flex">
+                    <span
+                      >def <span class="ident">validate_id_format</span></span
+                    >(<span>v: str) ‑> str</span>
+                  </code>
+                </dt>
+                <dd>
+                  <div class="desc">
+                    <p>Ensure id follows naming convention.</p>
+                  </div>
+                </dd>
+              </dl>
+            </dd>
+            <dt id="space_hulk_game.schemas.narrative_map.NarrativeMap">
+              <code class="flex name class">
+                <span>class <span class="ident">NarrativeMap</span></span>
+                <span>(</span><span>**data: Any)</span>
+              </code>
+            </dt>
+            <dd>
+              <details class="source">
+                <summary>
+                  <span>Expand source code</span>
+                </summary>
+                <pre><code class="python">class NarrativeMap(BaseModel):
     &#34;&#34;&#34;Complete narrative map for a story.
 
     This is the top-level model representing the entire narrative structure
@@ -584,21 +1276,31 @@ validated to form a valid model.</p>
                             )
 
         return v</code></pre>
-</details>
-<div class="desc"><p>Complete narrative map for a story.</p>
-<p>This is the top-level model representing the entire narrative structure
-including all scenes, connections, and character arcs.</p>
-<h2 id="attributes">Attributes</h2>
-<dl>
-<dt><strong><code>start_scene</code></strong></dt>
-<dd>ID of the starting scene.</dd>
-<dt><strong><code>scenes</code></strong></dt>
-<dd>Dictionary mapping scene IDs to Scene objects.</dd>
-<dt><strong><code>character_arcs</code></strong></dt>
-<dd>Optional list of character development arcs.</dd>
-</dl>
-<h2 id="example">Example</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; narrative_map = NarrativeMap(
+              </details>
+              <div class="desc">
+                <p>Complete narrative map for a story.</p>
+                <p>
+                  This is the top-level model representing the entire narrative
+                  structure including all scenes, connections, and character
+                  arcs.
+                </p>
+                <h2 id="attributes">Attributes</h2>
+                <dl>
+                  <dt>
+                    <strong><code>start_scene</code></strong>
+                  </dt>
+                  <dd>ID of the starting scene.</dd>
+                  <dt>
+                    <strong><code>scenes</code></strong>
+                  </dt>
+                  <dd>Dictionary mapping scene IDs to Scene objects.</dd>
+                  <dt>
+                    <strong><code>character_arcs</code></strong>
+                  </dt>
+                  <dd>Optional list of character development arcs.</dd>
+                </dl>
+                <h2 id="example">Example</h2>
+                <pre><code class="language-python-repl">&gt;&gt;&gt; narrative_map = NarrativeMap(
 ...     start_scene=&quot;scene_drop_pod_descent&quot;,
 ...     scenes={
 ...         &quot;scene_drop_pod_descent&quot;: Scene(...),
@@ -607,62 +1309,141 @@ including all scenes, connections, and character arcs.</p>
 ...     character_arcs=[...]
 ... )
 </code></pre>
-<p>Create a new model by parsing and validating input data from keyword arguments.</p>
-<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
-validated to form a valid model.</p>
-<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li>pydantic.main.BaseModel</li>
-</ul>
-<h3>Class variables</h3>
-<dl>
-<dt id="space_hulk_game.schemas.narrative_map.NarrativeMap.character_arcs"><code class="name">var <span class="ident">character_arcs</span> : list[<a title="space_hulk_game.schemas.narrative_map.CharacterArc" href="#space_hulk_game.schemas.narrative_map.CharacterArc">CharacterArc</a>] | None</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.narrative_map.NarrativeMap.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.narrative_map.NarrativeMap.scenes"><code class="name">var <span class="ident">scenes</span> : dict[str, <a title="space_hulk_game.schemas.narrative_map.Scene" href="#space_hulk_game.schemas.narrative_map.Scene">Scene</a>]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.narrative_map.NarrativeMap.start_scene"><code class="name">var <span class="ident">start_scene</span> : str</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-</dl>
-<h3>Static methods</h3>
-<dl>
-<dt id="space_hulk_game.schemas.narrative_map.NarrativeMap.validate_scene_ids"><code class="name flex">
-<span>def <span class="ident">validate_scene_ids</span></span>(<span>v: dict[str, <a title="space_hulk_game.schemas.narrative_map.Scene" href="#space_hulk_game.schemas.narrative_map.Scene">Scene</a>]) ‑> dict[str, <a title="space_hulk_game.schemas.narrative_map.Scene" href="#space_hulk_game.schemas.narrative_map.Scene">Scene</a>]</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Ensure all scene IDs are valid and all connections reference existing scenes.</p></div>
-</dd>
-<dt id="space_hulk_game.schemas.narrative_map.NarrativeMap.validate_start_scene_exists"><code class="name flex">
-<span>def <span class="ident">validate_start_scene_exists</span></span>(<span>v: str, _info) ‑> str</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Ensure start_scene exists in scenes dictionary.</p>
-<p>Note: This validator runs before 'scenes' field is populated in Pydantic v2,
-so we can only do basic format validation here. Cross-field validation
-should be done via model_validator.</p></div>
-</dd>
-</dl>
-</dd>
-<dt id="space_hulk_game.schemas.narrative_map.Scene"><code class="flex name class">
-<span>class <span class="ident">Scene</span></span>
-<span>(</span><span>**data: Any)</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class Scene(BaseModel):
+                <p>
+                  Create a new model by parsing and validating input data from
+                  keyword arguments.
+                </p>
+                <p>
+                  Raises
+                  [<code>ValidationError</code>][pydantic_core.ValidationError]
+                  if the input data cannot be validated to form a valid model.
+                </p>
+                <p>
+                  <code>self</code> is explicitly positional-only to allow
+                  <code>self</code> as a field name.
+                </p>
+              </div>
+              <h3>Ancestors</h3>
+              <ul class="hlist">
+                <li>pydantic.main.BaseModel</li>
+              </ul>
+              <h3>Class variables</h3>
+              <dl>
+                <dt
+                  id="space_hulk_game.schemas.narrative_map.NarrativeMap.character_arcs"
+                >
+                  <code class="name"
+                    >var <span class="ident">character_arcs</span> : list[<a
+                      title="space_hulk_game.schemas.narrative_map.CharacterArc"
+                      href="#space_hulk_game.schemas.narrative_map.CharacterArc"
+                      >CharacterArc</a
+                    >] | None</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt
+                  id="space_hulk_game.schemas.narrative_map.NarrativeMap.model_config"
+                >
+                  <code class="name"
+                    >var <span class="ident">model_config</span></code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt
+                  id="space_hulk_game.schemas.narrative_map.NarrativeMap.scenes"
+                >
+                  <code class="name"
+                    >var <span class="ident">scenes</span> : dict[str, <a
+                      title="space_hulk_game.schemas.narrative_map.Scene"
+                      href="#space_hulk_game.schemas.narrative_map.Scene"
+                      >Scene</a
+                    >]</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt
+                  id="space_hulk_game.schemas.narrative_map.NarrativeMap.start_scene"
+                >
+                  <code class="name"
+                    >var <span class="ident">start_scene</span> : str</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+              </dl>
+              <h3>Static methods</h3>
+              <dl>
+                <dt
+                  id="space_hulk_game.schemas.narrative_map.NarrativeMap.validate_scene_ids"
+                >
+                  <code class="name flex">
+                    <span
+                      >def <span class="ident">validate_scene_ids</span></span
+                    >(<span
+                      >v: dict[str, <a
+                        title="space_hulk_game.schemas.narrative_map.Scene"
+                        href="#space_hulk_game.schemas.narrative_map.Scene"
+                        >Scene</a
+                      >]) ‑> dict[str, <a
+                        title="space_hulk_game.schemas.narrative_map.Scene"
+                        href="#space_hulk_game.schemas.narrative_map.Scene"
+                        >Scene</a
+                      >]</span
+                    >
+                  </code>
+                </dt>
+                <dd>
+                  <div class="desc">
+                    <p>
+                      Ensure all scene IDs are valid and all connections
+                      reference existing scenes.
+                    </p>
+                  </div>
+                </dd>
+                <dt
+                  id="space_hulk_game.schemas.narrative_map.NarrativeMap.validate_start_scene_exists"
+                >
+                  <code class="name flex">
+                    <span
+                      >def
+                      <span class="ident"
+                        >validate_start_scene_exists</span
+                      ></span
+                    >(<span>v: str, _info) ‑> str</span>
+                  </code>
+                </dt>
+                <dd>
+                  <div class="desc">
+                    <p>Ensure start_scene exists in scenes dictionary.</p>
+                    <p>
+                      Note: This validator runs before 'scenes' field is
+                      populated in Pydantic v2, so we can only do basic format
+                      validation here. Cross-field validation should be done via
+                      model_validator.
+                    </p>
+                  </div>
+                </dd>
+              </dl>
+            </dd>
+            <dt id="space_hulk_game.schemas.narrative_map.Scene">
+              <code class="flex name class">
+                <span>class <span class="ident">Scene</span></span>
+                <span>(</span><span>**data: Any)</span>
+              </code>
+            </dt>
+            <dd>
+              <details class="source">
+                <summary>
+                  <span>Expand source code</span>
+                </summary>
+                <pre><code class="python">class Scene(BaseModel):
     &#34;&#34;&#34;A scene in the narrative map.
 
     Attributes:
@@ -692,161 +1473,579 @@ should be done via model_validator.</p></div>
     decision_points: list[DecisionPoint] | None = Field(
         default=None, description=&#34;Decision points in this scene&#34;
     )</code></pre>
-</details>
-<div class="desc"><p>A scene in the narrative map.</p>
-<h2 id="attributes">Attributes</h2>
-<dl>
-<dt><strong><code>name</code></strong></dt>
-<dd>Human-readable scene name.</dd>
-<dt><strong><code>description</code></strong></dt>
-<dd>Detailed description of what happens in the scene.</dd>
-<dt><strong><code>connections</code></strong></dt>
-<dd>List of connections to other scenes.</dd>
-<dt><strong><code>character_moments</code></strong></dt>
-<dd>Optional list of character moments in this scene.</dd>
-<dt><strong><code>decision_points</code></strong></dt>
-<dd>Optional list of decision points in this scene.</dd>
-</dl>
-<h2 id="example">Example</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; scene = Scene(
+              </details>
+              <div class="desc">
+                <p>A scene in the narrative map.</p>
+                <h2 id="attributes">Attributes</h2>
+                <dl>
+                  <dt>
+                    <strong><code>name</code></strong>
+                  </dt>
+                  <dd>Human-readable scene name.</dd>
+                  <dt>
+                    <strong><code>description</code></strong>
+                  </dt>
+                  <dd>Detailed description of what happens in the scene.</dd>
+                  <dt>
+                    <strong><code>connections</code></strong>
+                  </dt>
+                  <dd>List of connections to other scenes.</dd>
+                  <dt>
+                    <strong><code>character_moments</code></strong>
+                  </dt>
+                  <dd>Optional list of character moments in this scene.</dd>
+                  <dt>
+                    <strong><code>decision_points</code></strong>
+                  </dt>
+                  <dd>Optional list of decision points in this scene.</dd>
+                </dl>
+                <h2 id="example">Example</h2>
+                <pre><code class="language-python-repl">&gt;&gt;&gt; scene = Scene(
 ...     name=&quot;The Drop Pod Descent&quot;,
 ...     description=&quot;Deployed from the Battle Barge...&quot;,
 ...     connections=[...],
 ...     character_moments=[...]
 ... )
 </code></pre>
-<p>Create a new model by parsing and validating input data from keyword arguments.</p>
-<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
-validated to form a valid model.</p>
-<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li>pydantic.main.BaseModel</li>
-</ul>
-<h3>Class variables</h3>
-<dl>
-<dt id="space_hulk_game.schemas.narrative_map.Scene.character_moments"><code class="name">var <span class="ident">character_moments</span> : list[<a title="space_hulk_game.schemas.narrative_map.CharacterMoment" href="#space_hulk_game.schemas.narrative_map.CharacterMoment">CharacterMoment</a>] | None</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.narrative_map.Scene.connections"><code class="name">var <span class="ident">connections</span> : list[<a title="space_hulk_game.schemas.narrative_map.Connection" href="#space_hulk_game.schemas.narrative_map.Connection">Connection</a>]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.narrative_map.Scene.decision_points"><code class="name">var <span class="ident">decision_points</span> : list[<a title="space_hulk_game.schemas.narrative_map.DecisionPoint" href="#space_hulk_game.schemas.narrative_map.DecisionPoint">DecisionPoint</a>] | None</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.narrative_map.Scene.description"><code class="name">var <span class="ident">description</span> : str</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.narrative_map.Scene.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.narrative_map.Scene.name"><code class="name">var <span class="ident">name</span> : str</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-</dl>
-</dd>
-</dl>
-</section>
-</article>
-<nav id="sidebar">
-<div class="toc">
-<ul></ul>
-</div>
-<ul id="index">
-<li><h3>Super-module</h3>
-<ul>
-<li><code><a title="space_hulk_game.schemas" href="index.html">space_hulk_game.schemas</a></code></li>
-</ul>
-</li>
-<li><h3><a href="#header-classes">Classes</a></h3>
-<ul>
-<li>
-<h4><code><a title="space_hulk_game.schemas.narrative_map.CharacterArc" href="#space_hulk_game.schemas.narrative_map.CharacterArc">CharacterArc</a></code></h4>
-<ul class="">
-<li><code><a title="space_hulk_game.schemas.narrative_map.CharacterArc.arc_stages" href="#space_hulk_game.schemas.narrative_map.CharacterArc.arc_stages">arc_stages</a></code></li>
-<li><code><a title="space_hulk_game.schemas.narrative_map.CharacterArc.character" href="#space_hulk_game.schemas.narrative_map.CharacterArc.character">character</a></code></li>
-<li><code><a title="space_hulk_game.schemas.narrative_map.CharacterArc.model_config" href="#space_hulk_game.schemas.narrative_map.CharacterArc.model_config">model_config</a></code></li>
-</ul>
-</li>
-<li>
-<h4><code><a title="space_hulk_game.schemas.narrative_map.CharacterArcStage" href="#space_hulk_game.schemas.narrative_map.CharacterArcStage">CharacterArcStage</a></code></h4>
-<ul class="">
-<li><code><a title="space_hulk_game.schemas.narrative_map.CharacterArcStage.description" href="#space_hulk_game.schemas.narrative_map.CharacterArcStage.description">description</a></code></li>
-<li><code><a title="space_hulk_game.schemas.narrative_map.CharacterArcStage.model_config" href="#space_hulk_game.schemas.narrative_map.CharacterArcStage.model_config">model_config</a></code></li>
-<li><code><a title="space_hulk_game.schemas.narrative_map.CharacterArcStage.stage" href="#space_hulk_game.schemas.narrative_map.CharacterArcStage.stage">stage</a></code></li>
-</ul>
-</li>
-<li>
-<h4><code><a title="space_hulk_game.schemas.narrative_map.CharacterMoment" href="#space_hulk_game.schemas.narrative_map.CharacterMoment">CharacterMoment</a></code></h4>
-<ul class="">
-<li><code><a title="space_hulk_game.schemas.narrative_map.CharacterMoment.character" href="#space_hulk_game.schemas.narrative_map.CharacterMoment.character">character</a></code></li>
-<li><code><a title="space_hulk_game.schemas.narrative_map.CharacterMoment.model_config" href="#space_hulk_game.schemas.narrative_map.CharacterMoment.model_config">model_config</a></code></li>
-<li><code><a title="space_hulk_game.schemas.narrative_map.CharacterMoment.moment" href="#space_hulk_game.schemas.narrative_map.CharacterMoment.moment">moment</a></code></li>
-</ul>
-</li>
-<li>
-<h4><code><a title="space_hulk_game.schemas.narrative_map.Connection" href="#space_hulk_game.schemas.narrative_map.Connection">Connection</a></code></h4>
-<ul class="">
-<li><code><a title="space_hulk_game.schemas.narrative_map.Connection.condition" href="#space_hulk_game.schemas.narrative_map.Connection.condition">condition</a></code></li>
-<li><code><a title="space_hulk_game.schemas.narrative_map.Connection.description" href="#space_hulk_game.schemas.narrative_map.Connection.description">description</a></code></li>
-<li><code><a title="space_hulk_game.schemas.narrative_map.Connection.model_config" href="#space_hulk_game.schemas.narrative_map.Connection.model_config">model_config</a></code></li>
-<li><code><a title="space_hulk_game.schemas.narrative_map.Connection.target" href="#space_hulk_game.schemas.narrative_map.Connection.target">target</a></code></li>
-</ul>
-</li>
-<li>
-<h4><code><a title="space_hulk_game.schemas.narrative_map.DecisionOption" href="#space_hulk_game.schemas.narrative_map.DecisionOption">DecisionOption</a></code></h4>
-<ul class="">
-<li><code><a title="space_hulk_game.schemas.narrative_map.DecisionOption.choice" href="#space_hulk_game.schemas.narrative_map.DecisionOption.choice">choice</a></code></li>
-<li><code><a title="space_hulk_game.schemas.narrative_map.DecisionOption.model_config" href="#space_hulk_game.schemas.narrative_map.DecisionOption.model_config">model_config</a></code></li>
-<li><code><a title="space_hulk_game.schemas.narrative_map.DecisionOption.outcome" href="#space_hulk_game.schemas.narrative_map.DecisionOption.outcome">outcome</a></code></li>
-<li><code><a title="space_hulk_game.schemas.narrative_map.DecisionOption.target_scene" href="#space_hulk_game.schemas.narrative_map.DecisionOption.target_scene">target_scene</a></code></li>
-</ul>
-</li>
-<li>
-<h4><code><a title="space_hulk_game.schemas.narrative_map.DecisionPoint" href="#space_hulk_game.schemas.narrative_map.DecisionPoint">DecisionPoint</a></code></h4>
-<ul class="">
-<li><code><a title="space_hulk_game.schemas.narrative_map.DecisionPoint.id" href="#space_hulk_game.schemas.narrative_map.DecisionPoint.id">id</a></code></li>
-<li><code><a title="space_hulk_game.schemas.narrative_map.DecisionPoint.model_config" href="#space_hulk_game.schemas.narrative_map.DecisionPoint.model_config">model_config</a></code></li>
-<li><code><a title="space_hulk_game.schemas.narrative_map.DecisionPoint.options" href="#space_hulk_game.schemas.narrative_map.DecisionPoint.options">options</a></code></li>
-<li><code><a title="space_hulk_game.schemas.narrative_map.DecisionPoint.prompt" href="#space_hulk_game.schemas.narrative_map.DecisionPoint.prompt">prompt</a></code></li>
-<li><code><a title="space_hulk_game.schemas.narrative_map.DecisionPoint.validate_id_format" href="#space_hulk_game.schemas.narrative_map.DecisionPoint.validate_id_format">validate_id_format</a></code></li>
-</ul>
-</li>
-<li>
-<h4><code><a title="space_hulk_game.schemas.narrative_map.NarrativeMap" href="#space_hulk_game.schemas.narrative_map.NarrativeMap">NarrativeMap</a></code></h4>
-<ul class="">
-<li><code><a title="space_hulk_game.schemas.narrative_map.NarrativeMap.character_arcs" href="#space_hulk_game.schemas.narrative_map.NarrativeMap.character_arcs">character_arcs</a></code></li>
-<li><code><a title="space_hulk_game.schemas.narrative_map.NarrativeMap.model_config" href="#space_hulk_game.schemas.narrative_map.NarrativeMap.model_config">model_config</a></code></li>
-<li><code><a title="space_hulk_game.schemas.narrative_map.NarrativeMap.scenes" href="#space_hulk_game.schemas.narrative_map.NarrativeMap.scenes">scenes</a></code></li>
-<li><code><a title="space_hulk_game.schemas.narrative_map.NarrativeMap.start_scene" href="#space_hulk_game.schemas.narrative_map.NarrativeMap.start_scene">start_scene</a></code></li>
-<li><code><a title="space_hulk_game.schemas.narrative_map.NarrativeMap.validate_scene_ids" href="#space_hulk_game.schemas.narrative_map.NarrativeMap.validate_scene_ids">validate_scene_ids</a></code></li>
-<li><code><a title="space_hulk_game.schemas.narrative_map.NarrativeMap.validate_start_scene_exists" href="#space_hulk_game.schemas.narrative_map.NarrativeMap.validate_start_scene_exists">validate_start_scene_exists</a></code></li>
-</ul>
-</li>
-<li>
-<h4><code><a title="space_hulk_game.schemas.narrative_map.Scene" href="#space_hulk_game.schemas.narrative_map.Scene">Scene</a></code></h4>
-<ul class="two-column">
-<li><code><a title="space_hulk_game.schemas.narrative_map.Scene.character_moments" href="#space_hulk_game.schemas.narrative_map.Scene.character_moments">character_moments</a></code></li>
-<li><code><a title="space_hulk_game.schemas.narrative_map.Scene.connections" href="#space_hulk_game.schemas.narrative_map.Scene.connections">connections</a></code></li>
-<li><code><a title="space_hulk_game.schemas.narrative_map.Scene.decision_points" href="#space_hulk_game.schemas.narrative_map.Scene.decision_points">decision_points</a></code></li>
-<li><code><a title="space_hulk_game.schemas.narrative_map.Scene.description" href="#space_hulk_game.schemas.narrative_map.Scene.description">description</a></code></li>
-<li><code><a title="space_hulk_game.schemas.narrative_map.Scene.model_config" href="#space_hulk_game.schemas.narrative_map.Scene.model_config">model_config</a></code></li>
-<li><code><a title="space_hulk_game.schemas.narrative_map.Scene.name" href="#space_hulk_game.schemas.narrative_map.Scene.name">name</a></code></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</nav>
-</main>
-<footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
-</footer>
-</body>
+                <p>
+                  Create a new model by parsing and validating input data from
+                  keyword arguments.
+                </p>
+                <p>
+                  Raises
+                  [<code>ValidationError</code>][pydantic_core.ValidationError]
+                  if the input data cannot be validated to form a valid model.
+                </p>
+                <p>
+                  <code>self</code> is explicitly positional-only to allow
+                  <code>self</code> as a field name.
+                </p>
+              </div>
+              <h3>Ancestors</h3>
+              <ul class="hlist">
+                <li>pydantic.main.BaseModel</li>
+              </ul>
+              <h3>Class variables</h3>
+              <dl>
+                <dt
+                  id="space_hulk_game.schemas.narrative_map.Scene.character_moments"
+                >
+                  <code class="name"
+                    >var <span class="ident">character_moments</span> : list[<a
+                      title="space_hulk_game.schemas.narrative_map.CharacterMoment"
+                      href="#space_hulk_game.schemas.narrative_map.CharacterMoment"
+                      >CharacterMoment</a
+                    >] | None</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt
+                  id="space_hulk_game.schemas.narrative_map.Scene.connections"
+                >
+                  <code class="name"
+                    >var <span class="ident">connections</span> : list[<a
+                      title="space_hulk_game.schemas.narrative_map.Connection"
+                      href="#space_hulk_game.schemas.narrative_map.Connection"
+                      >Connection</a
+                    >]</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt
+                  id="space_hulk_game.schemas.narrative_map.Scene.decision_points"
+                >
+                  <code class="name"
+                    >var <span class="ident">decision_points</span> : list[<a
+                      title="space_hulk_game.schemas.narrative_map.DecisionPoint"
+                      href="#space_hulk_game.schemas.narrative_map.DecisionPoint"
+                      >DecisionPoint</a
+                    >] | None</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt
+                  id="space_hulk_game.schemas.narrative_map.Scene.description"
+                >
+                  <code class="name"
+                    >var <span class="ident">description</span> : str</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt
+                  id="space_hulk_game.schemas.narrative_map.Scene.model_config"
+                >
+                  <code class="name"
+                    >var <span class="ident">model_config</span></code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt id="space_hulk_game.schemas.narrative_map.Scene.name">
+                  <code class="name"
+                    >var <span class="ident">name</span> : str</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+              </dl>
+            </dd>
+          </dl>
+        </section>
+      </article>
+      <nav id="sidebar">
+        <div class="toc">
+          <ul></ul>
+        </div>
+        <ul id="index">
+          <li>
+            <h3>Super-module</h3>
+            <ul>
+              <li>
+                <code
+                  ><a title="space_hulk_game.schemas" href="index.html"
+                    >space_hulk_game.schemas</a
+                  ></code
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <h3><a href="#header-classes">Classes</a></h3>
+            <ul>
+              <li>
+                <h4>
+                  <code
+                    ><a
+                      title="space_hulk_game.schemas.narrative_map.CharacterArc"
+                      href="#space_hulk_game.schemas.narrative_map.CharacterArc"
+                      >CharacterArc</a
+                    ></code
+                  >
+                </h4>
+                <ul class="">
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.narrative_map.CharacterArc.arc_stages"
+                        href="#space_hulk_game.schemas.narrative_map.CharacterArc.arc_stages"
+                        >arc_stages</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.narrative_map.CharacterArc.character"
+                        href="#space_hulk_game.schemas.narrative_map.CharacterArc.character"
+                        >character</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.narrative_map.CharacterArc.model_config"
+                        href="#space_hulk_game.schemas.narrative_map.CharacterArc.model_config"
+                        >model_config</a
+                      ></code
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <h4>
+                  <code
+                    ><a
+                      title="space_hulk_game.schemas.narrative_map.CharacterArcStage"
+                      href="#space_hulk_game.schemas.narrative_map.CharacterArcStage"
+                      >CharacterArcStage</a
+                    ></code
+                  >
+                </h4>
+                <ul class="">
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.narrative_map.CharacterArcStage.description"
+                        href="#space_hulk_game.schemas.narrative_map.CharacterArcStage.description"
+                        >description</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.narrative_map.CharacterArcStage.model_config"
+                        href="#space_hulk_game.schemas.narrative_map.CharacterArcStage.model_config"
+                        >model_config</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.narrative_map.CharacterArcStage.stage"
+                        href="#space_hulk_game.schemas.narrative_map.CharacterArcStage.stage"
+                        >stage</a
+                      ></code
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <h4>
+                  <code
+                    ><a
+                      title="space_hulk_game.schemas.narrative_map.CharacterMoment"
+                      href="#space_hulk_game.schemas.narrative_map.CharacterMoment"
+                      >CharacterMoment</a
+                    ></code
+                  >
+                </h4>
+                <ul class="">
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.narrative_map.CharacterMoment.character"
+                        href="#space_hulk_game.schemas.narrative_map.CharacterMoment.character"
+                        >character</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.narrative_map.CharacterMoment.model_config"
+                        href="#space_hulk_game.schemas.narrative_map.CharacterMoment.model_config"
+                        >model_config</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.narrative_map.CharacterMoment.moment"
+                        href="#space_hulk_game.schemas.narrative_map.CharacterMoment.moment"
+                        >moment</a
+                      ></code
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <h4>
+                  <code
+                    ><a
+                      title="space_hulk_game.schemas.narrative_map.Connection"
+                      href="#space_hulk_game.schemas.narrative_map.Connection"
+                      >Connection</a
+                    ></code
+                  >
+                </h4>
+                <ul class="">
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.narrative_map.Connection.condition"
+                        href="#space_hulk_game.schemas.narrative_map.Connection.condition"
+                        >condition</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.narrative_map.Connection.description"
+                        href="#space_hulk_game.schemas.narrative_map.Connection.description"
+                        >description</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.narrative_map.Connection.model_config"
+                        href="#space_hulk_game.schemas.narrative_map.Connection.model_config"
+                        >model_config</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.narrative_map.Connection.target"
+                        href="#space_hulk_game.schemas.narrative_map.Connection.target"
+                        >target</a
+                      ></code
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <h4>
+                  <code
+                    ><a
+                      title="space_hulk_game.schemas.narrative_map.DecisionOption"
+                      href="#space_hulk_game.schemas.narrative_map.DecisionOption"
+                      >DecisionOption</a
+                    ></code
+                  >
+                </h4>
+                <ul class="">
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.narrative_map.DecisionOption.choice"
+                        href="#space_hulk_game.schemas.narrative_map.DecisionOption.choice"
+                        >choice</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.narrative_map.DecisionOption.model_config"
+                        href="#space_hulk_game.schemas.narrative_map.DecisionOption.model_config"
+                        >model_config</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.narrative_map.DecisionOption.outcome"
+                        href="#space_hulk_game.schemas.narrative_map.DecisionOption.outcome"
+                        >outcome</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.narrative_map.DecisionOption.target_scene"
+                        href="#space_hulk_game.schemas.narrative_map.DecisionOption.target_scene"
+                        >target_scene</a
+                      ></code
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <h4>
+                  <code
+                    ><a
+                      title="space_hulk_game.schemas.narrative_map.DecisionPoint"
+                      href="#space_hulk_game.schemas.narrative_map.DecisionPoint"
+                      >DecisionPoint</a
+                    ></code
+                  >
+                </h4>
+                <ul class="">
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.narrative_map.DecisionPoint.id"
+                        href="#space_hulk_game.schemas.narrative_map.DecisionPoint.id"
+                        >id</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.narrative_map.DecisionPoint.model_config"
+                        href="#space_hulk_game.schemas.narrative_map.DecisionPoint.model_config"
+                        >model_config</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.narrative_map.DecisionPoint.options"
+                        href="#space_hulk_game.schemas.narrative_map.DecisionPoint.options"
+                        >options</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.narrative_map.DecisionPoint.prompt"
+                        href="#space_hulk_game.schemas.narrative_map.DecisionPoint.prompt"
+                        >prompt</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.narrative_map.DecisionPoint.validate_id_format"
+                        href="#space_hulk_game.schemas.narrative_map.DecisionPoint.validate_id_format"
+                        >validate_id_format</a
+                      ></code
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <h4>
+                  <code
+                    ><a
+                      title="space_hulk_game.schemas.narrative_map.NarrativeMap"
+                      href="#space_hulk_game.schemas.narrative_map.NarrativeMap"
+                      >NarrativeMap</a
+                    ></code
+                  >
+                </h4>
+                <ul class="">
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.narrative_map.NarrativeMap.character_arcs"
+                        href="#space_hulk_game.schemas.narrative_map.NarrativeMap.character_arcs"
+                        >character_arcs</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.narrative_map.NarrativeMap.model_config"
+                        href="#space_hulk_game.schemas.narrative_map.NarrativeMap.model_config"
+                        >model_config</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.narrative_map.NarrativeMap.scenes"
+                        href="#space_hulk_game.schemas.narrative_map.NarrativeMap.scenes"
+                        >scenes</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.narrative_map.NarrativeMap.start_scene"
+                        href="#space_hulk_game.schemas.narrative_map.NarrativeMap.start_scene"
+                        >start_scene</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.narrative_map.NarrativeMap.validate_scene_ids"
+                        href="#space_hulk_game.schemas.narrative_map.NarrativeMap.validate_scene_ids"
+                        >validate_scene_ids</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.narrative_map.NarrativeMap.validate_start_scene_exists"
+                        href="#space_hulk_game.schemas.narrative_map.NarrativeMap.validate_start_scene_exists"
+                        >validate_start_scene_exists</a
+                      ></code
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <h4>
+                  <code
+                    ><a
+                      title="space_hulk_game.schemas.narrative_map.Scene"
+                      href="#space_hulk_game.schemas.narrative_map.Scene"
+                      >Scene</a
+                    ></code
+                  >
+                </h4>
+                <ul class="two-column">
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.narrative_map.Scene.character_moments"
+                        href="#space_hulk_game.schemas.narrative_map.Scene.character_moments"
+                        >character_moments</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.narrative_map.Scene.connections"
+                        href="#space_hulk_game.schemas.narrative_map.Scene.connections"
+                        >connections</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.narrative_map.Scene.decision_points"
+                        href="#space_hulk_game.schemas.narrative_map.Scene.decision_points"
+                        >decision_points</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.narrative_map.Scene.description"
+                        href="#space_hulk_game.schemas.narrative_map.Scene.description"
+                        >description</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.narrative_map.Scene.model_config"
+                        href="#space_hulk_game.schemas.narrative_map.Scene.model_config"
+                        >model_config</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.narrative_map.Scene.name"
+                        href="#space_hulk_game.schemas.narrative_map.Scene.name"
+                        >name</a
+                      ></code
+                    >
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </main>
+    <footer id="footer">
+      <p>
+        Generated by
+        <a
+          href="https://pdoc3.github.io/pdoc"
+          title="pdoc: Python API documentation generator"
+          ><cite>pdoc</cite> 0.11.6</a
+        >.
+      </p>
+    </footer>
+  </body>
 </html>

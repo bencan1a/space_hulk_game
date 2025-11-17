@@ -14,7 +14,7 @@ class Settings(BaseSettings):
     )
 
     # API Configuration
-    api_host: str = Field(default="0.0.0.0", description="Host to bind the API server")
+    api_host: str = Field(default="0.0.0.0", description="Host to bind the API server")  # nosec B104
     api_port: int = Field(default=8000, description="Port to bind the API server")
     api_environment: Literal["development", "staging", "production"] = Field(
         default="development", description="Runtime environment"

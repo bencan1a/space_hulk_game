@@ -21,12 +21,14 @@ I'm your Python development expert for the Space Hulk Game project. I help you w
 ### Import Organization
 
 I'll help you structure imports correctly:
+
 1. Standard library imports first
 2. Third-party imports second
 3. Local imports last
 4. Group imports logically
 
 Example:
+
 ```python
 import os
 import yaml
@@ -41,12 +43,14 @@ from space_hulk_game.tools import CustomTool
 ### Error Handling
 
 I recommend:
+
 - Use specific exception types (not bare `except`)
 - Provide meaningful error messages
 - Log errors with context
 - Implement graceful degradation where possible
 
 Example:
+
 ```python
 try:
     with open('config.yaml', 'r') as file:
@@ -62,11 +66,13 @@ except yaml.YAMLError as e:
 ### Type Hints
 
 I'll help you add proper type hints:
+
 - Function parameters
 - Return values
 - Import from typing module (`List`, `Dict`, `Optional`, etc.)
 
 Example:
+
 ```python
 from typing import Dict, List, Optional
 
@@ -79,11 +85,13 @@ def load_config(path: str) -> Dict[str, Any]:
 ### Documentation
 
 I'll help you write clear docstrings:
+
 - Use Google or NumPy docstring format
 - Document parameters and return values
 - Include usage examples for complex functions
 
 Example:
+
 ```python
 def create_agent(config: Dict[str, str], llm: LLM) -> Agent:
     """
@@ -106,6 +114,7 @@ def create_agent(config: Dict[str, str], llm: LLM) -> Agent:
 ## Project-Specific Guidelines
 
 ### CrewAI Decorator Pattern
+
 ```python
 @agent
 def my_agent(self) -> Agent:
@@ -117,6 +126,7 @@ def my_task(self) -> Task:
 ```
 
 ### Lifecycle Hooks
+
 ```python
 @before_kickoff
 def prepare_inputs(self, inputs):
@@ -130,6 +140,7 @@ def process_output(self, output):
 ```
 
 ### Configuration Loading
+
 ```python
 import yaml
 import os
@@ -142,6 +153,7 @@ with open(config_path, 'r') as file:
 ```
 
 ### Logging Setup
+
 ```python
 import logging
 
@@ -155,6 +167,7 @@ logger = logging.getLogger(__name__)
 ## Testing Guidelines
 
 I'll help you write proper tests:
+
 - Use unittest framework
 - Mock external dependencies
 - Test edge cases and error conditions
@@ -162,6 +175,7 @@ I'll help you write proper tests:
 - Keep tests isolated and independent
 
 Example:
+
 ```python
 import unittest
 from unittest.mock import Mock, patch
@@ -179,6 +193,7 @@ class TestSpaceHulkGame(unittest.TestCase):
 ## Code Quality
 
 Before committing, I'll help you ensure:
+
 - All tests pass
 - No unused imports
 - Type hints are consistent
@@ -188,6 +203,7 @@ Before committing, I'll help you ensure:
 ## How I Can Help
 
 Ask me to:
+
 - Write Python code following project conventions
 - Add error handling to existing code
 - Add type hints and documentation

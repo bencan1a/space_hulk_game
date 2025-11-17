@@ -181,7 +181,7 @@ CreateNarrativeMap:
     # Removed EvaluateNarrativeFoundation from context to avoid "context dependency on a future task" error
   # Restored for Chunk 0.2
   dependencies:
-    - "EvaluateNarrativeFoundation"  # Execution dependency to maintain correct task order
+    - "EvaluateNarrativeFoundation" # Execution dependency to maintain correct task order
   output_file: "game-config/narrative_map.json"
 
 # Restored for Chunk 0.2 testing (all 11 tasks)
@@ -274,7 +274,7 @@ DesignArtifactsAndPuzzles:
     # Removed EvaluateNarrativeStructure from context to avoid "context dependency on a future task" error
   # Restored for Chunk 0.2
   dependencies:
-    - "EvaluateNarrativeStructure"  # Execution dependency to maintain correct task order
+    - "EvaluateNarrativeStructure" # Execution dependency to maintain correct task order
   output_file: "game-config/puzzle_design.json"
 
 # Restored for Chunk 0.2 testing (all 11 tasks)
@@ -346,7 +346,7 @@ WriteSceneDescriptionsAndDialogue:
     # Removed EvaluateNarrativeStructure from context to avoid "context dependency on a future task" error
   # Restored for Chunk 0.2
   dependencies:
-    - "EvaluateNarrativeFoundation"  # Execution dependency to maintain correct task order
+    - "EvaluateNarrativeFoundation" # Execution dependency to maintain correct task order
   output_file: "game-config/scene_texts.json"
 
 # Restored for Chunk 0.2 testing (all 11 tasks)
@@ -439,7 +439,7 @@ CreateGameMechanicsPRD:
     # Removed EvaluateNarrativeStructure from context to avoid "context dependency on a future task" error
   # Restored for Chunk 0.2
   dependencies:
-    - "EvaluateNarrativeStructure"  # Execution dependency to maintain correct task order
+    - "EvaluateNarrativeStructure" # Execution dependency to maintain correct task order
   output_file: "game-config/prd_document.json"
 
 # Restored for Chunk 0.2 testing (all 11 tasks)

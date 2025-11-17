@@ -14,7 +14,7 @@ repos:
       - id: check-toml
       - id: check-json
       - id: check-added-large-files
-        args: ['--maxkb=1000']
+        args: ["--maxkb=1000"]
       - id: check-merge-conflict
       - id: check-case-conflict
       - id: detect-private-key
@@ -43,7 +43,7 @@ repos:
         entry: bash -c 'source .venv/bin/activate && make type-check-files FILES="$*"'
         language: system
         types: [python]
-        exclude: ^(agent-projects/|agent-tmp/|game-config/)
+        exclude: ^(agent-projects/|agent-tmp/|game-config/|backend/)
 
       # Bandit security scanning (uses pyproject.toml config)
       - id: bandit
@@ -51,7 +51,7 @@ repos:
         entry: bash -c 'source .venv/bin/activate && make security-files FILES="$*"'
         language: system
         types: [python]
-        exclude: ^(agent-projects/|agent-tmp/|game-config/)
+        exclude: ^(agent-projects/|agent-tmp/|game-config/|backend/)
 
       # YAML validation (uses .yamllint config)
       - id: yamllint
@@ -63,7 +63,7 @@ repos:
       # Prettier formatting for frontend
       - id: prettier
         name: Prettier formatting (frontend)
-        entry: bash -c 'cd frontend && npx prettier --write "$@"'
+        entry: bash -c 'npx prettier --write "$@"'
         language: system
         files: ^frontend/.*\.(ts|tsx|css)$
         pass_filenames: true

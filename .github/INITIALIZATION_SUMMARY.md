@@ -14,43 +14,45 @@ This project has been successfully initialized with GitHub Copilot agent configu
 
 Six specialized agent configurations were created, each focusing on a specific aspect of the project:
 
-| Agent | File | Purpose | Lines of Config |
-|-------|------|---------|-----------------|
-| Main Project Assistant | `space-hulk-game-assistant.md` | General project guidance and navigation | ~120 |
-| Python Development Specialist | `python-developer.md` | Python best practices and patterns | ~200 |
-| CrewAI Framework Expert | `crewai-specialist.md` | CrewAI agents, tasks, and workflows | ~300 |
-| Game Mechanics Specialist | `game-mechanics-specialist.md` | Game design and narrative systems | ~310 |
-| YAML Configuration Expert | `yaml-expert.md` | YAML syntax and structure | ~300 |
-| Testing Specialist | `testing-specialist.md` | Testing patterns and coverage | ~520 |
+| Agent                         | File                           | Purpose                                 | Lines of Config |
+| ----------------------------- | ------------------------------ | --------------------------------------- | --------------- |
+| Main Project Assistant        | `space-hulk-game-assistant.md` | General project guidance and navigation | ~120            |
+| Python Development Specialist | `python-developer.md`          | Python best practices and patterns      | ~200            |
+| CrewAI Framework Expert       | `crewai-specialist.md`         | CrewAI agents, tasks, and workflows     | ~300            |
+| Game Mechanics Specialist     | `game-mechanics-specialist.md` | Game design and narrative systems       | ~310            |
+| YAML Configuration Expert     | `yaml-expert.md`               | YAML syntax and structure               | ~300            |
+| Testing Specialist            | `testing-specialist.md`        | Testing patterns and coverage           | ~520            |
 
 **Total**: ~1,750 lines of specialized AI assistant configuration
 
 ### 2. Documentation Files
 
-| File | Purpose | Size |
-|------|---------|------|
-| `CONTRIBUTING.md` | Development guidelines and workflow | 340 lines |
-| `AGENTS.md` | Detailed agent documentation | 400 lines |
-| `.github/COPILOT_QUICKSTART.md` | Quick reference guide | 210 lines |
+| File                            | Purpose                             | Size      |
+| ------------------------------- | ----------------------------------- | --------- |
+| `CONTRIBUTING.md`               | Development guidelines and workflow | 340 lines |
+| `AGENTS.md`                     | Detailed agent documentation        | 400 lines |
+| `.github/COPILOT_QUICKSTART.md` | Quick reference guide               | 210 lines |
 
 **Total**: 950 lines of documentation
 
 ### 3. Updated Files
 
-| File | Changes |
-|------|---------|
-| `README.md` | Added Copilot agents section, project overview, testing instructions |
-| `.gitignore` | Expanded with comprehensive Python project exclusions |
+| File         | Changes                                                              |
+| ------------ | -------------------------------------------------------------------- |
+| `README.md`  | Added Copilot agents section, project overview, testing instructions |
+| `.gitignore` | Expanded with comprehensive Python project exclusions                |
 
 ## Agent Capabilities
 
 ### Main Project Assistant
+
 - Understanding project structure
 - Navigating codebase
 - Technology stack guidance
 - Common development tasks
 
 ### Python Development Specialist
+
 - Code style and conventions (PEP 8)
 - Type hints and annotations
 - Error handling patterns
@@ -58,6 +60,7 @@ Six specialized agent configurations were created, each focusing on a specific a
 - Logging best practices
 
 ### CrewAI Framework Expert
+
 - Agent configuration and creation
 - Task definition and orchestration
 - Workflow management (sequential, hierarchical)
@@ -66,6 +69,7 @@ Six specialized agent configurations were created, each focusing on a specific a
 - Lifecycle hooks implementation
 
 ### Game Mechanics Specialist
+
 - Text adventure game patterns
 - Branching narrative design
 - Puzzle and combat mechanics
@@ -74,6 +78,7 @@ Six specialized agent configurations were created, each focusing on a specific a
 - Game balance and difficulty
 
 ### YAML Configuration Expert
+
 - YAML syntax and formatting
 - Configuration file structure
 - Multi-line text handling
@@ -82,6 +87,7 @@ Six specialized agent configurations were created, each focusing on a specific a
 - Project-specific YAML patterns
 
 ### Testing Specialist
+
 - Python unittest framework
 - Test organization and naming
 - Mocking patterns (unittest.mock)

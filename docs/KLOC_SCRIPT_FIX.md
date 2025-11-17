@@ -66,7 +66,7 @@ Added after key output points:
 
 ```yaml
 - name: Run KLOC report script
-  timeout-minutes: 360  # 6 hours max (GitHub Actions default)
+  timeout-minutes: 360 # 6 hours max (GitHub Actions default)
 ```
 
 Makes timeout explicit and documents expected maximum runtime.

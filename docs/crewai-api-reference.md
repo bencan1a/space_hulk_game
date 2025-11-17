@@ -596,3 +596,4 @@ crew = Crew(
     tasks=[complex_research_task],
     planning=research_planning
 )
+```

@@ -38,6 +38,7 @@ Each task follows this structure:
 **Outputs**: Deliverable files/features
 
 **Acceptance Criteria**:
+
 - [ ] Specific, testable requirement
 - [ ] Code follows project standards (ruff, mypy, docstrings)
 - [ ] Tests written with adequate coverage
@@ -966,15 +967,15 @@ Label: `technical-debt`
 
 ## Effort Summary
 
-| Phase | Tasks | Days |
-|-------|-------|------|
-| 1: Foundation | 7 | 8 |
-| 2: Story Library | 8 | 10.5 |
-| 3: Story Creation | 9 | 17 |
-| 4: Iteration | 5 | 9 |
-| 5: Gameplay | 7 | 12 |
-| 6: Polish | 6 | 11 |
-| **Total** | **42** | **67.5** |
+| Phase             | Tasks  | Days     |
+| ----------------- | ------ | -------- |
+| 1: Foundation     | 7      | 8        |
+| 2: Story Library  | 8      | 10.5     |
+| 3: Story Creation | 9      | 17       |
+| 4: Iteration      | 5      | 9        |
+| 5: Gameplay       | 7      | 12       |
+| 6: Polish         | 6      | 11       |
+| **Total**         | **42** | **67.5** |
 
 At 5 days/week, 67.5 days ≈ 13.5 weeks, rounded to 16 weeks for buffer.
 
@@ -990,4 +991,4 @@ At 5 days/week, 67.5 days ≈ 13.5 weeks, rounded to 16 weeks for buffer.
 
 ---
 
-*End of Implementation Plan*
+_End of Implementation Plan_

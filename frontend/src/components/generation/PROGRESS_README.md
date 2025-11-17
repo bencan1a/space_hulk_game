@@ -11,6 +11,7 @@ A React component that displays real-time generation progress by connecting to t
 **Location:** `GenerationProgress.tsx`
 
 **Features:**
+
 - Real-time progress bar (0-100%)
 - Current step/status display
 - Agent status list with visual indicators (○ → ◐ → ✓)
@@ -21,16 +22,18 @@ A React component that displays real-time generation progress by connecting to t
 - Full accessibility support (ARIA labels)
 
 **Props:**
+
 ```typescript
 interface GenerationProgressProps {
-  sessionId: string           // Required: Session ID to track
-  wsBaseUrl?: string         // Optional: WebSocket base URL (default: from env)
-  onComplete?: () => void    // Optional: Callback when generation completes
-  onError?: (error: string) => void  // Optional: Callback on error
+  sessionId: string // Required: Session ID to track
+  wsBaseUrl?: string // Optional: WebSocket base URL (default: from env)
+  onComplete?: () => void // Optional: Callback when generation completes
+  onError?: (error: string) => void // Optional: Callback on error
 }
 ```
 
 **Example Usage:**
+
 ```tsx
 import { GenerationProgress } from '@/components/generation/GenerationProgress'
 import { useNavigate } from 'react-router-dom'
@@ -38,7 +41,7 @@ import { useNavigate } from 'react-router-dom'
 function MyPage() {
   const navigate = useNavigate()
   const sessionId = 'session-123'
-  
+
   return (
     <GenerationProgress
       sessionId={sessionId}
@@ -54,6 +57,7 @@ function MyPage() {
 An internal component that displays the status of each agent/task in the generation process.
 
 **Features:**
+
 - Visual status indicators:
   - `○` - Pending (gray)
   - `◐` - In Progress (blue, animated)
@@ -71,6 +75,7 @@ A custom React hook for managing WebSocket connections with automatic reconnecti
 **Location:** `../../hooks/useWebSocket.ts`
 
 **Features:**
+
 - Auto-connect on mount (configurable)
 - Automatic reconnection with exponential backoff
 - Heartbeat message handling
@@ -80,13 +85,14 @@ A custom React hook for managing WebSocket connections with automatic reconnecti
 - TypeScript type safety
 
 **Options:**
+
 ```typescript
 interface UseWebSocketOptions {
-  autoConnect?: boolean              // Default: true
-  autoReconnect?: boolean           // Default: true
-  maxReconnectAttempts?: number     // Default: 5
-  reconnectDelay?: number           // Default: 1000ms
-  maxReconnectDelay?: number        // Default: 30000ms
+  autoConnect?: boolean // Default: true
+  autoReconnect?: boolean // Default: true
+  maxReconnectAttempts?: number // Default: 5
+  reconnectDelay?: number // Default: 1000ms
+  maxReconnectDelay?: number // Default: 30000ms
   onMessage?: (message: WebSocketMessage) => void
   onOpen?: () => void
   onClose?: () => void
@@ -95,6 +101,7 @@ interface UseWebSocketOptions {
 ```
 
 **Return Value:**
+
 ```typescript
 interface UseWebSocketReturn {
   lastMessage: WebSocketMessage | null
@@ -108,18 +115,16 @@ interface UseWebSocketReturn {
 ```
 
 **Example Usage:**
+
 ```tsx
 import { useWebSocket } from '@/hooks/useWebSocket'
 
 function MyComponent() {
-  const { lastMessage, isConnected } = useWebSocket(
-    'ws://localhost:8000/ws/progress/session-123',
-    {
-      onMessage: (msg) => console.log('Received:', msg),
-      onOpen: () => console.log('Connected'),
-    }
-  )
-  
+  const { lastMessage, isConnected } = useWebSocket('ws://localhost:8000/ws/progress/session-123', {
+    onMessage: (msg) => console.log('Received:', msg),
+    onOpen: () => console.log('Connected'),
+  })
+
   return (
     <div>
       Status: {isConnected ? 'Connected' : 'Disconnected'}
@@ -136,8 +141,14 @@ Messages from the backend follow this TypeScript interface:
 ```typescript
 interface WebSocketMessage {
   type: 'connection' | 'heartbeat' | 'progress'
-  status?: 'connected' | 'started' | 'task_started' | 'task_completed' | 
-           'completed' | 'error' | 'timeout'
+  status?:
+    | 'connected'
+    | 'started'
+    | 'task_started'
+    | 'task_completed'
+    | 'completed'
+    | 'error'
+    | 'timeout'
   session_id: string
   current_step?: string
   progress_percent?: number
@@ -151,6 +162,7 @@ interface WebSocketMessage {
 ### Message Types
 
 **Connection Message:**
+
 ```json
 {
   "type": "connection",
@@ -160,6 +172,7 @@ interface WebSocketMessage {
 ```
 
 **Heartbeat Message:**
+
 ```json
 {
   "type": "heartbeat",
@@ -168,6 +181,7 @@ interface WebSocketMessage {
 ```
 
 **Progress Message:**
+
 ```json
 {
   "type": "progress",
@@ -188,6 +202,7 @@ interface WebSocketMessage {
 **Location:** `../../tests/components/generation/GenerationProgress.test.tsx`
 
 **Coverage:**
+
 - Initial state rendering
 - Connection status display
 - WebSocket URL construction (http/https → ws/wss)
@@ -198,6 +213,7 @@ interface WebSocketMessage {
 - Accessibility (ARIA labels)
 
 **Run Tests:**
+
 ```bash
 npm test GenerationProgress
 ```
@@ -207,6 +223,7 @@ npm test GenerationProgress
 **Location:** `../../tests/hooks/useWebSocket.test.ts`
 
 **Coverage:**
+
 - Initialization states
 - Connection/disconnection
 - Callback options
@@ -214,6 +231,7 @@ npm test GenerationProgress
 - Error handling
 
 **Run Tests:**
+
 ```bash
 npm test useWebSocket
 ```
@@ -223,6 +241,7 @@ npm test useWebSocket
 **Location:** `GenerationProgress.module.css`
 
 **Features:**
+
 - Modern, clean design
 - Responsive layout (mobile-friendly)
 - Smooth animations and transitions
@@ -249,6 +268,7 @@ VITE_API_URL=http://localhost:8000
 ```
 
 The component automatically converts:
+
 - `http://` → `ws://`
 - `https://` → `wss://`
 
@@ -267,7 +287,7 @@ See `GenerationProgressExamples.tsx` for complete usage examples:
 The component follows WCAG 2.1 Level AA guidelines:
 
 - Proper ARIA labels on interactive elements
-- Progress bar with `role="progressbar"` and aria-value* attributes
+- Progress bar with `role="progressbar"` and aria-value\* attributes
 - Semantic HTML structure
 - Keyboard navigation support
 - Sufficient color contrast

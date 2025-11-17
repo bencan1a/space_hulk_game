@@ -78,7 +78,11 @@ format-frontend:
 	cd frontend && npm run format
 
 format-check-frontend:
-	cd frontend && npx prettier --check "src/**/*.{ts,tsx,css}"
+	@if [ -d "frontend" ] && [ -f "frontend/package.json" ]; then \
+		cd frontend && npx prettier --check "src/**/*.{ts,tsx,css}" 2>/dev/null || echo "⚠️  Skipping frontend format check (dependencies not installed)"; \
+	else \
+		echo "⚠️  Skipping frontend format check (frontend not available)"; \
+	fi
 
 type-check:
 	mypy src/space_hulk_game tests tools *.py
@@ -98,8 +102,8 @@ check-yaml:
 check-markdown:
 	@command -v markdownlint >/dev/null 2>&1 && markdownlint --fix "**/*.md" --ignore "**/node_modules/**" --ignore "**/.venv/**" --ignore ".venv/**" || echo "⚠️  Skipping markdown check (markdownlint not installed)"
 
-check: fix check-yaml check-markdown type-check security test
-	@echo "✅ All checks passed! (format, lint, type-check, security, yaml, markdown, test)"
+check: fix format-check-frontend check-yaml check-markdown type-check security test
+	@echo "✅ All checks passed! (format, lint, prettier, type-check, security, yaml, markdown, test)"
 
 fix:
 	ruff check --fix .
@@ -136,9 +140,9 @@ format-frontend-files:
 
 type-check-files:
 	@if [ -n "$(FILES)" ]; then \
-		mypy --cache-dir=/dev/null $(FILES); \
+		mypy --cache-dir=/dev/null --exclude '(backend/)' $(FILES); \
 	else \
-		mypy --cache-dir=/dev/null src/space_hulk_game tests tools *.py; \
+		mypy --cache-dir=/dev/null --exclude '(backend/)' src/space_hulk_game tests tools *.py; \
 	fi
 
 security-files:

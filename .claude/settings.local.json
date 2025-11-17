@@ -24,7 +24,11 @@
       "Bash(python tools/build_context.py:*)",
       "Bash(git add:*)",
       "Bash(gh label create:*)",
-      "Bash(gh issue create:*)"
+      "Bash(gh issue create:*)",
+      "Bash(make check:*)",
+      "Bash(npx prettier --write .)",
+      "Bash(npx prettier --check .)",
+      "Bash(make type-check-files:*)"
     ],
     "deny": [],
     "ask": []

@@ -8,16 +8,16 @@
 
 ## Quick Status
 
-| Phase | Status | Completion |
-|-------|--------|------------|
-| Phase 0: Validation | ✅ Complete | 100% (all chunks validated, ready for Phase 4) |
-| Phase 1: Syntax Fixes | ✅ Complete | 100% |
-| Phase 2: Hierarchical Structure | ✅ Complete | 100% |
-| Phase 3: Quality System | ✅ Complete | 100% (All 5 chunks complete) |
-| Phase 4: Game Engine | ✅ Complete | 100% (All 6 chunks complete - CRITICAL PATH) |
-| Phase 5: Output Validation | 🟡 In Progress | 75% (Chunks 5.1-5.3 complete) |
-| Phase 6: Enhanced Memory | ⚪ Not Started | 0% |
-| Phase 7: Production Polish | ⚪ Not Started | 0% |
+| Phase                           | Status         | Completion                                     |
+| ------------------------------- | -------------- | ---------------------------------------------- |
+| Phase 0: Validation             | ✅ Complete    | 100% (all chunks validated, ready for Phase 4) |
+| Phase 1: Syntax Fixes           | ✅ Complete    | 100%                                           |
+| Phase 2: Hierarchical Structure | ✅ Complete    | 100%                                           |
+| Phase 3: Quality System         | ✅ Complete    | 100% (All 5 chunks complete)                   |
+| Phase 4: Game Engine            | ✅ Complete    | 100% (All 6 chunks complete - CRITICAL PATH)   |
+| Phase 5: Output Validation      | 🟡 In Progress | 75% (Chunks 5.1-5.3 complete)                  |
+| Phase 6: Enhanced Memory        | ⚪ Not Started | 0%                                             |
+| Phase 7: Production Polish      | ⚪ Not Started | 0%                                             |
 
 **Overall Progress:** █████████████████████████████████████████████████████░ 90%
 
@@ -101,7 +101,7 @@
   - Minimal corrections that preserve original intent
   - Transparent logging of all changes made
   - Sensible defaults that align with schema requirements
-  - Helper methods for common fixes (_fix_id_format,_extend_short_description)
+  - Helper methods for common fixes (\_fix_id_format,\_extend_short_description)
 - ✅ Production-ready deliverables:
   - Complete API with 5 correction methods
   - Comprehensive documentation (276 lines)
@@ -454,7 +454,7 @@
   - survival_escape.yaml: Resource management and time pressure template (14.1KB)
   - combat_focused.yaml: Tactical combat and squad management template (16.4KB)
 - ✅ Implemented template loading in crew.py (80 lines of integration code)
-  - _load_planning_template() helper method with keyword detection
+  - \_load_planning_template() helper method with keyword detection
   - Updated prepare_inputs() to detect and load templates automatically
   - Keyword-based template detection from user prompts
 - ✅ Created comprehensive documentation: docs/PLANNING_TEMPLATES.md (13.5KB)
@@ -712,7 +712,7 @@ Ready to proceed to Phase 4 (Game Engine).
     - Combat framework, enemy design, squad mechanics
     - Mission templates and imperial tactics doctrine
   - [x] Template loading integration in crew.py (80 lines)
-    - _load_planning_template() helper method
+    - \_load_planning_template() helper method
     - Keyword-based template detection (11 keywords per template)
     - Automatic loading when keywords detected in prompt
     - Template context added to agent inputs
@@ -984,7 +984,7 @@ Ready to proceed to Phase 4 (Game Engine).
   - OutputCorrector class with comprehensive auto-correction capabilities
   - CorrectionResult dataclass for structured results
   - 5 correction methods for all output types (plot, narrative map, puzzles, scenes, mechanics)
-  - Helper methods: _fix_id_format(),_extend_short_description(), _strip_markdown_fences()
+  - Helper methods: \_fix_id_format(),\_extend_short_description(), \_strip_markdown_fences()
   - Auto-fixes missing required fields with sensible defaults
   - Fixes invalid ID formats (converts to lowercase, underscores, alphanumeric)
   - Extends short descriptions to minimum length requirements
@@ -1276,10 +1276,10 @@ Ready to proceed to Phase 4 (Game Engine).
   - load_yaml() helper with markdown fence stripping
   - merge_into_game_data() combining all content
   - Format converters:
-    - _load_narrative_map() → Dict[str, Scene]
-    - _load_puzzles() → Items, NPCs, Events
-    - _merge_scene_texts() → Enhanced scene descriptions
-    - _load_mechanics() → Game rules and systems
+    - \_load_narrative_map() → Dict[str, Scene]
+    - \_load_puzzles() → Items, NPCs, Events
+    - \_merge_scene_texts() → Enhanced scene descriptions
+    - \_load_mechanics() → Game rules and systems
   - Handles markdown-wrapped YAML (common AI output issue)
   - Graceful error handling with strict/lenient modes
   - Default values for missing fields

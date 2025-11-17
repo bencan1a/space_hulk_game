@@ -53,7 +53,7 @@ LLM Output → OutputSanitizer Pipeline → CrewAI Task._save_file() → Write t
 - [ ] OutputSanitizer class exists
 - [ ] sanitize(raw_output, output_type) method implemented
 - [ ] Calls yaml_processor.strip_markdown_yaml_blocks()
-- [ ] Calls corrector.correct_{type}() methods
+- [ ] Calls corrector.correct\_{type}() methods
 - [ ] Returns string (sanitized YAML)
 - [ ] Logs warnings if sanitization incomplete
 - [ ] Has docstrings and type hints
@@ -80,17 +80,17 @@ LLM Output → OutputSanitizer Pipeline → CrewAI Task._save_file() → Write t
 
 **Acceptance Criteria**:
 
-- [ ] _fix_mixed_quotes() method added
-- [ ] _fix_invalid_list_markers() method added
-- [ ] _fix_unescaped_apostrophes() method added
-- [ ] All 3 methods called in _parse_yaml_safe()
+- [ ] \_fix_mixed_quotes() method added
+- [ ] \_fix_invalid_list_markers() method added
+- [ ] \_fix_unescaped_apostrophes() method added
+- [ ] All 3 methods called in \_parse_yaml_safe()
 - [ ] Each method has docstring with examples
 - [ ] Unit tests added to tests/test_corrector.py
 - [ ] Tests pass with examples from CI failures
 
 ---
 
-### Chunk 3: Monkey-Patch Task._save_file
+### Chunk 3: Monkey-Patch Task.\_save_file
 
 **File**: `src/space_hulk_game/crew.py` (EDIT)
 **Dependencies**: Chunk 1 (needs OutputSanitizer to exist)
@@ -99,11 +99,11 @@ LLM Output → OutputSanitizer Pipeline → CrewAI Task._save_file() → Write t
 **Tasks**:
 
 1. Import OutputSanitizer at top of crew.py
-2. In SpaceHulkGame.**init**(), save original Task._save_file
+2. In SpaceHulkGame.**init**(), save original Task.\_save_file
 3. Create sanitized_save_file() wrapper function
 4. Detect output type from filename (plot_outline → 'plot', etc.)
 5. Call sanitizer.sanitize() if output is string and type detected
-6. Apply monkey-patch: Task._save_file = sanitized_save_file
+6. Apply monkey-patch: Task.\_save_file = sanitized_save_file
 7. Add logging for when sanitization runs
 8. Handle edge cases (non-string outputs, no output_file, etc.)
 
@@ -113,7 +113,7 @@ LLM Output → OutputSanitizer Pipeline → CrewAI Task._save_file() → Write t
 - [ ] Monkey-patch applied in **init**()
 - [ ] Output type detection logic works for all 5 file types
 - [ ] Sanitization only runs for string outputs with output_file
-- [ ] Original _save_file preserved and called after sanitization
+- [ ] Original \_save_file preserved and called after sanitization
 - [ ] Logging shows "Sanitizing {filename} as {type}"
 - [ ] Integration test verifies patch works
 
@@ -165,7 +165,7 @@ LLM Output → OutputSanitizer Pipeline → CrewAI Task._save_file() → Write t
 
 **Wave 2** (After Wave 1 completes):
 
-- Agent 3: Chunk 3 - Monkey-patch Task._save_file (needs Chunk 1)
+- Agent 3: Chunk 3 - Monkey-patch Task.\_save_file (needs Chunk 1)
 
 **Wave 3** (After Wave 2 completes):
 

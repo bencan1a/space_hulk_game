@@ -46,14 +46,14 @@ Memory management is critical for:
 
 ### Specific Benefits for Each Agent
 
-| Agent | Memory Benefit |
-|-------|---------------|
-| **PlotMasterAgent** | Foundation stored for all subsequent agents to reference |
-| **NarrativeArchitectAgent** | Retrieves plot elements, ensures scene consistency |
-| **PuzzleSmithAgent** | Stores artifacts/NPCs as entities, prevents duplicates |
-| **CreativeScribeAgent** | References stored entities for consistent descriptions |
-| **MechanicsGuruAgent** | Retrieves all game elements to define appropriate systems |
-| **NarrativeDirectorAgent** | Accesses complete history for cohesion evaluation |
+| Agent                       | Memory Benefit                                            |
+| --------------------------- | --------------------------------------------------------- |
+| **PlotMasterAgent**         | Foundation stored for all subsequent agents to reference  |
+| **NarrativeArchitectAgent** | Retrieves plot elements, ensures scene consistency        |
+| **PuzzleSmithAgent**        | Stores artifacts/NPCs as entities, prevents duplicates    |
+| **CreativeScribeAgent**     | References stored entities for consistent descriptions    |
+| **MechanicsGuruAgent**      | Retrieves all game elements to define appropriate systems |
+| **NarrativeDirectorAgent**  | Accesses complete history for cohesion evaluation         |
 
 ## Configuration Options
 

@@ -48,6 +48,7 @@ space_hulk_game/
 ## Coding Standards
 
 ### Python Style
+
 - Follow **PEP 8** guidelines
 - Use **type hints** for function parameters and return values
 - Add **docstrings** for classes and functions (Google or NumPy style)
@@ -59,6 +60,7 @@ space_hulk_game/
 **⚠️ CRITICAL: ALWAYS run `make check` AND fix any issues before committing code!**
 
 This is the **required** command before any commit:
+
 ```bash
 make check
 ```
@@ -66,14 +68,17 @@ make check
 If any issues are found, fix them and re-run `make check` until all checks pass.
 
 This runs:
+
 1. **Auto-fix** - Ruff linting and formatting (auto-fixes issues)
-2. **YAML validation** - yamllint
-3. **Markdown linting** - markdownlint (auto-fixes issues)
-4. **Type checking** - MyPy
-5. **Security scanning** - Bandit
-6. **Tests** - unittest
+2. **Prettier** - Frontend code formatting check (TypeScript, CSS)
+3. **YAML validation** - yamllint
+4. **Markdown linting** - markdownlint (auto-fixes issues)
+5. **Type checking** - MyPy
+6. **Security scanning** - Bandit
+7. **Tests** - unittest
 
 **🚨 CRITICAL: Pre-commit Hook Policy**
+
 - Pre-commit hooks will run automatically on `git commit`
 - If hooks fail, **FIX THE ISSUES** - do NOT bypass with `--no-verify`
 - **NEVER use `git commit --no-verify` or `git commit -n`** unless explicitly instructed
@@ -81,9 +86,11 @@ This runs:
 - Bypassing hooks is a violation of code quality standards
 
 **Alternative commands:**
+
 - `make fix` - Auto-fix linting and formatting issues only (without running checks)
 
 **Manual steps (if make is not available):**
+
 ```bash
 # 1. Auto-fix linting issues
 ruff check . --fix
@@ -108,11 +115,13 @@ python -m unittest discover -s tests -v
 **Note:** If `ruff` is not installed, run `pip install ruff` or `uv pip install -e ".[dev]"` first.
 
 ### Import Organization
+
 1. Standard library imports
 2. Third-party imports (CrewAI, yaml, etc.)
 3. Local imports
 
 ### Error Handling
+
 - Use **specific exception types** (not bare `except`)
 - Provide **meaningful error messages**
 - **Log errors** with context
@@ -121,6 +130,7 @@ python -m unittest discover -s tests -v
 ## CrewAI Patterns
 
 ### Agent Definition
+
 ```python
 @agent
 def agent_name(self) -> Agent:
@@ -132,6 +142,7 @@ def agent_name(self) -> Agent:
 ```
 
 ### Task Definition
+
 ```python
 @task
 def task_name(self) -> Task:
@@ -141,12 +152,14 @@ def task_name(self) -> Task:
 ```
 
 ### Lifecycle Hooks
+
 - `@before_kickoff`: Validate inputs before crew starts
 - `@after_kickoff`: Process outputs after crew finishes
 
 ## Configuration Files
 
 ### agents.yaml Structure
+
 ```yaml
 AgentName:
   role: "Agent's role"
@@ -159,6 +172,7 @@ AgentName:
 ```
 
 ### tasks.yaml Structure
+
 ```yaml
 TaskName:
   name: "Human-readable task name"
@@ -220,6 +234,7 @@ crewai install
 ## Custom Agents Available
 
 Six specialized GitHub Copilot agents are available in `.github/agents/`:
+
 1. **space-hulk-game-assistant**: General project guidance
 2. **python-developer**: Python best practices
 3. **crewai-specialist**: CrewAI framework expertise
@@ -232,6 +247,7 @@ Use these agents for specialized assistance by invoking them in supported IDEs o
 ## Warhammer 40K / Space Hulk Themes
 
 When working on game content:
+
 - **Gothic horror**: Dark, oppressive atmosphere
 - **Grimdark**: No good choices, only survival
 - **Body horror**: Mutations, corruption

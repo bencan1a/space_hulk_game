@@ -181,15 +181,15 @@ The web interface transforms the existing command-line game creation system into
 
 ## Technology Stack
 
-| Component | Technology | Rationale |
-|-----------|-----------|-----------|
-| **Frontend** | React 18+ TypeScript | Industry standard, type safety, component reuse |
-| **Backend** | FastAPI (Python) | Modern async framework, auto-docs, Pydantic validation |
-| **Task Queue** | Celery + Redis | Battle-tested async tasks, distributed-ready |
-| **Database** | SQLite (MVP) → PostgreSQL | Zero-config for single user, production-ready migration |
-| **ORM** | SQLAlchemy 2.0 | Database portability, pythonic interface |
-| **WebSocket** | FastAPI native | Built-in support, no extra dependencies |
-| **UI Library** | Material-UI or Chakra | Accessible components, theme support |
+| Component      | Technology                | Rationale                                               |
+| -------------- | ------------------------- | ------------------------------------------------------- |
+| **Frontend**   | React 18+ TypeScript      | Industry standard, type safety, component reuse         |
+| **Backend**    | FastAPI (Python)          | Modern async framework, auto-docs, Pydantic validation  |
+| **Task Queue** | Celery + Redis            | Battle-tested async tasks, distributed-ready            |
+| **Database**   | SQLite (MVP) → PostgreSQL | Zero-config for single user, production-ready migration |
+| **ORM**        | SQLAlchemy 2.0            | Database portability, pythonic interface                |
+| **WebSocket**  | FastAPI native            | Built-in support, no extra dependencies                 |
+| **UI Library** | Material-UI or Chakra     | Accessible components, theme support                    |
 
 ---
 
@@ -439,4 +439,4 @@ This document provides a **high-level overview** accessible to all stakeholders.
 
 ---
 
-*This document consolidates the essential architectural overview. For comprehensive technical specifications, code examples, and detailed design decisions, refer to ARCHITECTURAL_DESIGN.md.*
+_This document consolidates the essential architectural overview. For comprehensive technical specifications, code examples, and detailed design decisions, refer to ARCHITECTURAL_DESIGN.md._

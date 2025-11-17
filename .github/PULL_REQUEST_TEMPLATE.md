@@ -35,6 +35,7 @@ Related to #
 ## Testing
 
 ### Test Coverage
+
 - [ ] New unit tests added for new functionality
 - [ ] Existing unit tests updated as needed
 - [ ] All tests pass locally (`python -m unittest discover -s tests -v`)
@@ -42,6 +43,7 @@ Related to #
 - [ ] Manual testing completed
 
 ### Code Quality Checks
+
 - [ ] Code follows project style guide (PEP 8)
 - [ ] Linting passes (`ruff check .`)
 - [ ] Formatting is correct (`black --check src/`)
@@ -50,14 +52,16 @@ Related to #
 - [ ] Pre-commit hooks pass (if installed)
 
 ### CrewAI Specific (if applicable)
+
 - [ ] Agent/task YAML configurations validated
 - [ ] Method names match YAML keys exactly (case-sensitive)
 - [ ] Crew executes without hanging (sequential mode tested)
-- [ ] Output files generated correctly (game-config/*.yaml)
+- [ ] Output files generated correctly (game-config/\*.yaml)
 - [ ] LLM integration tested (mock or real API)
 - [ ] Configuration templates are properly formatted
 
 ### Test Cases Covered
+
 - [ ] CrewAI agent functionality
 - [ ] Game narrative generation
 - [ ] Puzzle creation and validation
@@ -67,6 +71,7 @@ Related to #
 - [ ] Edge cases
 
 ### Manual Testing
+
 <!-- Describe manual testing performed -->
 
 ```bash
@@ -74,10 +79,10 @@ Related to #
 
 ```
 
-**Test Results:**
--
+## **Test Results:**
 
 ## Documentation
+
 - [ ] Code includes appropriate docstrings (Google/NumPy style)
 - [ ] AGENTS.md updated (if development patterns changed)
 - [ ] CLAUDE.md updated (if technical details changed)

@@ -10,14 +10,14 @@ This is a quick reference guide for using the GitHub Copilot agents in the Space
 
 ## 📋 Agent Quick Reference
 
-| Agent | File | Use When |
-|-------|------|----------|
-| **Project Assistant** | `space-hulk-game-assistant.md` | General project questions, navigation |
-| **Python Specialist** | `python-developer.md` | Writing Python code, imports, error handling |
-| **CrewAI Expert** | `crewai-specialist.md` | Working with agents, tasks, workflows |
-| **Game Mechanics** | `game-mechanics-specialist.md` | Designing game features, narratives, puzzles |
-| **YAML Expert** | `yaml-expert.md` | Editing YAML configs, validation |
-| **Testing Specialist** | `testing-specialist.md` | Writing tests, mocking, coverage |
+| Agent                  | File                           | Use When                                     |
+| ---------------------- | ------------------------------ | -------------------------------------------- |
+| **Project Assistant**  | `space-hulk-game-assistant.md` | General project questions, navigation        |
+| **Python Specialist**  | `python-developer.md`          | Writing Python code, imports, error handling |
+| **CrewAI Expert**      | `crewai-specialist.md`         | Working with agents, tasks, workflows        |
+| **Game Mechanics**     | `game-mechanics-specialist.md` | Designing game features, narratives, puzzles |
+| **YAML Expert**        | `yaml-expert.md`               | Editing YAML configs, validation             |
+| **Testing Specialist** | `testing-specialist.md`        | Writing tests, mocking, coverage             |
 
 ## 💡 Common Use Cases
 
@@ -108,13 +108,13 @@ This is a quick reference guide for using the GitHub Copilot agents in the Space
 
 ## 📚 Key Files to Know
 
-| File | Purpose |
-|------|---------|
-| `src/space_hulk_game/config/agents.yaml` | Agent definitions |
-| `src/space_hulk_game/config/tasks.yaml` | Task definitions |
-| `src/space_hulk_game/crew.py` | Crew implementation |
-| `tests/test_space_hulk_game.py` | Test suite |
-| `memory-bank/crewai-api-reference.md` | CrewAI reference |
+| File                                     | Purpose             |
+| ---------------------------------------- | ------------------- |
+| `src/space_hulk_game/config/agents.yaml` | Agent definitions   |
+| `src/space_hulk_game/config/tasks.yaml`  | Task definitions    |
+| `src/space_hulk_game/crew.py`            | Crew implementation |
+| `tests/test_space_hulk_game.py`          | Test suite          |
+| `memory-bank/crewai-api-reference.md`    | CrewAI reference    |
 
 ## 🛠️ Common Commands
 
@@ -135,18 +135,21 @@ python3 -c "import yaml; yaml.safe_load(open('file.yaml'))"
 ## 🔧 Troubleshooting
 
 ### Suggestions aren't helpful?
+
 1. Be more specific in your comments
 2. Check you're in the right file type
 3. Consult the relevant agent markdown file in `.github/agents/`
 4. Review CONTRIBUTING.md for patterns
 
 ### Agent knowledge seems outdated?
+
 1. Update the agent markdown files in `.github/agents/`
 2. Add new patterns and examples
 3. Validate markdown and YAML frontmatter syntax
 4. Restart your IDE
 
 ### Need more help?
+
 1. Check AGENTS.md for detailed agent documentation
 2. Review CONTRIBUTING.md for development guidelines
 3. Consult memory-bank/ for project context
@@ -170,18 +173,21 @@ python3 -c "import yaml; yaml.safe_load(open('file.yaml'))"
 ## 🎓 Learning Path
 
 ### Beginner
+
 1. Read AGENTS.md to understand available agents
 2. Review CONTRIBUTING.md for project conventions
 3. Explore existing code with Copilot suggestions enabled
 4. Ask basic questions in comments
 
 ### Intermediate
+
 1. Use agents to write new features
 2. Let agents guide test writing
 3. Refactor code with agent suggestions
 4. Contribute to agent configurations
 
 ### Advanced
+
 1. Customize agent configurations for your workflow
 2. Add new patterns to agent knowledge
 3. Create project-specific shortcuts

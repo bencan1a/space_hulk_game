@@ -1071,13 +1071,13 @@ description: "Grimdark gothic sci-fi horror"
 
 # Visual Design
 colors:
-  primary: "#8B0000"        # Dark red
-  secondary: "#C0C0C0"      # Silver
-  background: "#1A1A1A"     # Near black
-  surface: "#2D2D2D"        # Dark gray
-  text: "#E0E0E0"           # Light gray
-  textSecondary: "#A0A0A0"  # Medium gray
-  accent: "#FFD700"         # Gold
+  primary: "#8B0000" # Dark red
+  secondary: "#C0C0C0" # Silver
+  background: "#1A1A1A" # Near black
+  surface: "#2D2D2D" # Dark gray
+  text: "#E0E0E0" # Light gray
+  textSecondary: "#A0A0A0" # Medium gray
+  accent: "#FFD700" # Gold
   error: "#FF4444"
   success: "#44FF44"
   warning: "#FFAA00"
@@ -1129,13 +1129,13 @@ name: "Cyberpunk"
 description: "High-tech dystopian future"
 
 colors:
-  primary: "#FF00FF"        # Neon magenta
-  secondary: "#00FFFF"      # Neon cyan
-  background: "#0A0A0A"     # Very dark
-  surface: "#1A1A2E"        # Dark blue
-  text: "#00FF00"           # Neon green
-  textSecondary: "#00AA00"  # Dimmer green
-  accent: "#FFFF00"         # Neon yellow
+  primary: "#FF00FF" # Neon magenta
+  secondary: "#00FFFF" # Neon cyan
+  background: "#0A0A0A" # Very dark
+  surface: "#1A1A2E" # Dark blue
+  text: "#00FF00" # Neon green
+  textSecondary: "#00AA00" # Dimmer green
+  accent: "#FFFF00" # Neon yellow
   error: "#FF0000"
   success: "#00FF00"
   warning: "#FFAA00"
@@ -2107,13 +2107,13 @@ export const StoryCard: React.FC<StoryCardProps> = ({ story, onClick }) => {
 }
 
 .card:hover {
-  border-color: var(--color-primary, #8B0000);
+  border-color: var(--color-primary, #8b0000);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   transform: translateY(-2px);
 }
 
 .card:focus {
-  outline: 2px solid var(--color-primary, #8B0000);
+  outline: 2px solid var(--color-primary, #8b0000);
   outline-offset: 2px;
 }
 
@@ -2132,7 +2132,7 @@ export const StoryCard: React.FC<StoryCardProps> = ({ story, onClick }) => {
 }
 
 .theme {
-  background: var(--color-primary, #8B0000);
+  background: var(--color-primary, #8b0000);
   color: white;
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
@@ -2317,7 +2317,8 @@ export const StoryGrid: React.FC<StoryGridProps> = ({
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -2344,7 +2345,7 @@ export const StoryGrid: React.FC<StoryGridProps> = ({
 }
 
 .retryButton {
-  background: var(--color-primary, #8B0000);
+  background: var(--color-primary, #8b0000);
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -2355,7 +2356,7 @@ export const StoryGrid: React.FC<StoryGridProps> = ({
 }
 
 .retryButton:hover {
-  background: var(--color-primary-dark, #6B0000);
+  background: var(--color-primary-dark, #6b0000);
 }
 
 /* Empty State */
@@ -2477,7 +2478,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
 
 .input:focus {
   outline: none;
-  border-color: var(--color-primary, #8B0000);
+  border-color: var(--color-primary, #8b0000);
 }
 
 .input::placeholder {
@@ -2504,7 +2505,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
 }
 
 .clearButton:focus {
-  outline: 2px solid var(--color-primary, #8B0000);
+  outline: 2px solid var(--color-primary, #8b0000);
   outline-offset: 2px;
   border-radius: 2px;
 }
@@ -2647,7 +2648,7 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
 }
 
 .clearButton:hover {
-  border-color: var(--color-primary, #8B0000);
+  border-color: var(--color-primary, #8b0000);
   color: var(--color-text, #e0e0e0);
 }
 
@@ -2680,7 +2681,7 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
 
 .select:focus {
   outline: none;
-  border-color: var(--color-primary, #8B0000);
+  border-color: var(--color-primary, #8b0000);
 }
 
 .tagGrid {
@@ -2707,7 +2708,7 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
   cursor: pointer;
   width: 1rem;
   height: 1rem;
-  accent-color: var(--color-primary, #8B0000);
+  accent-color: var(--color-primary, #8b0000);
 }
 
 .tagText {
@@ -2724,10 +2725,10 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
 **Barrel Export (`components/library/index.ts`)**:
 
 ```typescript
-export { StoryCard } from './StoryCard';
-export { StoryGrid } from './StoryGrid';
-export { SearchBar } from './SearchBar';
-export { FilterPanel } from './FilterPanel';
+export { StoryCard } from "./StoryCard";
+export { StoryGrid } from "./StoryGrid";
+export { SearchBar } from "./SearchBar";
+export { FilterPanel } from "./FilterPanel";
 ```
 
 **Library Page (`pages/LibraryPage.tsx`)**:
@@ -2804,7 +2805,7 @@ export const LibraryPage: React.FC = () => {
 }
 
 .createButton {
-  background: var(--color-primary, #8B0000);
+  background: var(--color-primary, #8b0000);
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -2816,7 +2817,7 @@ export const LibraryPage: React.FC = () => {
 }
 
 .createButton:hover {
-  background: var(--color-primary-dark, #6B0000);
+  background: var(--color-primary-dark, #6b0000);
 }
 
 .content {
@@ -3104,16 +3105,17 @@ frontend/
  * Base API client for making HTTP requests.
  */
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 
 export class APIError extends Error {
   constructor(
     public status: number,
     public statusText: string,
-    message: string
+    message: string,
   ) {
     super(message);
-    this.name = 'APIError';
+    this.name = "APIError";
   }
 }
 
@@ -3130,7 +3132,7 @@ export class APIClient {
 
   private async request<T>(
     endpoint: string,
-    options: RequestInit = {}
+    options: RequestInit = {},
   ): Promise<T> {
     const url = `${this.baseURL}${endpoint}`;
 
@@ -3138,7 +3140,7 @@ export class APIClient {
       const response = await fetch(url, {
         ...options,
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           ...options.headers,
         },
       });
@@ -3148,7 +3150,7 @@ export class APIClient {
         throw new APIError(
           response.status,
           response.statusText,
-          errorData.detail || `HTTP ${response.status}: ${response.statusText}`
+          errorData.detail || `HTTP ${response.status}: ${response.statusText}`,
         );
       }
 
@@ -3160,38 +3162,38 @@ export class APIClient {
 
       // Network error or other fetch error
       throw new Error(
-        error instanceof Error ? error.message : 'Network request failed'
+        error instanceof Error ? error.message : "Network request failed",
       );
     }
   }
 
   async get<T>(endpoint: string, params?: Record<string, any>): Promise<T> {
     const queryString = params
-      ? '?' + new URLSearchParams(params).toString()
-      : '';
+      ? "?" + new URLSearchParams(params).toString()
+      : "";
 
     return this.request<T>(`${endpoint}${queryString}`, {
-      method: 'GET',
+      method: "GET",
     });
   }
 
   async post<T>(endpoint: string, data: any): Promise<T> {
     return this.request<T>(endpoint, {
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify(data),
     });
   }
 
   async put<T>(endpoint: string, data: any): Promise<T> {
     return this.request<T>(endpoint, {
-      method: 'PUT',
+      method: "PUT",
       body: JSON.stringify(data),
     });
   }
 
   async delete<T>(endpoint: string): Promise<T> {
     return this.request<T>(endpoint, {
-      method: 'DELETE',
+      method: "DELETE",
     });
   }
 }
@@ -3205,8 +3207,8 @@ export const apiClient = new APIClient();
 /**
  * Story API service methods.
  */
-import { apiClient } from './api';
-import type { Story, StoryListResponse, StoryFilters } from '../types/story';
+import { apiClient } from "./api";
+import type { Story, StoryListResponse, StoryFilters } from "../types/story";
 
 export const storyApi = {
   /**
@@ -3215,7 +3217,7 @@ export const storyApi = {
   async getStories(
     page: number = 1,
     pageSize: number = 20,
-    filters?: StoryFilters
+    filters?: StoryFilters,
   ): Promise<StoryListResponse> {
     const params: Record<string, any> = {
       page,
@@ -3231,10 +3233,10 @@ export const storyApi = {
     }
 
     if (filters?.tags && filters.tags.length > 0) {
-      params.tags = filters.tags.join(',');
+      params.tags = filters.tags.join(",");
     }
 
-    return apiClient.get<StoryListResponse>('/api/v1/stories', params);
+    return apiClient.get<StoryListResponse>("/api/v1/stories", params);
   },
 
   /**
@@ -3381,8 +3383,8 @@ export const useStoryContext = (): StoryContextState => {
 /**
  * Hook for fetching and managing stories list.
  */
-import { useEffect } from 'react';
-import { useStoryContext } from '../contexts/StoryContext';
+import { useEffect } from "react";
+import { useStoryContext } from "../contexts/StoryContext";
 
 export const useStories = () => {
   const context = useStoryContext();
@@ -3402,9 +3404,9 @@ export const useStories = () => {
 /**
  * Hook for fetching a single story by ID.
  */
-import { useState, useEffect } from 'react';
-import { storyApi } from '../services/storyApi';
-import type { Story } from '../types/story';
+import { useState, useEffect } from "react";
+import { storyApi } from "../services/storyApi";
+import type { Story } from "../types/story";
 
 interface UseStoryResult {
   story: Story | null;
@@ -3432,9 +3434,9 @@ export const useStory = (storyId: number | null): UseStoryResult => {
       setStory(data);
     } catch (err) {
       const errorMessage =
-        err instanceof Error ? err.message : 'Failed to fetch story';
+        err instanceof Error ? err.message : "Failed to fetch story";
       setError(errorMessage);
-      console.error('Error fetching story:', err);
+      console.error("Error fetching story:", err);
     } finally {
       setLoading(false);
     }
@@ -3638,23 +3640,23 @@ describe('StoryContext', () => {
 **Hook Tests (`tests/hooks/useStory.test.ts`)**:
 
 ```typescript
-import { renderHook, waitFor } from '@testing-library/react';
-import { useStory } from '../../src/hooks/useStory';
-import { storyApi } from '../../src/services/storyApi';
-import { vi } from 'vitest';
+import { renderHook, waitFor } from "@testing-library/react";
+import { useStory } from "../../src/hooks/useStory";
+import { storyApi } from "../../src/services/storyApi";
+import { vi } from "vitest";
 
-vi.mock('../../src/services/storyApi');
+vi.mock("../../src/services/storyApi");
 
-describe('useStory', () => {
+describe("useStory", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
-  it('fetches story on mount', async () => {
+  it("fetches story on mount", async () => {
     const mockStory = {
       id: 1,
-      title: 'Test Story',
-      description: 'Test description',
+      title: "Test Story",
+      description: "Test description",
     };
 
     vi.mocked(storyApi.getStory).mockResolvedValue(mockStory as any);
@@ -3672,7 +3674,7 @@ describe('useStory', () => {
     expect(result.current.error).toBe(null);
   });
 
-  it('handles null storyId', () => {
+  it("handles null storyId", () => {
     const { result } = renderHook(() => useStory(null));
 
     expect(result.current.story).toBe(null);
@@ -3680,9 +3682,9 @@ describe('useStory', () => {
     expect(storyApi.getStory).not.toHaveBeenCalled();
   });
 
-  it('handles fetch errors', async () => {
+  it("handles fetch errors", async () => {
     vi.mocked(storyApi.getStory).mockRejectedValue(
-      new Error('Story not found')
+      new Error("Story not found"),
     );
 
     const { result } = renderHook(() => useStory(1));
@@ -3692,7 +3694,7 @@ describe('useStory', () => {
     });
 
     expect(result.current.story).toBe(null);
-    expect(result.current.error).toBe('Story not found');
+    expect(result.current.error).toBe("Story not found");
   });
 });
 ```
@@ -3897,8 +3899,8 @@ export interface ThemeMetadata {
 /**
  * Theme API service methods.
  */
-import { apiClient } from './api';
-import type { Theme, ThemeMetadata } from '../types/theme';
+import { apiClient } from "./api";
+import type { Theme, ThemeMetadata } from "../types/theme";
 
 export const themeApi = {
   /**
@@ -3906,7 +3908,7 @@ export const themeApi = {
    */
   async getThemes(): Promise<ThemeMetadata[]> {
     const response = await apiClient.get<{ data: ThemeMetadata[] }>(
-      '/api/v1/themes'
+      "/api/v1/themes",
     );
     return response.data;
   },
@@ -3916,7 +3918,7 @@ export const themeApi = {
    */
   async getTheme(themeId: string): Promise<Theme> {
     const response = await apiClient.get<{ data: Theme }>(
-      `/api/v1/themes/${themeId}`
+      `/api/v1/themes/${themeId}`,
     );
     return response.data;
   },
@@ -3925,7 +3927,8 @@ export const themeApi = {
    * Get theme asset URL.
    */
   getAssetUrl(themeId: string, assetPath: string): string {
-    const baseURL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+    const baseURL =
+      import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
     return `${baseURL}/api/v1/themes/${themeId}/assets/${assetPath}`;
   },
 };
@@ -4192,11 +4195,11 @@ export const ThemeSelector: React.FC = () => {
 }
 
 .trigger:hover {
-  border-color: var(--color-primary, #8B0000);
+  border-color: var(--color-primary, #8b0000);
 }
 
 .trigger:focus {
-  outline: 2px solid var(--color-primary, #8B0000);
+  outline: 2px solid var(--color-primary, #8b0000);
   outline-offset: 2px;
 }
 
@@ -4263,7 +4266,7 @@ export const ThemeSelector: React.FC = () => {
 }
 
 .optionCheck {
-  color: var(--color-primary, #8B0000);
+  color: var(--color-primary, #8b0000);
   font-size: 1.125rem;
   font-weight: bold;
 }
@@ -4279,22 +4282,22 @@ export const ThemeSelector: React.FC = () => {
 
 :root {
   /* Colors - Default (Warhammer 40K) */
-  --color-primary: #8B0000;
-  --color-secondary: #C0C0C0;
-  --color-background: #1A1A1A;
-  --color-surface: #2D2D2D;
-  --color-surface-light: #3D3D3D;
-  --color-text: #E0E0E0;
-  --color-text-secondary: #A0A0A0;
-  --color-accent: #FFD700;
-  --color-error: #FF4444;
-  --color-success: #44FF44;
-  --color-warning: #FFAA00;
+  --color-primary: #8b0000;
+  --color-secondary: #c0c0c0;
+  --color-background: #1a1a1a;
+  --color-surface: #2d2d2d;
+  --color-surface-light: #3d3d3d;
+  --color-text: #e0e0e0;
+  --color-text-secondary: #a0a0a0;
+  --color-accent: #ffd700;
+  --color-error: #ff4444;
+  --color-success: #44ff44;
+  --color-warning: #ffaa00;
   --color-border: #444444;
 
   /* Typography */
-  --font-family: 'Cinzel', 'Georgia', serif;
-  --font-family-mono: 'Courier New', monospace;
+  --font-family: "Cinzel", "Georgia", serif;
+  --font-family-mono: "Courier New", monospace;
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
   --font-size-base: 1rem;

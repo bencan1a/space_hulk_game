@@ -777,24 +777,24 @@ This document defines canonical terminology for the Space Hulk Web Interface pro
 
 ### Quick Reference: When to Use Each Term
 
-| **Use This** | **NOT This** | **Context** |
-|--------------|--------------|-------------|
-| **Story** | Game content, narrative, mission | Referring to created content object in database |
-| **Game** | Story instance, playthrough | Referring to active gameplay |
-| **Generation Job** | Task, story generation, job | Referring to Celery async task |
-| **Generation Session** | Progress session, job session | Referring to database progress tracking |
-| **Game Session** | Play session, active game | Referring to active gameplay technical session |
-| **Iteration** | Refinement, update, revision | Referring to feedback-driven regeneration cycle |
-| **Version** | Iteration result, snapshot | Referring to numbered story snapshot (v1, v2) |
-| **Agent** | AI worker, generator | Referring to CrewAI components |
-| **Template** | Preset, example, starter | Referring to prompt starting points |
-| **Theme** | Style, appearance, genre | Referring to visual/aesthetic configuration |
-| **Prompt** | Input, description | Referring to user's story creation text |
-| **Command** | Input, action | Referring to gameplay input |
-| **Scene** | Location, room, area | Referring to game spatial unit |
-| **Puzzle** | Challenge, objective | Referring to player problem-solving elements |
-| **NPC** | Character | Referring to non-player characters |
-| **Save/Save File** | Checkpoint, progress | Referring to gameplay state persistence |
+| **Use This**           | **NOT This**                     | **Context**                                     |
+| ---------------------- | -------------------------------- | ----------------------------------------------- |
+| **Story**              | Game content, narrative, mission | Referring to created content object in database |
+| **Game**               | Story instance, playthrough      | Referring to active gameplay                    |
+| **Generation Job**     | Task, story generation, job      | Referring to Celery async task                  |
+| **Generation Session** | Progress session, job session    | Referring to database progress tracking         |
+| **Game Session**       | Play session, active game        | Referring to active gameplay technical session  |
+| **Iteration**          | Refinement, update, revision     | Referring to feedback-driven regeneration cycle |
+| **Version**            | Iteration result, snapshot       | Referring to numbered story snapshot (v1, v2)   |
+| **Agent**              | AI worker, generator             | Referring to CrewAI components                  |
+| **Template**           | Preset, example, starter         | Referring to prompt starting points             |
+| **Theme**              | Style, appearance, genre         | Referring to visual/aesthetic configuration     |
+| **Prompt**             | Input, description               | Referring to user's story creation text         |
+| **Command**            | Input, action                    | Referring to gameplay input                     |
+| **Scene**              | Location, room, area             | Referring to game spatial unit                  |
+| **Puzzle**             | Challenge, objective             | Referring to player problem-solving elements    |
+| **NPC**                | Character                        | Referring to non-player characters              |
+| **Save/Save File**     | Checkpoint, progress             | Referring to gameplay state persistence         |
 
 ---
 
@@ -855,15 +855,15 @@ WS     /ws/generation/{generation_job_id}
 
 **Examples of correct terminology in UI:**
 
-| Context | Correct | Incorrect |
-|---------|---------|-----------|
-| Library view | "Browse stories" | "Browse games", "Browse missions" |
-| Creation button | "Create new story" | "Create new game", "Generate story" |
-| Playing | "Play game" | "Play story", "Start session" |
-| Progress | "Generating story..." | "Creating game...", "Running job..." |
-| Feedback | "Iteration 3 of 5" | "Revision 3", "Update 3" |
-| Content | "Story contains 8 scenes" | "Game has 8 rooms", "8 locations" |
-| Saving | "Save game progress" | "Save story", "Create checkpoint" |
+| Context         | Correct                   | Incorrect                            |
+| --------------- | ------------------------- | ------------------------------------ |
+| Library view    | "Browse stories"          | "Browse games", "Browse missions"    |
+| Creation button | "Create new story"        | "Create new game", "Generate story"  |
+| Playing         | "Play game"               | "Play story", "Start session"        |
+| Progress        | "Generating story..."     | "Creating game...", "Running job..." |
+| Feedback        | "Iteration 3 of 5"        | "Revision 3", "Update 3"             |
+| Content         | "Story contains 8 scenes" | "Game has 8 rooms", "8 locations"    |
+| Saving          | "Save game progress"      | "Save story", "Create checkpoint"    |
 
 ---
 
@@ -919,11 +919,11 @@ def create_job(id: str, text: str) -> str:
 
 ### "Session" Context
 
-| **Term** | **When to Use** |
-|----------|-----------------|
+| **Term**               | **When to Use**                                  |
+| ---------------------- | ------------------------------------------------ |
 | **Generation Session** | Database record tracking story creation progress |
-| **Game Session** | Active gameplay instance with session ID |
-| **User Session** | (Future) Authenticated user's login session |
+| **Game Session**       | Active gameplay instance with session ID         |
+| **User Session**       | (Future) Authenticated user's login session      |
 
 **Rule**: Always qualify "session" with its type (generation/game/user)
 
@@ -931,13 +931,13 @@ def create_job(id: str, text: str) -> str:
 
 ### "Game" vs "Story"
 
-| **Aspect** | **Story** | **Game** |
-|------------|-----------|----------|
-| **What it is** | Content object (database record + files) | Active playable instance |
-| **Created by** | AI agents via generation job | User clicking "Play" on a story |
-| **Stored where** | Database + `/stories/{id}/` | In-memory or `/saves/` |
-| **User action** | "Create story", "Iterate story" | "Play game", "Save game" |
-| **Lifecycle** | Permanent (until deleted) | Ephemeral (ends when user quits) |
+| **Aspect**       | **Story**                                | **Game**                         |
+| ---------------- | ---------------------------------------- | -------------------------------- |
+| **What it is**   | Content object (database record + files) | Active playable instance         |
+| **Created by**   | AI agents via generation job             | User clicking "Play" on a story  |
+| **Stored where** | Database + `/stories/{id}/`              | In-memory or `/saves/`           |
+| **User action**  | "Create story", "Iterate story"          | "Play game", "Save game"         |
+| **Lifecycle**    | Permanent (until deleted)                | Ephemeral (ends when user quits) |
 
 **Rule**: "Story" is the noun (content), "Game" is the verb-turned-noun (playing the content)
 
@@ -945,11 +945,11 @@ def create_job(id: str, text: str) -> str:
 
 ### "Job" vs "Task"
 
-| **Term** | **Context** | **What it is** |
-|----------|-------------|----------------|
-| **Generation Job** | Backend/Celery | Async Celery task executing story generation |
-| **Task** | CrewAI | Work assigned to a specific agent within CrewAI |
-| **Job** (generic) | General | Avoid using alone, always say "generation job" |
+| **Term**           | **Context**    | **What it is**                                  |
+| ------------------ | -------------- | ----------------------------------------------- |
+| **Generation Job** | Backend/Celery | Async Celery task executing story generation    |
+| **Task**           | CrewAI         | Work assigned to a specific agent within CrewAI |
+| **Job** (generic)  | General        | Avoid using alone, always say "generation job"  |
 
 **Rule**: Always say "generation job" in backend code, "task" only in CrewAI context
 
@@ -957,17 +957,17 @@ def create_job(id: str, text: str) -> str:
 
 ### "Version" vs "Iteration"
 
-| **Term** | **What it represents** |
-|----------|------------------------|
-| **Iteration** | The *process* of providing feedback and regenerating (verb-like) |
-| **Version** | The *result* of an iteration, a numbered snapshot (noun) |
+| **Term**      | **What it represents**                                           |
+| ------------- | ---------------------------------------------------------------- |
+| **Iteration** | The _process_ of providing feedback and regenerating (verb-like) |
+| **Version**   | The _result_ of an iteration, a numbered snapshot (noun)         |
 
 **Example**: "After iteration 2, we have version 3 (v1 = original, v2 = iteration 1 result, v3 = iteration 2 result)"
 
 **Rule**:
 
-- User *performs* an **iteration**
-- System *creates* a **version**
+- User _performs_ an **iteration**
+- System _creates_ a **version**
 - Versions are numbered (v1, v2, v3...)
 - Iteration count = current_version - 1
 

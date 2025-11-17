@@ -12,6 +12,7 @@ Continuous integration for the FastAPI backend.
 
 **Trigger**: Push or PR to `main`/`develop` (when backend files change)
 **Jobs**:
+
 - Linting (ruff)
 - Type checking (mypy)
 - Tests (pytest) on Python 3.10 & 3.11
@@ -27,6 +28,7 @@ Continuous integration for the React frontend.
 
 **Trigger**: Push or PR to `main`/`develop` (when frontend files change)
 **Jobs**:
+
 - Linting (ESLint)
 - Type checking (TypeScript)
 - Code formatting (Prettier)
@@ -43,6 +45,7 @@ Docker image building and integration testing.
 
 **Trigger**: Push or PR to `main`
 **Jobs**:
+
 - Build backend Docker image
 - Build frontend Docker image
 - Test docker-compose setup
@@ -74,10 +77,12 @@ For detailed usage instructions, troubleshooting, and examples, see the [Workflo
 The workflows in this repository require the following repository secrets and variables:
 
 **Secrets** (Settings → Secrets and variables → Actions → Secrets):
+
 - `OPENROUTER_API_KEY`: OpenRouter API key for LLM access
 - `MEM0_API_KEY`: Mem0 API key for memory management
 
 **Variables** (Settings → Secrets and variables → Actions → Variables):
+
 - `OPENAI_MODEL_NAME`: Model to use (e.g., `openrouter/anthropic/claude-3.5-sonnet`)
   - Optional: defaults to `openrouter/anthropic/claude-3.5-sonnet` if not set
 
@@ -98,6 +103,7 @@ The CI/CD workflows follow GitHub Actions security best practices:
 Test workflows locally before pushing:
 
 **Backend**:
+
 ```bash
 cd backend
 pip install -r requirements.txt -r requirements-dev.txt
@@ -107,6 +113,7 @@ pytest --cov=app
 ```
 
 **Frontend**:
+
 ```bash
 cd frontend
 npm ci
@@ -116,6 +123,7 @@ npm run build
 ```
 
 **Docker**:
+
 ```bash
 docker compose up -d
 curl http://localhost:8000/health

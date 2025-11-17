@@ -39,6 +39,7 @@ mkdir -p agent-tmp
 # Agent Temporary Files
 
 This directory is for temporary outputs from AI agents including:
+
 - Debug scripts and analysis
 - Work-in-progress experiments
 - Intermediate processing outputs
@@ -47,6 +48,7 @@ This directory is for temporary outputs from AI agents including:
 ## Automatic Cleanup
 
 Files in this directory are automatically cleaned up after **7 days** by:
+
 - The `make clean` command
 - The `tools/build_context.py` script
 - The nightly documentation workflow
@@ -54,12 +56,14 @@ Files in this directory are automatically cleaned up after **7 days** by:
 ## Best Practices
 
 **Use this directory for:**
+
 - Quick debugging scripts
 - Exploratory data analysis
 - Temporary experiment code
 - Draft documentation before moving to permanent location
 
 **Do NOT use this directory for:**
+
 - Permanent documentation (use `docs/`)
 - Active project plans (use `agent-projects/`)
 - Production code (use `src/`)
@@ -101,12 +105,12 @@ Each project should be in its own subdirectory with:
 
 agent-projects/
 ├── project-name/
-│   ├── plan.md          # Required: Project plan with YAML frontmatter
-│   ├── notes.md         # Optional: Implementation notes
-│   ├── decisions.md     # Optional: Design decisions
-│   └── ...             # Other project-specific files
+│ ├── plan.md # Required: Project plan with YAML frontmatter
+│ ├── notes.md # Optional: Implementation notes
+│ ├── decisions.md # Optional: Design decisions
+│ └── ... # Other project-specific files
 
-```
+````
 
 ## Plan.md Format
 
@@ -135,7 +139,7 @@ priority: high|medium|low
 
 ## Notes
 [Additional context, decisions, blockers]
-```
+````
 
 ## Lifecycle
 
@@ -150,7 +154,7 @@ priority: high|medium|low
 - Move to `docs/` when complete
 - Use `agent-tmp/` for temporary exploration before creating a formal project
 
-```
+````
 
 **Validation:** Directory exists with README.md
 
@@ -165,11 +169,11 @@ priority: high|medium|low
 **Actions:**
 ```bash
 mkdir -p tools
-```
+````
 
 **Create:** `tools/README.md`
 
-```markdown
+````markdown
 # Utility Tools
 
 This directory contains utility scripts for development, testing, and automation.
@@ -177,12 +181,15 @@ This directory contains utility scripts for development, testing, and automation
 ## Available Tools
 
 ### validate_api.py
+
 Validates LLM API connectivity and configuration.
 
 **Usage:**
+
 ```bash
 python tools/validate_api.py
 ```
+````
 
 ### test_connectivity.py
 
@@ -225,7 +232,7 @@ When adding new utility scripts:
 5. Add to `pyproject.toml` [tool.pyright] include list
 6. Consider adding Makefile shortcut
 
-```
+````
 
 **Validation:** Directory exists with README.md
 
@@ -250,7 +257,7 @@ git mv configure_mem0.py tools/
 
 # Test imports still work
 python -c "import sys; sys.path.insert(0, 'tools'); import validate_api"
-```
+````
 
 **Files to move:**
 
@@ -596,11 +603,11 @@ repos:
       - id: end-of-file-fixer
         exclude: '^game-config/.*\.yaml$'
       - id: check-yaml
-        args: ['--safe']
+        args: ["--safe"]
       - id: check-toml
       - id: check-json
       - id: check-added-large-files
-        args: ['--maxkb=1000']
+        args: ["--maxkb=1000"]
       - id: check-merge-conflict
       - id: check-case-conflict
       - id: detect-private-key
@@ -621,7 +628,7 @@ repos:
         additional_dependencies: [types-pyyaml]
         args: [--ignore-missing-imports]
         # Relax checks for tests and tools
-        exclude: '^(tests|tools)/'
+        exclude: "^(tests|tools)/"
 
   # Bandit security scanning
   - repo: https://github.com/PyCQA/bandit
@@ -630,7 +637,7 @@ repos:
       - id: bandit
         args: [-c, pyproject.toml]
         additional_dependencies: ["bandit[toml]"]
-        exclude: '^tests/'
+        exclude: "^tests/"
 ```
 
 **Testing Steps:**
@@ -645,7 +652,7 @@ repos:
 
 - Hooks install successfully
 - Running on all files completes without errors
-- game-config/*.yaml files excluded from whitespace trimming
+- game-config/\*.yaml files excluded from whitespace trimming
 - Hooks run on test commit
 
 ---
@@ -864,7 +871,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-          cache: 'pip'
+          cache: "pip"
 
       - name: Install uv
         run: pip install uv
@@ -889,7 +896,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-          cache: 'pip'
+          cache: "pip"
 
       - name: Install uv
         run: pip install uv
@@ -911,7 +918,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-          cache: 'pip'
+          cache: "pip"
 
       - name: Install uv
         run: pip install uv
@@ -948,7 +955,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-          cache: 'pip'
+          cache: "pip"
 
       - name: Install uv
         run: pip install uv
@@ -1024,9 +1031,9 @@ jobs:
 **Parallelizable:** Yes (with Task 3.1.1)
 
 **Note:** The PR validation functionality is now part of the main ci.yml workflow which runs on both push and pull_request events.
-  validate:
-    name: Quick PR Checks
-    runs-on: ubuntu-latest
+validate:
+name: Quick PR Checks
+runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
@@ -1072,7 +1079,7 @@ jobs:
           echo "✅ Linting: Passed" >> $GITHUB_STEP_SUMMARY
           echo "✅ Tests: Passed" >> $GITHUB_STEP_SUMMARY
 
-```
+````
 
 **Validation:** Create test PR and verify workflow runs
 
@@ -1165,7 +1172,7 @@ jobs:
               body: `Nightly regression test failed on ${new Date().toISOString().split('T')[0]}\n\nSee workflow run: ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
               labels: ['automated', 'testing', 'bug']
             })
-```
+````
 
 **Validation:** Trigger manually and verify execution
 
@@ -1241,14 +1248,14 @@ on:
   push:
     branches: [main, develop]
     paths:
-      - 'src/**'
-      - 'agent-projects/**'
-      - 'docs/**'
-      - 'tools/build_context.py'
+      - "src/**"
+      - "agent-projects/**"
+      - "docs/**"
+      - "tools/build_context.py"
   schedule:
     # Run at 3 AM UTC daily
-    - cron: '0 3 * * *'
-  workflow_dispatch:  # Allow manual trigger
+    - cron: "0 3 * * *"
+  workflow_dispatch: # Allow manual trigger
 
 jobs:
   update-docs:

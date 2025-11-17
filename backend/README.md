@@ -219,7 +219,7 @@ Start a new story generation task. Returns a session ID for tracking progress.
 ```json
 {
   "prompt": "Create a horror story with body horror and isolation themes in the grimdark universe",
-  "template_id": "horror_exploration"  // optional
+  "template_id": "horror_exploration" // optional
 }
 ```
 

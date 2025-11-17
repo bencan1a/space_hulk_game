@@ -1,76 +1,505 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-<meta name="generator" content="pdoc3 0.11.6">
-<title>space_hulk_game.demo_game API documentation</title>
-<meta name="description" content="Demo Game CLI Interface …">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
-<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
-<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
-<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
-<script>window.addEventListener('DOMContentLoaded', () => {
-hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
-hljs.highlightAll();
-/* Collapse source docstrings */
-setTimeout(() => {
-[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
-.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
-.forEach(el => {
-let d = document.createElement('details');
-d.classList.add('hljs-string');
-d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
-el.replaceWith(d);
-});
-}, 100);
-})</script>
-</head>
-<body>
-<main>
-<article id="content">
-<header>
-<h1 class="title">Module <code>space_hulk_game.demo_game</code></h1>
-</header>
-<section id="section-intro">
-<p>Demo Game CLI Interface</p>
-<p>A polished command-line interface for the Space Hulk text adventure game.
-This module provides:
-- Colorized terminal output
-- ASCII art title screen
-- Save/load menu system
-- Help system
-- Complete game loop integration</p>
-<h2 id="usage">Usage</h2>
-<p>python -m space_hulk_game.demo_game</p>
-<h1 id="or-after-install">or after install:</h1>
-<p>demo_game
-play_game</p>
-<h2 id="example">Example</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.demo_game import DemoGameCLI
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1"
+    />
+    <meta name="generator" content="pdoc3 0.11.6" />
+    <title>space_hulk_game.demo_game API documentation</title>
+    <meta name="description" content="Demo Game CLI Interface …" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css"
+      integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA=="
+      crossorigin
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css"
+      integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA=="
+      crossorigin
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"
+      crossorigin
+    />
+    <style>
+      :root {
+        --highlight-color: #fe9;
+      }
+      .flex {
+        display: flex !important;
+      }
+      body {
+        line-height: 1.5em;
+      }
+      #content {
+        padding: 20px;
+      }
+      #sidebar {
+        padding: 1.5em;
+        overflow: hidden;
+      }
+      #sidebar > *:last-child {
+        margin-bottom: 2cm;
+      }
+      .http-server-breadcrumbs {
+        font-size: 130%;
+        margin: 0 0 15px 0;
+      }
+      #footer {
+        font-size: 0.75em;
+        padding: 5px 30px;
+        border-top: 1px solid #ddd;
+        text-align: right;
+      }
+      #footer p {
+        margin: 0 0 0 1em;
+        display: inline-block;
+      }
+      #footer p:last-child {
+        margin-right: 30px;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5 {
+        font-weight: 300;
+      }
+      h1 {
+        font-size: 2.5em;
+        line-height: 1.1em;
+      }
+      h2 {
+        font-size: 1.75em;
+        margin: 2em 0 0.5em 0;
+      }
+      h3 {
+        font-size: 1.4em;
+        margin: 1.6em 0 0.7em 0;
+      }
+      h4 {
+        margin: 0;
+        font-size: 105%;
+      }
+      h1:target,
+      h2:target,
+      h3:target,
+      h4:target,
+      h5:target,
+      h6:target {
+        background: var(--highlight-color);
+        padding: 0.2em 0;
+      }
+      a {
+        color: #058;
+        text-decoration: none;
+        transition: color 0.2s ease-in-out;
+      }
+      a:visited {
+        color: #503;
+      }
+      a:hover {
+        color: #b62;
+      }
+      .title code {
+        font-weight: bold;
+      }
+      h2[id^="header-"] {
+        margin-top: 2em;
+      }
+      .ident {
+        color: #900;
+        font-weight: bold;
+      }
+      pre code {
+        font-size: 0.8em;
+        line-height: 1.4em;
+        padding: 1em;
+        display: block;
+      }
+      code {
+        background: #f3f3f3;
+        font-family: "DejaVu Sans Mono", monospace;
+        padding: 1px 4px;
+        overflow-wrap: break-word;
+      }
+      h1 code {
+        background: transparent;
+      }
+      pre {
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        margin: 1em 0;
+      }
+      #http-server-module-list {
+        display: flex;
+        flex-flow: column;
+      }
+      #http-server-module-list div {
+        display: flex;
+      }
+      #http-server-module-list dt {
+        min-width: 10%;
+      }
+      #http-server-module-list p {
+        margin-top: 0;
+      }
+      .toc ul,
+      #index {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+      #index code {
+        background: transparent;
+      }
+      #index h3 {
+        border-bottom: 1px solid #ddd;
+      }
+      #index ul {
+        padding: 0;
+      }
+      #index h4 {
+        margin-top: 0.6em;
+        font-weight: bold;
+      }
+      @media (min-width: 200ex) {
+        #index .two-column {
+          column-count: 2;
+        }
+      }
+      @media (min-width: 300ex) {
+        #index .two-column {
+          column-count: 3;
+        }
+      }
+      dl {
+        margin-bottom: 2em;
+      }
+      dl dl:last-child {
+        margin-bottom: 4em;
+      }
+      dd {
+        margin: 0 0 1em 3em;
+      }
+      #header-classes + dl > dd {
+        margin-bottom: 3em;
+      }
+      dd dd {
+        margin-left: 2em;
+      }
+      dd p {
+        margin: 10px 0;
+      }
+      .name {
+        background: #eee;
+        font-size: 0.85em;
+        padding: 5px 10px;
+        display: inline-block;
+        min-width: 40%;
+      }
+      .name:hover {
+        background: #e0e0e0;
+      }
+      dt:target .name {
+        background: var(--highlight-color);
+      }
+      .name > span:first-child {
+        white-space: nowrap;
+      }
+      .name.class > span:nth-child(2) {
+        margin-left: 0.4em;
+      }
+      .inherited {
+        color: #999;
+        border-left: 5px solid #eee;
+        padding-left: 1em;
+      }
+      .inheritance em {
+        font-style: normal;
+        font-weight: bold;
+      }
+      .desc h2 {
+        font-weight: 400;
+        font-size: 1.25em;
+      }
+      .desc h3 {
+        font-size: 1em;
+      }
+      .desc dt code {
+        background: inherit;
+      }
+      .source > summary,
+      .git-link-div {
+        color: #666;
+        text-align: right;
+        font-weight: 400;
+        font-size: 0.8em;
+        text-transform: uppercase;
+      }
+      .source summary > * {
+        white-space: nowrap;
+        cursor: pointer;
+      }
+      .git-link {
+        color: inherit;
+        margin-left: 1em;
+      }
+      .source pre {
+        max-height: 500px;
+        overflow: auto;
+        margin: 0;
+      }
+      .source pre code {
+        font-size: 12px;
+        overflow: visible;
+        min-width: max-content;
+      }
+      .hlist {
+        list-style: none;
+      }
+      .hlist li {
+        display: inline;
+      }
+      .hlist li:after {
+        content: ",\2002";
+      }
+      .hlist li:last-child:after {
+        content: none;
+      }
+      .hlist .hlist {
+        display: inline;
+        padding-left: 1em;
+      }
+      img {
+        max-width: 100%;
+      }
+      td {
+        padding: 0 0.5em;
+      }
+      .admonition {
+        padding: 0.1em 1em;
+        margin: 1em 0;
+      }
+      .admonition-title {
+        font-weight: bold;
+      }
+      .admonition.note,
+      .admonition.info,
+      .admonition.important {
+        background: #aef;
+      }
+      .admonition.todo,
+      .admonition.versionadded,
+      .admonition.tip,
+      .admonition.hint {
+        background: #dfd;
+      }
+      .admonition.warning,
+      .admonition.versionchanged,
+      .admonition.deprecated {
+        background: #fd4;
+      }
+      .admonition.error,
+      .admonition.danger,
+      .admonition.caution {
+        background: lightpink;
+      }
+    </style>
+    <style media="screen and (min-width: 700px)">
+      @media screen and (min-width: 700px) {
+        #sidebar {
+          width: 30%;
+          height: 100vh;
+          overflow: auto;
+          position: sticky;
+          top: 0;
+        }
+        #content {
+          width: 70%;
+          max-width: 100ch;
+          padding: 3em 4em;
+          border-left: 1px solid #ddd;
+        }
+        pre code {
+          font-size: 1em;
+        }
+        .name {
+          font-size: 1em;
+        }
+        main {
+          display: flex;
+          flex-direction: row-reverse;
+          justify-content: flex-end;
+        }
+        .toc ul ul,
+        #index ul ul {
+          padding-left: 1em;
+        }
+        .toc > ul > li {
+          margin-top: 0.5em;
+        }
+      }
+    </style>
+    <style media="print">
+      @media print {
+        #sidebar h1 {
+          page-break-before: always;
+        }
+        .source {
+          display: none;
+        }
+      }
+      @media print {
+        * {
+          background: transparent !important;
+          color: #000 !important;
+          box-shadow: none !important;
+          text-shadow: none !important;
+        }
+        a[href]:after {
+          content: " (" attr(href) ")";
+          font-size: 90%;
+        }
+        a[href][title]:after {
+          content: none;
+        }
+        abbr[title]:after {
+          content: " (" attr(title) ")";
+        }
+        .ir a:after,
+        a[href^="javascript:"]:after,
+        a[href^="#"]:after {
+          content: "";
+        }
+        pre,
+        blockquote {
+          border: 1px solid #999;
+          page-break-inside: avoid;
+        }
+        thead {
+          display: table-header-group;
+        }
+        tr,
+        img {
+          page-break-inside: avoid;
+        }
+        img {
+          max-width: 100% !important;
+        }
+        @page {
+          margin: 0.5cm;
+        }
+        p,
+        h2,
+        h3 {
+          orphans: 3;
+          widows: 3;
+        }
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+          page-break-after: avoid;
+        }
+      }
+    </style>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+      integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
+      crossorigin
+    ></script>
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        hljs.configure({
+          languages: [
+            "bash",
+            "css",
+            "diff",
+            "graphql",
+            "ini",
+            "javascript",
+            "json",
+            "plaintext",
+            "python",
+            "python-repl",
+            "rust",
+            "shell",
+            "sql",
+            "typescript",
+            "xml",
+            "yaml",
+          ],
+        });
+        hljs.highlightAll();
+        /* Collapse source docstrings */
+        setTimeout(() => {
+          [...document.querySelectorAll(".hljs.language-python > .hljs-string")]
+            .filter(
+              (el) =>
+                el.innerHTML.length > 200 &&
+                ['"""', "'''"].includes(el.innerHTML.substring(0, 3)),
+            )
+            .forEach((el) => {
+              let d = document.createElement("details");
+              d.classList.add("hljs-string");
+              d.innerHTML =
+                '<summary>"""</summary>' + el.innerHTML.substring(3);
+              el.replaceWith(d);
+            });
+        }, 100);
+      });
+    </script>
+  </head>
+  <body>
+    <main>
+      <article id="content">
+        <header>
+          <h1 class="title">Module <code>space_hulk_game.demo_game</code></h1>
+        </header>
+        <section id="section-intro">
+          <p>Demo Game CLI Interface</p>
+          <p>
+            A polished command-line interface for the Space Hulk text adventure
+            game. This module provides: - Colorized terminal output - ASCII art
+            title screen - Save/load menu system - Help system - Complete game
+            loop integration
+          </p>
+          <h2 id="usage">Usage</h2>
+          <p>python -m space_hulk_game.demo_game</p>
+          <h1 id="or-after-install">or after install:</h1>
+          <p>demo_game play_game</p>
+          <h2 id="example">Example</h2>
+          <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.demo_game import DemoGameCLI
 &gt;&gt;&gt; cli = DemoGameCLI()
 &gt;&gt;&gt; cli.run()
 </code></pre>
-</section>
-<section>
-</section>
-<section>
-</section>
-<section>
-<h2 class="section-title" id="header-functions">Functions</h2>
-<dl>
-<dt id="space_hulk_game.demo_game.main"><code class="name flex">
-<span>def <span class="ident">main</span></span>(<span>args: list[str] | None = None) ‑> int</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def main(args: list[str] | None = None) -&gt; int:
+        </section>
+        <section></section>
+        <section></section>
+        <section>
+          <h2 class="section-title" id="header-functions">Functions</h2>
+          <dl>
+            <dt id="space_hulk_game.demo_game.main">
+              <code class="name flex">
+                <span>def <span class="ident">main</span></span
+                >(<span>args: list[str] | None = None) ‑> int</span>
+              </code>
+            </dt>
+            <dd>
+              <details class="source">
+                <summary>
+                  <span>Expand source code</span>
+                </summary>
+                <pre><code class="python">def main(args: list[str] | None = None) -&gt; int:
     &#34;&#34;&#34;
     Main entry point for the demo game.
 
@@ -135,35 +564,44 @@ For more information, visit: https://github.com/bencan1a/space_hulk_game
     )
 
     return cli.run()</code></pre>
-</details>
-<div class="desc"><p>Main entry point for the demo game.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>args</code></strong></dt>
-<dd>Command-line arguments (for testing).</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<p>Exit code.</p>
-<h2 id="examples">Examples</h2>
-<p>Run from command line:
-$ python -m space_hulk_game.demo_game</p>
-<p>Run with custom game directory:
-$ python -m space_hulk_game.demo_game &ndash;game-dir path/to/game</p></div>
-</dd>
-</dl>
-</section>
-<section>
-<h2 class="section-title" id="header-classes">Classes</h2>
-<dl>
-<dt id="space_hulk_game.demo_game.ColorFormatter"><code class="flex name class">
-<span>class <span class="ident">ColorFormatter</span></span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class ColorFormatter:
+              </details>
+              <div class="desc">
+                <p>Main entry point for the demo game.</p>
+                <h2 id="args">Args</h2>
+                <dl>
+                  <dt>
+                    <strong><code>args</code></strong>
+                  </dt>
+                  <dd>Command-line arguments (for testing).</dd>
+                </dl>
+                <h2 id="returns">Returns</h2>
+                <p>Exit code.</p>
+                <h2 id="examples">Examples</h2>
+                <p>
+                  Run from command line: $ python -m space_hulk_game.demo_game
+                </p>
+                <p>
+                  Run with custom game directory: $ python -m
+                  space_hulk_game.demo_game &ndash;game-dir path/to/game
+                </p>
+              </div>
+            </dd>
+          </dl>
+        </section>
+        <section>
+          <h2 class="section-title" id="header-classes">Classes</h2>
+          <dl>
+            <dt id="space_hulk_game.demo_game.ColorFormatter">
+              <code class="flex name class">
+                <span>class <span class="ident">ColorFormatter</span></span>
+              </code>
+            </dt>
+            <dd>
+              <details class="source">
+                <summary>
+                  <span>Expand source code</span>
+                </summary>
+                <pre><code class="python">class ColorFormatter:
     &#34;&#34;&#34;
     Handles colorized output for different text types.
 
@@ -215,149 +653,180 @@ $ python -m space_hulk_game.demo_game &ndash;game-dir path/to/game</p></div>
     def title(text: str) -&gt; str:
         &#34;&#34;&#34;Format title text.&#34;&#34;&#34;
         return f&#34;{Fore.RED}{Style.BRIGHT}{text}{Style.RESET_ALL}&#34;</code></pre>
-</details>
-<div class="desc"><p>Handles colorized output for different text types.</p>
-<p>This class provides consistent color coding across the game:
-- Scene descriptions: Cyan
-- Item descriptions: Green
-- NPC dialogue: Yellow
-- Warnings: Red
-- Success messages: Green
-- System messages: Magenta</p></div>
-<h3>Static methods</h3>
-<dl>
-<dt id="space_hulk_game.demo_game.ColorFormatter.item"><code class="name flex">
-<span>def <span class="ident">item</span></span>(<span>text: str) ‑> str</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@staticmethod
+              </details>
+              <div class="desc">
+                <p>Handles colorized output for different text types.</p>
+                <p>
+                  This class provides consistent color coding across the game: -
+                  Scene descriptions: Cyan - Item descriptions: Green - NPC
+                  dialogue: Yellow - Warnings: Red - Success messages: Green -
+                  System messages: Magenta
+                </p>
+              </div>
+              <h3>Static methods</h3>
+              <dl>
+                <dt id="space_hulk_game.demo_game.ColorFormatter.item">
+                  <code class="name flex">
+                    <span>def <span class="ident">item</span></span
+                    >(<span>text: str) ‑> str</span>
+                  </code>
+                </dt>
+                <dd>
+                  <details class="source">
+                    <summary>
+                      <span>Expand source code</span>
+                    </summary>
+                    <pre><code class="python">@staticmethod
 def item(text: str) -&gt; str:
     &#34;&#34;&#34;Format item description text.&#34;&#34;&#34;
     return f&#34;{Fore.GREEN}{text}{Style.RESET_ALL}&#34;</code></pre>
-</details>
-<div class="desc"><p>Format item description text.</p></div>
-</dd>
-<dt id="space_hulk_game.demo_game.ColorFormatter.npc"><code class="name flex">
-<span>def <span class="ident">npc</span></span>(<span>text: str) ‑> str</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@staticmethod
+                  </details>
+                  <div class="desc"><p>Format item description text.</p></div>
+                </dd>
+                <dt id="space_hulk_game.demo_game.ColorFormatter.npc">
+                  <code class="name flex">
+                    <span>def <span class="ident">npc</span></span
+                    >(<span>text: str) ‑> str</span>
+                  </code>
+                </dt>
+                <dd>
+                  <details class="source">
+                    <summary>
+                      <span>Expand source code</span>
+                    </summary>
+                    <pre><code class="python">@staticmethod
 def npc(text: str) -&gt; str:
     &#34;&#34;&#34;Format NPC dialogue text.&#34;&#34;&#34;
     return f&#34;{Fore.YELLOW}{text}{Style.RESET_ALL}&#34;</code></pre>
-</details>
-<div class="desc"><p>Format NPC dialogue text.</p></div>
-</dd>
-<dt id="space_hulk_game.demo_game.ColorFormatter.prompt"><code class="name flex">
-<span>def <span class="ident">prompt</span></span>(<span>text: str) ‑> str</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@staticmethod
+                  </details>
+                  <div class="desc"><p>Format NPC dialogue text.</p></div>
+                </dd>
+                <dt id="space_hulk_game.demo_game.ColorFormatter.prompt">
+                  <code class="name flex">
+                    <span>def <span class="ident">prompt</span></span
+                    >(<span>text: str) ‑> str</span>
+                  </code>
+                </dt>
+                <dd>
+                  <details class="source">
+                    <summary>
+                      <span>Expand source code</span>
+                    </summary>
+                    <pre><code class="python">@staticmethod
 def prompt(text: str) -&gt; str:
     &#34;&#34;&#34;Format input prompt text.&#34;&#34;&#34;
     return f&#34;{Fore.WHITE}{Style.BRIGHT}{text}{Style.RESET_ALL}&#34;</code></pre>
-</details>
-<div class="desc"><p>Format input prompt text.</p></div>
-</dd>
-<dt id="space_hulk_game.demo_game.ColorFormatter.scene"><code class="name flex">
-<span>def <span class="ident">scene</span></span>(<span>text: str) ‑> str</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@staticmethod
+                  </details>
+                  <div class="desc"><p>Format input prompt text.</p></div>
+                </dd>
+                <dt id="space_hulk_game.demo_game.ColorFormatter.scene">
+                  <code class="name flex">
+                    <span>def <span class="ident">scene</span></span
+                    >(<span>text: str) ‑> str</span>
+                  </code>
+                </dt>
+                <dd>
+                  <details class="source">
+                    <summary>
+                      <span>Expand source code</span>
+                    </summary>
+                    <pre><code class="python">@staticmethod
 def scene(text: str) -&gt; str:
     &#34;&#34;&#34;Format scene description text.&#34;&#34;&#34;
     return f&#34;{Fore.CYAN}{text}{Style.RESET_ALL}&#34;</code></pre>
-</details>
-<div class="desc"><p>Format scene description text.</p></div>
-</dd>
-<dt id="space_hulk_game.demo_game.ColorFormatter.success"><code class="name flex">
-<span>def <span class="ident">success</span></span>(<span>text: str) ‑> str</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@staticmethod
+                  </details>
+                  <div class="desc"><p>Format scene description text.</p></div>
+                </dd>
+                <dt id="space_hulk_game.demo_game.ColorFormatter.success">
+                  <code class="name flex">
+                    <span>def <span class="ident">success</span></span
+                    >(<span>text: str) ‑> str</span>
+                  </code>
+                </dt>
+                <dd>
+                  <details class="source">
+                    <summary>
+                      <span>Expand source code</span>
+                    </summary>
+                    <pre><code class="python">@staticmethod
 def success(text: str) -&gt; str:
     &#34;&#34;&#34;Format success message text.&#34;&#34;&#34;
     return f&#34;{Fore.GREEN}{Style.BRIGHT}{text}{Style.RESET_ALL}&#34;</code></pre>
-</details>
-<div class="desc"><p>Format success message text.</p></div>
-</dd>
-<dt id="space_hulk_game.demo_game.ColorFormatter.system"><code class="name flex">
-<span>def <span class="ident">system</span></span>(<span>text: str) ‑> str</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@staticmethod
+                  </details>
+                  <div class="desc"><p>Format success message text.</p></div>
+                </dd>
+                <dt id="space_hulk_game.demo_game.ColorFormatter.system">
+                  <code class="name flex">
+                    <span>def <span class="ident">system</span></span
+                    >(<span>text: str) ‑> str</span>
+                  </code>
+                </dt>
+                <dd>
+                  <details class="source">
+                    <summary>
+                      <span>Expand source code</span>
+                    </summary>
+                    <pre><code class="python">@staticmethod
 def system(text: str) -&gt; str:
     &#34;&#34;&#34;Format system message text.&#34;&#34;&#34;
     return f&#34;{Fore.MAGENTA}{text}{Style.RESET_ALL}&#34;</code></pre>
-</details>
-<div class="desc"><p>Format system message text.</p></div>
-</dd>
-<dt id="space_hulk_game.demo_game.ColorFormatter.title"><code class="name flex">
-<span>def <span class="ident">title</span></span>(<span>text: str) ‑> str</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@staticmethod
+                  </details>
+                  <div class="desc"><p>Format system message text.</p></div>
+                </dd>
+                <dt id="space_hulk_game.demo_game.ColorFormatter.title">
+                  <code class="name flex">
+                    <span>def <span class="ident">title</span></span
+                    >(<span>text: str) ‑> str</span>
+                  </code>
+                </dt>
+                <dd>
+                  <details class="source">
+                    <summary>
+                      <span>Expand source code</span>
+                    </summary>
+                    <pre><code class="python">@staticmethod
 def title(text: str) -&gt; str:
     &#34;&#34;&#34;Format title text.&#34;&#34;&#34;
     return f&#34;{Fore.RED}{Style.BRIGHT}{text}{Style.RESET_ALL}&#34;</code></pre>
-</details>
-<div class="desc"><p>Format title text.</p></div>
-</dd>
-<dt id="space_hulk_game.demo_game.ColorFormatter.warning"><code class="name flex">
-<span>def <span class="ident">warning</span></span>(<span>text: str) ‑> str</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@staticmethod
+                  </details>
+                  <div class="desc"><p>Format title text.</p></div>
+                </dd>
+                <dt id="space_hulk_game.demo_game.ColorFormatter.warning">
+                  <code class="name flex">
+                    <span>def <span class="ident">warning</span></span
+                    >(<span>text: str) ‑> str</span>
+                  </code>
+                </dt>
+                <dd>
+                  <details class="source">
+                    <summary>
+                      <span>Expand source code</span>
+                    </summary>
+                    <pre><code class="python">@staticmethod
 def warning(text: str) -&gt; str:
     &#34;&#34;&#34;Format warning text.&#34;&#34;&#34;
     return f&#34;{Fore.RED}{Style.BRIGHT}{text}{Style.RESET_ALL}&#34;</code></pre>
-</details>
-<div class="desc"><p>Format warning text.</p></div>
-</dd>
-</dl>
-</dd>
-<dt id="space_hulk_game.demo_game.DemoGameCLI"><code class="flex name class">
-<span>class <span class="ident">DemoGameCLI</span></span>
-<span>(</span><span>game_dir: str | None = None, save_dir: str | None = None)</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class DemoGameCLI:
+                  </details>
+                  <div class="desc"><p>Format warning text.</p></div>
+                </dd>
+              </dl>
+            </dd>
+            <dt id="space_hulk_game.demo_game.DemoGameCLI">
+              <code class="flex name class">
+                <span>class <span class="ident">DemoGameCLI</span></span>
+                <span>(</span
+                ><span
+                  >game_dir: str | None = None,
+                  save_dir: str | None = None)</span
+                >
+              </code>
+            </dt>
+            <dd>
+              <details class="source">
+                <summary>
+                  <span>Expand source code</span>
+                </summary>
+                <pre><code class="python">class DemoGameCLI:
     &#34;&#34;&#34;
     Command-line interface for the Space Hulk demo game.
 
@@ -865,75 +1334,105 @@ def warning(text: str) -&gt; str:
             print(self.formatter.warning(f&#34;\n✗ Fatal error: {e}&#34;))
             logger.exception(&#34;Fatal error in demo game&#34;)
             return 1</code></pre>
-</details>
-<div class="desc"><p>Command-line interface for the Space Hulk demo game.</p>
-<p>This class provides a complete, polished CLI experience including:
-- Title screen and menus
-- Save/load functionality
-- Colorized output
-- Help system
-- Integration with TextAdventureEngine</p>
-<h2 id="attributes">Attributes</h2>
-<dl>
-<dt><strong><code>game_dir</code></strong></dt>
-<dd>Directory containing game YAML files.</dd>
-<dt><strong><code>save_dir</code></strong></dt>
-<dd>Directory for save game files.</dd>
-<dt><strong><code>loader</code></strong></dt>
-<dd>ContentLoader instance.</dd>
-<dt><strong><code>save_system</code></strong></dt>
-<dd>SaveSystem instance.</dd>
-<dt><strong><code>engine</code></strong></dt>
-<dd>TextAdventureEngine instance (set after loading).</dd>
-<dt><strong><code>game_data</code></strong></dt>
-<dd>Loaded GameData instance.</dd>
-<dt><strong><code>formatter</code></strong></dt>
-<dd>ColorFormatter for output styling.</dd>
-</dl>
-<h2 id="examples">Examples</h2>
-<p>Run the demo game:</p>
-<pre><code class="language-python-repl">&gt;&gt;&gt; cli = DemoGameCLI()
+              </details>
+              <div class="desc">
+                <p>Command-line interface for the Space Hulk demo game.</p>
+                <p>
+                  This class provides a complete, polished CLI experience
+                  including: - Title screen and menus - Save/load functionality
+                  - Colorized output - Help system - Integration with
+                  TextAdventureEngine
+                </p>
+                <h2 id="attributes">Attributes</h2>
+                <dl>
+                  <dt>
+                    <strong><code>game_dir</code></strong>
+                  </dt>
+                  <dd>Directory containing game YAML files.</dd>
+                  <dt>
+                    <strong><code>save_dir</code></strong>
+                  </dt>
+                  <dd>Directory for save game files.</dd>
+                  <dt>
+                    <strong><code>loader</code></strong>
+                  </dt>
+                  <dd>ContentLoader instance.</dd>
+                  <dt>
+                    <strong><code>save_system</code></strong>
+                  </dt>
+                  <dd>SaveSystem instance.</dd>
+                  <dt>
+                    <strong><code>engine</code></strong>
+                  </dt>
+                  <dd>TextAdventureEngine instance (set after loading).</dd>
+                  <dt>
+                    <strong><code>game_data</code></strong>
+                  </dt>
+                  <dd>Loaded GameData instance.</dd>
+                  <dt>
+                    <strong><code>formatter</code></strong>
+                  </dt>
+                  <dd>ColorFormatter for output styling.</dd>
+                </dl>
+                <h2 id="examples">Examples</h2>
+                <p>Run the demo game:</p>
+                <pre><code class="language-python-repl">&gt;&gt;&gt; cli = DemoGameCLI()
 &gt;&gt;&gt; cli.run()
 </code></pre>
-<p>Run with custom game directory:</p>
-<pre><code class="language-python-repl">&gt;&gt;&gt; cli = DemoGameCLI(game_dir=&quot;path/to/game&quot;)
+                <p>Run with custom game directory:</p>
+                <pre><code class="language-python-repl">&gt;&gt;&gt; cli = DemoGameCLI(game_dir=&quot;path/to/game&quot;)
 &gt;&gt;&gt; cli.run()
 </code></pre>
-<p>Initialize the demo game CLI.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>game_dir</code></strong></dt>
-<dd>Directory containing game YAML files.
-Defaults to "tests/fixtures" for demo.</dd>
-<dt><strong><code>save_dir</code></strong></dt>
-<dd>Directory for save files.
-Defaults to "saves/" in current directory.</dd>
-</dl></div>
-<h3>Methods</h3>
-<dl>
-<dt id="space_hulk_game.demo_game.DemoGameCLI.clear_screen"><code class="name flex">
-<span>def <span class="ident">clear_screen</span></span>(<span>self) ‑> None</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def clear_screen(self) -&gt; None:
+                <p>Initialize the demo game CLI.</p>
+                <h2 id="args">Args</h2>
+                <dl>
+                  <dt>
+                    <strong><code>game_dir</code></strong>
+                  </dt>
+                  <dd>
+                    Directory containing game YAML files. Defaults to
+                    "tests/fixtures" for demo.
+                  </dd>
+                  <dt>
+                    <strong><code>save_dir</code></strong>
+                  </dt>
+                  <dd>
+                    Directory for save files. Defaults to "saves/" in current
+                    directory.
+                  </dd>
+                </dl>
+              </div>
+              <h3>Methods</h3>
+              <dl>
+                <dt id="space_hulk_game.demo_game.DemoGameCLI.clear_screen">
+                  <code class="name flex">
+                    <span>def <span class="ident">clear_screen</span></span
+                    >(<span>self) ‑> None</span>
+                  </code>
+                </dt>
+                <dd>
+                  <details class="source">
+                    <summary>
+                      <span>Expand source code</span>
+                    </summary>
+                    <pre><code class="python">def clear_screen(self) -&gt; None:
     &#34;&#34;&#34;Clear the terminal screen.&#34;&#34;&#34;
     subprocess.call(&#34;cls&#34; if os.name == &#34;nt&#34; else &#34;clear&#34;, shell=True)  # nosec B602</code></pre>
-</details>
-<div class="desc"><p>Clear the terminal screen.</p></div>
-</dd>
-<dt id="space_hulk_game.demo_game.DemoGameCLI.load_game_data"><code class="name flex">
-<span>def <span class="ident">load_game_data</span></span>(<span>self) ‑> bool</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def load_game_data(self) -&gt; bool:
+                  </details>
+                  <div class="desc"><p>Clear the terminal screen.</p></div>
+                </dd>
+                <dt id="space_hulk_game.demo_game.DemoGameCLI.load_game_data">
+                  <code class="name flex">
+                    <span>def <span class="ident">load_game_data</span></span
+                    >(<span>self) ‑> bool</span>
+                  </code>
+                </dt>
+                <dd>
+                  <details class="source">
+                    <summary>
+                      <span>Expand source code</span>
+                    </summary>
+                    <pre><code class="python">def load_game_data(self) -&gt; bool:
     &#34;&#34;&#34;
     Load game data from YAML files.
 
@@ -981,20 +1480,25 @@ Defaults to "saves/" in current directory.</dd>
         print(self.formatter.warning(f&#34;\n✗ Error loading game: {e}&#34;))
         logger.exception(&#34;Failed to load game data&#34;)
         return False</code></pre>
-</details>
-<div class="desc"><p>Load game data from YAML files.</p>
-<h2 id="returns">Returns</h2>
-<p>True if successful, False otherwise.</p></div>
-</dd>
-<dt id="space_hulk_game.demo_game.DemoGameCLI.load_saved_game"><code class="name flex">
-<span>def <span class="ident">load_saved_game</span></span>(<span>self) ‑> bool</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def load_saved_game(self) -&gt; bool:
+                  </details>
+                  <div class="desc">
+                    <p>Load game data from YAML files.</p>
+                    <h2 id="returns">Returns</h2>
+                    <p>True if successful, False otherwise.</p>
+                  </div>
+                </dd>
+                <dt id="space_hulk_game.demo_game.DemoGameCLI.load_saved_game">
+                  <code class="name flex">
+                    <span>def <span class="ident">load_saved_game</span></span
+                    >(<span>self) ‑> bool</span>
+                  </code>
+                </dt>
+                <dd>
+                  <details class="source">
+                    <summary>
+                      <span>Expand source code</span>
+                    </summary>
+                    <pre><code class="python">def load_saved_game(self) -&gt; bool:
     &#34;&#34;&#34;
     Load a saved game from file.
 
@@ -1048,51 +1552,69 @@ Defaults to "saves/" in current directory.</dd>
         logger.exception(&#34;Failed to load saved game&#34;)
         input(self.formatter.prompt(&#34;Press Enter to continue...&#34;))
         return False</code></pre>
-</details>
-<div class="desc"><p>Load a saved game from file.</p>
-<h2 id="returns">Returns</h2>
-<p>True if loaded successfully, False otherwise.</p></div>
-</dd>
-<dt id="space_hulk_game.demo_game.DemoGameCLI.print_separator"><code class="name flex">
-<span>def <span class="ident">print_separator</span></span>(<span>self, char: str = '=', length: int = 79) ‑> None</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def print_separator(self, char: str = &#34;=&#34;, length: int = 79) -&gt; None:
+                  </details>
+                  <div class="desc">
+                    <p>Load a saved game from file.</p>
+                    <h2 id="returns">Returns</h2>
+                    <p>True if loaded successfully, False otherwise.</p>
+                  </div>
+                </dd>
+                <dt id="space_hulk_game.demo_game.DemoGameCLI.print_separator">
+                  <code class="name flex">
+                    <span>def <span class="ident">print_separator</span></span
+                    >(<span
+                      >self, char: str = '=', length: int = 79) ‑> None</span
+                    >
+                  </code>
+                </dt>
+                <dd>
+                  <details class="source">
+                    <summary>
+                      <span>Expand source code</span>
+                    </summary>
+                    <pre><code class="python">def print_separator(self, char: str = &#34;=&#34;, length: int = 79) -&gt; None:
     &#34;&#34;&#34;Print a separator line.&#34;&#34;&#34;
     print(self.formatter.system(char * length))</code></pre>
-</details>
-<div class="desc"><p>Print a separator line.</p></div>
-</dd>
-<dt id="space_hulk_game.demo_game.DemoGameCLI.print_title_screen"><code class="name flex">
-<span>def <span class="ident">print_title_screen</span></span>(<span>self) ‑> None</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def print_title_screen(self) -&gt; None:
+                  </details>
+                  <div class="desc"><p>Print a separator line.</p></div>
+                </dd>
+                <dt
+                  id="space_hulk_game.demo_game.DemoGameCLI.print_title_screen"
+                >
+                  <code class="name flex">
+                    <span
+                      >def <span class="ident">print_title_screen</span></span
+                    >(<span>self) ‑> None</span>
+                  </code>
+                </dt>
+                <dd>
+                  <details class="source">
+                    <summary>
+                      <span>Expand source code</span>
+                    </summary>
+                    <pre><code class="python">def print_title_screen(self) -&gt; None:
     &#34;&#34;&#34;Display the ASCII art title screen.&#34;&#34;&#34;
     self.clear_screen()
     print(TITLE_SCREEN)
     print(SUBTITLE)
     print()</code></pre>
-</details>
-<div class="desc"><p>Display the ASCII art title screen.</p></div>
-</dd>
-<dt id="space_hulk_game.demo_game.DemoGameCLI.run"><code class="name flex">
-<span>def <span class="ident">run</span></span>(<span>self) ‑> int</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def run(self) -&gt; int:
+                  </details>
+                  <div class="desc">
+                    <p>Display the ASCII art title screen.</p>
+                  </div>
+                </dd>
+                <dt id="space_hulk_game.demo_game.DemoGameCLI.run">
+                  <code class="name flex">
+                    <span>def <span class="ident">run</span></span
+                    >(<span>self) ‑> int</span>
+                  </code>
+                </dt>
+                <dd>
+                  <details class="source">
+                    <summary>
+                      <span>Expand source code</span>
+                    </summary>
+                    <pre><code class="python">def run(self) -&gt; int:
     &#34;&#34;&#34;
     Run the demo game CLI.
 
@@ -1143,22 +1665,30 @@ Defaults to "saves/" in current directory.</dd>
         print(self.formatter.warning(f&#34;\n✗ Fatal error: {e}&#34;))
         logger.exception(&#34;Fatal error in demo game&#34;)
         return 1</code></pre>
-</details>
-<div class="desc"><p>Run the demo game CLI.</p>
-<p>This is the main entry point for the CLI. It displays the title screen,
-shows the main menu, and handles user choices.</p>
-<h2 id="returns">Returns</h2>
-<p>Exit code (0 for success, 1 for error).</p></div>
-</dd>
-<dt id="space_hulk_game.demo_game.DemoGameCLI.run_game_loop"><code class="name flex">
-<span>def <span class="ident">run_game_loop</span></span>(<span>self) ‑> None</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def run_game_loop(self) -&gt; None:
+                  </details>
+                  <div class="desc">
+                    <p>Run the demo game CLI.</p>
+                    <p>
+                      This is the main entry point for the CLI. It displays the
+                      title screen, shows the main menu, and handles user
+                      choices.
+                    </p>
+                    <h2 id="returns">Returns</h2>
+                    <p>Exit code (0 for success, 1 for error).</p>
+                  </div>
+                </dd>
+                <dt id="space_hulk_game.demo_game.DemoGameCLI.run_game_loop">
+                  <code class="name flex">
+                    <span>def <span class="ident">run_game_loop</span></span
+                    >(<span>self) ‑> None</span>
+                  </code>
+                </dt>
+                <dd>
+                  <details class="source">
+                    <summary>
+                      <span>Expand source code</span>
+                    </summary>
+                    <pre><code class="python">def run_game_loop(self) -&gt; None:
     &#34;&#34;&#34;Run the main game loop with custom handling.&#34;&#34;&#34;
     if self.engine is None:
         print(self.formatter.warning(&#34;\nNo game loaded!&#34;))
@@ -1210,18 +1740,23 @@ shows the main menu, and handles user choices.</p>
         # Restore original functions
         self.engine._display_welcome = original_display_welcome  # type: ignore[method-assign]
         self.engine.input_func = original_input</code></pre>
-</details>
-<div class="desc"><p>Run the main game loop with custom handling.</p></div>
-</dd>
-<dt id="space_hulk_game.demo_game.DemoGameCLI.save_game"><code class="name flex">
-<span>def <span class="ident">save_game</span></span>(<span>self) ‑> None</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def save_game(self) -&gt; None:
+                  </details>
+                  <div class="desc">
+                    <p>Run the main game loop with custom handling.</p>
+                  </div>
+                </dd>
+                <dt id="space_hulk_game.demo_game.DemoGameCLI.save_game">
+                  <code class="name flex">
+                    <span>def <span class="ident">save_game</span></span
+                    >(<span>self) ‑> None</span>
+                  </code>
+                </dt>
+                <dd>
+                  <details class="source">
+                    <summary>
+                      <span>Expand source code</span>
+                    </summary>
+                    <pre><code class="python">def save_game(self) -&gt; None:
     &#34;&#34;&#34;Save the current game state.&#34;&#34;&#34;
     if self.engine is None:
         print(self.formatter.warning(&#34;\nNo game in progress to save!&#34;))
@@ -1238,18 +1773,21 @@ shows the main menu, and handles user choices.</p>
     except Exception as e:
         print(self.formatter.warning(f&#34;\n✗ Error saving game: {e}&#34;))
         logger.exception(&#34;Failed to save game&#34;)</code></pre>
-</details>
-<div class="desc"><p>Save the current game state.</p></div>
-</dd>
-<dt id="space_hulk_game.demo_game.DemoGameCLI.show_help"><code class="name flex">
-<span>def <span class="ident">show_help</span></span>(<span>self) ‑> None</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def show_help(self) -&gt; None:
+                  </details>
+                  <div class="desc"><p>Save the current game state.</p></div>
+                </dd>
+                <dt id="space_hulk_game.demo_game.DemoGameCLI.show_help">
+                  <code class="name flex">
+                    <span>def <span class="ident">show_help</span></span
+                    >(<span>self) ‑> None</span>
+                  </code>
+                </dt>
+                <dd>
+                  <details class="source">
+                    <summary>
+                      <span>Expand source code</span>
+                    </summary>
+                    <pre><code class="python">def show_help(self) -&gt; None:
     &#34;&#34;&#34;Display help information.&#34;&#34;&#34;
     self.clear_screen()
     self.print_separator()
@@ -1285,18 +1823,21 @@ shows the main menu, and handles user choices.</p>
     print()
     self.print_separator()
     input(self.formatter.prompt(&#34;\nPress Enter to continue...&#34;))</code></pre>
-</details>
-<div class="desc"><p>Display help information.</p></div>
-</dd>
-<dt id="space_hulk_game.demo_game.DemoGameCLI.show_load_menu"><code class="name flex">
-<span>def <span class="ident">show_load_menu</span></span>(<span>self) ‑> str | None</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def show_load_menu(self) -&gt; str | None:
+                  </details>
+                  <div class="desc"><p>Display help information.</p></div>
+                </dd>
+                <dt id="space_hulk_game.demo_game.DemoGameCLI.show_load_menu">
+                  <code class="name flex">
+                    <span>def <span class="ident">show_load_menu</span></span
+                    >(<span>self) ‑> str | None</span>
+                  </code>
+                </dt>
+                <dd>
+                  <details class="source">
+                    <summary>
+                      <span>Expand source code</span>
+                    </summary>
+                    <pre><code class="python">def show_load_menu(self) -&gt; str | None:
     &#34;&#34;&#34;
     Show load game menu and get save slot.
 
@@ -1340,20 +1881,25 @@ shows the main menu, and handles user choices.</p>
     print(self.formatter.warning(f&#34;\nInvalid choice: {choice}&#34;))
     input(self.formatter.prompt(&#34;Press Enter to continue...&#34;))
     return None</code></pre>
-</details>
-<div class="desc"><p>Show load game menu and get save slot.</p>
-<h2 id="returns">Returns</h2>
-<p>Save slot name or None if cancelled.</p></div>
-</dd>
-<dt id="space_hulk_game.demo_game.DemoGameCLI.show_main_menu"><code class="name flex">
-<span>def <span class="ident">show_main_menu</span></span>(<span>self) ‑> str</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def show_main_menu(self) -&gt; str:
+                  </details>
+                  <div class="desc">
+                    <p>Show load game menu and get save slot.</p>
+                    <h2 id="returns">Returns</h2>
+                    <p>Save slot name or None if cancelled.</p>
+                  </div>
+                </dd>
+                <dt id="space_hulk_game.demo_game.DemoGameCLI.show_main_menu">
+                  <code class="name flex">
+                    <span>def <span class="ident">show_main_menu</span></span
+                    >(<span>self) ‑> str</span>
+                  </code>
+                </dt>
+                <dd>
+                  <details class="source">
+                    <summary>
+                      <span>Expand source code</span>
+                    </summary>
+                    <pre><code class="python">def show_main_menu(self) -&gt; str:
     &#34;&#34;&#34;
     Display the main menu and get user choice.
 
@@ -1371,20 +1917,25 @@ shows the main menu, and handles user choices.</p>
 
     choice = input(self.formatter.prompt(&#34;\nEnter your choice (1-4): &#34;)).strip()
     return choice</code></pre>
-</details>
-<div class="desc"><p>Display the main menu and get user choice.</p>
-<h2 id="returns">Returns</h2>
-<p>User's menu choice as a string.</p></div>
-</dd>
-<dt id="space_hulk_game.demo_game.DemoGameCLI.show_save_menu"><code class="name flex">
-<span>def <span class="ident">show_save_menu</span></span>(<span>self) ‑> str | None</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def show_save_menu(self) -&gt; str | None:
+                  </details>
+                  <div class="desc">
+                    <p>Display the main menu and get user choice.</p>
+                    <h2 id="returns">Returns</h2>
+                    <p>User's menu choice as a string.</p>
+                  </div>
+                </dd>
+                <dt id="space_hulk_game.demo_game.DemoGameCLI.show_save_menu">
+                  <code class="name flex">
+                    <span>def <span class="ident">show_save_menu</span></span
+                    >(<span>self) ‑> str | None</span>
+                  </code>
+                </dt>
+                <dd>
+                  <details class="source">
+                    <summary>
+                      <span>Expand source code</span>
+                    </summary>
+                    <pre><code class="python">def show_save_menu(self) -&gt; str | None:
     &#34;&#34;&#34;
     Show save game menu and get save slot.
 
@@ -1410,20 +1961,25 @@ shows the main menu, and handles user choices.</p>
         return None
 
     return save_name</code></pre>
-</details>
-<div class="desc"><p>Show save game menu and get save slot.</p>
-<h2 id="returns">Returns</h2>
-<p>Save slot name or None if cancelled.</p></div>
-</dd>
-<dt id="space_hulk_game.demo_game.DemoGameCLI.start_new_game"><code class="name flex">
-<span>def <span class="ident">start_new_game</span></span>(<span>self) ‑> bool</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def start_new_game(self) -&gt; bool:
+                  </details>
+                  <div class="desc">
+                    <p>Show save game menu and get save slot.</p>
+                    <h2 id="returns">Returns</h2>
+                    <p>Save slot name or None if cancelled.</p>
+                  </div>
+                </dd>
+                <dt id="space_hulk_game.demo_game.DemoGameCLI.start_new_game">
+                  <code class="name flex">
+                    <span>def <span class="ident">start_new_game</span></span
+                    >(<span>self) ‑> bool</span>
+                  </code>
+                </dt>
+                <dd>
+                  <details class="source">
+                    <summary>
+                      <span>Expand source code</span>
+                    </summary>
+                    <pre><code class="python">def start_new_game(self) -&gt; bool:
     &#34;&#34;&#34;
     Start a new game.
 
@@ -1475,71 +2031,281 @@ shows the main menu, and handles user choices.</p>
         print(self.formatter.warning(f&#34;\n✗ Error starting game: {e}&#34;))
         logger.exception(&#34;Failed to start new game&#34;)
         return False</code></pre>
-</details>
-<div class="desc"><p>Start a new game.</p>
-<h2 id="returns">Returns</h2>
-<p>True if game started successfully, False otherwise.</p></div>
-</dd>
-</dl>
-</dd>
-</dl>
-</section>
-</article>
-<nav id="sidebar">
-<div class="toc">
-<ul></ul>
-</div>
-<ul id="index">
-<li><h3>Super-module</h3>
-<ul>
-<li><code><a title="space_hulk_game" href="index.html">space_hulk_game</a></code></li>
-</ul>
-</li>
-<li><h3><a href="#header-functions">Functions</a></h3>
-<ul class="">
-<li><code><a title="space_hulk_game.demo_game.main" href="#space_hulk_game.demo_game.main">main</a></code></li>
-</ul>
-</li>
-<li><h3><a href="#header-classes">Classes</a></h3>
-<ul>
-<li>
-<h4><code><a title="space_hulk_game.demo_game.ColorFormatter" href="#space_hulk_game.demo_game.ColorFormatter">ColorFormatter</a></code></h4>
-<ul class="two-column">
-<li><code><a title="space_hulk_game.demo_game.ColorFormatter.item" href="#space_hulk_game.demo_game.ColorFormatter.item">item</a></code></li>
-<li><code><a title="space_hulk_game.demo_game.ColorFormatter.npc" href="#space_hulk_game.demo_game.ColorFormatter.npc">npc</a></code></li>
-<li><code><a title="space_hulk_game.demo_game.ColorFormatter.prompt" href="#space_hulk_game.demo_game.ColorFormatter.prompt">prompt</a></code></li>
-<li><code><a title="space_hulk_game.demo_game.ColorFormatter.scene" href="#space_hulk_game.demo_game.ColorFormatter.scene">scene</a></code></li>
-<li><code><a title="space_hulk_game.demo_game.ColorFormatter.success" href="#space_hulk_game.demo_game.ColorFormatter.success">success</a></code></li>
-<li><code><a title="space_hulk_game.demo_game.ColorFormatter.system" href="#space_hulk_game.demo_game.ColorFormatter.system">system</a></code></li>
-<li><code><a title="space_hulk_game.demo_game.ColorFormatter.title" href="#space_hulk_game.demo_game.ColorFormatter.title">title</a></code></li>
-<li><code><a title="space_hulk_game.demo_game.ColorFormatter.warning" href="#space_hulk_game.demo_game.ColorFormatter.warning">warning</a></code></li>
-</ul>
-</li>
-<li>
-<h4><code><a title="space_hulk_game.demo_game.DemoGameCLI" href="#space_hulk_game.demo_game.DemoGameCLI">DemoGameCLI</a></code></h4>
-<ul class="two-column">
-<li><code><a title="space_hulk_game.demo_game.DemoGameCLI.clear_screen" href="#space_hulk_game.demo_game.DemoGameCLI.clear_screen">clear_screen</a></code></li>
-<li><code><a title="space_hulk_game.demo_game.DemoGameCLI.load_game_data" href="#space_hulk_game.demo_game.DemoGameCLI.load_game_data">load_game_data</a></code></li>
-<li><code><a title="space_hulk_game.demo_game.DemoGameCLI.load_saved_game" href="#space_hulk_game.demo_game.DemoGameCLI.load_saved_game">load_saved_game</a></code></li>
-<li><code><a title="space_hulk_game.demo_game.DemoGameCLI.print_separator" href="#space_hulk_game.demo_game.DemoGameCLI.print_separator">print_separator</a></code></li>
-<li><code><a title="space_hulk_game.demo_game.DemoGameCLI.print_title_screen" href="#space_hulk_game.demo_game.DemoGameCLI.print_title_screen">print_title_screen</a></code></li>
-<li><code><a title="space_hulk_game.demo_game.DemoGameCLI.run" href="#space_hulk_game.demo_game.DemoGameCLI.run">run</a></code></li>
-<li><code><a title="space_hulk_game.demo_game.DemoGameCLI.run_game_loop" href="#space_hulk_game.demo_game.DemoGameCLI.run_game_loop">run_game_loop</a></code></li>
-<li><code><a title="space_hulk_game.demo_game.DemoGameCLI.save_game" href="#space_hulk_game.demo_game.DemoGameCLI.save_game">save_game</a></code></li>
-<li><code><a title="space_hulk_game.demo_game.DemoGameCLI.show_help" href="#space_hulk_game.demo_game.DemoGameCLI.show_help">show_help</a></code></li>
-<li><code><a title="space_hulk_game.demo_game.DemoGameCLI.show_load_menu" href="#space_hulk_game.demo_game.DemoGameCLI.show_load_menu">show_load_menu</a></code></li>
-<li><code><a title="space_hulk_game.demo_game.DemoGameCLI.show_main_menu" href="#space_hulk_game.demo_game.DemoGameCLI.show_main_menu">show_main_menu</a></code></li>
-<li><code><a title="space_hulk_game.demo_game.DemoGameCLI.show_save_menu" href="#space_hulk_game.demo_game.DemoGameCLI.show_save_menu">show_save_menu</a></code></li>
-<li><code><a title="space_hulk_game.demo_game.DemoGameCLI.start_new_game" href="#space_hulk_game.demo_game.DemoGameCLI.start_new_game">start_new_game</a></code></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</nav>
-</main>
-<footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
-</footer>
-</body>
+                  </details>
+                  <div class="desc">
+                    <p>Start a new game.</p>
+                    <h2 id="returns">Returns</h2>
+                    <p>True if game started successfully, False otherwise.</p>
+                  </div>
+                </dd>
+              </dl>
+            </dd>
+          </dl>
+        </section>
+      </article>
+      <nav id="sidebar">
+        <div class="toc">
+          <ul></ul>
+        </div>
+        <ul id="index">
+          <li>
+            <h3>Super-module</h3>
+            <ul>
+              <li>
+                <code
+                  ><a title="space_hulk_game" href="index.html"
+                    >space_hulk_game</a
+                  ></code
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <h3><a href="#header-functions">Functions</a></h3>
+            <ul class="">
+              <li>
+                <code
+                  ><a
+                    title="space_hulk_game.demo_game.main"
+                    href="#space_hulk_game.demo_game.main"
+                    >main</a
+                  ></code
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <h3><a href="#header-classes">Classes</a></h3>
+            <ul>
+              <li>
+                <h4>
+                  <code
+                    ><a
+                      title="space_hulk_game.demo_game.ColorFormatter"
+                      href="#space_hulk_game.demo_game.ColorFormatter"
+                      >ColorFormatter</a
+                    ></code
+                  >
+                </h4>
+                <ul class="two-column">
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.demo_game.ColorFormatter.item"
+                        href="#space_hulk_game.demo_game.ColorFormatter.item"
+                        >item</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.demo_game.ColorFormatter.npc"
+                        href="#space_hulk_game.demo_game.ColorFormatter.npc"
+                        >npc</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.demo_game.ColorFormatter.prompt"
+                        href="#space_hulk_game.demo_game.ColorFormatter.prompt"
+                        >prompt</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.demo_game.ColorFormatter.scene"
+                        href="#space_hulk_game.demo_game.ColorFormatter.scene"
+                        >scene</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.demo_game.ColorFormatter.success"
+                        href="#space_hulk_game.demo_game.ColorFormatter.success"
+                        >success</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.demo_game.ColorFormatter.system"
+                        href="#space_hulk_game.demo_game.ColorFormatter.system"
+                        >system</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.demo_game.ColorFormatter.title"
+                        href="#space_hulk_game.demo_game.ColorFormatter.title"
+                        >title</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.demo_game.ColorFormatter.warning"
+                        href="#space_hulk_game.demo_game.ColorFormatter.warning"
+                        >warning</a
+                      ></code
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <h4>
+                  <code
+                    ><a
+                      title="space_hulk_game.demo_game.DemoGameCLI"
+                      href="#space_hulk_game.demo_game.DemoGameCLI"
+                      >DemoGameCLI</a
+                    ></code
+                  >
+                </h4>
+                <ul class="two-column">
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.demo_game.DemoGameCLI.clear_screen"
+                        href="#space_hulk_game.demo_game.DemoGameCLI.clear_screen"
+                        >clear_screen</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.demo_game.DemoGameCLI.load_game_data"
+                        href="#space_hulk_game.demo_game.DemoGameCLI.load_game_data"
+                        >load_game_data</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.demo_game.DemoGameCLI.load_saved_game"
+                        href="#space_hulk_game.demo_game.DemoGameCLI.load_saved_game"
+                        >load_saved_game</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.demo_game.DemoGameCLI.print_separator"
+                        href="#space_hulk_game.demo_game.DemoGameCLI.print_separator"
+                        >print_separator</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.demo_game.DemoGameCLI.print_title_screen"
+                        href="#space_hulk_game.demo_game.DemoGameCLI.print_title_screen"
+                        >print_title_screen</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.demo_game.DemoGameCLI.run"
+                        href="#space_hulk_game.demo_game.DemoGameCLI.run"
+                        >run</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.demo_game.DemoGameCLI.run_game_loop"
+                        href="#space_hulk_game.demo_game.DemoGameCLI.run_game_loop"
+                        >run_game_loop</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.demo_game.DemoGameCLI.save_game"
+                        href="#space_hulk_game.demo_game.DemoGameCLI.save_game"
+                        >save_game</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.demo_game.DemoGameCLI.show_help"
+                        href="#space_hulk_game.demo_game.DemoGameCLI.show_help"
+                        >show_help</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.demo_game.DemoGameCLI.show_load_menu"
+                        href="#space_hulk_game.demo_game.DemoGameCLI.show_load_menu"
+                        >show_load_menu</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.demo_game.DemoGameCLI.show_main_menu"
+                        href="#space_hulk_game.demo_game.DemoGameCLI.show_main_menu"
+                        >show_main_menu</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.demo_game.DemoGameCLI.show_save_menu"
+                        href="#space_hulk_game.demo_game.DemoGameCLI.show_save_menu"
+                        >show_save_menu</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.demo_game.DemoGameCLI.start_new_game"
+                        href="#space_hulk_game.demo_game.DemoGameCLI.start_new_game"
+                        >start_new_game</a
+                      ></code
+                    >
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </main>
+    <footer id="footer">
+      <p>
+        Generated by
+        <a
+          href="https://pdoc3.github.io/pdoc"
+          title="pdoc: Python API documentation generator"
+          ><cite>pdoc</cite> 0.11.6</a
+        >.
+      </p>
+    </footer>
+  </body>
 </html>

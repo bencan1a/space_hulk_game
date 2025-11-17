@@ -39,8 +39,8 @@ Edit `src/space_hulk_game/config/quality_config.yaml` to adjust quality threshol
 ```yaml
 thresholds:
   plot:
-    pass_threshold: 7.0  # Increase for stricter quality (0.0-10.0)
-    max_retries: 5       # Allow more retry attempts
+    pass_threshold: 7.0 # Increase for stricter quality (0.0-10.0)
+    max_retries: 5 # Allow more retry attempts
 ```
 
 Or use environment variables:
@@ -123,9 +123,9 @@ output = executor.execute_task(
 
 ```yaml
 global:
-  enabled: false           # Enable/disable system-wide
-  log_level: INFO         # Logging level
-  verbose_logging: true   # Detailed quality score logging
+  enabled: false # Enable/disable system-wide
+  log_level: INFO # Logging level
+  verbose_logging: true # Detailed quality score logging
 ```
 
 ### Task-Specific Thresholds
@@ -134,27 +134,27 @@ Each task type has independent configuration:
 
 ```yaml
 thresholds:
-  plot:                   # Plot outline generation
+  plot: # Plot outline generation
     enabled: true
-    pass_threshold: 6.0   # Minimum score to pass (0.0-10.0)
-    max_retries: 3        # Maximum retry attempts
+    pass_threshold: 6.0 # Minimum score to pass (0.0-10.0)
+    max_retries: 3 # Maximum retry attempts
 
-  narrative:              # Narrative map creation
-    enabled: true
-    pass_threshold: 6.0
-    max_retries: 3
-
-  puzzle:                 # Puzzle and artifact design
+  narrative: # Narrative map creation
     enabled: true
     pass_threshold: 6.0
     max_retries: 3
 
-  scene:                  # Scene text and dialogue
+  puzzle: # Puzzle and artifact design
     enabled: true
     pass_threshold: 6.0
     max_retries: 3
 
-  mechanics:              # Game mechanics and PRD
+  scene: # Scene text and dialogue
+    enabled: true
+    pass_threshold: 6.0
+    max_retries: 3
+
+  mechanics: # Game mechanics and PRD
     enabled: true
     pass_threshold: 6.0
     max_retries: 3
@@ -164,7 +164,7 @@ thresholds:
 
 ```yaml
 retry:
-  provide_feedback: true          # Pass feedback to retry attempts
+  provide_feedback: true # Pass feedback to retry attempts
   fail_on_evaluation_error: false # Continue if evaluation fails
 ```
 
@@ -172,27 +172,27 @@ retry:
 
 All settings can be overridden via environment variables:
 
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `QUALITY_CHECK_ENABLED` | Enable/disable globally | `true` / `false` |
-| `QUALITY_PLOT_THRESHOLD` | Plot quality threshold | `7.0` |
-| `QUALITY_NARRATIVE_THRESHOLD` | Narrative quality threshold | `8.0` |
-| `QUALITY_PUZZLE_THRESHOLD` | Puzzle quality threshold | `6.5` |
-| `QUALITY_SCENE_THRESHOLD` | Scene quality threshold | `7.5` |
-| `QUALITY_MECHANICS_THRESHOLD` | Mechanics quality threshold | `6.0` |
-| `QUALITY_MAX_RETRIES` | Max retries for all tasks | `5` |
+| Variable                      | Description                 | Example          |
+| ----------------------------- | --------------------------- | ---------------- |
+| `QUALITY_CHECK_ENABLED`       | Enable/disable globally     | `true` / `false` |
+| `QUALITY_PLOT_THRESHOLD`      | Plot quality threshold      | `7.0`            |
+| `QUALITY_NARRATIVE_THRESHOLD` | Narrative quality threshold | `8.0`            |
+| `QUALITY_PUZZLE_THRESHOLD`    | Puzzle quality threshold    | `6.5`            |
+| `QUALITY_SCENE_THRESHOLD`     | Scene quality threshold     | `7.5`            |
+| `QUALITY_MECHANICS_THRESHOLD` | Mechanics quality threshold | `6.0`            |
+| `QUALITY_MAX_RETRIES`         | Max retries for all tasks   | `5`              |
 
 ## Quality Levels
 
 The system defines standard quality levels:
 
-| Level | Score Range | Description |
-|-------|-------------|-------------|
-| Excellent | 9.0-10.0 | Exceeds expectations |
-| Good | 7.0-8.9 | Meets all requirements well |
-| Acceptable | 6.0-6.9 | Meets minimum requirements |
-| Poor | 4.0-5.9 | Significant issues present |
-| Failing | 0.0-3.9 | Does not meet requirements |
+| Level      | Score Range | Description                 |
+| ---------- | ----------- | --------------------------- |
+| Excellent  | 9.0-10.0    | Exceeds expectations        |
+| Good       | 7.0-8.9     | Meets all requirements well |
+| Acceptable | 6.0-6.9     | Meets minimum requirements  |
+| Poor       | 4.0-5.9     | Significant issues present  |
+| Failing    | 0.0-3.9     | Does not meet requirements  |
 
 ## Understanding Quality Scores
 

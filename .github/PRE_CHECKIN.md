@@ -11,7 +11,9 @@ make check
 ```
 
 This command runs **all** quality checks:
+
 - **Auto-fix** - Ruff linting and formatting (auto-fixes issues)
+- **Prettier** - Frontend code formatting check (TypeScript, CSS)
 - **YAML Validation** - yamllint
 - **Markdown Linting** - markdownlint (auto-fixes issues)
 - **Type Checking** - MyPy type validation
@@ -21,6 +23,7 @@ This command runs **all** quality checks:
 ## Why This Matters
 
 Running `make check` before committing:
+
 - ✅ Auto-fixes linting and formatting issues
 - ✅ Catches type safety issues early
 - ✅ Validates configuration files (YAML)
@@ -39,6 +42,7 @@ make fix
 ```
 
 This will:
+
 - Fix linting issues with Ruff
 - Auto-format code with Ruff
 - Format frontend code (if npm is available)
@@ -54,6 +58,7 @@ make install-dev
 ```
 
 **🚨 CRITICAL: Pre-commit Hook Policy**
+
 - Pre-commit hooks run automatically on every `git commit`
 - If hooks fail, **FIX THE ISSUES** - do NOT bypass hooks
 - **NEVER use `git commit --no-verify` or `git commit -n`**
@@ -62,17 +67,19 @@ make install-dev
 
 ## Quick Reference
 
-| Command | Purpose |
-|---------|---------|
-| `make check` | **Required before commit** - Run all quality checks (auto-fix, lint, type, security, yaml, markdown, test) |
-| `make fix` | Auto-fix linting and formatting issues only (without running checks) |
-| `make lint` | Check code with Ruff linter |
-| `make format` | Auto-format code |
-| `make type-check` | Run MyPy type validation |
-| `make security` | Run Bandit security scan |
-| `make check-yaml` | Validate YAML files |
-| `make check-markdown` | Validate and auto-fix Markdown files |
-| `make test` | Run test suite |
+| Command                      | Purpose                                                                                                        |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `make check`                 | **Required before commit** - Run all quality checks (auto-fix, prettier, yaml, markdown, type, security, test) |
+| `make fix`                   | Auto-fix linting and formatting issues only (without running checks)                                           |
+| `make lint`                  | Check code with Ruff linter                                                                                    |
+| `make format`                | Auto-format code                                                                                               |
+| `make format-frontend`       | Format frontend code with Prettier                                                                             |
+| `make format-check-frontend` | Check frontend formatting with Prettier                                                                        |
+| `make type-check`            | Run MyPy type validation                                                                                       |
+| `make security`              | Run Bandit security scan                                                                                       |
+| `make check-yaml`            | Validate YAML files                                                                                            |
+| `make check-markdown`        | Validate and auto-fix Markdown files                                                                           |
+| `make test`                  | Run test suite                                                                                                 |
 
 ## For AI Agents
 

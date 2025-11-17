@@ -14,16 +14,19 @@ This is a text-based adventure game set in the Warhammer 40K universe, built usi
 ## Key Project Areas
 
 ### Source Code
+
 - **Location**: `src/space_hulk_game/`
 - **Main Files**: `crew.py`, `main.py`
 - **Config**: `src/space_hulk_game/config/` (agents.yaml, tasks.yaml)
 
 ### Tests
+
 - **Location**: `tests/`
 - **Framework**: Python unittest
 - **Run Command**: `python -m unittest discover -s tests`
 
 ### Documentation
+
 - **Product Docs**: `docs/` - User-facing documentation (README, SETUP, guides)
 - **Development Plans**: `project-plans/` - Architecture docs, implementation plans, agent outputs
 - **Temporary Files**: `tmp/` - Debug scripts and reports (gitignored)
@@ -31,6 +34,7 @@ This is a text-based adventure game set in the Warhammer 40K universe, built usi
 ## Development Patterns
 
 I can help you work with:
+
 - **Configuration-driven design** using YAML files
 - **Decorator pattern** for agent and task definitions (`@agent`, `@task`, `@crew`)
 - **Sequential processing workflow**
@@ -48,6 +52,7 @@ I can help you work with:
 ## Code Style Preferences
 
 When helping you write code, I follow:
+
 - PEP 8 Python style guidelines
 - Type hints where appropriate
 - YAML structure consistency in config files
@@ -69,11 +74,12 @@ When helping you write code, I follow:
 - Temporary files should go in `tmp/` (not committed to git)
 - The project uses Ollama for local LLM integration at `http://localhost:11434`
 - Mem0 is used for memory management across agents
-- Agent output files (*.yaml) in `project-plans/` are gitignored and regenerated
+- Agent output files (\*.yaml) in `project-plans/` are gitignored and regenerated
 
 ## How I Can Help
 
 Ask me about:
+
 - Project structure and file locations
 - How to run or test the project
 - Where specific functionality is implemented

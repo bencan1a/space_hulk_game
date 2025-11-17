@@ -913,25 +913,25 @@ frontend/
 **Vite Configuration (`vite.config.ts`)**:
 
 ```typescript
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
     proxy: {
-      '/api': {
-        target: 'http://localhost:8000',
+      "/api": {
+        target: "http://localhost:8000",
         changeOrigin: true,
       },
-      '/ws': {
-        target: 'ws://localhost:8000',
+      "/ws": {
+        target: "ws://localhost:8000",
         ws: true,
       },
     },
   },
-})
+});
 ```
 
 **TypeScript Configuration (`tsconfig.json`)**:
@@ -1095,20 +1095,20 @@ module.exports = {
   root: true,
   env: { browser: true, es2020: true },
   extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:react-hooks/recommended',
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended",
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
-  parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh'],
+  ignorePatterns: ["dist", ".eslintrc.cjs"],
+  parser: "@typescript-eslint/parser",
+  plugins: ["react-refresh"],
   rules: {
-    'react-refresh/only-export-components': [
-      'warn',
+    "react-refresh/only-export-components": [
+      "warn",
       { allowConstantExport: true },
     ],
   },
-}
+};
 ```
 
 **Prettier Configuration (`.prettierrc`)**:
@@ -1133,9 +1133,9 @@ module.exports = {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -1272,7 +1272,7 @@ project-root/
 **Docker Compose (`docker-compose.yml`)**:
 
 ```yaml
-version: '3.8'
+version: "3.8"
 
 services:
   # Frontend (React + Vite)
@@ -2029,13 +2029,13 @@ on:
   push:
     branches: [main, develop]
     paths:
-      - 'backend/**'
-      - '.github/workflows/backend-ci.yml'
+      - "backend/**"
+      - ".github/workflows/backend-ci.yml"
   pull_request:
     branches: [main, develop]
     paths:
-      - 'backend/**'
-      - '.github/workflows/backend-ci.yml'
+      - "backend/**"
+      - ".github/workflows/backend-ci.yml"
 
 jobs:
   test:
@@ -2043,7 +2043,7 @@ jobs:
 
     strategy:
       matrix:
-        python-version: ['3.10', '3.11']
+        python-version: ["3.10", "3.11"]
 
     steps:
       - name: Checkout code
@@ -2098,7 +2098,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
       - name: Install ruff
         run: pip install ruff
@@ -2117,13 +2117,13 @@ on:
   push:
     branches: [main, develop]
     paths:
-      - 'frontend/**'
-      - '.github/workflows/frontend-ci.yml'
+      - "frontend/**"
+      - ".github/workflows/frontend-ci.yml"
   pull_request:
     branches: [main, develop]
     paths:
-      - 'frontend/**'
-      - '.github/workflows/frontend-ci.yml'
+      - "frontend/**"
+      - ".github/workflows/frontend-ci.yml"
 
 jobs:
   test:
@@ -2391,108 +2391,108 @@ frontend/
 ```typescript
 // Common types
 export interface ApiResponse<T> {
-  data: T
+  data: T;
   meta?: {
-    timestamp: string
-    version: string
-  }
+    timestamp: string;
+    version: string;
+  };
 }
 
 export interface ApiError {
-  code: string
-  message: string
-  user_message: string
-  retry_possible: boolean
+  code: string;
+  message: string;
+  user_message: string;
+  retry_possible: boolean;
 }
 
 export interface PaginatedResponse<T> {
-  items: T[]
-  total: number
-  page: number
-  page_size: number
-  has_next: boolean
+  items: T[];
+  total: number;
+  page: number;
+  page_size: number;
+  has_next: boolean;
 }
 
 // Story types
 export interface Story {
-  id: number
-  title: string
-  description: string | null
-  theme_id: string
-  created_at: string
-  updated_at: string
-  play_count: number
-  last_played: string | null
-  prompt: string
-  template_id: string | null
-  iteration_count: number
-  scene_count: number | null
-  item_count: number | null
-  npc_count: number | null
-  puzzle_count: number | null
-  tags: string[]
+  id: number;
+  title: string;
+  description: string | null;
+  theme_id: string;
+  created_at: string;
+  updated_at: string;
+  play_count: number;
+  last_played: string | null;
+  prompt: string;
+  template_id: string | null;
+  iteration_count: number;
+  scene_count: number | null;
+  item_count: number | null;
+  npc_count: number | null;
+  puzzle_count: number | null;
+  tags: string[];
 }
 
 export interface CreateStoryRequest {
-  prompt: string
-  template_id?: string
-  theme_id?: string
+  prompt: string;
+  template_id?: string;
+  theme_id?: string;
 }
 
 export interface IterationRequest {
-  story_id: number
-  feedback: string
-  changes_requested?: Record<string, any>
+  story_id: number;
+  feedback: string;
+  changes_requested?: Record<string, any>;
 }
 
 // Generation types
 export interface GenerationSession {
-  id: string
-  story_id: number | null
-  status: 'creating' | 'iterating' | 'complete' | 'error'
-  current_step: string | null
-  progress_percent: number
-  created_at: string
-  completed_at: string | null
-  error_message: string | null
+  id: string;
+  story_id: number | null;
+  status: "creating" | "iterating" | "complete" | "error";
+  current_step: string | null;
+  progress_percent: number;
+  created_at: string;
+  completed_at: string | null;
+  error_message: string | null;
 }
 
 // Game types
 export interface GameSession {
-  session_id: string
-  story_id: number
-  current_scene: string
-  inventory: string[]
-  game_over: boolean
+  session_id: string;
+  story_id: number;
+  current_scene: string;
+  inventory: string[];
+  game_over: boolean;
 }
 
 export interface GameCommand {
-  command: string
+  command: string;
 }
 
 export interface GameResponse {
-  output: string
-  state: Record<string, any>
-  valid: boolean
-  game_over: boolean
+  output: string;
+  state: Record<string, any>;
+  valid: boolean;
+  game_over: boolean;
 }
 
 // Theme types
 export interface Theme {
-  id: string
-  name: string
-  description: string
-  colors: Record<string, string>
-  fonts: Record<string, string>
+  id: string;
+  name: string;
+  description: string;
+  colors: Record<string, string>;
+  fonts: Record<string, string>;
 }
 ```
 
 **API Client (`services/api.ts`)**:
 
 ```typescript
-import axios, { AxiosInstance, AxiosError, AxiosRequestConfig } from 'axios'
-import { retryRequest } from '../utils/retryLogic'
-import { handleApiError } from '../utils/errorHandler'
+import axios, { AxiosInstance, AxiosError, AxiosRequestConfig } from "axios";
+import { retryRequest } from "../utils/retryLogic";
+import { handleApiError } from "../utils/errorHandler";
 import type {
   ApiResponse,
   PaginatedResponse,
@@ -2503,21 +2503,21 @@ import type {
   GameCommand,
   GameResponse,
   Theme,
-} from './types'
+} from "./types";
 
 class ApiClient {
-  private client: AxiosInstance
+  private client: AxiosInstance;
 
   constructor() {
     this.client = axios.create({
-      baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8000',
+      baseURL: import.meta.env.VITE_API_URL || "http://localhost:8000",
       timeout: 30000, // 30 seconds
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-    })
+    });
 
-    this.setupInterceptors()
+    this.setupInterceptors();
   }
 
   private setupInterceptors(): void {
@@ -2525,7 +2525,7 @@ class ApiClient {
     this.client.interceptors.request.use(
       (config) => {
         // Add timestamp to requests
-        config.headers['X-Request-Time'] = new Date().toISOString()
+        config.headers["X-Request-Time"] = new Date().toISOString();
 
         // Add any auth tokens here in future
         // const token = localStorage.getItem('auth_token')
@@ -2533,155 +2533,182 @@ class ApiClient {
         //   config.headers.Authorization = `Bearer ${token}`
         // }
 
-        return config
+        return config;
       },
       (error) => {
-        return Promise.reject(error)
-      }
-    )
+        return Promise.reject(error);
+      },
+    );
 
     // Response interceptor
     this.client.interceptors.response.use(
       (response) => {
         // Log successful responses in dev mode
         if (import.meta.env.DEV) {
-          console.log(`API Response: ${response.config.method?.toUpperCase()} ${response.config.url}`, response.data)
+          console.log(
+            `API Response: ${response.config.method?.toUpperCase()} ${response.config.url}`,
+            response.data,
+          );
         }
-        return response
+        return response;
       },
       async (error: AxiosError) => {
         // Handle errors
         if (error.response) {
           // Server responded with error status
-          console.error('API Error Response:', error.response.status, error.response.data)
+          console.error(
+            "API Error Response:",
+            error.response.status,
+            error.response.data,
+          );
         } else if (error.request) {
           // Request made but no response received
-          console.error('API No Response:', error.request)
+          console.error("API No Response:", error.request);
         } else {
           // Error in request setup
-          console.error('API Request Error:', error.message)
+          console.error("API Request Error:", error.message);
         }
 
         // Retry logic for specific errors
         if (this.shouldRetry(error)) {
-          return retryRequest(this.client, error.config!, 3)
+          return retryRequest(this.client, error.config!, 3);
         }
 
-        throw handleApiError(error)
-      }
-    )
+        throw handleApiError(error);
+      },
+    );
   }
 
   private shouldRetry(error: AxiosError): boolean {
     // Retry on network errors or 503 Service Unavailable
-    if (!error.response) return true
-    if (error.response.status === 503) return true
-    return false
+    if (!error.response) return true;
+    if (error.response.status === 503) return true;
+    return false;
   }
 
   // Story endpoints
   async getStories(params?: {
-    page?: number
-    page_size?: number
-    search?: string
-    theme_id?: string
-    tags?: string[]
+    page?: number;
+    page_size?: number;
+    search?: string;
+    theme_id?: string;
+    tags?: string[];
   }): Promise<PaginatedResponse<Story>> {
-    const response = await this.client.get<ApiResponse<PaginatedResponse<Story>>>('/api/v1/stories', { params })
-    return response.data.data
+    const response = await this.client.get<
+      ApiResponse<PaginatedResponse<Story>>
+    >("/api/v1/stories", { params });
+    return response.data.data;
   }
 
   async getStory(id: number): Promise<Story> {
-    const response = await this.client.get<ApiResponse<Story>>(`/api/v1/stories/${id}`)
-    return response.data.data
+    const response = await this.client.get<ApiResponse<Story>>(
+      `/api/v1/stories/${id}`,
+    );
+    return response.data.data;
   }
 
   async createStory(data: CreateStoryRequest): Promise<GenerationSession> {
-    const response = await this.client.post<ApiResponse<GenerationSession>>('/api/v1/stories', data)
-    return response.data.data
+    const response = await this.client.post<ApiResponse<GenerationSession>>(
+      "/api/v1/stories",
+      data,
+    );
+    return response.data.data;
   }
 
   async deleteStory(id: number): Promise<void> {
-    await this.client.delete(`/api/v1/stories/${id}`)
+    await this.client.delete(`/api/v1/stories/${id}`);
   }
 
   // Generation endpoints
   async getGenerationStatus(sessionId: string): Promise<GenerationSession> {
-    const response = await this.client.get<ApiResponse<GenerationSession>>(`/api/v1/generate/${sessionId}`)
-    return response.data.data
+    const response = await this.client.get<ApiResponse<GenerationSession>>(
+      `/api/v1/generate/${sessionId}`,
+    );
+    return response.data.data;
   }
 
   // Game endpoints
   async startGame(storyId: number): Promise<GameSession> {
-    const response = await this.client.post<ApiResponse<GameSession>>(`/api/v1/game/${storyId}/start`)
-    return response.data.data
+    const response = await this.client.post<ApiResponse<GameSession>>(
+      `/api/v1/game/${storyId}/start`,
+    );
+    return response.data.data;
   }
 
-  async sendCommand(sessionId: string, command: GameCommand): Promise<GameResponse> {
+  async sendCommand(
+    sessionId: string,
+    command: GameCommand,
+  ): Promise<GameResponse> {
     const response = await this.client.post<ApiResponse<GameResponse>>(
       `/api/v1/game/${sessionId}/command`,
-      command
-    )
-    return response.data.data
+      command,
+    );
+    return response.data.data;
   }
 
-  async saveGame(sessionId: string, saveName: string): Promise<{ save_id: string }> {
+  async saveGame(
+    sessionId: string,
+    saveName: string,
+  ): Promise<{ save_id: string }> {
     const response = await this.client.post<ApiResponse<{ save_id: string }>>(
       `/api/v1/game/${sessionId}/save`,
-      { name: saveName }
-    )
-    return response.data.data
+      { name: saveName },
+    );
+    return response.data.data;
   }
 
   // Theme endpoints
   async getThemes(): Promise<Theme[]> {
-    const response = await this.client.get<ApiResponse<Theme[]>>('/api/v1/themes')
-    return response.data.data
+    const response =
+      await this.client.get<ApiResponse<Theme[]>>("/api/v1/themes");
+    return response.data.data;
   }
 
   async getTheme(themeId: string): Promise<Theme> {
-    const response = await this.client.get<ApiResponse<Theme>>(`/api/v1/themes/${themeId}`)
-    return response.data.data
+    const response = await this.client.get<ApiResponse<Theme>>(
+      `/api/v1/themes/${themeId}`,
+    );
+    return response.data.data;
   }
 }
 
-export const apiClient = new ApiClient()
-export default apiClient
+export const apiClient = new ApiClient();
+export default apiClient;
 ```
 
 **Error Handler (`utils/errorHandler.ts`)**:
 
 ```typescript
-import { AxiosError } from 'axios'
-import type { ApiError } from '../services/types'
+import { AxiosError } from "axios";
+import type { ApiError } from "../services/types";
 
 export class AppError extends Error {
-  code: string
-  userMessage: string
-  retryPossible: boolean
-  status?: number
+  code: string;
+  userMessage: string;
+  retryPossible: boolean;
+  status?: number;
 
   constructor(
     code: string,
     message: string,
     userMessage: string,
     retryPossible: boolean = false,
-    status?: number
+    status?: number,
   ) {
-    super(message)
-    this.name = 'AppError'
-    this.code = code
-    this.userMessage = userMessage
-    this.retryPossible = retryPossible
-    this.status = status
+    super(message);
+    this.name = "AppError";
+    this.code = code;
+    this.userMessage = userMessage;
+    this.retryPossible = retryPossible;
+    this.status = status;
   }
 }
 
 export function handleApiError(error: AxiosError): AppError {
   if (error.response) {
     // Server responded with error
-    const status = error.response.status
-    const errorData = error.response.data as ApiError | undefined
+    const status = error.response.status;
+    const errorData = error.response.data as ApiError | undefined;
 
     if (errorData?.user_message) {
       return new AppError(
@@ -2689,112 +2716,112 @@ export function handleApiError(error: AxiosError): AppError {
         errorData.message,
         errorData.user_message,
         errorData.retry_possible,
-        status
-      )
+        status,
+      );
     }
 
     // Default error messages by status code
     switch (status) {
       case 400:
         return new AppError(
-          'BAD_REQUEST',
+          "BAD_REQUEST",
           error.message,
-          'Invalid request. Please check your input and try again.',
+          "Invalid request. Please check your input and try again.",
           false,
-          status
-        )
+          status,
+        );
       case 404:
         return new AppError(
-          'NOT_FOUND',
+          "NOT_FOUND",
           error.message,
-          'The requested resource was not found.',
+          "The requested resource was not found.",
           false,
-          status
-        )
+          status,
+        );
       case 500:
         return new AppError(
-          'SERVER_ERROR',
+          "SERVER_ERROR",
           error.message,
-          'A server error occurred. Please try again later.',
+          "A server error occurred. Please try again later.",
           true,
-          status
-        )
+          status,
+        );
       case 503:
         return new AppError(
-          'SERVICE_UNAVAILABLE',
+          "SERVICE_UNAVAILABLE",
           error.message,
-          'The service is temporarily unavailable. Please try again.',
+          "The service is temporarily unavailable. Please try again.",
           true,
-          status
-        )
+          status,
+        );
       default:
         return new AppError(
-          'UNKNOWN_ERROR',
+          "UNKNOWN_ERROR",
           error.message,
-          'An unexpected error occurred. Please try again.',
+          "An unexpected error occurred. Please try again.",
           true,
-          status
-        )
+          status,
+        );
     }
   } else if (error.request) {
     // Request made but no response
     return new AppError(
-      'NETWORK_ERROR',
-      'No response from server',
-      'Unable to connect to the server. Please check your internet connection.',
-      true
-    )
+      "NETWORK_ERROR",
+      "No response from server",
+      "Unable to connect to the server. Please check your internet connection.",
+      true,
+    );
   } else {
     // Error in request setup
     return new AppError(
-      'REQUEST_ERROR',
+      "REQUEST_ERROR",
       error.message,
-      'An error occurred while making the request. Please try again.',
-      true
-    )
+      "An error occurred while making the request. Please try again.",
+      true,
+    );
   }
 }
 
 export function getErrorMessage(error: unknown): string {
   if (error instanceof AppError) {
-    return error.userMessage
+    return error.userMessage;
   }
   if (error instanceof Error) {
-    return error.message
+    return error.message;
   }
-  return 'An unknown error occurred'
+  return "An unknown error occurred";
 }
 ```
 
 **Retry Logic (`utils/retryLogic.ts`)**:
 
 ```typescript
-import { AxiosInstance, AxiosRequestConfig } from 'axios'
+import { AxiosInstance, AxiosRequestConfig } from "axios";
 
 export async function retryRequest(
   client: AxiosInstance,
   config: AxiosRequestConfig,
   maxRetries: number = 3,
-  delay: number = 1000
+  delay: number = 1000,
 ): Promise<any> {
-  let lastError: any
+  let lastError: any;
 
   for (let i = 0; i < maxRetries; i++) {
     try {
-      return await client.request(config)
+      return await client.request(config);
     } catch (error) {
-      lastError = error
+      lastError = error;
 
       if (i < maxRetries - 1) {
         // Exponential backoff
-        const waitTime = delay * Math.pow(2, i)
-        console.log(`Retry ${i + 1}/${maxRetries} after ${waitTime}ms...`)
-        await new Promise((resolve) => setTimeout(resolve, waitTime))
+        const waitTime = delay * Math.pow(2, i);
+        console.log(`Retry ${i + 1}/${maxRetries} after ${waitTime}ms...`);
+        await new Promise((resolve) => setTimeout(resolve, waitTime));
       }
     }
   }
 
-  throw lastError
+  throw lastError;
 }
 ```
 
@@ -2803,60 +2830,71 @@ export async function retryRequest(
 **`tests/api.test.ts`**:
 
 ```typescript
-import { describe, it, expect, vi, beforeEach } from 'vitest'
-import axios from 'axios'
-import { apiClient } from '../services/api'
+import { describe, it, expect, vi, beforeEach } from "vitest";
+import axios from "axios";
+import { apiClient } from "../services/api";
 
 // Mock axios
-vi.mock('axios')
-const mockedAxios = axios as jest.Mocked<typeof axios>
+vi.mock("axios");
+const mockedAxios = axios as jest.Mocked<typeof axios>;
 
-describe('API Client', () => {
+describe("API Client", () => {
   beforeEach(() => {
-    vi.clearAllMocks()
-  })
+    vi.clearAllMocks();
+  });
 
-  it('should fetch stories successfully', async () => {
+  it("should fetch stories successfully", async () => {
     const mockStories = {
       items: [
-        { id: 1, title: 'Test Story', description: 'Test', theme_id: 'warhammer40k' },
+        {
+          id: 1,
+          title: "Test Story",
+          description: "Test",
+          theme_id: "warhammer40k",
+        },
       ],
       total: 1,
       page: 1,
       page_size: 20,
       has_next: false,
-    }
+    };
 
     mockedAxios.get.mockResolvedValueOnce({
       data: { data: mockStories },
-    })
+    });
 
-    const stories = await apiClient.getStories()
-    expect(stories).toEqual(mockStories)
-    expect(mockedAxios.get).toHaveBeenCalledWith('/api/v1/stories', { params: undefined })
-  })
+    const stories = await apiClient.getStories();
+    expect(stories).toEqual(mockStories);
+    expect(mockedAxios.get).toHaveBeenCalledWith("/api/v1/stories", {
+      params: undefined,
+    });
+  });
 
-  it('should handle network errors', async () => {
+  it("should handle network errors", async () => {
     mockedAxios.get.mockRejectedValueOnce({
       request: {},
-      message: 'Network Error',
-    })
+      message: "Network Error",
+    });
 
-    await expect(apiClient.getStories()).rejects.toThrow('Unable to connect to the server')
-  })
+    await expect(apiClient.getStories()).rejects.toThrow(
+      "Unable to connect to the server",
+    );
+  });
 
-  it('should handle 404 errors', async () => {
+  it("should handle 404 errors", async () => {
     mockedAxios.get.mockRejectedValueOnce({
       response: {
         status: 404,
         data: {},
       },
-      message: 'Not Found',
-    })
+      message: "Not Found",
+    });
 
-    await expect(apiClient.getStory(999)).rejects.toThrow('The requested resource was not found')
-  })
-})
+    await expect(apiClient.getStory(999)).rejects.toThrow(
+      "The requested resource was not found",
+    );
+  });
+});
 ```
 
 **Add to `package.json`**:

@@ -87,7 +87,7 @@ Complete migration from YAML to JSON for all game content outputs while maintain
 
 1. Add `load_json()` method
 
-   ```python
+   ````python
    def load_json(self, filepath: str) -> dict[str, Any]:
        """Load JSON file with markdown fence stripping."""
        with open(filepath, 'r', encoding='utf-8') as f:
@@ -96,7 +96,7 @@ Complete migration from YAML to JSON for all game content outputs while maintain
        content = re.sub(r'^\s*```json\s*\n?', '', content, flags=re.IGNORECASE)
        content = re.sub(r'\n?\s*```\s*$', '', content)
        return json.loads(content)
-   ```
+   ````
 
 2. Update `load_game()` method
 
@@ -344,7 +344,7 @@ python -m pytest tests/ -k quality -v
 1. **Global find/replace**:
    - "YAML" → "JSON"
    - ".yaml" → ".json"
-   - "```yaml" → "```json"
+   - "`yaml" → "`json"
 
 2. **Update code examples**:
    - Convert YAML examples to JSON
@@ -636,25 +636,25 @@ Task(subagent_type="general-purpose", prompt="Worker 5: Convert templates...")
 
 ### With Parallel Execution (Multiple Workers)
 
-| Wave | Time | Running Time |
-|------|------|--------------|
-| Wave 1 | 30 min | 30 min |
-| Wave 2 | 40 min | 1h 10m |
-| Wave 3 | 45 min | 1h 55m |
-| **Total** | | **~2 hours** |
+| Wave      | Time   | Running Time |
+| --------- | ------ | ------------ |
+| Wave 1    | 30 min | 30 min       |
+| Wave 2    | 40 min | 1h 10m       |
+| Wave 3    | 45 min | 1h 55m       |
+| **Total** |        | **~2 hours** |
 
 ### Sequential Execution (Single Developer)
 
-| Phase | Time | Cumulative |
-|-------|------|------------|
-| 1. ContentLoader | 30 min | 30 min |
-| 2. Fixtures | 30 min | 1h |
-| 3. Engine | 40 min | 1h 40m |
-| 5. Quality | 35 min | 2h 15m |
-| 6. Templates | 20 min | 2h 35m |
-| 7. Docs | 35 min | 3h 10m |
-| 9. Integration | 45 min | 3h 55m |
-| **Total** | | **~4 hours** |
+| Phase            | Time   | Cumulative   |
+| ---------------- | ------ | ------------ |
+| 1. ContentLoader | 30 min | 30 min       |
+| 2. Fixtures      | 30 min | 1h           |
+| 3. Engine        | 40 min | 1h 40m       |
+| 5. Quality       | 35 min | 2h 15m       |
+| 6. Templates     | 20 min | 2h 35m       |
+| 7. Docs          | 35 min | 3h 10m       |
+| 9. Integration   | 45 min | 3h 55m       |
+| **Total**        |        | **~4 hours** |
 
 **Speedup with Parallelization**: 2x faster
 
@@ -741,8 +741,8 @@ These are configuration files (not outputs) and staying YAML.
 ## Approval & Sign-off
 
 **Plan Author**: Claude (AI Assistant)
-**Reviewed By**: _________________
-**Approved By**: _________________
+**Reviewed By**: **\*\*\*\***\_**\*\*\*\***
+**Approved By**: **\*\*\*\***\_**\*\*\*\***
 **Date**: 2025-11-11
 
 **Status**: ✅ APPROVED - Ready for Implementation
@@ -771,4 +771,4 @@ Track progress as work completes:
 - [ ] Phase 9.1: Cleanup Dead Code
 - [ ] Phase 9.2: Integration Testing
 
-**Completion Date**: _________________
+**Completion Date**: **\*\*\*\***\_**\*\*\*\***

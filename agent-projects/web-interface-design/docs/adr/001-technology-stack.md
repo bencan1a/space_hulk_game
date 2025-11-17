@@ -31,13 +31,13 @@ The web interface architecture documentation listed several technology choices a
 
 ### Alternatives Considered
 
-| Option | Pros | Cons | Score |
-|--------|------|------|-------|
-| **Material-UI v5** | Mature ecosystem, excellent TypeScript support, comprehensive component library, active maintenance, good documentation | Larger bundle size, opinionated design system | ⭐⭐⭐⭐⭐ |
-| Chakra UI | Modern, good accessibility, smaller bundle, composable | Smaller community, fewer pre-built components, less mature | ⭐⭐⭐⭐☆ |
-| Ant Design | Very comprehensive, enterprise-ready, good for data-heavy UIs | Heavy bundle, Chinese-first documentation, less flexible theming | ⭐⭐⭐☆☆ |
-| Headless UI + Tailwind | Maximum flexibility, smallest bundle, full control | Requires more custom implementation, steeper learning curve | ⭐⭐⭐☆☆ |
-| Custom Components | Full control, perfect fit, learning opportunity | Significant development time, maintenance burden, accessibility challenges | ⭐⭐☆☆☆ |
+| Option                 | Pros                                                                                                                    | Cons                                                                       | Score      |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | ---------- |
+| **Material-UI v5**     | Mature ecosystem, excellent TypeScript support, comprehensive component library, active maintenance, good documentation | Larger bundle size, opinionated design system                              | ⭐⭐⭐⭐⭐ |
+| Chakra UI              | Modern, good accessibility, smaller bundle, composable                                                                  | Smaller community, fewer pre-built components, less mature                 | ⭐⭐⭐⭐☆  |
+| Ant Design             | Very comprehensive, enterprise-ready, good for data-heavy UIs                                                           | Heavy bundle, Chinese-first documentation, less flexible theming           | ⭐⭐⭐☆☆   |
+| Headless UI + Tailwind | Maximum flexibility, smallest bundle, full control                                                                      | Requires more custom implementation, steeper learning curve                | ⭐⭐⭐☆☆   |
+| Custom Components      | Full control, perfect fit, learning opportunity                                                                         | Significant development time, maintenance burden, accessibility challenges | ⭐⭐☆☆☆    |
 
 ### Rationale
 
@@ -84,13 +84,13 @@ const warhammer40kTheme = createTheme({
 
 ### Alternatives Considered
 
-| Option | Pros | Cons | Score |
-|--------|------|------|-------|
-| **Context API + useReducer** | Built-in, zero dependencies, sufficient for single-user, simpler mental model | Not optimized for frequent updates, no time-travel debugging | ⭐⭐⭐⭐⭐ |
-| Redux Toolkit | Powerful dev tools, time-travel debugging, large ecosystem | Overkill for single-user, boilerplate overhead, steeper learning curve | ⭐⭐⭐☆☆ |
-| Zustand | Simple, minimal boilerplate, good performance | Additional dependency, less familiar to React developers | ⭐⭐⭐⭐☆ |
-| Jotai/Recoil | Atomic state management, fine-grained reactivity | Unfamiliar API, smaller community, additional concepts | ⭐⭐⭐☆☆ |
-| MobX | Reactive, minimal boilerplate, intuitive | Different paradigm (reactive vs immutable), smaller community | ⭐⭐⭐☆☆ |
+| Option                       | Pros                                                                          | Cons                                                                   | Score      |
+| ---------------------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------- |
+| **Context API + useReducer** | Built-in, zero dependencies, sufficient for single-user, simpler mental model | Not optimized for frequent updates, no time-travel debugging           | ⭐⭐⭐⭐⭐ |
+| Redux Toolkit                | Powerful dev tools, time-travel debugging, large ecosystem                    | Overkill for single-user, boilerplate overhead, steeper learning curve | ⭐⭐⭐☆☆   |
+| Zustand                      | Simple, minimal boilerplate, good performance                                 | Additional dependency, less familiar to React developers               | ⭐⭐⭐⭐☆  |
+| Jotai/Recoil                 | Atomic state management, fine-grained reactivity                              | Unfamiliar API, smaller community, additional concepts                 | ⭐⭐⭐☆☆   |
+| MobX                         | Reactive, minimal boilerplate, intuitive                                      | Different paradigm (reactive vs immutable), smaller community          | ⭐⭐⭐☆☆   |
 
 ### Rationale
 
@@ -126,16 +126,20 @@ interface StoryState {
 }
 
 type StoryAction =
-  | { type: 'FETCH_SUCCESS'; payload: Story[] }
-  | { type: 'FETCH_ERROR'; payload: Error }
-  | { type: 'ADD_STORY'; payload: Story };
+  | { type: "FETCH_SUCCESS"; payload: Story[] }
+  | { type: "FETCH_ERROR"; payload: Error }
+  | { type: "ADD_STORY"; payload: Story };
 
 function storyReducer(state: StoryState, action: StoryAction): StoryState {
   switch (action.type) {
-    case 'FETCH_SUCCESS': return { ...state, stories: action.payload, loading: false };
-    case 'FETCH_ERROR': return { ...state, error: action.payload, loading: false };
-    case 'ADD_STORY': return { ...state, stories: [action.payload, ...state.stories] };
-    default: return state;
+    case "FETCH_SUCCESS":
+      return { ...state, stories: action.payload, loading: false };
+    case "FETCH_ERROR":
+      return { ...state, error: action.payload, loading: false };
+    case "ADD_STORY":
+      return { ...state, stories: [action.payload, ...state.stories] };
+    default:
+      return state;
   }
 }
 
@@ -162,12 +166,12 @@ export const StoryProvider: React.FC = ({ children }) => {
 
 ### Alternatives Considered
 
-| Option | Pros | Cons | Score |
-|--------|------|------|-------|
-| **Vite** | Fastest dev server (instant HMR), modern ESM-based, excellent DX, optimized production builds | Newer (less battle-tested), fewer plugins than webpack | ⭐⭐⭐⭐⭐ |
-| Create React App | Mature, zero-config, widely used, good documentation | Slow dev server, webpack-based (slower), ejecting required for customization | ⭐⭐⭐☆☆ |
-| Next.js | Full-stack framework, excellent performance, SSR/SSG built-in | Overkill for SPA, opinionated structure, heavier | ⭐⭐⭐☆☆ |
-| Webpack (custom) | Maximum flexibility, mature ecosystem, powerful | Complex configuration, slow dev server, steep learning curve | ⭐⭐☆☆☆ |
+| Option           | Pros                                                                                          | Cons                                                                         | Score      |
+| ---------------- | --------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------- |
+| **Vite**         | Fastest dev server (instant HMR), modern ESM-based, excellent DX, optimized production builds | Newer (less battle-tested), fewer plugins than webpack                       | ⭐⭐⭐⭐⭐ |
+| Create React App | Mature, zero-config, widely used, good documentation                                          | Slow dev server, webpack-based (slower), ejecting required for customization | ⭐⭐⭐☆☆   |
+| Next.js          | Full-stack framework, excellent performance, SSR/SSG built-in                                 | Overkill for SPA, opinionated structure, heavier                             | ⭐⭐⭐☆☆   |
+| Webpack (custom) | Maximum flexibility, mature ecosystem, powerful                                               | Complex configuration, slow dev server, steep learning curve                 | ⭐⭐☆☆☆    |
 
 ### Rationale
 
@@ -181,12 +185,12 @@ export const StoryProvider: React.FC = ({ children }) => {
 
 ### Performance Comparison
 
-| Metric | Vite | Create React App |
-|--------|------|------------------|
-| Cold Start | 0.5s | 8s |
-| HMR Update | 20ms | 800ms |
-| Production Build | 15s | 45s |
-| Bundle Size | Smaller (better tree-shaking) | Larger |
+| Metric           | Vite                          | Create React App |
+| ---------------- | ----------------------------- | ---------------- |
+| Cold Start       | 0.5s                          | 8s               |
+| HMR Update       | 20ms                          | 800ms            |
+| Production Build | 15s                           | 45s              |
+| Bundle Size      | Smaller (better tree-shaking) | Larger           |
 
 ### Implementation Details
 
@@ -208,29 +212,29 @@ npm run build  # → dist/
 **Configuration** (`vite.config.ts`):
 
 ```typescript
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
     proxy: {
-      '/api': 'http://localhost:8000'  // Backend proxy
-    }
+      "/api": "http://localhost:8000", // Backend proxy
+    },
   },
   build: {
-    outDir: 'dist',
+    outDir: "dist",
     sourcemap: true,
     rollupOptions: {
       output: {
         manualChunks: {
-          'mui': ['@mui/material', '@mui/icons-material'],
-          'react-vendor': ['react', 'react-dom', 'react-router-dom']
-        }
-      }
-    }
-  }
+          mui: ["@mui/material", "@mui/icons-material"],
+          "react-vendor": ["react", "react-dom", "react-router-dom"],
+        },
+      },
+    },
+  },
 });
 ```
 
@@ -251,13 +255,13 @@ export default defineConfig({
 
 ### Alternatives Considered
 
-| Option | Pros | Cons | Score |
-|--------|------|------|-------|
-| **Docker + Self-Hosted** | Full control, no vendor lock-in, cost-effective for single user, educational | Manual server management, security responsibility, scaling manual | ⭐⭐⭐⭐⭐ |
-| Railway | Easy deployment, good DX, auto-scaling, managed services | Monthly cost ($20+), vendor lock-in, overkill for single user | ⭐⭐⭐⭐☆ |
-| Render | Simple, free tier, managed DB/Redis, easy GitHub integration | Performance limits on free tier, vendor lock-in | ⭐⭐⭐⭐☆ |
-| Vercel (frontend) + Railway (backend) | Best-in-class frontend hosting, auto-preview, fast CDN | Split infrastructure, more complex, higher cost | ⭐⭐⭐☆☆ |
-| AWS (ECS/Fargate) | Enterprise-grade, unlimited scaling, full AWS ecosystem | Complex setup, overkill for MVP, steep learning curve, higher cost | ⭐⭐☆☆☆ |
+| Option                                | Pros                                                                         | Cons                                                               | Score      |
+| ------------------------------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------ | ---------- |
+| **Docker + Self-Hosted**              | Full control, no vendor lock-in, cost-effective for single user, educational | Manual server management, security responsibility, scaling manual  | ⭐⭐⭐⭐⭐ |
+| Railway                               | Easy deployment, good DX, auto-scaling, managed services                     | Monthly cost ($20+), vendor lock-in, overkill for single user      | ⭐⭐⭐⭐☆  |
+| Render                                | Simple, free tier, managed DB/Redis, easy GitHub integration                 | Performance limits on free tier, vendor lock-in                    | ⭐⭐⭐⭐☆  |
+| Vercel (frontend) + Railway (backend) | Best-in-class frontend hosting, auto-preview, fast CDN                       | Split infrastructure, more complex, higher cost                    | ⭐⭐⭐☆☆   |
+| AWS (ECS/Fargate)                     | Enterprise-grade, unlimited scaling, full AWS ecosystem                      | Complex setup, overkill for MVP, steep learning curve, higher cost | ⭐⭐☆☆☆    |
 
 ### Rationale
 
@@ -273,7 +277,7 @@ export default defineConfig({
 **Development** (`docker-compose.yml`):
 
 ```yaml
-version: '3.8'
+version: "3.8"
 services:
   frontend:
     build: ./frontend
@@ -302,7 +306,7 @@ services:
 **Production** (`docker-compose.prod.yml`):
 
 ```yaml
-version: '3.8'
+version: "3.8"
 services:
   nginx:
     image: nginx:alpine
@@ -316,7 +320,7 @@ services:
     environment:
       - DATABASE_URL=postgresql://...
     deploy:
-      replicas: 2  # Can scale horizontally
+      replicas: 2 # Can scale horizontally
 ```
 
 **Deployment Steps**:
@@ -353,12 +357,12 @@ services:
 
 ## Summary of Decisions
 
-| Technology | Decision | Rationale |
-|------------|----------|-----------|
-| **UI Library** | Material-UI v5 | Comprehensive, TypeScript-first, good accessibility |
-| **State Management** | React Context API | Built-in, sufficient for single-user, zero dependencies |
-| **Build Tool** | Vite | 10x faster dev server, modern ESM-based, better DX |
-| **Deployment** | Docker + Self-Hosted | Full control, cost-effective, cloud-ready architecture |
+| Technology           | Decision             | Rationale                                               |
+| -------------------- | -------------------- | ------------------------------------------------------- |
+| **UI Library**       | Material-UI v5       | Comprehensive, TypeScript-first, good accessibility     |
+| **State Management** | React Context API    | Built-in, sufficient for single-user, zero dependencies |
+| **Build Tool**       | Vite                 | 10x faster dev server, modern ESM-based, better DX      |
+| **Deployment**       | Docker + Self-Hosted | Full control, cost-effective, cloud-ready architecture  |
 
 ---
 

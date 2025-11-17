@@ -5,10 +5,10 @@ on:
   workflow_dispatch:
     inputs:
       game_scenario:
-        description: 'Game scenario to use (optional - defaults to example4_space_hulk)'
+        description: "Game scenario to use (optional - defaults to example4_space_hulk)"
         required: false
         type: string
-        default: 'example4_space_hulk'
+        default: "example4_space_hulk"
 
 concurrency:
   group: ${{ github.workflow }}
@@ -30,7 +30,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
       - name: Install UV package manager
         run: |

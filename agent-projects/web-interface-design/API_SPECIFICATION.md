@@ -34,7 +34,9 @@ All paths below are relative to base URL.
 
 ```json
 {
-  "data": { /* resource or collection */ },
+  "data": {
+    /* resource or collection */
+  },
   "meta": {
     "timestamp": "2025-11-12T20:00:00Z",
     "version": "1.0"
@@ -50,7 +52,9 @@ All paths below are relative to base URL.
     "code": "ERROR_CODE",
     "message": "Technical error message",
     "user_message": "User-friendly message",
-    "details": { /* optional additional context */ },
+    "details": {
+      /* optional additional context */
+    },
     "retry_possible": true,
     "timestamp": "2025-11-12T20:00:00Z"
   }
@@ -61,7 +65,9 @@ All paths below are relative to base URL.
 
 ```json
 {
-  "data": [ /* array of items */ ],
+  "data": [
+    /* array of items */
+  ],
   "pagination": {
     "page": 1,
     "per_page": 20,
@@ -198,11 +204,21 @@ All paths below are relative to base URL.
 ```json
 {
   "data": {
-    "plot": { /* plot_outline.json content */ },
-    "narrative_map": { /* narrative_map.json content */ },
-    "puzzles": { /* puzzle_design.json content */ },
-    "scenes": { /* scene_texts.json content */ },
-    "prd": { /* prd_document.json content */ }
+    "plot": {
+      /* plot_outline.json content */
+    },
+    "narrative_map": {
+      /* narrative_map.json content */
+    },
+    "puzzles": {
+      /* puzzle_design.json content */
+    },
+    "scenes": {
+      /* scene_texts.json content */
+    },
+    "prd": {
+      /* prd_document.json content */
+    }
   }
 }
 ```
@@ -245,8 +261,8 @@ All paths below are relative to base URL.
 ```json
 {
   "prompt": "Create a horror-themed Space Hulk adventure with heavy atmosphere...",
-  "template_id": "horror_infestation",  // optional
-  "theme_id": "warhammer40k"  // optional, default: "warhammer40k"
+  "template_id": "horror_infestation", // optional
+  "theme_id": "warhammer40k" // optional, default: "warhammer40k"
 }
 ```
 
@@ -293,12 +309,12 @@ All paths below are relative to base URL.
   "data": {
     "generation_job_id": "660e8400-e29b-41d4-a716-446655440001",
     "story_id": "550e8400-e29b-41d4-a716-446655440000",
-    "status": "in_progress",  // queued, in_progress, completed, failed
+    "status": "in_progress", // queued, in_progress, completed, failed
     "progress_percent": 45,
     "current_agent": "NarrativeArchitect",
     "started_at": "2025-11-12T10:00:00Z",
     "estimated_completion": "2025-11-12T10:05:00Z",
-    "error": null  // populated if status is "failed"
+    "error": null // populated if status is "failed"
   }
 }
 ```
@@ -325,12 +341,12 @@ All paths below are relative to base URL.
 {
   "feedback": "The puzzle in scene 2 needs better hints. The tone should be darker.",
   "changes": {
-    "plot_rating": 5,  // 1-5
-    "puzzle_rating": 3,  // 1-5
-    "writing_rating": 4,  // 1-5
-    "tone_adjustment": "darker",  // darker, lighter, same
-    "difficulty_adjustment": "easier",  // easier, harder, same
-    "focus_areas": ["puzzles", "atmosphere"]  // array of strings
+    "plot_rating": 5, // 1-5
+    "puzzle_rating": 3, // 1-5
+    "writing_rating": 4, // 1-5
+    "tone_adjustment": "darker", // darker, lighter, same
+    "difficulty_adjustment": "easier", // easier, harder, same
+    "focus_areas": ["puzzles", "atmosphere"] // array of strings
   }
 }
 ```
@@ -451,7 +467,9 @@ All paths below are relative to base URL.
     "recommended_theme": "warhammer40k",
     "prompt_template": "Create a {tone} Space Hulk adventure...",
     "variables": ["tone", "difficulty", "combat_focus"],
-    "example_output": { /* example game structure */ }
+    "example_output": {
+      /* example game structure */
+    }
   }
 }
 ```
@@ -510,11 +528,21 @@ All paths below are relative to base URL.
     "id": "warhammer40k",
     "name": "Warhammer 40,000",
     "description": "Grimdark sci-fi horror",
-    "colors": { /* full color palette */ },
-    "typography": { /* font configuration */ },
-    "labels": { /* UI text labels */ },
-    "terminology": { /* game terminology */ },
-    "assets": { /* asset URLs */ }
+    "colors": {
+      /* full color palette */
+    },
+    "typography": {
+      /* font configuration */
+    },
+    "labels": {
+      /* UI text labels */
+    },
+    "terminology": {
+      /* game terminology */
+    },
+    "assets": {
+      /* asset URLs */
+    }
   }
 }
 ```
@@ -618,7 +646,7 @@ All paths below are relative to base URL.
 
 ```json
 {
-  "save_name": "Before boss fight"  // optional
+  "save_name": "Before boss fight" // optional
 }
 ```
 
@@ -660,7 +688,9 @@ All paths below are relative to base URL.
     "game_session_id": "cc0e8400-e29b-41d4-a716-446655440007",
     "story_id": "550e8400-e29b-41d4-a716-446655440000",
     "output": "Game loaded. You are at...",
-    "state": { /* restored game state */ }
+    "state": {
+      /* restored game state */
+    }
   }
 }
 ```
@@ -714,7 +744,7 @@ All paths below are relative to base URL.
 **Connection**:
 
 ```javascript
-const ws = new WebSocket('ws://localhost:8000/ws/generation/660e8400-...');
+const ws = new WebSocket("ws://localhost:8000/ws/generation/660e8400-...");
 ```
 
 **Client → Server Messages**:
@@ -788,21 +818,21 @@ const ws = new WebSocket('ws://localhost:8000/ws/generation/660e8400-...');
 
 ## HTTP Status Codes
 
-| Code | Meaning | When Used |
-|------|---------|-----------|
-| 200 OK | Success | GET, POST (synchronous operations) |
-| 201 Created | Resource created | POST (created new resource) |
-| 202 Accepted | Async operation queued | POST (generation, iteration) |
-| 204 No Content | Success, no response body | DELETE |
-| 400 Bad Request | Invalid input | Validation errors |
-| 401 Unauthorized | Authentication required | Future: auth endpoints |
-| 403 Forbidden | Action not allowed | Delete sample story |
-| 404 Not Found | Resource not found | Invalid ID |
-| 409 Conflict | Business rule violation | Iteration limit, duplicate |
-| 410 Gone | Resource permanently removed | Expired game session |
-| 429 Too Many Requests | Rate limit exceeded | Concurrent generation limit |
-| 500 Internal Server Error | Server error | Unexpected failures |
-| 503 Service Unavailable | Temporary unavailability | Maintenance, overload |
+| Code                      | Meaning                      | When Used                          |
+| ------------------------- | ---------------------------- | ---------------------------------- |
+| 200 OK                    | Success                      | GET, POST (synchronous operations) |
+| 201 Created               | Resource created             | POST (created new resource)        |
+| 202 Accepted              | Async operation queued       | POST (generation, iteration)       |
+| 204 No Content            | Success, no response body    | DELETE                             |
+| 400 Bad Request           | Invalid input                | Validation errors                  |
+| 401 Unauthorized          | Authentication required      | Future: auth endpoints             |
+| 403 Forbidden             | Action not allowed           | Delete sample story                |
+| 404 Not Found             | Resource not found           | Invalid ID                         |
+| 409 Conflict              | Business rule violation      | Iteration limit, duplicate         |
+| 410 Gone                  | Resource permanently removed | Expired game session               |
+| 429 Too Many Requests     | Rate limit exceeded          | Concurrent generation limit        |
+| 500 Internal Server Error | Server error                 | Unexpected failures                |
+| 503 Service Unavailable   | Temporary unavailability     | Maintenance, overload              |
 
 ---
 
@@ -841,18 +871,18 @@ X-RateLimit-Reset: 1699804800
 
 ## Common Error Codes
 
-| Code | User Message | When |
-|------|--------------|------|
-| `GENERATION_TIMEOUT` | Generation is taking longer than expected | Agent execution > 15 min |
-| `GENERATION_AGENT_FAILED` | AI agent encountered an error | Agent crashes or invalid output |
-| `ITERATION_LIMIT_REACHED` | Maximum 5 iterations reached | User tries 6th iteration |
-| `STORY_NOT_FOUND` | Story does not exist | Invalid story ID |
-| `GAME_SESSION_EXPIRED` | Game session has expired | Session > 1 hour idle |
-| `INVALID_COMMAND` | Command not recognized | Game engine doesn't understand |
-| `WEBSOCKET_CONNECTION_LOST` | Connection interrupted | Network issues |
-| `DATABASE_ERROR` | Temporary database issue | DB connection problems |
-| `FILE_SYSTEM_ERROR` | Unable to access story files | Disk full, permissions |
-| `RATE_LIMIT_EXCEEDED` | Too many requests | Rate limiting triggered |
+| Code                        | User Message                              | When                            |
+| --------------------------- | ----------------------------------------- | ------------------------------- |
+| `GENERATION_TIMEOUT`        | Generation is taking longer than expected | Agent execution > 15 min        |
+| `GENERATION_AGENT_FAILED`   | AI agent encountered an error             | Agent crashes or invalid output |
+| `ITERATION_LIMIT_REACHED`   | Maximum 5 iterations reached              | User tries 6th iteration        |
+| `STORY_NOT_FOUND`           | Story does not exist                      | Invalid story ID                |
+| `GAME_SESSION_EXPIRED`      | Game session has expired                  | Session > 1 hour idle           |
+| `INVALID_COMMAND`           | Command not recognized                    | Game engine doesn't understand  |
+| `WEBSOCKET_CONNECTION_LOST` | Connection interrupted                    | Network issues                  |
+| `DATABASE_ERROR`            | Temporary database issue                  | DB connection problems          |
+| `FILE_SYSTEM_ERROR`         | Unable to access story files              | Disk full, permissions          |
+| `RATE_LIMIT_EXCEEDED`       | Too many requests                         | Rate limiting triggered         |
 
 ---
 

@@ -11,21 +11,26 @@
  * - Accessibility validation
  */
 
-import { test, expect, Page } from '@playwright/test';
+import { test, expect, Page } from "@playwright/test";
 
 // === TEST CONFIGURATION ===
 
-test.describe.configure({ mode: 'serial' }); // Run tests in order
+test.describe.configure({ mode: "serial" }); // Run tests in order
 
 // === HELPER FUNCTIONS ===
 
 /**
  * Wait for generation to complete (with timeout)
  */
-async function waitForGenerationComplete(page: Page, timeout: number = 600000): Promise<void> {
-  await expect(page.locator('[data-testid="generation-complete"]')).toBeVisible({
-    timeout
-  });
+async function waitForGenerationComplete(
+  page: Page,
+  timeout: number = 600000,
+): Promise<void> {
+  await expect(page.locator('[data-testid="generation-complete"]')).toBeVisible(
+    {
+      timeout,
+    },
+  );
 }
 
 /**
@@ -46,7 +51,7 @@ async function fillPrompt(page: Page, prompt: string): Promise<void> {
 async function waitForElementWithRetry(
   page: Page,
   selector: string,
-  maxRetries: number = 3
+  maxRetries: number = 3,
 ): Promise<void> {
   for (let i = 0; i < maxRetries; i++) {
     try {
@@ -61,13 +66,13 @@ async function waitForElementWithRetry(
 
 // === E2E TEST: FIRST-TIME USER CREATES STORY FROM TEMPLATE ===
 
-test.describe('Story Creation Journey', () => {
+test.describe("Story Creation Journey", () => {
   test.beforeEach(async ({ page }) => {
     // Reset database to clean state (via API or direct DB connection)
-    await page.request.post('/api/test/reset-database');
+    await page.request.post("/api/test/reset-database");
   });
 
-  test('First-time user creates story from template', async ({ page }) => {
+  test("First-time user creates story from template", async ({ page }) => {
     /**
      * PRECONDITIONS:
      * - User has never used the system
@@ -82,13 +87,13 @@ test.describe('Story Creation Journey', () => {
      */
 
     // === STEP 1: Navigate to home page ===
-    await page.goto('/');
+    await page.goto("/");
 
     // Verify empty library state
     await expect(page.locator('[data-testid="library-empty"]')).toBeVisible();
-    await expect(page.locator('[data-testid="library-empty-message"]')).toContainText(
-      /no stories yet/i
-    );
+    await expect(
+      page.locator('[data-testid="library-empty-message"]'),
+    ).toContainText(/no stories yet/i);
 
     // Verify "Create New Story" call-to-action
     const createButton = page.locator('[data-testid="create-story-button"]');
@@ -99,11 +104,13 @@ test.describe('Story Creation Journey', () => {
     await createButton.click();
 
     // Verify URL changed
-    await expect(page).toHaveURL('/create');
+    await expect(page).toHaveURL("/create");
 
     // Verify creation page loaded
-    await expect(page.locator('[data-testid="template-gallery"]')).toBeVisible();
-    await expect(page.locator('h1')).toContainText(/create.*story/i);
+    await expect(
+      page.locator('[data-testid="template-gallery"]'),
+    ).toBeVisible();
+    await expect(page.locator("h1")).toContainText(/create.*story/i);
 
     // === STEP 3: Select horror template ===
     const horrorTemplate = page.locator('[data-testid="template-horror"]');
@@ -117,12 +124,13 @@ test.describe('Story Creation Journey', () => {
 
     // Verify template selected (visual indicator)
     await expect(horrorTemplate).toHaveClass(/selected/);
-    await expect(page.locator('[data-testid="template-description"]')).toContainText(
-      /atmospheric/i
-    );
+    await expect(
+      page.locator('[data-testid="template-description"]'),
+    ).toContainText(/atmospheric/i);
 
     // === STEP 4: Customize prompt ===
-    const customPrompt = 'A dark atmospheric horror adventure with minimal combat and heavy exploration. Focus on psychological tension and environmental storytelling.';
+    const customPrompt =
+      "A dark atmospheric horror adventure with minimal combat and heavy exploration. Focus on psychological tension and environmental storytelling.";
 
     await fillPrompt(page, customPrompt);
 
@@ -139,8 +147,12 @@ test.describe('Story Creation Journey', () => {
 
     // Progress components should be visible
     await expect(page.locator('[data-testid="progress-bar"]')).toBeVisible();
-    await expect(page.locator('[data-testid="agent-status-list"]')).toBeVisible();
-    await expect(page.locator('[data-testid="progress-message"]')).toBeVisible();
+    await expect(
+      page.locator('[data-testid="agent-status-list"]'),
+    ).toBeVisible();
+    await expect(
+      page.locator('[data-testid="progress-message"]'),
+    ).toBeVisible();
 
     // === STEP 7: Monitor real-time progress updates ===
     // Wait for WebSocket connection
@@ -148,30 +160,38 @@ test.describe('Story Creation Journey', () => {
 
     // Verify progress bar starts at 0%
     const progressBar = page.locator('[data-testid="progress-bar"]');
-    const initialProgress = await progressBar.getAttribute('aria-valuenow');
-    expect(parseInt(initialProgress || '0')).toBeGreaterThanOrEqual(0);
+    const initialProgress = await progressBar.getAttribute("aria-valuenow");
+    expect(parseInt(initialProgress || "0")).toBeGreaterThanOrEqual(0);
 
     // Verify agent status updates
-    const plotMasterStatus = page.locator('[data-testid="agent-status-PlotMaster"]');
+    const plotMasterStatus = page.locator(
+      '[data-testid="agent-status-PlotMaster"]',
+    );
     await expect(plotMasterStatus).toBeVisible();
 
     // Wait for first agent to complete (checkmark appears)
-    await expect(plotMasterStatus.locator('[data-testid="status-icon"]')).toContainText(
-      '✓',
-      { timeout: 120000 } // 2 minutes for first agent
+    await expect(
+      plotMasterStatus.locator('[data-testid="status-icon"]'),
+    ).toContainText(
+      "✓",
+      { timeout: 120000 }, // 2 minutes for first agent
     );
 
     // Verify progress increased
-    const updatedProgress = await progressBar.getAttribute('aria-valuenow');
-    expect(parseInt(updatedProgress || '0')).toBeGreaterThan(parseInt(initialProgress || '0'));
+    const updatedProgress = await progressBar.getAttribute("aria-valuenow");
+    expect(parseInt(updatedProgress || "0")).toBeGreaterThan(
+      parseInt(initialProgress || "0"),
+    );
 
     // === STEP 8: Wait for completion (up to 10 minutes) ===
     await waitForGenerationComplete(page, 600000);
 
     // Verify completion UI
-    await expect(page.locator('[data-testid="generation-complete"]')).toBeVisible();
+    await expect(
+      page.locator('[data-testid="generation-complete"]'),
+    ).toBeVisible();
     await expect(page.locator('[data-testid="success-message"]')).toContainText(
-      /story created successfully/i
+      /story created successfully/i,
     );
 
     // === STEP 9: Verify story details displayed ===
@@ -186,8 +206,10 @@ test.describe('Story Creation Journey', () => {
     await expect(storyStats).toContainText(/puzzles/i);
 
     // Verify scene count > 0
-    const sceneCount = await page.locator('[data-testid="scene-count"]').textContent();
-    expect(parseInt(sceneCount || '0')).toBeGreaterThan(0);
+    const sceneCount = await page
+      .locator('[data-testid="scene-count"]')
+      .textContent();
+    expect(parseInt(sceneCount || "0")).toBeGreaterThan(0);
 
     // === STEP 10: Navigate to game player ===
     const playNowButton = page.locator('[data-testid="play-now-button"]');
@@ -216,14 +238,18 @@ test.describe('Story Creation Journey', () => {
     await expect(page.locator('[data-testid="output-log"]')).toBeVisible();
 
     // 5. Story appears in library
-    await page.goto('/library');
-    await expect(page.locator('[data-testid="story-card"]').first()).toBeVisible();
-    await expect(page.locator('[data-testid="story-card"]').first()).toContainText(/horror/i);
+    await page.goto("/library");
+    await expect(
+      page.locator('[data-testid="story-card"]').first(),
+    ).toBeVisible();
+    await expect(
+      page.locator('[data-testid="story-card"]').first(),
+    ).toContainText(/horror/i);
   });
 
   // === ERROR SCENARIO: Generation Timeout ===
 
-  test('User recovers from generation timeout', async ({ page }) => {
+  test("User recovers from generation timeout", async ({ page }) => {
     /**
      * Simulate generation timeout scenario.
      *
@@ -237,49 +263,52 @@ test.describe('Story Creation Journey', () => {
      */
 
     // Mock API to simulate timeout
-    await page.route('**/api/v1/stories', async route => {
+    await page.route("**/api/v1/stories", async (route) => {
       await route.fulfill({
         status: 202,
         body: JSON.stringify({
           data: {
-            generation_job_id: 'mock-timeout-job',
-            story_id: 'mock-story',
-            status: 'queued'
-          }
-        })
+            generation_job_id: "mock-timeout-job",
+            story_id: "mock-story",
+            status: "queued",
+          },
+        }),
       });
     });
 
-    await page.route('**/api/v1/generation/mock-timeout-job', async route => {
+    await page.route("**/api/v1/generation/mock-timeout-job", async (route) => {
       // Simulate timeout error after delay
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 2000));
       await route.fulfill({
         status: 200,
         body: JSON.stringify({
           data: {
-            generation_job_id: 'mock-timeout-job',
-            status: 'failed',
+            generation_job_id: "mock-timeout-job",
+            status: "failed",
             error: {
-              code: 'GENERATION_TIMEOUT',
-              message: 'Story generation timed out after 15 minutes',
-              user_message: 'The generation is taking longer than expected. Please try again.',
-              retry_possible: true
-            }
-          }
-        })
+              code: "GENERATION_TIMEOUT",
+              message: "Story generation timed out after 15 minutes",
+              user_message:
+                "The generation is taking longer than expected. Please try again.",
+              retry_possible: true,
+            },
+          },
+        }),
       });
     });
 
     // Navigate and start generation
-    await page.goto('/create');
+    await page.goto("/create");
     await page.click('[data-testid="template-horror"]');
-    await fillPrompt(page, 'Test prompt for timeout scenario');
+    await fillPrompt(page, "Test prompt for timeout scenario");
     await page.click('[data-testid="generate-button"]');
 
     // Wait for error to appear
-    await expect(page.locator('[data-testid="error-message"]')).toBeVisible({ timeout: 5000 });
+    await expect(page.locator('[data-testid="error-message"]')).toBeVisible({
+      timeout: 5000,
+    });
     await expect(page.locator('[data-testid="error-message"]')).toContainText(
-      /taking longer than expected/i
+      /taking longer than expected/i,
     );
 
     // Verify retry button
@@ -289,14 +318,17 @@ test.describe('Story Creation Journey', () => {
 
     // Verify prompt preserved
     await retryButton.click();
-    await expect(page).toHaveURL('/create');
+    await expect(page).toHaveURL("/create");
     const promptInput = page.locator('[data-testid="prompt-input"]');
-    await expect(promptInput).toHaveValue('Test prompt for timeout scenario');
+    await expect(promptInput).toHaveValue("Test prompt for timeout scenario");
   });
 
   // === ERROR SCENARIO: WebSocket Disconnect ===
 
-  test('WebSocket reconnects after network interruption', async ({ page, context }) => {
+  test("WebSocket reconnects after network interruption", async ({
+    page,
+    context,
+  }) => {
     /**
      * Test WebSocket reconnection logic.
      *
@@ -307,9 +339,9 @@ test.describe('Story Creation Journey', () => {
      */
 
     // Start generation
-    await page.goto('/create');
+    await page.goto("/create");
     await page.click('[data-testid="template-horror"]');
-    await fillPrompt(page, 'Test prompt for WebSocket reconnection');
+    await fillPrompt(page, "Test prompt for WebSocket reconnection");
     await page.click('[data-testid="generate-button"]');
 
     // Wait for progress page
@@ -319,30 +351,30 @@ test.describe('Story Creation Journey', () => {
     await context.setOffline(true);
 
     // Verify "Reconnecting..." message appears
-    await expect(page.locator('[data-testid="connection-status"]')).toContainText(
-      /reconnecting/i,
-      { timeout: 10000 }
-    );
+    await expect(
+      page.locator('[data-testid="connection-status"]'),
+    ).toContainText(/reconnecting/i, { timeout: 10000 });
 
     // Restore network
     await context.setOffline(false);
 
     // Verify reconnection successful
-    await expect(page.locator('[data-testid="connection-status"]')).toContainText(
-      /connected/i,
-      { timeout: 30000 }
-    );
+    await expect(
+      page.locator('[data-testid="connection-status"]'),
+    ).toContainText(/connected/i, { timeout: 30000 });
 
     // Verify progress updates resume
     await expect(page.locator('[data-testid="progress-bar"]')).toHaveAttribute(
-      'aria-valuenow',
-      /[0-9]+/
+      "aria-valuenow",
+      /[0-9]+/,
     );
   });
 
   // === INPUT VALIDATION ===
 
-  test('User receives validation errors for invalid prompt', async ({ page }) => {
+  test("User receives validation errors for invalid prompt", async ({
+    page,
+  }) => {
     /**
      * Test input validation and error messages.
      *
@@ -352,50 +384,52 @@ test.describe('Story Creation Journey', () => {
      * - Submit disabled until valid
      */
 
-    await page.goto('/create');
+    await page.goto("/create");
 
     const promptInput = page.locator('[data-testid="prompt-input"]');
     const generateButton = page.locator('[data-testid="generate-button"]');
     const charCount = page.locator('[data-testid="char-count"]');
 
     // Test 1: Prompt too short (minimum 50 characters)
-    await promptInput.fill('Short');
-    await expect(charCount).toContainText('5 / 1000');
+    await promptInput.fill("Short");
+    await expect(charCount).toContainText("5 / 1000");
     await expect(generateButton).toBeDisabled();
-    await expect(page.locator('[data-testid="validation-error"]')).toContainText(
-      /at least 50 characters/i
-    );
+    await expect(
+      page.locator('[data-testid="validation-error"]'),
+    ).toContainText(/at least 50 characters/i);
 
     // Test 2: Prompt too long (maximum 1000 characters)
-    const longPrompt = 'A'.repeat(1500);
+    const longPrompt = "A".repeat(1500);
     await promptInput.fill(longPrompt);
     await expect(generateButton).toBeDisabled();
-    await expect(page.locator('[data-testid="validation-error"]')).toContainText(
-      /maximum 1000 characters/i
-    );
+    await expect(
+      page.locator('[data-testid="validation-error"]'),
+    ).toContainText(/maximum 1000 characters/i);
 
     // Test 3: Valid prompt
-    const validPrompt = 'A'.repeat(200);
+    const validPrompt = "A".repeat(200);
     await promptInput.fill(validPrompt);
-    await expect(charCount).toContainText('200 / 1000');
+    await expect(charCount).toContainText("200 / 1000");
     await expect(generateButton).toBeEnabled();
-    await expect(page.locator('[data-testid="validation-error"]')).not.toBeVisible();
+    await expect(
+      page.locator('[data-testid="validation-error"]'),
+    ).not.toBeVisible();
   });
 });
 
 // === E2E TEST: GAMEPLAY SESSION ===
 
-test.describe('Gameplay Journey', () => {
+test.describe("Gameplay Journey", () => {
   let storyId: string;
 
   test.beforeAll(async ({ request }) => {
     // Create a sample story for gameplay tests
-    const response = await request.post('/api/test/create-sample-story');
+    const response = await request.post("/api/test/create-sample-story");
     const data = await response.json();
     storyId = data.story_id;
   });
 
-  test('User plays game to completion', async ({ page }) => {
+  test("User plays game to completion", async ({ page }) => {
     /**
      * Test complete gameplay session.
      *
@@ -422,68 +456,76 @@ test.describe('Gameplay Journey', () => {
     const outputLog = page.locator('[data-testid="output-log"]');
 
     // Command: look around
-    await commandInput.fill('look around');
-    await commandInput.press('Enter');
+    await commandInput.fill("look around");
+    await commandInput.press("Enter");
 
     // Verify output appears
     await expect(outputLog).toContainText(/look around/i, { timeout: 5000 });
     await expect(outputLog).not.toHaveText(initialText!); // Output changed
 
     // Command: examine door
-    await commandInput.fill('examine door');
-    await commandInput.press('Enter');
+    await commandInput.fill("examine door");
+    await commandInput.press("Enter");
 
     await expect(outputLog).toContainText(/door/i);
 
     // Command: take keycard
-    await commandInput.fill('take keycard');
-    await commandInput.press('Enter');
+    await commandInput.fill("take keycard");
+    await commandInput.press("Enter");
 
     // === STEP 3: Verify inventory updated ===
     const inventory = page.locator('[data-testid="inventory-panel"]');
     await expect(inventory).toContainText(/keycard/i, { timeout: 5000 });
 
     // === STEP 4: Use command history (up arrow) ===
-    await commandInput.press('ArrowUp');
-    await expect(commandInput).toHaveValue('take keycard');
+    await commandInput.press("ArrowUp");
+    await expect(commandInput).toHaveValue("take keycard");
 
-    await commandInput.press('ArrowUp');
-    await expect(commandInput).toHaveValue('examine door');
+    await commandInput.press("ArrowUp");
+    await expect(commandInput).toHaveValue("examine door");
 
-    await commandInput.press('ArrowDown');
-    await expect(commandInput).toHaveValue('take keycard');
+    await commandInput.press("ArrowDown");
+    await expect(commandInput).toHaveValue("take keycard");
 
     // === STEP 5: Continue to end game (simplified) ===
     // In real scenario, would play through multiple scenes
     // For brevity, mock game completion
 
-    await page.route('**/api/v1/game/*/command', async route => {
+    await page.route("**/api/v1/game/*/command", async (route) => {
       await route.fulfill({
         status: 200,
         body: JSON.stringify({
           data: {
-            output: 'You have completed the mission. GAME OVER.',
-            state: { current_scene: 'ending', game_over: true },
+            output: "You have completed the mission. GAME OVER.",
+            state: { current_scene: "ending", game_over: true },
             valid_command: true,
-            game_over: true
-          }
-        })
+            game_over: true,
+          },
+        }),
       });
     });
 
-    await commandInput.fill('complete mission');
-    await commandInput.press('Enter');
+    await commandInput.fill("complete mission");
+    await commandInput.press("Enter");
 
     // === STEP 6: Verify game over screen ===
-    await expect(page.locator('[data-testid="game-over-screen"]')).toBeVisible({ timeout: 5000 });
-    await expect(page.locator('[data-testid="game-over-message"]')).toContainText(/completed/i);
+    await expect(page.locator('[data-testid="game-over-screen"]')).toBeVisible({
+      timeout: 5000,
+    });
+    await expect(
+      page.locator('[data-testid="game-over-message"]'),
+    ).toContainText(/completed/i);
 
     // Verify options available
-    await expect(page.locator('[data-testid="play-again-button"]')).toBeVisible();
-    await expect(page.locator('[data-testid="back-to-library-button"]')).toBeVisible();
+    await expect(
+      page.locator('[data-testid="play-again-button"]'),
+    ).toBeVisible();
+    await expect(
+      page.locator('[data-testid="back-to-library-button"]'),
+    ).toBeVisible();
   });
 
-  test('User saves and loads game mid-session', async ({ page }) => {
+  test("User saves and loads game mid-session", async ({ page }) => {
     /**
      * Test save/load functionality.
      *
@@ -497,32 +539,34 @@ test.describe('Gameplay Journey', () => {
 
     // Progress through game
     const commandInput = page.locator('[data-testid="command-input"]');
-    await commandInput.fill('take flashlight');
-    await commandInput.press('Enter');
+    await commandInput.fill("take flashlight");
+    await commandInput.press("Enter");
 
     await page.waitForTimeout(1000);
 
-    await commandInput.fill('go north');
-    await commandInput.press('Enter');
+    await commandInput.fill("go north");
+    await commandInput.press("Enter");
 
     // Verify inventory has flashlight
-    await expect(page.locator('[data-testid="inventory-panel"]')).toContainText(/flashlight/i);
+    await expect(page.locator('[data-testid="inventory-panel"]')).toContainText(
+      /flashlight/i,
+    );
 
     // Save game
     await page.click('[data-testid="save-button"]');
 
     // Fill save name
     const saveNameInput = page.locator('[data-testid="save-name-input"]');
-    await saveNameInput.fill('Before boss fight');
+    await saveNameInput.fill("Before boss fight");
     await page.click('[data-testid="confirm-save-button"]');
 
     // Verify save confirmation
-    await expect(page.locator('[data-testid="save-confirmation"]')).toContainText(
-      /saved successfully/i
-    );
+    await expect(
+      page.locator('[data-testid="save-confirmation"]'),
+    ).toContainText(/saved successfully/i);
 
     // Navigate away
-    await page.goto('/library');
+    await page.goto("/library");
 
     // Load game
     await page.click(`[data-testid="story-card-${storyId}"]`);
@@ -533,14 +577,16 @@ test.describe('Gameplay Journey', () => {
 
     // Verify restored to correct state
     await expect(page).toHaveURL(/\/play\//);
-    await expect(page.locator('[data-testid="inventory-panel"]')).toContainText(/flashlight/i);
+    await expect(page.locator('[data-testid="inventory-panel"]')).toContainText(
+      /flashlight/i,
+    );
   });
 });
 
 // === E2E TEST: ACCESSIBILITY ===
 
-test.describe('Accessibility Compliance', () => {
-  test('User navigates entire app with keyboard only', async ({ page }) => {
+test.describe("Accessibility Compliance", () => {
+  test("User navigates entire app with keyboard only", async ({ page }) => {
     /**
      * Test keyboard navigation.
      *
@@ -551,34 +597,40 @@ test.describe('Accessibility Compliance', () => {
      * - No keyboard traps
      */
 
-    await page.goto('/library');
+    await page.goto("/library");
 
     // Tab through elements
-    await page.keyboard.press('Tab');
-    let focusedElement = await page.locator(':focus').getAttribute('data-testid');
+    await page.keyboard.press("Tab");
+    let focusedElement = await page
+      .locator(":focus")
+      .getAttribute("data-testid");
     expect(focusedElement).toBeTruthy();
 
     // Continue tabbing
     for (let i = 0; i < 10; i++) {
-      await page.keyboard.press('Tab');
-      const currentFocus = await page.locator(':focus').getAttribute('data-testid');
+      await page.keyboard.press("Tab");
+      const currentFocus = await page
+        .locator(":focus")
+        .getAttribute("data-testid");
       expect(currentFocus).toBeTruthy(); // Each element should have test ID
     }
 
     // Verify no keyboard trap (can always move focus)
-    const initialFocus = await page.locator(':focus').getAttribute('data-testid');
-    await page.keyboard.press('Tab');
-    const nextFocus = await page.locator(':focus').getAttribute('data-testid');
+    const initialFocus = await page
+      .locator(":focus")
+      .getAttribute("data-testid");
+    await page.keyboard.press("Tab");
+    const nextFocus = await page.locator(":focus").getAttribute("data-testid");
     expect(nextFocus).not.toBe(initialFocus);
 
     // Activate button with Enter
     const createButton = page.locator('[data-testid="create-story-button"]');
     await createButton.focus();
-    await page.keyboard.press('Enter');
-    await expect(page).toHaveURL('/create');
+    await page.keyboard.press("Enter");
+    await expect(page).toHaveURL("/create");
   });
 
-  test('Screen reader announcements work correctly', async ({ page }) => {
+  test("Screen reader announcements work correctly", async ({ page }) => {
     /**
      * Test ARIA live regions and announcements.
      *
@@ -588,7 +640,7 @@ test.describe('Accessibility Compliance', () => {
      * - Errors have role="alert"
      */
 
-    await page.goto('/create');
+    await page.goto("/create");
 
     // Verify live region exists
     const liveRegion = page.locator('[aria-live="polite"]');
@@ -602,7 +654,7 @@ test.describe('Accessibility Compliance', () => {
 
     // Error should use aria-live="assertive"
     const promptInput = page.locator('[data-testid="prompt-input"]');
-    await promptInput.fill('Short'); // Trigger validation error
+    await promptInput.fill("Short"); // Trigger validation error
 
     const errorAlert = page.locator('[role="alert"]');
     await expect(errorAlert).toBeVisible();
@@ -611,20 +663,26 @@ test.describe('Accessibility Compliance', () => {
 
 // === E2E TEST: CROSS-BROWSER ===
 
-test.describe('Cross-Browser Compatibility', () => {
-  test('Works in Chrome, Firefox, and Safari', async ({ browserName, page }) => {
+test.describe("Cross-Browser Compatibility", () => {
+  test("Works in Chrome, Firefox, and Safari", async ({
+    browserName,
+    page,
+  }) => {
     /**
      * Test basic functionality across browsers.
      */
 
-    test.skip(browserName === 'webkit', 'WebKit/Safari has known issues with WebSockets');
+    test.skip(
+      browserName === "webkit",
+      "WebKit/Safari has known issues with WebSockets",
+    );
 
-    await page.goto('/library');
-    await expect(page.locator('h1')).toBeVisible();
+    await page.goto("/library");
+    await expect(page.locator("h1")).toBeVisible();
 
     // Test basic interaction
     await page.click('[data-testid="create-story-button"]');
-    await expect(page).toHaveURL('/create');
+    await expect(page).toHaveURL("/create");
   });
 });
 

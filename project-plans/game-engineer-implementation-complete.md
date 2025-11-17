@@ -148,15 +148,15 @@ The crew now executes **12 tasks** in sequential order:
 
 ## Files Changed
 
-| File | Changes | Lines |
-|------|---------|-------|
-| `src/space_hulk_game/config/agents.yaml` | Added GameEngineerAgent | 114-128 |
-| `src/space_hulk_game/config/tasks.yaml` | Added TranslateNarrativeToGameStructure | 486-603 |
-| `src/space_hulk_game/config/gamedesign.yaml` | Added example5_game_engine_format | 294-428 |
-| `src/space_hulk_game/crew.py` | Added GameEngineerAgent method | 766-784 |
-| `src/space_hulk_game/crew.py` | Added TranslateNarrativeToGameStructure method | 979-998 |
-| `src/space_hulk_game/crew.py` | Updated output_type_map | 230 |
-| `test_game_engineer.py` | Created test script (NEW FILE) | 1-147 |
+| File                                         | Changes                                        | Lines   |
+| -------------------------------------------- | ---------------------------------------------- | ------- |
+| `src/space_hulk_game/config/agents.yaml`     | Added GameEngineerAgent                        | 114-128 |
+| `src/space_hulk_game/config/tasks.yaml`      | Added TranslateNarrativeToGameStructure        | 486-603 |
+| `src/space_hulk_game/config/gamedesign.yaml` | Added example5_game_engine_format              | 294-428 |
+| `src/space_hulk_game/crew.py`                | Added GameEngineerAgent method                 | 766-784 |
+| `src/space_hulk_game/crew.py`                | Added TranslateNarrativeToGameStructure method | 979-998 |
+| `src/space_hulk_game/crew.py`                | Updated output_type_map                        | 230     |
+| `test_game_engineer.py`                      | Created test script (NEW FILE)                 | 1-147   |
 
 ## Test Script
 

@@ -22,6 +22,7 @@ I'm your game design expert specializing in text-based adventure games and narra
 ### Core Game Loop
 
 A typical text adventure follows this pattern:
+
 1. **Present Scene**: Describe the current location and situation
 2. **Accept Input**: Parse player command
 3. **Process Action**: Execute the command
@@ -32,6 +33,7 @@ A typical text adventure follows this pattern:
 ### Common Commands
 
 Standard text adventure commands to support:
+
 - **Movement**: `go north`, `enter`, `climb`, `exit`
 - **Observation**: `look`, `examine [object]`, `inventory`
 - **Interaction**: `take [item]`, `use [item]`, `talk to [NPC]`
@@ -41,6 +43,7 @@ Standard text adventure commands to support:
 ### Scene Structure
 
 Each scene/location should have:
+
 ```yaml
 scene_id:
   name: "Scene Name"
@@ -49,7 +52,7 @@ scene_id:
   exits:
     - direction: "north"
       destination: "another_scene_id"
-      condition: "keycard_acquired"  # Optional
+      condition: "keycard_acquired" # Optional
   items:
     - name: "flashlight"
       description: "A heavy-duty flashlight"
@@ -69,19 +72,21 @@ scene_id:
 Create meaningful choices using:
 
 **Branching Points**: Major decisions that affect the story
+
 ```yaml
 choice:
   prompt: "Do you trust the voice on the radio?"
   options:
     - text: "Follow the instructions"
       consequence: "path_trust"
-      stat_change: {morale: +1}
+      stat_change: { morale: +1 }
     - text: "Ignore it and proceed alone"
       consequence: "path_alone"
-      stat_change: {paranoia: +1}
+      stat_change: { paranoia: +1 }
 ```
 
 **Conditional Content**: Content that appears based on player state
+
 ```yaml
 conditional_scene:
   condition: "player.has_item('keycard') and player.health > 50"
@@ -89,6 +94,7 @@ conditional_scene:
 ```
 
 **Delayed Consequences**: Early choices affect later events
+
 ```yaml
 event:
   trigger: "player_at_finale"
@@ -100,6 +106,7 @@ event:
 ### Multiple Endings
 
 Design endings that reflect player choices:
+
 - **Victory Endings**: Escape, destroy threat, save others
 - **Survival Endings**: Barely escape, heavy losses
 - **Tragic Endings**: Sacrifice, trapped, consumed
@@ -110,21 +117,25 @@ Design endings that reflect player choices:
 ### Puzzle Types for Space Hulk
 
 **Environmental Puzzles**: Use the environment
+
 - Repair damaged systems (find parts, use tools)
 - Navigate through hazards (timing, stealth)
 - Restore power to sections
 
 **Item Combination Puzzles**: Combine items to progress
+
 - Create makeshift tools
 - Mix chemicals or components
 - Assemble devices
 
 **Information Puzzles**: Gather and use information
+
 - Decode messages
 - Find access codes
 - Piece together what happened
 
 **Logic Puzzles**: Figure out the solution
+
 - Override security systems
 - Solve airlocksequences
 - Decrypt terminals
@@ -132,6 +143,7 @@ Design endings that reflect player choices:
 ### Puzzle Balance
 
 Good puzzles should:
+
 - Have **clear goals** (player knows what to achieve)
 - Provide **hints** (examination reveals clues)
 - Allow **multiple approaches** when possible
@@ -140,6 +152,7 @@ Good puzzles should:
 - Have **fair difficulty** (solvable with available information)
 
 Example:
+
 ```yaml
 puzzle:
   name: "Engine Room Power Restoration"
@@ -182,12 +195,13 @@ combat:
   damage_calculation:
     base_damage: "weapon.damage"
     modifiers: ["player.strength", "enemy.armor"]
-    critical_chance: 0.1  # 10% chance
+    critical_chance: 0.1 # 10% chance
 ```
 
 ### Status Effects
 
 Add depth with conditions:
+
 - **Wounded**: Reduced max health
 - **Bleeding**: Damage over time
 - **Panicked**: Lower accuracy, higher flee chance
@@ -222,6 +236,7 @@ Add depth with conditions:
 ### Meaningful Choices
 
 Create choices that matter:
+
 - **No "correct" choice** (all have pros/cons)
 - **Reflect player values** (what matters to them?)
 - **Visible consequences** (see the results)
@@ -230,6 +245,7 @@ Create choices that matter:
 ### Exploration and Discovery
 
 Reward thorough exploration:
+
 - **Hidden rooms**: Examination reveals secret passages
 - **Optional content**: Side stories and characters
 - **Collectibles**: Lore entries, documents, recordings
@@ -247,6 +263,7 @@ Reward thorough exploration:
 ### Resource Management
 
 Balance scarce resources:
+
 - **Health items**: Limited healing
 - **Ammunition**: Finite combat resources
 - **Tool uses**: Durability or limited applications
@@ -255,6 +272,7 @@ Balance scarce resources:
 ## How I Can Help
 
 Ask me to:
+
 - Design game mechanics that fit the narrative
 - Create engaging puzzles and challenges
 - Develop branching storylines

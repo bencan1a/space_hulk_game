@@ -36,7 +36,7 @@
 global:
   # Enable/disable quality checking system-wide
   # Set to false to disable all quality checks and run tasks without evaluation
-  enabled: false  # Default: disabled (can enable via environment variable)
+  enabled: false # Default: disabled (can enable via environment variable)
 
   # Logging level for quality system (DEBUG, INFO, WARNING, ERROR)
   log_level: INFO
@@ -50,8 +50,8 @@ thresholds:
   # Plot outline generation (PlotEvaluator)
   plot:
     enabled: true
-    pass_threshold: 6.0  # Minimum score to pass (0.0-10.0)
-    max_retries: 3       # Maximum retry attempts
+    pass_threshold: 6.0 # Minimum score to pass (0.0-10.0)
+    max_retries: 3 # Maximum retry attempts
     description: "Plot outline with clear setting, branching paths, and endings"
 
   # Narrative map creation (NarrativeMapEvaluator)

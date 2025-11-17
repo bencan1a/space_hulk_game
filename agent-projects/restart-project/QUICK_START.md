@@ -68,14 +68,17 @@ When you finish a chunk, update [progress.md](progress.md) with:
 **Chunk X.Y - COMPLETED** ✅
 
 **Execution:**
+
 - Duration: [time]
 - Issues: [any problems or "None"]
 
 **Success Criteria:**
+
 - ✅ [Criterion 1]
 - ✅ [Criterion 2]
 
 **Deliverables:**
+
 - [File 1]
 - [File 2]
 
@@ -179,7 +182,7 @@ Prerequisites: None
 **Expected Deliverables:**
 
 - Test results documented
-- Generated game-config/*.yaml files (5 files)
+- Generated game-config/\*.yaml files (5 files)
 - Validation script: tests/test_sequential_5_tasks.py
 - Execution time noted
 - Issues documented (if any)

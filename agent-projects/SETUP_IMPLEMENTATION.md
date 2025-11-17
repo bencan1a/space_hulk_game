@@ -106,31 +106,31 @@ We have implemented a complete, automated setup system that allows developers to
 
 ### Required Dependencies
 
-| Package | Version | Purpose |
-|---------|---------|---------|
-| crewai[tools] | >=0.102.0,<1.0.0 | Multi-agent AI framework |
-| mem0ai | >=0.1.0 | AI memory management |
-| pyyaml | >=6.0 | YAML configuration parsing |
-| litellm | >=1.0.0 | LLM abstraction layer |
+| Package       | Version          | Purpose                    |
+| ------------- | ---------------- | -------------------------- |
+| crewai[tools] | >=0.102.0,<1.0.0 | Multi-agent AI framework   |
+| mem0ai        | >=0.1.0          | AI memory management       |
+| pyyaml        | >=6.0            | YAML configuration parsing |
+| litellm       | >=1.0.0          | LLM abstraction layer      |
 
 ### Development Dependencies
 
-| Package | Version | Purpose |
-|---------|---------|---------|
-| pytest | >=7.0.0 | Testing framework |
-| pytest-cov | >=4.0.0 | Code coverage |
-| black | >=23.0.0 | Code formatter |
-| flake8 | >=6.0.0 | Linter |
-| mypy | >=1.0.0 | Type checker |
+| Package    | Version  | Purpose           |
+| ---------- | -------- | ----------------- |
+| pytest     | >=7.0.0  | Testing framework |
+| pytest-cov | >=4.0.0  | Code coverage     |
+| black      | >=23.0.0 | Code formatter    |
+| flake8     | >=6.0.0  | Linter            |
+| mypy       | >=1.0.0  | Type checker      |
 
 ### External Dependencies
 
-| Software | Required | Installation Method |
-|----------|----------|-------------------|
-| Python 3.10-3.12 | Yes | Manual (python.org) |
-| UV package manager | Yes | Automated by setup script |
-| Ollama | Optional | Automated by setup script |
-| qwen2.5 model | Optional | Automated by setup script |
+| Software           | Required | Installation Method       |
+| ------------------ | -------- | ------------------------- |
+| Python 3.10-3.12   | Yes      | Manual (python.org)       |
+| UV package manager | Yes      | Automated by setup script |
+| Ollama             | Optional | Automated by setup script |
+| qwen2.5 model      | Optional | Automated by setup script |
 
 ## Features Implemented
 

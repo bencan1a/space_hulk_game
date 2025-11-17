@@ -331,12 +331,12 @@ Historical evolution. Started with project_restart_plan, added revised with Phas
 
 ### Update Frequency
 
-| Document | Frequency | Responsibility |
-|----------|-----------|----------------|
-| progress.md | Weekly minimum | Project manager |
-| status_assessment.md | After each phase | Project manager |
-| master_implementation_plan.md | As needed (infrequent) | Project lead |
-| This README | Monthly or as needed | Project lead |
+| Document                      | Frequency              | Responsibility  |
+| ----------------------------- | ---------------------- | --------------- |
+| progress.md                   | Weekly minimum         | Project manager |
+| status_assessment.md          | After each phase       | Project manager |
+| master_implementation_plan.md | As needed (infrequent) | Project lead    |
+| This README                   | Monthly or as needed   | Project lead    |
 
 ### Version Control
 

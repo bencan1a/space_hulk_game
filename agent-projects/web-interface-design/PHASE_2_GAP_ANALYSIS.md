@@ -190,7 +190,7 @@ The Library page has commented-out navigation code:
 const handleStoryClick = (story: Story) => {
   // TODO: Navigate to play page
   // navigate(`/play/${story.id}`);
-}
+};
 ```
 
 **Expected Behavior** (from User Journey):
@@ -349,16 +349,16 @@ Separate HomePage with generic welcome message
 
 **Coverage**: 60% ⚠️
 
-| Step | Status | Gap |
-|------|--------|-----|
-| 1. Landing Page | ⚠️ Basic | HomePage is stub |
-| 2. Browse Library | ✅ Works | LibraryPage complete |
-| 3. Click "Create Story" | 🔴 Broken | Navigation not implemented |
-| 4. Template Selection | 🔴 Missing | Phase 3 work |
-| 5. AI Chat Refinement | 🔴 Missing | Phase 3 work |
-| 6. Generation | 🔴 Missing | Phase 3 work |
-| 7. Review | 🔴 Missing | Phase 3 work |
-| 8. Play Session | 🔴 Missing | Phase 5 work |
+| Step                    | Status     | Gap                        |
+| ----------------------- | ---------- | -------------------------- |
+| 1. Landing Page         | ⚠️ Basic   | HomePage is stub           |
+| 2. Browse Library       | ✅ Works   | LibraryPage complete       |
+| 3. Click "Create Story" | 🔴 Broken  | Navigation not implemented |
+| 4. Template Selection   | 🔴 Missing | Phase 3 work               |
+| 5. AI Chat Refinement   | 🔴 Missing | Phase 3 work               |
+| 6. Generation           | 🔴 Missing | Phase 3 work               |
+| 7. Review               | 🔴 Missing | Phase 3 work               |
+| 8. Play Session         | 🔴 Missing | Phase 5 work               |
 
 **Blockers**:
 
@@ -371,15 +371,15 @@ Separate HomePage with generic welcome message
 
 **Coverage**: 90% ✅
 
-| Step | Status | Gap |
-|------|--------|-----|
-| 1. Open Library | ✅ Works | LibraryPage complete |
-| 2. Search Stories | ✅ Works | SearchBar + API working |
-| 3. Filter by Theme | ✅ Works | FilterPanel + API working |
-| 4. Filter by Tags | ✅ Works | FilterPanel + API working |
-| 5. View Sample Stories | ✅ Works | 5 samples seeded |
-| 6. Click Story to Play | 🔴 Broken | Navigation not implemented |
-| 7. Play Game | 🔴 Missing | Phase 5 work |
+| Step                   | Status     | Gap                        |
+| ---------------------- | ---------- | -------------------------- |
+| 1. Open Library        | ✅ Works   | LibraryPage complete       |
+| 2. Search Stories      | ✅ Works   | SearchBar + API working    |
+| 3. Filter by Theme     | ✅ Works   | FilterPanel + API working  |
+| 4. Filter by Tags      | ✅ Works   | FilterPanel + API working  |
+| 5. View Sample Stories | ✅ Works   | 5 samples seeded           |
+| 6. Click Story to Play | 🔴 Broken  | Navigation not implemented |
+| 7. Play Game           | 🔴 Missing | Phase 5 work               |
 
 **Blockers**:
 

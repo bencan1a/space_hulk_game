@@ -162,23 +162,23 @@ template_version: "1.0"
 description: "Template purpose"
 
 # Core guidance
-narrative_focus:        # Theme, atmosphere, pacing, tone
-required_elements:      # Setting, beats, components
-tone:                   # Adjectives, avoid, emphasis
+narrative_focus: # Theme, atmosphere, pacing, tone
+required_elements: # Setting, beats, components
+tone: # Adjectives, avoid, emphasis
 
 # Examples and guidance
-example_scenes:         # Opening, middle, climax examples
-example_puzzles:        # Puzzle types with solutions
-character_suggestions:  # Protagonist and NPC archetypes
-story_structure:        # Act breakdown
+example_scenes: # Opening, middle, climax examples
+example_puzzles: # Puzzle types with solutions
+character_suggestions: # Protagonist and NPC archetypes
+story_structure: # Act breakdown
 
 # Mechanics and quality
-mechanics_suggestions:  # Game systems recommendations
-ending_guidelines:      # Victory, defeat, neutral endings
-quality_targets:        # What makes good content
+mechanics_suggestions: # Game systems recommendations
+ending_guidelines: # Victory, defeat, neutral endings
+quality_targets: # What makes good content
 
 # Additional context
-notes:                  # 40K lore and thematic notes
+notes: # 40K lore and thematic notes
 ```
 
 ### Context Integration
@@ -353,9 +353,9 @@ You can create your own templates by:
 ### Template Selection Tips
 
 1. **Choose by Core Experience**
-   - What should players *feel*? → Horror
-   - What should players *do*? → Combat, Investigation
-   - What should players *manage*? → Survival
+   - What should players _feel_? → Horror
+   - What should players _do_? → Combat, Investigation
+   - What should players _manage_? → Survival
 
 2. **Consider Audience**
    - Story-focused players → Mystery, Horror

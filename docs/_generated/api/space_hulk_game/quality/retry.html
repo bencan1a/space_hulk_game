@@ -1,61 +1,507 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-<meta name="generator" content="pdoc3 0.11.6">
-<title>space_hulk_game.quality.retry API documentation</title>
-<meta name="description" content="Retry logic with quality feedback for task execution …">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
-<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
-<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
-<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
-<script>window.addEventListener('DOMContentLoaded', () => {
-hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
-hljs.highlightAll();
-/* Collapse source docstrings */
-setTimeout(() => {
-[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
-.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
-.forEach(el => {
-let d = document.createElement('details');
-d.classList.add('hljs-string');
-d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
-el.replaceWith(d);
-});
-}, 100);
-})</script>
-</head>
-<body>
-<main>
-<article id="content">
-<header>
-<h1 class="title">Module <code>space_hulk_game.quality.retry</code></h1>
-</header>
-<section id="section-intro">
-<p>Retry logic with quality feedback for task execution.</p>
-<p>This module provides retry mechanisms for tasks that fail quality checks,
-enabling iterative improvement through specific feedback from evaluators.</p>
-</section>
-<section>
-</section>
-<section>
-</section>
-<section>
-<h2 class="section-title" id="header-functions">Functions</h2>
-<dl>
-<dt id="space_hulk_game.quality.retry.create_quality_config"><code class="name flex">
-<span>def <span class="ident">create_quality_config</span></span>(<span>plot_threshold: float = 6.0,<br>narrative_threshold: float = 6.0,<br>puzzle_threshold: float = 6.0,<br>scene_threshold: float = 6.0,<br>mechanics_threshold: float = 6.0,<br>max_retries: int = 3) ‑> dict[<a title="space_hulk_game.quality.retry.TaskType" href="#space_hulk_game.quality.retry.TaskType">TaskType</a>, dict[str, typing.Any]]</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def create_quality_config(
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1"
+    />
+    <meta name="generator" content="pdoc3 0.11.6" />
+    <title>space_hulk_game.quality.retry API documentation</title>
+    <meta
+      name="description"
+      content="Retry logic with quality feedback for task execution …"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css"
+      integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA=="
+      crossorigin
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css"
+      integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA=="
+      crossorigin
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"
+      crossorigin
+    />
+    <style>
+      :root {
+        --highlight-color: #fe9;
+      }
+      .flex {
+        display: flex !important;
+      }
+      body {
+        line-height: 1.5em;
+      }
+      #content {
+        padding: 20px;
+      }
+      #sidebar {
+        padding: 1.5em;
+        overflow: hidden;
+      }
+      #sidebar > *:last-child {
+        margin-bottom: 2cm;
+      }
+      .http-server-breadcrumbs {
+        font-size: 130%;
+        margin: 0 0 15px 0;
+      }
+      #footer {
+        font-size: 0.75em;
+        padding: 5px 30px;
+        border-top: 1px solid #ddd;
+        text-align: right;
+      }
+      #footer p {
+        margin: 0 0 0 1em;
+        display: inline-block;
+      }
+      #footer p:last-child {
+        margin-right: 30px;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5 {
+        font-weight: 300;
+      }
+      h1 {
+        font-size: 2.5em;
+        line-height: 1.1em;
+      }
+      h2 {
+        font-size: 1.75em;
+        margin: 2em 0 0.5em 0;
+      }
+      h3 {
+        font-size: 1.4em;
+        margin: 1.6em 0 0.7em 0;
+      }
+      h4 {
+        margin: 0;
+        font-size: 105%;
+      }
+      h1:target,
+      h2:target,
+      h3:target,
+      h4:target,
+      h5:target,
+      h6:target {
+        background: var(--highlight-color);
+        padding: 0.2em 0;
+      }
+      a {
+        color: #058;
+        text-decoration: none;
+        transition: color 0.2s ease-in-out;
+      }
+      a:visited {
+        color: #503;
+      }
+      a:hover {
+        color: #b62;
+      }
+      .title code {
+        font-weight: bold;
+      }
+      h2[id^="header-"] {
+        margin-top: 2em;
+      }
+      .ident {
+        color: #900;
+        font-weight: bold;
+      }
+      pre code {
+        font-size: 0.8em;
+        line-height: 1.4em;
+        padding: 1em;
+        display: block;
+      }
+      code {
+        background: #f3f3f3;
+        font-family: "DejaVu Sans Mono", monospace;
+        padding: 1px 4px;
+        overflow-wrap: break-word;
+      }
+      h1 code {
+        background: transparent;
+      }
+      pre {
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        margin: 1em 0;
+      }
+      #http-server-module-list {
+        display: flex;
+        flex-flow: column;
+      }
+      #http-server-module-list div {
+        display: flex;
+      }
+      #http-server-module-list dt {
+        min-width: 10%;
+      }
+      #http-server-module-list p {
+        margin-top: 0;
+      }
+      .toc ul,
+      #index {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+      #index code {
+        background: transparent;
+      }
+      #index h3 {
+        border-bottom: 1px solid #ddd;
+      }
+      #index ul {
+        padding: 0;
+      }
+      #index h4 {
+        margin-top: 0.6em;
+        font-weight: bold;
+      }
+      @media (min-width: 200ex) {
+        #index .two-column {
+          column-count: 2;
+        }
+      }
+      @media (min-width: 300ex) {
+        #index .two-column {
+          column-count: 3;
+        }
+      }
+      dl {
+        margin-bottom: 2em;
+      }
+      dl dl:last-child {
+        margin-bottom: 4em;
+      }
+      dd {
+        margin: 0 0 1em 3em;
+      }
+      #header-classes + dl > dd {
+        margin-bottom: 3em;
+      }
+      dd dd {
+        margin-left: 2em;
+      }
+      dd p {
+        margin: 10px 0;
+      }
+      .name {
+        background: #eee;
+        font-size: 0.85em;
+        padding: 5px 10px;
+        display: inline-block;
+        min-width: 40%;
+      }
+      .name:hover {
+        background: #e0e0e0;
+      }
+      dt:target .name {
+        background: var(--highlight-color);
+      }
+      .name > span:first-child {
+        white-space: nowrap;
+      }
+      .name.class > span:nth-child(2) {
+        margin-left: 0.4em;
+      }
+      .inherited {
+        color: #999;
+        border-left: 5px solid #eee;
+        padding-left: 1em;
+      }
+      .inheritance em {
+        font-style: normal;
+        font-weight: bold;
+      }
+      .desc h2 {
+        font-weight: 400;
+        font-size: 1.25em;
+      }
+      .desc h3 {
+        font-size: 1em;
+      }
+      .desc dt code {
+        background: inherit;
+      }
+      .source > summary,
+      .git-link-div {
+        color: #666;
+        text-align: right;
+        font-weight: 400;
+        font-size: 0.8em;
+        text-transform: uppercase;
+      }
+      .source summary > * {
+        white-space: nowrap;
+        cursor: pointer;
+      }
+      .git-link {
+        color: inherit;
+        margin-left: 1em;
+      }
+      .source pre {
+        max-height: 500px;
+        overflow: auto;
+        margin: 0;
+      }
+      .source pre code {
+        font-size: 12px;
+        overflow: visible;
+        min-width: max-content;
+      }
+      .hlist {
+        list-style: none;
+      }
+      .hlist li {
+        display: inline;
+      }
+      .hlist li:after {
+        content: ",\2002";
+      }
+      .hlist li:last-child:after {
+        content: none;
+      }
+      .hlist .hlist {
+        display: inline;
+        padding-left: 1em;
+      }
+      img {
+        max-width: 100%;
+      }
+      td {
+        padding: 0 0.5em;
+      }
+      .admonition {
+        padding: 0.1em 1em;
+        margin: 1em 0;
+      }
+      .admonition-title {
+        font-weight: bold;
+      }
+      .admonition.note,
+      .admonition.info,
+      .admonition.important {
+        background: #aef;
+      }
+      .admonition.todo,
+      .admonition.versionadded,
+      .admonition.tip,
+      .admonition.hint {
+        background: #dfd;
+      }
+      .admonition.warning,
+      .admonition.versionchanged,
+      .admonition.deprecated {
+        background: #fd4;
+      }
+      .admonition.error,
+      .admonition.danger,
+      .admonition.caution {
+        background: lightpink;
+      }
+    </style>
+    <style media="screen and (min-width: 700px)">
+      @media screen and (min-width: 700px) {
+        #sidebar {
+          width: 30%;
+          height: 100vh;
+          overflow: auto;
+          position: sticky;
+          top: 0;
+        }
+        #content {
+          width: 70%;
+          max-width: 100ch;
+          padding: 3em 4em;
+          border-left: 1px solid #ddd;
+        }
+        pre code {
+          font-size: 1em;
+        }
+        .name {
+          font-size: 1em;
+        }
+        main {
+          display: flex;
+          flex-direction: row-reverse;
+          justify-content: flex-end;
+        }
+        .toc ul ul,
+        #index ul ul {
+          padding-left: 1em;
+        }
+        .toc > ul > li {
+          margin-top: 0.5em;
+        }
+      }
+    </style>
+    <style media="print">
+      @media print {
+        #sidebar h1 {
+          page-break-before: always;
+        }
+        .source {
+          display: none;
+        }
+      }
+      @media print {
+        * {
+          background: transparent !important;
+          color: #000 !important;
+          box-shadow: none !important;
+          text-shadow: none !important;
+        }
+        a[href]:after {
+          content: " (" attr(href) ")";
+          font-size: 90%;
+        }
+        a[href][title]:after {
+          content: none;
+        }
+        abbr[title]:after {
+          content: " (" attr(title) ")";
+        }
+        .ir a:after,
+        a[href^="javascript:"]:after,
+        a[href^="#"]:after {
+          content: "";
+        }
+        pre,
+        blockquote {
+          border: 1px solid #999;
+          page-break-inside: avoid;
+        }
+        thead {
+          display: table-header-group;
+        }
+        tr,
+        img {
+          page-break-inside: avoid;
+        }
+        img {
+          max-width: 100% !important;
+        }
+        @page {
+          margin: 0.5cm;
+        }
+        p,
+        h2,
+        h3 {
+          orphans: 3;
+          widows: 3;
+        }
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+          page-break-after: avoid;
+        }
+      }
+    </style>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+      integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
+      crossorigin
+    ></script>
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        hljs.configure({
+          languages: [
+            "bash",
+            "css",
+            "diff",
+            "graphql",
+            "ini",
+            "javascript",
+            "json",
+            "plaintext",
+            "python",
+            "python-repl",
+            "rust",
+            "shell",
+            "sql",
+            "typescript",
+            "xml",
+            "yaml",
+          ],
+        });
+        hljs.highlightAll();
+        /* Collapse source docstrings */
+        setTimeout(() => {
+          [...document.querySelectorAll(".hljs.language-python > .hljs-string")]
+            .filter(
+              (el) =>
+                el.innerHTML.length > 200 &&
+                ['"""', "'''"].includes(el.innerHTML.substring(0, 3)),
+            )
+            .forEach((el) => {
+              let d = document.createElement("details");
+              d.classList.add("hljs-string");
+              d.innerHTML =
+                '<summary>"""</summary>' + el.innerHTML.substring(3);
+              el.replaceWith(d);
+            });
+        }, 100);
+      });
+    </script>
+  </head>
+  <body>
+    <main>
+      <article id="content">
+        <header>
+          <h1 class="title">
+            Module <code>space_hulk_game.quality.retry</code>
+          </h1>
+        </header>
+        <section id="section-intro">
+          <p>Retry logic with quality feedback for task execution.</p>
+          <p>
+            This module provides retry mechanisms for tasks that fail quality
+            checks, enabling iterative improvement through specific feedback
+            from evaluators.
+          </p>
+        </section>
+        <section></section>
+        <section></section>
+        <section>
+          <h2 class="section-title" id="header-functions">Functions</h2>
+          <dl>
+            <dt id="space_hulk_game.quality.retry.create_quality_config">
+              <code class="name flex">
+                <span>def <span class="ident">create_quality_config</span></span
+                >(<span
+                  >plot_threshold: float = 6.0,<br />narrative_threshold: float = 6.0,<br />puzzle_threshold: float = 6.0,<br />scene_threshold: float = 6.0,<br />mechanics_threshold: float = 6.0,<br />max_retries: int = 3)
+                  ‑> dict[<a
+                    title="space_hulk_game.quality.retry.TaskType"
+                    href="#space_hulk_game.quality.retry.TaskType"
+                    >TaskType</a
+                  >, dict[str, typing.Any]]</span
+                >
+              </code>
+            </dt>
+            <dd>
+              <details class="source">
+                <summary>
+                  <span>Expand source code</span>
+                </summary>
+                <pre><code class="python">def create_quality_config(
     plot_threshold: float = 6.0,
     narrative_threshold: float = 6.0,
     puzzle_threshold: float = 6.0,
@@ -93,44 +539,78 @@ enabling iterative improvement through specific feedback from evaluators.</p>
         TaskType.SCENE: {&#34;pass_threshold&#34;: scene_threshold, &#34;max_retries&#34;: max_retries},
         TaskType.MECHANICS: {&#34;pass_threshold&#34;: mechanics_threshold, &#34;max_retries&#34;: max_retries},
     }</code></pre>
-</details>
-<div class="desc"><p>Create a quality configuration dictionary for all task types.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>plot_threshold</code></strong></dt>
-<dd>Pass threshold for plot tasks (0.0-10.0)</dd>
-<dt><strong><code>narrative_threshold</code></strong></dt>
-<dd>Pass threshold for narrative tasks (0.0-10.0)</dd>
-<dt><strong><code>puzzle_threshold</code></strong></dt>
-<dd>Pass threshold for puzzle tasks (0.0-10.0)</dd>
-<dt><strong><code>scene_threshold</code></strong></dt>
-<dd>Pass threshold for scene tasks (0.0-10.0)</dd>
-<dt><strong><code>mechanics_threshold</code></strong></dt>
-<dd>Pass threshold for mechanics tasks (0.0-10.0)</dd>
-<dt><strong><code>max_retries</code></strong></dt>
-<dd>Maximum retry attempts for all tasks</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<p>Dictionary mapping task types to their quality configurations</p>
-<h2 id="example">Example</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; config = create_quality_config(
+              </details>
+              <div class="desc">
+                <p>
+                  Create a quality configuration dictionary for all task types.
+                </p>
+                <h2 id="args">Args</h2>
+                <dl>
+                  <dt>
+                    <strong><code>plot_threshold</code></strong>
+                  </dt>
+                  <dd>Pass threshold for plot tasks (0.0-10.0)</dd>
+                  <dt>
+                    <strong><code>narrative_threshold</code></strong>
+                  </dt>
+                  <dd>Pass threshold for narrative tasks (0.0-10.0)</dd>
+                  <dt>
+                    <strong><code>puzzle_threshold</code></strong>
+                  </dt>
+                  <dd>Pass threshold for puzzle tasks (0.0-10.0)</dd>
+                  <dt>
+                    <strong><code>scene_threshold</code></strong>
+                  </dt>
+                  <dd>Pass threshold for scene tasks (0.0-10.0)</dd>
+                  <dt>
+                    <strong><code>mechanics_threshold</code></strong>
+                  </dt>
+                  <dd>Pass threshold for mechanics tasks (0.0-10.0)</dd>
+                  <dt>
+                    <strong><code>max_retries</code></strong>
+                  </dt>
+                  <dd>Maximum retry attempts for all tasks</dd>
+                </dl>
+                <h2 id="returns">Returns</h2>
+                <p>
+                  Dictionary mapping task types to their quality configurations
+                </p>
+                <h2 id="example">Example</h2>
+                <pre><code class="language-python-repl">&gt;&gt;&gt; config = create_quality_config(
 ...     plot_threshold=7.0,
 ...     narrative_threshold=8.0,
 ...     max_retries=3
 ... )
 &gt;&gt;&gt; plot_config = config[TaskType.PLOT]
 &gt;&gt;&gt; print(plot_config['pass_threshold'])  # 7.0
-</code></pre></div>
-</dd>
-<dt id="space_hulk_game.quality.retry.execute_with_quality_check"><code class="name flex">
-<span>def <span class="ident">execute_with_quality_check</span></span>(<span>task_function: Callable[..., str],<br>task_type: <a title="space_hulk_game.quality.retry.TaskType" href="#space_hulk_game.quality.retry.TaskType">TaskType</a>,<br>task_name: str = 'Task',<br>pass_threshold: float = 6.0,<br>max_retries: int = 3,<br>**kwargs) ‑> tuple[str, <a title="space_hulk_game.quality.score.QualityScore" href="score.html#space_hulk_game.quality.score.QualityScore">QualityScore</a>, int]</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def execute_with_quality_check(
+</code></pre>
+              </div>
+            </dd>
+            <dt id="space_hulk_game.quality.retry.execute_with_quality_check">
+              <code class="name flex">
+                <span
+                  >def
+                  <span class="ident">execute_with_quality_check</span></span
+                >(<span
+                  >task_function: Callable[..., str],<br />task_type: <a
+                    title="space_hulk_game.quality.retry.TaskType"
+                    href="#space_hulk_game.quality.retry.TaskType"
+                    >TaskType</a
+                  >,<br />task_name: str = 'Task',<br />pass_threshold: float = 6.0,<br />max_retries: int = 3,<br />**kwargs)
+                  ‑> tuple[str, <a
+                    title="space_hulk_game.quality.score.QualityScore"
+                    href="score.html#space_hulk_game.quality.score.QualityScore"
+                    >QualityScore</a
+                  >, int]</span
+                >
+              </code>
+            </dt>
+            <dd>
+              <details class="source">
+                <summary>
+                  <span>Expand source code</span>
+                </summary>
+                <pre><code class="python">def execute_with_quality_check(
     task_function: Callable[..., str],
     task_type: TaskType,
     task_name: str = &#34;Task&#34;,
@@ -173,28 +653,47 @@ enabling iterative improvement through specific feedback from evaluators.</p>
     )
 
     return wrapper.execute(task_function, task_name=task_name, **kwargs)</code></pre>
-</details>
-<div class="desc"><p>Execute a task with quality checking and retry logic (functional interface).</p>
-<p>This is a convenience function that wraps TaskWithQualityCheck for simpler usage.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>task_function</code></strong></dt>
-<dd>Function to execute (should return output string)</dd>
-<dt><strong><code>task_type</code></strong></dt>
-<dd>Type of task (determines which evaluator to use)</dd>
-<dt><strong><code>task_name</code></strong></dt>
-<dd>Human-readable name for logging</dd>
-<dt><strong><code>pass_threshold</code></strong></dt>
-<dd>Minimum quality score required to pass (0.0-10.0)</dd>
-<dt><strong><code>max_retries</code></strong></dt>
-<dd>Maximum number of retry attempts (default: 3)</dd>
-<dt><strong><code>**kwargs</code></strong></dt>
-<dd>Additional arguments to pass to task_function</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<p>Tuple of (output, final_quality_score, attempts_made)</p>
-<h2 id="example">Example</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; def generate_plot(**kwargs):
+              </details>
+              <div class="desc">
+                <p>
+                  Execute a task with quality checking and retry logic
+                  (functional interface).
+                </p>
+                <p>
+                  This is a convenience function that wraps TaskWithQualityCheck
+                  for simpler usage.
+                </p>
+                <h2 id="args">Args</h2>
+                <dl>
+                  <dt>
+                    <strong><code>task_function</code></strong>
+                  </dt>
+                  <dd>Function to execute (should return output string)</dd>
+                  <dt>
+                    <strong><code>task_type</code></strong>
+                  </dt>
+                  <dd>Type of task (determines which evaluator to use)</dd>
+                  <dt>
+                    <strong><code>task_name</code></strong>
+                  </dt>
+                  <dd>Human-readable name for logging</dd>
+                  <dt>
+                    <strong><code>pass_threshold</code></strong>
+                  </dt>
+                  <dd>Minimum quality score required to pass (0.0-10.0)</dd>
+                  <dt>
+                    <strong><code>max_retries</code></strong>
+                  </dt>
+                  <dd>Maximum number of retry attempts (default: 3)</dd>
+                  <dt>
+                    <strong><code>**kwargs</code></strong>
+                  </dt>
+                  <dd>Additional arguments to pass to task_function</dd>
+                </dl>
+                <h2 id="returns">Returns</h2>
+                <p>Tuple of (output, final_quality_score, attempts_made)</p>
+                <h2 id="example">Example</h2>
+                <pre><code class="language-python-repl">&gt;&gt;&gt; def generate_plot(**kwargs):
 ...     # Your plot generation logic
 ...     return &quot;title: My Plot\nsetting: Space station&quot;
 &gt;&gt;&gt;
@@ -206,23 +705,26 @@ enabling iterative improvement through specific feedback from evaluators.</p>
 ...     max_retries=3
 ... )
 &gt;&gt;&gt; print(f&quot;Completed in {attempts} attempts with score {quality.score}&quot;)
-</code></pre></div>
-</dd>
-</dl>
-</section>
-<section>
-<h2 class="section-title" id="header-classes">Classes</h2>
-<dl>
-<dt id="space_hulk_game.quality.retry.TaskType"><code class="flex name class">
-<span>class <span class="ident">TaskType</span></span>
-<span>(</span><span>*args, **kwds)</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class TaskType(Enum):
+</code></pre>
+              </div>
+            </dd>
+          </dl>
+        </section>
+        <section>
+          <h2 class="section-title" id="header-classes">Classes</h2>
+          <dl>
+            <dt id="space_hulk_game.quality.retry.TaskType">
+              <code class="flex name class">
+                <span>class <span class="ident">TaskType</span></span>
+                <span>(</span><span>*args, **kwds)</span>
+              </code>
+            </dt>
+            <dd>
+              <details class="source">
+                <summary>
+                  <span>Expand source code</span>
+                </summary>
+                <pre><code class="python">class TaskType(Enum):
     &#34;&#34;&#34;Enum for task types to map to appropriate evaluators.&#34;&#34;&#34;
 
     PLOT = &#34;plot&#34;
@@ -230,46 +732,75 @@ enabling iterative improvement through specific feedback from evaluators.</p>
     PUZZLE = &#34;puzzle&#34;
     SCENE = &#34;scene&#34;
     MECHANICS = &#34;mechanics&#34;</code></pre>
-</details>
-<div class="desc"><p>Enum for task types to map to appropriate evaluators.</p></div>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li>enum.Enum</li>
-</ul>
-<h3>Class variables</h3>
-<dl>
-<dt id="space_hulk_game.quality.retry.TaskType.MECHANICS"><code class="name">var <span class="ident">MECHANICS</span></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.quality.retry.TaskType.NARRATIVE"><code class="name">var <span class="ident">NARRATIVE</span></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.quality.retry.TaskType.PLOT"><code class="name">var <span class="ident">PLOT</span></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.quality.retry.TaskType.PUZZLE"><code class="name">var <span class="ident">PUZZLE</span></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.quality.retry.TaskType.SCENE"><code class="name">var <span class="ident">SCENE</span></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-</dl>
-</dd>
-<dt id="space_hulk_game.quality.retry.TaskWithQualityCheck"><code class="flex name class">
-<span>class <span class="ident">TaskWithQualityCheck</span></span>
-<span>(</span><span>task_type: <a title="space_hulk_game.quality.retry.TaskType" href="#space_hulk_game.quality.retry.TaskType">TaskType</a>,<br>pass_threshold: float = 6.0,<br>max_retries: int = 3)</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class TaskWithQualityCheck:
+              </details>
+              <div class="desc">
+                <p>Enum for task types to map to appropriate evaluators.</p>
+              </div>
+              <h3>Ancestors</h3>
+              <ul class="hlist">
+                <li>enum.Enum</li>
+              </ul>
+              <h3>Class variables</h3>
+              <dl>
+                <dt id="space_hulk_game.quality.retry.TaskType.MECHANICS">
+                  <code class="name"
+                    >var <span class="ident">MECHANICS</span></code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt id="space_hulk_game.quality.retry.TaskType.NARRATIVE">
+                  <code class="name"
+                    >var <span class="ident">NARRATIVE</span></code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt id="space_hulk_game.quality.retry.TaskType.PLOT">
+                  <code class="name">var <span class="ident">PLOT</span></code>
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt id="space_hulk_game.quality.retry.TaskType.PUZZLE">
+                  <code class="name"
+                    >var <span class="ident">PUZZLE</span></code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt id="space_hulk_game.quality.retry.TaskType.SCENE">
+                  <code class="name">var <span class="ident">SCENE</span></code>
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+              </dl>
+            </dd>
+            <dt id="space_hulk_game.quality.retry.TaskWithQualityCheck">
+              <code class="flex name class">
+                <span
+                  >class <span class="ident">TaskWithQualityCheck</span></span
+                >
+                <span>(</span
+                ><span
+                  >task_type: <a
+                    title="space_hulk_game.quality.retry.TaskType"
+                    href="#space_hulk_game.quality.retry.TaskType"
+                    >TaskType</a
+                  >,<br />pass_threshold: float = 6.0,<br />max_retries: int = 3)</span
+                >
+              </code>
+            </dt>
+            <dd>
+              <details class="source">
+                <summary>
+                  <span>Expand source code</span>
+                </summary>
+                <pre><code class="python">class TaskWithQualityCheck:
     &#34;&#34;&#34;
     Wrapper for task execution with quality checking and retry logic.
 
@@ -412,44 +943,72 @@ enabling iterative improvement through specific feedback from evaluators.</p>
 
         # Return final attempt even if it didn&#39;t pass
         return output, quality, self.max_retries</code></pre>
-</details>
-<div class="desc"><p>Wrapper for task execution with quality checking and retry logic.</p>
-<p>This class wraps task execution to add quality evaluation after execution,
-implementing a retry loop that provides feedback for improvement.</p>
-<h2 id="example">Example</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; task_wrapper = TaskWithQualityCheck(
+              </details>
+              <div class="desc">
+                <p>
+                  Wrapper for task execution with quality checking and retry
+                  logic.
+                </p>
+                <p>
+                  This class wraps task execution to add quality evaluation
+                  after execution, implementing a retry loop that provides
+                  feedback for improvement.
+                </p>
+                <h2 id="example">Example</h2>
+                <pre><code class="language-python-repl">&gt;&gt;&gt; task_wrapper = TaskWithQualityCheck(
 ...     task_type=TaskType.PLOT,
 ...     pass_threshold=7.0,
 ...     max_retries=3
 ... )
 &gt;&gt;&gt; result = task_wrapper.execute(task_function, task_name=&quot;Plot Generation&quot;)
 </code></pre>
-<p>Initialize the task wrapper with quality checking.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>task_type</code></strong></dt>
-<dd>Type of task to execute (determines which evaluator to use)</dd>
-<dt><strong><code>pass_threshold</code></strong></dt>
-<dd>Minimum quality score required to pass (0.0-10.0)</dd>
-<dt><strong><code>max_retries</code></strong></dt>
-<dd>Maximum number of retry attempts (default: 3)</dd>
-</dl>
-<h2 id="raises">Raises</h2>
-<dl>
-<dt><code>ValueError</code></dt>
-<dd>If parameters are invalid</dd>
-</dl></div>
-<h3>Methods</h3>
-<dl>
-<dt id="space_hulk_game.quality.retry.TaskWithQualityCheck.execute"><code class="name flex">
-<span>def <span class="ident">execute</span></span>(<span>self, task_function: Callable[..., str], task_name: str = 'Task', **kwargs) ‑> tuple[str, <a title="space_hulk_game.quality.score.QualityScore" href="score.html#space_hulk_game.quality.score.QualityScore">QualityScore</a>, int]</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def execute(
+                <p>Initialize the task wrapper with quality checking.</p>
+                <h2 id="args">Args</h2>
+                <dl>
+                  <dt>
+                    <strong><code>task_type</code></strong>
+                  </dt>
+                  <dd>
+                    Type of task to execute (determines which evaluator to use)
+                  </dd>
+                  <dt>
+                    <strong><code>pass_threshold</code></strong>
+                  </dt>
+                  <dd>Minimum quality score required to pass (0.0-10.0)</dd>
+                  <dt>
+                    <strong><code>max_retries</code></strong>
+                  </dt>
+                  <dd>Maximum number of retry attempts (default: 3)</dd>
+                </dl>
+                <h2 id="raises">Raises</h2>
+                <dl>
+                  <dt><code>ValueError</code></dt>
+                  <dd>If parameters are invalid</dd>
+                </dl>
+              </div>
+              <h3>Methods</h3>
+              <dl>
+                <dt
+                  id="space_hulk_game.quality.retry.TaskWithQualityCheck.execute"
+                >
+                  <code class="name flex">
+                    <span>def <span class="ident">execute</span></span
+                    >(<span
+                      >self, task_function: Callable[..., str],
+                      task_name: str = 'Task', **kwargs) ‑> tuple[str, <a
+                        title="space_hulk_game.quality.score.QualityScore"
+                        href="score.html#space_hulk_game.quality.score.QualityScore"
+                        >QualityScore</a
+                      >, int]</span
+                    >
+                  </code>
+                </dt>
+                <dd>
+                  <details class="source">
+                    <summary>
+                      <span>Expand source code</span>
+                    </summary>
+                    <pre><code class="python">def execute(
     self, task_function: Callable[..., str], task_name: str = &#34;Task&#34;, **kwargs
 ) -&gt; tuple[str, QualityScore, int]:
     &#34;&#34;&#34;
@@ -531,66 +1090,170 @@ implementing a retry loop that provides feedback for improvement.</p>
 
     # Return final attempt even if it didn&#39;t pass
     return output, quality, self.max_retries</code></pre>
-</details>
-<div class="desc"><p>Execute task with quality checking and retry logic.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>task_function</code></strong></dt>
-<dd>Function to execute (should return output string)</dd>
-<dt><strong><code>task_name</code></strong></dt>
-<dd>Human-readable name for logging</dd>
-<dt><strong><code>**kwargs</code></strong></dt>
-<dd>Additional arguments to pass to task_function</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<p>Tuple of (output, final_quality_score, attempts_made)</p></div>
-</dd>
-</dl>
-</dd>
-</dl>
-</section>
-</article>
-<nav id="sidebar">
-<div class="toc">
-<ul></ul>
-</div>
-<ul id="index">
-<li><h3>Super-module</h3>
-<ul>
-<li><code><a title="space_hulk_game.quality" href="index.html">space_hulk_game.quality</a></code></li>
-</ul>
-</li>
-<li><h3><a href="#header-functions">Functions</a></h3>
-<ul class="">
-<li><code><a title="space_hulk_game.quality.retry.create_quality_config" href="#space_hulk_game.quality.retry.create_quality_config">create_quality_config</a></code></li>
-<li><code><a title="space_hulk_game.quality.retry.execute_with_quality_check" href="#space_hulk_game.quality.retry.execute_with_quality_check">execute_with_quality_check</a></code></li>
-</ul>
-</li>
-<li><h3><a href="#header-classes">Classes</a></h3>
-<ul>
-<li>
-<h4><code><a title="space_hulk_game.quality.retry.TaskType" href="#space_hulk_game.quality.retry.TaskType">TaskType</a></code></h4>
-<ul class="">
-<li><code><a title="space_hulk_game.quality.retry.TaskType.MECHANICS" href="#space_hulk_game.quality.retry.TaskType.MECHANICS">MECHANICS</a></code></li>
-<li><code><a title="space_hulk_game.quality.retry.TaskType.NARRATIVE" href="#space_hulk_game.quality.retry.TaskType.NARRATIVE">NARRATIVE</a></code></li>
-<li><code><a title="space_hulk_game.quality.retry.TaskType.PLOT" href="#space_hulk_game.quality.retry.TaskType.PLOT">PLOT</a></code></li>
-<li><code><a title="space_hulk_game.quality.retry.TaskType.PUZZLE" href="#space_hulk_game.quality.retry.TaskType.PUZZLE">PUZZLE</a></code></li>
-<li><code><a title="space_hulk_game.quality.retry.TaskType.SCENE" href="#space_hulk_game.quality.retry.TaskType.SCENE">SCENE</a></code></li>
-</ul>
-</li>
-<li>
-<h4><code><a title="space_hulk_game.quality.retry.TaskWithQualityCheck" href="#space_hulk_game.quality.retry.TaskWithQualityCheck">TaskWithQualityCheck</a></code></h4>
-<ul class="">
-<li><code><a title="space_hulk_game.quality.retry.TaskWithQualityCheck.execute" href="#space_hulk_game.quality.retry.TaskWithQualityCheck.execute">execute</a></code></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</nav>
-</main>
-<footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
-</footer>
-</body>
+                  </details>
+                  <div class="desc">
+                    <p>Execute task with quality checking and retry logic.</p>
+                    <h2 id="args">Args</h2>
+                    <dl>
+                      <dt>
+                        <strong><code>task_function</code></strong>
+                      </dt>
+                      <dd>Function to execute (should return output string)</dd>
+                      <dt>
+                        <strong><code>task_name</code></strong>
+                      </dt>
+                      <dd>Human-readable name for logging</dd>
+                      <dt>
+                        <strong><code>**kwargs</code></strong>
+                      </dt>
+                      <dd>Additional arguments to pass to task_function</dd>
+                    </dl>
+                    <h2 id="returns">Returns</h2>
+                    <p>Tuple of (output, final_quality_score, attempts_made)</p>
+                  </div>
+                </dd>
+              </dl>
+            </dd>
+          </dl>
+        </section>
+      </article>
+      <nav id="sidebar">
+        <div class="toc">
+          <ul></ul>
+        </div>
+        <ul id="index">
+          <li>
+            <h3>Super-module</h3>
+            <ul>
+              <li>
+                <code
+                  ><a title="space_hulk_game.quality" href="index.html"
+                    >space_hulk_game.quality</a
+                  ></code
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <h3><a href="#header-functions">Functions</a></h3>
+            <ul class="">
+              <li>
+                <code
+                  ><a
+                    title="space_hulk_game.quality.retry.create_quality_config"
+                    href="#space_hulk_game.quality.retry.create_quality_config"
+                    >create_quality_config</a
+                  ></code
+                >
+              </li>
+              <li>
+                <code
+                  ><a
+                    title="space_hulk_game.quality.retry.execute_with_quality_check"
+                    href="#space_hulk_game.quality.retry.execute_with_quality_check"
+                    >execute_with_quality_check</a
+                  ></code
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <h3><a href="#header-classes">Classes</a></h3>
+            <ul>
+              <li>
+                <h4>
+                  <code
+                    ><a
+                      title="space_hulk_game.quality.retry.TaskType"
+                      href="#space_hulk_game.quality.retry.TaskType"
+                      >TaskType</a
+                    ></code
+                  >
+                </h4>
+                <ul class="">
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.quality.retry.TaskType.MECHANICS"
+                        href="#space_hulk_game.quality.retry.TaskType.MECHANICS"
+                        >MECHANICS</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.quality.retry.TaskType.NARRATIVE"
+                        href="#space_hulk_game.quality.retry.TaskType.NARRATIVE"
+                        >NARRATIVE</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.quality.retry.TaskType.PLOT"
+                        href="#space_hulk_game.quality.retry.TaskType.PLOT"
+                        >PLOT</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.quality.retry.TaskType.PUZZLE"
+                        href="#space_hulk_game.quality.retry.TaskType.PUZZLE"
+                        >PUZZLE</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.quality.retry.TaskType.SCENE"
+                        href="#space_hulk_game.quality.retry.TaskType.SCENE"
+                        >SCENE</a
+                      ></code
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <h4>
+                  <code
+                    ><a
+                      title="space_hulk_game.quality.retry.TaskWithQualityCheck"
+                      href="#space_hulk_game.quality.retry.TaskWithQualityCheck"
+                      >TaskWithQualityCheck</a
+                    ></code
+                  >
+                </h4>
+                <ul class="">
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.quality.retry.TaskWithQualityCheck.execute"
+                        href="#space_hulk_game.quality.retry.TaskWithQualityCheck.execute"
+                        >execute</a
+                      ></code
+                    >
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </main>
+    <footer id="footer">
+      <p>
+        Generated by
+        <a
+          href="https://pdoc3.github.io/pdoc"
+          title="pdoc: Python API documentation generator"
+          ><cite>pdoc</cite> 0.11.6</a
+        >.
+      </p>
+    </footer>
+  </body>
 </html>

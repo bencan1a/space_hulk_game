@@ -66,12 +66,12 @@ This will check your API key and make a test call to verify everything is workin
 
 ## Environment Variables
 
-| Variable | Purpose | Required | Example |
-|----------|---------|----------|---------|
-| `OPENROUTER_API_KEY` | OpenRouter API key | For real API tests | `sk-or-v1-...` |
-| `OPENAI_MODEL_NAME` | Model to use | Optional | `openrouter/anthropic/claude-3.5-sonnet` |
-| `RUN_REAL_API_TESTS` | Enable real API tests | Optional | `1` |
-| `SKIP_SLOW_TESTS` | Skip slow integration tests | Optional | `1` |
+| Variable             | Purpose                     | Required           | Example                                  |
+| -------------------- | --------------------------- | ------------------ | ---------------------------------------- |
+| `OPENROUTER_API_KEY` | OpenRouter API key          | For real API tests | `sk-or-v1-...`                           |
+| `OPENAI_MODEL_NAME`  | Model to use                | Optional           | `openrouter/anthropic/claude-3.5-sonnet` |
+| `RUN_REAL_API_TESTS` | Enable real API tests       | Optional           | `1`                                      |
+| `SKIP_SLOW_TESTS`    | Skip slow integration tests | Optional           | `1`                                      |
 
 ## Test Modes
 

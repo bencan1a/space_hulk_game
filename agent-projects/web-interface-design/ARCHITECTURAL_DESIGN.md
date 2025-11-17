@@ -252,11 +252,11 @@ App (Theme Provider, Router)
 
 ```typescript
 // Contexts
-- ThemeContext         // Active theme configuration
-- StoryContext         // Library data, active story
-- SessionContext       // Creation session, iterations
-- GameContext          // Active game state
-- WebSocketContext     // Real-time connection
+-ThemeContext - // Active theme configuration
+  StoryContext - // Library data, active story
+  SessionContext - // Creation session, iterations
+  GameContext - // Active game state
+  WebSocketContext; // Real-time connection
 ```
 
 **Future**: Migrate to Redux Toolkit if state complexity grows (multi-user)
@@ -660,7 +660,9 @@ The API specification document provides:
 
 ```json
 {
-  "data": { /* resource or collection */ },
+  "data": {
+    /* resource or collection */
+  },
   "meta": {
     "timestamp": "2025-11-12T20:00:00Z",
     "version": "1.0"
@@ -1076,13 +1078,13 @@ Load Balancer
 
 ### 10.1 Technical Risks
 
-| Risk | Probability | Impact | Mitigation |
-|------|------------|--------|------------|
-| CrewAI integration complexity | Medium | High | Wrapper pattern, extensive testing |
-| Game engine state management | Medium | Medium | Stateful wrapper, clear save/load |
-| WebSocket connection drops | High | Low | Reconnection logic, DB-backed state |
-| Theme system complexity | Low | Medium | Clear contract, validation, examples |
-| Performance (large stories) | Medium | Medium | Lazy loading, pagination, caching |
+| Risk                          | Probability | Impact | Mitigation                           |
+| ----------------------------- | ----------- | ------ | ------------------------------------ |
+| CrewAI integration complexity | Medium      | High   | Wrapper pattern, extensive testing   |
+| Game engine state management  | Medium      | Medium | Stateful wrapper, clear save/load    |
+| WebSocket connection drops    | High        | Low    | Reconnection logic, DB-backed state  |
+| Theme system complexity       | Low         | Medium | Clear contract, validation, examples |
+| Performance (large stories)   | Medium      | Medium | Lazy loading, pagination, caching    |
 
 ### 10.2 Architectural Technical Debt
 
@@ -1235,4 +1237,4 @@ See [IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md) for:
 
 ---
 
-*End of Architectural Design Document*
+_End of Architectural Design Document_

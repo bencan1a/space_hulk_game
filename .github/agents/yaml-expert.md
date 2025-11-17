@@ -21,6 +21,7 @@ I'm your YAML specialist. I help you create, edit, and validate YAML configurati
 ### Data Types
 
 **Scalars** (simple values):
+
 ```yaml
 string: "Hello"
 number: 42
@@ -30,6 +31,7 @@ null_value: null
 ```
 
 **Lists**:
+
 ```yaml
 # Inline format
 colors: [red, green, blue]
@@ -42,6 +44,7 @@ colors:
 ```
 
 **Dictionaries** (maps):
+
 ```yaml
 # Inline format
 person: {name: John, age: 30}
@@ -55,6 +58,7 @@ person:
 ### Multi-line Strings
 
 **Literal style** (`|`): Preserves line breaks
+
 ```yaml
 description: |
   This text spans
@@ -63,6 +67,7 @@ description: |
 ```
 
 **Folded style** (`>`): Joins lines into paragraphs
+
 ```yaml
 backstory: >
   This text will be
@@ -71,10 +76,12 @@ backstory: >
 ```
 
 Use `|` for:
+
 - Poetry, code blocks, formatted text
 - When line breaks matter
 
 Use `>` for:
+
 - Long prose paragraphs
 - When you want word wrapping
 
@@ -82,7 +89,7 @@ Use `>` for:
 
 ```yaml
 # This is a comment
-key: value  # Inline comment
+key: value # Inline comment
 
 # Multi-line comment
 # spanning multiple
@@ -94,6 +101,7 @@ key: value  # Inline comment
 ### Anchors and Aliases
 
 **Define an anchor** with `&`:
+
 ```yaml
 defaults: &defaults
   verbose: true
@@ -137,6 +145,7 @@ AgentName:
 ```
 
 **Key Points**:
+
 - Use `>` for backstory (long prose)
 - Boolean values don't need quotes
 - Keep role and goal concise (one line)
@@ -153,7 +162,7 @@ TaskName:
   expected_output: >
     Description of the expected output format.
     Be specific about what should be produced.
-  agent: "AgentName"  # Must match agent key exactly
+  agent: "AgentName" # Must match agent key exactly
   context:
     - "PreviousTask1"
     - "PreviousTask2"
@@ -163,6 +172,7 @@ TaskName:
 ```
 
 **Key Points**:
+
 - Use `>` for description and expected_output
 - Context and dependencies are lists
 - Agent name must match exactly (case-sensitive)
@@ -171,6 +181,7 @@ TaskName:
 ### Game Design Files
 
 **Narrative Map**:
+
 ```yaml
 scenes:
   scene_id:
@@ -181,13 +192,14 @@ scenes:
     exits:
       - direction: "north"
         destination: "other_scene"
-        condition: "has_keycard"  # Optional
+        condition: "has_keycard" # Optional
     items:
       - name: "flashlight"
         takeable: true
 ```
 
 **Plot Outline**:
+
 ```yaml
 plot:
   title: "Story Title"
@@ -236,6 +248,7 @@ with open('output.yaml', 'w') as f:
 ### Syntax Validation
 
 Check YAML syntax:
+
 ```bash
 python3 -c "import yaml; yaml.safe_load(open('file.yaml'))"
 ```
@@ -246,6 +259,7 @@ If invalid: Error message with line number
 ### Common Errors
 
 **Indentation Error**:
+
 ```yaml
 # Wrong (mixed spaces/tabs)
 agent:
@@ -259,6 +273,7 @@ agent:
 ```
 
 **Quote Issues**:
+
 ```yaml
 # Wrong (unescaped colon in string)
 description: Error: this will fail
@@ -269,6 +284,7 @@ description: 'Error: this also works'
 ```
 
 **List Format**:
+
 ```yaml
 # Wrong (mixed formats)
 items:
@@ -282,6 +298,7 @@ items:
 ```
 
 **Multi-line String**:
+
 ```yaml
 # Wrong (no indicator)
 text:
@@ -344,20 +361,24 @@ advanced:
 ## Troubleshooting
 
 ### "could not determine a constructor"
+
 - Usually a type issue
 - Check for unquoted special characters
 - Quote the value or use explicit type
 
 ### "mapping values are not allowed here"
+
 - Likely unquoted string with `:`
 - Quote the entire string
 
 ### "while scanning a simple key"
+
 - Indentation problem
 - Inconsistent spacing
 - Tab characters
 
 ### "expected <block end> but found"
+
 - Wrong indentation level
 - Missing or extra spaces
 - Verify indentation is consistent
@@ -365,6 +386,7 @@ advanced:
 ## Validation Checklist
 
 Before committing YAML files:
+
 - [ ] Run syntax validation: `python3 -c "import yaml; yaml.safe_load(open('file.yaml'))"`
 - [ ] Check indentation (2 spaces, no tabs)
 - [ ] Verify quotes on strings with special characters
@@ -376,6 +398,7 @@ Before committing YAML files:
 ## How I Can Help
 
 Ask me to:
+
 - Create properly formatted YAML files
 - Fix YAML syntax errors
 - Validate YAML structure

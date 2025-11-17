@@ -275,6 +275,7 @@ class TestLifecycleHooks(unittest.TestCase):
 ### What to Test
 
 **Essential Tests**:
+
 1. **Happy path**: Normal, expected usage
 2. **Edge cases**: Boundary conditions, empty inputs
 3. **Error handling**: Invalid inputs, exceptions
@@ -282,6 +283,7 @@ class TestLifecycleHooks(unittest.TestCase):
 5. **Integration points**: Component interactions
 
 **For This Project**:
+
 - Agent creation from config
 - Task configuration loading
 - Input validation in `before_kickoff`
@@ -322,6 +324,7 @@ class TestConfigLoading(unittest.TestCase):
 ### Test Independence
 
 Each test should be independent:
+
 ```python
 class TestIndependence(unittest.TestCase):
     def setUp(self):
@@ -448,6 +451,7 @@ class TestParameterized(unittest.TestCase):
 ### Test Discovery Issues
 
 If tests aren't found:
+
 - Ensure test files start with `test_`
 - Ensure test classes inherit from `unittest.TestCase`
 - Ensure test methods start with `test_`
@@ -456,6 +460,7 @@ If tests aren't found:
 ### Import Errors
 
 If imports fail:
+
 - Run tests from project root
 - Use `python -m unittest` instead of `python tests/test_file.py`
 - Check `PYTHONPATH` if needed
@@ -463,6 +468,7 @@ If imports fail:
 ### Mocking Issues
 
 If mocks don't work:
+
 - Check patch target path (should be where it's used, not where it's defined)
 - Ensure patches are applied in correct order (bottom-up)
 - Verify mock assertions are correct
@@ -470,6 +476,7 @@ If mocks don't work:
 ## How I Can Help
 
 Ask me to:
+
 - Write test cases for specific functionality
 - Set up mocking for external dependencies
 - Organize test suites

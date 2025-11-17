@@ -81,11 +81,11 @@ Main component that orchestrates the conversational flow through a series of que
 
 ```typescript
 interface ChatQuestion {
-  id: string              // Unique identifier for the question
-  question: string        // The question text to display
-  minLength?: number      // Minimum answer length
-  maxLength?: number      // Maximum answer length
-  validationMessage?: string  // Custom validation message
+  id: string // Unique identifier for the question
+  question: string // The question text to display
+  minLength?: number // Minimum answer length
+  maxLength?: number // Maximum answer length
+  validationMessage?: string // Custom validation message
 }
 ```
 

@@ -145,13 +145,13 @@ Game Prompt → Plot Foundation → Narrative Structure → Specialized Content 
 
 ### Modern Framework Landscape
 
-| Framework | Strengths | Fit for This Project |
-|-----------|-----------|---------------------|
-| **CrewAI** | Hierarchical workflows, task management, easy LLM integration | ✅ **Excellent** - Current choice is sound |
-| **AutoGen** | Flexible conversation patterns, group chat | ⚠️ Good but overkill for this use case |
-| **LangGraph** | Graph-based workflows, state management | ⚠️ Could work but more complex than needed |
-| **Haystack** | Document processing, RAG | ❌ Not designed for creative generation |
-| **Semantic Kernel** | Plugin architecture, Microsoft ecosystem | ⚠️ More enterprise-focused |
+| Framework           | Strengths                                                     | Fit for This Project                       |
+| ------------------- | ------------------------------------------------------------- | ------------------------------------------ |
+| **CrewAI**          | Hierarchical workflows, task management, easy LLM integration | ✅ **Excellent** - Current choice is sound |
+| **AutoGen**         | Flexible conversation patterns, group chat                    | ⚠️ Good but overkill for this use case     |
+| **LangGraph**       | Graph-based workflows, state management                       | ⚠️ Could work but more complex than needed |
+| **Haystack**        | Document processing, RAG                                      | ❌ Not designed for creative generation    |
+| **Semantic Kernel** | Plugin architecture, Microsoft ecosystem                      | ⚠️ More enterprise-focused                 |
 
 **Verdict:** **CrewAI remains the right choice** for this project's needs.
 
@@ -161,16 +161,16 @@ Game Prompt → Plot Foundation → Narrative Structure → Specialized Content 
 
 ### Current Stack
 
-| Component | Choice | Assessment | Recommendation |
-|-----------|--------|------------|----------------|
-| **Language** | Python 3.10-3.12 | ✅ Industry standard for AI | Keep |
-| **Framework** | CrewAI 0.102.0+ | ✅ Actively maintained, good fit | Keep |
-| **LLM Provider** | Ollama (local) | ✅ Privacy, no API costs, offline | Keep with alternatives |
-| **Model** | qwen2.5 | ⚠️ Good but limited | Add model flexibility |
-| **Memory** | mem0 | ✅ Modern choice | Keep, enhance usage |
-| **Config** | YAML | ✅ Human-readable, standard | Keep |
-| **Testing** | unittest | ✅ Python standard | Keep, expand coverage |
-| **Package Manager** | uv | ✅ Fast, modern | Keep |
+| Component           | Choice           | Assessment                        | Recommendation         |
+| ------------------- | ---------------- | --------------------------------- | ---------------------- |
+| **Language**        | Python 3.10-3.12 | ✅ Industry standard for AI       | Keep                   |
+| **Framework**       | CrewAI 0.102.0+  | ✅ Actively maintained, good fit  | Keep                   |
+| **LLM Provider**    | Ollama (local)   | ✅ Privacy, no API costs, offline | Keep with alternatives |
+| **Model**           | qwen2.5          | ⚠️ Good but limited               | Add model flexibility  |
+| **Memory**          | mem0             | ✅ Modern choice                  | Keep, enhance usage    |
+| **Config**          | YAML             | ✅ Human-readable, standard       | Keep                   |
+| **Testing**         | unittest         | ✅ Python standard                | Keep, expand coverage  |
+| **Package Manager** | uv               | ✅ Fast, modern                   | Keep                   |
 
 ### Recommended Technology Additions
 
@@ -423,13 +423,13 @@ Simple Tasks (Scene writing): Smaller/Local models
 
 ## 9. Risk Assessment
 
-| Risk | Likelihood | Impact | Mitigation |
-|------|------------|--------|------------|
-| Generated content low quality | Medium | High | Quality gates, iteration, better prompts |
-| Ollama model limitations | High | Medium | Multi-model support, cloud fallback |
-| Complex dependencies hard to manage | Low | Medium | Careful task design, good testing |
-| Project scope creep | Medium | High | Focus on core MVP, defer nice-to-haves |
-| LLM API changes | Low | Medium | Abstract LLM interface, version pinning |
+| Risk                                | Likelihood | Impact | Mitigation                               |
+| ----------------------------------- | ---------- | ------ | ---------------------------------------- |
+| Generated content low quality       | Medium     | High   | Quality gates, iteration, better prompts |
+| Ollama model limitations            | High       | Medium | Multi-model support, cloud fallback      |
+| Complex dependencies hard to manage | Low        | Medium | Careful task design, good testing        |
+| Project scope creep                 | Medium     | High   | Focus on core MVP, defer nice-to-haves   |
+| LLM API changes                     | Low        | Medium | Abstract LLM interface, version pinning  |
 
 ---
 

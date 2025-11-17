@@ -1,71 +1,518 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-<meta name="generator" content="pdoc3 0.11.6">
-<title>space_hulk_game.engine.engine API documentation</title>
-<meta name="description" content="Text Adventure Engine Module …">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
-<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
-<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
-<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
-<script>window.addEventListener('DOMContentLoaded', () => {
-hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
-hljs.highlightAll();
-/* Collapse source docstrings */
-setTimeout(() => {
-[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
-.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
-.forEach(el => {
-let d = document.createElement('details');
-d.classList.add('hljs-string');
-d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
-el.replaceWith(d);
-});
-}, 100);
-})</script>
-</head>
-<body>
-<main>
-<article id="content">
-<header>
-<h1 class="title">Module <code>space_hulk_game.engine.engine</code></h1>
-</header>
-<section id="section-intro">
-<p>Text Adventure Engine Module</p>
-<p>Main game engine for the Space Hulk text-based adventure game.
-Handles the game loop, action execution, state transitions, and player I/O.</p>
-<h2 id="example">Example</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import TextAdventureEngine, GameState, Scene
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1"
+    />
+    <meta name="generator" content="pdoc3 0.11.6" />
+    <title>space_hulk_game.engine.engine API documentation</title>
+    <meta name="description" content="Text Adventure Engine Module …" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css"
+      integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA=="
+      crossorigin
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css"
+      integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA=="
+      crossorigin
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"
+      crossorigin
+    />
+    <style>
+      :root {
+        --highlight-color: #fe9;
+      }
+      .flex {
+        display: flex !important;
+      }
+      body {
+        line-height: 1.5em;
+      }
+      #content {
+        padding: 20px;
+      }
+      #sidebar {
+        padding: 1.5em;
+        overflow: hidden;
+      }
+      #sidebar > *:last-child {
+        margin-bottom: 2cm;
+      }
+      .http-server-breadcrumbs {
+        font-size: 130%;
+        margin: 0 0 15px 0;
+      }
+      #footer {
+        font-size: 0.75em;
+        padding: 5px 30px;
+        border-top: 1px solid #ddd;
+        text-align: right;
+      }
+      #footer p {
+        margin: 0 0 0 1em;
+        display: inline-block;
+      }
+      #footer p:last-child {
+        margin-right: 30px;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5 {
+        font-weight: 300;
+      }
+      h1 {
+        font-size: 2.5em;
+        line-height: 1.1em;
+      }
+      h2 {
+        font-size: 1.75em;
+        margin: 2em 0 0.5em 0;
+      }
+      h3 {
+        font-size: 1.4em;
+        margin: 1.6em 0 0.7em 0;
+      }
+      h4 {
+        margin: 0;
+        font-size: 105%;
+      }
+      h1:target,
+      h2:target,
+      h3:target,
+      h4:target,
+      h5:target,
+      h6:target {
+        background: var(--highlight-color);
+        padding: 0.2em 0;
+      }
+      a {
+        color: #058;
+        text-decoration: none;
+        transition: color 0.2s ease-in-out;
+      }
+      a:visited {
+        color: #503;
+      }
+      a:hover {
+        color: #b62;
+      }
+      .title code {
+        font-weight: bold;
+      }
+      h2[id^="header-"] {
+        margin-top: 2em;
+      }
+      .ident {
+        color: #900;
+        font-weight: bold;
+      }
+      pre code {
+        font-size: 0.8em;
+        line-height: 1.4em;
+        padding: 1em;
+        display: block;
+      }
+      code {
+        background: #f3f3f3;
+        font-family: "DejaVu Sans Mono", monospace;
+        padding: 1px 4px;
+        overflow-wrap: break-word;
+      }
+      h1 code {
+        background: transparent;
+      }
+      pre {
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        margin: 1em 0;
+      }
+      #http-server-module-list {
+        display: flex;
+        flex-flow: column;
+      }
+      #http-server-module-list div {
+        display: flex;
+      }
+      #http-server-module-list dt {
+        min-width: 10%;
+      }
+      #http-server-module-list p {
+        margin-top: 0;
+      }
+      .toc ul,
+      #index {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+      #index code {
+        background: transparent;
+      }
+      #index h3 {
+        border-bottom: 1px solid #ddd;
+      }
+      #index ul {
+        padding: 0;
+      }
+      #index h4 {
+        margin-top: 0.6em;
+        font-weight: bold;
+      }
+      @media (min-width: 200ex) {
+        #index .two-column {
+          column-count: 2;
+        }
+      }
+      @media (min-width: 300ex) {
+        #index .two-column {
+          column-count: 3;
+        }
+      }
+      dl {
+        margin-bottom: 2em;
+      }
+      dl dl:last-child {
+        margin-bottom: 4em;
+      }
+      dd {
+        margin: 0 0 1em 3em;
+      }
+      #header-classes + dl > dd {
+        margin-bottom: 3em;
+      }
+      dd dd {
+        margin-left: 2em;
+      }
+      dd p {
+        margin: 10px 0;
+      }
+      .name {
+        background: #eee;
+        font-size: 0.85em;
+        padding: 5px 10px;
+        display: inline-block;
+        min-width: 40%;
+      }
+      .name:hover {
+        background: #e0e0e0;
+      }
+      dt:target .name {
+        background: var(--highlight-color);
+      }
+      .name > span:first-child {
+        white-space: nowrap;
+      }
+      .name.class > span:nth-child(2) {
+        margin-left: 0.4em;
+      }
+      .inherited {
+        color: #999;
+        border-left: 5px solid #eee;
+        padding-left: 1em;
+      }
+      .inheritance em {
+        font-style: normal;
+        font-weight: bold;
+      }
+      .desc h2 {
+        font-weight: 400;
+        font-size: 1.25em;
+      }
+      .desc h3 {
+        font-size: 1em;
+      }
+      .desc dt code {
+        background: inherit;
+      }
+      .source > summary,
+      .git-link-div {
+        color: #666;
+        text-align: right;
+        font-weight: 400;
+        font-size: 0.8em;
+        text-transform: uppercase;
+      }
+      .source summary > * {
+        white-space: nowrap;
+        cursor: pointer;
+      }
+      .git-link {
+        color: inherit;
+        margin-left: 1em;
+      }
+      .source pre {
+        max-height: 500px;
+        overflow: auto;
+        margin: 0;
+      }
+      .source pre code {
+        font-size: 12px;
+        overflow: visible;
+        min-width: max-content;
+      }
+      .hlist {
+        list-style: none;
+      }
+      .hlist li {
+        display: inline;
+      }
+      .hlist li:after {
+        content: ",\2002";
+      }
+      .hlist li:last-child:after {
+        content: none;
+      }
+      .hlist .hlist {
+        display: inline;
+        padding-left: 1em;
+      }
+      img {
+        max-width: 100%;
+      }
+      td {
+        padding: 0 0.5em;
+      }
+      .admonition {
+        padding: 0.1em 1em;
+        margin: 1em 0;
+      }
+      .admonition-title {
+        font-weight: bold;
+      }
+      .admonition.note,
+      .admonition.info,
+      .admonition.important {
+        background: #aef;
+      }
+      .admonition.todo,
+      .admonition.versionadded,
+      .admonition.tip,
+      .admonition.hint {
+        background: #dfd;
+      }
+      .admonition.warning,
+      .admonition.versionchanged,
+      .admonition.deprecated {
+        background: #fd4;
+      }
+      .admonition.error,
+      .admonition.danger,
+      .admonition.caution {
+        background: lightpink;
+      }
+    </style>
+    <style media="screen and (min-width: 700px)">
+      @media screen and (min-width: 700px) {
+        #sidebar {
+          width: 30%;
+          height: 100vh;
+          overflow: auto;
+          position: sticky;
+          top: 0;
+        }
+        #content {
+          width: 70%;
+          max-width: 100ch;
+          padding: 3em 4em;
+          border-left: 1px solid #ddd;
+        }
+        pre code {
+          font-size: 1em;
+        }
+        .name {
+          font-size: 1em;
+        }
+        main {
+          display: flex;
+          flex-direction: row-reverse;
+          justify-content: flex-end;
+        }
+        .toc ul ul,
+        #index ul ul {
+          padding-left: 1em;
+        }
+        .toc > ul > li {
+          margin-top: 0.5em;
+        }
+      }
+    </style>
+    <style media="print">
+      @media print {
+        #sidebar h1 {
+          page-break-before: always;
+        }
+        .source {
+          display: none;
+        }
+      }
+      @media print {
+        * {
+          background: transparent !important;
+          color: #000 !important;
+          box-shadow: none !important;
+          text-shadow: none !important;
+        }
+        a[href]:after {
+          content: " (" attr(href) ")";
+          font-size: 90%;
+        }
+        a[href][title]:after {
+          content: none;
+        }
+        abbr[title]:after {
+          content: " (" attr(title) ")";
+        }
+        .ir a:after,
+        a[href^="javascript:"]:after,
+        a[href^="#"]:after {
+          content: "";
+        }
+        pre,
+        blockquote {
+          border: 1px solid #999;
+          page-break-inside: avoid;
+        }
+        thead {
+          display: table-header-group;
+        }
+        tr,
+        img {
+          page-break-inside: avoid;
+        }
+        img {
+          max-width: 100% !important;
+        }
+        @page {
+          margin: 0.5cm;
+        }
+        p,
+        h2,
+        h3 {
+          orphans: 3;
+          widows: 3;
+        }
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+          page-break-after: avoid;
+        }
+      }
+    </style>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+      integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
+      crossorigin
+    ></script>
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        hljs.configure({
+          languages: [
+            "bash",
+            "css",
+            "diff",
+            "graphql",
+            "ini",
+            "javascript",
+            "json",
+            "plaintext",
+            "python",
+            "python-repl",
+            "rust",
+            "shell",
+            "sql",
+            "typescript",
+            "xml",
+            "yaml",
+          ],
+        });
+        hljs.highlightAll();
+        /* Collapse source docstrings */
+        setTimeout(() => {
+          [...document.querySelectorAll(".hljs.language-python > .hljs-string")]
+            .filter(
+              (el) =>
+                el.innerHTML.length > 200 &&
+                ['"""', "'''"].includes(el.innerHTML.substring(0, 3)),
+            )
+            .forEach((el) => {
+              let d = document.createElement("details");
+              d.classList.add("hljs-string");
+              d.innerHTML =
+                '<summary>"""</summary>' + el.innerHTML.substring(3);
+              el.replaceWith(d);
+            });
+        }, 100);
+      });
+    </script>
+  </head>
+  <body>
+    <main>
+      <article id="content">
+        <header>
+          <h1 class="title">
+            Module <code>space_hulk_game.engine.engine</code>
+          </h1>
+        </header>
+        <section id="section-intro">
+          <p>Text Adventure Engine Module</p>
+          <p>
+            Main game engine for the Space Hulk text-based adventure game.
+            Handles the game loop, action execution, state transitions, and
+            player I/O.
+          </p>
+          <h2 id="example">Example</h2>
+          <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import TextAdventureEngine, GameState, Scene
 &gt;&gt;&gt; state = GameState(current_scene=&quot;start&quot;)
 &gt;&gt;&gt; scenes = {&quot;start&quot;: Scene(id=&quot;start&quot;, name=&quot;Start&quot;, description=&quot;Begin.&quot;)}
 &gt;&gt;&gt; engine = TextAdventureEngine(state, scenes)
 &gt;&gt;&gt; # engine.run()  # Start the game loop
 </code></pre>
-</section>
-<section>
-</section>
-<section>
-</section>
-<section>
-</section>
-<section>
-<h2 class="section-title" id="header-classes">Classes</h2>
-<dl>
-<dt id="space_hulk_game.engine.engine.TextAdventureEngine"><code class="flex name class">
-<span>class <span class="ident">TextAdventureEngine</span></span>
-<span>(</span><span>game_state: <a title="space_hulk_game.engine.game_state.GameState" href="game_state.html#space_hulk_game.engine.game_state.GameState">GameState</a>,<br>scenes: dict[str, <a title="space_hulk_game.engine.scene.Scene" href="scene.html#space_hulk_game.engine.scene.Scene">Scene</a>],<br>input_func: collections.abc.Callable[[], str] | None = None,<br>output_func: collections.abc.Callable[[str], None] | None = None,<br>victory_conditions: set | None = None,<br>defeat_conditions: set | None = None)</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class TextAdventureEngine:
+        </section>
+        <section></section>
+        <section></section>
+        <section></section>
+        <section>
+          <h2 class="section-title" id="header-classes">Classes</h2>
+          <dl>
+            <dt id="space_hulk_game.engine.engine.TextAdventureEngine">
+              <code class="flex name class">
+                <span
+                  >class <span class="ident">TextAdventureEngine</span></span
+                >
+                <span>(</span
+                ><span
+                  >game_state: <a
+                    title="space_hulk_game.engine.game_state.GameState"
+                    href="game_state.html#space_hulk_game.engine.game_state.GameState"
+                    >GameState</a
+                  >,<br />scenes: dict[str, <a
+                    title="space_hulk_game.engine.scene.Scene"
+                    href="scene.html#space_hulk_game.engine.scene.Scene"
+                    >Scene</a
+                  >],<br />input_func: collections.abc.Callable[[], str] | None = None,<br />output_func: collections.abc.Callable[[str], None] | None = None,<br />victory_conditions: set | None = None,<br />defeat_conditions: set | None = None)</span
+                >
+              </code>
+            </dt>
+            <dd>
+              <details class="source">
+                <summary>
+                  <span>Expand source code</span>
+                </summary>
+                <pre><code class="python">class TextAdventureEngine:
     &#34;&#34;&#34;
     Main game engine for text-based adventure games.
 
@@ -820,38 +1267,63 @@ Perhaps in another timeline, victory was possible...
             text: The text to display.
         &#34;&#34;&#34;
         self.output_func(text)</code></pre>
-</details>
-<div class="desc"><p>Main game engine for text-based adventure games.</p>
-<p>This class implements the core game loop and coordinates all game systems:
-- Command parsing and action execution
-- Scene management and state transitions
-- Event processing and triggering
-- Player input/output
-- Victory/defeat condition checking</p>
-<p>The engine follows the Facade pattern, providing a simple interface
-to the complex subsystems of the game (parser, state, scenes, etc.).</p>
-<h2 id="attributes">Attributes</h2>
-<dl>
-<dt><strong><code>game_state</code></strong></dt>
-<dd>The current game state (player location, inventory, etc.).</dd>
-<dt><strong><code>scenes</code></strong></dt>
-<dd>Dictionary mapping scene IDs to Scene objects.</dd>
-<dt><strong><code>parser</code></strong></dt>
-<dd>CommandParser instance for processing player commands.</dd>
-<dt><strong><code>running</code></strong></dt>
-<dd>Whether the game loop is currently running.</dd>
-<dt><strong><code>victory_conditions</code></strong></dt>
-<dd>Set of game flags that trigger victory.</dd>
-<dt><strong><code>defeat_conditions</code></strong></dt>
-<dd>Set of game flags that trigger defeat.</dd>
-<dt><strong><code>input_func</code></strong></dt>
-<dd>Function for getting player input (for testing).</dd>
-<dt><strong><code>output_func</code></strong></dt>
-<dd>Function for displaying output (for testing).</dd>
-</dl>
-<h2 id="examples">Examples</h2>
-<p>Create and run a basic game:</p>
-<pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import (
+              </details>
+              <div class="desc">
+                <p>Main game engine for text-based adventure games.</p>
+                <p>
+                  This class implements the core game loop and coordinates all
+                  game systems: - Command parsing and action execution - Scene
+                  management and state transitions - Event processing and
+                  triggering - Player input/output - Victory/defeat condition
+                  checking
+                </p>
+                <p>
+                  The engine follows the Facade pattern, providing a simple
+                  interface to the complex subsystems of the game (parser,
+                  state, scenes, etc.).
+                </p>
+                <h2 id="attributes">Attributes</h2>
+                <dl>
+                  <dt>
+                    <strong><code>game_state</code></strong>
+                  </dt>
+                  <dd>
+                    The current game state (player location, inventory, etc.).
+                  </dd>
+                  <dt>
+                    <strong><code>scenes</code></strong>
+                  </dt>
+                  <dd>Dictionary mapping scene IDs to Scene objects.</dd>
+                  <dt>
+                    <strong><code>parser</code></strong>
+                  </dt>
+                  <dd>
+                    CommandParser instance for processing player commands.
+                  </dd>
+                  <dt>
+                    <strong><code>running</code></strong>
+                  </dt>
+                  <dd>Whether the game loop is currently running.</dd>
+                  <dt>
+                    <strong><code>victory_conditions</code></strong>
+                  </dt>
+                  <dd>Set of game flags that trigger victory.</dd>
+                  <dt>
+                    <strong><code>defeat_conditions</code></strong>
+                  </dt>
+                  <dd>Set of game flags that trigger defeat.</dd>
+                  <dt>
+                    <strong><code>input_func</code></strong>
+                  </dt>
+                  <dd>Function for getting player input (for testing).</dd>
+                  <dt>
+                    <strong><code>output_func</code></strong>
+                  </dt>
+                  <dd>Function for displaying output (for testing).</dd>
+                </dl>
+                <h2 id="examples">Examples</h2>
+                <p>Create and run a basic game:</p>
+                <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import (
 ...     TextAdventureEngine, GameState, Scene, Item
 ... )
 &gt;&gt;&gt; state = GameState(current_scene=&quot;room1&quot;)
@@ -871,38 +1343,56 @@ to the complex subsystems of the game (parser, state, scenes, etc.).</p>
 &gt;&gt;&gt; engine = TextAdventureEngine(state, scenes)
 &gt;&gt;&gt; # engine.run()  # Start the interactive game loop
 </code></pre>
-<p>Initialize the text adventure engine.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>game_state</code></strong></dt>
-<dd>Initial game state.</dd>
-<dt><strong><code>scenes</code></strong></dt>
-<dd>Dictionary mapping scene IDs to Scene objects.</dd>
-<dt><strong><code>input_func</code></strong></dt>
-<dd>Optional custom input function (default: input()).</dd>
-<dt><strong><code>output_func</code></strong></dt>
-<dd>Optional custom output function (default: print()).</dd>
-<dt><strong><code>victory_conditions</code></strong></dt>
-<dd>Optional set of flags that trigger victory.</dd>
-<dt><strong><code>defeat_conditions</code></strong></dt>
-<dd>Optional set of flags that trigger defeat.</dd>
-</dl>
-<h2 id="raises">Raises</h2>
-<dl>
-<dt><code>ValueError</code></dt>
-<dd>If current scene is not in scenes dict.</dd>
-</dl></div>
-<h3>Methods</h3>
-<dl>
-<dt id="space_hulk_game.engine.engine.TextAdventureEngine.handle_drop"><code class="name flex">
-<span>def <span class="ident">handle_drop</span></span>(<span>self, item_id: str) ‑> None</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def handle_drop(self, item_id: str) -&gt; None:
+                <p>Initialize the text adventure engine.</p>
+                <h2 id="args">Args</h2>
+                <dl>
+                  <dt>
+                    <strong><code>game_state</code></strong>
+                  </dt>
+                  <dd>Initial game state.</dd>
+                  <dt>
+                    <strong><code>scenes</code></strong>
+                  </dt>
+                  <dd>Dictionary mapping scene IDs to Scene objects.</dd>
+                  <dt>
+                    <strong><code>input_func</code></strong>
+                  </dt>
+                  <dd>Optional custom input function (default: input()).</dd>
+                  <dt>
+                    <strong><code>output_func</code></strong>
+                  </dt>
+                  <dd>Optional custom output function (default: print()).</dd>
+                  <dt>
+                    <strong><code>victory_conditions</code></strong>
+                  </dt>
+                  <dd>Optional set of flags that trigger victory.</dd>
+                  <dt>
+                    <strong><code>defeat_conditions</code></strong>
+                  </dt>
+                  <dd>Optional set of flags that trigger defeat.</dd>
+                </dl>
+                <h2 id="raises">Raises</h2>
+                <dl>
+                  <dt><code>ValueError</code></dt>
+                  <dd>If current scene is not in scenes dict.</dd>
+                </dl>
+              </div>
+              <h3>Methods</h3>
+              <dl>
+                <dt
+                  id="space_hulk_game.engine.engine.TextAdventureEngine.handle_drop"
+                >
+                  <code class="name flex">
+                    <span>def <span class="ident">handle_drop</span></span
+                    >(<span>self, item_id: str) ‑> None</span>
+                  </code>
+                </dt>
+                <dd>
+                  <details class="source">
+                    <summary>
+                      <span>Expand source code</span>
+                    </summary>
+                    <pre><code class="python">def handle_drop(self, item_id: str) -&gt; None:
     &#34;&#34;&#34;
     Handle dropping an item from inventory.
 
@@ -935,23 +1425,32 @@ to the complex subsystems of the game (parser, state, scenes, etc.).</p>
 
     self._output(f&#34;\nYou drop the {item.name}.\n&#34;)
     logger.info(f&#34;Dropped item: {item_id}&#34;)</code></pre>
-</details>
-<div class="desc"><p>Handle dropping an item from inventory.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>item_id</code></strong></dt>
-<dd>The ID or name of the item to drop.</dd>
-</dl></div>
-</dd>
-<dt id="space_hulk_game.engine.engine.TextAdventureEngine.handle_help"><code class="name flex">
-<span>def <span class="ident">handle_help</span></span>(<span>self) ‑> None</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">    def handle_help(self) -&gt; None:
+                  </details>
+                  <div class="desc">
+                    <p>Handle dropping an item from inventory.</p>
+                    <h2 id="args">Args</h2>
+                    <dl>
+                      <dt>
+                        <strong><code>item_id</code></strong>
+                      </dt>
+                      <dd>The ID or name of the item to drop.</dd>
+                    </dl>
+                  </div>
+                </dd>
+                <dt
+                  id="space_hulk_game.engine.engine.TextAdventureEngine.handle_help"
+                >
+                  <code class="name flex">
+                    <span>def <span class="ident">handle_help</span></span
+                    >(<span>self) ‑> None</span>
+                  </code>
+                </dt>
+                <dd>
+                  <details class="source">
+                    <summary>
+                      <span>Expand source code</span>
+                    </summary>
+                    <pre><code class="python">    def handle_help(self) -&gt; None:
         &#34;&#34;&#34;
         Display available commands and help text.
         &#34;&#34;&#34;
@@ -985,18 +1484,25 @@ Tips:
 &#34;&#34;&#34;
         self._output(help_text)
         logger.debug(&#34;Displayed help&#34;)</code></pre>
-</details>
-<div class="desc"><p>Display available commands and help text.</p></div>
-</dd>
-<dt id="space_hulk_game.engine.engine.TextAdventureEngine.handle_inventory"><code class="name flex">
-<span>def <span class="ident">handle_inventory</span></span>(<span>self) ‑> None</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def handle_inventory(self) -&gt; None:
+                  </details>
+                  <div class="desc">
+                    <p>Display available commands and help text.</p>
+                  </div>
+                </dd>
+                <dt
+                  id="space_hulk_game.engine.engine.TextAdventureEngine.handle_inventory"
+                >
+                  <code class="name flex">
+                    <span>def <span class="ident">handle_inventory</span></span
+                    >(<span>self) ‑> None</span>
+                  </code>
+                </dt>
+                <dd>
+                  <details class="source">
+                    <summary>
+                      <span>Expand source code</span>
+                    </summary>
+                    <pre><code class="python">def handle_inventory(self) -&gt; None:
     &#34;&#34;&#34;
     Display the player&#39;s inventory.
     &#34;&#34;&#34;
@@ -1012,18 +1518,23 @@ Tips:
     self._output(&#34;&#34;)
 
     logger.debug(&#34;Displayed inventory&#34;)</code></pre>
-</details>
-<div class="desc"><p>Display the player's inventory.</p></div>
-</dd>
-<dt id="space_hulk_game.engine.engine.TextAdventureEngine.handle_look"><code class="name flex">
-<span>def <span class="ident">handle_look</span></span>(<span>self, target: str | None = None) ‑> None</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def handle_look(self, target: str | None = None) -&gt; None:
+                  </details>
+                  <div class="desc"><p>Display the player's inventory.</p></div>
+                </dd>
+                <dt
+                  id="space_hulk_game.engine.engine.TextAdventureEngine.handle_look"
+                >
+                  <code class="name flex">
+                    <span>def <span class="ident">handle_look</span></span
+                    >(<span>self, target: str | None = None) ‑> None</span>
+                  </code>
+                </dt>
+                <dd>
+                  <details class="source">
+                    <summary>
+                      <span>Expand source code</span>
+                    </summary>
+                    <pre><code class="python">def handle_look(self, target: str | None = None) -&gt; None:
     &#34;&#34;&#34;
     Handle examining the scene or an object.
 
@@ -1055,23 +1566,34 @@ Tips:
     # Not found
     self._output(f&#34;\nYou don&#39;t see &#39;{target}&#39; here.\n&#34;)
     logger.debug(f&#34;Target not found: {target}&#34;)</code></pre>
-</details>
-<div class="desc"><p>Handle examining the scene or an object.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>target</code></strong></dt>
-<dd>Optional target to examine. If None, examine scene.</dd>
-</dl></div>
-</dd>
-<dt id="space_hulk_game.engine.engine.TextAdventureEngine.handle_move"><code class="name flex">
-<span>def <span class="ident">handle_move</span></span>(<span>self, direction: str) ‑> None</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def handle_move(self, direction: str) -&gt; None:
+                  </details>
+                  <div class="desc">
+                    <p>Handle examining the scene or an object.</p>
+                    <h2 id="args">Args</h2>
+                    <dl>
+                      <dt>
+                        <strong><code>target</code></strong>
+                      </dt>
+                      <dd>
+                        Optional target to examine. If None, examine scene.
+                      </dd>
+                    </dl>
+                  </div>
+                </dd>
+                <dt
+                  id="space_hulk_game.engine.engine.TextAdventureEngine.handle_move"
+                >
+                  <code class="name flex">
+                    <span>def <span class="ident">handle_move</span></span
+                    >(<span>self, direction: str) ‑> None</span>
+                  </code>
+                </dt>
+                <dd>
+                  <details class="source">
+                    <summary>
+                      <span>Expand source code</span>
+                    </summary>
+                    <pre><code class="python">def handle_move(self, direction: str) -&gt; None:
     &#34;&#34;&#34;
     Handle movement to another scene.
 
@@ -1109,23 +1631,32 @@ Tips:
 
     # Process entry events
     self._process_entry_events()</code></pre>
-</details>
-<div class="desc"><p>Handle movement to another scene.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>direction</code></strong></dt>
-<dd>The direction or exit name to move through.</dd>
-</dl></div>
-</dd>
-<dt id="space_hulk_game.engine.engine.TextAdventureEngine.handle_take"><code class="name flex">
-<span>def <span class="ident">handle_take</span></span>(<span>self, item_id: str) ‑> None</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def handle_take(self, item_id: str) -&gt; None:
+                  </details>
+                  <div class="desc">
+                    <p>Handle movement to another scene.</p>
+                    <h2 id="args">Args</h2>
+                    <dl>
+                      <dt>
+                        <strong><code>direction</code></strong>
+                      </dt>
+                      <dd>The direction or exit name to move through.</dd>
+                    </dl>
+                  </div>
+                </dd>
+                <dt
+                  id="space_hulk_game.engine.engine.TextAdventureEngine.handle_take"
+                >
+                  <code class="name flex">
+                    <span>def <span class="ident">handle_take</span></span
+                    >(<span>self, item_id: str) ‑> None</span>
+                  </code>
+                </dt>
+                <dd>
+                  <details class="source">
+                    <summary>
+                      <span>Expand source code</span>
+                    </summary>
+                    <pre><code class="python">def handle_take(self, item_id: str) -&gt; None:
     &#34;&#34;&#34;
     Handle taking an item from the current scene.
 
@@ -1158,23 +1689,35 @@ Tips:
 
     self._output(f&#34;\nYou take the {item.name}.\n&#34;)
     logger.info(f&#34;Took item: {item.id}&#34;)</code></pre>
-</details>
-<div class="desc"><p>Handle taking an item from the current scene.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>item_id</code></strong></dt>
-<dd>The ID or name of the item to take.</dd>
-</dl></div>
-</dd>
-<dt id="space_hulk_game.engine.engine.TextAdventureEngine.handle_talk"><code class="name flex">
-<span>def <span class="ident">handle_talk</span></span>(<span>self, npc_id: str, topic: str | None = None) ‑> None</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def handle_talk(self, npc_id: str, topic: str | None = None) -&gt; None:
+                  </details>
+                  <div class="desc">
+                    <p>Handle taking an item from the current scene.</p>
+                    <h2 id="args">Args</h2>
+                    <dl>
+                      <dt>
+                        <strong><code>item_id</code></strong>
+                      </dt>
+                      <dd>The ID or name of the item to take.</dd>
+                    </dl>
+                  </div>
+                </dd>
+                <dt
+                  id="space_hulk_game.engine.engine.TextAdventureEngine.handle_talk"
+                >
+                  <code class="name flex">
+                    <span>def <span class="ident">handle_talk</span></span
+                    >(<span
+                      >self, npc_id: str, topic: str | None = None)
+                      ‑> None</span
+                    >
+                  </code>
+                </dt>
+                <dd>
+                  <details class="source">
+                    <summary>
+                      <span>Expand source code</span>
+                    </summary>
+                    <pre><code class="python">def handle_talk(self, npc_id: str, topic: str | None = None) -&gt; None:
     &#34;&#34;&#34;
     Handle talking to an NPC.
 
@@ -1216,25 +1759,39 @@ Tips:
         logger.info(f&#34;Received item from NPC: {npc.gives_item}&#34;)
 
     logger.debug(f&#34;Talked to NPC: {npc_id}, topic: {topic}&#34;)</code></pre>
-</details>
-<div class="desc"><p>Handle talking to an NPC.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>npc_id</code></strong></dt>
-<dd>The ID or name of the NPC to talk to.</dd>
-<dt><strong><code>topic</code></strong></dt>
-<dd>Optional dialogue topic.</dd>
-</dl></div>
-</dd>
-<dt id="space_hulk_game.engine.engine.TextAdventureEngine.handle_use"><code class="name flex">
-<span>def <span class="ident">handle_use</span></span>(<span>self, item_id: str, target_id: str | None = None) ‑> None</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def handle_use(self, item_id: str, target_id: str | None = None) -&gt; None:
+                  </details>
+                  <div class="desc">
+                    <p>Handle talking to an NPC.</p>
+                    <h2 id="args">Args</h2>
+                    <dl>
+                      <dt>
+                        <strong><code>npc_id</code></strong>
+                      </dt>
+                      <dd>The ID or name of the NPC to talk to.</dd>
+                      <dt>
+                        <strong><code>topic</code></strong>
+                      </dt>
+                      <dd>Optional dialogue topic.</dd>
+                    </dl>
+                  </div>
+                </dd>
+                <dt
+                  id="space_hulk_game.engine.engine.TextAdventureEngine.handle_use"
+                >
+                  <code class="name flex">
+                    <span>def <span class="ident">handle_use</span></span
+                    >(<span
+                      >self, item_id: str, target_id: str | None = None)
+                      ‑> None</span
+                    >
+                  </code>
+                </dt>
+                <dd>
+                  <details class="source">
+                    <summary>
+                      <span>Expand source code</span>
+                    </summary>
+                    <pre><code class="python">def handle_use(self, item_id: str, target_id: str | None = None) -&gt; None:
     &#34;&#34;&#34;
     Handle using an item.
 
@@ -1329,25 +1886,34 @@ Tips:
     if not effects_applied and not item.use_text:
         self._output(f&#34;\nYou use the {item.name}. Nothing happens.\n&#34;)
         logger.debug(f&#34;Used item with no effects: {item_id}&#34;)</code></pre>
-</details>
-<div class="desc"><p>Handle using an item.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>item_id</code></strong></dt>
-<dd>The ID of the item to use.</dd>
-<dt><strong><code>target_id</code></strong></dt>
-<dd>Optional target for the item.</dd>
-</dl></div>
-</dd>
-<dt id="space_hulk_game.engine.engine.TextAdventureEngine.run"><code class="name flex">
-<span>def <span class="ident">run</span></span>(<span>self) ‑> None</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def run(self) -&gt; None:
+                  </details>
+                  <div class="desc">
+                    <p>Handle using an item.</p>
+                    <h2 id="args">Args</h2>
+                    <dl>
+                      <dt>
+                        <strong><code>item_id</code></strong>
+                      </dt>
+                      <dd>The ID of the item to use.</dd>
+                      <dt>
+                        <strong><code>target_id</code></strong>
+                      </dt>
+                      <dd>Optional target for the item.</dd>
+                    </dl>
+                  </div>
+                </dd>
+                <dt id="space_hulk_game.engine.engine.TextAdventureEngine.run">
+                  <code class="name flex">
+                    <span>def <span class="ident">run</span></span
+                    >(<span>self) ‑> None</span>
+                  </code>
+                </dt>
+                <dd>
+                  <details class="source">
+                    <summary>
+                      <span>Expand source code</span>
+                    </summary>
+                    <pre><code class="python">def run(self) -&gt; None:
     &#34;&#34;&#34;
     Start the main game loop.
 
@@ -1415,59 +1981,156 @@ Tips:
 
     self.running = False
     logger.info(&#34;Game loop ended&#34;)</code></pre>
-</details>
-<div class="desc"><p>Start the main game loop.</p>
-<p>This method handles:
-1. Initial scene display
-2. Player input collection
-3. Command parsing
-4. Action execution
-5. State updates
-6. Victory/defeat checking</p>
-<p>The loop continues until the player quits, wins, or loses.</p>
-<h2 id="examples">Examples</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; engine = TextAdventureEngine(state, scenes)
+                  </details>
+                  <div class="desc">
+                    <p>Start the main game loop.</p>
+                    <p>
+                      This method handles: 1. Initial scene display 2. Player
+                      input collection 3. Command parsing 4. Action execution 5.
+                      State updates 6. Victory/defeat checking
+                    </p>
+                    <p>
+                      The loop continues until the player quits, wins, or loses.
+                    </p>
+                    <h2 id="examples">Examples</h2>
+                    <pre><code class="language-python-repl">&gt;&gt;&gt; engine = TextAdventureEngine(state, scenes)
 &gt;&gt;&gt; # engine.run()  # Starts interactive game
-</code></pre></div>
-</dd>
-</dl>
-</dd>
-</dl>
-</section>
-</article>
-<nav id="sidebar">
-<div class="toc">
-<ul></ul>
-</div>
-<ul id="index">
-<li><h3>Super-module</h3>
-<ul>
-<li><code><a title="space_hulk_game.engine" href="index.html">space_hulk_game.engine</a></code></li>
-</ul>
-</li>
-<li><h3><a href="#header-classes">Classes</a></h3>
-<ul>
-<li>
-<h4><code><a title="space_hulk_game.engine.engine.TextAdventureEngine" href="#space_hulk_game.engine.engine.TextAdventureEngine">TextAdventureEngine</a></code></h4>
-<ul class="two-column">
-<li><code><a title="space_hulk_game.engine.engine.TextAdventureEngine.handle_drop" href="#space_hulk_game.engine.engine.TextAdventureEngine.handle_drop">handle_drop</a></code></li>
-<li><code><a title="space_hulk_game.engine.engine.TextAdventureEngine.handle_help" href="#space_hulk_game.engine.engine.TextAdventureEngine.handle_help">handle_help</a></code></li>
-<li><code><a title="space_hulk_game.engine.engine.TextAdventureEngine.handle_inventory" href="#space_hulk_game.engine.engine.TextAdventureEngine.handle_inventory">handle_inventory</a></code></li>
-<li><code><a title="space_hulk_game.engine.engine.TextAdventureEngine.handle_look" href="#space_hulk_game.engine.engine.TextAdventureEngine.handle_look">handle_look</a></code></li>
-<li><code><a title="space_hulk_game.engine.engine.TextAdventureEngine.handle_move" href="#space_hulk_game.engine.engine.TextAdventureEngine.handle_move">handle_move</a></code></li>
-<li><code><a title="space_hulk_game.engine.engine.TextAdventureEngine.handle_take" href="#space_hulk_game.engine.engine.TextAdventureEngine.handle_take">handle_take</a></code></li>
-<li><code><a title="space_hulk_game.engine.engine.TextAdventureEngine.handle_talk" href="#space_hulk_game.engine.engine.TextAdventureEngine.handle_talk">handle_talk</a></code></li>
-<li><code><a title="space_hulk_game.engine.engine.TextAdventureEngine.handle_use" href="#space_hulk_game.engine.engine.TextAdventureEngine.handle_use">handle_use</a></code></li>
-<li><code><a title="space_hulk_game.engine.engine.TextAdventureEngine.run" href="#space_hulk_game.engine.engine.TextAdventureEngine.run">run</a></code></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</nav>
-</main>
-<footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
-</footer>
-</body>
+</code></pre>
+                  </div>
+                </dd>
+              </dl>
+            </dd>
+          </dl>
+        </section>
+      </article>
+      <nav id="sidebar">
+        <div class="toc">
+          <ul></ul>
+        </div>
+        <ul id="index">
+          <li>
+            <h3>Super-module</h3>
+            <ul>
+              <li>
+                <code
+                  ><a title="space_hulk_game.engine" href="index.html"
+                    >space_hulk_game.engine</a
+                  ></code
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <h3><a href="#header-classes">Classes</a></h3>
+            <ul>
+              <li>
+                <h4>
+                  <code
+                    ><a
+                      title="space_hulk_game.engine.engine.TextAdventureEngine"
+                      href="#space_hulk_game.engine.engine.TextAdventureEngine"
+                      >TextAdventureEngine</a
+                    ></code
+                  >
+                </h4>
+                <ul class="two-column">
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.engine.engine.TextAdventureEngine.handle_drop"
+                        href="#space_hulk_game.engine.engine.TextAdventureEngine.handle_drop"
+                        >handle_drop</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.engine.engine.TextAdventureEngine.handle_help"
+                        href="#space_hulk_game.engine.engine.TextAdventureEngine.handle_help"
+                        >handle_help</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.engine.engine.TextAdventureEngine.handle_inventory"
+                        href="#space_hulk_game.engine.engine.TextAdventureEngine.handle_inventory"
+                        >handle_inventory</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.engine.engine.TextAdventureEngine.handle_look"
+                        href="#space_hulk_game.engine.engine.TextAdventureEngine.handle_look"
+                        >handle_look</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.engine.engine.TextAdventureEngine.handle_move"
+                        href="#space_hulk_game.engine.engine.TextAdventureEngine.handle_move"
+                        >handle_move</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.engine.engine.TextAdventureEngine.handle_take"
+                        href="#space_hulk_game.engine.engine.TextAdventureEngine.handle_take"
+                        >handle_take</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.engine.engine.TextAdventureEngine.handle_talk"
+                        href="#space_hulk_game.engine.engine.TextAdventureEngine.handle_talk"
+                        >handle_talk</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.engine.engine.TextAdventureEngine.handle_use"
+                        href="#space_hulk_game.engine.engine.TextAdventureEngine.handle_use"
+                        >handle_use</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.engine.engine.TextAdventureEngine.run"
+                        href="#space_hulk_game.engine.engine.TextAdventureEngine.run"
+                        >run</a
+                      ></code
+                    >
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </main>
+    <footer id="footer">
+      <p>
+        Generated by
+        <a
+          href="https://pdoc3.github.io/pdoc"
+          title="pdoc: Python API documentation generator"
+          ><cite>pdoc</cite> 0.11.6</a
+        >.
+      </p>
+    </footer>
+  </body>
 </html>

@@ -9,9 +9,7 @@
           "north": "corridor_1",
           "east": "storage"
         },
-        "items": [
-          "flashlight"
-        ],
+        "items": ["flashlight"],
         "npcs": [],
         "dark": false
       },
@@ -24,9 +22,7 @@
           "west": "cargo_bay"
         },
         "items": [],
-        "npcs": [
-          "servitor_wreck"
-        ],
+        "npcs": ["servitor_wreck"],
         "dark": true,
         "locked_exits": {
           "north": "bridge_key"
@@ -38,10 +34,7 @@
         "exits": {
           "west": "entrance"
         },
-        "items": [
-          "medkit",
-          "bridge_key"
-        ],
+        "items": ["medkit", "bridge_key"],
         "npcs": [],
         "dark": false
       },
@@ -52,9 +45,7 @@
           "east": "corridor_1"
         },
         "items": [],
-        "npcs": [
-          "survivor"
-        ],
+        "npcs": ["survivor"],
         "dark": false,
         "events": [
           {
@@ -75,9 +66,7 @@
         "exits": {
           "south": "corridor_1"
         },
-        "items": [
-          "dataslate"
-        ],
+        "items": ["dataslate"],
         "npcs": [],
         "dark": false
       }

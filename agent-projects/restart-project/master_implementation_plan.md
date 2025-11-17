@@ -111,11 +111,11 @@ MVP Complete
 
 **Can Run in Parallel (After Phase 0):**
 
-| Track | Phase | Reason |
-|-------|-------|--------|
-| A | Phase 4 (Game Engine) | Critical path - PRIORITY |
-| B | Phase 3 (Quality System) | Independent of game engine |
-| B | Phase 6 (Memory System) | Independent of game engine |
+| Track | Phase                    | Reason                     |
+| ----- | ------------------------ | -------------------------- |
+| A     | Phase 4 (Game Engine)    | Critical path - PRIORITY   |
+| B     | Phase 3 (Quality System) | Independent of game engine |
+| B     | Phase 6 (Memory System)  | Independent of game engine |
 
 **Within Phase 3 (Quality System):**
 
@@ -197,15 +197,15 @@ PARALLEL: Phase 7 Chunks 7.1, 7.3, 7.4 (all independent)
 
 Each chunk is marked with an indicator showing its execution requirements:
 
-| Indicator | Meaning | Can Start When | Notes |
-|-----------|---------|----------------|-------|
-| 🔴 SERIAL - BLOCKING | Must complete before ANY other work | Immediately | Blocks all phases |
-| 🔴 SERIAL - CRITICAL PATH | Must complete in order, on critical path | After prerequisites | Required for MVP |
-| 🔴 SERIAL FIRST | Must be first in its phase | After prerequisites | Starts the phase |
-| 🔴 SERIAL | Must complete before next in sequence | After prerequisites | Linear dependency |
-| 🟡 SERIAL - OPTIONAL | Optional serial execution | After prerequisites | Not required for MVP |
-| 🟠 CAN PARALLEL | Can run in parallel after initial setup | After prerequisites | Some parallelism possible |
-| 🟢 PARALLEL - INDEPENDENT | Fully independent, maximum parallelism | After prerequisites | No dependencies within phase |
+| Indicator                 | Meaning                                  | Can Start When      | Notes                        |
+| ------------------------- | ---------------------------------------- | ------------------- | ---------------------------- |
+| 🔴 SERIAL - BLOCKING      | Must complete before ANY other work      | Immediately         | Blocks all phases            |
+| 🔴 SERIAL - CRITICAL PATH | Must complete in order, on critical path | After prerequisites | Required for MVP             |
+| 🔴 SERIAL FIRST           | Must be first in its phase               | After prerequisites | Starts the phase             |
+| 🔴 SERIAL                 | Must complete before next in sequence    | After prerequisites | Linear dependency            |
+| 🟡 SERIAL - OPTIONAL      | Optional serial execution                | After prerequisites | Not required for MVP         |
+| 🟠 CAN PARALLEL           | Can run in parallel after initial setup  | After prerequisites | Some parallelism possible    |
+| 🟢 PARALLEL - INDEPENDENT | Fully independent, maximum parallelism   | After prerequisites | No dependencies within phase |
 
 **Quick Reference:**
 
@@ -266,14 +266,14 @@ If you have multiple agents available simultaneously:
 
 Before proceeding to any other phase:
 
-| Criterion | Target | Status |
-|-----------|--------|--------|
-| Sequential generation (5 tasks) completes | 100% success | ❓ Not tested |
-| Sequential generation (11 tasks) completes | 100% success | ❓ Not tested |
-| Average generation time | < 10 minutes | ❓ Not tested |
-| Reliability (3 consecutive runs) | 100% success | ❓ Not tested |
-| Output files generated | 5/5 files valid YAML | ❓ Not tested |
-| Hierarchical mode (3 tasks) completes | 100% success | ❓ Not tested |
+| Criterion                                  | Target               | Status        |
+| ------------------------------------------ | -------------------- | ------------- |
+| Sequential generation (5 tasks) completes  | 100% success         | ❓ Not tested |
+| Sequential generation (11 tasks) completes | 100% success         | ❓ Not tested |
+| Average generation time                    | < 10 minutes         | ❓ Not tested |
+| Reliability (3 consecutive runs)           | 100% success         | ❓ Not tested |
+| Output files generated                     | 5/5 files valid YAML | ❓ Not tested |
+| Hierarchical mode (3 tasks) completes      | 100% success         | ❓ Not tested |
 
 #### Work Chunks for Agents
 
@@ -523,7 +523,7 @@ Validation:
 
 **Chunk 3.3: Retry Logic with Feedback** 🔴 SERIAL
 
-```yaml
+````yaml
 Objective: Add retry mechanism for tasks that fail quality checks
 Agent: implementation-agent or general-purpose agent
 Scope: Task execution enhancement
@@ -554,7 +554,7 @@ Tasks:
        # Max retries reached - accept with warning
        logger.warning(f"Task {task.name} did not meet quality threshold after {max_retries} attempts")
        return output
-   ```
+````
 
 3. Integrate with crew.py:
    - Add quality_check parameter to task decorator
@@ -575,7 +575,7 @@ Validation:
 
 - tests/test_retry_logic.py with intentionally poor outputs
 
-```
+````
 
 **Chunk 3.4: Planning Templates** 🟢 PARALLEL - INDEPENDENT
 ```yaml
@@ -616,7 +616,7 @@ Success Criteria:
 Deliverables:
 - planning_templates/ directory with 4 YAML files
 - docs/PLANNING_TEMPLATES.md usage guide
-```
+````
 
 **Chunk 3.5: Integration Testing** 🔴 SERIAL
 
@@ -669,7 +669,7 @@ The game engine is the ultimate validation tool for generated content.
 
 **Chunk 4.1: Game State Model** 🔴 SERIAL - CRITICAL PATH
 
-```yaml
+````yaml
 Objective: Define data structures for game state
 Agent: implementation-agent or general-purpose agent
 Scope: Core data model
@@ -691,7 +691,7 @@ Tasks:
        game_flags: Dict[str, bool]
        health: int
        max_health: int
-   ```
+````
 
 2. Create Scene class:
    - File: src/space_hulk_game/engine/scene.py
@@ -720,7 +720,7 @@ Deliverables:
 
 - src/space_hulk_game/engine/ directory with data models
 
-```
+````
 
 **Chunk 4.2: Command Parser** 🔴 SERIAL - CRITICAL PATH
 ```yaml
@@ -748,7 +748,7 @@ Tasks:
        def parse(self, command: str) -> Action:
            """Convert text to Action object"""
            pass
-   ```
+````
 
 2. Create Action class:
    - File: src/space_hulk_game/engine/actions.py
@@ -773,7 +773,7 @@ Validation:
 
 - tests/test_command_parser.py with diverse inputs
 
-```
+````
 
 **Chunk 4.3: Game Engine Core** 🔴 SERIAL - CRITICAL PATH
 ```yaml
@@ -808,7 +808,7 @@ Tasks:
        def execute_action(self, action: Action):
            """Execute player action and update state"""
            pass
-   ```
+````
 
 2. Implement action handlers:
    - handle_move(direction): Change scenes
@@ -838,7 +838,7 @@ Validation:
 
 - tests/test_game_engine.py with scripted playthrough
 
-```
+````
 
 **Chunk 4.4: Content Loader** 🔴 SERIAL - CRITICAL PATH
 ```yaml
@@ -864,7 +864,7 @@ Tasks:
            return self.merge_into_game_data(
                plot, narrative, puzzles, scenes, mechanics
            )
-   ```
+````
 
 2. Implement format converters:
    - Convert YAML narrative map to Scene objects
@@ -890,7 +890,7 @@ Validation:
 
 - tests/test_content_loader.py with sample YAMLs
 
-```
+````
 
 **Chunk 4.5: Game Validator** 🔴 SERIAL - CRITICAL PATH
 ```yaml
@@ -926,7 +926,7 @@ Tasks:
                issues.append(f"Dead ends found: {dead_ends}")
 
            return ValidationResult(issues)
-   ```
+````
 
 2. Implement validation checks:
    - Scene connectivity (graph traversal)
@@ -951,7 +951,7 @@ Validation:
 
 - tests/test_game_validator.py with broken content
 
-```
+````
 
 **Chunk 4.6: Demo Game & Integration** 🔴 SERIAL - CRITICAL PATH
 ```yaml
@@ -997,7 +997,7 @@ Deliverables:
 - CLI interface
 - Integration tests
 - Documentation
-```
+````
 
 ---
 
@@ -1011,7 +1011,7 @@ Deliverables:
 
 **Chunk 5.1: Pydantic Models Definition** 🔴 SERIAL
 
-```yaml
+````yaml
 Objective: Define Pydantic models for all output types
 Agent: implementation-agent or general-purpose agent
 Scope: Schema definition
@@ -1044,7 +1044,7 @@ Tasks:
            if len(v) < 2:
                raise ValueError("Must have at least 2 branching paths")
            return v
-   ```
+````
 
 2. Create NarrativeMap model:
    - File: src/space_hulk_game/schemas/narrative_map.py
@@ -1070,7 +1070,7 @@ Deliverables:
 
 - src/space_hulk_game/schemas/ with 5 model files
 
-```
+````
 
 **Chunk 5.2: Schema Validators** 🔴 SERIAL
 ```yaml
@@ -1095,7 +1095,7 @@ Tasks:
                    errors=[str(e)],
                    data=None
                )
-   ```
+````
 
 2. Implement validators for each output type
 3. Create ValidationResult class
@@ -1111,7 +1111,7 @@ Validation:
 
 - tests/test_validators.py with valid/invalid samples
 
-```
+````
 
 **Chunk 5.3: Auto-Correction** 🔴 SERIAL
 ```yaml
@@ -1141,7 +1141,7 @@ Success Criteria:
 
 Validation:
 - tests/test_corrector.py with common errors
-```
+````
 
 **Chunk 5.4: Integration with Tasks** 🔴 SERIAL
 
@@ -1421,13 +1421,13 @@ Validation:
 
 ## Risk Mitigation
 
-| Risk | Mitigation |
-|------|-----------|
-| Quality varies widely | Quality metrics + retry logic |
-| Game engine too complex | Start minimal, add features incrementally |
-| Ollama model limitations | Multi-model support + cloud fallback |
-| Scope creep | Strict phase boundaries, MVP focus |
-| Timeline overruns | Buffer time, can ship after Phase 4 |
+| Risk                     | Mitigation                                |
+| ------------------------ | ----------------------------------------- |
+| Quality varies widely    | Quality metrics + retry logic             |
+| Game engine too complex  | Start minimal, add features incrementally |
+| Ollama model limitations | Multi-model support + cloud fallback      |
+| Scope creep              | Strict phase boundaries, MVP focus        |
+| Timeline overruns        | Buffer time, can ship after Phase 4       |
 
 ---
 
@@ -1462,11 +1462,11 @@ Validation:
 
 ## Document History
 
-| Date | Version | Changes |
-|------|---------|---------|
-| 2025-11-09 | 2.0 | Unified plan created from PROJECT_RESTART_PLAN + REVISED_RESTART_PLAN |
-| 2025-11-08 | 1.1 | REVISED_RESTART_PLAN created with Phase 0 focus |
-| 2025-11-08 | 1.0 | PROJECT_RESTART_PLAN created |
+| Date       | Version | Changes                                                               |
+| ---------- | ------- | --------------------------------------------------------------------- |
+| 2025-11-09 | 2.0     | Unified plan created from PROJECT_RESTART_PLAN + REVISED_RESTART_PLAN |
+| 2025-11-08 | 1.1     | REVISED_RESTART_PLAN created with Phase 0 focus                       |
+| 2025-11-08 | 1.0     | PROJECT_RESTART_PLAN created                                          |
 
 ---
 

@@ -273,15 +273,15 @@ If stuck, provide:
 
 ## Quick Reference
 
-| Command | Purpose |
-|---------|---------|
-| `ollama serve` | Start Ollama server |
-| `ollama list` | Check models installed |
-| `ollama pull qwen2.5` | Download model |
-| `python test_crew_generation.py --mode sequential` | Test simple mode |
-| `python test_crew_generation.py --mode hierarchical` | Test complex mode |
-| `python test_crew_generation.py --mode both` | Run both tests |
-| `python test_crew_generation.py --timeout 1200` | Use longer timeout |
+| Command                                              | Purpose                |
+| ---------------------------------------------------- | ---------------------- |
+| `ollama serve`                                       | Start Ollama server    |
+| `ollama list`                                        | Check models installed |
+| `ollama pull qwen2.5`                                | Download model         |
+| `python test_crew_generation.py --mode sequential`   | Test simple mode       |
+| `python test_crew_generation.py --mode hierarchical` | Test complex mode      |
+| `python test_crew_generation.py --mode both`         | Run both tests         |
+| `python test_crew_generation.py --timeout 1200`      | Use longer timeout     |
 
 ---
 

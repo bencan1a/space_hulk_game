@@ -54,13 +54,13 @@ CrewAI's hierarchical mode uses a "Delegate work to coworker" tool that:
 
 ## Solutions Attempted
 
-| Solution | Result | Why It Failed |
-|----------|--------|---------------|
-| Reduce max_iter to 10 | ❌ | Still allows 10 delegation loops |
-| Lower manager temperature to 0.3 | ❌ | Doesn't prevent delegation accumulation |
-| Increase max_tokens to 4000 | ❌ | Doesn't solve prompt nesting |
-| Simplify task descriptions (90%) | ❌ | Delegation prompts still nest deeply |
-| Simplified manager backstory | ❌ | Minor improvement, still fails |
+| Solution                         | Result | Why It Failed                           |
+| -------------------------------- | ------ | --------------------------------------- |
+| Reduce max_iter to 10            | ❌     | Still allows 10 delegation loops        |
+| Lower manager temperature to 0.3 | ❌     | Doesn't prevent delegation accumulation |
+| Increase max_tokens to 4000      | ❌     | Doesn't solve prompt nesting            |
+| Simplify task descriptions (90%) | ❌     | Delegation prompts still nest deeply    |
+| Simplified manager backstory     | ❌     | Minor improvement, still fails          |
 
 ## Why Sequential Mode Works
 

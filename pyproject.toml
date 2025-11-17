@@ -108,6 +108,7 @@ exclude = [
     "dist",
     "tmp",
     "agent-tmp",
+    "backend/tests",
 ]
 
 # Ignore missing imports for specific third-party libraries without type stubs

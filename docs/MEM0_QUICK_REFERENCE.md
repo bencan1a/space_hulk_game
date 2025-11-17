@@ -89,14 +89,14 @@ ollama serve            # Restart Ollama
 
 ## Configuration Comparison
 
-| Feature | Basic | Cloud Mem0 | Local Mem0 |
-|---------|-------|------------|------------|
-| **Setup Time** | 2 min | 10 min | 30 min |
-| **External Services** | None | API key | Qdrant + Ollama |
-| **Data Privacy** | Local | Cloud | Local |
-| **Cost** | Free | Paid | Free |
-| **Features** | Limited | Full | Full |
-| **Best For** | Development | Quick start | Production |
+| Feature               | Basic       | Cloud Mem0  | Local Mem0      |
+| --------------------- | ----------- | ----------- | --------------- |
+| **Setup Time**        | 2 min       | 10 min      | 30 min          |
+| **External Services** | None        | API key     | Qdrant + Ollama |
+| **Data Privacy**      | Local       | Cloud       | Local           |
+| **Cost**              | Free        | Paid        | Free            |
+| **Features**          | Limited     | Full        | Full            |
+| **Best For**          | Development | Quick start | Production      |
 
 ## Memory Benefits for Your Crew
 
@@ -108,14 +108,14 @@ ollama serve            # Restart Ollama
 
 ### Narrative Consistency
 
-| Agent | Without Memory | With Memory |
-|-------|----------------|-------------|
-| **PlotMaster** | Creates foundation | Creates foundation + stores entities |
-| **NarrativeArchitect** | Reads full plot output | Retrieves relevant plot elements |
-| **PuzzleSmith** | May duplicate items | Checks existing entities |
-| **CreativeScribe** | Inconsistent names | References stored entities |
-| **MechanicsGuru** | Repeats definitions | Builds on stored mechanics |
-| **NarrativeDirector** | Reviews full history | Queries specific concerns |
+| Agent                  | Without Memory         | With Memory                          |
+| ---------------------- | ---------------------- | ------------------------------------ |
+| **PlotMaster**         | Creates foundation     | Creates foundation + stores entities |
+| **NarrativeArchitect** | Reads full plot output | Retrieves relevant plot elements     |
+| **PuzzleSmith**        | May duplicate items    | Checks existing entities             |
+| **CreativeScribe**     | Inconsistent names     | References stored entities           |
+| **MechanicsGuru**      | Repeats definitions    | Builds on stored mechanics           |
+| **NarrativeDirector**  | Reviews full history   | Queries specific concerns            |
 
 ## Troubleshooting Quick Fixes
 

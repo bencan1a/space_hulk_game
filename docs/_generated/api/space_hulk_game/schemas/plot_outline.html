@@ -1,65 +1,501 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-<meta name="generator" content="pdoc3 0.11.6">
-<title>space_hulk_game.schemas.plot_outline API documentation</title>
-<meta name="description" content="Pydantic models for plot outline validation …">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
-<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
-<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
-<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
-<script>window.addEventListener('DOMContentLoaded', () => {
-hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
-hljs.highlightAll();
-/* Collapse source docstrings */
-setTimeout(() => {
-[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
-.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
-.forEach(el => {
-let d = document.createElement('details');
-d.classList.add('hljs-string');
-d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
-el.replaceWith(d);
-});
-}, 100);
-})</script>
-</head>
-<body>
-<main>
-<article id="content">
-<header>
-<h1 class="title">Module <code>space_hulk_game.schemas.plot_outline</code></h1>
-</header>
-<section id="section-intro">
-<p>Pydantic models for plot outline validation.</p>
-<p>This module defines the schema for validating plot outline outputs including
-narrative foundation elements such as plot points, characters, conflicts,
-and overall story structure.</p>
-</section>
-<section>
-</section>
-<section>
-</section>
-<section>
-</section>
-<section>
-<h2 class="section-title" id="header-classes">Classes</h2>
-<dl>
-<dt id="space_hulk_game.schemas.plot_outline.Character"><code class="flex name class">
-<span>class <span class="ident">Character</span></span>
-<span>(</span><span>**data: Any)</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class Character(BaseModel):
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1"
+    />
+    <meta name="generator" content="pdoc3 0.11.6" />
+    <title>space_hulk_game.schemas.plot_outline API documentation</title>
+    <meta
+      name="description"
+      content="Pydantic models for plot outline validation …"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css"
+      integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA=="
+      crossorigin
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css"
+      integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA=="
+      crossorigin
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"
+      crossorigin
+    />
+    <style>
+      :root {
+        --highlight-color: #fe9;
+      }
+      .flex {
+        display: flex !important;
+      }
+      body {
+        line-height: 1.5em;
+      }
+      #content {
+        padding: 20px;
+      }
+      #sidebar {
+        padding: 1.5em;
+        overflow: hidden;
+      }
+      #sidebar > *:last-child {
+        margin-bottom: 2cm;
+      }
+      .http-server-breadcrumbs {
+        font-size: 130%;
+        margin: 0 0 15px 0;
+      }
+      #footer {
+        font-size: 0.75em;
+        padding: 5px 30px;
+        border-top: 1px solid #ddd;
+        text-align: right;
+      }
+      #footer p {
+        margin: 0 0 0 1em;
+        display: inline-block;
+      }
+      #footer p:last-child {
+        margin-right: 30px;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5 {
+        font-weight: 300;
+      }
+      h1 {
+        font-size: 2.5em;
+        line-height: 1.1em;
+      }
+      h2 {
+        font-size: 1.75em;
+        margin: 2em 0 0.5em 0;
+      }
+      h3 {
+        font-size: 1.4em;
+        margin: 1.6em 0 0.7em 0;
+      }
+      h4 {
+        margin: 0;
+        font-size: 105%;
+      }
+      h1:target,
+      h2:target,
+      h3:target,
+      h4:target,
+      h5:target,
+      h6:target {
+        background: var(--highlight-color);
+        padding: 0.2em 0;
+      }
+      a {
+        color: #058;
+        text-decoration: none;
+        transition: color 0.2s ease-in-out;
+      }
+      a:visited {
+        color: #503;
+      }
+      a:hover {
+        color: #b62;
+      }
+      .title code {
+        font-weight: bold;
+      }
+      h2[id^="header-"] {
+        margin-top: 2em;
+      }
+      .ident {
+        color: #900;
+        font-weight: bold;
+      }
+      pre code {
+        font-size: 0.8em;
+        line-height: 1.4em;
+        padding: 1em;
+        display: block;
+      }
+      code {
+        background: #f3f3f3;
+        font-family: "DejaVu Sans Mono", monospace;
+        padding: 1px 4px;
+        overflow-wrap: break-word;
+      }
+      h1 code {
+        background: transparent;
+      }
+      pre {
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        margin: 1em 0;
+      }
+      #http-server-module-list {
+        display: flex;
+        flex-flow: column;
+      }
+      #http-server-module-list div {
+        display: flex;
+      }
+      #http-server-module-list dt {
+        min-width: 10%;
+      }
+      #http-server-module-list p {
+        margin-top: 0;
+      }
+      .toc ul,
+      #index {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+      #index code {
+        background: transparent;
+      }
+      #index h3 {
+        border-bottom: 1px solid #ddd;
+      }
+      #index ul {
+        padding: 0;
+      }
+      #index h4 {
+        margin-top: 0.6em;
+        font-weight: bold;
+      }
+      @media (min-width: 200ex) {
+        #index .two-column {
+          column-count: 2;
+        }
+      }
+      @media (min-width: 300ex) {
+        #index .two-column {
+          column-count: 3;
+        }
+      }
+      dl {
+        margin-bottom: 2em;
+      }
+      dl dl:last-child {
+        margin-bottom: 4em;
+      }
+      dd {
+        margin: 0 0 1em 3em;
+      }
+      #header-classes + dl > dd {
+        margin-bottom: 3em;
+      }
+      dd dd {
+        margin-left: 2em;
+      }
+      dd p {
+        margin: 10px 0;
+      }
+      .name {
+        background: #eee;
+        font-size: 0.85em;
+        padding: 5px 10px;
+        display: inline-block;
+        min-width: 40%;
+      }
+      .name:hover {
+        background: #e0e0e0;
+      }
+      dt:target .name {
+        background: var(--highlight-color);
+      }
+      .name > span:first-child {
+        white-space: nowrap;
+      }
+      .name.class > span:nth-child(2) {
+        margin-left: 0.4em;
+      }
+      .inherited {
+        color: #999;
+        border-left: 5px solid #eee;
+        padding-left: 1em;
+      }
+      .inheritance em {
+        font-style: normal;
+        font-weight: bold;
+      }
+      .desc h2 {
+        font-weight: 400;
+        font-size: 1.25em;
+      }
+      .desc h3 {
+        font-size: 1em;
+      }
+      .desc dt code {
+        background: inherit;
+      }
+      .source > summary,
+      .git-link-div {
+        color: #666;
+        text-align: right;
+        font-weight: 400;
+        font-size: 0.8em;
+        text-transform: uppercase;
+      }
+      .source summary > * {
+        white-space: nowrap;
+        cursor: pointer;
+      }
+      .git-link {
+        color: inherit;
+        margin-left: 1em;
+      }
+      .source pre {
+        max-height: 500px;
+        overflow: auto;
+        margin: 0;
+      }
+      .source pre code {
+        font-size: 12px;
+        overflow: visible;
+        min-width: max-content;
+      }
+      .hlist {
+        list-style: none;
+      }
+      .hlist li {
+        display: inline;
+      }
+      .hlist li:after {
+        content: ",\2002";
+      }
+      .hlist li:last-child:after {
+        content: none;
+      }
+      .hlist .hlist {
+        display: inline;
+        padding-left: 1em;
+      }
+      img {
+        max-width: 100%;
+      }
+      td {
+        padding: 0 0.5em;
+      }
+      .admonition {
+        padding: 0.1em 1em;
+        margin: 1em 0;
+      }
+      .admonition-title {
+        font-weight: bold;
+      }
+      .admonition.note,
+      .admonition.info,
+      .admonition.important {
+        background: #aef;
+      }
+      .admonition.todo,
+      .admonition.versionadded,
+      .admonition.tip,
+      .admonition.hint {
+        background: #dfd;
+      }
+      .admonition.warning,
+      .admonition.versionchanged,
+      .admonition.deprecated {
+        background: #fd4;
+      }
+      .admonition.error,
+      .admonition.danger,
+      .admonition.caution {
+        background: lightpink;
+      }
+    </style>
+    <style media="screen and (min-width: 700px)">
+      @media screen and (min-width: 700px) {
+        #sidebar {
+          width: 30%;
+          height: 100vh;
+          overflow: auto;
+          position: sticky;
+          top: 0;
+        }
+        #content {
+          width: 70%;
+          max-width: 100ch;
+          padding: 3em 4em;
+          border-left: 1px solid #ddd;
+        }
+        pre code {
+          font-size: 1em;
+        }
+        .name {
+          font-size: 1em;
+        }
+        main {
+          display: flex;
+          flex-direction: row-reverse;
+          justify-content: flex-end;
+        }
+        .toc ul ul,
+        #index ul ul {
+          padding-left: 1em;
+        }
+        .toc > ul > li {
+          margin-top: 0.5em;
+        }
+      }
+    </style>
+    <style media="print">
+      @media print {
+        #sidebar h1 {
+          page-break-before: always;
+        }
+        .source {
+          display: none;
+        }
+      }
+      @media print {
+        * {
+          background: transparent !important;
+          color: #000 !important;
+          box-shadow: none !important;
+          text-shadow: none !important;
+        }
+        a[href]:after {
+          content: " (" attr(href) ")";
+          font-size: 90%;
+        }
+        a[href][title]:after {
+          content: none;
+        }
+        abbr[title]:after {
+          content: " (" attr(title) ")";
+        }
+        .ir a:after,
+        a[href^="javascript:"]:after,
+        a[href^="#"]:after {
+          content: "";
+        }
+        pre,
+        blockquote {
+          border: 1px solid #999;
+          page-break-inside: avoid;
+        }
+        thead {
+          display: table-header-group;
+        }
+        tr,
+        img {
+          page-break-inside: avoid;
+        }
+        img {
+          max-width: 100% !important;
+        }
+        @page {
+          margin: 0.5cm;
+        }
+        p,
+        h2,
+        h3 {
+          orphans: 3;
+          widows: 3;
+        }
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+          page-break-after: avoid;
+        }
+      }
+    </style>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+      integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
+      crossorigin
+    ></script>
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        hljs.configure({
+          languages: [
+            "bash",
+            "css",
+            "diff",
+            "graphql",
+            "ini",
+            "javascript",
+            "json",
+            "plaintext",
+            "python",
+            "python-repl",
+            "rust",
+            "shell",
+            "sql",
+            "typescript",
+            "xml",
+            "yaml",
+          ],
+        });
+        hljs.highlightAll();
+        /* Collapse source docstrings */
+        setTimeout(() => {
+          [...document.querySelectorAll(".hljs.language-python > .hljs-string")]
+            .filter(
+              (el) =>
+                el.innerHTML.length > 200 &&
+                ['"""', "'''"].includes(el.innerHTML.substring(0, 3)),
+            )
+            .forEach((el) => {
+              let d = document.createElement("details");
+              d.classList.add("hljs-string");
+              d.innerHTML =
+                '<summary>"""</summary>' + el.innerHTML.substring(3);
+              el.replaceWith(d);
+            });
+        }, 100);
+      });
+    </script>
+  </head>
+  <body>
+    <main>
+      <article id="content">
+        <header>
+          <h1 class="title">
+            Module <code>space_hulk_game.schemas.plot_outline</code>
+          </h1>
+        </header>
+        <section id="section-intro">
+          <p>Pydantic models for plot outline validation.</p>
+          <p>
+            This module defines the schema for validating plot outline outputs
+            including narrative foundation elements such as plot points,
+            characters, conflicts, and overall story structure.
+          </p>
+        </section>
+        <section></section>
+        <section></section>
+        <section></section>
+        <section>
+          <h2 class="section-title" id="header-classes">Classes</h2>
+          <dl>
+            <dt id="space_hulk_game.schemas.plot_outline.Character">
+              <code class="flex name class">
+                <span>class <span class="ident">Character</span></span>
+                <span>(</span><span>**data: Any)</span>
+              </code>
+            </dt>
+            <dd>
+              <details class="source">
+                <summary>
+                  <span>Expand source code</span>
+                </summary>
+                <pre><code class="python">class Character(BaseModel):
     &#34;&#34;&#34;A character in the narrative.
 
     Attributes:
@@ -82,68 +518,117 @@ and overall story structure.</p>
     conflicts: list[str] | None = Field(
         default=None, description=&#34;Optional character-specific conflicts&#34;
     )</code></pre>
-</details>
-<div class="desc"><p>A character in the narrative.</p>
-<h2 id="attributes">Attributes</h2>
-<dl>
-<dt><strong><code>name</code></strong></dt>
-<dd>Full name of the character.</dd>
-<dt><strong><code>role</code></strong></dt>
-<dd>The character's role or position in the story.</dd>
-<dt><strong><code>backstory</code></strong></dt>
-<dd>Background and history of the character.</dd>
-<dt><strong><code>conflicts</code></strong></dt>
-<dd>Optional list of internal or external conflicts.</dd>
-</dl>
-<h2 id="example">Example</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; character = Character(
+              </details>
+              <div class="desc">
+                <p>A character in the narrative.</p>
+                <h2 id="attributes">Attributes</h2>
+                <dl>
+                  <dt>
+                    <strong><code>name</code></strong>
+                  </dt>
+                  <dd>Full name of the character.</dd>
+                  <dt>
+                    <strong><code>role</code></strong>
+                  </dt>
+                  <dd>The character's role or position in the story.</dd>
+                  <dt>
+                    <strong><code>backstory</code></strong>
+                  </dt>
+                  <dd>Background and history of the character.</dd>
+                  <dt>
+                    <strong><code>conflicts</code></strong>
+                  </dt>
+                  <dd>Optional list of internal or external conflicts.</dd>
+                </dl>
+                <h2 id="example">Example</h2>
+                <pre><code class="language-python-repl">&gt;&gt;&gt; character = Character(
 ...     name=&quot;Brother-Captain Tyberius&quot;,
 ...     role=&quot;Squad Leader, Blood Angels Terminator&quot;,
 ...     backstory=&quot;Tyberius has seen entire worlds fall...&quot;
 ... )
 </code></pre>
-<p>Create a new model by parsing and validating input data from keyword arguments.</p>
-<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
-validated to form a valid model.</p>
-<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li>pydantic.main.BaseModel</li>
-</ul>
-<h3>Class variables</h3>
-<dl>
-<dt id="space_hulk_game.schemas.plot_outline.Character.backstory"><code class="name">var <span class="ident">backstory</span> : str</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.plot_outline.Character.conflicts"><code class="name">var <span class="ident">conflicts</span> : list[str] | None</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.plot_outline.Character.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.plot_outline.Character.name"><code class="name">var <span class="ident">name</span> : str</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.plot_outline.Character.role"><code class="name">var <span class="ident">role</span> : str</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-</dl>
-</dd>
-<dt id="space_hulk_game.schemas.plot_outline.Conflict"><code class="flex name class">
-<span>class <span class="ident">Conflict</span></span>
-<span>(</span><span>**data: Any)</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class Conflict(BaseModel):
+                <p>
+                  Create a new model by parsing and validating input data from
+                  keyword arguments.
+                </p>
+                <p>
+                  Raises
+                  [<code>ValidationError</code>][pydantic_core.ValidationError]
+                  if the input data cannot be validated to form a valid model.
+                </p>
+                <p>
+                  <code>self</code> is explicitly positional-only to allow
+                  <code>self</code> as a field name.
+                </p>
+              </div>
+              <h3>Ancestors</h3>
+              <ul class="hlist">
+                <li>pydantic.main.BaseModel</li>
+              </ul>
+              <h3>Class variables</h3>
+              <dl>
+                <dt
+                  id="space_hulk_game.schemas.plot_outline.Character.backstory"
+                >
+                  <code class="name"
+                    >var <span class="ident">backstory</span> : str</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt
+                  id="space_hulk_game.schemas.plot_outline.Character.conflicts"
+                >
+                  <code class="name"
+                    >var
+                    <span class="ident">conflicts</span>
+                    : list[str] | None</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt
+                  id="space_hulk_game.schemas.plot_outline.Character.model_config"
+                >
+                  <code class="name"
+                    >var <span class="ident">model_config</span></code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt id="space_hulk_game.schemas.plot_outline.Character.name">
+                  <code class="name"
+                    >var <span class="ident">name</span> : str</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt id="space_hulk_game.schemas.plot_outline.Character.role">
+                  <code class="name"
+                    >var <span class="ident">role</span> : str</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+              </dl>
+            </dd>
+            <dt id="space_hulk_game.schemas.plot_outline.Conflict">
+              <code class="flex name class">
+                <span>class <span class="ident">Conflict</span></span>
+                <span>(</span><span>**data: Any)</span>
+              </code>
+            </dt>
+            <dd>
+              <details class="source">
+                <summary>
+                  <span>Expand source code</span>
+                </summary>
+                <pre><code class="python">class Conflict(BaseModel):
     &#34;&#34;&#34;A conflict or tension in the narrative.
 
     Attributes:
@@ -159,55 +644,90 @@ validated to form a valid model.</p>
 
     type: str = Field(..., min_length=1, max_length=200, description=&#34;Type or category of conflict&#34;)
     description: str = Field(..., min_length=50, description=&#34;Detailed description of the conflict&#34;)</code></pre>
-</details>
-<div class="desc"><p>A conflict or tension in the narrative.</p>
-<h2 id="attributes">Attributes</h2>
-<dl>
-<dt><strong><code>type</code></strong></dt>
-<dd>Type of conflict (e.g., 'Man vs. Xenos', 'Man vs. Self').</dd>
-<dt><strong><code>description</code></strong></dt>
-<dd>Detailed description of the conflict.</dd>
-</dl>
-<h2 id="example">Example</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; conflict = Conflict(
+              </details>
+              <div class="desc">
+                <p>A conflict or tension in the narrative.</p>
+                <h2 id="attributes">Attributes</h2>
+                <dl>
+                  <dt>
+                    <strong><code>type</code></strong>
+                  </dt>
+                  <dd>
+                    Type of conflict (e.g., 'Man vs. Xenos', 'Man vs. Self').
+                  </dd>
+                  <dt>
+                    <strong><code>description</code></strong>
+                  </dt>
+                  <dd>Detailed description of the conflict.</dd>
+                </dl>
+                <h2 id="example">Example</h2>
+                <pre><code class="language-python-repl">&gt;&gt;&gt; conflict = Conflict(
 ...     type=&quot;Man vs. Xenos&quot;,
 ...     description=&quot;The primary and most immediate conflict...&quot;
 ... )
 </code></pre>
-<p>Create a new model by parsing and validating input data from keyword arguments.</p>
-<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
-validated to form a valid model.</p>
-<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li>pydantic.main.BaseModel</li>
-</ul>
-<h3>Class variables</h3>
-<dl>
-<dt id="space_hulk_game.schemas.plot_outline.Conflict.description"><code class="name">var <span class="ident">description</span> : str</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.plot_outline.Conflict.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.plot_outline.Conflict.type"><code class="name">var <span class="ident">type</span> : str</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-</dl>
-</dd>
-<dt id="space_hulk_game.schemas.plot_outline.PlotBranch"><code class="flex name class">
-<span>class <span class="ident">PlotBranch</span></span>
-<span>(</span><span>**data: Any)</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class PlotBranch(BaseModel):
+                <p>
+                  Create a new model by parsing and validating input data from
+                  keyword arguments.
+                </p>
+                <p>
+                  Raises
+                  [<code>ValidationError</code>][pydantic_core.ValidationError]
+                  if the input data cannot be validated to form a valid model.
+                </p>
+                <p>
+                  <code>self</code> is explicitly positional-only to allow
+                  <code>self</code> as a field name.
+                </p>
+              </div>
+              <h3>Ancestors</h3>
+              <ul class="hlist">
+                <li>pydantic.main.BaseModel</li>
+              </ul>
+              <h3>Class variables</h3>
+              <dl>
+                <dt
+                  id="space_hulk_game.schemas.plot_outline.Conflict.description"
+                >
+                  <code class="name"
+                    >var <span class="ident">description</span> : str</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt
+                  id="space_hulk_game.schemas.plot_outline.Conflict.model_config"
+                >
+                  <code class="name"
+                    >var <span class="ident">model_config</span></code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt id="space_hulk_game.schemas.plot_outline.Conflict.type">
+                  <code class="name"
+                    >var <span class="ident">type</span> : str</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+              </dl>
+            </dd>
+            <dt id="space_hulk_game.schemas.plot_outline.PlotBranch">
+              <code class="flex name class">
+                <span>class <span class="ident">PlotBranch</span></span>
+                <span>(</span><span>**data: Any)</span>
+              </code>
+            </dt>
+            <dd>
+              <details class="source">
+                <summary>
+                  <span>Expand source code</span>
+                </summary>
+                <pre><code class="python">class PlotBranch(BaseModel):
     &#34;&#34;&#34;A branching path in the narrative structure.
 
     This represents a decision point or alternative story path that
@@ -231,64 +751,108 @@ validated to form a valid model.</p>
     decision_point: str | None = Field(
         default=None, description=&#34;ID of the plot point where this branch occurs&#34;
     )</code></pre>
-</details>
-<div class="desc"><p>A branching path in the narrative structure.</p>
-<p>This represents a decision point or alternative story path that
-diverges from the main narrative.</p>
-<h2 id="attributes">Attributes</h2>
-<dl>
-<dt><strong><code>path</code></strong></dt>
-<dd>Identifier for the branch path.</dd>
-<dt><strong><code>description</code></strong></dt>
-<dd>Description of what happens on this branch.</dd>
-<dt><strong><code>decision_point</code></strong></dt>
-<dd>Optional plot point ID where the branch occurs.</dd>
-</dl>
-<h2 id="example">Example</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; branch = PlotBranch(
+              </details>
+              <div class="desc">
+                <p>A branching path in the narrative structure.</p>
+                <p>
+                  This represents a decision point or alternative story path
+                  that diverges from the main narrative.
+                </p>
+                <h2 id="attributes">Attributes</h2>
+                <dl>
+                  <dt>
+                    <strong><code>path</code></strong>
+                  </dt>
+                  <dd>Identifier for the branch path.</dd>
+                  <dt>
+                    <strong><code>description</code></strong>
+                  </dt>
+                  <dd>Description of what happens on this branch.</dd>
+                  <dt>
+                    <strong><code>decision_point</code></strong>
+                  </dt>
+                  <dd>Optional plot point ID where the branch occurs.</dd>
+                </dl>
+                <h2 id="example">Example</h2>
+                <pre><code class="language-python-repl">&gt;&gt;&gt; branch = PlotBranch(
 ...     path=&quot;heroic_sacrifice&quot;,
 ...     description=&quot;The squad chooses to destroy the core...&quot;,
 ...     decision_point=&quot;decision_hulk_fate&quot;
 ... )
 </code></pre>
-<p>Create a new model by parsing and validating input data from keyword arguments.</p>
-<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
-validated to form a valid model.</p>
-<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li>pydantic.main.BaseModel</li>
-</ul>
-<h3>Class variables</h3>
-<dl>
-<dt id="space_hulk_game.schemas.plot_outline.PlotBranch.decision_point"><code class="name">var <span class="ident">decision_point</span> : str | None</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.plot_outline.PlotBranch.description"><code class="name">var <span class="ident">description</span> : str</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.plot_outline.PlotBranch.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.plot_outline.PlotBranch.path"><code class="name">var <span class="ident">path</span> : str</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-</dl>
-</dd>
-<dt id="space_hulk_game.schemas.plot_outline.PlotOutline"><code class="flex name class">
-<span>class <span class="ident">PlotOutline</span></span>
-<span>(</span><span>**data: Any)</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class PlotOutline(BaseModel):
+                <p>
+                  Create a new model by parsing and validating input data from
+                  keyword arguments.
+                </p>
+                <p>
+                  Raises
+                  [<code>ValidationError</code>][pydantic_core.ValidationError]
+                  if the input data cannot be validated to form a valid model.
+                </p>
+                <p>
+                  <code>self</code> is explicitly positional-only to allow
+                  <code>self</code> as a field name.
+                </p>
+              </div>
+              <h3>Ancestors</h3>
+              <ul class="hlist">
+                <li>pydantic.main.BaseModel</li>
+              </ul>
+              <h3>Class variables</h3>
+              <dl>
+                <dt
+                  id="space_hulk_game.schemas.plot_outline.PlotBranch.decision_point"
+                >
+                  <code class="name"
+                    >var
+                    <span class="ident">decision_point</span> : str | None</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt
+                  id="space_hulk_game.schemas.plot_outline.PlotBranch.description"
+                >
+                  <code class="name"
+                    >var <span class="ident">description</span> : str</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt
+                  id="space_hulk_game.schemas.plot_outline.PlotBranch.model_config"
+                >
+                  <code class="name"
+                    >var <span class="ident">model_config</span></code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt id="space_hulk_game.schemas.plot_outline.PlotBranch.path">
+                  <code class="name"
+                    >var <span class="ident">path</span> : str</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+              </dl>
+            </dd>
+            <dt id="space_hulk_game.schemas.plot_outline.PlotOutline">
+              <code class="flex name class">
+                <span>class <span class="ident">PlotOutline</span></span>
+                <span>(</span><span>**data: Any)</span>
+              </code>
+            </dt>
+            <dd>
+              <details class="source">
+                <summary>
+                  <span>Expand source code</span>
+                </summary>
+                <pre><code class="python">class PlotOutline(BaseModel):
     &#34;&#34;&#34;Complete plot outline for a narrative.
 
     This is the top-level model representing the entire narrative foundation
@@ -362,31 +926,51 @@ validated to form a valid model.</p>
         if len(names) != len(set(names)):
             raise ValueError(&#34;All character names must be unique&#34;)
         return v</code></pre>
-</details>
-<div class="desc"><p>Complete plot outline for a narrative.</p>
-<p>This is the top-level model representing the entire narrative foundation
-including title, setting, themes, plot points, characters, and conflicts.</p>
-<h2 id="attributes">Attributes</h2>
-<dl>
-<dt><strong><code>title</code></strong></dt>
-<dd>Title of the narrative.</dd>
-<dt><strong><code>setting</code></strong></dt>
-<dd>Description of the setting/world.</dd>
-<dt><strong><code>themes</code></strong></dt>
-<dd>List of major themes explored.</dd>
-<dt><strong><code>tone</code></strong></dt>
-<dd>Overall tone and atmosphere.</dd>
-<dt><strong><code>plot_points</code></strong></dt>
-<dd>Chronological list of major plot events.</dd>
-<dt><strong><code>characters</code></strong></dt>
-<dd>List of major characters.</dd>
-<dt><strong><code>conflicts</code></strong></dt>
-<dd>List of major conflicts in the narrative.</dd>
-<dt><strong><code>plot_branches</code></strong></dt>
-<dd>Optional list of alternative narrative paths.</dd>
-</dl>
-<h2 id="example">Example</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; outline = PlotOutline(
+              </details>
+              <div class="desc">
+                <p>Complete plot outline for a narrative.</p>
+                <p>
+                  This is the top-level model representing the entire narrative
+                  foundation including title, setting, themes, plot points,
+                  characters, and conflicts.
+                </p>
+                <h2 id="attributes">Attributes</h2>
+                <dl>
+                  <dt>
+                    <strong><code>title</code></strong>
+                  </dt>
+                  <dd>Title of the narrative.</dd>
+                  <dt>
+                    <strong><code>setting</code></strong>
+                  </dt>
+                  <dd>Description of the setting/world.</dd>
+                  <dt>
+                    <strong><code>themes</code></strong>
+                  </dt>
+                  <dd>List of major themes explored.</dd>
+                  <dt>
+                    <strong><code>tone</code></strong>
+                  </dt>
+                  <dd>Overall tone and atmosphere.</dd>
+                  <dt>
+                    <strong><code>plot_points</code></strong>
+                  </dt>
+                  <dd>Chronological list of major plot events.</dd>
+                  <dt>
+                    <strong><code>characters</code></strong>
+                  </dt>
+                  <dd>List of major characters.</dd>
+                  <dt>
+                    <strong><code>conflicts</code></strong>
+                  </dt>
+                  <dd>List of major conflicts in the narrative.</dd>
+                  <dt>
+                    <strong><code>plot_branches</code></strong>
+                  </dt>
+                  <dd>Optional list of alternative narrative paths.</dd>
+                </dl>
+                <h2 id="example">Example</h2>
+                <pre><code class="language-python-repl">&gt;&gt;&gt; outline = PlotOutline(
 ...     title=&quot;Space Hulk: Echoes of the Void&quot;,
 ...     setting=&quot;The grimdark universe of Warhammer 40,000...&quot;,
 ...     themes=[&quot;Survival against overwhelming odds&quot;, &quot;Duty versus conscience&quot;],
@@ -396,85 +980,214 @@ including title, setting, themes, plot points, characters, and conflicts.</p>
 ...     conflicts=[...]
 ... )
 </code></pre>
-<p>Create a new model by parsing and validating input data from keyword arguments.</p>
-<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
-validated to form a valid model.</p>
-<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li>pydantic.main.BaseModel</li>
-</ul>
-<h3>Class variables</h3>
-<dl>
-<dt id="space_hulk_game.schemas.plot_outline.PlotOutline.characters"><code class="name">var <span class="ident">characters</span> : list[<a title="space_hulk_game.schemas.plot_outline.Character" href="#space_hulk_game.schemas.plot_outline.Character">Character</a>]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.plot_outline.PlotOutline.conflicts"><code class="name">var <span class="ident">conflicts</span> : list[<a title="space_hulk_game.schemas.plot_outline.Conflict" href="#space_hulk_game.schemas.plot_outline.Conflict">Conflict</a>]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.plot_outline.PlotOutline.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.plot_outline.PlotOutline.plot_branches"><code class="name">var <span class="ident">plot_branches</span> : list[<a title="space_hulk_game.schemas.plot_outline.PlotBranch" href="#space_hulk_game.schemas.plot_outline.PlotBranch">PlotBranch</a>] | None</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.plot_outline.PlotOutline.plot_points"><code class="name">var <span class="ident">plot_points</span> : list[<a title="space_hulk_game.schemas.plot_outline.PlotPoint" href="#space_hulk_game.schemas.plot_outline.PlotPoint">PlotPoint</a>]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.plot_outline.PlotOutline.setting"><code class="name">var <span class="ident">setting</span> : str</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.plot_outline.PlotOutline.themes"><code class="name">var <span class="ident">themes</span> : list[str]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.plot_outline.PlotOutline.title"><code class="name">var <span class="ident">title</span> : str</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.plot_outline.PlotOutline.tone"><code class="name">var <span class="ident">tone</span> : str</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-</dl>
-<h3>Static methods</h3>
-<dl>
-<dt id="space_hulk_game.schemas.plot_outline.PlotOutline.validate_character_names_unique"><code class="name flex">
-<span>def <span class="ident">validate_character_names_unique</span></span>(<span>v: list[<a title="space_hulk_game.schemas.plot_outline.Character" href="#space_hulk_game.schemas.plot_outline.Character">Character</a>]) ‑> list[<a title="space_hulk_game.schemas.plot_outline.Character" href="#space_hulk_game.schemas.plot_outline.Character">Character</a>]</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Ensure all character names are unique.</p></div>
-</dd>
-<dt id="space_hulk_game.schemas.plot_outline.PlotOutline.validate_plot_point_ids_unique"><code class="name flex">
-<span>def <span class="ident">validate_plot_point_ids_unique</span></span>(<span>v: list[<a title="space_hulk_game.schemas.plot_outline.PlotPoint" href="#space_hulk_game.schemas.plot_outline.PlotPoint">PlotPoint</a>]) ‑> list[<a title="space_hulk_game.schemas.plot_outline.PlotPoint" href="#space_hulk_game.schemas.plot_outline.PlotPoint">PlotPoint</a>]</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Ensure all plot point IDs are unique.</p></div>
-</dd>
-<dt id="space_hulk_game.schemas.plot_outline.PlotOutline.validate_themes_not_empty"><code class="name flex">
-<span>def <span class="ident">validate_themes_not_empty</span></span>(<span>v: list[str]) ‑> list[str]</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Ensure all themes are non-empty strings.</p></div>
-</dd>
-</dl>
-</dd>
-<dt id="space_hulk_game.schemas.plot_outline.PlotPoint"><code class="flex name class">
-<span>class <span class="ident">PlotPoint</span></span>
-<span>(</span><span>**data: Any)</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class PlotPoint(BaseModel):
+                <p>
+                  Create a new model by parsing and validating input data from
+                  keyword arguments.
+                </p>
+                <p>
+                  Raises
+                  [<code>ValidationError</code>][pydantic_core.ValidationError]
+                  if the input data cannot be validated to form a valid model.
+                </p>
+                <p>
+                  <code>self</code> is explicitly positional-only to allow
+                  <code>self</code> as a field name.
+                </p>
+              </div>
+              <h3>Ancestors</h3>
+              <ul class="hlist">
+                <li>pydantic.main.BaseModel</li>
+              </ul>
+              <h3>Class variables</h3>
+              <dl>
+                <dt
+                  id="space_hulk_game.schemas.plot_outline.PlotOutline.characters"
+                >
+                  <code class="name"
+                    >var <span class="ident">characters</span> : list[<a
+                      title="space_hulk_game.schemas.plot_outline.Character"
+                      href="#space_hulk_game.schemas.plot_outline.Character"
+                      >Character</a
+                    >]</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt
+                  id="space_hulk_game.schemas.plot_outline.PlotOutline.conflicts"
+                >
+                  <code class="name"
+                    >var <span class="ident">conflicts</span> : list[<a
+                      title="space_hulk_game.schemas.plot_outline.Conflict"
+                      href="#space_hulk_game.schemas.plot_outline.Conflict"
+                      >Conflict</a
+                    >]</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt
+                  id="space_hulk_game.schemas.plot_outline.PlotOutline.model_config"
+                >
+                  <code class="name"
+                    >var <span class="ident">model_config</span></code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt
+                  id="space_hulk_game.schemas.plot_outline.PlotOutline.plot_branches"
+                >
+                  <code class="name"
+                    >var <span class="ident">plot_branches</span> : list[<a
+                      title="space_hulk_game.schemas.plot_outline.PlotBranch"
+                      href="#space_hulk_game.schemas.plot_outline.PlotBranch"
+                      >PlotBranch</a
+                    >] | None</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt
+                  id="space_hulk_game.schemas.plot_outline.PlotOutline.plot_points"
+                >
+                  <code class="name"
+                    >var <span class="ident">plot_points</span> : list[<a
+                      title="space_hulk_game.schemas.plot_outline.PlotPoint"
+                      href="#space_hulk_game.schemas.plot_outline.PlotPoint"
+                      >PlotPoint</a
+                    >]</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt
+                  id="space_hulk_game.schemas.plot_outline.PlotOutline.setting"
+                >
+                  <code class="name"
+                    >var <span class="ident">setting</span> : str</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt
+                  id="space_hulk_game.schemas.plot_outline.PlotOutline.themes"
+                >
+                  <code class="name"
+                    >var <span class="ident">themes</span> : list[str]</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt id="space_hulk_game.schemas.plot_outline.PlotOutline.title">
+                  <code class="name"
+                    >var <span class="ident">title</span> : str</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt id="space_hulk_game.schemas.plot_outline.PlotOutline.tone">
+                  <code class="name"
+                    >var <span class="ident">tone</span> : str</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+              </dl>
+              <h3>Static methods</h3>
+              <dl>
+                <dt
+                  id="space_hulk_game.schemas.plot_outline.PlotOutline.validate_character_names_unique"
+                >
+                  <code class="name flex">
+                    <span
+                      >def
+                      <span class="ident"
+                        >validate_character_names_unique</span
+                      ></span
+                    >(<span
+                      >v: list[<a
+                        title="space_hulk_game.schemas.plot_outline.Character"
+                        href="#space_hulk_game.schemas.plot_outline.Character"
+                        >Character</a
+                      >]) ‑> list[<a
+                        title="space_hulk_game.schemas.plot_outline.Character"
+                        href="#space_hulk_game.schemas.plot_outline.Character"
+                        >Character</a
+                      >]</span
+                    >
+                  </code>
+                </dt>
+                <dd>
+                  <div class="desc">
+                    <p>Ensure all character names are unique.</p>
+                  </div>
+                </dd>
+                <dt
+                  id="space_hulk_game.schemas.plot_outline.PlotOutline.validate_plot_point_ids_unique"
+                >
+                  <code class="name flex">
+                    <span
+                      >def
+                      <span class="ident"
+                        >validate_plot_point_ids_unique</span
+                      ></span
+                    >(<span
+                      >v: list[<a
+                        title="space_hulk_game.schemas.plot_outline.PlotPoint"
+                        href="#space_hulk_game.schemas.plot_outline.PlotPoint"
+                        >PlotPoint</a
+                      >]) ‑> list[<a
+                        title="space_hulk_game.schemas.plot_outline.PlotPoint"
+                        href="#space_hulk_game.schemas.plot_outline.PlotPoint"
+                        >PlotPoint</a
+                      >]</span
+                    >
+                  </code>
+                </dt>
+                <dd>
+                  <div class="desc">
+                    <p>Ensure all plot point IDs are unique.</p>
+                  </div>
+                </dd>
+                <dt
+                  id="space_hulk_game.schemas.plot_outline.PlotOutline.validate_themes_not_empty"
+                >
+                  <code class="name flex">
+                    <span
+                      >def
+                      <span class="ident">validate_themes_not_empty</span></span
+                    >(<span>v: list[str]) ‑> list[str]</span>
+                  </code>
+                </dt>
+                <dd>
+                  <div class="desc">
+                    <p>Ensure all themes are non-empty strings.</p>
+                  </div>
+                </dd>
+              </dl>
+            </dd>
+            <dt id="space_hulk_game.schemas.plot_outline.PlotPoint">
+              <code class="flex name class">
+                <span>class <span class="ident">PlotPoint</span></span>
+                <span>(</span><span>**data: Any)</span>
+              </code>
+            </dt>
+            <dd>
+              <details class="source">
+                <summary>
+                  <span>Expand source code</span>
+                </summary>
+                <pre><code class="python">class PlotPoint(BaseModel):
     &#34;&#34;&#34;A significant event or milestone in the narrative.
 
     Attributes:
@@ -507,137 +1220,477 @@ validated to form a valid model.</p>
                 &#34;ID must contain only alphanumeric characters, underscores, and hyphens&#34;
             )
         return v</code></pre>
-</details>
-<div class="desc"><p>A significant event or milestone in the narrative.</p>
-<h2 id="attributes">Attributes</h2>
-<dl>
-<dt><strong><code>id</code></strong></dt>
-<dd>Unique identifier for the plot point (e.g., 'pp_01_insertion').</dd>
-<dt><strong><code>name</code></strong></dt>
-<dd>Short, descriptive name for the plot point.</dd>
-<dt><strong><code>description</code></strong></dt>
-<dd>Detailed description of what happens in this plot point.</dd>
-</dl>
-<h2 id="example">Example</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; plot_point = PlotPoint(
+              </details>
+              <div class="desc">
+                <p>A significant event or milestone in the narrative.</p>
+                <h2 id="attributes">Attributes</h2>
+                <dl>
+                  <dt>
+                    <strong><code>id</code></strong>
+                  </dt>
+                  <dd>
+                    Unique identifier for the plot point (e.g.,
+                    'pp_01_insertion').
+                  </dd>
+                  <dt>
+                    <strong><code>name</code></strong>
+                  </dt>
+                  <dd>Short, descriptive name for the plot point.</dd>
+                  <dt>
+                    <strong><code>description</code></strong>
+                  </dt>
+                  <dd>
+                    Detailed description of what happens in this plot point.
+                  </dd>
+                </dl>
+                <h2 id="example">Example</h2>
+                <pre><code class="language-python-repl">&gt;&gt;&gt; plot_point = PlotPoint(
 ...     id=&quot;pp_01_insertion&quot;,
 ...     name=&quot;The Drop Pod Descent&quot;,
 ...     description=&quot;A squad of elite Space Marine Terminators...&quot;
 ... )
 </code></pre>
-<p>Create a new model by parsing and validating input data from keyword arguments.</p>
-<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
-validated to form a valid model.</p>
-<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li>pydantic.main.BaseModel</li>
-</ul>
-<h3>Class variables</h3>
-<dl>
-<dt id="space_hulk_game.schemas.plot_outline.PlotPoint.description"><code class="name">var <span class="ident">description</span> : str</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.plot_outline.PlotPoint.id"><code class="name">var <span class="ident">id</span> : str</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.plot_outline.PlotPoint.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.schemas.plot_outline.PlotPoint.name"><code class="name">var <span class="ident">name</span> : str</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-</dl>
-<h3>Static methods</h3>
-<dl>
-<dt id="space_hulk_game.schemas.plot_outline.PlotPoint.validate_id_format"><code class="name flex">
-<span>def <span class="ident">validate_id_format</span></span>(<span>v: str) ‑> str</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Ensure id follows naming convention (lowercase, underscores).</p></div>
-</dd>
-</dl>
-</dd>
-</dl>
-</section>
-</article>
-<nav id="sidebar">
-<div class="toc">
-<ul></ul>
-</div>
-<ul id="index">
-<li><h3>Super-module</h3>
-<ul>
-<li><code><a title="space_hulk_game.schemas" href="index.html">space_hulk_game.schemas</a></code></li>
-</ul>
-</li>
-<li><h3><a href="#header-classes">Classes</a></h3>
-<ul>
-<li>
-<h4><code><a title="space_hulk_game.schemas.plot_outline.Character" href="#space_hulk_game.schemas.plot_outline.Character">Character</a></code></h4>
-<ul class="">
-<li><code><a title="space_hulk_game.schemas.plot_outline.Character.backstory" href="#space_hulk_game.schemas.plot_outline.Character.backstory">backstory</a></code></li>
-<li><code><a title="space_hulk_game.schemas.plot_outline.Character.conflicts" href="#space_hulk_game.schemas.plot_outline.Character.conflicts">conflicts</a></code></li>
-<li><code><a title="space_hulk_game.schemas.plot_outline.Character.model_config" href="#space_hulk_game.schemas.plot_outline.Character.model_config">model_config</a></code></li>
-<li><code><a title="space_hulk_game.schemas.plot_outline.Character.name" href="#space_hulk_game.schemas.plot_outline.Character.name">name</a></code></li>
-<li><code><a title="space_hulk_game.schemas.plot_outline.Character.role" href="#space_hulk_game.schemas.plot_outline.Character.role">role</a></code></li>
-</ul>
-</li>
-<li>
-<h4><code><a title="space_hulk_game.schemas.plot_outline.Conflict" href="#space_hulk_game.schemas.plot_outline.Conflict">Conflict</a></code></h4>
-<ul class="">
-<li><code><a title="space_hulk_game.schemas.plot_outline.Conflict.description" href="#space_hulk_game.schemas.plot_outline.Conflict.description">description</a></code></li>
-<li><code><a title="space_hulk_game.schemas.plot_outline.Conflict.model_config" href="#space_hulk_game.schemas.plot_outline.Conflict.model_config">model_config</a></code></li>
-<li><code><a title="space_hulk_game.schemas.plot_outline.Conflict.type" href="#space_hulk_game.schemas.plot_outline.Conflict.type">type</a></code></li>
-</ul>
-</li>
-<li>
-<h4><code><a title="space_hulk_game.schemas.plot_outline.PlotBranch" href="#space_hulk_game.schemas.plot_outline.PlotBranch">PlotBranch</a></code></h4>
-<ul class="">
-<li><code><a title="space_hulk_game.schemas.plot_outline.PlotBranch.decision_point" href="#space_hulk_game.schemas.plot_outline.PlotBranch.decision_point">decision_point</a></code></li>
-<li><code><a title="space_hulk_game.schemas.plot_outline.PlotBranch.description" href="#space_hulk_game.schemas.plot_outline.PlotBranch.description">description</a></code></li>
-<li><code><a title="space_hulk_game.schemas.plot_outline.PlotBranch.model_config" href="#space_hulk_game.schemas.plot_outline.PlotBranch.model_config">model_config</a></code></li>
-<li><code><a title="space_hulk_game.schemas.plot_outline.PlotBranch.path" href="#space_hulk_game.schemas.plot_outline.PlotBranch.path">path</a></code></li>
-</ul>
-</li>
-<li>
-<h4><code><a title="space_hulk_game.schemas.plot_outline.PlotOutline" href="#space_hulk_game.schemas.plot_outline.PlotOutline">PlotOutline</a></code></h4>
-<ul class="">
-<li><code><a title="space_hulk_game.schemas.plot_outline.PlotOutline.characters" href="#space_hulk_game.schemas.plot_outline.PlotOutline.characters">characters</a></code></li>
-<li><code><a title="space_hulk_game.schemas.plot_outline.PlotOutline.conflicts" href="#space_hulk_game.schemas.plot_outline.PlotOutline.conflicts">conflicts</a></code></li>
-<li><code><a title="space_hulk_game.schemas.plot_outline.PlotOutline.model_config" href="#space_hulk_game.schemas.plot_outline.PlotOutline.model_config">model_config</a></code></li>
-<li><code><a title="space_hulk_game.schemas.plot_outline.PlotOutline.plot_branches" href="#space_hulk_game.schemas.plot_outline.PlotOutline.plot_branches">plot_branches</a></code></li>
-<li><code><a title="space_hulk_game.schemas.plot_outline.PlotOutline.plot_points" href="#space_hulk_game.schemas.plot_outline.PlotOutline.plot_points">plot_points</a></code></li>
-<li><code><a title="space_hulk_game.schemas.plot_outline.PlotOutline.setting" href="#space_hulk_game.schemas.plot_outline.PlotOutline.setting">setting</a></code></li>
-<li><code><a title="space_hulk_game.schemas.plot_outline.PlotOutline.themes" href="#space_hulk_game.schemas.plot_outline.PlotOutline.themes">themes</a></code></li>
-<li><code><a title="space_hulk_game.schemas.plot_outline.PlotOutline.title" href="#space_hulk_game.schemas.plot_outline.PlotOutline.title">title</a></code></li>
-<li><code><a title="space_hulk_game.schemas.plot_outline.PlotOutline.tone" href="#space_hulk_game.schemas.plot_outline.PlotOutline.tone">tone</a></code></li>
-<li><code><a title="space_hulk_game.schemas.plot_outline.PlotOutline.validate_character_names_unique" href="#space_hulk_game.schemas.plot_outline.PlotOutline.validate_character_names_unique">validate_character_names_unique</a></code></li>
-<li><code><a title="space_hulk_game.schemas.plot_outline.PlotOutline.validate_plot_point_ids_unique" href="#space_hulk_game.schemas.plot_outline.PlotOutline.validate_plot_point_ids_unique">validate_plot_point_ids_unique</a></code></li>
-<li><code><a title="space_hulk_game.schemas.plot_outline.PlotOutline.validate_themes_not_empty" href="#space_hulk_game.schemas.plot_outline.PlotOutline.validate_themes_not_empty">validate_themes_not_empty</a></code></li>
-</ul>
-</li>
-<li>
-<h4><code><a title="space_hulk_game.schemas.plot_outline.PlotPoint" href="#space_hulk_game.schemas.plot_outline.PlotPoint">PlotPoint</a></code></h4>
-<ul class="">
-<li><code><a title="space_hulk_game.schemas.plot_outline.PlotPoint.description" href="#space_hulk_game.schemas.plot_outline.PlotPoint.description">description</a></code></li>
-<li><code><a title="space_hulk_game.schemas.plot_outline.PlotPoint.id" href="#space_hulk_game.schemas.plot_outline.PlotPoint.id">id</a></code></li>
-<li><code><a title="space_hulk_game.schemas.plot_outline.PlotPoint.model_config" href="#space_hulk_game.schemas.plot_outline.PlotPoint.model_config">model_config</a></code></li>
-<li><code><a title="space_hulk_game.schemas.plot_outline.PlotPoint.name" href="#space_hulk_game.schemas.plot_outline.PlotPoint.name">name</a></code></li>
-<li><code><a title="space_hulk_game.schemas.plot_outline.PlotPoint.validate_id_format" href="#space_hulk_game.schemas.plot_outline.PlotPoint.validate_id_format">validate_id_format</a></code></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</nav>
-</main>
-<footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
-</footer>
-</body>
+                <p>
+                  Create a new model by parsing and validating input data from
+                  keyword arguments.
+                </p>
+                <p>
+                  Raises
+                  [<code>ValidationError</code>][pydantic_core.ValidationError]
+                  if the input data cannot be validated to form a valid model.
+                </p>
+                <p>
+                  <code>self</code> is explicitly positional-only to allow
+                  <code>self</code> as a field name.
+                </p>
+              </div>
+              <h3>Ancestors</h3>
+              <ul class="hlist">
+                <li>pydantic.main.BaseModel</li>
+              </ul>
+              <h3>Class variables</h3>
+              <dl>
+                <dt
+                  id="space_hulk_game.schemas.plot_outline.PlotPoint.description"
+                >
+                  <code class="name"
+                    >var <span class="ident">description</span> : str</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt id="space_hulk_game.schemas.plot_outline.PlotPoint.id">
+                  <code class="name"
+                    >var <span class="ident">id</span> : str</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt
+                  id="space_hulk_game.schemas.plot_outline.PlotPoint.model_config"
+                >
+                  <code class="name"
+                    >var <span class="ident">model_config</span></code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt id="space_hulk_game.schemas.plot_outline.PlotPoint.name">
+                  <code class="name"
+                    >var <span class="ident">name</span> : str</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+              </dl>
+              <h3>Static methods</h3>
+              <dl>
+                <dt
+                  id="space_hulk_game.schemas.plot_outline.PlotPoint.validate_id_format"
+                >
+                  <code class="name flex">
+                    <span
+                      >def <span class="ident">validate_id_format</span></span
+                    >(<span>v: str) ‑> str</span>
+                  </code>
+                </dt>
+                <dd>
+                  <div class="desc">
+                    <p>
+                      Ensure id follows naming convention (lowercase,
+                      underscores).
+                    </p>
+                  </div>
+                </dd>
+              </dl>
+            </dd>
+          </dl>
+        </section>
+      </article>
+      <nav id="sidebar">
+        <div class="toc">
+          <ul></ul>
+        </div>
+        <ul id="index">
+          <li>
+            <h3>Super-module</h3>
+            <ul>
+              <li>
+                <code
+                  ><a title="space_hulk_game.schemas" href="index.html"
+                    >space_hulk_game.schemas</a
+                  ></code
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <h3><a href="#header-classes">Classes</a></h3>
+            <ul>
+              <li>
+                <h4>
+                  <code
+                    ><a
+                      title="space_hulk_game.schemas.plot_outline.Character"
+                      href="#space_hulk_game.schemas.plot_outline.Character"
+                      >Character</a
+                    ></code
+                  >
+                </h4>
+                <ul class="">
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.plot_outline.Character.backstory"
+                        href="#space_hulk_game.schemas.plot_outline.Character.backstory"
+                        >backstory</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.plot_outline.Character.conflicts"
+                        href="#space_hulk_game.schemas.plot_outline.Character.conflicts"
+                        >conflicts</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.plot_outline.Character.model_config"
+                        href="#space_hulk_game.schemas.plot_outline.Character.model_config"
+                        >model_config</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.plot_outline.Character.name"
+                        href="#space_hulk_game.schemas.plot_outline.Character.name"
+                        >name</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.plot_outline.Character.role"
+                        href="#space_hulk_game.schemas.plot_outline.Character.role"
+                        >role</a
+                      ></code
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <h4>
+                  <code
+                    ><a
+                      title="space_hulk_game.schemas.plot_outline.Conflict"
+                      href="#space_hulk_game.schemas.plot_outline.Conflict"
+                      >Conflict</a
+                    ></code
+                  >
+                </h4>
+                <ul class="">
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.plot_outline.Conflict.description"
+                        href="#space_hulk_game.schemas.plot_outline.Conflict.description"
+                        >description</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.plot_outline.Conflict.model_config"
+                        href="#space_hulk_game.schemas.plot_outline.Conflict.model_config"
+                        >model_config</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.plot_outline.Conflict.type"
+                        href="#space_hulk_game.schemas.plot_outline.Conflict.type"
+                        >type</a
+                      ></code
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <h4>
+                  <code
+                    ><a
+                      title="space_hulk_game.schemas.plot_outline.PlotBranch"
+                      href="#space_hulk_game.schemas.plot_outline.PlotBranch"
+                      >PlotBranch</a
+                    ></code
+                  >
+                </h4>
+                <ul class="">
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.plot_outline.PlotBranch.decision_point"
+                        href="#space_hulk_game.schemas.plot_outline.PlotBranch.decision_point"
+                        >decision_point</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.plot_outline.PlotBranch.description"
+                        href="#space_hulk_game.schemas.plot_outline.PlotBranch.description"
+                        >description</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.plot_outline.PlotBranch.model_config"
+                        href="#space_hulk_game.schemas.plot_outline.PlotBranch.model_config"
+                        >model_config</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.plot_outline.PlotBranch.path"
+                        href="#space_hulk_game.schemas.plot_outline.PlotBranch.path"
+                        >path</a
+                      ></code
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <h4>
+                  <code
+                    ><a
+                      title="space_hulk_game.schemas.plot_outline.PlotOutline"
+                      href="#space_hulk_game.schemas.plot_outline.PlotOutline"
+                      >PlotOutline</a
+                    ></code
+                  >
+                </h4>
+                <ul class="">
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.plot_outline.PlotOutline.characters"
+                        href="#space_hulk_game.schemas.plot_outline.PlotOutline.characters"
+                        >characters</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.plot_outline.PlotOutline.conflicts"
+                        href="#space_hulk_game.schemas.plot_outline.PlotOutline.conflicts"
+                        >conflicts</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.plot_outline.PlotOutline.model_config"
+                        href="#space_hulk_game.schemas.plot_outline.PlotOutline.model_config"
+                        >model_config</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.plot_outline.PlotOutline.plot_branches"
+                        href="#space_hulk_game.schemas.plot_outline.PlotOutline.plot_branches"
+                        >plot_branches</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.plot_outline.PlotOutline.plot_points"
+                        href="#space_hulk_game.schemas.plot_outline.PlotOutline.plot_points"
+                        >plot_points</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.plot_outline.PlotOutline.setting"
+                        href="#space_hulk_game.schemas.plot_outline.PlotOutline.setting"
+                        >setting</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.plot_outline.PlotOutline.themes"
+                        href="#space_hulk_game.schemas.plot_outline.PlotOutline.themes"
+                        >themes</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.plot_outline.PlotOutline.title"
+                        href="#space_hulk_game.schemas.plot_outline.PlotOutline.title"
+                        >title</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.plot_outline.PlotOutline.tone"
+                        href="#space_hulk_game.schemas.plot_outline.PlotOutline.tone"
+                        >tone</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.plot_outline.PlotOutline.validate_character_names_unique"
+                        href="#space_hulk_game.schemas.plot_outline.PlotOutline.validate_character_names_unique"
+                        >validate_character_names_unique</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.plot_outline.PlotOutline.validate_plot_point_ids_unique"
+                        href="#space_hulk_game.schemas.plot_outline.PlotOutline.validate_plot_point_ids_unique"
+                        >validate_plot_point_ids_unique</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.plot_outline.PlotOutline.validate_themes_not_empty"
+                        href="#space_hulk_game.schemas.plot_outline.PlotOutline.validate_themes_not_empty"
+                        >validate_themes_not_empty</a
+                      ></code
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <h4>
+                  <code
+                    ><a
+                      title="space_hulk_game.schemas.plot_outline.PlotPoint"
+                      href="#space_hulk_game.schemas.plot_outline.PlotPoint"
+                      >PlotPoint</a
+                    ></code
+                  >
+                </h4>
+                <ul class="">
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.plot_outline.PlotPoint.description"
+                        href="#space_hulk_game.schemas.plot_outline.PlotPoint.description"
+                        >description</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.plot_outline.PlotPoint.id"
+                        href="#space_hulk_game.schemas.plot_outline.PlotPoint.id"
+                        >id</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.plot_outline.PlotPoint.model_config"
+                        href="#space_hulk_game.schemas.plot_outline.PlotPoint.model_config"
+                        >model_config</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.plot_outline.PlotPoint.name"
+                        href="#space_hulk_game.schemas.plot_outline.PlotPoint.name"
+                        >name</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.schemas.plot_outline.PlotPoint.validate_id_format"
+                        href="#space_hulk_game.schemas.plot_outline.PlotPoint.validate_id_format"
+                        >validate_id_format</a
+                      ></code
+                    >
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </main>
+    <footer id="footer">
+      <p>
+        Generated by
+        <a
+          href="https://pdoc3.github.io/pdoc"
+          title="pdoc: Python API documentation generator"
+          ><cite>pdoc</cite> 0.11.6</a
+        >.
+      </p>
+    </footer>
+  </body>
 </html>

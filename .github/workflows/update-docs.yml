@@ -4,14 +4,14 @@ on:
   push:
     branches: [main, develop, structure-update]
     paths:
-      - 'src/**'
-      - 'agent-projects/**'
-      - 'docs/**'
-      - 'tools/build_context.py'
+      - "src/**"
+      - "agent-projects/**"
+      - "docs/**"
+      - "tools/build_context.py"
   schedule:
     # Run at 3 AM UTC daily
-    - cron: '0 3 * * *'
-  workflow_dispatch:  # Allow manual trigger
+    - cron: "0 3 * * *"
+  workflow_dispatch: # Allow manual trigger
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

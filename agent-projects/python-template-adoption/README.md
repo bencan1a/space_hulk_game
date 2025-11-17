@@ -194,7 +194,7 @@ make check-all
 ### ⚠️ Adapted for Space Hulk
 
 1. **YAML Handling**
-   - Exclude game-config/*.yaml from pre-commit whitespace trimming
+   - Exclude game-config/\*.yaml from pre-commit whitespace trimming
    - Preserve narrative text formatting
    - Maintain Warhammer 40K theme content
 
@@ -365,5 +365,5 @@ For questions about this plan:
 
 ---
 
-*Last Updated: 2025-11-10*
-*Status: Ready for Implementation*
+_Last Updated: 2025-11-10_
+_Status: Ready for Implementation_

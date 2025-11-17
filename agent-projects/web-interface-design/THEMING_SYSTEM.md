@@ -32,15 +32,15 @@ theme:
 
   # Color palette
   colors:
-    primary: "#8B0000"           # Dark red - accent, CTAs
-    secondary: "#B8860B"         # Brass/gold - highlights, borders
-    background: "#1a1a1a"        # Deep gray - main background
-    surface: "#2d2d2d"           # Dark gray - cards, modals
-    textPrimary: "#e0e0e0"       # Off-white
-    textSecondary: "#a0a0a0"     # Light gray
-    success: "#2d5016"           # Dark green
-    warning: "#cc5500"           # Orange
-    error: "#dc143c"             # Crimson red
+    primary: "#8B0000" # Dark red - accent, CTAs
+    secondary: "#B8860B" # Brass/gold - highlights, borders
+    background: "#1a1a1a" # Deep gray - main background
+    surface: "#2d2d2d" # Dark gray - cards, modals
+    textPrimary: "#e0e0e0" # Off-white
+    textSecondary: "#a0a0a0" # Light gray
+    success: "#2d5016" # Dark green
+    warning: "#cc5500" # Orange
+    error: "#dc143c" # Crimson red
 
   # Typography
   typography:
@@ -97,10 +97,10 @@ theme:
   description: "High-tech dystopian future"
 
   colors:
-    primary: "#00ff9f"           # Neon green
-    secondary: "#ff006e"         # Hot pink
-    background: "#0a0a0a"        # Near black
-    surface: "#1a1a2e"           # Dark blue-gray
+    primary: "#00ff9f" # Neon green
+    secondary: "#ff006e" # Hot pink
+    background: "#0a0a0a" # Near black
+    surface: "#1a1a2e" # Dark blue-gray
     # ... etc
 
   labels:
@@ -117,9 +117,9 @@ theme:
   description: "Medieval fantasy adventure"
 
   colors:
-    primary: "#8B4513"           # Brown
-    secondary: "#FFD700"         # Gold
-    background: "#2F4F2F"        # Forest green
+    primary: "#8B4513" # Brown
+    secondary: "#FFD700" # Gold
+    background: "#2F4F2F" # Forest green
     # ... etc
 
   labels:
@@ -363,8 +363,8 @@ class Story(Base):
 /* global.css */
 :root {
   /* Default theme (Warhammer 40K) */
-  --color-primary: #8B0000;
-  --color-secondary: #B8860B;
+  --color-primary: #8b0000;
+  --color-secondary: #b8860b;
   --color-background: #1a1a1a;
   --color-surface: #2d2d2d;
   --color-text-primary: #e0e0e0;
@@ -373,9 +373,9 @@ class Story(Base):
   --color-warning: #cc5500;
   --color-error: #dc143c;
 
-  --font-heading: 'Roboto Bold', sans-serif;
-  --font-body: 'Open Sans', sans-serif;
-  --font-monospace: 'Courier New', monospace;
+  --font-heading: "Roboto Bold", sans-serif;
+  --font-body: "Open Sans", sans-serif;
+  --font-monospace: "Courier New", monospace;
 
   /* Dynamically updated by ThemeProvider */
 }

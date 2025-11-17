@@ -372,5 +372,5 @@ If you encounter issues:
 
 ---
 
-*Last Updated: 2025-11-10*
-*Part of python-template adoption (Phase 1)*
+_Last Updated: 2025-11-10_
+_Part of python-template adoption (Phase 1)_

@@ -1,52 +1,488 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-<meta name="generator" content="pdoc3 0.11.6">
-<title>space_hulk_game.engine.game_data API documentation</title>
-<meta name="description" content="Game Data Module …">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
-<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
-<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
-<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
-<script>window.addEventListener('DOMContentLoaded', () => {
-hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
-hljs.highlightAll();
-/* Collapse source docstrings */
-setTimeout(() => {
-[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
-.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
-.forEach(el => {
-let d = document.createElement('details');
-d.classList.add('hljs-string');
-d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
-el.replaceWith(d);
-});
-}, 100);
-})</script>
-</head>
-<body>
-<main>
-<article id="content">
-<header>
-<h1 class="title">Module <code>space_hulk_game.engine.game_data</code></h1>
-</header>
-<section id="section-intro">
-<p>Game Data Module</p>
-<p>Defines the GameData class that holds all content loaded from generated YAML files.
-This is the central data structure that bridges AI-generated content with the game engine.</p>
-<p>The GameData class aggregates:
-- Plot structure (from plot_outline.yaml)
-- Scene graph (from narrative_map.yaml)
-- Puzzles, artifacts, NPCs (from puzzle_design.yaml)
-- Scene descriptions (from scene_texts.yaml)
-- Game mechanics (from prd_document.yaml)</p>
-<h2 id="example">Example</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import GameData, Scene
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1"
+    />
+    <meta name="generator" content="pdoc3 0.11.6" />
+    <title>space_hulk_game.engine.game_data API documentation</title>
+    <meta name="description" content="Game Data Module …" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css"
+      integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA=="
+      crossorigin
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css"
+      integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA=="
+      crossorigin
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"
+      crossorigin
+    />
+    <style>
+      :root {
+        --highlight-color: #fe9;
+      }
+      .flex {
+        display: flex !important;
+      }
+      body {
+        line-height: 1.5em;
+      }
+      #content {
+        padding: 20px;
+      }
+      #sidebar {
+        padding: 1.5em;
+        overflow: hidden;
+      }
+      #sidebar > *:last-child {
+        margin-bottom: 2cm;
+      }
+      .http-server-breadcrumbs {
+        font-size: 130%;
+        margin: 0 0 15px 0;
+      }
+      #footer {
+        font-size: 0.75em;
+        padding: 5px 30px;
+        border-top: 1px solid #ddd;
+        text-align: right;
+      }
+      #footer p {
+        margin: 0 0 0 1em;
+        display: inline-block;
+      }
+      #footer p:last-child {
+        margin-right: 30px;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5 {
+        font-weight: 300;
+      }
+      h1 {
+        font-size: 2.5em;
+        line-height: 1.1em;
+      }
+      h2 {
+        font-size: 1.75em;
+        margin: 2em 0 0.5em 0;
+      }
+      h3 {
+        font-size: 1.4em;
+        margin: 1.6em 0 0.7em 0;
+      }
+      h4 {
+        margin: 0;
+        font-size: 105%;
+      }
+      h1:target,
+      h2:target,
+      h3:target,
+      h4:target,
+      h5:target,
+      h6:target {
+        background: var(--highlight-color);
+        padding: 0.2em 0;
+      }
+      a {
+        color: #058;
+        text-decoration: none;
+        transition: color 0.2s ease-in-out;
+      }
+      a:visited {
+        color: #503;
+      }
+      a:hover {
+        color: #b62;
+      }
+      .title code {
+        font-weight: bold;
+      }
+      h2[id^="header-"] {
+        margin-top: 2em;
+      }
+      .ident {
+        color: #900;
+        font-weight: bold;
+      }
+      pre code {
+        font-size: 0.8em;
+        line-height: 1.4em;
+        padding: 1em;
+        display: block;
+      }
+      code {
+        background: #f3f3f3;
+        font-family: "DejaVu Sans Mono", monospace;
+        padding: 1px 4px;
+        overflow-wrap: break-word;
+      }
+      h1 code {
+        background: transparent;
+      }
+      pre {
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        margin: 1em 0;
+      }
+      #http-server-module-list {
+        display: flex;
+        flex-flow: column;
+      }
+      #http-server-module-list div {
+        display: flex;
+      }
+      #http-server-module-list dt {
+        min-width: 10%;
+      }
+      #http-server-module-list p {
+        margin-top: 0;
+      }
+      .toc ul,
+      #index {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+      #index code {
+        background: transparent;
+      }
+      #index h3 {
+        border-bottom: 1px solid #ddd;
+      }
+      #index ul {
+        padding: 0;
+      }
+      #index h4 {
+        margin-top: 0.6em;
+        font-weight: bold;
+      }
+      @media (min-width: 200ex) {
+        #index .two-column {
+          column-count: 2;
+        }
+      }
+      @media (min-width: 300ex) {
+        #index .two-column {
+          column-count: 3;
+        }
+      }
+      dl {
+        margin-bottom: 2em;
+      }
+      dl dl:last-child {
+        margin-bottom: 4em;
+      }
+      dd {
+        margin: 0 0 1em 3em;
+      }
+      #header-classes + dl > dd {
+        margin-bottom: 3em;
+      }
+      dd dd {
+        margin-left: 2em;
+      }
+      dd p {
+        margin: 10px 0;
+      }
+      .name {
+        background: #eee;
+        font-size: 0.85em;
+        padding: 5px 10px;
+        display: inline-block;
+        min-width: 40%;
+      }
+      .name:hover {
+        background: #e0e0e0;
+      }
+      dt:target .name {
+        background: var(--highlight-color);
+      }
+      .name > span:first-child {
+        white-space: nowrap;
+      }
+      .name.class > span:nth-child(2) {
+        margin-left: 0.4em;
+      }
+      .inherited {
+        color: #999;
+        border-left: 5px solid #eee;
+        padding-left: 1em;
+      }
+      .inheritance em {
+        font-style: normal;
+        font-weight: bold;
+      }
+      .desc h2 {
+        font-weight: 400;
+        font-size: 1.25em;
+      }
+      .desc h3 {
+        font-size: 1em;
+      }
+      .desc dt code {
+        background: inherit;
+      }
+      .source > summary,
+      .git-link-div {
+        color: #666;
+        text-align: right;
+        font-weight: 400;
+        font-size: 0.8em;
+        text-transform: uppercase;
+      }
+      .source summary > * {
+        white-space: nowrap;
+        cursor: pointer;
+      }
+      .git-link {
+        color: inherit;
+        margin-left: 1em;
+      }
+      .source pre {
+        max-height: 500px;
+        overflow: auto;
+        margin: 0;
+      }
+      .source pre code {
+        font-size: 12px;
+        overflow: visible;
+        min-width: max-content;
+      }
+      .hlist {
+        list-style: none;
+      }
+      .hlist li {
+        display: inline;
+      }
+      .hlist li:after {
+        content: ",\2002";
+      }
+      .hlist li:last-child:after {
+        content: none;
+      }
+      .hlist .hlist {
+        display: inline;
+        padding-left: 1em;
+      }
+      img {
+        max-width: 100%;
+      }
+      td {
+        padding: 0 0.5em;
+      }
+      .admonition {
+        padding: 0.1em 1em;
+        margin: 1em 0;
+      }
+      .admonition-title {
+        font-weight: bold;
+      }
+      .admonition.note,
+      .admonition.info,
+      .admonition.important {
+        background: #aef;
+      }
+      .admonition.todo,
+      .admonition.versionadded,
+      .admonition.tip,
+      .admonition.hint {
+        background: #dfd;
+      }
+      .admonition.warning,
+      .admonition.versionchanged,
+      .admonition.deprecated {
+        background: #fd4;
+      }
+      .admonition.error,
+      .admonition.danger,
+      .admonition.caution {
+        background: lightpink;
+      }
+    </style>
+    <style media="screen and (min-width: 700px)">
+      @media screen and (min-width: 700px) {
+        #sidebar {
+          width: 30%;
+          height: 100vh;
+          overflow: auto;
+          position: sticky;
+          top: 0;
+        }
+        #content {
+          width: 70%;
+          max-width: 100ch;
+          padding: 3em 4em;
+          border-left: 1px solid #ddd;
+        }
+        pre code {
+          font-size: 1em;
+        }
+        .name {
+          font-size: 1em;
+        }
+        main {
+          display: flex;
+          flex-direction: row-reverse;
+          justify-content: flex-end;
+        }
+        .toc ul ul,
+        #index ul ul {
+          padding-left: 1em;
+        }
+        .toc > ul > li {
+          margin-top: 0.5em;
+        }
+      }
+    </style>
+    <style media="print">
+      @media print {
+        #sidebar h1 {
+          page-break-before: always;
+        }
+        .source {
+          display: none;
+        }
+      }
+      @media print {
+        * {
+          background: transparent !important;
+          color: #000 !important;
+          box-shadow: none !important;
+          text-shadow: none !important;
+        }
+        a[href]:after {
+          content: " (" attr(href) ")";
+          font-size: 90%;
+        }
+        a[href][title]:after {
+          content: none;
+        }
+        abbr[title]:after {
+          content: " (" attr(title) ")";
+        }
+        .ir a:after,
+        a[href^="javascript:"]:after,
+        a[href^="#"]:after {
+          content: "";
+        }
+        pre,
+        blockquote {
+          border: 1px solid #999;
+          page-break-inside: avoid;
+        }
+        thead {
+          display: table-header-group;
+        }
+        tr,
+        img {
+          page-break-inside: avoid;
+        }
+        img {
+          max-width: 100% !important;
+        }
+        @page {
+          margin: 0.5cm;
+        }
+        p,
+        h2,
+        h3 {
+          orphans: 3;
+          widows: 3;
+        }
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+          page-break-after: avoid;
+        }
+      }
+    </style>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+      integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
+      crossorigin
+    ></script>
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        hljs.configure({
+          languages: [
+            "bash",
+            "css",
+            "diff",
+            "graphql",
+            "ini",
+            "javascript",
+            "json",
+            "plaintext",
+            "python",
+            "python-repl",
+            "rust",
+            "shell",
+            "sql",
+            "typescript",
+            "xml",
+            "yaml",
+          ],
+        });
+        hljs.highlightAll();
+        /* Collapse source docstrings */
+        setTimeout(() => {
+          [...document.querySelectorAll(".hljs.language-python > .hljs-string")]
+            .filter(
+              (el) =>
+                el.innerHTML.length > 200 &&
+                ['"""', "'''"].includes(el.innerHTML.substring(0, 3)),
+            )
+            .forEach((el) => {
+              let d = document.createElement("details");
+              d.classList.add("hljs-string");
+              d.innerHTML =
+                '<summary>"""</summary>' + el.innerHTML.substring(3);
+              el.replaceWith(d);
+            });
+        }, 100);
+      });
+    </script>
+  </head>
+  <body>
+    <main>
+      <article id="content">
+        <header>
+          <h1 class="title">
+            Module <code>space_hulk_game.engine.game_data</code>
+          </h1>
+        </header>
+        <section id="section-intro">
+          <p>Game Data Module</p>
+          <p>
+            Defines the GameData class that holds all content loaded from
+            generated YAML files. This is the central data structure that
+            bridges AI-generated content with the game engine.
+          </p>
+          <p>
+            The GameData class aggregates: - Plot structure (from
+            plot_outline.yaml) - Scene graph (from narrative_map.yaml) -
+            Puzzles, artifacts, NPCs (from puzzle_design.yaml) - Scene
+            descriptions (from scene_texts.yaml) - Game mechanics (from
+            prd_document.yaml)
+          </p>
+          <h2 id="example">Example</h2>
+          <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import GameData, Scene
 &gt;&gt;&gt; game_data = GameData(
 ...     title=&quot;Test Game&quot;,
 ...     scenes={&quot;start&quot;: Scene(id=&quot;start&quot;, name=&quot;Start&quot;, description=&quot;Begin.&quot;)},
@@ -55,26 +491,40 @@ This is the central data structure that bridges AI-generated content with the ga
 &gt;&gt;&gt; game_data.title
 'Test Game'
 </code></pre>
-</section>
-<section>
-</section>
-<section>
-</section>
-<section>
-</section>
-<section>
-<h2 class="section-title" id="header-classes">Classes</h2>
-<dl>
-<dt id="space_hulk_game.engine.game_data.GameData"><code class="flex name class">
-<span>class <span class="ident">GameData</span></span>
-<span>(</span><span>title: str,<br>description: str,<br>scenes: dict[str, <a title="space_hulk_game.engine.scene.Scene" href="scene.html#space_hulk_game.engine.scene.Scene">Scene</a>],<br>starting_scene: str,<br>global_items: dict[str, <a title="space_hulk_game.engine.entities.Item" href="entities.html#space_hulk_game.engine.entities.Item">Item</a>] = &lt;factory&gt;,<br>global_npcs: dict[str, <a title="space_hulk_game.engine.entities.NPC" href="entities.html#space_hulk_game.engine.entities.NPC">NPC</a>] = &lt;factory&gt;,<br>endings: list[dict[str, typing.Any]] = &lt;factory&gt;,<br>game_rules: dict[str, typing.Any] = &lt;factory&gt;,<br>themes: list[str] = &lt;factory&gt;,<br>plot_points: list[dict[str, typing.Any]] = &lt;factory&gt;,<br>metadata: dict[str, typing.Any] = &lt;factory&gt;)</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@dataclass
+        </section>
+        <section></section>
+        <section></section>
+        <section></section>
+        <section>
+          <h2 class="section-title" id="header-classes">Classes</h2>
+          <dl>
+            <dt id="space_hulk_game.engine.game_data.GameData">
+              <code class="flex name class">
+                <span>class <span class="ident">GameData</span></span>
+                <span>(</span
+                ><span
+                  >title: str,<br />description: str,<br />scenes: dict[str, <a
+                    title="space_hulk_game.engine.scene.Scene"
+                    href="scene.html#space_hulk_game.engine.scene.Scene"
+                    >Scene</a
+                  >],<br />starting_scene: str,<br />global_items: dict[str, <a
+                    title="space_hulk_game.engine.entities.Item"
+                    href="entities.html#space_hulk_game.engine.entities.Item"
+                    >Item</a
+                  >] = &lt;factory&gt;,<br />global_npcs: dict[str, <a
+                    title="space_hulk_game.engine.entities.NPC"
+                    href="entities.html#space_hulk_game.engine.entities.NPC"
+                    >NPC</a
+                  >] = &lt;factory&gt;,<br />endings: list[dict[str, typing.Any]] = &lt;factory&gt;,<br />game_rules: dict[str, typing.Any] = &lt;factory&gt;,<br />themes: list[str] = &lt;factory&gt;,<br />plot_points: list[dict[str, typing.Any]] = &lt;factory&gt;,<br />metadata: dict[str, typing.Any] = &lt;factory&gt;)</span
+                >
+              </code>
+            </dt>
+            <dd>
+              <details class="source">
+                <summary>
+                  <span>Expand source code</span>
+                </summary>
+                <pre><code class="python">@dataclass
 class GameData:
     &#34;&#34;&#34;
     Holds all game content loaded from generated YAML files.
@@ -308,39 +758,69 @@ class GameData:
             plot_points=data.get(&#34;plot_points&#34;, []),
             metadata=data.get(&#34;metadata&#34;, {}),
         )</code></pre>
-</details>
-<div class="desc"><p>Holds all game content loaded from generated YAML files.</p>
-<p>This is the complete game definition, including all scenes, items, NPCs,
-game mechanics, and narrative structure. The TextAdventureEngine uses
-GameData to run the game.</p>
-<h2 id="attributes">Attributes</h2>
-<dl>
-<dt><strong><code>title</code></strong></dt>
-<dd>The title of the game.</dd>
-<dt><strong><code>description</code></strong></dt>
-<dd>Brief description of the game's premise.</dd>
-<dt><strong><code>scenes</code></strong></dt>
-<dd>Dictionary mapping scene IDs to Scene objects.</dd>
-<dt><strong><code>starting_scene</code></strong></dt>
-<dd>ID of the scene where the game begins.</dd>
-<dt><strong><code>global_items</code></strong></dt>
-<dd>Dictionary of item definitions (not placed in any scene yet).</dd>
-<dt><strong><code>global_npcs</code></strong></dt>
-<dd>Dictionary of NPC definitions (not placed in any scene yet).</dd>
-<dt><strong><code>endings</code></strong></dt>
-<dd>List of possible game endings with their conditions.</dd>
-<dt><strong><code>game_rules</code></strong></dt>
-<dd>Dictionary of game-specific mechanics and rules.</dd>
-<dt><strong><code>themes</code></strong></dt>
-<dd>List of narrative themes.</dd>
-<dt><strong><code>plot_points</code></strong></dt>
-<dd>List of major plot points.</dd>
-<dt><strong><code>metadata</code></strong></dt>
-<dd>Additional metadata from the YAML files.</dd>
-</dl>
-<h2 id="examples">Examples</h2>
-<p>Create minimal game data:</p>
-<pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import Scene
+              </details>
+              <div class="desc">
+                <p>Holds all game content loaded from generated YAML files.</p>
+                <p>
+                  This is the complete game definition, including all scenes,
+                  items, NPCs, game mechanics, and narrative structure. The
+                  TextAdventureEngine uses GameData to run the game.
+                </p>
+                <h2 id="attributes">Attributes</h2>
+                <dl>
+                  <dt>
+                    <strong><code>title</code></strong>
+                  </dt>
+                  <dd>The title of the game.</dd>
+                  <dt>
+                    <strong><code>description</code></strong>
+                  </dt>
+                  <dd>Brief description of the game's premise.</dd>
+                  <dt>
+                    <strong><code>scenes</code></strong>
+                  </dt>
+                  <dd>Dictionary mapping scene IDs to Scene objects.</dd>
+                  <dt>
+                    <strong><code>starting_scene</code></strong>
+                  </dt>
+                  <dd>ID of the scene where the game begins.</dd>
+                  <dt>
+                    <strong><code>global_items</code></strong>
+                  </dt>
+                  <dd>
+                    Dictionary of item definitions (not placed in any scene
+                    yet).
+                  </dd>
+                  <dt>
+                    <strong><code>global_npcs</code></strong>
+                  </dt>
+                  <dd>
+                    Dictionary of NPC definitions (not placed in any scene yet).
+                  </dd>
+                  <dt>
+                    <strong><code>endings</code></strong>
+                  </dt>
+                  <dd>List of possible game endings with their conditions.</dd>
+                  <dt>
+                    <strong><code>game_rules</code></strong>
+                  </dt>
+                  <dd>Dictionary of game-specific mechanics and rules.</dd>
+                  <dt>
+                    <strong><code>themes</code></strong>
+                  </dt>
+                  <dd>List of narrative themes.</dd>
+                  <dt>
+                    <strong><code>plot_points</code></strong>
+                  </dt>
+                  <dd>List of major plot points.</dd>
+                  <dt>
+                    <strong><code>metadata</code></strong>
+                  </dt>
+                  <dd>Additional metadata from the YAML files.</dd>
+                </dl>
+                <h2 id="examples">Examples</h2>
+                <p>Create minimal game data:</p>
+                <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import Scene
 &gt;&gt;&gt; start_scene = Scene(
 ...     id=&quot;entrance&quot;,
 ...     name=&quot;Entrance Hall&quot;,
@@ -353,91 +833,183 @@ GameData to run the game.</p>
 ...     starting_scene=&quot;entrance&quot;
 ... )
 </code></pre>
-<p>Access scenes:</p>
-<pre><code class="language-python-repl">&gt;&gt;&gt; scene = data.get_scene(&quot;entrance&quot;)
+                <p>Access scenes:</p>
+                <pre><code class="language-python-repl">&gt;&gt;&gt; scene = data.get_scene(&quot;entrance&quot;)
 &gt;&gt;&gt; scene.name
 'Entrance Hall'
 </code></pre>
-<p>Check for scenes:</p>
-<pre><code class="language-python-repl">&gt;&gt;&gt; data.has_scene(&quot;entrance&quot;)
+                <p>Check for scenes:</p>
+                <pre><code class="language-python-repl">&gt;&gt;&gt; data.has_scene(&quot;entrance&quot;)
 True
 &gt;&gt;&gt; data.has_scene(&quot;unknown&quot;)
 False
-</code></pre></div>
-<h3>Static methods</h3>
-<dl>
-<dt id="space_hulk_game.engine.game_data.GameData.from_dict"><code class="name flex">
-<span>def <span class="ident">from_dict</span></span>(<span>data: dict) ‑> <a title="space_hulk_game.engine.game_data.GameData" href="#space_hulk_game.engine.game_data.GameData">GameData</a></span>
-</code></dt>
-<dd>
-<div class="desc"><p>Create GameData from a dictionary.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>data</code></strong></dt>
-<dd>Dictionary containing game data.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<p>A new GameData instance.</p></div>
-</dd>
-</dl>
-<h3>Instance variables</h3>
-<dl>
-<dt id="space_hulk_game.engine.game_data.GameData.description"><code class="name">var <span class="ident">description</span> : str</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.engine.game_data.GameData.endings"><code class="name">var <span class="ident">endings</span> : list[dict[str, typing.Any]]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.engine.game_data.GameData.game_rules"><code class="name">var <span class="ident">game_rules</span> : dict[str, typing.Any]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.engine.game_data.GameData.global_items"><code class="name">var <span class="ident">global_items</span> : dict[str, <a title="space_hulk_game.engine.entities.Item" href="entities.html#space_hulk_game.engine.entities.Item">Item</a>]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.engine.game_data.GameData.global_npcs"><code class="name">var <span class="ident">global_npcs</span> : dict[str, <a title="space_hulk_game.engine.entities.NPC" href="entities.html#space_hulk_game.engine.entities.NPC">NPC</a>]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.engine.game_data.GameData.metadata"><code class="name">var <span class="ident">metadata</span> : dict[str, typing.Any]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.engine.game_data.GameData.plot_points"><code class="name">var <span class="ident">plot_points</span> : list[dict[str, typing.Any]]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.engine.game_data.GameData.scenes"><code class="name">var <span class="ident">scenes</span> : dict[str, <a title="space_hulk_game.engine.scene.Scene" href="scene.html#space_hulk_game.engine.scene.Scene">Scene</a>]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.engine.game_data.GameData.starting_scene"><code class="name">var <span class="ident">starting_scene</span> : str</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.engine.game_data.GameData.themes"><code class="name">var <span class="ident">themes</span> : list[str]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="space_hulk_game.engine.game_data.GameData.title"><code class="name">var <span class="ident">title</span> : str</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-</dl>
-<h3>Methods</h3>
-<dl>
-<dt id="space_hulk_game.engine.game_data.GameData.get_item_definition"><code class="name flex">
-<span>def <span class="ident">get_item_definition</span></span>(<span>self, item_id: str) ‑> <a title="space_hulk_game.engine.entities.Item" href="entities.html#space_hulk_game.engine.entities.Item">Item</a> | None</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def get_item_definition(self, item_id: str) -&gt; Item | None:
+</code></pre>
+              </div>
+              <h3>Static methods</h3>
+              <dl>
+                <dt id="space_hulk_game.engine.game_data.GameData.from_dict">
+                  <code class="name flex">
+                    <span>def <span class="ident">from_dict</span></span
+                    >(<span
+                      >data: dict) ‑> <a
+                        title="space_hulk_game.engine.game_data.GameData"
+                        href="#space_hulk_game.engine.game_data.GameData"
+                        >GameData</a
+                      ></span
+                    >
+                  </code>
+                </dt>
+                <dd>
+                  <div class="desc">
+                    <p>Create GameData from a dictionary.</p>
+                    <h2 id="args">Args</h2>
+                    <dl>
+                      <dt>
+                        <strong><code>data</code></strong>
+                      </dt>
+                      <dd>Dictionary containing game data.</dd>
+                    </dl>
+                    <h2 id="returns">Returns</h2>
+                    <p>A new GameData instance.</p>
+                  </div>
+                </dd>
+              </dl>
+              <h3>Instance variables</h3>
+              <dl>
+                <dt id="space_hulk_game.engine.game_data.GameData.description">
+                  <code class="name"
+                    >var <span class="ident">description</span> : str</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt id="space_hulk_game.engine.game_data.GameData.endings">
+                  <code class="name"
+                    >var
+                    <span class="ident">endings</span>
+                    : list[dict[str, typing.Any]]</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt id="space_hulk_game.engine.game_data.GameData.game_rules">
+                  <code class="name"
+                    >var
+                    <span class="ident">game_rules</span>
+                    : dict[str, typing.Any]</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt id="space_hulk_game.engine.game_data.GameData.global_items">
+                  <code class="name"
+                    >var <span class="ident">global_items</span> : dict[str, <a
+                      title="space_hulk_game.engine.entities.Item"
+                      href="entities.html#space_hulk_game.engine.entities.Item"
+                      >Item</a
+                    >]</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt id="space_hulk_game.engine.game_data.GameData.global_npcs">
+                  <code class="name"
+                    >var <span class="ident">global_npcs</span> : dict[str, <a
+                      title="space_hulk_game.engine.entities.NPC"
+                      href="entities.html#space_hulk_game.engine.entities.NPC"
+                      >NPC</a
+                    >]</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt id="space_hulk_game.engine.game_data.GameData.metadata">
+                  <code class="name"
+                    >var
+                    <span class="ident">metadata</span>
+                    : dict[str, typing.Any]</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt id="space_hulk_game.engine.game_data.GameData.plot_points">
+                  <code class="name"
+                    >var
+                    <span class="ident">plot_points</span>
+                    : list[dict[str, typing.Any]]</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt id="space_hulk_game.engine.game_data.GameData.scenes">
+                  <code class="name"
+                    >var <span class="ident">scenes</span> : dict[str, <a
+                      title="space_hulk_game.engine.scene.Scene"
+                      href="scene.html#space_hulk_game.engine.scene.Scene"
+                      >Scene</a
+                    >]</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt
+                  id="space_hulk_game.engine.game_data.GameData.starting_scene"
+                >
+                  <code class="name"
+                    >var <span class="ident">starting_scene</span> : str</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt id="space_hulk_game.engine.game_data.GameData.themes">
+                  <code class="name"
+                    >var <span class="ident">themes</span> : list[str]</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+                <dt id="space_hulk_game.engine.game_data.GameData.title">
+                  <code class="name"
+                    >var <span class="ident">title</span> : str</code
+                  >
+                </dt>
+                <dd>
+                  <div class="desc"></div>
+                </dd>
+              </dl>
+              <h3>Methods</h3>
+              <dl>
+                <dt
+                  id="space_hulk_game.engine.game_data.GameData.get_item_definition"
+                >
+                  <code class="name flex">
+                    <span
+                      >def <span class="ident">get_item_definition</span></span
+                    >(<span
+                      >self, item_id: str) ‑> <a
+                        title="space_hulk_game.engine.entities.Item"
+                        href="entities.html#space_hulk_game.engine.entities.Item"
+                        >Item</a
+                      > | None</span
+                    >
+                  </code>
+                </dt>
+                <dd>
+                  <details class="source">
+                    <summary>
+                      <span>Expand source code</span>
+                    </summary>
+                    <pre><code class="python">def get_item_definition(self, item_id: str) -&gt; Item | None:
     &#34;&#34;&#34;
     Get a global item definition by ID.
 
@@ -463,17 +1035,20 @@ False
         &#39;Key&#39;
     &#34;&#34;&#34;
     return self.global_items.get(item_id)</code></pre>
-</details>
-<div class="desc"><p>Get a global item definition by ID.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>item_id</code></strong></dt>
-<dd>The ID of the item to retrieve.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<p>The Item object if found, None otherwise.</p>
-<h2 id="examples">Examples</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import Item, Scene
+                  </details>
+                  <div class="desc">
+                    <p>Get a global item definition by ID.</p>
+                    <h2 id="args">Args</h2>
+                    <dl>
+                      <dt>
+                        <strong><code>item_id</code></strong>
+                      </dt>
+                      <dd>The ID of the item to retrieve.</dd>
+                    </dl>
+                    <h2 id="returns">Returns</h2>
+                    <p>The Item object if found, None otherwise.</p>
+                    <h2 id="examples">Examples</h2>
+                    <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import Item, Scene
 &gt;&gt;&gt; item = Item(id=&quot;key&quot;, name=&quot;Key&quot;, description=&quot;A key&quot;)
 &gt;&gt;&gt; scene = Scene(id=&quot;start&quot;, name=&quot;Start&quot;, description=&quot;Start scene&quot;)
 &gt;&gt;&gt; data = GameData(
@@ -486,17 +1061,30 @@ False
 &gt;&gt;&gt; found = data.get_item_definition(&quot;key&quot;)
 &gt;&gt;&gt; found.name
 'Key'
-</code></pre></div>
-</dd>
-<dt id="space_hulk_game.engine.game_data.GameData.get_npc_definition"><code class="name flex">
-<span>def <span class="ident">get_npc_definition</span></span>(<span>self, npc_id: str) ‑> <a title="space_hulk_game.engine.entities.NPC" href="entities.html#space_hulk_game.engine.entities.NPC">NPC</a> | None</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def get_npc_definition(self, npc_id: str) -&gt; NPC | None:
+</code></pre>
+                  </div>
+                </dd>
+                <dt
+                  id="space_hulk_game.engine.game_data.GameData.get_npc_definition"
+                >
+                  <code class="name flex">
+                    <span
+                      >def <span class="ident">get_npc_definition</span></span
+                    >(<span
+                      >self, npc_id: str) ‑> <a
+                        title="space_hulk_game.engine.entities.NPC"
+                        href="entities.html#space_hulk_game.engine.entities.NPC"
+                        >NPC</a
+                      > | None</span
+                    >
+                  </code>
+                </dt>
+                <dd>
+                  <details class="source">
+                    <summary>
+                      <span>Expand source code</span>
+                    </summary>
+                    <pre><code class="python">def get_npc_definition(self, npc_id: str) -&gt; NPC | None:
     &#34;&#34;&#34;
     Get a global NPC definition by ID.
 
@@ -522,17 +1110,20 @@ False
         &#39;Guard&#39;
     &#34;&#34;&#34;
     return self.global_npcs.get(npc_id)</code></pre>
-</details>
-<div class="desc"><p>Get a global NPC definition by ID.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>npc_id</code></strong></dt>
-<dd>The ID of the NPC to retrieve.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<p>The NPC object if found, None otherwise.</p>
-<h2 id="examples">Examples</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import NPC, Scene
+                  </details>
+                  <div class="desc">
+                    <p>Get a global NPC definition by ID.</p>
+                    <h2 id="args">Args</h2>
+                    <dl>
+                      <dt>
+                        <strong><code>npc_id</code></strong>
+                      </dt>
+                      <dd>The ID of the NPC to retrieve.</dd>
+                    </dl>
+                    <h2 id="returns">Returns</h2>
+                    <p>The NPC object if found, None otherwise.</p>
+                    <h2 id="examples">Examples</h2>
+                    <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import NPC, Scene
 &gt;&gt;&gt; npc = NPC(id=&quot;guard&quot;, name=&quot;Guard&quot;, description=&quot;A guard&quot;)
 &gt;&gt;&gt; scene = Scene(id=&quot;start&quot;, name=&quot;Start&quot;, description=&quot;Start scene&quot;)
 &gt;&gt;&gt; data = GameData(
@@ -545,17 +1136,27 @@ False
 &gt;&gt;&gt; found = data.get_npc_definition(&quot;guard&quot;)
 &gt;&gt;&gt; found.name
 'Guard'
-</code></pre></div>
-</dd>
-<dt id="space_hulk_game.engine.game_data.GameData.get_scene"><code class="name flex">
-<span>def <span class="ident">get_scene</span></span>(<span>self, scene_id: str) ‑> <a title="space_hulk_game.engine.scene.Scene" href="scene.html#space_hulk_game.engine.scene.Scene">Scene</a> | None</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def get_scene(self, scene_id: str) -&gt; Scene | None:
+</code></pre>
+                  </div>
+                </dd>
+                <dt id="space_hulk_game.engine.game_data.GameData.get_scene">
+                  <code class="name flex">
+                    <span>def <span class="ident">get_scene</span></span
+                    >(<span
+                      >self, scene_id: str) ‑> <a
+                        title="space_hulk_game.engine.scene.Scene"
+                        href="scene.html#space_hulk_game.engine.scene.Scene"
+                        >Scene</a
+                      > | None</span
+                    >
+                  </code>
+                </dt>
+                <dd>
+                  <details class="source">
+                    <summary>
+                      <span>Expand source code</span>
+                    </summary>
+                    <pre><code class="python">def get_scene(self, scene_id: str) -&gt; Scene | None:
     &#34;&#34;&#34;
     Get a scene by its ID.
 
@@ -580,17 +1181,20 @@ False
         &gt;&gt;&gt; data.get_scene(&#34;missing&#34;)
     &#34;&#34;&#34;
     return self.scenes.get(scene_id)</code></pre>
-</details>
-<div class="desc"><p>Get a scene by its ID.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>scene_id</code></strong></dt>
-<dd>The ID of the scene to retrieve.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<p>The Scene object if found, None otherwise.</p>
-<h2 id="examples">Examples</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import Scene
+                  </details>
+                  <div class="desc">
+                    <p>Get a scene by its ID.</p>
+                    <h2 id="args">Args</h2>
+                    <dl>
+                      <dt>
+                        <strong><code>scene_id</code></strong>
+                      </dt>
+                      <dd>The ID of the scene to retrieve.</dd>
+                    </dl>
+                    <h2 id="returns">Returns</h2>
+                    <p>The Scene object if found, None otherwise.</p>
+                    <h2 id="examples">Examples</h2>
+                    <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import Scene
 &gt;&gt;&gt; scene = Scene(id=&quot;test&quot;, name=&quot;Test&quot;, description=&quot;Test scene&quot;)
 &gt;&gt;&gt; data = GameData(
 ...     title=&quot;Test&quot;,
@@ -602,17 +1206,21 @@ False
 &gt;&gt;&gt; found.name
 'Test'
 &gt;&gt;&gt; data.get_scene(&quot;missing&quot;)
-</code></pre></div>
-</dd>
-<dt id="space_hulk_game.engine.game_data.GameData.has_scene"><code class="name flex">
-<span>def <span class="ident">has_scene</span></span>(<span>self, scene_id: str) ‑> bool</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def has_scene(self, scene_id: str) -&gt; bool:
+</code></pre>
+                  </div>
+                </dd>
+                <dt id="space_hulk_game.engine.game_data.GameData.has_scene">
+                  <code class="name flex">
+                    <span>def <span class="ident">has_scene</span></span
+                    >(<span>self, scene_id: str) ‑> bool</span>
+                  </code>
+                </dt>
+                <dd>
+                  <details class="source">
+                    <summary>
+                      <span>Expand source code</span>
+                    </summary>
+                    <pre><code class="python">def has_scene(self, scene_id: str) -&gt; bool:
     &#34;&#34;&#34;
     Check if a scene exists.
 
@@ -637,17 +1245,20 @@ False
         False
     &#34;&#34;&#34;
     return scene_id in self.scenes</code></pre>
-</details>
-<div class="desc"><p>Check if a scene exists.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>scene_id</code></strong></dt>
-<dd>The ID of the scene to check.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<p>True if the scene exists, False otherwise.</p>
-<h2 id="examples">Examples</h2>
-<pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import Scene
+                  </details>
+                  <div class="desc">
+                    <p>Check if a scene exists.</p>
+                    <h2 id="args">Args</h2>
+                    <dl>
+                      <dt>
+                        <strong><code>scene_id</code></strong>
+                      </dt>
+                      <dd>The ID of the scene to check.</dd>
+                    </dl>
+                    <h2 id="returns">Returns</h2>
+                    <p>True if the scene exists, False otherwise.</p>
+                    <h2 id="examples">Examples</h2>
+                    <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import Scene
 &gt;&gt;&gt; scene = Scene(id=&quot;test&quot;, name=&quot;Test&quot;, description=&quot;Test&quot;)
 &gt;&gt;&gt; data = GameData(
 ...     title=&quot;Test&quot;,
@@ -659,17 +1270,21 @@ False
 True
 &gt;&gt;&gt; data.has_scene(&quot;unknown&quot;)
 False
-</code></pre></div>
-</dd>
-<dt id="space_hulk_game.engine.game_data.GameData.to_dict"><code class="name flex">
-<span>def <span class="ident">to_dict</span></span>(<span>self) ‑> dict</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def to_dict(self) -&gt; dict:
+</code></pre>
+                  </div>
+                </dd>
+                <dt id="space_hulk_game.engine.game_data.GameData.to_dict">
+                  <code class="name flex">
+                    <span>def <span class="ident">to_dict</span></span
+                    >(<span>self) ‑> dict</span>
+                  </code>
+                </dt>
+                <dd>
+                  <details class="source">
+                    <summary>
+                      <span>Expand source code</span>
+                    </summary>
+                    <pre><code class="python">def to_dict(self) -&gt; dict:
     &#34;&#34;&#34;
     Convert the game data to a dictionary for serialization.
 
@@ -689,57 +1304,220 @@ False
         &#34;plot_points&#34;: self.plot_points,
         &#34;metadata&#34;: self.metadata,
     }</code></pre>
-</details>
-<div class="desc"><p>Convert the game data to a dictionary for serialization.</p>
-<h2 id="returns">Returns</h2>
-<p>Dictionary representation of the game data.</p></div>
-</dd>
-</dl>
-</dd>
-</dl>
-</section>
-</article>
-<nav id="sidebar">
-<div class="toc">
-<ul></ul>
-</div>
-<ul id="index">
-<li><h3>Super-module</h3>
-<ul>
-<li><code><a title="space_hulk_game.engine" href="index.html">space_hulk_game.engine</a></code></li>
-</ul>
-</li>
-<li><h3><a href="#header-classes">Classes</a></h3>
-<ul>
-<li>
-<h4><code><a title="space_hulk_game.engine.game_data.GameData" href="#space_hulk_game.engine.game_data.GameData">GameData</a></code></h4>
-<ul class="two-column">
-<li><code><a title="space_hulk_game.engine.game_data.GameData.description" href="#space_hulk_game.engine.game_data.GameData.description">description</a></code></li>
-<li><code><a title="space_hulk_game.engine.game_data.GameData.endings" href="#space_hulk_game.engine.game_data.GameData.endings">endings</a></code></li>
-<li><code><a title="space_hulk_game.engine.game_data.GameData.from_dict" href="#space_hulk_game.engine.game_data.GameData.from_dict">from_dict</a></code></li>
-<li><code><a title="space_hulk_game.engine.game_data.GameData.game_rules" href="#space_hulk_game.engine.game_data.GameData.game_rules">game_rules</a></code></li>
-<li><code><a title="space_hulk_game.engine.game_data.GameData.get_item_definition" href="#space_hulk_game.engine.game_data.GameData.get_item_definition">get_item_definition</a></code></li>
-<li><code><a title="space_hulk_game.engine.game_data.GameData.get_npc_definition" href="#space_hulk_game.engine.game_data.GameData.get_npc_definition">get_npc_definition</a></code></li>
-<li><code><a title="space_hulk_game.engine.game_data.GameData.get_scene" href="#space_hulk_game.engine.game_data.GameData.get_scene">get_scene</a></code></li>
-<li><code><a title="space_hulk_game.engine.game_data.GameData.global_items" href="#space_hulk_game.engine.game_data.GameData.global_items">global_items</a></code></li>
-<li><code><a title="space_hulk_game.engine.game_data.GameData.global_npcs" href="#space_hulk_game.engine.game_data.GameData.global_npcs">global_npcs</a></code></li>
-<li><code><a title="space_hulk_game.engine.game_data.GameData.has_scene" href="#space_hulk_game.engine.game_data.GameData.has_scene">has_scene</a></code></li>
-<li><code><a title="space_hulk_game.engine.game_data.GameData.metadata" href="#space_hulk_game.engine.game_data.GameData.metadata">metadata</a></code></li>
-<li><code><a title="space_hulk_game.engine.game_data.GameData.plot_points" href="#space_hulk_game.engine.game_data.GameData.plot_points">plot_points</a></code></li>
-<li><code><a title="space_hulk_game.engine.game_data.GameData.scenes" href="#space_hulk_game.engine.game_data.GameData.scenes">scenes</a></code></li>
-<li><code><a title="space_hulk_game.engine.game_data.GameData.starting_scene" href="#space_hulk_game.engine.game_data.GameData.starting_scene">starting_scene</a></code></li>
-<li><code><a title="space_hulk_game.engine.game_data.GameData.themes" href="#space_hulk_game.engine.game_data.GameData.themes">themes</a></code></li>
-<li><code><a title="space_hulk_game.engine.game_data.GameData.title" href="#space_hulk_game.engine.game_data.GameData.title">title</a></code></li>
-<li><code><a title="space_hulk_game.engine.game_data.GameData.to_dict" href="#space_hulk_game.engine.game_data.GameData.to_dict">to_dict</a></code></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</nav>
-</main>
-<footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
-</footer>
-</body>
+                  </details>
+                  <div class="desc">
+                    <p>
+                      Convert the game data to a dictionary for serialization.
+                    </p>
+                    <h2 id="returns">Returns</h2>
+                    <p>Dictionary representation of the game data.</p>
+                  </div>
+                </dd>
+              </dl>
+            </dd>
+          </dl>
+        </section>
+      </article>
+      <nav id="sidebar">
+        <div class="toc">
+          <ul></ul>
+        </div>
+        <ul id="index">
+          <li>
+            <h3>Super-module</h3>
+            <ul>
+              <li>
+                <code
+                  ><a title="space_hulk_game.engine" href="index.html"
+                    >space_hulk_game.engine</a
+                  ></code
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <h3><a href="#header-classes">Classes</a></h3>
+            <ul>
+              <li>
+                <h4>
+                  <code
+                    ><a
+                      title="space_hulk_game.engine.game_data.GameData"
+                      href="#space_hulk_game.engine.game_data.GameData"
+                      >GameData</a
+                    ></code
+                  >
+                </h4>
+                <ul class="two-column">
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.engine.game_data.GameData.description"
+                        href="#space_hulk_game.engine.game_data.GameData.description"
+                        >description</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.engine.game_data.GameData.endings"
+                        href="#space_hulk_game.engine.game_data.GameData.endings"
+                        >endings</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.engine.game_data.GameData.from_dict"
+                        href="#space_hulk_game.engine.game_data.GameData.from_dict"
+                        >from_dict</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.engine.game_data.GameData.game_rules"
+                        href="#space_hulk_game.engine.game_data.GameData.game_rules"
+                        >game_rules</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.engine.game_data.GameData.get_item_definition"
+                        href="#space_hulk_game.engine.game_data.GameData.get_item_definition"
+                        >get_item_definition</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.engine.game_data.GameData.get_npc_definition"
+                        href="#space_hulk_game.engine.game_data.GameData.get_npc_definition"
+                        >get_npc_definition</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.engine.game_data.GameData.get_scene"
+                        href="#space_hulk_game.engine.game_data.GameData.get_scene"
+                        >get_scene</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.engine.game_data.GameData.global_items"
+                        href="#space_hulk_game.engine.game_data.GameData.global_items"
+                        >global_items</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.engine.game_data.GameData.global_npcs"
+                        href="#space_hulk_game.engine.game_data.GameData.global_npcs"
+                        >global_npcs</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.engine.game_data.GameData.has_scene"
+                        href="#space_hulk_game.engine.game_data.GameData.has_scene"
+                        >has_scene</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.engine.game_data.GameData.metadata"
+                        href="#space_hulk_game.engine.game_data.GameData.metadata"
+                        >metadata</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.engine.game_data.GameData.plot_points"
+                        href="#space_hulk_game.engine.game_data.GameData.plot_points"
+                        >plot_points</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.engine.game_data.GameData.scenes"
+                        href="#space_hulk_game.engine.game_data.GameData.scenes"
+                        >scenes</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.engine.game_data.GameData.starting_scene"
+                        href="#space_hulk_game.engine.game_data.GameData.starting_scene"
+                        >starting_scene</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.engine.game_data.GameData.themes"
+                        href="#space_hulk_game.engine.game_data.GameData.themes"
+                        >themes</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.engine.game_data.GameData.title"
+                        href="#space_hulk_game.engine.game_data.GameData.title"
+                        >title</a
+                      ></code
+                    >
+                  </li>
+                  <li>
+                    <code
+                      ><a
+                        title="space_hulk_game.engine.game_data.GameData.to_dict"
+                        href="#space_hulk_game.engine.game_data.GameData.to_dict"
+                        >to_dict</a
+                      ></code
+                    >
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </main>
+    <footer id="footer">
+      <p>
+        Generated by
+        <a
+          href="https://pdoc3.github.io/pdoc"
+          title="pdoc: Python API documentation generator"
+          ><cite>pdoc</cite> 0.11.6</a
+        >.
+      </p>
+    </footer>
+  </body>
 </html>

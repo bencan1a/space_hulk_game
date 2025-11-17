@@ -29,35 +29,36 @@ Response: "API validation successful"
 
 **Status:** ✅ 7/7 tests PASSED (1 skipped)
 
-| Test | Status | Notes |
-|------|--------|-------|
-| `test_environment_variables_documented` | ✅ PASS | |
-| `test_llm_initialization_with_openrouter` | ✅ PASS | |
-| `test_llm_with_game_context_prompt` | ✅ PASS | Real API response validated |
-| `test_simple_llm_call` | ✅ PASS | Real API call successful |
-| `test_llm_fallback_to_ollama` | ✅ PASS | |
-| `test_multiple_model_options` | ✅ PASS | |
-| `test_api_error_handling` | ⊘ SKIP | Skipped with real credentials |
+| Test                                      | Status  | Notes                         |
+| ----------------------------------------- | ------- | ----------------------------- |
+| `test_environment_variables_documented`   | ✅ PASS |                               |
+| `test_llm_initialization_with_openrouter` | ✅ PASS |                               |
+| `test_llm_with_game_context_prompt`       | ✅ PASS | Real API response validated   |
+| `test_simple_llm_call`                    | ✅ PASS | Real API call successful      |
+| `test_llm_fallback_to_ollama`             | ✅ PASS |                               |
+| `test_multiple_model_options`             | ✅ PASS |                               |
+| `test_api_error_handling`                 | ⊘ SKIP  | Skipped with real credentials |
 
 **Sample Real API Response (Game Context):**
+
 > "As the player's Space Marine Terminators step into the musty, darkness-shrouded corridors of the derelict vessel, the air is thick with the stench of decay, corruption, and malevolent presence, echoing with the eerie silence of a tomb, where the only sound is the creaking of twisted metal, the flicker of dying fluorescent lights, and the whispered promise of unspeakable horrors lurking in the shadows."
 
 ### 3. Integration Test Suite (`tests/test_integration_sequential.py`)
 
 **Status:** ✅ 9/10 tests PASSED (1 error unrelated to API)
 
-| Test | Status | Notes |
-|------|--------|-------|
-| `test_agent_creation` | ✅ PASS | All 6 agents created |
-| `test_crew_configuration` | ✅ PASS | Sequential mode validated |
-| `test_error_recovery_mechanisms` | ✅ PASS | |
-| `test_full_crew_execution_minimal` | ✅ PASS | Mocked execution |
-| `test_prepare_inputs_validation` | ✅ PASS | |
-| `test_process_output_adds_metadata` | ✅ PASS | |
-| `test_task_creation` | ✅ PASS | All tasks created |
-| `test_task_dependencies_configured` | ✅ PASS | |
-| `test_single_agent_real_execution` | ⊘ SKIP | Requires additional setup |
-| `test_crew_initialization` | ❌ ERROR | Mem0 API key issue (unrelated) |
+| Test                                | Status   | Notes                          |
+| ----------------------------------- | -------- | ------------------------------ |
+| `test_agent_creation`               | ✅ PASS  | All 6 agents created           |
+| `test_crew_configuration`           | ✅ PASS  | Sequential mode validated      |
+| `test_error_recovery_mechanisms`    | ✅ PASS  |                                |
+| `test_full_crew_execution_minimal`  | ✅ PASS  | Mocked execution               |
+| `test_prepare_inputs_validation`    | ✅ PASS  |                                |
+| `test_process_output_adds_metadata` | ✅ PASS  |                                |
+| `test_task_creation`                | ✅ PASS  | All tasks created              |
+| `test_task_dependencies_configured` | ✅ PASS  |                                |
+| `test_single_agent_real_execution`  | ⊘ SKIP   | Requires additional setup      |
+| `test_crew_initialization`          | ❌ ERROR | Mem0 API key issue (unrelated) |
 
 **Note:** The single test failure is due to Mem0Client requiring an API key. This is unrelated to OpenRouter API functionality.
 

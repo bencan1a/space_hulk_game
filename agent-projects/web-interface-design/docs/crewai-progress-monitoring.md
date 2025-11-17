@@ -278,19 +278,19 @@ class CrewAIMonitor:
 
 ### Progress Milestones
 
-| Milestone | Trigger | Progress % | Agent | Status |
-|-----------|---------|------------|-------|--------|
-| **Generation Started** | Thread starts | 0% | PlotMaster | queued |
-| **PlotMaster Running** | No file yet, elapsed < 2 min | 0-18% | PlotMaster | in_progress |
-| **Plot Created** | plot_outline.json exists | 20% | PlotMaster | completed |
-| **NarrativeArchitect Running** | No narrative file, elapsed < 4 min | 20-38% | NarrativeArchitect | in_progress |
-| **Narrative Created** | narrative_map.json exists | 40% | NarrativeArchitect | completed |
-| **PuzzleSmith Running** | No puzzle file, elapsed < 6 min | 40-58% | PuzzleSmith | in_progress |
-| **Puzzles Created** | puzzle_design.json exists | 60% | PuzzleSmith | completed |
-| **CreativeScribe Running** | No scene file, elapsed < 8 min | 60-83% | CreativeScribe | in_progress |
-| **Scenes Created** | scene_texts.json exists | 85% | CreativeScribe | completed |
-| **MechanicsGuru Running** | No PRD file, elapsed < 10 min | 85-98% | MechanicsGuru | in_progress |
-| **Documentation Created** | prd_document.json exists | 100% | MechanicsGuru | completed |
+| Milestone                      | Trigger                            | Progress % | Agent              | Status      |
+| ------------------------------ | ---------------------------------- | ---------- | ------------------ | ----------- |
+| **Generation Started**         | Thread starts                      | 0%         | PlotMaster         | queued      |
+| **PlotMaster Running**         | No file yet, elapsed < 2 min       | 0-18%      | PlotMaster         | in_progress |
+| **Plot Created**               | plot_outline.json exists           | 20%        | PlotMaster         | completed   |
+| **NarrativeArchitect Running** | No narrative file, elapsed < 4 min | 20-38%     | NarrativeArchitect | in_progress |
+| **Narrative Created**          | narrative_map.json exists          | 40%        | NarrativeArchitect | completed   |
+| **PuzzleSmith Running**        | No puzzle file, elapsed < 6 min    | 40-58%     | PuzzleSmith        | in_progress |
+| **Puzzles Created**            | puzzle_design.json exists          | 60%        | PuzzleSmith        | completed   |
+| **CreativeScribe Running**     | No scene file, elapsed < 8 min     | 60-83%     | CreativeScribe     | in_progress |
+| **Scenes Created**             | scene_texts.json exists            | 85%        | CreativeScribe     | completed   |
+| **MechanicsGuru Running**      | No PRD file, elapsed < 10 min      | 85-98%     | MechanicsGuru      | in_progress |
+| **Documentation Created**      | prd_document.json exists           | 100%       | MechanicsGuru      | completed   |
 
 ### WebSocket Message Format
 

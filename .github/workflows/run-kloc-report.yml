@@ -5,15 +5,15 @@ on:
   workflow_dispatch:
     inputs:
       since_date:
-        description: 'Start date (YYYY-MM-DD) in America/Denver time. Defaults to last Sunday.'
+        description: "Start date (YYYY-MM-DD) in America/Denver time. Defaults to last Sunday."
         required: false
         type: string
       until_date:
-        description: 'End date (YYYY-MM-DD) in America/Denver time. Defaults to today.'
+        description: "End date (YYYY-MM-DD) in America/Denver time. Defaults to today."
         required: false
         type: string
       pr_number:
-        description: 'PR number to post results as a comment (optional)'
+        description: "PR number to post results as a comment (optional)"
         required: false
         type: string
 
@@ -28,7 +28,7 @@ jobs:
 
     permissions:
       contents: read
-      pull-requests: write  # Needed to post comments
+      pull-requests: write # Needed to post comments
 
     steps:
       - name: Checkout repository
@@ -37,7 +37,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
       - name: Create virtual environment
         run: |
@@ -51,7 +51,7 @@ jobs:
 
       - name: Run KLOC report script
         id: run_kloc
-        timeout-minutes: 360  # 6 hours max (GitHub Actions default)
+        timeout-minutes: 360 # 6 hours max (GitHub Actions default)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |

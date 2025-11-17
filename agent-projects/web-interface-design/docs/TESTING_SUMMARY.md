@@ -12,16 +12,16 @@
 
 ### Test Count Overview
 
-| Category | Count | Coverage Target |
-|----------|-------|-----------------|
-| **Backend Unit Tests** | 68 | 90%+ overall, 95%+ critical |
-| **Frontend Unit Tests** | 55 | 80%+ overall, 90%+ critical |
-| **Integration Tests** | 50 | N/A |
-| **End-to-End Tests** | 15 critical journeys | N/A |
-| **Performance Tests** | 4 scenarios | N/A |
-| **Accessibility Tests** | 20 | WCAG 2.1 AA |
-| **Security Tests** | 22 | Zero high/critical issues |
-| **TOTAL** | **230+** | - |
+| Category                | Count                | Coverage Target             |
+| ----------------------- | -------------------- | --------------------------- |
+| **Backend Unit Tests**  | 68                   | 90%+ overall, 95%+ critical |
+| **Frontend Unit Tests** | 55                   | 80%+ overall, 90%+ critical |
+| **Integration Tests**   | 50                   | N/A                         |
+| **End-to-End Tests**    | 15 critical journeys | N/A                         |
+| **Performance Tests**   | 4 scenarios          | N/A                         |
+| **Accessibility Tests** | 20                   | WCAG 2.1 AA                 |
+| **Security Tests**      | 22                   | Zero high/critical issues   |
+| **TOTAL**               | **230+**             | -                           |
 
 ### Testing Pyramid Distribution
 
@@ -228,18 +228,18 @@ async def test_api_workflow(client, db_session):
 ### E2E Test Pattern
 
 ```typescript
-test('user completes workflow', async ({ page }) => {
+test("user completes workflow", async ({ page }) => {
   // Navigate
-  await page.goto('/');
+  await page.goto("/");
 
   // Interact
   await page.click('[data-testid="button"]');
-  await page.fill('[data-testid="input"]', 'value');
+  await page.fill('[data-testid="input"]', "value");
   await page.click('[data-testid="submit"]');
 
   // Verify
   await expect(page.locator('[data-testid="result"]')).toBeVisible();
-  await expect(page).toHaveURL('/success');
+  await expect(page).toHaveURL("/success");
 });
 ```
 
@@ -247,13 +247,13 @@ test('user completes workflow', async ({ page }) => {
 
 ## Performance Benchmarks
 
-| Operation | p50 | p95 | p99 |
-|-----------|-----|-----|-----|
-| GET /api/v1/stories | <50ms | <100ms | <200ms |
-| POST /api/v1/stories | <200ms | <500ms | <1s |
-| POST /api/v1/game/{id}/command | <100ms | <500ms | <1s |
-| Story generation (full) | <5min | <10min | <15min |
-| Library page load | <1s | <2s | <3s |
+| Operation                      | p50    | p95    | p99    |
+| ------------------------------ | ------ | ------ | ------ |
+| GET /api/v1/stories            | <50ms  | <100ms | <200ms |
+| POST /api/v1/stories           | <200ms | <500ms | <1s    |
+| POST /api/v1/game/{id}/command | <100ms | <500ms | <1s    |
+| Story generation (full)        | <5min  | <10min | <15min |
+| Library page load              | <1s    | <2s    | <3s    |
 
 **Concurrent Users**:
 
@@ -415,6 +415,7 @@ Every task in IMPLEMENTATION_PLAN.md must include:
 
 ```markdown
 **Testing**:
+
 - [ ] N unit tests written (see testing-strategy.md section X.X.X)
 - [ ] M integration tests written
 - [ ] Coverage >X% (backend) / >Y% (frontend)
@@ -426,6 +427,7 @@ Every task in IMPLEMENTATION_PLAN.md must include:
 
 ```markdown
 **Testing**:
+
 - [ ] 15 unit tests written (see testing-strategy.md section 2.1.1)
 - [ ] 100% coverage of public methods
 - [ ] All success, error, and edge cases tested

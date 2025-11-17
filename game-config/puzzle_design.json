@@ -116,10 +116,7 @@
         "id": "monster_genestealer_hybrid_alpha",
         "name": "Genestealer Hybrid Alpha",
         "description": "A larger, stronger, and more cunning Genestealer Hybrid (typically 2nd or 3rd generation) encountered among the first wave of attackers. It displays rudimentary tactical intelligence, coordinating smaller Hybrids.",
-        "locations": [
-          "scene_first_genestealers",
-          "scene_xenos_cathedral"
-        ],
+        "locations": ["scene_first_genestealers", "scene_xenos_cathedral"],
         "narrative_role": "Serves as a mini-boss in early combat encounters, making the Genestealer threat feel more organized and intelligent than simple feral beasts. Reinforces Kaelen's initial underestimation of the cult and forces Tyberius to push his combat prowess. Provides a tactical challenge beyond mere mob encounters.",
         "abilities": [
           "Coordinated Strike (calls in flanking lesser Hybrids)",
@@ -132,10 +129,7 @@
         "id": "monster_psychic_cult_magus",
         "name": "Psionic Cult Magus",
         "description": "A leading member of the Genestealer Cult, gifted with potent psychic abilities by the Patriarch. Often a 4th generation Hybrid, appearing outwardly human but with subtle xenos mutations and a disturbing zealousness.",
-        "locations": [
-          "scene_xenos_cathedral",
-          "scene_confront_patron"
-        ],
+        "locations": ["scene_xenos_cathedral", "scene_confront_patron"],
         "narrative_role": "Directly links the cult's activities to the broader psychic influence of the 'Heart' and the Patriarch. Acts as an early source of psychic opposition, something the Space Marines are not inherently prepared for. Lyra can study its psychic signature as part of 'Whispers of Eldritch Lore' puzzle. Its defeat weakens the ritual's effectiveness.",
         "abilities": [
           "Mind Scour (deals moderate psychic damage, debuffs accuracy)",
@@ -168,9 +162,7 @@
         "name": "Malfunctioning Servitor (Scout)",
         "role": "Remains of an Imperial Servitor from a previous expedition, still broadcasting corrupted data. Its function was likely reconnaissance.",
         "description": "A partially intact, heavily damaged Imperial servitor found slumped against a console, flickering with failing diagnostic lights. Its internal vox-caster crackles with fragmented, looping data packets and distress signals.",
-        "locations": [
-          "scene_derelict_expedition"
-        ],
+        "locations": ["scene_derelict_expedition"],
         "dialogue_themes": [
           "Echoes of the Lost",
           "Fragments of data about 'the whispers'",
@@ -183,10 +175,7 @@
         "name": "Cult Disciple Zealot",
         "role": "A fanatical human cultist, completely consumed by devotion to the Patriarch and the 'Heart'. Easily manipulated but fiercely protective of sacred sites.",
         "description": "A gaunt, wild-eyed figure, crudely armored and wielding improvised bladed weapons. Its eyes burn with an unnatural fervor, and it mutters low, guttural blessings to its alien god.",
-        "locations": [
-          "scene_first_genestealers",
-          "scene_xenos_cathedral"
-        ],
+        "locations": ["scene_first_genestealers", "scene_xenos_cathedral"],
         "dialogue_themes": [
           "Blind devotion and fanaticism",
           "Prophecies of the 'Star-God's' awakening",
@@ -199,10 +188,7 @@
         "name": "Dying Xenotech Adept",
         "role": "A member of a previous, doomed tech-priest expedition, discovered barely clinging to life. He holds vital but fragmented information.",
         "description": "A skeletal figure encased in heavily scarred Mechanicus robes, half-assimilated into a bio-organic growth. His cybernetics are twisted, but his eyes glow with a desperate intelligence. He has a few moments of clarity before succumbing.",
-        "locations": [
-          "scene_ancient_lore_clue",
-          "scene_xenos_cathedral"
-        ],
+        "locations": ["scene_ancient_lore_clue", "scene_xenos_cathedral"],
         "dialogue_themes": [
           "The scale of the 'Heart's' influence",
           "Warnings about psychic corruption",

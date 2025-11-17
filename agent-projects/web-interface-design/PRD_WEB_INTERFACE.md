@@ -128,7 +128,7 @@ This PRD defines requirements for a browser-based interface that enables users t
 - Wants more control over story themes and tone
 - Needs lore accuracy validation
 
-**Quote**: *"I know exactly the kind of grimdark story I want, but I don't know how to tell the AI to make it."*
+**Quote**: _"I know exactly the kind of grimdark story I want, but I don't know how to tell the AI to make it."_
 
 ### Persona 2: The Text Adventure Veteran
 
@@ -150,7 +150,7 @@ This PRD defines requirements for a browser-based interface that enables users t
 - Needs ability to critique and refine puzzle design
 - Wants to iterate until quality meets standards
 
-**Quote**: *"The AI gets me 70% there, but I need to refine the puzzles to make them actually challenging and fair."*
+**Quote**: _"The AI gets me 70% there, but I need to refine the puzzles to make them actually challenging and fair."_
 
 ### Persona 3: The Curious Newcomer
 
@@ -172,7 +172,7 @@ This PRD defines requirements for a browser-based interface that enables users t
 - Unfamiliar with text adventure conventions
 - Needs significant guidance and examples
 
-**Quote**: *"I want to make a cool sci-fi story but I don't know where to start."*
+**Quote**: _"I want to make a cool sci-fi story but I don't know where to start."_
 
 ---
 
@@ -371,17 +371,9 @@ This PRD defines requirements for a browser-based interface that enables users t
 4. Save system architecture (local vs. server)
 5. Error recovery strategy for partial failures
 
-**Technical Decisions**:
-6. Backend framework confirmation (FastAPI recommended)
-7. Real-time update mechanism (WebSocket vs. polling)
-8. Production database choice (PostgreSQL recommended)
-9. Frontend state management (Context API recommended)
-10. Deployment strategy (Docker recommended)
+**Technical Decisions**: 6. Backend framework confirmation (FastAPI recommended) 7. Real-time update mechanism (WebSocket vs. polling) 8. Production database choice (PostgreSQL recommended) 9. Frontend state management (Context API recommended) 10. Deployment strategy (Docker recommended)
 
-**Research Needed**:
-11. AI chat model selection and testing
-12. Accessibility audit of wireframes
-13. Load testing for concurrent generations
+**Research Needed**: 11. AI chat model selection and testing 12. Accessibility audit of wireframes 13. Load testing for concurrent generations
 
 ---
 
@@ -412,9 +404,9 @@ This PRD defines requirements for a browser-based interface that enables users t
 
 ## Document Approval
 
-**Product Owner**: _______________ Date: ___________
-**Engineering Lead**: _______________ Date: ___________
-**Design Lead**: _______________ Date: ___________
+**Product Owner**: **\*\***\_\_\_**\*\*** Date: \***\*\_\_\_\*\***
+**Engineering Lead**: **\*\***\_\_\_**\*\*** Date: \***\*\_\_\_\*\***
+**Design Lead**: **\*\***\_\_\_**\*\*** Date: \***\*\_\_\_\*\***
 
 ---
 
@@ -424,6 +416,6 @@ This PRD defines requirements for a browser-based interface that enables users t
 
 ---
 
-*Document Version: 1.0*
-*Last Updated: 2025-11-12*
-*Status: Ready for Engineering Review*
+_Document Version: 1.0_
+_Last Updated: 2025-11-12_
+_Status: Ready for Engineering Review_

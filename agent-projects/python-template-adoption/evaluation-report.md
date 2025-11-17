@@ -544,20 +544,20 @@ The AGENTS.md file serves as the "first thing AI agents should read" and address
 
 ## Comparison Matrix
 
-| Feature | Template | Space Hulk | Gap | Priority | Effort |
-|---------|----------|------------|-----|----------|--------|
-| AGENTS.md | ✅ Comprehensive | ❌ Missing | High | HIGH | Low |
-| Makefile | ✅ Full | ❌ None | High | HIGH | Low |
-| Pre-commit | ✅ Multi-layer | ❌ None | High | HIGH | Medium |
-| File Org | ✅ 4-tier | ⚠️ 2-tier | Medium | HIGH | Low |
-| Line Length | ✅ Consistent | ❌ Inconsistent | Medium | HIGH | Low |
-| Ruff Rules | ✅ Extended | ⚠️ Basic | Medium | MEDIUM | Low |
-| CI/CD | ✅ Multi-platform | ⚠️ Limited | Medium | MEDIUM | High |
-| Dev Deps | ✅ Extensive | ⚠️ Minimal | Medium | MEDIUM | Low |
-| build_context | ✅ Automated | ❌ None | Medium | MEDIUM | High |
-| DevContainer | ✅ Auto-setup | ⚠️ Manual | Low | LOW | Low |
-| PR Template | ✅ Detailed | ⚠️ Basic | Low | LOW | Low |
-| pytest | ✅ Full suite | ⚠️ unittest | Low | DEFERRED | High |
+| Feature       | Template          | Space Hulk      | Gap    | Priority | Effort |
+| ------------- | ----------------- | --------------- | ------ | -------- | ------ |
+| AGENTS.md     | ✅ Comprehensive  | ❌ Missing      | High   | HIGH     | Low    |
+| Makefile      | ✅ Full           | ❌ None         | High   | HIGH     | Low    |
+| Pre-commit    | ✅ Multi-layer    | ❌ None         | High   | HIGH     | Medium |
+| File Org      | ✅ 4-tier         | ⚠️ 2-tier       | Medium | HIGH     | Low    |
+| Line Length   | ✅ Consistent     | ❌ Inconsistent | Medium | HIGH     | Low    |
+| Ruff Rules    | ✅ Extended       | ⚠️ Basic        | Medium | MEDIUM   | Low    |
+| CI/CD         | ✅ Multi-platform | ⚠️ Limited      | Medium | MEDIUM   | High   |
+| Dev Deps      | ✅ Extensive      | ⚠️ Minimal      | Medium | MEDIUM   | Low    |
+| build_context | ✅ Automated      | ❌ None         | Medium | MEDIUM   | High   |
+| DevContainer  | ✅ Auto-setup     | ⚠️ Manual       | Low    | LOW      | Low    |
+| PR Template   | ✅ Detailed       | ⚠️ Basic        | Low    | LOW      | Low    |
+| pytest        | ✅ Full suite     | ⚠️ unittest     | Low    | DEFERRED | High   |
 
 ---
 

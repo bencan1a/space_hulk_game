@@ -1,17 +1,17 @@
 name: Frontend CI
 
 on:
-  workflow_dispatch:  # Enable manual workflow runs
+  workflow_dispatch: # Enable manual workflow runs
   push:
     branches: [main, develop]
     paths:
-      - 'frontend/**'
-      - '.github/workflows/frontend-ci.yml'
+      - "frontend/**"
+      - ".github/workflows/frontend-ci.yml"
   pull_request:
     branches: [main, develop]
     paths:
-      - 'frontend/**'
-      - '.github/workflows/frontend-ci.yml'
+      - "frontend/**"
+      - ".github/workflows/frontend-ci.yml"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}

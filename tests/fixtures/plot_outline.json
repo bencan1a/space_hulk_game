@@ -2,11 +2,7 @@
   "narrative_foundation": {
     "title": "Test Space Hulk Adventure",
     "setting": "A derelict spacecraft drifting through the void",
-    "themes": [
-      "isolation",
-      "survival",
-      "gothic horror"
-    ],
+    "themes": ["isolation", "survival", "gothic horror"],
     "tone": "Dark and oppressive",
     "plot_points": [
       {

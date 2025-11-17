@@ -104,5 +104,5 @@ networks:
     driver: bridge
 
 volumes:
-  data:  # Shared data volume for SQLite database
+  data: # Shared data volume for SQLite database
   # postgres-data:  # Uncomment when enabling PostgreSQL service

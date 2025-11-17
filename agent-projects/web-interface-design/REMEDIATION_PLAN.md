@@ -37,14 +37,14 @@ LibraryPage has commented-out navigation code, preventing users from navigating 
 
 ```typescript
 // Add import at top of file
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 ```
 
 **Change 2: Initialize navigate hook**
 
 ```typescript
 // Inside LibraryPage component, after other hooks
-const navigate = useNavigate()
+const navigate = useNavigate();
 ```
 
 **Change 3: Implement handleStoryClick**
@@ -52,8 +52,8 @@ const navigate = useNavigate()
 ```typescript
 // Replace lines 30-36
 const handleStoryClick = (story: Story) => {
-  navigate(`/play/${story.id}`)
-}
+  navigate(`/play/${story.id}`);
+};
 ```
 
 **Change 4: Implement handleCreateStory**
@@ -61,8 +61,8 @@ const handleStoryClick = (story: Story) => {
 ```typescript
 // Replace lines 38-44
 const handleCreateStory = () => {
-  navigate('/create')
-}
+  navigate("/create");
+};
 ```
 
 **Change 5: Add useEffect for auto-fetch**
@@ -70,8 +70,8 @@ const handleCreateStory = () => {
 ```typescript
 // Add after state declarations
 useEffect(() => {
-  fetchStories()
-}, [fetchStories])
+  fetchStories();
+}, [fetchStories]);
 ```
 
 ### Testing
@@ -105,21 +105,24 @@ Need to verify that CSS variables are properly injected when theme changes.
 
 ```typescript
 const applyThemeVariables = (theme: ThemeConfig) => {
-  const root = document.documentElement
+  const root = document.documentElement;
 
   // Apply color variables
   Object.entries(theme.colors).forEach(([key, value]) => {
-    root.style.setProperty(`--color-${key}`, value)
-  })
+    root.style.setProperty(`--color-${key}`, value);
+  });
 
   // Apply typography variables
   if (theme.typography?.fontFamily) {
-    root.style.setProperty('--font-family', theme.typography.fontFamily)
+    root.style.setProperty("--font-family", theme.typography.fontFamily);
   }
   if (theme.typography?.fontFamilyMono) {
-    root.style.setProperty('--font-family-mono', theme.typography.fontFamilyMono)
+    root.style.setProperty(
+      "--font-family-mono",
+      theme.typography.fontFamilyMono,
+    );
   }
-}
+};
 ```
 
 **Call in setTheme**:
@@ -127,9 +130,9 @@ const applyThemeVariables = (theme: ThemeConfig) => {
 ```typescript
 const setTheme = async (themeId: string) => {
   // ... existing code ...
-  applyThemeVariables(themeConfig)
+  applyThemeVariables(themeConfig);
   // ... existing code ...
-}
+};
 ```
 
 ### Testing
@@ -158,20 +161,20 @@ This is the simplest approach and aligns with user journey expectations.
 **Replace entire file**:
 
 ```typescript
-import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function HomePage() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
-    navigate('/library')
-  }, [navigate])
+    navigate("/library");
+  }, [navigate]);
 
-  return null
+  return null;
 }
 
-export default HomePage
+export default HomePage;
 ```
 
 ### Alternative: Rich Landing Page

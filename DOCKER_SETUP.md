@@ -338,7 +338,7 @@ For production:
    deploy:
      resources:
        limits:
-         cpus: '0.5'
+         cpus: "0.5"
          memory: 512M
    ```
 

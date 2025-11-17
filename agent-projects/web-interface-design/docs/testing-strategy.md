@@ -846,13 +846,13 @@ describe('StoryCard', () => {
 
 ```typescript
 // frontend/tests/unit/components/SearchBar.test.tsx
-describe('SearchBar', () => {
-  it('renders search input', () => {});
-  it('debounces search input (300ms)', () => {});
-  it('calls onSearch with query', () => {});
-  it('shows clear button when text entered', () => {});
-  it('clears search when clear button clicked', () => {});
-  it('submits search on Enter key', () => {});
+describe("SearchBar", () => {
+  it("renders search input", () => {});
+  it("debounces search input (300ms)", () => {});
+  it("calls onSearch with query", () => {});
+  it("shows clear button when text entered", () => {});
+  it("clears search when clear button clicked", () => {});
+  it("submits search on Enter key", () => {});
 });
 ```
 
@@ -860,14 +860,14 @@ describe('SearchBar', () => {
 
 ```typescript
 // frontend/tests/unit/components/TemplateGallery.test.tsx
-describe('TemplateGallery', () => {
-  it('renders list of templates', () => {});
-  it('highlights selected template', () => {});
-  it('shows template details on hover', () => {});
-  it('calls onSelect when template clicked', () => {});
-  it('filters templates by difficulty', () => {});
-  it('shows loading state while fetching', () => {});
-  it('shows error state on fetch failure', () => {});
+describe("TemplateGallery", () => {
+  it("renders list of templates", () => {});
+  it("highlights selected template", () => {});
+  it("shows template details on hover", () => {});
+  it("calls onSelect when template clicked", () => {});
+  it("filters templates by difficulty", () => {});
+  it("shows loading state while fetching", () => {});
+  it("shows error state on fetch failure", () => {});
 });
 ```
 
@@ -875,16 +875,16 @@ describe('TemplateGallery', () => {
 
 ```typescript
 // frontend/tests/unit/components/ChatInterface.test.tsx
-describe('ChatInterface', () => {
-  it('displays chat messages', () => {});
-  it('shows user and AI message styles differently', () => {});
-  it('auto-scrolls to latest message', () => {});
-  it('disables input during AI response', () => {});
-  it('validates input before sending', () => {});
-  it('shows typing indicator during AI response', () => {});
-  it('displays final prompt preview', () => {});
-  it('allows editing previous messages', () => {});
-  it('resets chat when starting new conversation', () => {});
+describe("ChatInterface", () => {
+  it("displays chat messages", () => {});
+  it("shows user and AI message styles differently", () => {});
+  it("auto-scrolls to latest message", () => {});
+  it("disables input during AI response", () => {});
+  it("validates input before sending", () => {});
+  it("shows typing indicator during AI response", () => {});
+  it("displays final prompt preview", () => {});
+  it("allows editing previous messages", () => {});
+  it("resets chat when starting new conversation", () => {});
 });
 ```
 
@@ -892,15 +892,15 @@ describe('ChatInterface', () => {
 
 ```typescript
 // frontend/tests/unit/components/GenerationProgress.test.tsx
-describe('GenerationProgress', () => {
-  it('displays progress bar with percentage', () => {});
-  it('shows current agent name', () => {});
-  it('updates progress on WebSocket message', () => {});
-  it('shows checkmarks for completed agents', () => {});
-  it('shows spinner for active agent', () => {});
-  it('shows error state on generation failure', () => {});
-  it('shows completion state when done', () => {});
-  it('displays estimated time remaining', () => {});
+describe("GenerationProgress", () => {
+  it("displays progress bar with percentage", () => {});
+  it("shows current agent name", () => {});
+  it("updates progress on WebSocket message", () => {});
+  it("shows checkmarks for completed agents", () => {});
+  it("shows spinner for active agent", () => {});
+  it("shows error state on generation failure", () => {});
+  it("shows completion state when done", () => {});
+  it("displays estimated time remaining", () => {});
 });
 ```
 
@@ -908,17 +908,17 @@ describe('GenerationProgress', () => {
 
 ```typescript
 // frontend/tests/unit/components/GameDisplay.test.tsx
-describe('GameDisplay', () => {
-  it('renders scene text with Markdown', () => {});
-  it('displays inventory items', () => {});
-  it('shows output log with scroll', () => {});
-  it('auto-scrolls output log on new message', () => {});
-  it('applies theme styling', () => {});
-  it('shows health/status indicators', () => {});
-  it('displays current scene title', () => {});
-  it('renders item descriptions on hover', () => {});
-  it('shows game over screen', () => {});
-  it('handles empty inventory state', () => {});
+describe("GameDisplay", () => {
+  it("renders scene text with Markdown", () => {});
+  it("displays inventory items", () => {});
+  it("shows output log with scroll", () => {});
+  it("auto-scrolls output log on new message", () => {});
+  it("applies theme styling", () => {});
+  it("shows health/status indicators", () => {});
+  it("displays current scene title", () => {});
+  it("renders item descriptions on hover", () => {});
+  it("shows game over screen", () => {});
+  it("handles empty inventory state", () => {});
 });
 ```
 
@@ -926,14 +926,14 @@ describe('GameDisplay', () => {
 
 ```typescript
 // frontend/tests/unit/components/CommandInput.test.tsx
-describe('CommandInput', () => {
-  it('renders input field', () => {});
-  it('submits command on Enter key', () => {});
-  it('navigates command history with up/down arrows', () => {});
-  it('clears input after submission', () => {});
-  it('disables input during command processing', () => {});
-  it('shows command suggestions', () => {});
-  it('validates command before submission', () => {});
+describe("CommandInput", () => {
+  it("renders input field", () => {});
+  it("submits command on Enter key", () => {});
+  it("navigates command history with up/down arrows", () => {});
+  it("clears input after submission", () => {});
+  it("disables input during command processing", () => {});
+  it("shows command suggestions", () => {});
+  it("validates command before submission", () => {});
 });
 ```
 
@@ -1257,8 +1257,8 @@ def test_concurrent_writes():
 
 ```typescript
 // frontend/tests/integration/CreationFlow.test.tsx
-describe('Story Creation Flow', () => {
-  it('completes full creation workflow', async () => {
+describe("Story Creation Flow", () => {
+  it("completes full creation workflow", async () => {
     // 1. Navigate to create page
     // 2. Select template
     // 3. Customize prompt
@@ -1287,30 +1287,32 @@ describe('Story Creation Flow', () => {
 
 ```typescript
 // tests/e2e/create-from-template.spec.ts
-import { test, expect } from '@playwright/test';
+import { test, expect } from "@playwright/test";
 
-test('First-time user creates story from template', async ({ page }) => {
+test("First-time user creates story from template", async ({ page }) => {
   // PRECONDITIONS
   // - User has never used the system
   // - Database is empty (no stories)
   // - All services are running
 
   // STEP 1: Navigate to home page
-  await page.goto('/');
+  await page.goto("/");
   await expect(page.locator('[data-testid="library-empty"]')).toBeVisible();
 
   // STEP 2: Click "Create New Story"
   await page.click('[data-testid="create-story-button"]');
-  await expect(page).toHaveURL('/create');
+  await expect(page).toHaveURL("/create");
 
   // STEP 3: Select horror template
   await page.click('[data-testid="template-horror"]');
-  await expect(page.locator('[data-testid="template-horror"]')).toHaveClass(/selected/);
+  await expect(page.locator('[data-testid="template-horror"]')).toHaveClass(
+    /selected/,
+  );
 
   // STEP 4: Customize prompt in template
   await page.fill(
     '[data-testid="prompt-input"]',
-    'A dark atmospheric horror adventure with minimal combat and heavy exploration'
+    "A dark atmospheric horror adventure with minimal combat and heavy exploration",
   );
 
   // STEP 5: Click "Generate Story"
@@ -1321,18 +1323,26 @@ test('First-time user creates story from template', async ({ page }) => {
   await expect(page.locator('[data-testid="progress-bar"]')).toBeVisible();
 
   // STEP 7: Wait for progress updates
-  await expect(page.locator('[data-testid="agent-status-PlotMaster"]')).toContainText('✓', {
-    timeout: 120000
+  await expect(
+    page.locator('[data-testid="agent-status-PlotMaster"]'),
+  ).toContainText("✓", {
+    timeout: 120000,
   });
 
   // STEP 8: Wait for completion (up to 10 minutes)
-  await expect(page.locator('[data-testid="generation-complete"]')).toBeVisible({
-    timeout: 600000
-  });
+  await expect(page.locator('[data-testid="generation-complete"]')).toBeVisible(
+    {
+      timeout: 600000,
+    },
+  );
 
   // STEP 9: Verify story details displayed
-  await expect(page.locator('[data-testid="story-title"]')).toContainText('horror');
-  await expect(page.locator('[data-testid="story-stats"]')).toContainText('scenes');
+  await expect(page.locator('[data-testid="story-title"]')).toContainText(
+    "horror",
+  );
+  await expect(page.locator('[data-testid="story-stats"]')).toContainText(
+    "scenes",
+  );
 
   // STEP 10: Click "Play Now"
   await page.click('[data-testid="play-now-button"]');
@@ -1354,11 +1364,10 @@ test('First-time user creates story from template', async ({ page }) => {
 #### Journey 2: Veteran User Iterates on Existing Story
 
 ```typescript
-test('Veteran user iterates on existing story', async ({ page }) => {
+test("Veteran user iterates on existing story", async ({ page }) => {
   // PRECONDITIONS
   // - User has existing story with 1 iteration remaining (4 used)
   // - Story is complete and playable
-
   // STEPS
   // 1. Navigate to library
   // 2. Find story with "Iterate" button
@@ -1368,13 +1377,11 @@ test('Veteran user iterates on existing story', async ({ page }) => {
   // 6. Monitor iteration progress
   // 7. Review changes in new version
   // 8. Accept or reject iteration
-
   // EXPECTED OUTCOMES
   // - New version created with feedback applied
   // - Both versions accessible
   // - Iteration count updated (5/5)
   // - Iterate button disabled after 5th iteration
-
   // ERROR SCENARIOS
   // - Show error if iteration limit reached
   // - Validate feedback min 20 characters
@@ -1384,11 +1391,10 @@ test('Veteran user iterates on existing story', async ({ page }) => {
 #### Journey 3: User Plays Game to Completion
 
 ```typescript
-test('User plays game to completion', async ({ page }) => {
+test("User plays game to completion", async ({ page }) => {
   // PRECONDITIONS
   // - Sample story exists and is playable
   // - User is on game player page
-
   // STEPS
   // 1. Read initial scene
   // 2. Type "look around" command
@@ -1401,13 +1407,11 @@ test('User plays game to completion', async ({ page }) => {
   // 9. Solve puzzle
   // 10. Reach final scene
   // 11. Complete game
-
   // EXPECTED OUTCOMES
   // - All commands processed correctly
   // - Inventory updates in real-time
   // - Game over screen appears
   // - Play count incremented in library
-
   // ERROR SCENARIOS
   // - Invalid commands show helpful message
   // - Session timeout warning before expiration
@@ -1417,11 +1421,10 @@ test('User plays game to completion', async ({ page }) => {
 #### Journey 4: User Saves and Loads Game
 
 ```typescript
-test('User saves and loads game mid-session', async ({ page }) => {
+test("User saves and loads game mid-session", async ({ page }) => {
   // PRECONDITIONS
   // - User is in active game session
   // - User has progressed past initial scene
-
   // STEPS
   // 1. Progress to scene 3
   // 2. Collect 2 items in inventory
@@ -1433,13 +1436,11 @@ test('User saves and loads game mid-session', async ({ page }) => {
   // 8. Click "Load Game" on story
   // 9. Select "Before boss fight" save
   // 10. Verify restored to scene 3 with 2 items
-
   // EXPECTED OUTCOMES
   // - Game state perfectly restored
   // - Inventory preserved
   // - Scene position preserved
   // - Command history cleared
-
   // ERROR SCENARIOS
   // - Corrupted save shows error
   // - Save slot limit (10) enforced
@@ -1449,10 +1450,9 @@ test('User saves and loads game mid-session', async ({ page }) => {
 #### Journey 5: User Browses Library and Filters
 
 ```typescript
-test('User browses library with search and filters', async ({ page }) => {
+test("User browses library with search and filters", async ({ page }) => {
   // PRECONDITIONS
   // - Library has 20+ stories across multiple themes
-
   // STEPS
   // 1. Navigate to library
   // 2. Verify all stories displayed
@@ -1464,7 +1464,6 @@ test('User browses library with search and filters', async ({ page }) => {
   // 8. Verify sort order
   // 9. Clear filters
   // 10. Verify all stories shown again
-
   // EXPECTED OUTCOMES
   // - Search is case-insensitive
   // - Filters combine (AND logic)
@@ -1476,7 +1475,7 @@ test('User browses library with search and filters', async ({ page }) => {
 #### Journey 6: User Switches Themes
 
 ```typescript
-test('User switches visual theme', async ({ page }) => {
+test("User switches visual theme", async ({ page }) => {
   // STEPS
   // 1. Open theme selector
   // 2. Verify current theme highlighted
@@ -1486,7 +1485,6 @@ test('User switches visual theme', async ({ page }) => {
   // 6. Verify theme persisted
   // 7. Reload browser
   // 8. Verify theme still applied
-
   // EXPECTED OUTCOMES
   // - Theme changes immediately
   // - All components styled correctly
@@ -1497,9 +1495,8 @@ test('User switches visual theme', async ({ page }) => {
 #### Journey 7: Generation Timeout Error Recovery
 
 ```typescript
-test('User recovers from generation timeout', async ({ page }) => {
+test("User recovers from generation timeout", async ({ page }) => {
   // Simulate timeout by mocking long-running generation
-
   // STEPS
   // 1. Start story generation
   // 2. Wait 15+ minutes
@@ -1507,7 +1504,6 @@ test('User recovers from generation timeout', async ({ page }) => {
   // 4. Verify "Try Again" button shown
   // 5. Click "Try Again"
   // 6. Verify new generation started
-
   // EXPECTED OUTCOMES
   // - User-friendly error message
   // - Retry option available
@@ -1518,7 +1514,7 @@ test('User recovers from generation timeout', async ({ page }) => {
 #### Journey 8: WebSocket Disconnect and Reconnect
 
 ```typescript
-test('WebSocket reconnects after network interruption', async ({ page }) => {
+test("WebSocket reconnects after network interruption", async ({ page }) => {
   // STEPS
   // 1. Start story generation
   // 2. Monitor progress updates
@@ -1527,7 +1523,6 @@ test('WebSocket reconnects after network interruption', async ({ page }) => {
   // 5. Restore network
   // 6. Verify reconnection successful
   // 7. Verify progress updates resume
-
   // EXPECTED OUTCOMES
   // - Automatic reconnection with backoff
   // - No progress lost
@@ -1538,7 +1533,7 @@ test('WebSocket reconnects after network interruption', async ({ page }) => {
 #### Journey 9: Invalid Prompt Validation
 
 ```typescript
-test('User receives validation errors for invalid prompt', async ({ page }) => {
+test("User receives validation errors for invalid prompt", async ({ page }) => {
   // STEPS
   // 1. Navigate to create page
   // 2. Enter prompt with 10 characters (min 50)
@@ -1548,7 +1543,6 @@ test('User receives validation errors for invalid prompt', async ({ page }) => {
   // 6. Verify validation error
   // 7. Enter valid 200-char prompt
   // 8. Verify generation starts
-
   // EXPECTED OUTCOMES
   // - Clear validation messages
   // - Character count displayed
@@ -1559,17 +1553,15 @@ test('User receives validation errors for invalid prompt', async ({ page }) => {
 #### Journey 10: Iteration Limit Reached
 
 ```typescript
-test('User informed when iteration limit reached', async ({ page }) => {
+test("User informed when iteration limit reached", async ({ page }) => {
   // PRECONDITIONS
   // - Story has 5 iterations (max reached)
-
   // STEPS
   // 1. Navigate to story details
   // 2. Verify "5/5 iterations" badge
   // 3. Verify iterate button disabled
   // 4. Hover over button
   // 5. Verify tooltip: "Maximum iterations reached"
-
   // EXPECTED OUTCOMES
   // - User cannot start 6th iteration
   // - Clear explanation provided
@@ -1580,7 +1572,9 @@ test('User informed when iteration limit reached', async ({ page }) => {
 #### Journey 11: Concurrent Generation Attempt
 
 ```typescript
-test('User prevented from starting concurrent generations', async ({ page }) => {
+test("User prevented from starting concurrent generations", async ({
+  page,
+}) => {
   // STEPS
   // 1. Start first generation
   // 2. Open new tab
@@ -1596,14 +1590,13 @@ test('User prevented from starting concurrent generations', async ({ page }) => 
 #### Journey 12: Sample Story Cannot Be Deleted
 
 ```typescript
-test('User cannot delete sample stories', async ({ page }) => {
+test("User cannot delete sample stories", async ({ page }) => {
   // STEPS
   // 1. Navigate to library
   // 2. Hover over sample story
   // 3. Verify no delete button shown
   // 4. Right-click sample story
   // 5. Verify no delete context menu
-
   // EXPECTED OUTCOMES
   // - Sample stories clearly marked
   // - Delete action unavailable
@@ -1614,17 +1607,15 @@ test('User cannot delete sample stories', async ({ page }) => {
 #### Journey 13: Large Story Performance
 
 ```typescript
-test('User plays large story (100+ scenes) smoothly', async ({ page }) => {
+test("User plays large story (100+ scenes) smoothly", async ({ page }) => {
   // PRECONDITIONS
   // - Story with 100 scenes, 50 items, 20 NPCs
-
   // STEPS
   // 1. Load large story
   // 2. Measure initial load time
   // 3. Execute 50 commands rapidly
   // 4. Measure response times
   // 5. Verify no lag or freezing
-
   // EXPECTED OUTCOMES
   // - Load time <3s
   // - Command response <500ms (p95)
@@ -1635,9 +1626,8 @@ test('User plays large story (100+ scenes) smoothly', async ({ page }) => {
 #### Journey 14: Mobile Browser Gameplay
 
 ```typescript
-test('User plays game on mobile device', async ({ page }) => {
+test("User plays game on mobile device", async ({ page }) => {
   // Viewport set to mobile (375x667)
-
   // STEPS
   // 1. Navigate to library on mobile
   // 2. Verify responsive layout
@@ -1646,7 +1636,6 @@ test('User plays game on mobile device', async ({ page }) => {
   // 5. Verify no layout issues
   // 6. Save game
   // 7. Verify modals responsive
-
   // EXPECTED OUTCOMES
   // - All features work on mobile
   // - Touch-friendly controls
@@ -1657,7 +1646,7 @@ test('User plays game on mobile device', async ({ page }) => {
 #### Journey 15: Keyboard Navigation (Accessibility)
 
 ```typescript
-test('User navigates entire app with keyboard only', async ({ page }) => {
+test("User navigates entire app with keyboard only", async ({ page }) => {
   // STEPS
   // 1. Tab through library page
   // 2. Verify focus indicators visible
@@ -1667,7 +1656,6 @@ test('User navigates entire app with keyboard only', async ({ page }) => {
   // 6. Submit with Enter
   // 7. Navigate progress page with Tab
   // 8. Use arrow keys in game commands
-
   // EXPECTED OUTCOMES
   // - All interactive elements focusable
   // - Tab order logical
@@ -1682,7 +1670,7 @@ test('User navigates entire app with keyboard only', async ({ page }) => {
 
 ```typescript
 // tests/e2e/setup.ts
-import { test as base } from '@playwright/test';
+import { test as base } from "@playwright/test";
 
 export const test = base.extend({
   // Start all services before tests
@@ -1694,7 +1682,7 @@ export const test = base.extend({
 
     // Cleanup after tests
     await cleanupDatabase();
-  }
+  },
 });
 ```
 
@@ -1732,35 +1720,35 @@ export async function loginAsUser(page, userId) {
 
 ```javascript
 // tests/performance/concurrent-generations.js
-import http from 'k6/http';
-import { check, sleep } from 'k6';
+import http from "k6/http";
+import { check, sleep } from "k6";
 
 export const options = {
   stages: [
-    { duration: '2m', target: 10 },  // Ramp up to 10 users
-    { duration: '5m', target: 10 },  // Stay at 10 users
-    { duration: '2m', target: 0 },   // Ramp down
+    { duration: "2m", target: 10 }, // Ramp up to 10 users
+    { duration: "5m", target: 10 }, // Stay at 10 users
+    { duration: "2m", target: 0 }, // Ramp down
   ],
   thresholds: {
-    'http_req_duration': ['p(95)<15000'], // 95% requests < 15s
-    'http_req_failed': ['rate<0.1'],      // <10% failures
+    http_req_duration: ["p(95)<15000"], // 95% requests < 15s
+    http_req_failed: ["rate<0.1"], // <10% failures
   },
 };
 
 export default function () {
   // Start story generation
   const payload = JSON.stringify({
-    prompt: 'Create a test story for load testing',
-    theme_id: 'warhammer40k'
+    prompt: "Create a test story for load testing",
+    theme_id: "warhammer40k",
   });
 
-  const response = http.post('http://localhost:8000/api/v1/stories', payload, {
-    headers: { 'Content-Type': 'application/json' },
+  const response = http.post("http://localhost:8000/api/v1/stories", payload, {
+    headers: { "Content-Type": "application/json" },
   });
 
   check(response, {
-    'is status 202': (r) => r.status === 202,
-    'has job_id': (r) => r.json('data.generation_job_id') !== undefined,
+    "is status 202": (r) => r.status === 202,
+    "has job_id": (r) => r.json("data.generation_job_id") !== undefined,
   });
 
   sleep(1);
@@ -1773,24 +1761,24 @@ export default function () {
 // tests/performance/api-throughput.js
 export const options = {
   stages: [
-    { duration: '1m', target: 100 },  // 100 concurrent users
-    { duration: '3m', target: 100 },
-    { duration: '1m', target: 0 },
+    { duration: "1m", target: 100 }, // 100 concurrent users
+    { duration: "3m", target: 100 },
+    { duration: "1m", target: 0 },
   ],
   thresholds: {
-    'http_req_duration': ['p(95)<100'], // 95% requests < 100ms
+    http_req_duration: ["p(95)<100"], // 95% requests < 100ms
   },
 };
 
 export default function () {
   // GET /api/v1/stories (list)
-  http.get('http://localhost:8000/api/v1/stories');
+  http.get("http://localhost:8000/api/v1/stories");
 
   // GET /api/v1/themes
-  http.get('http://localhost:8000/api/v1/themes');
+  http.get("http://localhost:8000/api/v1/themes");
 
   // GET /api/v1/templates
-  http.get('http://localhost:8000/api/v1/templates');
+  http.get("http://localhost:8000/api/v1/templates");
 
   sleep(1);
 }
@@ -1802,23 +1790,23 @@ export default function () {
 // tests/performance/concurrent-gameplay.js
 export const options = {
   stages: [
-    { duration: '2m', target: 50 },  // 50 concurrent players
-    { duration: '5m', target: 50 },
-    { duration: '2m', target: 0 },
+    { duration: "2m", target: 50 }, // 50 concurrent players
+    { duration: "5m", target: 50 },
+    { duration: "2m", target: 0 },
   ],
 };
 
 export default function () {
   // Start game session
   const startResponse = http.post(
-    `http://localhost:8000/api/v1/game/${__ENV.STORY_ID}/start`
+    `http://localhost:8000/api/v1/game/${__ENV.STORY_ID}/start`,
   );
-  const sessionId = startResponse.json('data.game_session_id');
+  const sessionId = startResponse.json("data.game_session_id");
 
   // Send 10 commands
   for (let i = 0; i < 10; i++) {
     http.post(`http://localhost:8000/api/v1/game/${sessionId}/command`, {
-      command: 'look around'
+      command: "look around",
     });
     sleep(2);
   }
@@ -1829,13 +1817,13 @@ export default function () {
 
 ```javascript
 // tests/performance/websocket-stability.js
-import ws from 'k6/ws';
+import ws from "k6/ws";
 
 export const options = {
   stages: [
-    { duration: '1m', target: 100 },  // 100 WebSocket connections
-    { duration: '10m', target: 100 }, // Hold for 10 minutes
-    { duration: '1m', target: 0 },
+    { duration: "1m", target: 100 }, // 100 WebSocket connections
+    { duration: "10m", target: 100 }, // Hold for 10 minutes
+    { duration: "1m", target: 0 },
   ],
 };
 
@@ -1844,19 +1832,20 @@ export default function () {
   const url = `ws://localhost:8000/ws/generation/${jobId}`;
 
   const response = ws.connect(url, {}, function (socket) {
-    socket.on('open', () => {
-      socket.send(JSON.stringify({ type: 'subscribe' }));
+    socket.on("open", () => {
+      socket.send(JSON.stringify({ type: "subscribe" }));
     });
 
-    socket.on('message', (data) => {
+    socket.on("message", (data) => {
       const message = JSON.parse(data);
       check(message, {
-        'has type': (m) => m.type !== undefined,
-        'valid progress': (m) => m.type !== 'progress' || m.progress_percent >= 0,
+        "has type": (m) => m.type !== undefined,
+        "valid progress": (m) =>
+          m.type !== "progress" || m.progress_percent >= 0,
       });
     });
 
-    socket.on('close', () => {
+    socket.on("close", () => {
       // Expected after generation completes
     });
 
@@ -1871,16 +1860,16 @@ export default function () {
 
 **Target Metrics**:
 
-| Operation | p50 | p95 | p99 |
-|-----------|-----|-----|-----|
-| GET /api/v1/stories | <50ms | <100ms | <200ms |
-| POST /api/v1/stories | <200ms | <500ms | <1s |
-| GET /api/v1/stories/{id} | <30ms | <100ms | <150ms |
-| GET /api/v1/stories/{id}/content | <100ms | <500ms | <1s |
-| POST /api/v1/game/{id}/command | <100ms | <500ms | <1s |
-| Story generation (full) | <5min | <10min | <15min |
-| Library page load | <1s | <2s | <3s |
-| Game player initial load | <500ms | <1s | <2s |
+| Operation                        | p50    | p95    | p99    |
+| -------------------------------- | ------ | ------ | ------ |
+| GET /api/v1/stories              | <50ms  | <100ms | <200ms |
+| POST /api/v1/stories             | <200ms | <500ms | <1s    |
+| GET /api/v1/stories/{id}         | <30ms  | <100ms | <150ms |
+| GET /api/v1/stories/{id}/content | <100ms | <500ms | <1s    |
+| POST /api/v1/game/{id}/command   | <100ms | <500ms | <1s    |
+| Story generation (full)          | <5min  | <10min | <15min |
+| Library page load                | <1s    | <2s    | <3s    |
+| Game player initial load         | <500ms | <1s    | <2s    |
 
 **Resource Limits**:
 
@@ -2018,27 +2007,27 @@ export default function () {
 
 ```typescript
 // tests/accessibility/a11y.test.ts
-import { test, expect } from '@playwright/test';
-import AxeBuilder from '@axe-core/playwright';
+import { test, expect } from "@playwright/test";
+import AxeBuilder from "@axe-core/playwright";
 
-test('Library page has no accessibility violations', async ({ page }) => {
-  await page.goto('/library');
+test("Library page has no accessibility violations", async ({ page }) => {
+  await page.goto("/library");
 
   const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
 
   expect(accessibilityScanResults.violations).toEqual([]);
 });
 
-test('Create page keyboard navigable', async ({ page }) => {
-  await page.goto('/create');
+test("Create page keyboard navigable", async ({ page }) => {
+  await page.goto("/create");
 
   // Tab through all interactive elements
-  await page.keyboard.press('Tab');
-  await expect(page.locator(':focus')).toBeVisible();
+  await page.keyboard.press("Tab");
+  await expect(page.locator(":focus")).toBeVisible();
 
   // Verify no keyboard traps
   for (let i = 0; i < 20; i++) {
-    await page.keyboard.press('Tab');
+    await page.keyboard.press("Tab");
   }
 });
 ```
@@ -2070,27 +2059,27 @@ lighthouse http://localhost:3000 --only-categories=accessibility --output=html
 
 ```typescript
 // Test each page for WCAG compliance
-describe('Accessibility Compliance', () => {
-  test('Library page - WCAG AA', async () => {});
-  test('Create page - WCAG AA', async () => {});
-  test('Game player - WCAG AA', async () => {});
-  test('Settings page - WCAG AA', async () => {});
+describe("Accessibility Compliance", () => {
+  test("Library page - WCAG AA", async () => {});
+  test("Create page - WCAG AA", async () => {});
+  test("Game player - WCAG AA", async () => {});
+  test("Settings page - WCAG AA", async () => {});
 });
 
 // Test keyboard navigation
-describe('Keyboard Navigation', () => {
-  test('Tab order is logical', async () => {});
-  test('All buttons activatable with Enter/Space', async () => {});
-  test('Modals trap focus correctly', async () => {});
-  test('Skip navigation link works', async () => {});
+describe("Keyboard Navigation", () => {
+  test("Tab order is logical", async () => {});
+  test("All buttons activatable with Enter/Space", async () => {});
+  test("Modals trap focus correctly", async () => {});
+  test("Skip navigation link works", async () => {});
 });
 
 // Test screen reader announcements
-describe('Screen Reader Support', () => {
-  test('Page title updates on navigation', async () => {});
-  test('Live regions announce dynamic changes', async () => {});
-  test('Forms have associated labels', async () => {});
-  test('Error messages announced', async () => {});
+describe("Screen Reader Support", () => {
+  test("Page title updates on navigation", async () => {});
+  test("Live regions announce dynamic changes", async () => {});
+  test("Forms have associated labels", async () => {});
+  test("Error messages announced", async () => {});
 });
 ```
 
@@ -2449,39 +2438,39 @@ def sample_game_content():
 ```typescript
 // frontend/tests/fixtures/stories.ts
 export const mockStory = {
-  id: '550e8400-e29b-41d4-a716-446655440000',
-  title: 'Mock Story',
-  description: 'A mock story for testing',
-  theme_id: 'warhammer40k',
+  id: "550e8400-e29b-41d4-a716-446655440000",
+  title: "Mock Story",
+  description: "A mock story for testing",
+  theme_id: "warhammer40k",
   scene_count: 8,
   play_count: 5,
-  created_at: '2025-11-12T10:00:00Z'
+  created_at: "2025-11-12T10:00:00Z",
 };
 
 export const mockStoryList = [
   mockStory,
-  { ...mockStory, id: 'story-2', title: 'Story 2' },
-  { ...mockStory, id: 'story-3', title: 'Story 3' }
+  { ...mockStory, id: "story-2", title: "Story 2" },
+  { ...mockStory, id: "story-3", title: "Story 3" },
 ];
 
 export const mockGenerationJob = {
-  generation_job_id: '770e8400-e29b-41d4-a716-446655440002',
-  story_id: '550e8400-e29b-41d4-a716-446655440000',
-  status: 'in_progress',
+  generation_job_id: "770e8400-e29b-41d4-a716-446655440002",
+  story_id: "550e8400-e29b-41d4-a716-446655440000",
+  status: "in_progress",
   progress_percent: 45,
-  current_agent: 'NarrativeArchitect'
+  current_agent: "NarrativeArchitect",
 };
 
 export const mockGameSession = {
-  game_session_id: '880e8400-e29b-41d4-a716-446655440003',
-  story_id: '550e8400-e29b-41d4-a716-446655440000',
-  initial_scene: 'You awaken in darkness...',
+  game_session_id: "880e8400-e29b-41d4-a716-446655440003",
+  story_id: "550e8400-e29b-41d4-a716-446655440000",
+  initial_scene: "You awaken in darkness...",
   state: {
-    current_scene: 'scene_001',
-    inventory: ['flashlight'],
+    current_scene: "scene_001",
+    inventory: ["flashlight"],
     flags: [],
-    health: 100
-  }
+    health: 100,
+  },
 };
 ```
 
@@ -3010,16 +2999,16 @@ def test_function_name():
 
 ### Test Count Overview
 
-| Category | Tests |
-|----------|-------|
-| **Backend Unit** | 68 |
-| **Frontend Unit** | 55 |
-| **Integration** | 50 |
-| **End-to-End** | 15 |
-| **Performance** | 4 scenarios |
-| **Accessibility** | 20 |
-| **Security** | 22 |
-| **Total** | **230+** |
+| Category          | Tests       |
+| ----------------- | ----------- |
+| **Backend Unit**  | 68          |
+| **Frontend Unit** | 55          |
+| **Integration**   | 50          |
+| **End-to-End**    | 15          |
+| **Performance**   | 4 scenarios |
+| **Accessibility** | 20          |
+| **Security**      | 22          |
+| **Total**         | **230+**    |
 
 ### Coverage Targets
 

@@ -174,9 +174,9 @@ def process_output(self, output):
 CreateNarrativeMap:
   agent: "NarrativeArchitectAgent"
   context:
-    - "GenerateOverarchingPlot"  # Use output as reference
+    - "GenerateOverarchingPlot" # Use output as reference
   dependencies:
-    - "EvaluateNarrativeFoundation"  # Must complete first
+    - "EvaluateNarrativeFoundation" # Must complete first
 ```
 
 #### Linear Dependency Chains

@@ -147,7 +147,6 @@ example2_pacman: >
   then game over. if he finishes all food points in one level, he moves on to the next
   level, in which pacman moves faster, and more ghosts appear.
 
-
 example3_snake: >
   """Snake Game Description
   Objective:

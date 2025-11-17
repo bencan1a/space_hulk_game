@@ -149,7 +149,7 @@ We have two different data models serving different purposes:
 
 **Task Definition Example:**
 
-```yaml
+````yaml
 TranslateNarrativeToGameStructure:
   name: "Translate Narrative to Playable Game Structure"
   description: >
@@ -191,7 +191,7 @@ TranslateNarrativeToGameStructure:
   dependencies:
     - "FinalNarrativeIntegration"
   output_file: "game-config/playable_game.json"
-```
+````
 
 **Agent Definition Example:**
 

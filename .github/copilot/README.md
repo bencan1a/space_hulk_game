@@ -10,14 +10,14 @@ The agent configuration files in this directory were originally created as stand
 
 The agent profiles have been migrated:
 
-| Old Location | New Location |
-|--------------|--------------|
-| `.github/copilot/agent.yml` | `.github/agents/space-hulk-game-assistant.md` |
-| `.github/copilot/python-agent.yml` | `.github/agents/python-developer.md` |
-| `.github/copilot/crewai-agent.yml` | `.github/agents/crewai-specialist.md` |
+| Old Location                               | New Location                                  |
+| ------------------------------------------ | --------------------------------------------- |
+| `.github/copilot/agent.yml`                | `.github/agents/space-hulk-game-assistant.md` |
+| `.github/copilot/python-agent.yml`         | `.github/agents/python-developer.md`          |
+| `.github/copilot/crewai-agent.yml`         | `.github/agents/crewai-specialist.md`         |
 | `.github/copilot/game-mechanics-agent.yml` | `.github/agents/game-mechanics-specialist.md` |
-| `.github/copilot/yaml-agent.yml` | `.github/agents/yaml-expert.md` |
-| `.github/copilot/testing-agent.yml` | `.github/agents/testing-specialist.md` |
+| `.github/copilot/yaml-agent.yml`           | `.github/agents/yaml-expert.md`               |
+| `.github/copilot/testing-agent.yml`        | `.github/agents/testing-specialist.md`        |
 
 ### New Format
 
@@ -35,6 +35,7 @@ Agent documentation and instructions in markdown...
 ```
 
 This format is the correct structure for GitHub Copilot custom agents and allows them to be properly discovered and used in:
+
 - GitHub Copilot in IDEs (VS Code, JetBrains, etc.)
 - GitHub Copilot CLI
 - GitHub web interface

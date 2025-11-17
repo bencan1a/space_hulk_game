@@ -39,7 +39,7 @@ const stories = await apiClient.getStories({
   page_size: 20,
   search: 'space marine',
   theme_id: 'warhammer40k',
-  tags: ['action', 'horror']
+  tags: ['action', 'horror'],
 })
 ```
 
@@ -55,7 +55,7 @@ const story = await apiClient.getStory(1)
 const session = await apiClient.createStory({
   prompt: 'A story about exploring a derelict ship',
   theme_id: 'warhammer40k',
-  template_id: 'basic'  // optional
+  template_id: 'basic', // optional
 })
 ```
 
@@ -87,7 +87,7 @@ console.log(`Session ID: ${gameSession.session_id}`)
 
 ```typescript
 const response = await apiClient.sendCommand('session-id', {
-  command: 'look around'
+  command: 'look around',
 })
 console.log(response.output)
 ```
@@ -124,10 +124,10 @@ try {
   const story = await apiClient.getStory(999)
 } catch (error) {
   if (error instanceof AppError) {
-    console.log(error.code)          // Error code (e.g., 'NOT_FOUND')
-    console.log(error.userMessage)   // User-friendly message
+    console.log(error.code) // Error code (e.g., 'NOT_FOUND')
+    console.log(error.userMessage) // User-friendly message
     console.log(error.retryPossible) // Whether retry is possible
-    console.log(error.status)        // HTTP status code
+    console.log(error.status) // HTTP status code
   }
 
   // Or use the helper function

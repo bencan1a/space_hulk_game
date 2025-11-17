@@ -61,9 +61,7 @@
       },
       "choice_and_consequence": {
         "description": "Throughout the game, players are presented with significant narrative decisions, often with no clear 'right' answer. These choices impact character relationships, access to information, tactical advantages/disadvantages, and ultimately lead to different narrative paths and endings.",
-        "commands": [
-          "'1', '2', '3' (Select Dialogue/Action Option)"
-        ],
+        "commands": ["'1', '2', '3' (Select Dialogue/Action Option)"],
         "narrative_purpose": "This is the core mechanic for 'Moral Crucible' and 'Sacrifice vs. self-preservation' themes. It directly enables player agency in shaping the character arcs (e.g., Kaelen's adherence to protocol vs. pragmatic action; Valerius's approach to unknown tech; Tyberius's fury; Lyra's scientific curiosity). Decisions determine which 'Narrative Map' connections are taken, leading to alternate scenes and ultimately different endings (plot points 5 & 6), directly reflecting the 'grimdark' tone where decisions are hard and consequences are severe."
       },
       "resource_management": {

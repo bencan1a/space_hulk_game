@@ -75,9 +75,7 @@
     "power_restoration": {
       "name": "Restore Power",
       "description": "Restore power to the ship's systems",
-      "required_items": [
-        "power_cell"
-      ],
+      "required_items": ["power_cell"],
       "solution_flag": "power_restored",
       "reward_text": "The lights flicker on throughout the vessel"
     }
