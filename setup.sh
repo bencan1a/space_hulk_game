@@ -292,15 +292,40 @@ install_python_deps() {
 
     if [ "$INSTALL_DEV" = true ]; then
         print_message "$YELLOW" "Creating virtual environment and installing with dev dependencies..."
-        uv sync --dev
+        uv sync --dev --extra web-backend
     else
         print_message "$YELLOW" "Creating virtual environment and installing dependencies..."
-        uv sync
+        uv sync --extra web-backend
     fi
 
     print_message "$GREEN" "✓ Virtual environment created at .venv/"
     print_message "$GREEN" "✓ Dependencies installed from lock file"
+    print_message "$GREEN" "✓ Web backend dependencies installed"
     print_message "$YELLOW" "📝 Activate the environment with: source .venv/bin/activate"
+}
+
+# Install frontend dependencies
+install_frontend_deps() {
+    print_header "Installing Frontend Dependencies"
+
+    if [ ! -d "frontend" ]; then
+        print_message "$YELLOW" "Frontend directory not found, skipping npm install"
+        return
+    fi
+
+    cd frontend
+
+    if [ ! -f "package.json" ]; then
+        print_message "$YELLOW" "package.json not found, skipping npm install"
+        cd ..
+        return
+    fi
+
+    print_message "$YELLOW" "Installing frontend npm packages..."
+    npm install
+
+    print_message "$GREEN" "✓ Frontend dependencies installed"
+    cd ..
 }
 
 # Setup environment file
@@ -496,6 +521,7 @@ main() {
     install_ollama
     pull_model
     install_python_deps
+    install_frontend_deps
     setup_env
     setup_vscode
     verify_installation

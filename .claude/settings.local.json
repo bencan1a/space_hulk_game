@@ -28,7 +28,11 @@
       "Bash(make check:*)",
       "Bash(npx prettier --write .)",
       "Bash(npx prettier --check .)",
-      "Bash(make type-check-files:*)"
+      "Bash(make type-check-files:*)",
+      "Bash(npm run lint:*)",
+      "Bash(npm run type-check:*)",
+      "Bash(npm install)",
+      "Bash(npm run test:*)"
     ],
     "deny": [],
     "ask": []
