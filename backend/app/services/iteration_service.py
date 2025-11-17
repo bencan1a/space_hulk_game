@@ -136,9 +136,7 @@ class IterationService:
 
             # Trigger generation using the generation service
             # Use the same template_id as the original story if available
-            template_id: str | None = (
-                story.template_id if story.template_id else None  # type: ignore[assignment]
-            )
+            template_id: str | None = story.template_id  # type: ignore[assignment]
             session_id = self.generation_service.start_generation(
                 prompt=enhanced_prompt, template_id=template_id
             )
