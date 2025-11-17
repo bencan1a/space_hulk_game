@@ -1,481 +1,46 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, minimum-scale=1"
-    />
-    <meta name="generator" content="pdoc3 0.11.6" />
-    <title>space_hulk_game.engine.entities API documentation</title>
-    <meta name="description" content="Entity Classes Module …" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css"
-      integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA=="
-      crossorigin
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css"
-      integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA=="
-      crossorigin
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"
-      crossorigin
-    />
-    <style>
-      :root {
-        --highlight-color: #fe9;
-      }
-      .flex {
-        display: flex !important;
-      }
-      body {
-        line-height: 1.5em;
-      }
-      #content {
-        padding: 20px;
-      }
-      #sidebar {
-        padding: 1.5em;
-        overflow: hidden;
-      }
-      #sidebar > *:last-child {
-        margin-bottom: 2cm;
-      }
-      .http-server-breadcrumbs {
-        font-size: 130%;
-        margin: 0 0 15px 0;
-      }
-      #footer {
-        font-size: 0.75em;
-        padding: 5px 30px;
-        border-top: 1px solid #ddd;
-        text-align: right;
-      }
-      #footer p {
-        margin: 0 0 0 1em;
-        display: inline-block;
-      }
-      #footer p:last-child {
-        margin-right: 30px;
-      }
-      h1,
-      h2,
-      h3,
-      h4,
-      h5 {
-        font-weight: 300;
-      }
-      h1 {
-        font-size: 2.5em;
-        line-height: 1.1em;
-      }
-      h2 {
-        font-size: 1.75em;
-        margin: 2em 0 0.5em 0;
-      }
-      h3 {
-        font-size: 1.4em;
-        margin: 1.6em 0 0.7em 0;
-      }
-      h4 {
-        margin: 0;
-        font-size: 105%;
-      }
-      h1:target,
-      h2:target,
-      h3:target,
-      h4:target,
-      h5:target,
-      h6:target {
-        background: var(--highlight-color);
-        padding: 0.2em 0;
-      }
-      a {
-        color: #058;
-        text-decoration: none;
-        transition: color 0.2s ease-in-out;
-      }
-      a:visited {
-        color: #503;
-      }
-      a:hover {
-        color: #b62;
-      }
-      .title code {
-        font-weight: bold;
-      }
-      h2[id^="header-"] {
-        margin-top: 2em;
-      }
-      .ident {
-        color: #900;
-        font-weight: bold;
-      }
-      pre code {
-        font-size: 0.8em;
-        line-height: 1.4em;
-        padding: 1em;
-        display: block;
-      }
-      code {
-        background: #f3f3f3;
-        font-family: "DejaVu Sans Mono", monospace;
-        padding: 1px 4px;
-        overflow-wrap: break-word;
-      }
-      h1 code {
-        background: transparent;
-      }
-      pre {
-        border-top: 1px solid #ccc;
-        border-bottom: 1px solid #ccc;
-        margin: 1em 0;
-      }
-      #http-server-module-list {
-        display: flex;
-        flex-flow: column;
-      }
-      #http-server-module-list div {
-        display: flex;
-      }
-      #http-server-module-list dt {
-        min-width: 10%;
-      }
-      #http-server-module-list p {
-        margin-top: 0;
-      }
-      .toc ul,
-      #index {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-      }
-      #index code {
-        background: transparent;
-      }
-      #index h3 {
-        border-bottom: 1px solid #ddd;
-      }
-      #index ul {
-        padding: 0;
-      }
-      #index h4 {
-        margin-top: 0.6em;
-        font-weight: bold;
-      }
-      @media (min-width: 200ex) {
-        #index .two-column {
-          column-count: 2;
-        }
-      }
-      @media (min-width: 300ex) {
-        #index .two-column {
-          column-count: 3;
-        }
-      }
-      dl {
-        margin-bottom: 2em;
-      }
-      dl dl:last-child {
-        margin-bottom: 4em;
-      }
-      dd {
-        margin: 0 0 1em 3em;
-      }
-      #header-classes + dl > dd {
-        margin-bottom: 3em;
-      }
-      dd dd {
-        margin-left: 2em;
-      }
-      dd p {
-        margin: 10px 0;
-      }
-      .name {
-        background: #eee;
-        font-size: 0.85em;
-        padding: 5px 10px;
-        display: inline-block;
-        min-width: 40%;
-      }
-      .name:hover {
-        background: #e0e0e0;
-      }
-      dt:target .name {
-        background: var(--highlight-color);
-      }
-      .name > span:first-child {
-        white-space: nowrap;
-      }
-      .name.class > span:nth-child(2) {
-        margin-left: 0.4em;
-      }
-      .inherited {
-        color: #999;
-        border-left: 5px solid #eee;
-        padding-left: 1em;
-      }
-      .inheritance em {
-        font-style: normal;
-        font-weight: bold;
-      }
-      .desc h2 {
-        font-weight: 400;
-        font-size: 1.25em;
-      }
-      .desc h3 {
-        font-size: 1em;
-      }
-      .desc dt code {
-        background: inherit;
-      }
-      .source > summary,
-      .git-link-div {
-        color: #666;
-        text-align: right;
-        font-weight: 400;
-        font-size: 0.8em;
-        text-transform: uppercase;
-      }
-      .source summary > * {
-        white-space: nowrap;
-        cursor: pointer;
-      }
-      .git-link {
-        color: inherit;
-        margin-left: 1em;
-      }
-      .source pre {
-        max-height: 500px;
-        overflow: auto;
-        margin: 0;
-      }
-      .source pre code {
-        font-size: 12px;
-        overflow: visible;
-        min-width: max-content;
-      }
-      .hlist {
-        list-style: none;
-      }
-      .hlist li {
-        display: inline;
-      }
-      .hlist li:after {
-        content: ",\2002";
-      }
-      .hlist li:last-child:after {
-        content: none;
-      }
-      .hlist .hlist {
-        display: inline;
-        padding-left: 1em;
-      }
-      img {
-        max-width: 100%;
-      }
-      td {
-        padding: 0 0.5em;
-      }
-      .admonition {
-        padding: 0.1em 1em;
-        margin: 1em 0;
-      }
-      .admonition-title {
-        font-weight: bold;
-      }
-      .admonition.note,
-      .admonition.info,
-      .admonition.important {
-        background: #aef;
-      }
-      .admonition.todo,
-      .admonition.versionadded,
-      .admonition.tip,
-      .admonition.hint {
-        background: #dfd;
-      }
-      .admonition.warning,
-      .admonition.versionchanged,
-      .admonition.deprecated {
-        background: #fd4;
-      }
-      .admonition.error,
-      .admonition.danger,
-      .admonition.caution {
-        background: lightpink;
-      }
-    </style>
-    <style media="screen and (min-width: 700px)">
-      @media screen and (min-width: 700px) {
-        #sidebar {
-          width: 30%;
-          height: 100vh;
-          overflow: auto;
-          position: sticky;
-          top: 0;
-        }
-        #content {
-          width: 70%;
-          max-width: 100ch;
-          padding: 3em 4em;
-          border-left: 1px solid #ddd;
-        }
-        pre code {
-          font-size: 1em;
-        }
-        .name {
-          font-size: 1em;
-        }
-        main {
-          display: flex;
-          flex-direction: row-reverse;
-          justify-content: flex-end;
-        }
-        .toc ul ul,
-        #index ul ul {
-          padding-left: 1em;
-        }
-        .toc > ul > li {
-          margin-top: 0.5em;
-        }
-      }
-    </style>
-    <style media="print">
-      @media print {
-        #sidebar h1 {
-          page-break-before: always;
-        }
-        .source {
-          display: none;
-        }
-      }
-      @media print {
-        * {
-          background: transparent !important;
-          color: #000 !important;
-          box-shadow: none !important;
-          text-shadow: none !important;
-        }
-        a[href]:after {
-          content: " (" attr(href) ")";
-          font-size: 90%;
-        }
-        a[href][title]:after {
-          content: none;
-        }
-        abbr[title]:after {
-          content: " (" attr(title) ")";
-        }
-        .ir a:after,
-        a[href^="javascript:"]:after,
-        a[href^="#"]:after {
-          content: "";
-        }
-        pre,
-        blockquote {
-          border: 1px solid #999;
-          page-break-inside: avoid;
-        }
-        thead {
-          display: table-header-group;
-        }
-        tr,
-        img {
-          page-break-inside: avoid;
-        }
-        img {
-          max-width: 100% !important;
-        }
-        @page {
-          margin: 0.5cm;
-        }
-        p,
-        h2,
-        h3 {
-          orphans: 3;
-          widows: 3;
-        }
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-          page-break-after: avoid;
-        }
-      }
-    </style>
-    <script
-      defer
-      src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
-      integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
-      crossorigin
-    ></script>
-    <script>
-      window.addEventListener("DOMContentLoaded", () => {
-        hljs.configure({
-          languages: [
-            "bash",
-            "css",
-            "diff",
-            "graphql",
-            "ini",
-            "javascript",
-            "json",
-            "plaintext",
-            "python",
-            "python-repl",
-            "rust",
-            "shell",
-            "sql",
-            "typescript",
-            "xml",
-            "yaml",
-          ],
-        });
-        hljs.highlightAll();
-        /* Collapse source docstrings */
-        setTimeout(() => {
-          [...document.querySelectorAll(".hljs.language-python > .hljs-string")]
-            .filter(
-              (el) =>
-                el.innerHTML.length > 200 &&
-                ['"""', "'''"].includes(el.innerHTML.substring(0, 3)),
-            )
-            .forEach((el) => {
-              let d = document.createElement("details");
-              d.classList.add("hljs-string");
-              d.innerHTML =
-                '<summary>"""</summary>' + el.innerHTML.substring(3);
-              el.replaceWith(d);
-            });
-        }, 100);
-      });
-    </script>
-  </head>
-  <body>
-    <main>
-      <article id="content">
-        <header>
-          <h1 class="title">
-            Module <code>space_hulk_game.engine.entities</code>
-          </h1>
-        </header>
-        <section id="section-intro">
-          <p>Entity Classes Module</p>
-          <p>
-            Defines the Item, NPC, and Event classes used in game scenes. These
-            represent interactive elements that players can encounter during
-            gameplay.
-          </p>
-          <h2 id="example">Example</h2>
-          <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import Item, NPC, Event
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>space_hulk_game.engine.entities API documentation</title>
+<meta name="description" content="Entity Classes Module …">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>space_hulk_game.engine.entities</code></h1>
+</header>
+<section id="section-intro">
+<p>Entity Classes Module</p>
+<p>Defines the Item, NPC, and Event classes used in game scenes.
+These represent interactive elements that players can encounter during gameplay.</p>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import Item, NPC, Event
 &gt;&gt;&gt; item = Item(
 ...     id=&quot;dataslate&quot;,
 ...     name=&quot;Ancient Dataslate&quot;,
@@ -490,28 +55,26 @@
 ...     dialogue={&quot;greeting&quot;: &quot;The Omnissiah provides...&quot;}
 ... )
 </code></pre>
-        </section>
-        <section></section>
-        <section></section>
-        <section></section>
-        <section>
-          <h2 class="section-title" id="header-classes">Classes</h2>
-          <dl>
-            <dt id="space_hulk_game.engine.entities.Event">
-              <code class="flex name class">
-                <span>class <span class="ident">Event</span></span>
-                <span>(</span
-                ><span
-                  >id: str,<br />description: str,<br />trigger_on_entry: bool = False,<br />required_flag: str | None = None,<br />one_time: bool = True,<br />effects: dict[str, typing.Any] = &lt;factory&gt;,<br />triggered: bool = False)</span
-                >
-              </code>
-            </dt>
-            <dd>
-              <details class="source">
-                <summary>
-                  <span>Expand source code</span>
-                </summary>
-                <pre><code class="python">@dataclass
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="space_hulk_game.engine.entities.Event"><code class="flex name class">
+<span>class <span class="ident">Event</span></span>
+<span>(</span><span>id: str,<br>description: str,<br>trigger_on_entry: bool = False,<br>required_flag: str | None = None,<br>one_time: bool = True,<br>effects: dict[str, typing.Any] = &lt;factory&gt;,<br>triggered: bool = False)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
 class Event:
     &#34;&#34;&#34;
     Represents a triggerable event in a scene.
@@ -665,53 +228,37 @@ class Event:
         )
         event.triggered = data.get(&#34;triggered&#34;, False)
         return event</code></pre>
-              </details>
-              <div class="desc">
-                <p>Represents a triggerable event in a scene.</p>
-                <p>
-                  Events are scripted occurrences that can happen when the
-                  player enters a scene, performs an action, or meets certain
-                  conditions. They can modify game state, trigger dialogue, or
-                  cause other effects.
-                </p>
-                <h2 id="attributes">Attributes</h2>
-                <dl>
-                  <dt>
-                    <strong><code>id</code></strong>
-                  </dt>
-                  <dd>Unique identifier for the event.</dd>
-                  <dt>
-                    <strong><code>description</code></strong>
-                  </dt>
-                  <dd>Text description of what happens.</dd>
-                  <dt>
-                    <strong><code>trigger_on_entry</code></strong>
-                  </dt>
-                  <dd>Whether the event triggers when entering the scene.</dd>
-                  <dt>
-                    <strong><code>required_flag</code></strong>
-                  </dt>
-                  <dd>Optional game flag required to trigger this event.</dd>
-                  <dt>
-                    <strong><code>one_time</code></strong>
-                  </dt>
-                  <dd>Whether the event can only trigger once.</dd>
-                  <dt>
-                    <strong><code>effects</code></strong>
-                  </dt>
-                  <dd>Dictionary of effects applied when event triggers.</dd>
-                </dl>
-                <h2 id="examples">Examples</h2>
-                <p>Create an entry event:</p>
-                <pre><code class="language-python-repl">&gt;&gt;&gt; ambush = Event(
+</details>
+<div class="desc"><p>Represents a triggerable event in a scene.</p>
+<p>Events are scripted occurrences that can happen when the player enters
+a scene, performs an action, or meets certain conditions. They can
+modify game state, trigger dialogue, or cause other effects.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>id</code></strong></dt>
+<dd>Unique identifier for the event.</dd>
+<dt><strong><code>description</code></strong></dt>
+<dd>Text description of what happens.</dd>
+<dt><strong><code>trigger_on_entry</code></strong></dt>
+<dd>Whether the event triggers when entering the scene.</dd>
+<dt><strong><code>required_flag</code></strong></dt>
+<dd>Optional game flag required to trigger this event.</dd>
+<dt><strong><code>one_time</code></strong></dt>
+<dd>Whether the event can only trigger once.</dd>
+<dt><strong><code>effects</code></strong></dt>
+<dd>Dictionary of effects applied when event triggers.</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<p>Create an entry event:</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; ambush = Event(
 ...     id=&quot;genestealer_ambush&quot;,
 ...     description=&quot;A genestealer drops from the ceiling!&quot;,
 ...     trigger_on_entry=True,
 ...     effects={'spawn_enemy': 'genestealer', 'damage': 20}
 ... )
 </code></pre>
-                <p>Create a conditional event:</p>
-                <pre><code class="language-python-repl">&gt;&gt;&gt; discovery = Event(
+<p>Create a conditional event:</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; discovery = Event(
 ...     id=&quot;find_clue&quot;,
 ...     description=&quot;You notice strange markings on the wall.&quot;,
 ...     required_flag=&quot;has_enhanced_vision&quot;,
@@ -719,122 +266,73 @@ class Event:
 ...     effects={'set_flag': 'clue_found'}
 ... )
 </code></pre>
-                <p>Create a narrative event:</p>
-                <pre><code class="language-python-repl">&gt;&gt;&gt; flashback = Event(
+<p>Create a narrative event:</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; flashback = Event(
 ...     id=&quot;vision&quot;,
 ...     description=&quot;A psychic vision overwhelms you...&quot;,
 ...     trigger_on_entry=True,
 ...     one_time=True,
 ...     effects={'set_flag': 'vision_seen', 'damage': 5}
 ... )
-</code></pre>
-              </div>
-              <h3>Static methods</h3>
-              <dl>
-                <dt id="space_hulk_game.engine.entities.Event.from_dict">
-                  <code class="name flex">
-                    <span>def <span class="ident">from_dict</span></span
-                    >(<span
-                      >data: dict) ‑> <a
-                        title="space_hulk_game.engine.entities.Event"
-                        href="#space_hulk_game.engine.entities.Event"
-                        >Event</a
-                      ></span
-                    >
-                  </code>
-                </dt>
-                <dd>
-                  <div class="desc">
-                    <p>Create an Event from a dictionary.</p>
-                    <h2 id="args">Args</h2>
-                    <dl>
-                      <dt>
-                        <strong><code>data</code></strong>
-                      </dt>
-                      <dd>Dictionary containing event data.</dd>
-                    </dl>
-                    <h2 id="returns">Returns</h2>
-                    <p>A new Event instance.</p>
-                  </div>
-                </dd>
-              </dl>
-              <h3>Instance variables</h3>
-              <dl>
-                <dt id="space_hulk_game.engine.entities.Event.description">
-                  <code class="name"
-                    >var <span class="ident">description</span> : str</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-                <dt id="space_hulk_game.engine.entities.Event.effects">
-                  <code class="name"
-                    >var
-                    <span class="ident">effects</span>
-                    : dict[str, typing.Any]</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-                <dt id="space_hulk_game.engine.entities.Event.id">
-                  <code class="name"
-                    >var <span class="ident">id</span> : str</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-                <dt id="space_hulk_game.engine.entities.Event.one_time">
-                  <code class="name"
-                    >var <span class="ident">one_time</span> : bool</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-                <dt id="space_hulk_game.engine.entities.Event.required_flag">
-                  <code class="name"
-                    >var
-                    <span class="ident">required_flag</span> : str | None</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-                <dt id="space_hulk_game.engine.entities.Event.trigger_on_entry">
-                  <code class="name"
-                    >var
-                    <span class="ident">trigger_on_entry</span> : bool</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-                <dt id="space_hulk_game.engine.entities.Event.triggered">
-                  <code class="name"
-                    >var <span class="ident">triggered</span> : bool</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-              </dl>
-              <h3>Methods</h3>
-              <dl>
-                <dt id="space_hulk_game.engine.entities.Event.can_trigger">
-                  <code class="name flex">
-                    <span>def <span class="ident">can_trigger</span></span
-                    >(<span>self, game_flags: dict[str, bool]) ‑> bool</span>
-                  </code>
-                </dt>
-                <dd>
-                  <details class="source">
-                    <summary>
-                      <span>Expand source code</span>
-                    </summary>
-                    <pre><code class="python">def can_trigger(self, game_flags: dict[str, bool]) -&gt; bool:
+</code></pre></div>
+<h3>Static methods</h3>
+<dl>
+<dt id="space_hulk_game.engine.entities.Event.from_dict"><code class="name flex">
+<span>def <span class="ident">from_dict</span></span>(<span>data: dict) ‑> <a title="space_hulk_game.engine.entities.Event" href="#space_hulk_game.engine.entities.Event">Event</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create an Event from a dictionary.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>data</code></strong></dt>
+<dd>Dictionary containing event data.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>A new Event instance.</p></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="space_hulk_game.engine.entities.Event.description"><code class="name">var <span class="ident">description</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.entities.Event.effects"><code class="name">var <span class="ident">effects</span> : dict[str, typing.Any]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.entities.Event.id"><code class="name">var <span class="ident">id</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.entities.Event.one_time"><code class="name">var <span class="ident">one_time</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.entities.Event.required_flag"><code class="name">var <span class="ident">required_flag</span> : str | None</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.entities.Event.trigger_on_entry"><code class="name">var <span class="ident">trigger_on_entry</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.entities.Event.triggered"><code class="name">var <span class="ident">triggered</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="space_hulk_game.engine.entities.Event.can_trigger"><code class="name flex">
+<span>def <span class="ident">can_trigger</span></span>(<span>self, game_flags: dict[str, bool]) ‑> bool</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def can_trigger(self, game_flags: dict[str, bool]) -&gt; bool:
     &#34;&#34;&#34;
     Check if the event can trigger given current game flags.
 
@@ -860,22 +358,17 @@ class Event:
     if self.required_flag:
         return game_flags.get(self.required_flag, False)
     return True</code></pre>
-                  </details>
-                  <div class="desc">
-                    <p>
-                      Check if the event can trigger given current game flags.
-                    </p>
-                    <h2 id="args">Args</h2>
-                    <dl>
-                      <dt>
-                        <strong><code>game_flags</code></strong>
-                      </dt>
-                      <dd>Dictionary of current game flags.</dd>
-                    </dl>
-                    <h2 id="returns">Returns</h2>
-                    <p>True if the event can trigger, False otherwise.</p>
-                    <h2 id="examples">Examples</h2>
-                    <pre><code class="language-python-repl">&gt;&gt;&gt; event = Event(id=&quot;test&quot;, description=&quot;Test event&quot;,
+</details>
+<div class="desc"><p>Check if the event can trigger given current game flags.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>game_flags</code></strong></dt>
+<dd>Dictionary of current game flags.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>True if the event can trigger, False otherwise.</p>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; event = Event(id=&quot;test&quot;, description=&quot;Test event&quot;,
 ...               required_flag=&quot;key_found&quot;, one_time=True)
 &gt;&gt;&gt; event.can_trigger({})
 False
@@ -884,21 +377,17 @@ True
 &gt;&gt;&gt; event.triggered = True
 &gt;&gt;&gt; event.can_trigger({&quot;key_found&quot;: True})
 False
-</code></pre>
-                  </div>
-                </dd>
-                <dt id="space_hulk_game.engine.entities.Event.reset">
-                  <code class="name flex">
-                    <span>def <span class="ident">reset</span></span
-                    >(<span>self) ‑> None</span>
-                  </code>
-                </dt>
-                <dd>
-                  <details class="source">
-                    <summary>
-                      <span>Expand source code</span>
-                    </summary>
-                    <pre><code class="python">def reset(self) -&gt; None:
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.engine.entities.Event.reset"><code class="name flex">
+<span>def <span class="ident">reset</span></span>(<span>self) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def reset(self) -&gt; None:
     &#34;&#34;&#34;
     Reset the event so it can trigger again.
 
@@ -912,32 +401,27 @@ False
         False
     &#34;&#34;&#34;
     self.triggered = False</code></pre>
-                  </details>
-                  <div class="desc">
-                    <p>Reset the event so it can trigger again.</p>
-                    <h2 id="examples">Examples</h2>
-                    <pre><code class="language-python-repl">&gt;&gt;&gt; event = Event(id=&quot;test&quot;, description=&quot;Test&quot;)
+</details>
+<div class="desc"><p>Reset the event so it can trigger again.</p>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; event = Event(id=&quot;test&quot;, description=&quot;Test&quot;)
 &gt;&gt;&gt; event.trigger()
 &gt;&gt;&gt; event.triggered
 True
 &gt;&gt;&gt; event.reset()
 &gt;&gt;&gt; event.triggered
 False
-</code></pre>
-                  </div>
-                </dd>
-                <dt id="space_hulk_game.engine.entities.Event.to_dict">
-                  <code class="name flex">
-                    <span>def <span class="ident">to_dict</span></span
-                    >(<span>self) ‑> dict</span>
-                  </code>
-                </dt>
-                <dd>
-                  <details class="source">
-                    <summary>
-                      <span>Expand source code</span>
-                    </summary>
-                    <pre><code class="python">def to_dict(self) -&gt; dict:
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.engine.entities.Event.to_dict"><code class="name flex">
+<span>def <span class="ident">to_dict</span></span>(<span>self) ‑> dict</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def to_dict(self) -&gt; dict:
     &#34;&#34;&#34;
     Convert the event to a dictionary for serialization.
 
@@ -953,25 +437,20 @@ False
         &#34;effects&#34;: self.effects,
         &#34;triggered&#34;: self.triggered,
     }</code></pre>
-                  </details>
-                  <div class="desc">
-                    <p>Convert the event to a dictionary for serialization.</p>
-                    <h2 id="returns">Returns</h2>
-                    <p>Dictionary representation of the event.</p>
-                  </div>
-                </dd>
-                <dt id="space_hulk_game.engine.entities.Event.trigger">
-                  <code class="name flex">
-                    <span>def <span class="ident">trigger</span></span
-                    >(<span>self) ‑> None</span>
-                  </code>
-                </dt>
-                <dd>
-                  <details class="source">
-                    <summary>
-                      <span>Expand source code</span>
-                    </summary>
-                    <pre><code class="python">def trigger(self) -&gt; None:
+</details>
+<div class="desc"><p>Convert the event to a dictionary for serialization.</p>
+<h2 id="returns">Returns</h2>
+<p>Dictionary representation of the event.</p></div>
+</dd>
+<dt id="space_hulk_game.engine.entities.Event.trigger"><code class="name flex">
+<span>def <span class="ident">trigger</span></span>(<span>self) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def trigger(self) -&gt; None:
     &#34;&#34;&#34;
     Mark the event as triggered.
 
@@ -984,36 +463,29 @@ False
         True
     &#34;&#34;&#34;
     self.triggered = True</code></pre>
-                  </details>
-                  <div class="desc">
-                    <p>Mark the event as triggered.</p>
-                    <h2 id="examples">Examples</h2>
-                    <pre><code class="language-python-repl">&gt;&gt;&gt; event = Event(id=&quot;test&quot;, description=&quot;Test&quot;, one_time=True)
+</details>
+<div class="desc"><p>Mark the event as triggered.</p>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; event = Event(id=&quot;test&quot;, description=&quot;Test&quot;, one_time=True)
 &gt;&gt;&gt; event.triggered
 False
 &gt;&gt;&gt; event.trigger()
 &gt;&gt;&gt; event.triggered
 True
-</code></pre>
-                  </div>
-                </dd>
-              </dl>
-            </dd>
-            <dt id="space_hulk_game.engine.entities.Item">
-              <code class="flex name class">
-                <span>class <span class="ident">Item</span></span>
-                <span>(</span
-                ><span
-                  >id: str,<br />name: str,<br />description: str,<br />takeable: bool = False,<br />useable: bool = False,<br />use_text: str | None = None,<br />required_flag: str | None = None,<br />effects: dict[str, typing.Any] = &lt;factory&gt;)</span
-                >
-              </code>
-            </dt>
-            <dd>
-              <details class="source">
-                <summary>
-                  <span>Expand source code</span>
-                </summary>
-                <pre><code class="python">@dataclass
+</code></pre></div>
+</dd>
+</dl>
+</dd>
+<dt id="space_hulk_game.engine.entities.Item"><code class="flex name class">
+<span>class <span class="ident">Item</span></span>
+<span>(</span><span>id: str,<br>name: str,<br>description: str,<br>takeable: bool = False,<br>useable: bool = False,<br>use_text: str | None = None,<br>required_flag: str | None = None,<br>effects: dict[str, typing.Any] = &lt;factory&gt;)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
 class Item:
     &#34;&#34;&#34;
     Represents an interactive item in the game world.
@@ -1147,55 +619,33 @@ class Item:
             required_flag=data.get(&#34;required_flag&#34;),
             effects=data.get(&#34;effects&#34;, {}),
         )</code></pre>
-              </details>
-              <div class="desc">
-                <p>Represents an interactive item in the game world.</p>
-                <p>
-                  Items can be picked up, examined, or used to solve puzzles and
-                  progress the story. They can have associated effects when
-                  used.
-                </p>
-                <h2 id="attributes">Attributes</h2>
-                <dl>
-                  <dt>
-                    <strong><code>id</code></strong>
-                  </dt>
-                  <dd>Unique identifier for the item.</dd>
-                  <dt>
-                    <strong><code>name</code></strong>
-                  </dt>
-                  <dd>Display name of the item.</dd>
-                  <dt>
-                    <strong><code>description</code></strong>
-                  </dt>
-                  <dd>Text description shown when examining the item.</dd>
-                  <dt>
-                    <strong><code>takeable</code></strong>
-                  </dt>
-                  <dd>Whether the item can be added to inventory.</dd>
-                  <dt>
-                    <strong><code>useable</code></strong>
-                  </dt>
-                  <dd>Whether the item can be used/activated.</dd>
-                  <dt>
-                    <strong><code>use_text</code></strong>
-                  </dt>
-                  <dd>Text displayed when the item is used.</dd>
-                  <dt>
-                    <strong><code>required_flag</code></strong>
-                  </dt>
-                  <dd>Optional game flag required to use this item.</dd>
-                  <dt>
-                    <strong><code>effects</code></strong>
-                  </dt>
-                  <dd>
-                    Dictionary of effects applied when item is used (e.g.,
-                    {'unlock_door': 'door_id', 'heal': 20}).
-                  </dd>
-                </dl>
-                <h2 id="examples">Examples</h2>
-                <p>Create a simple takeable item:</p>
-                <pre><code class="language-python-repl">&gt;&gt;&gt; medkit = Item(
+</details>
+<div class="desc"><p>Represents an interactive item in the game world.</p>
+<p>Items can be picked up, examined, or used to solve puzzles and progress
+the story. They can have associated effects when used.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>id</code></strong></dt>
+<dd>Unique identifier for the item.</dd>
+<dt><strong><code>name</code></strong></dt>
+<dd>Display name of the item.</dd>
+<dt><strong><code>description</code></strong></dt>
+<dd>Text description shown when examining the item.</dd>
+<dt><strong><code>takeable</code></strong></dt>
+<dd>Whether the item can be added to inventory.</dd>
+<dt><strong><code>useable</code></strong></dt>
+<dd>Whether the item can be used/activated.</dd>
+<dt><strong><code>use_text</code></strong></dt>
+<dd>Text displayed when the item is used.</dd>
+<dt><strong><code>required_flag</code></strong></dt>
+<dd>Optional game flag required to use this item.</dd>
+<dt><strong><code>effects</code></strong></dt>
+<dd>Dictionary of effects applied when item is used
+(e.g., {'unlock_door': 'door_id', 'heal': 20}).</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<p>Create a simple takeable item:</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; medkit = Item(
 ...     id=&quot;medkit&quot;,
 ...     name=&quot;Medical Kit&quot;,
 ...     description=&quot;A standard Imperial Guard medical kit.&quot;,
@@ -1205,8 +655,8 @@ class Item:
 ...     effects={'heal': 30}
 ... )
 </code></pre>
-                <p>Create a key item for puzzles:</p>
-                <pre><code class="language-python-repl">&gt;&gt;&gt; key = Item(
+<p>Create a key item for puzzles:</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; key = Item(
 ...     id=&quot;brass_key&quot;,
 ...     name=&quot;Brass Key&quot;,
 ...     description=&quot;An ornate brass key with strange markings.&quot;,
@@ -1216,8 +666,8 @@ class Item:
 ...     effects={'unlock_door': 'vault_door'}
 ... )
 </code></pre>
-                <p>Create a scenery item:</p>
-                <pre><code class="language-python-repl">&gt;&gt;&gt; console = Item(
+<p>Create a scenery item:</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; console = Item(
 ...     id=&quot;control_console&quot;,
 ...     name=&quot;Control Console&quot;,
 ...     description=&quot;A massive control console covered in blinking lights.&quot;,
@@ -1225,121 +675,69 @@ class Item:
 ...     useable=True,
 ...     required_flag=&quot;has_access_card&quot;
 ... )
-</code></pre>
-              </div>
-              <h3>Static methods</h3>
-              <dl>
-                <dt id="space_hulk_game.engine.entities.Item.from_dict">
-                  <code class="name flex">
-                    <span>def <span class="ident">from_dict</span></span
-                    >(<span
-                      >data: dict) ‑> <a
-                        title="space_hulk_game.engine.entities.Item"
-                        href="#space_hulk_game.engine.entities.Item"
-                        >Item</a
-                      ></span
-                    >
-                  </code>
-                </dt>
-                <dd>
-                  <div class="desc">
-                    <p>Create an Item from a dictionary.</p>
-                    <h2 id="args">Args</h2>
-                    <dl>
-                      <dt>
-                        <strong><code>data</code></strong>
-                      </dt>
-                      <dd>Dictionary containing item data.</dd>
-                    </dl>
-                    <h2 id="returns">Returns</h2>
-                    <p>A new Item instance.</p>
-                  </div>
-                </dd>
-              </dl>
-              <h3>Instance variables</h3>
-              <dl>
-                <dt id="space_hulk_game.engine.entities.Item.description">
-                  <code class="name"
-                    >var <span class="ident">description</span> : str</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-                <dt id="space_hulk_game.engine.entities.Item.effects">
-                  <code class="name"
-                    >var
-                    <span class="ident">effects</span>
-                    : dict[str, typing.Any]</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-                <dt id="space_hulk_game.engine.entities.Item.id">
-                  <code class="name"
-                    >var <span class="ident">id</span> : str</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-                <dt id="space_hulk_game.engine.entities.Item.name">
-                  <code class="name"
-                    >var <span class="ident">name</span> : str</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-                <dt id="space_hulk_game.engine.entities.Item.required_flag">
-                  <code class="name"
-                    >var
-                    <span class="ident">required_flag</span> : str | None</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-                <dt id="space_hulk_game.engine.entities.Item.takeable">
-                  <code class="name"
-                    >var <span class="ident">takeable</span> : bool</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-                <dt id="space_hulk_game.engine.entities.Item.use_text">
-                  <code class="name"
-                    >var <span class="ident">use_text</span> : str | None</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-                <dt id="space_hulk_game.engine.entities.Item.useable">
-                  <code class="name"
-                    >var <span class="ident">useable</span> : bool</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-              </dl>
-              <h3>Methods</h3>
-              <dl>
-                <dt id="space_hulk_game.engine.entities.Item.can_use">
-                  <code class="name flex">
-                    <span>def <span class="ident">can_use</span></span
-                    >(<span>self, game_flags: dict[str, bool]) ‑> bool</span>
-                  </code>
-                </dt>
-                <dd>
-                  <details class="source">
-                    <summary>
-                      <span>Expand source code</span>
-                    </summary>
-                    <pre><code class="python">def can_use(self, game_flags: dict[str, bool]) -&gt; bool:
+</code></pre></div>
+<h3>Static methods</h3>
+<dl>
+<dt id="space_hulk_game.engine.entities.Item.from_dict"><code class="name flex">
+<span>def <span class="ident">from_dict</span></span>(<span>data: dict) ‑> <a title="space_hulk_game.engine.entities.Item" href="#space_hulk_game.engine.entities.Item">Item</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create an Item from a dictionary.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>data</code></strong></dt>
+<dd>Dictionary containing item data.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>A new Item instance.</p></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="space_hulk_game.engine.entities.Item.description"><code class="name">var <span class="ident">description</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.entities.Item.effects"><code class="name">var <span class="ident">effects</span> : dict[str, typing.Any]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.entities.Item.id"><code class="name">var <span class="ident">id</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.entities.Item.name"><code class="name">var <span class="ident">name</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.entities.Item.required_flag"><code class="name">var <span class="ident">required_flag</span> : str | None</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.entities.Item.takeable"><code class="name">var <span class="ident">takeable</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.entities.Item.use_text"><code class="name">var <span class="ident">use_text</span> : str | None</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.entities.Item.useable"><code class="name">var <span class="ident">useable</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="space_hulk_game.engine.entities.Item.can_use"><code class="name flex">
+<span>def <span class="ident">can_use</span></span>(<span>self, game_flags: dict[str, bool]) ‑> bool</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def can_use(self, game_flags: dict[str, bool]) -&gt; bool:
     &#34;&#34;&#34;
     Check if the item can be used given current game flags.
 
@@ -1362,42 +760,33 @@ class Item:
     if self.required_flag:
         return game_flags.get(self.required_flag, False)
     return True</code></pre>
-                  </details>
-                  <div class="desc">
-                    <p>
-                      Check if the item can be used given current game flags.
-                    </p>
-                    <h2 id="args">Args</h2>
-                    <dl>
-                      <dt>
-                        <strong><code>game_flags</code></strong>
-                      </dt>
-                      <dd>Dictionary of current game flags.</dd>
-                    </dl>
-                    <h2 id="returns">Returns</h2>
-                    <p>True if the item can be used, False otherwise.</p>
-                    <h2 id="examples">Examples</h2>
-                    <pre><code class="language-python-repl">&gt;&gt;&gt; item = Item(id=&quot;locked_box&quot;, name=&quot;Box&quot;, description=&quot;A locked box.&quot;,
+</details>
+<div class="desc"><p>Check if the item can be used given current game flags.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>game_flags</code></strong></dt>
+<dd>Dictionary of current game flags.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>True if the item can be used, False otherwise.</p>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; item = Item(id=&quot;locked_box&quot;, name=&quot;Box&quot;, description=&quot;A locked box.&quot;,
 ...             required_flag=&quot;has_key&quot;)
 &gt;&gt;&gt; item.can_use({})
 False
 &gt;&gt;&gt; item.can_use({&quot;has_key&quot;: True})
 True
-</code></pre>
-                  </div>
-                </dd>
-                <dt id="space_hulk_game.engine.entities.Item.to_dict">
-                  <code class="name flex">
-                    <span>def <span class="ident">to_dict</span></span
-                    >(<span>self) ‑> dict</span>
-                  </code>
-                </dt>
-                <dd>
-                  <details class="source">
-                    <summary>
-                      <span>Expand source code</span>
-                    </summary>
-                    <pre><code class="python">def to_dict(self) -&gt; dict:
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.engine.entities.Item.to_dict"><code class="name flex">
+<span>def <span class="ident">to_dict</span></span>(<span>self) ‑> dict</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def to_dict(self) -&gt; dict:
     &#34;&#34;&#34;
     Convert the item to a dictionary for serialization.
 
@@ -1414,30 +803,23 @@ True
         &#34;required_flag&#34;: self.required_flag,
         &#34;effects&#34;: self.effects,
     }</code></pre>
-                  </details>
-                  <div class="desc">
-                    <p>Convert the item to a dictionary for serialization.</p>
-                    <h2 id="returns">Returns</h2>
-                    <p>Dictionary representation of the item.</p>
-                  </div>
-                </dd>
-              </dl>
-            </dd>
-            <dt id="space_hulk_game.engine.entities.NPC">
-              <code class="flex name class">
-                <span>class <span class="ident">NPC</span></span>
-                <span>(</span
-                ><span
-                  >id: str,<br />name: str,<br />description: str,<br />dialogue: dict[str, str] = &lt;factory&gt;,<br />hostile: bool = False,<br />health: int = 100,<br />gives_item: str | None = None,<br />required_flag: str | None = None)</span
-                >
-              </code>
-            </dt>
-            <dd>
-              <details class="source">
-                <summary>
-                  <span>Expand source code</span>
-                </summary>
-                <pre><code class="python">@dataclass
+</details>
+<div class="desc"><p>Convert the item to a dictionary for serialization.</p>
+<h2 id="returns">Returns</h2>
+<p>Dictionary representation of the item.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="space_hulk_game.engine.entities.NPC"><code class="flex name class">
+<span>class <span class="ident">NPC</span></span>
+<span>(</span><span>id: str,<br>name: str,<br>description: str,<br>dialogue: dict[str, str] = &lt;factory&gt;,<br>hostile: bool = False,<br>health: int = 100,<br>gives_item: str | None = None,<br>required_flag: str | None = None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
 class NPC:
     &#34;&#34;&#34;
     Represents a non-player character in the game.
@@ -1610,54 +992,33 @@ class NPC:
             gives_item=data.get(&#34;gives_item&#34;),
             required_flag=data.get(&#34;required_flag&#34;),
         )</code></pre>
-              </details>
-              <div class="desc">
-                <p>Represents a non-player character in the game.</p>
-                <p>
-                  NPCs can provide dialogue, quests, information, and interact
-                  with the player in various ways. They can have multiple
-                  dialogue options and react to game state.
-                </p>
-                <h2 id="attributes">Attributes</h2>
-                <dl>
-                  <dt>
-                    <strong><code>id</code></strong>
-                  </dt>
-                  <dd>Unique identifier for the NPC.</dd>
-                  <dt>
-                    <strong><code>name</code></strong>
-                  </dt>
-                  <dd>Display name of the NPC.</dd>
-                  <dt>
-                    <strong><code>description</code></strong>
-                  </dt>
-                  <dd>Text description of the NPC's appearance.</dd>
-                  <dt>
-                    <strong><code>dialogue</code></strong>
-                  </dt>
-                  <dd>Dictionary mapping dialogue keys to text responses.</dd>
-                  <dt>
-                    <strong><code>hostile</code></strong>
-                  </dt>
-                  <dd>Whether the NPC is hostile to the player.</dd>
-                  <dt>
-                    <strong><code>health</code></strong>
-                  </dt>
-                  <dd>NPC health points (for combat).</dd>
-                  <dt>
-                    <strong><code>gives_item</code></strong>
-                  </dt>
-                  <dd>Optional item ID that the NPC gives to the player.</dd>
-                  <dt>
-                    <strong><code>required_flag</code></strong>
-                  </dt>
-                  <dd>
-                    Optional game flag required to interact with this NPC.
-                  </dd>
-                </dl>
-                <h2 id="examples">Examples</h2>
-                <p>Create a friendly NPC:</p>
-                <pre><code class="language-python-repl">&gt;&gt;&gt; trader = NPC(
+</details>
+<div class="desc"><p>Represents a non-player character in the game.</p>
+<p>NPCs can provide dialogue, quests, information, and interact with the player
+in various ways. They can have multiple dialogue options and react to
+game state.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>id</code></strong></dt>
+<dd>Unique identifier for the NPC.</dd>
+<dt><strong><code>name</code></strong></dt>
+<dd>Display name of the NPC.</dd>
+<dt><strong><code>description</code></strong></dt>
+<dd>Text description of the NPC's appearance.</dd>
+<dt><strong><code>dialogue</code></strong></dt>
+<dd>Dictionary mapping dialogue keys to text responses.</dd>
+<dt><strong><code>hostile</code></strong></dt>
+<dd>Whether the NPC is hostile to the player.</dd>
+<dt><strong><code>health</code></strong></dt>
+<dd>NPC health points (for combat).</dd>
+<dt><strong><code>gives_item</code></strong></dt>
+<dd>Optional item ID that the NPC gives to the player.</dd>
+<dt><strong><code>required_flag</code></strong></dt>
+<dd>Optional game flag required to interact with this NPC.</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<p>Create a friendly NPC:</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; trader = NPC(
 ...     id=&quot;merchant&quot;,
 ...     name=&quot;Rogue Trader Jin&quot;,
 ...     description=&quot;A weathered trader in worn void armor.&quot;,
@@ -1668,8 +1029,8 @@ class NPC:
 ...     }
 ... )
 </code></pre>
-                <p>Create a quest-giving NPC:</p>
-                <pre><code class="language-python-repl">&gt;&gt;&gt; survivor = NPC(
+<p>Create a quest-giving NPC:</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; survivor = NPC(
 ...     id=&quot;survivor_kane&quot;,
 ...     name=&quot;Guardsman Kane&quot;,
 ...     description=&quot;A wounded Imperial Guardsman.&quot;,
@@ -1680,129 +1041,77 @@ class NPC:
 ...     gives_item=&quot;access_card&quot;
 ... )
 </code></pre>
-                <p>Create a hostile NPC:</p>
-                <pre><code class="language-python-repl">&gt;&gt;&gt; cultist = NPC(
+<p>Create a hostile NPC:</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; cultist = NPC(
 ...     id=&quot;chaos_cultist&quot;,
 ...     name=&quot;Chaos Cultist&quot;,
 ...     description=&quot;A twisted figure covered in profane symbols.&quot;,
 ...     hostile=True,
 ...     health=50
 ... )
-</code></pre>
-              </div>
-              <h3>Static methods</h3>
-              <dl>
-                <dt id="space_hulk_game.engine.entities.NPC.from_dict">
-                  <code class="name flex">
-                    <span>def <span class="ident">from_dict</span></span
-                    >(<span
-                      >data: dict) ‑> <a
-                        title="space_hulk_game.engine.entities.NPC"
-                        href="#space_hulk_game.engine.entities.NPC"
-                        >NPC</a
-                      ></span
-                    >
-                  </code>
-                </dt>
-                <dd>
-                  <div class="desc">
-                    <p>Create an NPC from a dictionary.</p>
-                    <h2 id="args">Args</h2>
-                    <dl>
-                      <dt>
-                        <strong><code>data</code></strong>
-                      </dt>
-                      <dd>Dictionary containing NPC data.</dd>
-                    </dl>
-                    <h2 id="returns">Returns</h2>
-                    <p>A new NPC instance.</p>
-                  </div>
-                </dd>
-              </dl>
-              <h3>Instance variables</h3>
-              <dl>
-                <dt id="space_hulk_game.engine.entities.NPC.description">
-                  <code class="name"
-                    >var <span class="ident">description</span> : str</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-                <dt id="space_hulk_game.engine.entities.NPC.dialogue">
-                  <code class="name"
-                    >var
-                    <span class="ident">dialogue</span> : dict[str, str]</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-                <dt id="space_hulk_game.engine.entities.NPC.gives_item">
-                  <code class="name"
-                    >var
-                    <span class="ident">gives_item</span> : str | None</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-                <dt id="space_hulk_game.engine.entities.NPC.health">
-                  <code class="name"
-                    >var <span class="ident">health</span> : int</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-                <dt id="space_hulk_game.engine.entities.NPC.hostile">
-                  <code class="name"
-                    >var <span class="ident">hostile</span> : bool</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-                <dt id="space_hulk_game.engine.entities.NPC.id">
-                  <code class="name"
-                    >var <span class="ident">id</span> : str</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-                <dt id="space_hulk_game.engine.entities.NPC.name">
-                  <code class="name"
-                    >var <span class="ident">name</span> : str</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-                <dt id="space_hulk_game.engine.entities.NPC.required_flag">
-                  <code class="name"
-                    >var
-                    <span class="ident">required_flag</span> : str | None</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-              </dl>
-              <h3>Methods</h3>
-              <dl>
-                <dt id="space_hulk_game.engine.entities.NPC.can_interact">
-                  <code class="name flex">
-                    <span>def <span class="ident">can_interact</span></span
-                    >(<span>self, game_flags: dict[str, bool]) ‑> bool</span>
-                  </code>
-                </dt>
-                <dd>
-                  <details class="source">
-                    <summary>
-                      <span>Expand source code</span>
-                    </summary>
-                    <pre><code class="python">def can_interact(self, game_flags: dict[str, bool]) -&gt; bool:
+</code></pre></div>
+<h3>Static methods</h3>
+<dl>
+<dt id="space_hulk_game.engine.entities.NPC.from_dict"><code class="name flex">
+<span>def <span class="ident">from_dict</span></span>(<span>data: dict) ‑> <a title="space_hulk_game.engine.entities.NPC" href="#space_hulk_game.engine.entities.NPC">NPC</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create an NPC from a dictionary.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>data</code></strong></dt>
+<dd>Dictionary containing NPC data.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>A new NPC instance.</p></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="space_hulk_game.engine.entities.NPC.description"><code class="name">var <span class="ident">description</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.entities.NPC.dialogue"><code class="name">var <span class="ident">dialogue</span> : dict[str, str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.entities.NPC.gives_item"><code class="name">var <span class="ident">gives_item</span> : str | None</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.entities.NPC.health"><code class="name">var <span class="ident">health</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.entities.NPC.hostile"><code class="name">var <span class="ident">hostile</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.entities.NPC.id"><code class="name">var <span class="ident">id</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.entities.NPC.name"><code class="name">var <span class="ident">name</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.entities.NPC.required_flag"><code class="name">var <span class="ident">required_flag</span> : str | None</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="space_hulk_game.engine.entities.NPC.can_interact"><code class="name flex">
+<span>def <span class="ident">can_interact</span></span>(<span>self, game_flags: dict[str, bool]) ‑> bool</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def can_interact(self, game_flags: dict[str, bool]) -&gt; bool:
     &#34;&#34;&#34;
     Check if the player can interact with this NPC.
 
@@ -1823,43 +1132,33 @@ class NPC:
     if self.required_flag:
         return game_flags.get(self.required_flag, False)
     return True</code></pre>
-                  </details>
-                  <div class="desc">
-                    <p>Check if the player can interact with this NPC.</p>
-                    <h2 id="args">Args</h2>
-                    <dl>
-                      <dt>
-                        <strong><code>game_flags</code></strong>
-                      </dt>
-                      <dd>Dictionary of current game flags.</dd>
-                    </dl>
-                    <h2 id="returns">Returns</h2>
-                    <p>True if interaction is possible, False otherwise.</p>
-                    <h2 id="examples">Examples</h2>
-                    <pre><code class="language-python-repl">&gt;&gt;&gt; npc = NPC(id=&quot;guard&quot;, name=&quot;Guard&quot;, description=&quot;A guard.&quot;,
+</details>
+<div class="desc"><p>Check if the player can interact with this NPC.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>game_flags</code></strong></dt>
+<dd>Dictionary of current game flags.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>True if interaction is possible, False otherwise.</p>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; npc = NPC(id=&quot;guard&quot;, name=&quot;Guard&quot;, description=&quot;A guard.&quot;,
 ...           required_flag=&quot;guard_friendly&quot;)
 &gt;&gt;&gt; npc.can_interact({})
 False
 &gt;&gt;&gt; npc.can_interact({&quot;guard_friendly&quot;: True})
 True
-</code></pre>
-                  </div>
-                </dd>
-                <dt id="space_hulk_game.engine.entities.NPC.get_dialogue">
-                  <code class="name flex">
-                    <span>def <span class="ident">get_dialogue</span></span
-                    >(<span
-                      >self, key: str, default: str | None = '...')
-                      ‑> str | None</span
-                    >
-                  </code>
-                </dt>
-                <dd>
-                  <details class="source">
-                    <summary>
-                      <span>Expand source code</span>
-                    </summary>
-                    <pre><code class="python">def get_dialogue(self, key: str, default: str | None = &#34;...&#34;) -&gt; str | None:
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.engine.entities.NPC.get_dialogue"><code class="name flex">
+<span>def <span class="ident">get_dialogue</span></span>(<span>self, key: str, default: str | None = '...') ‑> str | None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_dialogue(self, key: str, default: str | None = &#34;...&#34;) -&gt; str | None:
     &#34;&#34;&#34;
     Get dialogue text for a specific key.
 
@@ -1879,47 +1178,35 @@ True
         &#39;...&#39;
     &#34;&#34;&#34;
     return self.dialogue.get(key, default)</code></pre>
-                  </details>
-                  <div class="desc">
-                    <p>Get dialogue text for a specific key.</p>
-                    <h2 id="args">Args</h2>
-                    <dl>
-                      <dt>
-                        <strong><code>key</code></strong>
-                      </dt>
-                      <dd>The dialogue key to retrieve.</dd>
-                      <dt>
-                        <strong><code>default</code></strong>
-                      </dt>
-                      <dd>Default text if the key doesn't exist.</dd>
-                    </dl>
-                    <h2 id="returns">Returns</h2>
-                    <p>
-                      The dialogue text, or None if not found and default is
-                      None.
-                    </p>
-                    <h2 id="examples">Examples</h2>
-                    <pre><code class="language-python-repl">&gt;&gt;&gt; npc = NPC(id=&quot;test&quot;, name=&quot;Test&quot;, description=&quot;Test&quot;,
+</details>
+<div class="desc"><p>Get dialogue text for a specific key.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>key</code></strong></dt>
+<dd>The dialogue key to retrieve.</dd>
+<dt><strong><code>default</code></strong></dt>
+<dd>Default text if the key doesn't exist.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>The dialogue text, or None if not found and default is None.</p>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; npc = NPC(id=&quot;test&quot;, name=&quot;Test&quot;, description=&quot;Test&quot;,
 ...           dialogue={&quot;hello&quot;: &quot;Greetings!&quot;})
 &gt;&gt;&gt; npc.get_dialogue(&quot;hello&quot;)
 'Greetings!'
 &gt;&gt;&gt; npc.get_dialogue(&quot;unknown&quot;)
 '...'
-</code></pre>
-                  </div>
-                </dd>
-                <dt id="space_hulk_game.engine.entities.NPC.is_alive">
-                  <code class="name flex">
-                    <span>def <span class="ident">is_alive</span></span
-                    >(<span>self) ‑> bool</span>
-                  </code>
-                </dt>
-                <dd>
-                  <details class="source">
-                    <summary>
-                      <span>Expand source code</span>
-                    </summary>
-                    <pre><code class="python">def is_alive(self) -&gt; bool:
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.engine.entities.NPC.is_alive"><code class="name flex">
+<span>def <span class="ident">is_alive</span></span>(<span>self) ‑> bool</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_alive(self) -&gt; bool:
     &#34;&#34;&#34;
     Check if the NPC is still alive.
 
@@ -1935,33 +1222,28 @@ True
         False
     &#34;&#34;&#34;
     return self.health &gt; 0</code></pre>
-                  </details>
-                  <div class="desc">
-                    <p>Check if the NPC is still alive.</p>
-                    <h2 id="returns">Returns</h2>
-                    <p>True if health &gt; 0, False otherwise.</p>
-                    <h2 id="examples">Examples</h2>
-                    <pre><code class="language-python-repl">&gt;&gt;&gt; npc = NPC(id=&quot;test&quot;, name=&quot;Test&quot;, description=&quot;Test&quot;, health=50)
+</details>
+<div class="desc"><p>Check if the NPC is still alive.</p>
+<h2 id="returns">Returns</h2>
+<p>True if health &gt; 0, False otherwise.</p>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; npc = NPC(id=&quot;test&quot;, name=&quot;Test&quot;, description=&quot;Test&quot;, health=50)
 &gt;&gt;&gt; npc.is_alive()
 True
 &gt;&gt;&gt; npc.health = 0
 &gt;&gt;&gt; npc.is_alive()
 False
-</code></pre>
-                  </div>
-                </dd>
-                <dt id="space_hulk_game.engine.entities.NPC.to_dict">
-                  <code class="name flex">
-                    <span>def <span class="ident">to_dict</span></span
-                    >(<span>self) ‑> dict</span>
-                  </code>
-                </dt>
-                <dd>
-                  <details class="source">
-                    <summary>
-                      <span>Expand source code</span>
-                    </summary>
-                    <pre><code class="python">def to_dict(self) -&gt; dict:
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.engine.entities.NPC.to_dict"><code class="name flex">
+<span>def <span class="ident">to_dict</span></span>(<span>self) ‑> dict</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def to_dict(self) -&gt; dict:
     &#34;&#34;&#34;
     Convert the NPC to a dictionary for serialization.
 
@@ -1978,415 +1260,86 @@ False
         &#34;gives_item&#34;: self.gives_item,
         &#34;required_flag&#34;: self.required_flag,
     }</code></pre>
-                  </details>
-                  <div class="desc">
-                    <p>Convert the NPC to a dictionary for serialization.</p>
-                    <h2 id="returns">Returns</h2>
-                    <p>Dictionary representation of the NPC.</p>
-                  </div>
-                </dd>
-              </dl>
-            </dd>
-          </dl>
-        </section>
-      </article>
-      <nav id="sidebar">
-        <div class="toc">
-          <ul></ul>
-        </div>
-        <ul id="index">
-          <li>
-            <h3>Super-module</h3>
-            <ul>
-              <li>
-                <code
-                  ><a title="space_hulk_game.engine" href="index.html"
-                    >space_hulk_game.engine</a
-                  ></code
-                >
-              </li>
-            </ul>
-          </li>
-          <li>
-            <h3><a href="#header-classes">Classes</a></h3>
-            <ul>
-              <li>
-                <h4>
-                  <code
-                    ><a
-                      title="space_hulk_game.engine.entities.Event"
-                      href="#space_hulk_game.engine.entities.Event"
-                      >Event</a
-                    ></code
-                  >
-                </h4>
-                <ul class="two-column">
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.entities.Event.can_trigger"
-                        href="#space_hulk_game.engine.entities.Event.can_trigger"
-                        >can_trigger</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.entities.Event.description"
-                        href="#space_hulk_game.engine.entities.Event.description"
-                        >description</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.entities.Event.effects"
-                        href="#space_hulk_game.engine.entities.Event.effects"
-                        >effects</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.entities.Event.from_dict"
-                        href="#space_hulk_game.engine.entities.Event.from_dict"
-                        >from_dict</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.entities.Event.id"
-                        href="#space_hulk_game.engine.entities.Event.id"
-                        >id</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.entities.Event.one_time"
-                        href="#space_hulk_game.engine.entities.Event.one_time"
-                        >one_time</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.entities.Event.required_flag"
-                        href="#space_hulk_game.engine.entities.Event.required_flag"
-                        >required_flag</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.entities.Event.reset"
-                        href="#space_hulk_game.engine.entities.Event.reset"
-                        >reset</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.entities.Event.to_dict"
-                        href="#space_hulk_game.engine.entities.Event.to_dict"
-                        >to_dict</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.entities.Event.trigger"
-                        href="#space_hulk_game.engine.entities.Event.trigger"
-                        >trigger</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.entities.Event.trigger_on_entry"
-                        href="#space_hulk_game.engine.entities.Event.trigger_on_entry"
-                        >trigger_on_entry</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.entities.Event.triggered"
-                        href="#space_hulk_game.engine.entities.Event.triggered"
-                        >triggered</a
-                      ></code
-                    >
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <h4>
-                  <code
-                    ><a
-                      title="space_hulk_game.engine.entities.Item"
-                      href="#space_hulk_game.engine.entities.Item"
-                      >Item</a
-                    ></code
-                  >
-                </h4>
-                <ul class="two-column">
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.entities.Item.can_use"
-                        href="#space_hulk_game.engine.entities.Item.can_use"
-                        >can_use</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.entities.Item.description"
-                        href="#space_hulk_game.engine.entities.Item.description"
-                        >description</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.entities.Item.effects"
-                        href="#space_hulk_game.engine.entities.Item.effects"
-                        >effects</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.entities.Item.from_dict"
-                        href="#space_hulk_game.engine.entities.Item.from_dict"
-                        >from_dict</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.entities.Item.id"
-                        href="#space_hulk_game.engine.entities.Item.id"
-                        >id</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.entities.Item.name"
-                        href="#space_hulk_game.engine.entities.Item.name"
-                        >name</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.entities.Item.required_flag"
-                        href="#space_hulk_game.engine.entities.Item.required_flag"
-                        >required_flag</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.entities.Item.takeable"
-                        href="#space_hulk_game.engine.entities.Item.takeable"
-                        >takeable</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.entities.Item.to_dict"
-                        href="#space_hulk_game.engine.entities.Item.to_dict"
-                        >to_dict</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.entities.Item.use_text"
-                        href="#space_hulk_game.engine.entities.Item.use_text"
-                        >use_text</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.entities.Item.useable"
-                        href="#space_hulk_game.engine.entities.Item.useable"
-                        >useable</a
-                      ></code
-                    >
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <h4>
-                  <code
-                    ><a
-                      title="space_hulk_game.engine.entities.NPC"
-                      href="#space_hulk_game.engine.entities.NPC"
-                      >NPC</a
-                    ></code
-                  >
-                </h4>
-                <ul class="two-column">
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.entities.NPC.can_interact"
-                        href="#space_hulk_game.engine.entities.NPC.can_interact"
-                        >can_interact</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.entities.NPC.description"
-                        href="#space_hulk_game.engine.entities.NPC.description"
-                        >description</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.entities.NPC.dialogue"
-                        href="#space_hulk_game.engine.entities.NPC.dialogue"
-                        >dialogue</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.entities.NPC.from_dict"
-                        href="#space_hulk_game.engine.entities.NPC.from_dict"
-                        >from_dict</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.entities.NPC.get_dialogue"
-                        href="#space_hulk_game.engine.entities.NPC.get_dialogue"
-                        >get_dialogue</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.entities.NPC.gives_item"
-                        href="#space_hulk_game.engine.entities.NPC.gives_item"
-                        >gives_item</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.entities.NPC.health"
-                        href="#space_hulk_game.engine.entities.NPC.health"
-                        >health</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.entities.NPC.hostile"
-                        href="#space_hulk_game.engine.entities.NPC.hostile"
-                        >hostile</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.entities.NPC.id"
-                        href="#space_hulk_game.engine.entities.NPC.id"
-                        >id</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.entities.NPC.is_alive"
-                        href="#space_hulk_game.engine.entities.NPC.is_alive"
-                        >is_alive</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.entities.NPC.name"
-                        href="#space_hulk_game.engine.entities.NPC.name"
-                        >name</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.entities.NPC.required_flag"
-                        href="#space_hulk_game.engine.entities.NPC.required_flag"
-                        >required_flag</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.entities.NPC.to_dict"
-                        href="#space_hulk_game.engine.entities.NPC.to_dict"
-                        >to_dict</a
-                      ></code
-                    >
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
-    </main>
-    <footer id="footer">
-      <p>
-        Generated by
-        <a
-          href="https://pdoc3.github.io/pdoc"
-          title="pdoc: Python API documentation generator"
-          ><cite>pdoc</cite> 0.11.6</a
-        >.
-      </p>
-    </footer>
-  </body>
+</details>
+<div class="desc"><p>Convert the NPC to a dictionary for serialization.</p>
+<h2 id="returns">Returns</h2>
+<p>Dictionary representation of the NPC.</p></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="space_hulk_game.engine" href="index.html">space_hulk_game.engine</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="space_hulk_game.engine.entities.Event" href="#space_hulk_game.engine.entities.Event">Event</a></code></h4>
+<ul class="two-column">
+<li><code><a title="space_hulk_game.engine.entities.Event.can_trigger" href="#space_hulk_game.engine.entities.Event.can_trigger">can_trigger</a></code></li>
+<li><code><a title="space_hulk_game.engine.entities.Event.description" href="#space_hulk_game.engine.entities.Event.description">description</a></code></li>
+<li><code><a title="space_hulk_game.engine.entities.Event.effects" href="#space_hulk_game.engine.entities.Event.effects">effects</a></code></li>
+<li><code><a title="space_hulk_game.engine.entities.Event.from_dict" href="#space_hulk_game.engine.entities.Event.from_dict">from_dict</a></code></li>
+<li><code><a title="space_hulk_game.engine.entities.Event.id" href="#space_hulk_game.engine.entities.Event.id">id</a></code></li>
+<li><code><a title="space_hulk_game.engine.entities.Event.one_time" href="#space_hulk_game.engine.entities.Event.one_time">one_time</a></code></li>
+<li><code><a title="space_hulk_game.engine.entities.Event.required_flag" href="#space_hulk_game.engine.entities.Event.required_flag">required_flag</a></code></li>
+<li><code><a title="space_hulk_game.engine.entities.Event.reset" href="#space_hulk_game.engine.entities.Event.reset">reset</a></code></li>
+<li><code><a title="space_hulk_game.engine.entities.Event.to_dict" href="#space_hulk_game.engine.entities.Event.to_dict">to_dict</a></code></li>
+<li><code><a title="space_hulk_game.engine.entities.Event.trigger" href="#space_hulk_game.engine.entities.Event.trigger">trigger</a></code></li>
+<li><code><a title="space_hulk_game.engine.entities.Event.trigger_on_entry" href="#space_hulk_game.engine.entities.Event.trigger_on_entry">trigger_on_entry</a></code></li>
+<li><code><a title="space_hulk_game.engine.entities.Event.triggered" href="#space_hulk_game.engine.entities.Event.triggered">triggered</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="space_hulk_game.engine.entities.Item" href="#space_hulk_game.engine.entities.Item">Item</a></code></h4>
+<ul class="two-column">
+<li><code><a title="space_hulk_game.engine.entities.Item.can_use" href="#space_hulk_game.engine.entities.Item.can_use">can_use</a></code></li>
+<li><code><a title="space_hulk_game.engine.entities.Item.description" href="#space_hulk_game.engine.entities.Item.description">description</a></code></li>
+<li><code><a title="space_hulk_game.engine.entities.Item.effects" href="#space_hulk_game.engine.entities.Item.effects">effects</a></code></li>
+<li><code><a title="space_hulk_game.engine.entities.Item.from_dict" href="#space_hulk_game.engine.entities.Item.from_dict">from_dict</a></code></li>
+<li><code><a title="space_hulk_game.engine.entities.Item.id" href="#space_hulk_game.engine.entities.Item.id">id</a></code></li>
+<li><code><a title="space_hulk_game.engine.entities.Item.name" href="#space_hulk_game.engine.entities.Item.name">name</a></code></li>
+<li><code><a title="space_hulk_game.engine.entities.Item.required_flag" href="#space_hulk_game.engine.entities.Item.required_flag">required_flag</a></code></li>
+<li><code><a title="space_hulk_game.engine.entities.Item.takeable" href="#space_hulk_game.engine.entities.Item.takeable">takeable</a></code></li>
+<li><code><a title="space_hulk_game.engine.entities.Item.to_dict" href="#space_hulk_game.engine.entities.Item.to_dict">to_dict</a></code></li>
+<li><code><a title="space_hulk_game.engine.entities.Item.use_text" href="#space_hulk_game.engine.entities.Item.use_text">use_text</a></code></li>
+<li><code><a title="space_hulk_game.engine.entities.Item.useable" href="#space_hulk_game.engine.entities.Item.useable">useable</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="space_hulk_game.engine.entities.NPC" href="#space_hulk_game.engine.entities.NPC">NPC</a></code></h4>
+<ul class="two-column">
+<li><code><a title="space_hulk_game.engine.entities.NPC.can_interact" href="#space_hulk_game.engine.entities.NPC.can_interact">can_interact</a></code></li>
+<li><code><a title="space_hulk_game.engine.entities.NPC.description" href="#space_hulk_game.engine.entities.NPC.description">description</a></code></li>
+<li><code><a title="space_hulk_game.engine.entities.NPC.dialogue" href="#space_hulk_game.engine.entities.NPC.dialogue">dialogue</a></code></li>
+<li><code><a title="space_hulk_game.engine.entities.NPC.from_dict" href="#space_hulk_game.engine.entities.NPC.from_dict">from_dict</a></code></li>
+<li><code><a title="space_hulk_game.engine.entities.NPC.get_dialogue" href="#space_hulk_game.engine.entities.NPC.get_dialogue">get_dialogue</a></code></li>
+<li><code><a title="space_hulk_game.engine.entities.NPC.gives_item" href="#space_hulk_game.engine.entities.NPC.gives_item">gives_item</a></code></li>
+<li><code><a title="space_hulk_game.engine.entities.NPC.health" href="#space_hulk_game.engine.entities.NPC.health">health</a></code></li>
+<li><code><a title="space_hulk_game.engine.entities.NPC.hostile" href="#space_hulk_game.engine.entities.NPC.hostile">hostile</a></code></li>
+<li><code><a title="space_hulk_game.engine.entities.NPC.id" href="#space_hulk_game.engine.entities.NPC.id">id</a></code></li>
+<li><code><a title="space_hulk_game.engine.entities.NPC.is_alive" href="#space_hulk_game.engine.entities.NPC.is_alive">is_alive</a></code></li>
+<li><code><a title="space_hulk_game.engine.entities.NPC.name" href="#space_hulk_game.engine.entities.NPC.name">name</a></code></li>
+<li><code><a title="space_hulk_game.engine.entities.NPC.required_flag" href="#space_hulk_game.engine.entities.NPC.required_flag">required_flag</a></code></li>
+<li><code><a title="space_hulk_game.engine.entities.NPC.to_dict" href="#space_hulk_game.engine.entities.NPC.to_dict">to_dict</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
 </html>

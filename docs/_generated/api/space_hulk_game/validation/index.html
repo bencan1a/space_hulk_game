@@ -1,569 +1,88 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, minimum-scale=1"
-    />
-    <meta name="generator" content="pdoc3 0.11.6" />
-    <title>space_hulk_game.validation API documentation</title>
-    <meta
-      name="description"
-      content="Validation module for Space Hulk Game YAML outputs …"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css"
-      integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA=="
-      crossorigin
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css"
-      integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA=="
-      crossorigin
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"
-      crossorigin
-    />
-    <style>
-      :root {
-        --highlight-color: #fe9;
-      }
-      .flex {
-        display: flex !important;
-      }
-      body {
-        line-height: 1.5em;
-      }
-      #content {
-        padding: 20px;
-      }
-      #sidebar {
-        padding: 1.5em;
-        overflow: hidden;
-      }
-      #sidebar > *:last-child {
-        margin-bottom: 2cm;
-      }
-      .http-server-breadcrumbs {
-        font-size: 130%;
-        margin: 0 0 15px 0;
-      }
-      #footer {
-        font-size: 0.75em;
-        padding: 5px 30px;
-        border-top: 1px solid #ddd;
-        text-align: right;
-      }
-      #footer p {
-        margin: 0 0 0 1em;
-        display: inline-block;
-      }
-      #footer p:last-child {
-        margin-right: 30px;
-      }
-      h1,
-      h2,
-      h3,
-      h4,
-      h5 {
-        font-weight: 300;
-      }
-      h1 {
-        font-size: 2.5em;
-        line-height: 1.1em;
-      }
-      h2 {
-        font-size: 1.75em;
-        margin: 2em 0 0.5em 0;
-      }
-      h3 {
-        font-size: 1.4em;
-        margin: 1.6em 0 0.7em 0;
-      }
-      h4 {
-        margin: 0;
-        font-size: 105%;
-      }
-      h1:target,
-      h2:target,
-      h3:target,
-      h4:target,
-      h5:target,
-      h6:target {
-        background: var(--highlight-color);
-        padding: 0.2em 0;
-      }
-      a {
-        color: #058;
-        text-decoration: none;
-        transition: color 0.2s ease-in-out;
-      }
-      a:visited {
-        color: #503;
-      }
-      a:hover {
-        color: #b62;
-      }
-      .title code {
-        font-weight: bold;
-      }
-      h2[id^="header-"] {
-        margin-top: 2em;
-      }
-      .ident {
-        color: #900;
-        font-weight: bold;
-      }
-      pre code {
-        font-size: 0.8em;
-        line-height: 1.4em;
-        padding: 1em;
-        display: block;
-      }
-      code {
-        background: #f3f3f3;
-        font-family: "DejaVu Sans Mono", monospace;
-        padding: 1px 4px;
-        overflow-wrap: break-word;
-      }
-      h1 code {
-        background: transparent;
-      }
-      pre {
-        border-top: 1px solid #ccc;
-        border-bottom: 1px solid #ccc;
-        margin: 1em 0;
-      }
-      #http-server-module-list {
-        display: flex;
-        flex-flow: column;
-      }
-      #http-server-module-list div {
-        display: flex;
-      }
-      #http-server-module-list dt {
-        min-width: 10%;
-      }
-      #http-server-module-list p {
-        margin-top: 0;
-      }
-      .toc ul,
-      #index {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-      }
-      #index code {
-        background: transparent;
-      }
-      #index h3 {
-        border-bottom: 1px solid #ddd;
-      }
-      #index ul {
-        padding: 0;
-      }
-      #index h4 {
-        margin-top: 0.6em;
-        font-weight: bold;
-      }
-      @media (min-width: 200ex) {
-        #index .two-column {
-          column-count: 2;
-        }
-      }
-      @media (min-width: 300ex) {
-        #index .two-column {
-          column-count: 3;
-        }
-      }
-      dl {
-        margin-bottom: 2em;
-      }
-      dl dl:last-child {
-        margin-bottom: 4em;
-      }
-      dd {
-        margin: 0 0 1em 3em;
-      }
-      #header-classes + dl > dd {
-        margin-bottom: 3em;
-      }
-      dd dd {
-        margin-left: 2em;
-      }
-      dd p {
-        margin: 10px 0;
-      }
-      .name {
-        background: #eee;
-        font-size: 0.85em;
-        padding: 5px 10px;
-        display: inline-block;
-        min-width: 40%;
-      }
-      .name:hover {
-        background: #e0e0e0;
-      }
-      dt:target .name {
-        background: var(--highlight-color);
-      }
-      .name > span:first-child {
-        white-space: nowrap;
-      }
-      .name.class > span:nth-child(2) {
-        margin-left: 0.4em;
-      }
-      .inherited {
-        color: #999;
-        border-left: 5px solid #eee;
-        padding-left: 1em;
-      }
-      .inheritance em {
-        font-style: normal;
-        font-weight: bold;
-      }
-      .desc h2 {
-        font-weight: 400;
-        font-size: 1.25em;
-      }
-      .desc h3 {
-        font-size: 1em;
-      }
-      .desc dt code {
-        background: inherit;
-      }
-      .source > summary,
-      .git-link-div {
-        color: #666;
-        text-align: right;
-        font-weight: 400;
-        font-size: 0.8em;
-        text-transform: uppercase;
-      }
-      .source summary > * {
-        white-space: nowrap;
-        cursor: pointer;
-      }
-      .git-link {
-        color: inherit;
-        margin-left: 1em;
-      }
-      .source pre {
-        max-height: 500px;
-        overflow: auto;
-        margin: 0;
-      }
-      .source pre code {
-        font-size: 12px;
-        overflow: visible;
-        min-width: max-content;
-      }
-      .hlist {
-        list-style: none;
-      }
-      .hlist li {
-        display: inline;
-      }
-      .hlist li:after {
-        content: ",\2002";
-      }
-      .hlist li:last-child:after {
-        content: none;
-      }
-      .hlist .hlist {
-        display: inline;
-        padding-left: 1em;
-      }
-      img {
-        max-width: 100%;
-      }
-      td {
-        padding: 0 0.5em;
-      }
-      .admonition {
-        padding: 0.1em 1em;
-        margin: 1em 0;
-      }
-      .admonition-title {
-        font-weight: bold;
-      }
-      .admonition.note,
-      .admonition.info,
-      .admonition.important {
-        background: #aef;
-      }
-      .admonition.todo,
-      .admonition.versionadded,
-      .admonition.tip,
-      .admonition.hint {
-        background: #dfd;
-      }
-      .admonition.warning,
-      .admonition.versionchanged,
-      .admonition.deprecated {
-        background: #fd4;
-      }
-      .admonition.error,
-      .admonition.danger,
-      .admonition.caution {
-        background: lightpink;
-      }
-    </style>
-    <style media="screen and (min-width: 700px)">
-      @media screen and (min-width: 700px) {
-        #sidebar {
-          width: 30%;
-          height: 100vh;
-          overflow: auto;
-          position: sticky;
-          top: 0;
-        }
-        #content {
-          width: 70%;
-          max-width: 100ch;
-          padding: 3em 4em;
-          border-left: 1px solid #ddd;
-        }
-        pre code {
-          font-size: 1em;
-        }
-        .name {
-          font-size: 1em;
-        }
-        main {
-          display: flex;
-          flex-direction: row-reverse;
-          justify-content: flex-end;
-        }
-        .toc ul ul,
-        #index ul ul {
-          padding-left: 1em;
-        }
-        .toc > ul > li {
-          margin-top: 0.5em;
-        }
-      }
-    </style>
-    <style media="print">
-      @media print {
-        #sidebar h1 {
-          page-break-before: always;
-        }
-        .source {
-          display: none;
-        }
-      }
-      @media print {
-        * {
-          background: transparent !important;
-          color: #000 !important;
-          box-shadow: none !important;
-          text-shadow: none !important;
-        }
-        a[href]:after {
-          content: " (" attr(href) ")";
-          font-size: 90%;
-        }
-        a[href][title]:after {
-          content: none;
-        }
-        abbr[title]:after {
-          content: " (" attr(title) ")";
-        }
-        .ir a:after,
-        a[href^="javascript:"]:after,
-        a[href^="#"]:after {
-          content: "";
-        }
-        pre,
-        blockquote {
-          border: 1px solid #999;
-          page-break-inside: avoid;
-        }
-        thead {
-          display: table-header-group;
-        }
-        tr,
-        img {
-          page-break-inside: avoid;
-        }
-        img {
-          max-width: 100% !important;
-        }
-        @page {
-          margin: 0.5cm;
-        }
-        p,
-        h2,
-        h3 {
-          orphans: 3;
-          widows: 3;
-        }
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-          page-break-after: avoid;
-        }
-      }
-    </style>
-    <script
-      defer
-      src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
-      integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
-      crossorigin
-    ></script>
-    <script>
-      window.addEventListener("DOMContentLoaded", () => {
-        hljs.configure({
-          languages: [
-            "bash",
-            "css",
-            "diff",
-            "graphql",
-            "ini",
-            "javascript",
-            "json",
-            "plaintext",
-            "python",
-            "python-repl",
-            "rust",
-            "shell",
-            "sql",
-            "typescript",
-            "xml",
-            "yaml",
-          ],
-        });
-        hljs.highlightAll();
-        /* Collapse source docstrings */
-        setTimeout(() => {
-          [...document.querySelectorAll(".hljs.language-python > .hljs-string")]
-            .filter(
-              (el) =>
-                el.innerHTML.length > 200 &&
-                ['"""', "'''"].includes(el.innerHTML.substring(0, 3)),
-            )
-            .forEach((el) => {
-              let d = document.createElement("details");
-              d.classList.add("hljs-string");
-              d.innerHTML =
-                '<summary>"""</summary>' + el.innerHTML.substring(3);
-              el.replaceWith(d);
-            });
-        }, 100);
-      });
-    </script>
-  </head>
-  <body>
-    <main>
-      <article id="content">
-        <header>
-          <h1 class="title">Module <code>space_hulk_game.validation</code></h1>
-        </header>
-        <section id="section-intro">
-          <p>Validation module for Space Hulk Game YAML outputs.</p>
-          <p>
-            This module provides validators and auto-correctors for parsing,
-            validating, and fixing YAML outputs from AI agents against Pydantic
-            schemas.
-          </p>
-          <p>
-            DEPRECATED: This module is deprecated as the system has migrated to
-            JSON outputs. JSON mode in LLMs guarantees valid syntax, eliminating
-            the need for this validation layer. For game playability validation,
-            use space_hulk_game.engine.validator instead.
-          </p>
-          <h2 id="exports">Exports</h2>
-          <p>
-            ProcessingResult: Unified result type for all processing operations
-            (NEW) OutputValidator: Main validator class for all YAML outputs
-            (DEPRECATED) ValidationResult: Result dataclass containing
-            validation status and errors (DEPRECATED) OutputCorrector:
-            Auto-corrector for fixing common YAML validation errors (DEPRECATED)
-            CorrectionResult: Result dataclass containing correction status and
-            changes (DEPRECATED)
-          </p>
-        </section>
-        <section>
-          <h2 class="section-title" id="header-submodules">Sub-modules</h2>
-          <dl>
-            <dt>
-              <code class="name"
-                ><a
-                  title="space_hulk_game.validation.corrector"
-                  href="corrector.html"
-                  >space_hulk_game.validation.corrector</a
-                ></code
-              >
-            </dt>
-            <dd>
-              <div class="desc">
-                <p>Auto-correction for YAML validation outputs …</p>
-              </div>
-            </dd>
-            <dt>
-              <code class="name"
-                ><a title="space_hulk_game.validation.types" href="types.html"
-                  >space_hulk_game.validation.types</a
-                ></code
-              >
-            </dt>
-            <dd>
-              <div class="desc">
-                <p>
-                  Unified result types for validation and processing operations
-                  …
-                </p>
-              </div>
-            </dd>
-            <dt>
-              <code class="name"
-                ><a
-                  title="space_hulk_game.validation.validator"
-                  href="validator.html"
-                  >space_hulk_game.validation.validator</a
-                ></code
-              >
-            </dt>
-            <dd>
-              <div class="desc">
-                <p>Output validation for Space Hulk Game YAML outputs …</p>
-              </div>
-            </dd>
-          </dl>
-        </section>
-        <section></section>
-        <section></section>
-        <section>
-          <h2 class="section-title" id="header-classes">Classes</h2>
-          <dl>
-            <dt id="space_hulk_game.validation.CorrectionResult">
-              <code class="flex name class">
-                <span>class <span class="ident">CorrectionResult</span></span>
-                <span>(</span
-                ><span
-                  >corrected_yaml: str,<br />corrections: list[str],<br />validation_result: <a
-                    title="space_hulk_game.validation.ValidationResult"
-                    href="#space_hulk_game.validation.ValidationResult"
-                    >ValidationResult</a
-                  >,<br />success: bool)</span
-                >
-              </code>
-            </dt>
-            <dd>
-              <details class="source">
-                <summary>
-                  <span>Expand source code</span>
-                </summary>
-                <pre><code class="python">@dataclass
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>space_hulk_game.validation API documentation</title>
+<meta name="description" content="Validation module for Space Hulk Game YAML outputs …">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>space_hulk_game.validation</code></h1>
+</header>
+<section id="section-intro">
+<p>Validation module for Space Hulk Game YAML outputs.</p>
+<p>This module provides validators and auto-correctors for parsing, validating,
+and fixing YAML outputs from AI agents against Pydantic schemas.</p>
+<p>DEPRECATED: This module is deprecated as the system has migrated to JSON outputs.
+JSON mode in LLMs guarantees valid syntax, eliminating the need for this validation layer.
+For game playability validation, use space_hulk_game.engine.validator instead.</p>
+<h2 id="exports">Exports</h2>
+<p>ProcessingResult: Unified result type for all processing operations (NEW)
+OutputValidator: Main validator class for all YAML outputs (DEPRECATED)
+ValidationResult: Result dataclass containing validation status and errors (DEPRECATED)
+OutputCorrector: Auto-corrector for fixing common YAML validation errors (DEPRECATED)
+CorrectionResult: Result dataclass containing correction status and changes (DEPRECATED)</p>
+</section>
+<section>
+<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+<dl>
+<dt><code class="name"><a title="space_hulk_game.validation.corrector" href="corrector.html">space_hulk_game.validation.corrector</a></code></dt>
+<dd>
+<div class="desc"><p>Auto-correction for YAML validation outputs …</p></div>
+</dd>
+<dt><code class="name"><a title="space_hulk_game.validation.types" href="types.html">space_hulk_game.validation.types</a></code></dt>
+<dd>
+<div class="desc"><p>Unified result types for validation and processing operations …</p></div>
+</dd>
+<dt><code class="name"><a title="space_hulk_game.validation.validator" href="validator.html">space_hulk_game.validation.validator</a></code></dt>
+<dd>
+<div class="desc"><p>Output validation for Space Hulk Game YAML outputs …</p></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="space_hulk_game.validation.CorrectionResult"><code class="flex name class">
+<span>class <span class="ident">CorrectionResult</span></span>
+<span>(</span><span>corrected_yaml: str,<br>corrections: list[str],<br>validation_result: <a title="space_hulk_game.validation.ValidationResult" href="#space_hulk_game.validation.ValidationResult">ValidationResult</a>,<br>success: bool)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
 class CorrectionResult:
     &#34;&#34;&#34;Result of attempting to auto-correct YAML output.
 
@@ -617,110 +136,59 @@ class CorrectionResult:
             corrections=self.corrections,
             metadata={&#34;corrected_yaml&#34;: self.corrected_yaml},
         )</code></pre>
-              </details>
-              <div class="desc">
-                <p>Result of attempting to auto-correct YAML output.</p>
-                <p>
-                  NOTE: CorrectionResult is kept for backward compatibility. New
-                  code should use ProcessingResult from validation.types
-                </p>
-                <h2 id="attributes">Attributes</h2>
-                <dl>
-                  <dt>
-                    <strong><code>corrected_yaml</code></strong>
-                  </dt>
-                  <dd>The corrected YAML string.</dd>
-                  <dt>
-                    <strong><code>corrections</code></strong>
-                  </dt>
-                  <dd>List of corrections applied.</dd>
-                  <dt>
-                    <strong><code>validation_result</code></strong>
-                  </dt>
-                  <dd>Result from validating the corrected output.</dd>
-                  <dt>
-                    <strong><code>success</code></strong>
-                  </dt>
-                  <dd>Whether correction succeeded and output is now valid.</dd>
-                </dl>
-                <h2 id="example">Example</h2>
-                <pre><code class="language-python-repl">&gt;&gt;&gt; result = CorrectionResult(
+</details>
+<div class="desc"><p>Result of attempting to auto-correct YAML output.</p>
+<p>NOTE: CorrectionResult is kept for backward compatibility.
+New code should use ProcessingResult from validation.types</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>corrected_yaml</code></strong></dt>
+<dd>The corrected YAML string.</dd>
+<dt><strong><code>corrections</code></strong></dt>
+<dd>List of corrections applied.</dd>
+<dt><strong><code>validation_result</code></strong></dt>
+<dd>Result from validating the corrected output.</dd>
+<dt><strong><code>success</code></strong></dt>
+<dd>Whether correction succeeded and output is now valid.</dd>
+</dl>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; result = CorrectionResult(
 ...     corrected_yaml=&quot;title: Fixed\n...&quot;,
 ...     corrections=[&quot;Added missing 'plot_points' field&quot;],
 ...     validation_result=ValidationResult(...),
 ...     success=True
 ... )
-</code></pre>
-              </div>
-              <h3>Instance variables</h3>
-              <dl>
-                <dt
-                  id="space_hulk_game.validation.CorrectionResult.corrected_yaml"
-                >
-                  <code class="name"
-                    >var <span class="ident">corrected_yaml</span> : str</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-                <dt
-                  id="space_hulk_game.validation.CorrectionResult.corrections"
-                >
-                  <code class="name"
-                    >var
-                    <span class="ident">corrections</span> : list[str]</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-                <dt id="space_hulk_game.validation.CorrectionResult.success">
-                  <code class="name"
-                    >var <span class="ident">success</span> : bool</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-                <dt
-                  id="space_hulk_game.validation.CorrectionResult.validation_result"
-                >
-                  <code class="name"
-                    >var <span class="ident">validation_result</span> : <a
-                      title="space_hulk_game.validation.validator.ValidationResult"
-                      href="validator.html#space_hulk_game.validation.validator.ValidationResult"
-                      >ValidationResult</a
-                    ></code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-              </dl>
-              <h3>Methods</h3>
-              <dl>
-                <dt
-                  id="space_hulk_game.validation.CorrectionResult.to_processing_result"
-                >
-                  <code class="name flex">
-                    <span
-                      >def <span class="ident">to_processing_result</span></span
-                    >(<span
-                      >self) ‑> <a
-                        title="space_hulk_game.validation.ProcessingResult"
-                        href="#space_hulk_game.validation.ProcessingResult"
-                        >ProcessingResult</a
-                      ></span
-                    >
-                  </code>
-                </dt>
-                <dd>
-                  <details class="source">
-                    <summary>
-                      <span>Expand source code</span>
-                    </summary>
-                    <pre><code class="python">def to_processing_result(self) -&gt; ProcessingResult:
+</code></pre></div>
+<h3>Instance variables</h3>
+<dl>
+<dt id="space_hulk_game.validation.CorrectionResult.corrected_yaml"><code class="name">var <span class="ident">corrected_yaml</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.validation.CorrectionResult.corrections"><code class="name">var <span class="ident">corrections</span> : list[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.validation.CorrectionResult.success"><code class="name">var <span class="ident">success</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.validation.CorrectionResult.validation_result"><code class="name">var <span class="ident">validation_result</span> : <a title="space_hulk_game.validation.validator.ValidationResult" href="validator.html#space_hulk_game.validation.validator.ValidationResult">ValidationResult</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="space_hulk_game.validation.CorrectionResult.to_processing_result"><code class="name flex">
+<span>def <span class="ident">to_processing_result</span></span>(<span>self) ‑> <a title="space_hulk_game.validation.ProcessingResult" href="#space_hulk_game.validation.ProcessingResult">ProcessingResult</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def to_processing_result(self) -&gt; ProcessingResult:
     &#34;&#34;&#34;Convert to unified ProcessingResult type.
 
     Returns:
@@ -747,13 +215,12 @@ class CorrectionResult:
         corrections=self.corrections,
         metadata={&#34;corrected_yaml&#34;: self.corrected_yaml},
     )</code></pre>
-                  </details>
-                  <div class="desc">
-                    <p>Convert to unified ProcessingResult type.</p>
-                    <h2 id="returns">Returns</h2>
-                    <p>ProcessingResult instance with equivalent data.</p>
-                    <h2 id="example">Example</h2>
-                    <pre><code class="language-python-repl">&gt;&gt;&gt; result = CorrectionResult(
+</details>
+<div class="desc"><p>Convert to unified ProcessingResult type.</p>
+<h2 id="returns">Returns</h2>
+<p>ProcessingResult instance with equivalent data.</p>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; result = CorrectionResult(
 ...     corrected_yaml=&quot;title: Fixed&quot;,
 ...     corrections=[&quot;Fixed ID&quot;],
 ...     validation_result=ValidationResult(valid=True, data=None, errors=[]),
@@ -762,22 +229,19 @@ class CorrectionResult:
 &gt;&gt;&gt; processing_result = result.to_processing_result()
 &gt;&gt;&gt; processing_result.is_valid
 True
-</code></pre>
-                  </div>
-                </dd>
-              </dl>
-            </dd>
-            <dt id="space_hulk_game.validation.OutputCorrector">
-              <code class="flex name class">
-                <span>class <span class="ident">OutputCorrector</span></span>
-              </code>
-            </dt>
-            <dd>
-              <details class="source">
-                <summary>
-                  <span>Expand source code</span>
-                </summary>
-                <pre><code class="python">class OutputCorrector:
+</code></pre></div>
+</dd>
+</dl>
+</dd>
+<dt id="space_hulk_game.validation.OutputCorrector"><code class="flex name class">
+<span>class <span class="ident">OutputCorrector</span></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class OutputCorrector:
     &#34;&#34;&#34;Auto-corrector for YAML validation outputs.
 
     This class provides methods to automatically fix common validation errors
@@ -1992,31 +1456,22 @@ True
             validation_result=validation_result,
             success=validation_result.valid,
         )</code></pre>
-              </details>
-              <div class="desc">
-                <p>Auto-corrector for YAML validation outputs.</p>
-                <p>
-                  This class provides methods to automatically fix common
-                  validation errors in YAML outputs from AI agents. It attempts
-                  to add missing required fields, fix syntax errors, normalize
-                  field names, and correct ID format violations.
-                </p>
-                <h2 id="features">Features</h2>
-                <ul>
-                  <li>Fixes missing required fields with sensible defaults</li>
-                  <li>Repairs common YAML syntax errors</li>
-                  <li>
-                    Normalizes field names (e.g., camelCase to snake_case)
-                  </li>
-                  <li>
-                    Corrects ID format violations (lowercase, underscores,
-                    alphanumeric)
-                  </li>
-                  <li>Logs all corrections transparently</li>
-                  <li>Validates corrected output</li>
-                </ul>
-                <h2 id="example">Example</h2>
-                <pre><code class="language-python-repl">&gt;&gt;&gt; corrector = OutputCorrector()
+</details>
+<div class="desc"><p>Auto-corrector for YAML validation outputs.</p>
+<p>This class provides methods to automatically fix common validation errors
+in YAML outputs from AI agents. It attempts to add missing required fields,
+fix syntax errors, normalize field names, and correct ID format violations.</p>
+<h2 id="features">Features</h2>
+<ul>
+<li>Fixes missing required fields with sensible defaults</li>
+<li>Repairs common YAML syntax errors</li>
+<li>Normalizes field names (e.g., camelCase to snake_case)</li>
+<li>Corrects ID format violations (lowercase, underscores, alphanumeric)</li>
+<li>Logs all corrections transparently</li>
+<li>Validates corrected output</li>
+</ul>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; corrector = OutputCorrector()
 &gt;&gt;&gt; result = corrector.correct_plot(invalid_yaml_string)
 &gt;&gt;&gt; if result.success:
 ...     print(f&quot;Corrections applied: {result.corrections}&quot;)
@@ -2025,34 +1480,18 @@ True
 ... else:
 ...     print(f&quot;Correction failed: {result.validation_result.errors}&quot;)
 </code></pre>
-                <p>
-                  Initialize the output corrector with a validator instance.
-                </p>
-              </div>
-              <h3>Methods</h3>
-              <dl>
-                <dt
-                  id="space_hulk_game.validation.OutputCorrector.correct_game_mechanics"
-                >
-                  <code class="name flex">
-                    <span
-                      >def
-                      <span class="ident">correct_game_mechanics</span></span
-                    >(<span
-                      >self, raw_output: str) ‑> <a
-                        title="space_hulk_game.validation.corrector.CorrectionResult"
-                        href="corrector.html#space_hulk_game.validation.corrector.CorrectionResult"
-                        >CorrectionResult</a
-                      ></span
-                    >
-                  </code>
-                </dt>
-                <dd>
-                  <details class="source">
-                    <summary>
-                      <span>Expand source code</span>
-                    </summary>
-                    <pre><code class="python">def correct_game_mechanics(self, raw_output: str) -&gt; CorrectionResult:
+<p>Initialize the output corrector with a validator instance.</p></div>
+<h3>Methods</h3>
+<dl>
+<dt id="space_hulk_game.validation.OutputCorrector.correct_game_mechanics"><code class="name flex">
+<span>def <span class="ident">correct_game_mechanics</span></span>(<span>self, raw_output: str) ‑> <a title="space_hulk_game.validation.corrector.CorrectionResult" href="corrector.html#space_hulk_game.validation.corrector.CorrectionResult">CorrectionResult</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def correct_game_mechanics(self, raw_output: str) -&gt; CorrectionResult:
     &#34;&#34;&#34;Attempt to correct common errors in game mechanics YAML.
 
     Fixes:
@@ -2224,62 +1663,38 @@ True
         validation_result=validation_result,
         success=validation_result.valid,
     )</code></pre>
-                  </details>
-                  <div class="desc">
-                    <p>
-                      Attempt to correct common errors in game mechanics YAML.
-                    </p>
-                    <h2 id="fixes">Fixes</h2>
-                    <ul>
-                      <li>
-                        Missing required fields (game_systems, game_state,
-                        technical_requirements)
-                      </li>
-                      <li>Descriptions too short</li>
-                      <li>YAML syntax errors</li>
-                    </ul>
-                    <h2 id="args">Args</h2>
-                    <dl>
-                      <dt>
-                        <strong><code>raw_output</code></strong>
-                      </dt>
-                      <dd>Raw YAML string containing game mechanics data.</dd>
-                    </dl>
-                    <h2 id="returns">Returns</h2>
-                    <p>
-                      CorrectionResult with corrected YAML, list of corrections,
-                      validation result, and success status.
-                    </p>
-                    <h2 id="example">Example</h2>
-                    <pre><code class="language-python-repl">&gt;&gt;&gt; corrector = OutputCorrector()
+</details>
+<div class="desc"><p>Attempt to correct common errors in game mechanics YAML.</p>
+<h2 id="fixes">Fixes</h2>
+<ul>
+<li>Missing required fields (game_systems, game_state, technical_requirements)</li>
+<li>Descriptions too short</li>
+<li>YAML syntax errors</li>
+</ul>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>raw_output</code></strong></dt>
+<dd>Raw YAML string containing game mechanics data.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>CorrectionResult with corrected YAML, list of corrections,
+validation result, and success status.</p>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; corrector = OutputCorrector()
 &gt;&gt;&gt; result = corrector.correct_game_mechanics(invalid_mechanics_yaml)
 &gt;&gt;&gt; if result.success:
 ...     print(f&quot;Game mechanics corrected with {len(result.corrections)} changes&quot;)
-</code></pre>
-                  </div>
-                </dd>
-                <dt
-                  id="space_hulk_game.validation.OutputCorrector.correct_narrative_map"
-                >
-                  <code class="name flex">
-                    <span
-                      >def
-                      <span class="ident">correct_narrative_map</span></span
-                    >(<span
-                      >self, raw_output: str) ‑> <a
-                        title="space_hulk_game.validation.corrector.CorrectionResult"
-                        href="corrector.html#space_hulk_game.validation.corrector.CorrectionResult"
-                        >CorrectionResult</a
-                      ></span
-                    >
-                  </code>
-                </dt>
-                <dd>
-                  <details class="source">
-                    <summary>
-                      <span>Expand source code</span>
-                    </summary>
-                    <pre><code class="python">def correct_narrative_map(self, raw_output: str) -&gt; CorrectionResult:
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.validation.OutputCorrector.correct_narrative_map"><code class="name flex">
+<span>def <span class="ident">correct_narrative_map</span></span>(<span>self, raw_output: str) ‑> <a title="space_hulk_game.validation.corrector.CorrectionResult" href="corrector.html#space_hulk_game.validation.corrector.CorrectionResult">CorrectionResult</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def correct_narrative_map(self, raw_output: str) -&gt; CorrectionResult:
     &#34;&#34;&#34;Attempt to correct common errors in narrative map YAML.
 
     Fixes:
@@ -2427,58 +1842,39 @@ True
         validation_result=validation_result,
         success=validation_result.valid,
     )</code></pre>
-                  </details>
-                  <div class="desc">
-                    <p>
-                      Attempt to correct common errors in narrative map YAML.
-                    </p>
-                    <h2 id="fixes">Fixes</h2>
-                    <ul>
-                      <li>Missing required fields (start_scene, scenes)</li>
-                      <li>Invalid ID formats</li>
-                      <li>Descriptions too short</li>
-                      <li>YAML syntax errors</li>
-                    </ul>
-                    <h2 id="args">Args</h2>
-                    <dl>
-                      <dt>
-                        <strong><code>raw_output</code></strong>
-                      </dt>
-                      <dd>Raw YAML string containing narrative map data.</dd>
-                    </dl>
-                    <h2 id="returns">Returns</h2>
-                    <p>
-                      CorrectionResult with corrected YAML, list of corrections,
-                      validation result, and success status.
-                    </p>
-                    <h2 id="example">Example</h2>
-                    <pre><code class="language-python-repl">&gt;&gt;&gt; corrector = OutputCorrector()
+</details>
+<div class="desc"><p>Attempt to correct common errors in narrative map YAML.</p>
+<h2 id="fixes">Fixes</h2>
+<ul>
+<li>Missing required fields (start_scene, scenes)</li>
+<li>Invalid ID formats</li>
+<li>Descriptions too short</li>
+<li>YAML syntax errors</li>
+</ul>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>raw_output</code></strong></dt>
+<dd>Raw YAML string containing narrative map data.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>CorrectionResult with corrected YAML, list of corrections,
+validation result, and success status.</p>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; corrector = OutputCorrector()
 &gt;&gt;&gt; result = corrector.correct_narrative_map(invalid_map_yaml)
 &gt;&gt;&gt; if result.success:
 ...     print(f&quot;Map corrected with {len(result.corrections)} changes&quot;)
-</code></pre>
-                  </div>
-                </dd>
-                <dt
-                  id="space_hulk_game.validation.OutputCorrector.correct_plot"
-                >
-                  <code class="name flex">
-                    <span>def <span class="ident">correct_plot</span></span
-                    >(<span
-                      >self, raw_output: str) ‑> <a
-                        title="space_hulk_game.validation.corrector.CorrectionResult"
-                        href="corrector.html#space_hulk_game.validation.corrector.CorrectionResult"
-                        >CorrectionResult</a
-                      ></span
-                    >
-                  </code>
-                </dt>
-                <dd>
-                  <details class="source">
-                    <summary>
-                      <span>Expand source code</span>
-                    </summary>
-                    <pre><code class="python">def correct_plot(self, raw_output: str) -&gt; CorrectionResult:
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.validation.OutputCorrector.correct_plot"><code class="name flex">
+<span>def <span class="ident">correct_plot</span></span>(<span>self, raw_output: str) ‑> <a title="space_hulk_game.validation.corrector.CorrectionResult" href="corrector.html#space_hulk_game.validation.corrector.CorrectionResult">CorrectionResult</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def correct_plot(self, raw_output: str) -&gt; CorrectionResult:
     &#34;&#34;&#34;Attempt to correct common errors in plot outline YAML.
 
     Fixes:
@@ -2698,63 +2094,39 @@ True
         validation_result=validation_result,
         success=validation_result.valid,
     )</code></pre>
-                  </details>
-                  <div class="desc">
-                    <p>
-                      Attempt to correct common errors in plot outline YAML.
-                    </p>
-                    <h2 id="fixes">Fixes</h2>
-                    <ul>
-                      <li>
-                        Missing required fields (plot_points, characters,
-                        conflicts)
-                      </li>
-                      <li>Invalid ID formats</li>
-                      <li>Descriptions too short</li>
-                      <li>YAML syntax errors</li>
-                    </ul>
-                    <h2 id="args">Args</h2>
-                    <dl>
-                      <dt>
-                        <strong><code>raw_output</code></strong>
-                      </dt>
-                      <dd>Raw YAML string containing plot outline data.</dd>
-                    </dl>
-                    <h2 id="returns">Returns</h2>
-                    <p>
-                      CorrectionResult with corrected YAML, list of corrections,
-                      validation result, and success status.
-                    </p>
-                    <h2 id="example">Example</h2>
-                    <pre><code class="language-python-repl">&gt;&gt;&gt; corrector = OutputCorrector()
+</details>
+<div class="desc"><p>Attempt to correct common errors in plot outline YAML.</p>
+<h2 id="fixes">Fixes</h2>
+<ul>
+<li>Missing required fields (plot_points, characters, conflicts)</li>
+<li>Invalid ID formats</li>
+<li>Descriptions too short</li>
+<li>YAML syntax errors</li>
+</ul>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>raw_output</code></strong></dt>
+<dd>Raw YAML string containing plot outline data.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>CorrectionResult with corrected YAML, list of corrections,
+validation result, and success status.</p>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; corrector = OutputCorrector()
 &gt;&gt;&gt; result = corrector.correct_plot(invalid_plot_yaml)
 &gt;&gt;&gt; if result.success:
 ...     print(f&quot;Plot corrected with {len(result.corrections)} changes&quot;)
-</code></pre>
-                  </div>
-                </dd>
-                <dt
-                  id="space_hulk_game.validation.OutputCorrector.correct_puzzle_design"
-                >
-                  <code class="name flex">
-                    <span
-                      >def
-                      <span class="ident">correct_puzzle_design</span></span
-                    >(<span
-                      >self, raw_output: str) ‑> <a
-                        title="space_hulk_game.validation.corrector.CorrectionResult"
-                        href="corrector.html#space_hulk_game.validation.corrector.CorrectionResult"
-                        >CorrectionResult</a
-                      ></span
-                    >
-                  </code>
-                </dt>
-                <dd>
-                  <details class="source">
-                    <summary>
-                      <span>Expand source code</span>
-                    </summary>
-                    <pre><code class="python">def correct_puzzle_design(self, raw_output: str) -&gt; CorrectionResult:
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.validation.OutputCorrector.correct_puzzle_design"><code class="name flex">
+<span>def <span class="ident">correct_puzzle_design</span></span>(<span>self, raw_output: str) ‑> <a title="space_hulk_game.validation.corrector.CorrectionResult" href="corrector.html#space_hulk_game.validation.corrector.CorrectionResult">CorrectionResult</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def correct_puzzle_design(self, raw_output: str) -&gt; CorrectionResult:
     &#34;&#34;&#34;Attempt to correct common errors in puzzle design YAML.
 
     Fixes:
@@ -2948,62 +2320,39 @@ True
         validation_result=validation_result,
         success=validation_result.valid,
     )</code></pre>
-                  </details>
-                  <div class="desc">
-                    <p>
-                      Attempt to correct common errors in puzzle design YAML.
-                    </p>
-                    <h2 id="fixes">Fixes</h2>
-                    <ul>
-                      <li>
-                        Missing required fields (puzzles, artifacts, monsters,
-                        npcs)
-                      </li>
-                      <li>Invalid ID formats</li>
-                      <li>Descriptions too short</li>
-                      <li>YAML syntax errors</li>
-                    </ul>
-                    <h2 id="args">Args</h2>
-                    <dl>
-                      <dt>
-                        <strong><code>raw_output</code></strong>
-                      </dt>
-                      <dd>Raw YAML string containing puzzle design data.</dd>
-                    </dl>
-                    <h2 id="returns">Returns</h2>
-                    <p>
-                      CorrectionResult with corrected YAML, list of corrections,
-                      validation result, and success status.
-                    </p>
-                    <h2 id="example">Example</h2>
-                    <pre><code class="language-python-repl">&gt;&gt;&gt; corrector = OutputCorrector()
+</details>
+<div class="desc"><p>Attempt to correct common errors in puzzle design YAML.</p>
+<h2 id="fixes">Fixes</h2>
+<ul>
+<li>Missing required fields (puzzles, artifacts, monsters, npcs)</li>
+<li>Invalid ID formats</li>
+<li>Descriptions too short</li>
+<li>YAML syntax errors</li>
+</ul>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>raw_output</code></strong></dt>
+<dd>Raw YAML string containing puzzle design data.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>CorrectionResult with corrected YAML, list of corrections,
+validation result, and success status.</p>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; corrector = OutputCorrector()
 &gt;&gt;&gt; result = corrector.correct_puzzle_design(invalid_puzzle_yaml)
 &gt;&gt;&gt; if result.success:
 ...     print(f&quot;Puzzle design corrected with {len(result.corrections)} changes&quot;)
-</code></pre>
-                  </div>
-                </dd>
-                <dt
-                  id="space_hulk_game.validation.OutputCorrector.correct_scene_texts"
-                >
-                  <code class="name flex">
-                    <span
-                      >def <span class="ident">correct_scene_texts</span></span
-                    >(<span
-                      >self, raw_output: str) ‑> <a
-                        title="space_hulk_game.validation.corrector.CorrectionResult"
-                        href="corrector.html#space_hulk_game.validation.corrector.CorrectionResult"
-                        >CorrectionResult</a
-                      ></span
-                    >
-                  </code>
-                </dt>
-                <dd>
-                  <details class="source">
-                    <summary>
-                      <span>Expand source code</span>
-                    </summary>
-                    <pre><code class="python">def correct_scene_texts(self, raw_output: str) -&gt; CorrectionResult:
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.validation.OutputCorrector.correct_scene_texts"><code class="name flex">
+<span>def <span class="ident">correct_scene_texts</span></span>(<span>self, raw_output: str) ‑> <a title="space_hulk_game.validation.corrector.CorrectionResult" href="corrector.html#space_hulk_game.validation.corrector.CorrectionResult">CorrectionResult</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def correct_scene_texts(self, raw_output: str) -&gt; CorrectionResult:
     &#34;&#34;&#34;Attempt to correct common errors in scene texts YAML.
 
     Fixes:
@@ -3161,49 +2510,41 @@ True
         validation_result=validation_result,
         success=validation_result.valid,
     )</code></pre>
-                  </details>
-                  <div class="desc">
-                    <p>Attempt to correct common errors in scene texts YAML.</p>
-                    <h2 id="fixes">Fixes</h2>
-                    <ul>
-                      <li>Missing required fields (scenes)</li>
-                      <li>Invalid ID formats</li>
-                      <li>Descriptions too short</li>
-                      <li>YAML syntax errors</li>
-                    </ul>
-                    <h2 id="args">Args</h2>
-                    <dl>
-                      <dt>
-                        <strong><code>raw_output</code></strong>
-                      </dt>
-                      <dd>Raw YAML string containing scene texts data.</dd>
-                    </dl>
-                    <h2 id="returns">Returns</h2>
-                    <p>
-                      CorrectionResult with corrected YAML, list of corrections,
-                      validation result, and success status.
-                    </p>
-                    <h2 id="example">Example</h2>
-                    <pre><code class="language-python-repl">&gt;&gt;&gt; corrector = OutputCorrector()
+</details>
+<div class="desc"><p>Attempt to correct common errors in scene texts YAML.</p>
+<h2 id="fixes">Fixes</h2>
+<ul>
+<li>Missing required fields (scenes)</li>
+<li>Invalid ID formats</li>
+<li>Descriptions too short</li>
+<li>YAML syntax errors</li>
+</ul>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>raw_output</code></strong></dt>
+<dd>Raw YAML string containing scene texts data.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>CorrectionResult with corrected YAML, list of corrections,
+validation result, and success status.</p>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; corrector = OutputCorrector()
 &gt;&gt;&gt; result = corrector.correct_scene_texts(invalid_scene_yaml)
 &gt;&gt;&gt; if result.success:
 ...     print(f&quot;Scene texts corrected with {len(result.corrections)} changes&quot;)
-</code></pre>
-                  </div>
-                </dd>
-              </dl>
-            </dd>
-            <dt id="space_hulk_game.validation.OutputValidator">
-              <code class="flex name class">
-                <span>class <span class="ident">OutputValidator</span></span>
-              </code>
-            </dt>
-            <dd>
-              <details class="source">
-                <summary>
-                  <span>Expand source code</span>
-                </summary>
-                <pre><code class="python">class OutputValidator:
+</code></pre></div>
+</dd>
+</dl>
+</dd>
+<dt id="space_hulk_game.validation.OutputValidator"><code class="flex name class">
+<span>class <span class="ident">OutputValidator</span></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class OutputValidator:
     &#34;&#34;&#34;Validator for YAML outputs against Pydantic schemas.
 
     This class provides methods to parse and validate YAML strings
@@ -3547,22 +2888,18 @@ True
             error_msg = f&#34;Unexpected error during game mechanics validation: {e!s}&#34;
             logger.error(error_msg)
             return ValidationResult(valid=False, data=None, errors=[error_msg])</code></pre>
-              </details>
-              <div class="desc">
-                <p>Validator for YAML outputs against Pydantic schemas.</p>
-                <p>
-                  This class provides methods to parse and validate YAML strings
-                  against specific Pydantic schemas for different game design
-                  outputs.
-                </p>
-                <h2 id="features">Features</h2>
-                <ul>
-                  <li>Handles markdown-wrapped YAML (common in AI outputs)</li>
-                  <li>Provides detailed, helpful error messages</li>
-                  <li>Validates against all schema constraints</li>
-                </ul>
-                <h2 id="example">Example</h2>
-                <pre><code class="language-python-repl">&gt;&gt;&gt; validator = OutputValidator()
+</details>
+<div class="desc"><p>Validator for YAML outputs against Pydantic schemas.</p>
+<p>This class provides methods to parse and validate YAML strings
+against specific Pydantic schemas for different game design outputs.</p>
+<h2 id="features">Features</h2>
+<ul>
+<li>Handles markdown-wrapped YAML (common in AI outputs)</li>
+<li>Provides detailed, helpful error messages</li>
+<li>Validates against all schema constraints</li>
+</ul>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; validator = OutputValidator()
 &gt;&gt;&gt; result = validator.validate_plot(yaml_string)
 &gt;&gt;&gt; if result.valid:
 ...     print(f&quot;Valid plot: {result.data.title}&quot;)
@@ -3570,32 +2907,18 @@ True
 ...     for error in result.errors:
 ...         print(f&quot;Error: {error}&quot;)
 </code></pre>
-                <p>Initialize the output validator.</p>
-              </div>
-              <h3>Methods</h3>
-              <dl>
-                <dt
-                  id="space_hulk_game.validation.OutputValidator.validate_game_mechanics"
-                >
-                  <code class="name flex">
-                    <span
-                      >def
-                      <span class="ident">validate_game_mechanics</span></span
-                    >(<span
-                      >self, raw_output: str) ‑> <a
-                        title="space_hulk_game.validation.validator.ValidationResult"
-                        href="validator.html#space_hulk_game.validation.validator.ValidationResult"
-                        >ValidationResult</a
-                      ></span
-                    >
-                  </code>
-                </dt>
-                <dd>
-                  <details class="source">
-                    <summary>
-                      <span>Expand source code</span>
-                    </summary>
-                    <pre><code class="python">def validate_game_mechanics(self, raw_output: str) -&gt; ValidationResult:
+<p>Initialize the output validator.</p></div>
+<h3>Methods</h3>
+<dl>
+<dt id="space_hulk_game.validation.OutputValidator.validate_game_mechanics"><code class="name flex">
+<span>def <span class="ident">validate_game_mechanics</span></span>(<span>self, raw_output: str) ‑> <a title="space_hulk_game.validation.validator.ValidationResult" href="validator.html#space_hulk_game.validation.validator.ValidationResult">ValidationResult</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def validate_game_mechanics(self, raw_output: str) -&gt; ValidationResult:
     &#34;&#34;&#34;Parse and validate game mechanics YAML against GameMechanics schema.
 
     Args:
@@ -3646,26 +2969,18 @@ True
         error_msg = f&#34;Unexpected error during game mechanics validation: {e!s}&#34;
         logger.error(error_msg)
         return ValidationResult(valid=False, data=None, errors=[error_msg])</code></pre>
-                  </details>
-                  <div class="desc">
-                    <p>
-                      Parse and validate game mechanics YAML against
-                      GameMechanics schema.
-                    </p>
-                    <h2 id="args">Args</h2>
-                    <dl>
-                      <dt>
-                        <strong><code>raw_output</code></strong>
-                      </dt>
-                      <dd>Raw YAML string containing game mechanics data.</dd>
-                    </dl>
-                    <h2 id="returns">Returns</h2>
-                    <p>
-                      ValidationResult with validation status, parsed data if
-                      valid, and error messages if invalid.
-                    </p>
-                    <h2 id="example">Example</h2>
-                    <pre><code class="language-python-repl">&gt;&gt;&gt; validator = OutputValidator()
+</details>
+<div class="desc"><p>Parse and validate game mechanics YAML against GameMechanics schema.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>raw_output</code></strong></dt>
+<dd>Raw YAML string containing game mechanics data.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>ValidationResult with validation status, parsed data if valid,
+and error messages if invalid.</p>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; validator = OutputValidator()
 &gt;&gt;&gt; yaml_str = '''
 ... game_title: &quot;Test Game&quot;
 ... game_systems:
@@ -3679,31 +2994,17 @@ True
 &gt;&gt;&gt; result = validator.validate_game_mechanics(yaml_str)
 &gt;&gt;&gt; if result.valid:
 ...     print(f&quot;Valid mechanics: {result.data.game_title}&quot;)
-</code></pre>
-                  </div>
-                </dd>
-                <dt
-                  id="space_hulk_game.validation.OutputValidator.validate_narrative_map"
-                >
-                  <code class="name flex">
-                    <span
-                      >def
-                      <span class="ident">validate_narrative_map</span></span
-                    >(<span
-                      >self, raw_output: str) ‑> <a
-                        title="space_hulk_game.validation.validator.ValidationResult"
-                        href="validator.html#space_hulk_game.validation.validator.ValidationResult"
-                        >ValidationResult</a
-                      ></span
-                    >
-                  </code>
-                </dt>
-                <dd>
-                  <details class="source">
-                    <summary>
-                      <span>Expand source code</span>
-                    </summary>
-                    <pre><code class="python">def validate_narrative_map(self, raw_output: str) -&gt; ValidationResult:
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.validation.OutputValidator.validate_narrative_map"><code class="name flex">
+<span>def <span class="ident">validate_narrative_map</span></span>(<span>self, raw_output: str) ‑> <a title="space_hulk_game.validation.validator.ValidationResult" href="validator.html#space_hulk_game.validation.validator.ValidationResult">ValidationResult</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def validate_narrative_map(self, raw_output: str) -&gt; ValidationResult:
     &#34;&#34;&#34;Parse and validate narrative map YAML against NarrativeMap schema.
 
     Args:
@@ -3752,26 +3053,18 @@ True
         error_msg = f&#34;Unexpected error during narrative map validation: {e!s}&#34;
         logger.error(error_msg)
         return ValidationResult(valid=False, data=None, errors=[error_msg])</code></pre>
-                  </details>
-                  <div class="desc">
-                    <p>
-                      Parse and validate narrative map YAML against NarrativeMap
-                      schema.
-                    </p>
-                    <h2 id="args">Args</h2>
-                    <dl>
-                      <dt>
-                        <strong><code>raw_output</code></strong>
-                      </dt>
-                      <dd>Raw YAML string containing narrative map data.</dd>
-                    </dl>
-                    <h2 id="returns">Returns</h2>
-                    <p>
-                      ValidationResult with validation status, parsed data if
-                      valid, and error messages if invalid.
-                    </p>
-                    <h2 id="example">Example</h2>
-                    <pre><code class="language-python-repl">&gt;&gt;&gt; validator = OutputValidator()
+</details>
+<div class="desc"><p>Parse and validate narrative map YAML against NarrativeMap schema.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>raw_output</code></strong></dt>
+<dd>Raw YAML string containing narrative map data.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>ValidationResult with validation status, parsed data if valid,
+and error messages if invalid.</p>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; validator = OutputValidator()
 &gt;&gt;&gt; yaml_str = '''
 ... start_scene: &quot;scene_1&quot;
 ... scenes:
@@ -3783,29 +3076,17 @@ True
 &gt;&gt;&gt; result = validator.validate_narrative_map(yaml_str)
 &gt;&gt;&gt; if result.valid:
 ...     print(f&quot;Valid map: {len(result.data.scenes)} scenes&quot;)
-</code></pre>
-                  </div>
-                </dd>
-                <dt
-                  id="space_hulk_game.validation.OutputValidator.validate_plot"
-                >
-                  <code class="name flex">
-                    <span>def <span class="ident">validate_plot</span></span
-                    >(<span
-                      >self, raw_output: str) ‑> <a
-                        title="space_hulk_game.validation.validator.ValidationResult"
-                        href="validator.html#space_hulk_game.validation.validator.ValidationResult"
-                        >ValidationResult</a
-                      ></span
-                    >
-                  </code>
-                </dt>
-                <dd>
-                  <details class="source">
-                    <summary>
-                      <span>Expand source code</span>
-                    </summary>
-                    <pre><code class="python">def validate_plot(self, raw_output: str) -&gt; ValidationResult:
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.validation.OutputValidator.validate_plot"><code class="name flex">
+<span>def <span class="ident">validate_plot</span></span>(<span>self, raw_output: str) ‑> <a title="space_hulk_game.validation.validator.ValidationResult" href="validator.html#space_hulk_game.validation.validator.ValidationResult">ValidationResult</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def validate_plot(self, raw_output: str) -&gt; ValidationResult:
     &#34;&#34;&#34;Parse and validate plot outline YAML against PlotOutline schema.
 
     Args:
@@ -3855,26 +3136,18 @@ True
         error_msg = f&#34;Unexpected error during plot outline validation: {e!s}&#34;
         logger.error(error_msg)
         return ValidationResult(valid=False, data=None, errors=[error_msg])</code></pre>
-                  </details>
-                  <div class="desc">
-                    <p>
-                      Parse and validate plot outline YAML against PlotOutline
-                      schema.
-                    </p>
-                    <h2 id="args">Args</h2>
-                    <dl>
-                      <dt>
-                        <strong><code>raw_output</code></strong>
-                      </dt>
-                      <dd>Raw YAML string containing plot outline data.</dd>
-                    </dl>
-                    <h2 id="returns">Returns</h2>
-                    <p>
-                      ValidationResult with validation status, parsed data if
-                      valid, and error messages if invalid.
-                    </p>
-                    <h2 id="example">Example</h2>
-                    <pre><code class="language-python-repl">&gt;&gt;&gt; validator = OutputValidator()
+</details>
+<div class="desc"><p>Parse and validate plot outline YAML against PlotOutline schema.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>raw_output</code></strong></dt>
+<dd>Raw YAML string containing plot outline data.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>ValidationResult with validation status, parsed data if valid,
+and error messages if invalid.</p>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; validator = OutputValidator()
 &gt;&gt;&gt; yaml_str = '''
 ... title: &quot;Test Plot&quot;
 ... setting: &quot;A dark and atmospheric setting with lots of detail...&quot;
@@ -3887,31 +3160,17 @@ True
 &gt;&gt;&gt; result = validator.validate_plot(yaml_str)
 &gt;&gt;&gt; if result.valid:
 ...     print(f&quot;Valid plot: {result.data.title}&quot;)
-</code></pre>
-                  </div>
-                </dd>
-                <dt
-                  id="space_hulk_game.validation.OutputValidator.validate_puzzle_design"
-                >
-                  <code class="name flex">
-                    <span
-                      >def
-                      <span class="ident">validate_puzzle_design</span></span
-                    >(<span
-                      >self, raw_output: str) ‑> <a
-                        title="space_hulk_game.validation.validator.ValidationResult"
-                        href="validator.html#space_hulk_game.validation.validator.ValidationResult"
-                        >ValidationResult</a
-                      ></span
-                    >
-                  </code>
-                </dt>
-                <dd>
-                  <details class="source">
-                    <summary>
-                      <span>Expand source code</span>
-                    </summary>
-                    <pre><code class="python">def validate_puzzle_design(self, raw_output: str) -&gt; ValidationResult:
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.validation.OutputValidator.validate_puzzle_design"><code class="name flex">
+<span>def <span class="ident">validate_puzzle_design</span></span>(<span>self, raw_output: str) ‑> <a title="space_hulk_game.validation.validator.ValidationResult" href="validator.html#space_hulk_game.validation.validator.ValidationResult">ValidationResult</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def validate_puzzle_design(self, raw_output: str) -&gt; ValidationResult:
     &#34;&#34;&#34;Parse and validate puzzle design YAML against PuzzleDesign schema.
 
     Args:
@@ -3960,26 +3219,18 @@ True
         error_msg = f&#34;Unexpected error during puzzle design validation: {e!s}&#34;
         logger.error(error_msg)
         return ValidationResult(valid=False, data=None, errors=[error_msg])</code></pre>
-                  </details>
-                  <div class="desc">
-                    <p>
-                      Parse and validate puzzle design YAML against PuzzleDesign
-                      schema.
-                    </p>
-                    <h2 id="args">Args</h2>
-                    <dl>
-                      <dt>
-                        <strong><code>raw_output</code></strong>
-                      </dt>
-                      <dd>Raw YAML string containing puzzle design data.</dd>
-                    </dl>
-                    <h2 id="returns">Returns</h2>
-                    <p>
-                      ValidationResult with validation status, parsed data if
-                      valid, and error messages if invalid.
-                    </p>
-                    <h2 id="example">Example</h2>
-                    <pre><code class="language-python-repl">&gt;&gt;&gt; validator = OutputValidator()
+</details>
+<div class="desc"><p>Parse and validate puzzle design YAML against PuzzleDesign schema.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>raw_output</code></strong></dt>
+<dd>Raw YAML string containing puzzle design data.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>ValidationResult with validation status, parsed data if valid,
+and error messages if invalid.</p>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; validator = OutputValidator()
 &gt;&gt;&gt; yaml_str = '''
 ... puzzles: [...]
 ... artifacts: [...]
@@ -3989,30 +3240,17 @@ True
 &gt;&gt;&gt; result = validator.validate_puzzle_design(yaml_str)
 &gt;&gt;&gt; if result.valid:
 ...     print(f&quot;Valid design: {len(result.data.puzzles)} puzzles&quot;)
-</code></pre>
-                  </div>
-                </dd>
-                <dt
-                  id="space_hulk_game.validation.OutputValidator.validate_scene_texts"
-                >
-                  <code class="name flex">
-                    <span
-                      >def <span class="ident">validate_scene_texts</span></span
-                    >(<span
-                      >self, raw_output: str) ‑> <a
-                        title="space_hulk_game.validation.validator.ValidationResult"
-                        href="validator.html#space_hulk_game.validation.validator.ValidationResult"
-                        >ValidationResult</a
-                      ></span
-                    >
-                  </code>
-                </dt>
-                <dd>
-                  <details class="source">
-                    <summary>
-                      <span>Expand source code</span>
-                    </summary>
-                    <pre><code class="python">def validate_scene_texts(self, raw_output: str) -&gt; ValidationResult:
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.validation.OutputValidator.validate_scene_texts"><code class="name flex">
+<span>def <span class="ident">validate_scene_texts</span></span>(<span>self, raw_output: str) ‑> <a title="space_hulk_game.validation.validator.ValidationResult" href="validator.html#space_hulk_game.validation.validator.ValidationResult">ValidationResult</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def validate_scene_texts(self, raw_output: str) -&gt; ValidationResult:
     &#34;&#34;&#34;Parse and validate scene texts YAML against SceneTexts schema.
 
     Args:
@@ -4063,26 +3301,18 @@ True
         error_msg = f&#34;Unexpected error during scene texts validation: {e!s}&#34;
         logger.error(error_msg)
         return ValidationResult(valid=False, data=None, errors=[error_msg])</code></pre>
-                  </details>
-                  <div class="desc">
-                    <p>
-                      Parse and validate scene texts YAML against SceneTexts
-                      schema.
-                    </p>
-                    <h2 id="args">Args</h2>
-                    <dl>
-                      <dt>
-                        <strong><code>raw_output</code></strong>
-                      </dt>
-                      <dd>Raw YAML string containing scene texts data.</dd>
-                    </dl>
-                    <h2 id="returns">Returns</h2>
-                    <p>
-                      ValidationResult with validation status, parsed data if
-                      valid, and error messages if invalid.
-                    </p>
-                    <h2 id="example">Example</h2>
-                    <pre><code class="language-python-repl">&gt;&gt;&gt; validator = OutputValidator()
+</details>
+<div class="desc"><p>Parse and validate scene texts YAML against SceneTexts schema.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>raw_output</code></strong></dt>
+<dd>Raw YAML string containing scene texts data.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>ValidationResult with validation status, parsed data if valid,
+and error messages if invalid.</p>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; validator = OutputValidator()
 &gt;&gt;&gt; yaml_str = '''
 ... scenes:
 ...   scene_1:
@@ -4096,26 +3326,20 @@ True
 &gt;&gt;&gt; result = validator.validate_scene_texts(yaml_str)
 &gt;&gt;&gt; if result.valid:
 ...     print(f&quot;Valid texts: {len(result.data.scenes)} scenes&quot;)
-</code></pre>
-                  </div>
-                </dd>
-              </dl>
-            </dd>
-            <dt id="space_hulk_game.validation.ProcessingResult">
-              <code class="flex name class">
-                <span>class <span class="ident">ProcessingResult</span></span>
-                <span>(</span
-                ><span
-                  >success: bool,<br />data: typing.Any | None = None,<br />errors: list[str] = &lt;factory&gt;,<br />warnings: list[str] = &lt;factory&gt;,<br />corrections: list[str] = &lt;factory&gt;,<br />metadata: dict[str, typing.Any] = &lt;factory&gt;)</span
-                >
-              </code>
-            </dt>
-            <dd>
-              <details class="source">
-                <summary>
-                  <span>Expand source code</span>
-                </summary>
-                <pre><code class="python">@dataclass
+</code></pre></div>
+</dd>
+</dl>
+</dd>
+<dt id="space_hulk_game.validation.ProcessingResult"><code class="flex name class">
+<span>class <span class="ident">ProcessingResult</span></span>
+<span>(</span><span>success: bool,<br>data: typing.Any | None = None,<br>errors: list[str] = &lt;factory&gt;,<br>warnings: list[str] = &lt;factory&gt;,<br>corrections: list[str] = &lt;factory&gt;,<br>metadata: dict[str, typing.Any] = &lt;factory&gt;)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
 class ProcessingResult:
     &#34;&#34;&#34;Unified result type for YAML processing operations.
 
@@ -4173,43 +3397,27 @@ class ProcessingResult:
             parts.append(f&#34;{len(self.corrections)} corrections&#34;)
 
         return &#34; - &#34;.join(parts)</code></pre>
-              </details>
-              <div class="desc">
-                <p>Unified result type for YAML processing operations.</p>
-                <p>
-                  This replaces ValidationResult, CorrectionResult, and parts of
-                  QualityScore to provide consistent error/warning/info
-                  reporting across all processing layers.
-                </p>
-                <h2 id="attributes">Attributes</h2>
-                <dl>
-                  <dt>
-                    <strong><code>success</code></strong>
-                  </dt>
-                  <dd>Whether the operation succeeded</dd>
-                  <dt>
-                    <strong><code>data</code></strong>
-                  </dt>
-                  <dd>The processed data (if successful)</dd>
-                  <dt>
-                    <strong><code>errors</code></strong>
-                  </dt>
-                  <dd>List of error messages (failures)</dd>
-                  <dt>
-                    <strong><code>warnings</code></strong>
-                  </dt>
-                  <dd>List of warning messages (non-critical issues)</dd>
-                  <dt>
-                    <strong><code>corrections</code></strong>
-                  </dt>
-                  <dd>List of corrections applied</dd>
-                  <dt>
-                    <strong><code>metadata</code></strong>
-                  </dt>
-                  <dd>Additional context (e.g., score for quality checks)</dd>
-                </dl>
-                <h2 id="examples">Examples</h2>
-                <pre><code class="language-python-repl">&gt;&gt;&gt; result = ProcessingResult(
+</details>
+<div class="desc"><p>Unified result type for YAML processing operations.</p>
+<p>This replaces ValidationResult, CorrectionResult, and parts of QualityScore
+to provide consistent error/warning/info reporting across all processing layers.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>success</code></strong></dt>
+<dd>Whether the operation succeeded</dd>
+<dt><strong><code>data</code></strong></dt>
+<dd>The processed data (if successful)</dd>
+<dt><strong><code>errors</code></strong></dt>
+<dd>List of error messages (failures)</dd>
+<dt><strong><code>warnings</code></strong></dt>
+<dd>List of warning messages (non-critical issues)</dd>
+<dt><strong><code>corrections</code></strong></dt>
+<dd>List of corrections applied</dd>
+<dt><strong><code>metadata</code></strong></dt>
+<dd>Additional context (e.g., score for quality checks)</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; result = ProcessingResult(
 ...     success=True,
 ...     data={'title': 'Game'},
 ...     errors=[],
@@ -4219,119 +3427,71 @@ class ProcessingResult:
 ... )
 &gt;&gt;&gt; result.is_valid
 True
-</code></pre>
-              </div>
-              <h3>Instance variables</h3>
-              <dl>
-                <dt
-                  id="space_hulk_game.validation.ProcessingResult.corrections"
-                >
-                  <code class="name"
-                    >var
-                    <span class="ident">corrections</span> : list[str]</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-                <dt id="space_hulk_game.validation.ProcessingResult.data">
-                  <code class="name"
-                    >var
-                    <span class="ident">data</span> : typing.Any | None</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-                <dt id="space_hulk_game.validation.ProcessingResult.errors">
-                  <code class="name"
-                    >var <span class="ident">errors</span> : list[str]</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-                <dt id="space_hulk_game.validation.ProcessingResult.has_issues">
-                  <code class="name"
-                    >prop <span class="ident">has_issues</span> : bool</code
-                  >
-                </dt>
-                <dd>
-                  <details class="source">
-                    <summary>
-                      <span>Expand source code</span>
-                    </summary>
-                    <pre><code class="python">@property
+</code></pre></div>
+<h3>Instance variables</h3>
+<dl>
+<dt id="space_hulk_game.validation.ProcessingResult.corrections"><code class="name">var <span class="ident">corrections</span> : list[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.validation.ProcessingResult.data"><code class="name">var <span class="ident">data</span> : typing.Any | None</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.validation.ProcessingResult.errors"><code class="name">var <span class="ident">errors</span> : list[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.validation.ProcessingResult.has_issues"><code class="name">prop <span class="ident">has_issues</span> : bool</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
 def has_issues(self) -&gt; bool:
     &#34;&#34;&#34;Check if result has any issues (errors or warnings).&#34;&#34;&#34;
     return bool(self.errors or self.warnings)</code></pre>
-                  </details>
-                  <div class="desc">
-                    <p>Check if result has any issues (errors or warnings).</p>
-                  </div>
-                </dd>
-                <dt id="space_hulk_game.validation.ProcessingResult.is_valid">
-                  <code class="name"
-                    >prop <span class="ident">is_valid</span> : bool</code
-                  >
-                </dt>
-                <dd>
-                  <details class="source">
-                    <summary>
-                      <span>Expand source code</span>
-                    </summary>
-                    <pre><code class="python">@property
+</details>
+<div class="desc"><p>Check if result has any issues (errors or warnings).</p></div>
+</dd>
+<dt id="space_hulk_game.validation.ProcessingResult.is_valid"><code class="name">prop <span class="ident">is_valid</span> : bool</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
 def is_valid(self) -&gt; bool:
     &#34;&#34;&#34;Check if result is valid (successful and no errors).&#34;&#34;&#34;
     return self.success and not self.errors</code></pre>
-                  </details>
-                  <div class="desc">
-                    <p>Check if result is valid (successful and no errors).</p>
-                  </div>
-                </dd>
-                <dt id="space_hulk_game.validation.ProcessingResult.metadata">
-                  <code class="name"
-                    >var
-                    <span class="ident">metadata</span>
-                    : dict[str, typing.Any]</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-                <dt id="space_hulk_game.validation.ProcessingResult.success">
-                  <code class="name"
-                    >var <span class="ident">success</span> : bool</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-                <dt id="space_hulk_game.validation.ProcessingResult.warnings">
-                  <code class="name"
-                    >var <span class="ident">warnings</span> : list[str]</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-              </dl>
-            </dd>
-            <dt id="space_hulk_game.validation.ValidationResult">
-              <code class="flex name class">
-                <span>class <span class="ident">ValidationResult</span></span>
-                <span>(</span
-                ><span
-                  >valid: bool,<br />data: Any | None,<br />errors: list[str],<br />warnings: list[str] = &lt;factory&gt;)</span
-                >
-              </code>
-            </dt>
-            <dd>
-              <details class="source">
-                <summary>
-                  <span>Expand source code</span>
-                </summary>
-                <pre><code class="python">@dataclass
+</details>
+<div class="desc"><p>Check if result is valid (successful and no errors).</p></div>
+</dd>
+<dt id="space_hulk_game.validation.ProcessingResult.metadata"><code class="name">var <span class="ident">metadata</span> : dict[str, typing.Any]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.validation.ProcessingResult.success"><code class="name">var <span class="ident">success</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.validation.ProcessingResult.warnings"><code class="name">var <span class="ident">warnings</span> : list[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="space_hulk_game.validation.ValidationResult"><code class="flex name class">
+<span>class <span class="ident">ValidationResult</span></span>
+<span>(</span><span>valid: bool,<br>data: Any | None,<br>errors: list[str],<br>warnings: list[str] = &lt;factory&gt;)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
 class ValidationResult:
     &#34;&#34;&#34;Result of validating YAML output against a schema.
 
@@ -4379,105 +3539,58 @@ class ValidationResult:
             corrections=[],
             metadata={},
         )</code></pre>
-              </details>
-              <div class="desc">
-                <p>Result of validating YAML output against a schema.</p>
-                <p>
-                  NOTE: ValidationResult is kept for backward compatibility. New
-                  code should use ProcessingResult from validation.types
-                </p>
-                <h2 id="attributes">Attributes</h2>
-                <dl>
-                  <dt>
-                    <strong><code>valid</code></strong>
-                  </dt>
-                  <dd>Whether the validation succeeded.</dd>
-                  <dt>
-                    <strong><code>data</code></strong>
-                  </dt>
-                  <dd>
-                    Parsed Pydantic model if validation succeeded, None
-                    otherwise.
-                  </dd>
-                  <dt>
-                    <strong><code>errors</code></strong>
-                  </dt>
-                  <dd>
-                    List of error messages if validation failed, empty list
-                    otherwise.
-                  </dd>
-                  <dt>
-                    <strong><code>warnings</code></strong>
-                  </dt>
-                  <dd>List of warning messages (non-critical issues).</dd>
-                </dl>
-                <h2 id="example">Example</h2>
-                <pre><code class="language-python-repl">&gt;&gt;&gt; result = ValidationResult(valid=True, data=plot_outline, errors=[])
+</details>
+<div class="desc"><p>Result of validating YAML output against a schema.</p>
+<p>NOTE: ValidationResult is kept for backward compatibility.
+New code should use ProcessingResult from validation.types</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>valid</code></strong></dt>
+<dd>Whether the validation succeeded.</dd>
+<dt><strong><code>data</code></strong></dt>
+<dd>Parsed Pydantic model if validation succeeded, None otherwise.</dd>
+<dt><strong><code>errors</code></strong></dt>
+<dd>List of error messages if validation failed, empty list otherwise.</dd>
+<dt><strong><code>warnings</code></strong></dt>
+<dd>List of warning messages (non-critical issues).</dd>
+</dl>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; result = ValidationResult(valid=True, data=plot_outline, errors=[])
 &gt;&gt;&gt; if result.valid:
 ...     print(f&quot;Validation succeeded: {result.data.title}&quot;)
 ... else:
 ...     print(f&quot;Errors: {result.errors}&quot;)
-</code></pre>
-              </div>
-              <h3>Instance variables</h3>
-              <dl>
-                <dt id="space_hulk_game.validation.ValidationResult.data">
-                  <code class="name"
-                    >var
-                    <span class="ident">data</span> : typing.Any | None</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-                <dt id="space_hulk_game.validation.ValidationResult.errors">
-                  <code class="name"
-                    >var <span class="ident">errors</span> : list[str]</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-                <dt id="space_hulk_game.validation.ValidationResult.valid">
-                  <code class="name"
-                    >var <span class="ident">valid</span> : bool</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-                <dt id="space_hulk_game.validation.ValidationResult.warnings">
-                  <code class="name"
-                    >var <span class="ident">warnings</span> : list[str]</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-              </dl>
-              <h3>Methods</h3>
-              <dl>
-                <dt
-                  id="space_hulk_game.validation.ValidationResult.to_processing_result"
-                >
-                  <code class="name flex">
-                    <span
-                      >def <span class="ident">to_processing_result</span></span
-                    >(<span
-                      >self) ‑> <a
-                        title="space_hulk_game.validation.ProcessingResult"
-                        href="#space_hulk_game.validation.ProcessingResult"
-                        >ProcessingResult</a
-                      ></span
-                    >
-                  </code>
-                </dt>
-                <dd>
-                  <details class="source">
-                    <summary>
-                      <span>Expand source code</span>
-                    </summary>
-                    <pre><code class="python">def to_processing_result(self) -&gt; ProcessingResult:
+</code></pre></div>
+<h3>Instance variables</h3>
+<dl>
+<dt id="space_hulk_game.validation.ValidationResult.data"><code class="name">var <span class="ident">data</span> : typing.Any | None</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.validation.ValidationResult.errors"><code class="name">var <span class="ident">errors</span> : list[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.validation.ValidationResult.valid"><code class="name">var <span class="ident">valid</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.validation.ValidationResult.warnings"><code class="name">var <span class="ident">warnings</span> : list[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="space_hulk_game.validation.ValidationResult.to_processing_result"><code class="name flex">
+<span>def <span class="ident">to_processing_result</span></span>(<span>self) ‑> <a title="space_hulk_game.validation.ProcessingResult" href="#space_hulk_game.validation.ProcessingResult">ProcessingResult</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def to_processing_result(self) -&gt; ProcessingResult:
     &#34;&#34;&#34;Convert to unified ProcessingResult type.
 
     Returns:
@@ -4499,405 +3612,101 @@ class ValidationResult:
         corrections=[],
         metadata={},
     )</code></pre>
-                  </details>
-                  <div class="desc">
-                    <p>Convert to unified ProcessingResult type.</p>
-                    <h2 id="returns">Returns</h2>
-                    <p>ProcessingResult instance with equivalent data.</p>
-                    <h2 id="example">Example</h2>
-                    <pre><code class="language-python-repl">&gt;&gt;&gt; result = ValidationResult(valid=True, data=plot, errors=[])
+</details>
+<div class="desc"><p>Convert to unified ProcessingResult type.</p>
+<h2 id="returns">Returns</h2>
+<p>ProcessingResult instance with equivalent data.</p>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; result = ValidationResult(valid=True, data=plot, errors=[])
 &gt;&gt;&gt; processing_result = result.to_processing_result()
 &gt;&gt;&gt; processing_result.is_valid
 True
-</code></pre>
-                  </div>
-                </dd>
-              </dl>
-            </dd>
-          </dl>
-        </section>
-      </article>
-      <nav id="sidebar">
-        <div class="toc">
-          <ul></ul>
-        </div>
-        <ul id="index">
-          <li>
-            <h3>Super-module</h3>
-            <ul>
-              <li>
-                <code
-                  ><a title="space_hulk_game" href="../index.html"
-                    >space_hulk_game</a
-                  ></code
-                >
-              </li>
-            </ul>
-          </li>
-          <li>
-            <h3><a href="#header-submodules">Sub-modules</a></h3>
-            <ul>
-              <li>
-                <code
-                  ><a
-                    title="space_hulk_game.validation.corrector"
-                    href="corrector.html"
-                    >space_hulk_game.validation.corrector</a
-                  ></code
-                >
-              </li>
-              <li>
-                <code
-                  ><a title="space_hulk_game.validation.types" href="types.html"
-                    >space_hulk_game.validation.types</a
-                  ></code
-                >
-              </li>
-              <li>
-                <code
-                  ><a
-                    title="space_hulk_game.validation.validator"
-                    href="validator.html"
-                    >space_hulk_game.validation.validator</a
-                  ></code
-                >
-              </li>
-            </ul>
-          </li>
-          <li>
-            <h3><a href="#header-classes">Classes</a></h3>
-            <ul>
-              <li>
-                <h4>
-                  <code
-                    ><a
-                      title="space_hulk_game.validation.CorrectionResult"
-                      href="#space_hulk_game.validation.CorrectionResult"
-                      >CorrectionResult</a
-                    ></code
-                  >
-                </h4>
-                <ul class="">
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.validation.CorrectionResult.corrected_yaml"
-                        href="#space_hulk_game.validation.CorrectionResult.corrected_yaml"
-                        >corrected_yaml</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.validation.CorrectionResult.corrections"
-                        href="#space_hulk_game.validation.CorrectionResult.corrections"
-                        >corrections</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.validation.CorrectionResult.success"
-                        href="#space_hulk_game.validation.CorrectionResult.success"
-                        >success</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.validation.CorrectionResult.to_processing_result"
-                        href="#space_hulk_game.validation.CorrectionResult.to_processing_result"
-                        >to_processing_result</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.validation.CorrectionResult.validation_result"
-                        href="#space_hulk_game.validation.CorrectionResult.validation_result"
-                        >validation_result</a
-                      ></code
-                    >
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <h4>
-                  <code
-                    ><a
-                      title="space_hulk_game.validation.OutputCorrector"
-                      href="#space_hulk_game.validation.OutputCorrector"
-                      >OutputCorrector</a
-                    ></code
-                  >
-                </h4>
-                <ul class="">
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.validation.OutputCorrector.correct_game_mechanics"
-                        href="#space_hulk_game.validation.OutputCorrector.correct_game_mechanics"
-                        >correct_game_mechanics</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.validation.OutputCorrector.correct_narrative_map"
-                        href="#space_hulk_game.validation.OutputCorrector.correct_narrative_map"
-                        >correct_narrative_map</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.validation.OutputCorrector.correct_plot"
-                        href="#space_hulk_game.validation.OutputCorrector.correct_plot"
-                        >correct_plot</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.validation.OutputCorrector.correct_puzzle_design"
-                        href="#space_hulk_game.validation.OutputCorrector.correct_puzzle_design"
-                        >correct_puzzle_design</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.validation.OutputCorrector.correct_scene_texts"
-                        href="#space_hulk_game.validation.OutputCorrector.correct_scene_texts"
-                        >correct_scene_texts</a
-                      ></code
-                    >
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <h4>
-                  <code
-                    ><a
-                      title="space_hulk_game.validation.OutputValidator"
-                      href="#space_hulk_game.validation.OutputValidator"
-                      >OutputValidator</a
-                    ></code
-                  >
-                </h4>
-                <ul class="">
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.validation.OutputValidator.validate_game_mechanics"
-                        href="#space_hulk_game.validation.OutputValidator.validate_game_mechanics"
-                        >validate_game_mechanics</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.validation.OutputValidator.validate_narrative_map"
-                        href="#space_hulk_game.validation.OutputValidator.validate_narrative_map"
-                        >validate_narrative_map</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.validation.OutputValidator.validate_plot"
-                        href="#space_hulk_game.validation.OutputValidator.validate_plot"
-                        >validate_plot</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.validation.OutputValidator.validate_puzzle_design"
-                        href="#space_hulk_game.validation.OutputValidator.validate_puzzle_design"
-                        >validate_puzzle_design</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.validation.OutputValidator.validate_scene_texts"
-                        href="#space_hulk_game.validation.OutputValidator.validate_scene_texts"
-                        >validate_scene_texts</a
-                      ></code
-                    >
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <h4>
-                  <code
-                    ><a
-                      title="space_hulk_game.validation.ProcessingResult"
-                      href="#space_hulk_game.validation.ProcessingResult"
-                      >ProcessingResult</a
-                    ></code
-                  >
-                </h4>
-                <ul class="two-column">
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.validation.ProcessingResult.corrections"
-                        href="#space_hulk_game.validation.ProcessingResult.corrections"
-                        >corrections</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.validation.ProcessingResult.data"
-                        href="#space_hulk_game.validation.ProcessingResult.data"
-                        >data</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.validation.ProcessingResult.errors"
-                        href="#space_hulk_game.validation.ProcessingResult.errors"
-                        >errors</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.validation.ProcessingResult.has_issues"
-                        href="#space_hulk_game.validation.ProcessingResult.has_issues"
-                        >has_issues</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.validation.ProcessingResult.is_valid"
-                        href="#space_hulk_game.validation.ProcessingResult.is_valid"
-                        >is_valid</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.validation.ProcessingResult.metadata"
-                        href="#space_hulk_game.validation.ProcessingResult.metadata"
-                        >metadata</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.validation.ProcessingResult.success"
-                        href="#space_hulk_game.validation.ProcessingResult.success"
-                        >success</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.validation.ProcessingResult.warnings"
-                        href="#space_hulk_game.validation.ProcessingResult.warnings"
-                        >warnings</a
-                      ></code
-                    >
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <h4>
-                  <code
-                    ><a
-                      title="space_hulk_game.validation.ValidationResult"
-                      href="#space_hulk_game.validation.ValidationResult"
-                      >ValidationResult</a
-                    ></code
-                  >
-                </h4>
-                <ul class="">
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.validation.ValidationResult.data"
-                        href="#space_hulk_game.validation.ValidationResult.data"
-                        >data</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.validation.ValidationResult.errors"
-                        href="#space_hulk_game.validation.ValidationResult.errors"
-                        >errors</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.validation.ValidationResult.to_processing_result"
-                        href="#space_hulk_game.validation.ValidationResult.to_processing_result"
-                        >to_processing_result</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.validation.ValidationResult.valid"
-                        href="#space_hulk_game.validation.ValidationResult.valid"
-                        >valid</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.validation.ValidationResult.warnings"
-                        href="#space_hulk_game.validation.ValidationResult.warnings"
-                        >warnings</a
-                      ></code
-                    >
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
-    </main>
-    <footer id="footer">
-      <p>
-        Generated by
-        <a
-          href="https://pdoc3.github.io/pdoc"
-          title="pdoc: Python API documentation generator"
-          ><cite>pdoc</cite> 0.11.6</a
-        >.
-      </p>
-    </footer>
-  </body>
+</code></pre></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="space_hulk_game" href="../index.html">space_hulk_game</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<ul>
+<li><code><a title="space_hulk_game.validation.corrector" href="corrector.html">space_hulk_game.validation.corrector</a></code></li>
+<li><code><a title="space_hulk_game.validation.types" href="types.html">space_hulk_game.validation.types</a></code></li>
+<li><code><a title="space_hulk_game.validation.validator" href="validator.html">space_hulk_game.validation.validator</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="space_hulk_game.validation.CorrectionResult" href="#space_hulk_game.validation.CorrectionResult">CorrectionResult</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.validation.CorrectionResult.corrected_yaml" href="#space_hulk_game.validation.CorrectionResult.corrected_yaml">corrected_yaml</a></code></li>
+<li><code><a title="space_hulk_game.validation.CorrectionResult.corrections" href="#space_hulk_game.validation.CorrectionResult.corrections">corrections</a></code></li>
+<li><code><a title="space_hulk_game.validation.CorrectionResult.success" href="#space_hulk_game.validation.CorrectionResult.success">success</a></code></li>
+<li><code><a title="space_hulk_game.validation.CorrectionResult.to_processing_result" href="#space_hulk_game.validation.CorrectionResult.to_processing_result">to_processing_result</a></code></li>
+<li><code><a title="space_hulk_game.validation.CorrectionResult.validation_result" href="#space_hulk_game.validation.CorrectionResult.validation_result">validation_result</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="space_hulk_game.validation.OutputCorrector" href="#space_hulk_game.validation.OutputCorrector">OutputCorrector</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.validation.OutputCorrector.correct_game_mechanics" href="#space_hulk_game.validation.OutputCorrector.correct_game_mechanics">correct_game_mechanics</a></code></li>
+<li><code><a title="space_hulk_game.validation.OutputCorrector.correct_narrative_map" href="#space_hulk_game.validation.OutputCorrector.correct_narrative_map">correct_narrative_map</a></code></li>
+<li><code><a title="space_hulk_game.validation.OutputCorrector.correct_plot" href="#space_hulk_game.validation.OutputCorrector.correct_plot">correct_plot</a></code></li>
+<li><code><a title="space_hulk_game.validation.OutputCorrector.correct_puzzle_design" href="#space_hulk_game.validation.OutputCorrector.correct_puzzle_design">correct_puzzle_design</a></code></li>
+<li><code><a title="space_hulk_game.validation.OutputCorrector.correct_scene_texts" href="#space_hulk_game.validation.OutputCorrector.correct_scene_texts">correct_scene_texts</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="space_hulk_game.validation.OutputValidator" href="#space_hulk_game.validation.OutputValidator">OutputValidator</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.validation.OutputValidator.validate_game_mechanics" href="#space_hulk_game.validation.OutputValidator.validate_game_mechanics">validate_game_mechanics</a></code></li>
+<li><code><a title="space_hulk_game.validation.OutputValidator.validate_narrative_map" href="#space_hulk_game.validation.OutputValidator.validate_narrative_map">validate_narrative_map</a></code></li>
+<li><code><a title="space_hulk_game.validation.OutputValidator.validate_plot" href="#space_hulk_game.validation.OutputValidator.validate_plot">validate_plot</a></code></li>
+<li><code><a title="space_hulk_game.validation.OutputValidator.validate_puzzle_design" href="#space_hulk_game.validation.OutputValidator.validate_puzzle_design">validate_puzzle_design</a></code></li>
+<li><code><a title="space_hulk_game.validation.OutputValidator.validate_scene_texts" href="#space_hulk_game.validation.OutputValidator.validate_scene_texts">validate_scene_texts</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="space_hulk_game.validation.ProcessingResult" href="#space_hulk_game.validation.ProcessingResult">ProcessingResult</a></code></h4>
+<ul class="two-column">
+<li><code><a title="space_hulk_game.validation.ProcessingResult.corrections" href="#space_hulk_game.validation.ProcessingResult.corrections">corrections</a></code></li>
+<li><code><a title="space_hulk_game.validation.ProcessingResult.data" href="#space_hulk_game.validation.ProcessingResult.data">data</a></code></li>
+<li><code><a title="space_hulk_game.validation.ProcessingResult.errors" href="#space_hulk_game.validation.ProcessingResult.errors">errors</a></code></li>
+<li><code><a title="space_hulk_game.validation.ProcessingResult.has_issues" href="#space_hulk_game.validation.ProcessingResult.has_issues">has_issues</a></code></li>
+<li><code><a title="space_hulk_game.validation.ProcessingResult.is_valid" href="#space_hulk_game.validation.ProcessingResult.is_valid">is_valid</a></code></li>
+<li><code><a title="space_hulk_game.validation.ProcessingResult.metadata" href="#space_hulk_game.validation.ProcessingResult.metadata">metadata</a></code></li>
+<li><code><a title="space_hulk_game.validation.ProcessingResult.success" href="#space_hulk_game.validation.ProcessingResult.success">success</a></code></li>
+<li><code><a title="space_hulk_game.validation.ProcessingResult.warnings" href="#space_hulk_game.validation.ProcessingResult.warnings">warnings</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="space_hulk_game.validation.ValidationResult" href="#space_hulk_game.validation.ValidationResult">ValidationResult</a></code></h4>
+<ul class="">
+<li><code><a title="space_hulk_game.validation.ValidationResult.data" href="#space_hulk_game.validation.ValidationResult.data">data</a></code></li>
+<li><code><a title="space_hulk_game.validation.ValidationResult.errors" href="#space_hulk_game.validation.ValidationResult.errors">errors</a></code></li>
+<li><code><a title="space_hulk_game.validation.ValidationResult.to_processing_result" href="#space_hulk_game.validation.ValidationResult.to_processing_result">to_processing_result</a></code></li>
+<li><code><a title="space_hulk_game.validation.ValidationResult.valid" href="#space_hulk_game.validation.ValidationResult.valid">valid</a></code></li>
+<li><code><a title="space_hulk_game.validation.ValidationResult.warnings" href="#space_hulk_game.validation.ValidationResult.warnings">warnings</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
 </html>

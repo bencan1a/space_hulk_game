@@ -1,481 +1,46 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, minimum-scale=1"
-    />
-    <meta name="generator" content="pdoc3 0.11.6" />
-    <title>space_hulk_game.engine.game_state API documentation</title>
-    <meta name="description" content="Game State Module …" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css"
-      integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA=="
-      crossorigin
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css"
-      integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA=="
-      crossorigin
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"
-      crossorigin
-    />
-    <style>
-      :root {
-        --highlight-color: #fe9;
-      }
-      .flex {
-        display: flex !important;
-      }
-      body {
-        line-height: 1.5em;
-      }
-      #content {
-        padding: 20px;
-      }
-      #sidebar {
-        padding: 1.5em;
-        overflow: hidden;
-      }
-      #sidebar > *:last-child {
-        margin-bottom: 2cm;
-      }
-      .http-server-breadcrumbs {
-        font-size: 130%;
-        margin: 0 0 15px 0;
-      }
-      #footer {
-        font-size: 0.75em;
-        padding: 5px 30px;
-        border-top: 1px solid #ddd;
-        text-align: right;
-      }
-      #footer p {
-        margin: 0 0 0 1em;
-        display: inline-block;
-      }
-      #footer p:last-child {
-        margin-right: 30px;
-      }
-      h1,
-      h2,
-      h3,
-      h4,
-      h5 {
-        font-weight: 300;
-      }
-      h1 {
-        font-size: 2.5em;
-        line-height: 1.1em;
-      }
-      h2 {
-        font-size: 1.75em;
-        margin: 2em 0 0.5em 0;
-      }
-      h3 {
-        font-size: 1.4em;
-        margin: 1.6em 0 0.7em 0;
-      }
-      h4 {
-        margin: 0;
-        font-size: 105%;
-      }
-      h1:target,
-      h2:target,
-      h3:target,
-      h4:target,
-      h5:target,
-      h6:target {
-        background: var(--highlight-color);
-        padding: 0.2em 0;
-      }
-      a {
-        color: #058;
-        text-decoration: none;
-        transition: color 0.2s ease-in-out;
-      }
-      a:visited {
-        color: #503;
-      }
-      a:hover {
-        color: #b62;
-      }
-      .title code {
-        font-weight: bold;
-      }
-      h2[id^="header-"] {
-        margin-top: 2em;
-      }
-      .ident {
-        color: #900;
-        font-weight: bold;
-      }
-      pre code {
-        font-size: 0.8em;
-        line-height: 1.4em;
-        padding: 1em;
-        display: block;
-      }
-      code {
-        background: #f3f3f3;
-        font-family: "DejaVu Sans Mono", monospace;
-        padding: 1px 4px;
-        overflow-wrap: break-word;
-      }
-      h1 code {
-        background: transparent;
-      }
-      pre {
-        border-top: 1px solid #ccc;
-        border-bottom: 1px solid #ccc;
-        margin: 1em 0;
-      }
-      #http-server-module-list {
-        display: flex;
-        flex-flow: column;
-      }
-      #http-server-module-list div {
-        display: flex;
-      }
-      #http-server-module-list dt {
-        min-width: 10%;
-      }
-      #http-server-module-list p {
-        margin-top: 0;
-      }
-      .toc ul,
-      #index {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-      }
-      #index code {
-        background: transparent;
-      }
-      #index h3 {
-        border-bottom: 1px solid #ddd;
-      }
-      #index ul {
-        padding: 0;
-      }
-      #index h4 {
-        margin-top: 0.6em;
-        font-weight: bold;
-      }
-      @media (min-width: 200ex) {
-        #index .two-column {
-          column-count: 2;
-        }
-      }
-      @media (min-width: 300ex) {
-        #index .two-column {
-          column-count: 3;
-        }
-      }
-      dl {
-        margin-bottom: 2em;
-      }
-      dl dl:last-child {
-        margin-bottom: 4em;
-      }
-      dd {
-        margin: 0 0 1em 3em;
-      }
-      #header-classes + dl > dd {
-        margin-bottom: 3em;
-      }
-      dd dd {
-        margin-left: 2em;
-      }
-      dd p {
-        margin: 10px 0;
-      }
-      .name {
-        background: #eee;
-        font-size: 0.85em;
-        padding: 5px 10px;
-        display: inline-block;
-        min-width: 40%;
-      }
-      .name:hover {
-        background: #e0e0e0;
-      }
-      dt:target .name {
-        background: var(--highlight-color);
-      }
-      .name > span:first-child {
-        white-space: nowrap;
-      }
-      .name.class > span:nth-child(2) {
-        margin-left: 0.4em;
-      }
-      .inherited {
-        color: #999;
-        border-left: 5px solid #eee;
-        padding-left: 1em;
-      }
-      .inheritance em {
-        font-style: normal;
-        font-weight: bold;
-      }
-      .desc h2 {
-        font-weight: 400;
-        font-size: 1.25em;
-      }
-      .desc h3 {
-        font-size: 1em;
-      }
-      .desc dt code {
-        background: inherit;
-      }
-      .source > summary,
-      .git-link-div {
-        color: #666;
-        text-align: right;
-        font-weight: 400;
-        font-size: 0.8em;
-        text-transform: uppercase;
-      }
-      .source summary > * {
-        white-space: nowrap;
-        cursor: pointer;
-      }
-      .git-link {
-        color: inherit;
-        margin-left: 1em;
-      }
-      .source pre {
-        max-height: 500px;
-        overflow: auto;
-        margin: 0;
-      }
-      .source pre code {
-        font-size: 12px;
-        overflow: visible;
-        min-width: max-content;
-      }
-      .hlist {
-        list-style: none;
-      }
-      .hlist li {
-        display: inline;
-      }
-      .hlist li:after {
-        content: ",\2002";
-      }
-      .hlist li:last-child:after {
-        content: none;
-      }
-      .hlist .hlist {
-        display: inline;
-        padding-left: 1em;
-      }
-      img {
-        max-width: 100%;
-      }
-      td {
-        padding: 0 0.5em;
-      }
-      .admonition {
-        padding: 0.1em 1em;
-        margin: 1em 0;
-      }
-      .admonition-title {
-        font-weight: bold;
-      }
-      .admonition.note,
-      .admonition.info,
-      .admonition.important {
-        background: #aef;
-      }
-      .admonition.todo,
-      .admonition.versionadded,
-      .admonition.tip,
-      .admonition.hint {
-        background: #dfd;
-      }
-      .admonition.warning,
-      .admonition.versionchanged,
-      .admonition.deprecated {
-        background: #fd4;
-      }
-      .admonition.error,
-      .admonition.danger,
-      .admonition.caution {
-        background: lightpink;
-      }
-    </style>
-    <style media="screen and (min-width: 700px)">
-      @media screen and (min-width: 700px) {
-        #sidebar {
-          width: 30%;
-          height: 100vh;
-          overflow: auto;
-          position: sticky;
-          top: 0;
-        }
-        #content {
-          width: 70%;
-          max-width: 100ch;
-          padding: 3em 4em;
-          border-left: 1px solid #ddd;
-        }
-        pre code {
-          font-size: 1em;
-        }
-        .name {
-          font-size: 1em;
-        }
-        main {
-          display: flex;
-          flex-direction: row-reverse;
-          justify-content: flex-end;
-        }
-        .toc ul ul,
-        #index ul ul {
-          padding-left: 1em;
-        }
-        .toc > ul > li {
-          margin-top: 0.5em;
-        }
-      }
-    </style>
-    <style media="print">
-      @media print {
-        #sidebar h1 {
-          page-break-before: always;
-        }
-        .source {
-          display: none;
-        }
-      }
-      @media print {
-        * {
-          background: transparent !important;
-          color: #000 !important;
-          box-shadow: none !important;
-          text-shadow: none !important;
-        }
-        a[href]:after {
-          content: " (" attr(href) ")";
-          font-size: 90%;
-        }
-        a[href][title]:after {
-          content: none;
-        }
-        abbr[title]:after {
-          content: " (" attr(title) ")";
-        }
-        .ir a:after,
-        a[href^="javascript:"]:after,
-        a[href^="#"]:after {
-          content: "";
-        }
-        pre,
-        blockquote {
-          border: 1px solid #999;
-          page-break-inside: avoid;
-        }
-        thead {
-          display: table-header-group;
-        }
-        tr,
-        img {
-          page-break-inside: avoid;
-        }
-        img {
-          max-width: 100% !important;
-        }
-        @page {
-          margin: 0.5cm;
-        }
-        p,
-        h2,
-        h3 {
-          orphans: 3;
-          widows: 3;
-        }
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-          page-break-after: avoid;
-        }
-      }
-    </style>
-    <script
-      defer
-      src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
-      integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
-      crossorigin
-    ></script>
-    <script>
-      window.addEventListener("DOMContentLoaded", () => {
-        hljs.configure({
-          languages: [
-            "bash",
-            "css",
-            "diff",
-            "graphql",
-            "ini",
-            "javascript",
-            "json",
-            "plaintext",
-            "python",
-            "python-repl",
-            "rust",
-            "shell",
-            "sql",
-            "typescript",
-            "xml",
-            "yaml",
-          ],
-        });
-        hljs.highlightAll();
-        /* Collapse source docstrings */
-        setTimeout(() => {
-          [...document.querySelectorAll(".hljs.language-python > .hljs-string")]
-            .filter(
-              (el) =>
-                el.innerHTML.length > 200 &&
-                ['"""', "'''"].includes(el.innerHTML.substring(0, 3)),
-            )
-            .forEach((el) => {
-              let d = document.createElement("details");
-              d.classList.add("hljs-string");
-              d.innerHTML =
-                '<summary>"""</summary>' + el.innerHTML.substring(3);
-              el.replaceWith(d);
-            });
-        }, 100);
-      });
-    </script>
-  </head>
-  <body>
-    <main>
-      <article id="content">
-        <header>
-          <h1 class="title">
-            Module <code>space_hulk_game.engine.game_state</code>
-          </h1>
-        </header>
-        <section id="section-intro">
-          <p>Game State Module</p>
-          <p>
-            Defines the core GameState class that tracks the current state of a
-            game session. This includes player location, inventory, visited
-            scenes, game flags, and health.
-          </p>
-          <h2 id="example">Example</h2>
-          <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import GameState
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>space_hulk_game.engine.game_state API documentation</title>
+<meta name="description" content="Game State Module …">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>space_hulk_game.engine.game_state</code></h1>
+</header>
+<section id="section-intro">
+<p>Game State Module</p>
+<p>Defines the core GameState class that tracks the current state of a game session.
+This includes player location, inventory, visited scenes, game flags, and health.</p>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import GameState
 &gt;&gt;&gt; state = GameState(
 ...     current_scene=&quot;entrance&quot;,
 ...     inventory=[&quot;flashlight&quot;, &quot;dataslate&quot;],
@@ -489,28 +54,26 @@
 &gt;&gt;&gt; state.health
 100
 </code></pre>
-        </section>
-        <section></section>
-        <section></section>
-        <section></section>
-        <section>
-          <h2 class="section-title" id="header-classes">Classes</h2>
-          <dl>
-            <dt id="space_hulk_game.engine.game_state.GameState">
-              <code class="flex name class">
-                <span>class <span class="ident">GameState</span></span>
-                <span>(</span
-                ><span
-                  >current_scene: str,<br />inventory: list[str] = &lt;factory&gt;,<br />visited_scenes: set[str] = &lt;factory&gt;,<br />game_flags: dict[str, bool] = &lt;factory&gt;,<br />health: int = 100,<br />max_health: int = 100)</span
-                >
-              </code>
-            </dt>
-            <dd>
-              <details class="source">
-                <summary>
-                  <span>Expand source code</span>
-                </summary>
-                <pre><code class="python">@dataclass
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="space_hulk_game.engine.game_state.GameState"><code class="flex name class">
+<span>class <span class="ident">GameState</span></span>
+<span>(</span><span>current_scene: str,<br>inventory: list[str] = &lt;factory&gt;,<br>visited_scenes: set[str] = &lt;factory&gt;,<br>game_flags: dict[str, bool] = &lt;factory&gt;,<br>health: int = 100,<br>max_health: int = 100)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
 class GameState:
     &#34;&#34;&#34;
     Represents the current state of a game session.
@@ -811,49 +374,29 @@ class GameState:
             health=data.get(&#34;health&#34;, 100),
             max_health=data.get(&#34;max_health&#34;, 100),
         )</code></pre>
-              </details>
-              <div class="desc">
-                <p>Represents the current state of a game session.</p>
-                <p>
-                  This class tracks all mutable state during gameplay, including
-                  player location, inventory, visited areas, game flags for
-                  puzzle/story progression, and health.
-                </p>
-                <h2 id="attributes">Attributes</h2>
-                <dl>
-                  <dt>
-                    <strong><code>current_scene</code></strong>
-                  </dt>
-                  <dd>
-                    The ID of the scene where the player is currently located.
-                  </dd>
-                  <dt>
-                    <strong><code>inventory</code></strong>
-                  </dt>
-                  <dd>List of item IDs currently held by the player.</dd>
-                  <dt>
-                    <strong><code>visited_scenes</code></strong>
-                  </dt>
-                  <dd>Set of scene IDs that the player has visited.</dd>
-                  <dt>
-                    <strong><code>game_flags</code></strong>
-                  </dt>
-                  <dd>
-                    Dictionary of boolean flags for tracking game state (e.g.,
-                    puzzles solved, doors unlocked, NPCs encountered).
-                  </dd>
-                  <dt>
-                    <strong><code>health</code></strong>
-                  </dt>
-                  <dd>Current health points of the player.</dd>
-                  <dt>
-                    <strong><code>max_health</code></strong>
-                  </dt>
-                  <dd>Maximum health points the player can have.</dd>
-                </dl>
-                <h2 id="examples">Examples</h2>
-                <p>Create a new game state:</p>
-                <pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(
+</details>
+<div class="desc"><p>Represents the current state of a game session.</p>
+<p>This class tracks all mutable state during gameplay, including player location,
+inventory, visited areas, game flags for puzzle/story progression, and health.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>current_scene</code></strong></dt>
+<dd>The ID of the scene where the player is currently located.</dd>
+<dt><strong><code>inventory</code></strong></dt>
+<dd>List of item IDs currently held by the player.</dd>
+<dt><strong><code>visited_scenes</code></strong></dt>
+<dd>Set of scene IDs that the player has visited.</dd>
+<dt><strong><code>game_flags</code></strong></dt>
+<dd>Dictionary of boolean flags for tracking game state
+(e.g., puzzles solved, doors unlocked, NPCs encountered).</dd>
+<dt><strong><code>health</code></strong></dt>
+<dd>Current health points of the player.</dd>
+<dt><strong><code>max_health</code></strong></dt>
+<dd>Maximum health points the player can have.</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<p>Create a new game state:</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(
 ...     current_scene=&quot;cargo_bay&quot;,
 ...     inventory=[&quot;bolt_pistol&quot;],
 ...     visited_scenes={&quot;cargo_bay&quot;},
@@ -862,49 +405,36 @@ class GameState:
 ...     max_health=100
 ... )
 </code></pre>
-                <p>Update player location:</p>
-                <pre><code class="language-python-repl">&gt;&gt;&gt; state.current_scene = &quot;bridge&quot;
+<p>Update player location:</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; state.current_scene = &quot;bridge&quot;
 &gt;&gt;&gt; state.visited_scenes.add(&quot;bridge&quot;)
 </code></pre>
-                <p>Modify inventory:</p>
-                <pre><code class="language-python-repl">&gt;&gt;&gt; state.inventory.append(&quot;power_cell&quot;)
+<p>Modify inventory:</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; state.inventory.append(&quot;power_cell&quot;)
 </code></pre>
-                <p>Track puzzle progress:</p>
-                <pre><code class="language-python-repl">&gt;&gt;&gt; state.game_flags[&quot;airlock_opened&quot;] = True
+<p>Track puzzle progress:</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; state.game_flags[&quot;airlock_opened&quot;] = True
 </code></pre>
-                <p>Manage health:</p>
-                <pre><code class="language-python-repl">&gt;&gt;&gt; state.health -= 20  # Take damage
+<p>Manage health:</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; state.health -= 20  # Take damage
 &gt;&gt;&gt; state.health = min(state.health + 30, state.max_health)  # Heal
-</code></pre>
-              </div>
-              <h3>Static methods</h3>
-              <dl>
-                <dt id="space_hulk_game.engine.game_state.GameState.from_dict">
-                  <code class="name flex">
-                    <span>def <span class="ident">from_dict</span></span
-                    >(<span
-                      >data: dict) ‑> <a
-                        title="space_hulk_game.engine.game_state.GameState"
-                        href="#space_hulk_game.engine.game_state.GameState"
-                        >GameState</a
-                      ></span
-                    >
-                  </code>
-                </dt>
-                <dd>
-                  <div class="desc">
-                    <p>Create a GameState from a dictionary.</p>
-                    <h2 id="args">Args</h2>
-                    <dl>
-                      <dt>
-                        <strong><code>data</code></strong>
-                      </dt>
-                      <dd>Dictionary containing game state data.</dd>
-                    </dl>
-                    <h2 id="returns">Returns</h2>
-                    <p>A new GameState instance.</p>
-                    <h2 id="examples">Examples</h2>
-                    <pre><code class="language-python-repl">&gt;&gt;&gt; data = {
+</code></pre></div>
+<h3>Static methods</h3>
+<dl>
+<dt id="space_hulk_game.engine.game_state.GameState.from_dict"><code class="name flex">
+<span>def <span class="ident">from_dict</span></span>(<span>data: dict) ‑> <a title="space_hulk_game.engine.game_state.GameState" href="#space_hulk_game.engine.game_state.GameState">GameState</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create a GameState from a dictionary.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>data</code></strong></dt>
+<dd>Dictionary containing game state data.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>A new GameState instance.</p>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; data = {
 ...     'current_scene': 'test',
 ...     'inventory': ['item1'],
 ...     'visited_scenes': ['test', 'other'],
@@ -915,82 +445,47 @@ class GameState:
 &gt;&gt;&gt; state = GameState.from_dict(data)
 &gt;&gt;&gt; state.health
 80
-</code></pre>
-                  </div>
-                </dd>
-              </dl>
-              <h3>Instance variables</h3>
-              <dl>
-                <dt
-                  id="space_hulk_game.engine.game_state.GameState.current_scene"
-                >
-                  <code class="name"
-                    >var <span class="ident">current_scene</span> : str</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-                <dt id="space_hulk_game.engine.game_state.GameState.game_flags">
-                  <code class="name"
-                    >var
-                    <span class="ident">game_flags</span>
-                    : dict[str, bool]</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-                <dt id="space_hulk_game.engine.game_state.GameState.health">
-                  <code class="name"
-                    >var <span class="ident">health</span> : int</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-                <dt id="space_hulk_game.engine.game_state.GameState.inventory">
-                  <code class="name"
-                    >var <span class="ident">inventory</span> : list[str]</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-                <dt id="space_hulk_game.engine.game_state.GameState.max_health">
-                  <code class="name"
-                    >var <span class="ident">max_health</span> : int</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-                <dt
-                  id="space_hulk_game.engine.game_state.GameState.visited_scenes"
-                >
-                  <code class="name"
-                    >var
-                    <span class="ident">visited_scenes</span> : set[str]</code
-                  >
-                </dt>
-                <dd>
-                  <div class="desc"></div>
-                </dd>
-              </dl>
-              <h3>Methods</h3>
-              <dl>
-                <dt id="space_hulk_game.engine.game_state.GameState.add_item">
-                  <code class="name flex">
-                    <span>def <span class="ident">add_item</span></span
-                    >(<span>self, item_id: str) ‑> None</span>
-                  </code>
-                </dt>
-                <dd>
-                  <details class="source">
-                    <summary>
-                      <span>Expand source code</span>
-                    </summary>
-                    <pre><code class="python">def add_item(self, item_id: str) -&gt; None:
+</code></pre></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="space_hulk_game.engine.game_state.GameState.current_scene"><code class="name">var <span class="ident">current_scene</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.game_state.GameState.game_flags"><code class="name">var <span class="ident">game_flags</span> : dict[str, bool]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.game_state.GameState.health"><code class="name">var <span class="ident">health</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.game_state.GameState.inventory"><code class="name">var <span class="ident">inventory</span> : list[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.game_state.GameState.max_health"><code class="name">var <span class="ident">max_health</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="space_hulk_game.engine.game_state.GameState.visited_scenes"><code class="name">var <span class="ident">visited_scenes</span> : set[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="space_hulk_game.engine.game_state.GameState.add_item"><code class="name flex">
+<span>def <span class="ident">add_item</span></span>(<span>self, item_id: str) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_item(self, item_id: str) -&gt; None:
     &#34;&#34;&#34;
     Add an item to the player&#39;s inventory.
 
@@ -1005,39 +500,29 @@ class GameState:
     &#34;&#34;&#34;
     if item_id not in self.inventory:
         self.inventory.append(item_id)</code></pre>
-                  </details>
-                  <div class="desc">
-                    <p>Add an item to the player's inventory.</p>
-                    <h2 id="args">Args</h2>
-                    <dl>
-                      <dt>
-                        <strong><code>item_id</code></strong>
-                      </dt>
-                      <dd>The ID of the item to add.</dd>
-                    </dl>
-                    <h2 id="examples">Examples</h2>
-                    <pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;)
+</details>
+<div class="desc"><p>Add an item to the player's inventory.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>item_id</code></strong></dt>
+<dd>The ID of the item to add.</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;)
 &gt;&gt;&gt; state.add_item(&quot;medkit&quot;)
 &gt;&gt;&gt; &quot;medkit&quot; in state.inventory
 True
-</code></pre>
-                  </div>
-                </dd>
-                <dt id="space_hulk_game.engine.game_state.GameState.get_flag">
-                  <code class="name flex">
-                    <span>def <span class="ident">get_flag</span></span
-                    >(<span
-                      >self, flag_name: str, default: bool = False)
-                      ‑> bool</span
-                    >
-                  </code>
-                </dt>
-                <dd>
-                  <details class="source">
-                    <summary>
-                      <span>Expand source code</span>
-                    </summary>
-                    <pre><code class="python">def get_flag(self, flag_name: str, default: bool = False) -&gt; bool:
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.engine.game_state.GameState.get_flag"><code class="name flex">
+<span>def <span class="ident">get_flag</span></span>(<span>self, flag_name: str, default: bool = False) ‑> bool</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_flag(self, flag_name: str, default: bool = False) -&gt; bool:
     &#34;&#34;&#34;
     Get the value of a game flag.
 
@@ -1057,46 +542,35 @@ True
         False
     &#34;&#34;&#34;
     return self.game_flags.get(flag_name, default)</code></pre>
-                  </details>
-                  <div class="desc">
-                    <p>Get the value of a game flag.</p>
-                    <h2 id="args">Args</h2>
-                    <dl>
-                      <dt>
-                        <strong><code>flag_name</code></strong>
-                      </dt>
-                      <dd>The name of the flag to retrieve.</dd>
-                      <dt>
-                        <strong><code>default</code></strong>
-                      </dt>
-                      <dd>The default value if the flag doesn't exist.</dd>
-                    </dl>
-                    <h2 id="returns">Returns</h2>
-                    <p>
-                      The boolean value of the flag, or the default if not set.
-                    </p>
-                    <h2 id="examples">Examples</h2>
-                    <pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;)
+</details>
+<div class="desc"><p>Get the value of a game flag.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>flag_name</code></strong></dt>
+<dd>The name of the flag to retrieve.</dd>
+<dt><strong><code>default</code></strong></dt>
+<dd>The default value if the flag doesn't exist.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>The boolean value of the flag, or the default if not set.</p>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;)
 &gt;&gt;&gt; state.set_flag(&quot;puzzle_solved&quot;, True)
 &gt;&gt;&gt; state.get_flag(&quot;puzzle_solved&quot;)
 True
 &gt;&gt;&gt; state.get_flag(&quot;unknown_flag&quot;, False)
 False
-</code></pre>
-                  </div>
-                </dd>
-                <dt id="space_hulk_game.engine.game_state.GameState.has_item">
-                  <code class="name flex">
-                    <span>def <span class="ident">has_item</span></span
-                    >(<span>self, item_id: str) ‑> bool</span>
-                  </code>
-                </dt>
-                <dd>
-                  <details class="source">
-                    <summary>
-                      <span>Expand source code</span>
-                    </summary>
-                    <pre><code class="python">def has_item(self, item_id: str) -&gt; bool:
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.engine.game_state.GameState.has_item"><code class="name flex">
+<span>def <span class="ident">has_item</span></span>(<span>self, item_id: str) ‑> bool</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def has_item(self, item_id: str) -&gt; bool:
     &#34;&#34;&#34;
     Check if the player has a specific item.
 
@@ -1114,41 +588,32 @@ False
         False
     &#34;&#34;&#34;
     return item_id in self.inventory</code></pre>
-                  </details>
-                  <div class="desc">
-                    <p>Check if the player has a specific item.</p>
-                    <h2 id="args">Args</h2>
-                    <dl>
-                      <dt>
-                        <strong><code>item_id</code></strong>
-                      </dt>
-                      <dd>The ID of the item to check.</dd>
-                    </dl>
-                    <h2 id="returns">Returns</h2>
-                    <p>True if the player has the item, False otherwise.</p>
-                    <h2 id="examples">Examples</h2>
-                    <pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;, inventory=[&quot;sword&quot;])
+</details>
+<div class="desc"><p>Check if the player has a specific item.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>item_id</code></strong></dt>
+<dd>The ID of the item to check.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>True if the player has the item, False otherwise.</p>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;, inventory=[&quot;sword&quot;])
 &gt;&gt;&gt; state.has_item(&quot;sword&quot;)
 True
 &gt;&gt;&gt; state.has_item(&quot;shield&quot;)
 False
-</code></pre>
-                  </div>
-                </dd>
-                <dt
-                  id="space_hulk_game.engine.game_state.GameState.has_visited"
-                >
-                  <code class="name flex">
-                    <span>def <span class="ident">has_visited</span></span
-                    >(<span>self, scene_id: str) ‑> bool</span>
-                  </code>
-                </dt>
-                <dd>
-                  <details class="source">
-                    <summary>
-                      <span>Expand source code</span>
-                    </summary>
-                    <pre><code class="python">def has_visited(self, scene_id: str) -&gt; bool:
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.engine.game_state.GameState.has_visited"><code class="name flex">
+<span>def <span class="ident">has_visited</span></span>(<span>self, scene_id: str) ‑> bool</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def has_visited(self, scene_id: str) -&gt; bool:
     &#34;&#34;&#34;
     Check if the player has visited a specific scene.
 
@@ -1167,40 +632,33 @@ False
         False
     &#34;&#34;&#34;
     return scene_id in self.visited_scenes</code></pre>
-                  </details>
-                  <div class="desc">
-                    <p>Check if the player has visited a specific scene.</p>
-                    <h2 id="args">Args</h2>
-                    <dl>
-                      <dt>
-                        <strong><code>scene_id</code></strong>
-                      </dt>
-                      <dd>The ID of the scene to check.</dd>
-                    </dl>
-                    <h2 id="returns">Returns</h2>
-                    <p>True if the scene has been visited, False otherwise.</p>
-                    <h2 id="examples">Examples</h2>
-                    <pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;)
+</details>
+<div class="desc"><p>Check if the player has visited a specific scene.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>scene_id</code></strong></dt>
+<dd>The ID of the scene to check.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>True if the scene has been visited, False otherwise.</p>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;)
 &gt;&gt;&gt; state.visited_scenes.add(&quot;old_room&quot;)
 &gt;&gt;&gt; state.has_visited(&quot;old_room&quot;)
 True
 &gt;&gt;&gt; state.has_visited(&quot;new_room&quot;)
 False
-</code></pre>
-                  </div>
-                </dd>
-                <dt id="space_hulk_game.engine.game_state.GameState.heal">
-                  <code class="name flex">
-                    <span>def <span class="ident">heal</span></span
-                    >(<span>self, amount: int) ‑> None</span>
-                  </code>
-                </dt>
-                <dd>
-                  <details class="source">
-                    <summary>
-                      <span>Expand source code</span>
-                    </summary>
-                    <pre><code class="python">def heal(self, amount: int) -&gt; None:
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.engine.game_state.GameState.heal"><code class="name flex">
+<span>def <span class="ident">heal</span></span>(<span>self, amount: int) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def heal(self, amount: int) -&gt; None:
     &#34;&#34;&#34;
     Restore player health by the specified amount, up to max_health.
 
@@ -1219,44 +677,32 @@ False
     if amount &lt; 0:
         raise ValueError(&#34;Heal amount must be non-negative&#34;)
     self.health = min(self.max_health, self.health + amount)</code></pre>
-                  </details>
-                  <div class="desc">
-                    <p>
-                      Restore player health by the specified amount, up to
-                      max_health.
-                    </p>
-                    <h2 id="args">Args</h2>
-                    <dl>
-                      <dt>
-                        <strong><code>amount</code></strong>
-                      </dt>
-                      <dd>
-                        The amount of health to restore (must be non-negative).
-                      </dd>
-                    </dl>
-                    <h2 id="examples">Examples</h2>
-                    <pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;, health=50, max_health=100)
+</details>
+<div class="desc"><p>Restore player health by the specified amount, up to max_health.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>amount</code></strong></dt>
+<dd>The amount of health to restore (must be non-negative).</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;, health=50, max_health=100)
 &gt;&gt;&gt; state.heal(30)
 &gt;&gt;&gt; state.health
 80
 &gt;&gt;&gt; state.heal(50)
 &gt;&gt;&gt; state.health
 100
-</code></pre>
-                  </div>
-                </dd>
-                <dt id="space_hulk_game.engine.game_state.GameState.is_alive">
-                  <code class="name flex">
-                    <span>def <span class="ident">is_alive</span></span
-                    >(<span>self) ‑> bool</span>
-                  </code>
-                </dt>
-                <dd>
-                  <details class="source">
-                    <summary>
-                      <span>Expand source code</span>
-                    </summary>
-                    <pre><code class="python">def is_alive(self) -&gt; bool:
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.engine.game_state.GameState.is_alive"><code class="name flex">
+<span>def <span class="ident">is_alive</span></span>(<span>self) ‑> bool</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_alive(self) -&gt; bool:
     &#34;&#34;&#34;
     Check if the player is still alive.
 
@@ -1272,35 +718,28 @@ False
         False
     &#34;&#34;&#34;
     return self.health &gt; 0</code></pre>
-                  </details>
-                  <div class="desc">
-                    <p>Check if the player is still alive.</p>
-                    <h2 id="returns">Returns</h2>
-                    <p>True if health &gt; 0, False otherwise.</p>
-                    <h2 id="examples">Examples</h2>
-                    <pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;, health=50)
+</details>
+<div class="desc"><p>Check if the player is still alive.</p>
+<h2 id="returns">Returns</h2>
+<p>True if health &gt; 0, False otherwise.</p>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;, health=50)
 &gt;&gt;&gt; state.is_alive()
 True
 &gt;&gt;&gt; state.health = 0
 &gt;&gt;&gt; state.is_alive()
 False
-</code></pre>
-                  </div>
-                </dd>
-                <dt
-                  id="space_hulk_game.engine.game_state.GameState.remove_item"
-                >
-                  <code class="name flex">
-                    <span>def <span class="ident">remove_item</span></span
-                    >(<span>self, item_id: str) ‑> bool</span>
-                  </code>
-                </dt>
-                <dd>
-                  <details class="source">
-                    <summary>
-                      <span>Expand source code</span>
-                    </summary>
-                    <pre><code class="python">def remove_item(self, item_id: str) -&gt; bool:
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.engine.game_state.GameState.remove_item"><code class="name flex">
+<span>def <span class="ident">remove_item</span></span>(<span>self, item_id: str) ‑> bool</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def remove_item(self, item_id: str) -&gt; bool:
     &#34;&#34;&#34;
     Remove an item from the player&#39;s inventory.
 
@@ -1321,44 +760,32 @@ False
         self.inventory.remove(item_id)
         return True
     return False</code></pre>
-                  </details>
-                  <div class="desc">
-                    <p>Remove an item from the player's inventory.</p>
-                    <h2 id="args">Args</h2>
-                    <dl>
-                      <dt>
-                        <strong><code>item_id</code></strong>
-                      </dt>
-                      <dd>The ID of the item to remove.</dd>
-                    </dl>
-                    <h2 id="returns">Returns</h2>
-                    <p>
-                      True if the item was removed, False if it wasn't in
-                      inventory.
-                    </p>
-                    <h2 id="examples">Examples</h2>
-                    <pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;, inventory=[&quot;key&quot;])
+</details>
+<div class="desc"><p>Remove an item from the player's inventory.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>item_id</code></strong></dt>
+<dd>The ID of the item to remove.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>True if the item was removed, False if it wasn't in inventory.</p>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;, inventory=[&quot;key&quot;])
 &gt;&gt;&gt; state.remove_item(&quot;key&quot;)
 True
 &gt;&gt;&gt; state.remove_item(&quot;key&quot;)
 False
-</code></pre>
-                  </div>
-                </dd>
-                <dt id="space_hulk_game.engine.game_state.GameState.set_flag">
-                  <code class="name flex">
-                    <span>def <span class="ident">set_flag</span></span
-                    >(<span
-                      >self, flag_name: str, value: bool = True) ‑> None</span
-                    >
-                  </code>
-                </dt>
-                <dd>
-                  <details class="source">
-                    <summary>
-                      <span>Expand source code</span>
-                    </summary>
-                    <pre><code class="python">def set_flag(self, flag_name: str, value: bool = True) -&gt; None:
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.engine.game_state.GameState.set_flag"><code class="name flex">
+<span>def <span class="ident">set_flag</span></span>(<span>self, flag_name: str, value: bool = True) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_flag(self, flag_name: str, value: bool = True) -&gt; None:
     &#34;&#34;&#34;
     Set a game flag to track story or puzzle progress.
 
@@ -1373,42 +800,31 @@ False
         True
     &#34;&#34;&#34;
     self.game_flags[flag_name] = value</code></pre>
-                  </details>
-                  <div class="desc">
-                    <p>Set a game flag to track story or puzzle progress.</p>
-                    <h2 id="args">Args</h2>
-                    <dl>
-                      <dt>
-                        <strong><code>flag_name</code></strong>
-                      </dt>
-                      <dd>The name of the flag to set.</dd>
-                      <dt>
-                        <strong><code>value</code></strong>
-                      </dt>
-                      <dd>The boolean value to set (default: True).</dd>
-                    </dl>
-                    <h2 id="examples">Examples</h2>
-                    <pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;)
+</details>
+<div class="desc"><p>Set a game flag to track story or puzzle progress.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>flag_name</code></strong></dt>
+<dd>The name of the flag to set.</dd>
+<dt><strong><code>value</code></strong></dt>
+<dd>The boolean value to set (default: True).</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;)
 &gt;&gt;&gt; state.set_flag(&quot;door_opened&quot;)
 &gt;&gt;&gt; state.game_flags[&quot;door_opened&quot;]
 True
-</code></pre>
-                  </div>
-                </dd>
-                <dt
-                  id="space_hulk_game.engine.game_state.GameState.take_damage"
-                >
-                  <code class="name flex">
-                    <span>def <span class="ident">take_damage</span></span
-                    >(<span>self, amount: int) ‑> None</span>
-                  </code>
-                </dt>
-                <dd>
-                  <details class="source">
-                    <summary>
-                      <span>Expand source code</span>
-                    </summary>
-                    <pre><code class="python">def take_damage(self, amount: int) -&gt; None:
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.engine.game_state.GameState.take_damage"><code class="name flex">
+<span>def <span class="ident">take_damage</span></span>(<span>self, amount: int) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def take_damage(self, amount: int) -&gt; None:
     &#34;&#34;&#34;
     Reduce player health by the specified amount.
 
@@ -1424,38 +840,29 @@ True
     if amount &lt; 0:
         raise ValueError(&#34;Damage amount must be non-negative&#34;)
     self.health = max(0, self.health - amount)</code></pre>
-                  </details>
-                  <div class="desc">
-                    <p>Reduce player health by the specified amount.</p>
-                    <h2 id="args">Args</h2>
-                    <dl>
-                      <dt>
-                        <strong><code>amount</code></strong>
-                      </dt>
-                      <dd>
-                        The amount of damage to take (must be non-negative).
-                      </dd>
-                    </dl>
-                    <h2 id="examples">Examples</h2>
-                    <pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;, health=100)
+</details>
+<div class="desc"><p>Reduce player health by the specified amount.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>amount</code></strong></dt>
+<dd>The amount of damage to take (must be non-negative).</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;, health=100)
 &gt;&gt;&gt; state.take_damage(30)
 &gt;&gt;&gt; state.health
 70
-</code></pre>
-                  </div>
-                </dd>
-                <dt id="space_hulk_game.engine.game_state.GameState.to_dict">
-                  <code class="name flex">
-                    <span>def <span class="ident">to_dict</span></span
-                    >(<span>self) ‑> dict</span>
-                  </code>
-                </dt>
-                <dd>
-                  <details class="source">
-                    <summary>
-                      <span>Expand source code</span>
-                    </summary>
-                    <pre><code class="python">def to_dict(self) -&gt; dict:
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.engine.game_state.GameState.to_dict"><code class="name flex">
+<span>def <span class="ident">to_dict</span></span>(<span>self) ‑> dict</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def to_dict(self) -&gt; dict:
     &#34;&#34;&#34;
     Convert the game state to a dictionary for serialization.
 
@@ -1476,35 +883,26 @@ True
         &#34;health&#34;: self.health,
         &#34;max_health&#34;: self.max_health,
     }</code></pre>
-                  </details>
-                  <div class="desc">
-                    <p>
-                      Convert the game state to a dictionary for serialization.
-                    </p>
-                    <h2 id="returns">Returns</h2>
-                    <p>Dictionary representation of the game state.</p>
-                    <h2 id="examples">Examples</h2>
-                    <pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;)
+</details>
+<div class="desc"><p>Convert the game state to a dictionary for serialization.</p>
+<h2 id="returns">Returns</h2>
+<p>Dictionary representation of the game state.</p>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;)
 &gt;&gt;&gt; data = state.to_dict()
 &gt;&gt;&gt; data['current_scene']
 'test'
-</code></pre>
-                  </div>
-                </dd>
-                <dt
-                  id="space_hulk_game.engine.game_state.GameState.visit_scene"
-                >
-                  <code class="name flex">
-                    <span>def <span class="ident">visit_scene</span></span
-                    >(<span>self, scene_id: str) ‑> None</span>
-                  </code>
-                </dt>
-                <dd>
-                  <details class="source">
-                    <summary>
-                      <span>Expand source code</span>
-                    </summary>
-                    <pre><code class="python">def visit_scene(self, scene_id: str) -&gt; None:
+</code></pre></div>
+</dd>
+<dt id="space_hulk_game.engine.game_state.GameState.visit_scene"><code class="name flex">
+<span>def <span class="ident">visit_scene</span></span>(<span>self, scene_id: str) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def visit_scene(self, scene_id: str) -&gt; None:
     &#34;&#34;&#34;
     Mark a scene as visited and update current location.
 
@@ -1521,240 +919,69 @@ True
     &#34;&#34;&#34;
     self.current_scene = scene_id
     self.visited_scenes.add(scene_id)</code></pre>
-                  </details>
-                  <div class="desc">
-                    <p>Mark a scene as visited and update current location.</p>
-                    <h2 id="args">Args</h2>
-                    <dl>
-                      <dt>
-                        <strong><code>scene_id</code></strong>
-                      </dt>
-                      <dd>The ID of the scene to visit.</dd>
-                    </dl>
-                    <h2 id="examples">Examples</h2>
-                    <pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;start&quot;)
+</details>
+<div class="desc"><p>Mark a scene as visited and update current location.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>scene_id</code></strong></dt>
+<dd>The ID of the scene to visit.</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;start&quot;)
 &gt;&gt;&gt; state.visit_scene(&quot;next_room&quot;)
 &gt;&gt;&gt; state.current_scene
 'next_room'
 &gt;&gt;&gt; &quot;next_room&quot; in state.visited_scenes
 True
-</code></pre>
-                  </div>
-                </dd>
-              </dl>
-            </dd>
-          </dl>
-        </section>
-      </article>
-      <nav id="sidebar">
-        <div class="toc">
-          <ul></ul>
-        </div>
-        <ul id="index">
-          <li>
-            <h3>Super-module</h3>
-            <ul>
-              <li>
-                <code
-                  ><a title="space_hulk_game.engine" href="index.html"
-                    >space_hulk_game.engine</a
-                  ></code
-                >
-              </li>
-            </ul>
-          </li>
-          <li>
-            <h3><a href="#header-classes">Classes</a></h3>
-            <ul>
-              <li>
-                <h4>
-                  <code
-                    ><a
-                      title="space_hulk_game.engine.game_state.GameState"
-                      href="#space_hulk_game.engine.game_state.GameState"
-                      >GameState</a
-                    ></code
-                  >
-                </h4>
-                <ul class="two-column">
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.game_state.GameState.add_item"
-                        href="#space_hulk_game.engine.game_state.GameState.add_item"
-                        >add_item</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.game_state.GameState.current_scene"
-                        href="#space_hulk_game.engine.game_state.GameState.current_scene"
-                        >current_scene</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.game_state.GameState.from_dict"
-                        href="#space_hulk_game.engine.game_state.GameState.from_dict"
-                        >from_dict</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.game_state.GameState.game_flags"
-                        href="#space_hulk_game.engine.game_state.GameState.game_flags"
-                        >game_flags</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.game_state.GameState.get_flag"
-                        href="#space_hulk_game.engine.game_state.GameState.get_flag"
-                        >get_flag</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.game_state.GameState.has_item"
-                        href="#space_hulk_game.engine.game_state.GameState.has_item"
-                        >has_item</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.game_state.GameState.has_visited"
-                        href="#space_hulk_game.engine.game_state.GameState.has_visited"
-                        >has_visited</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.game_state.GameState.heal"
-                        href="#space_hulk_game.engine.game_state.GameState.heal"
-                        >heal</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.game_state.GameState.health"
-                        href="#space_hulk_game.engine.game_state.GameState.health"
-                        >health</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.game_state.GameState.inventory"
-                        href="#space_hulk_game.engine.game_state.GameState.inventory"
-                        >inventory</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.game_state.GameState.is_alive"
-                        href="#space_hulk_game.engine.game_state.GameState.is_alive"
-                        >is_alive</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.game_state.GameState.max_health"
-                        href="#space_hulk_game.engine.game_state.GameState.max_health"
-                        >max_health</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.game_state.GameState.remove_item"
-                        href="#space_hulk_game.engine.game_state.GameState.remove_item"
-                        >remove_item</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.game_state.GameState.set_flag"
-                        href="#space_hulk_game.engine.game_state.GameState.set_flag"
-                        >set_flag</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.game_state.GameState.take_damage"
-                        href="#space_hulk_game.engine.game_state.GameState.take_damage"
-                        >take_damage</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.game_state.GameState.to_dict"
-                        href="#space_hulk_game.engine.game_state.GameState.to_dict"
-                        >to_dict</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.game_state.GameState.visit_scene"
-                        href="#space_hulk_game.engine.game_state.GameState.visit_scene"
-                        >visit_scene</a
-                      ></code
-                    >
-                  </li>
-                  <li>
-                    <code
-                      ><a
-                        title="space_hulk_game.engine.game_state.GameState.visited_scenes"
-                        href="#space_hulk_game.engine.game_state.GameState.visited_scenes"
-                        >visited_scenes</a
-                      ></code
-                    >
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
-    </main>
-    <footer id="footer">
-      <p>
-        Generated by
-        <a
-          href="https://pdoc3.github.io/pdoc"
-          title="pdoc: Python API documentation generator"
-          ><cite>pdoc</cite> 0.11.6</a
-        >.
-      </p>
-    </footer>
-  </body>
+</code></pre></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="space_hulk_game.engine" href="index.html">space_hulk_game.engine</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="space_hulk_game.engine.game_state.GameState" href="#space_hulk_game.engine.game_state.GameState">GameState</a></code></h4>
+<ul class="two-column">
+<li><code><a title="space_hulk_game.engine.game_state.GameState.add_item" href="#space_hulk_game.engine.game_state.GameState.add_item">add_item</a></code></li>
+<li><code><a title="space_hulk_game.engine.game_state.GameState.current_scene" href="#space_hulk_game.engine.game_state.GameState.current_scene">current_scene</a></code></li>
+<li><code><a title="space_hulk_game.engine.game_state.GameState.from_dict" href="#space_hulk_game.engine.game_state.GameState.from_dict">from_dict</a></code></li>
+<li><code><a title="space_hulk_game.engine.game_state.GameState.game_flags" href="#space_hulk_game.engine.game_state.GameState.game_flags">game_flags</a></code></li>
+<li><code><a title="space_hulk_game.engine.game_state.GameState.get_flag" href="#space_hulk_game.engine.game_state.GameState.get_flag">get_flag</a></code></li>
+<li><code><a title="space_hulk_game.engine.game_state.GameState.has_item" href="#space_hulk_game.engine.game_state.GameState.has_item">has_item</a></code></li>
+<li><code><a title="space_hulk_game.engine.game_state.GameState.has_visited" href="#space_hulk_game.engine.game_state.GameState.has_visited">has_visited</a></code></li>
+<li><code><a title="space_hulk_game.engine.game_state.GameState.heal" href="#space_hulk_game.engine.game_state.GameState.heal">heal</a></code></li>
+<li><code><a title="space_hulk_game.engine.game_state.GameState.health" href="#space_hulk_game.engine.game_state.GameState.health">health</a></code></li>
+<li><code><a title="space_hulk_game.engine.game_state.GameState.inventory" href="#space_hulk_game.engine.game_state.GameState.inventory">inventory</a></code></li>
+<li><code><a title="space_hulk_game.engine.game_state.GameState.is_alive" href="#space_hulk_game.engine.game_state.GameState.is_alive">is_alive</a></code></li>
+<li><code><a title="space_hulk_game.engine.game_state.GameState.max_health" href="#space_hulk_game.engine.game_state.GameState.max_health">max_health</a></code></li>
+<li><code><a title="space_hulk_game.engine.game_state.GameState.remove_item" href="#space_hulk_game.engine.game_state.GameState.remove_item">remove_item</a></code></li>
+<li><code><a title="space_hulk_game.engine.game_state.GameState.set_flag" href="#space_hulk_game.engine.game_state.GameState.set_flag">set_flag</a></code></li>
+<li><code><a title="space_hulk_game.engine.game_state.GameState.take_damage" href="#space_hulk_game.engine.game_state.GameState.take_damage">take_damage</a></code></li>
+<li><code><a title="space_hulk_game.engine.game_state.GameState.to_dict" href="#space_hulk_game.engine.game_state.GameState.to_dict">to_dict</a></code></li>
+<li><code><a title="space_hulk_game.engine.game_state.GameState.visit_scene" href="#space_hulk_game.engine.game_state.GameState.visit_scene">visit_scene</a></code></li>
+<li><code><a title="space_hulk_game.engine.game_state.GameState.visited_scenes" href="#space_hulk_game.engine.game_state.GameState.visited_scenes">visited_scenes</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
 </html>
