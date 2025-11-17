@@ -51,7 +51,7 @@ describe('useWebSocket', () => {
   })
 
   afterEach(() => {
-    (globalThis as typeof globalThis & { WebSocket: typeof WebSocket }).WebSocket =
+    ;(globalThis as typeof globalThis & { WebSocket: typeof WebSocket }).WebSocket =
       originalWebSocket
     vi.clearAllMocks()
   })
