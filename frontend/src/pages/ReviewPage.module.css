@@ -1,0 +1,140 @@
+.page {
+  min-height: calc(100vh - 120px);
+  padding: 2rem 1rem;
+  background: var(--bg-primary, #0a0a0a);
+}
+
+.header {
+  max-width: 800px;
+  margin: 0 auto 2rem;
+  text-align: center;
+}
+
+.pageTitle {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 0 0 0.5rem 0;
+  color: var(--text-primary, #ffffff);
+  background: linear-gradient(135deg, #4a90e2, #9c27b0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.pageSubtitle {
+  font-size: 1.125rem;
+  color: var(--text-secondary, #cccccc);
+  margin: 0;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  gap: 1.5rem;
+}
+
+.spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinnerIcon {
+  font-size: 4rem;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loadingText {
+  font-size: 1.25rem;
+  color: var(--text-secondary, #cccccc);
+  margin: 0;
+}
+
+.error {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: var(--bg-secondary, #1a1a1a);
+  border-radius: 8px;
+  text-align: center;
+}
+
+.errorTitle {
+  font-size: 1.75rem;
+  font-weight: bold;
+  margin: 0 0 1rem 0;
+  color: var(--error-color, #e74c3c);
+}
+
+.errorMessage {
+  font-size: 1.125rem;
+  color: var(--text-secondary, #cccccc);
+  margin: 0 0 2rem 0;
+  line-height: 1.6;
+}
+
+.errorButton {
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  background: var(--accent-primary, #4a90e2);
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.errorButton:hover {
+  background: var(--accent-primary-hover, #357abd);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.errorButton:active {
+  transform: translateY(0);
+}
+
+.errorButton:focus-visible {
+  outline: 2px solid var(--accent-primary, #4a90e2);
+  outline-offset: 2px;
+}
+
+/* Responsive design */
+@media (max-width: 640px) {
+  .page {
+    padding: 1rem 0.5rem;
+  }
+
+  .pageTitle {
+    font-size: 2rem;
+  }
+
+  .pageSubtitle {
+    font-size: 1rem;
+  }
+
+  .error {
+    padding: 1.5rem;
+  }
+
+  .errorTitle {
+    font-size: 1.5rem;
+  }
+
+  .errorMessage {
+    font-size: 1rem;
+  }
+}
