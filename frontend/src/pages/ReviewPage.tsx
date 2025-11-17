@@ -105,7 +105,9 @@ function ReviewPage() {
     <div className={styles.page}>
       <div className={styles.header}>
         <h1 className={styles.pageTitle}>Your Story is Ready!</h1>
-        <p className={styles.pageSubtitle}>Review your generated story and decide what to do next</p>
+        <p className={styles.pageSubtitle}>
+          Review your generated story and decide what to do next
+        </p>
       </div>
       <StoryPreview story={story} onPlayNow={handlePlayNow} onGiveFeedback={handleGiveFeedback} />
     </div>

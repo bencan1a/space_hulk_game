@@ -22,7 +22,8 @@ type Story = StoryObj<typeof StoryPreview>
 const mockStoryData: StoryType = {
   id: 1,
   title: 'The Derelict Hulk',
-  description: 'A tense exploration of an abandoned space hulk filled with danger and mystery. Navigate through dark corridors, discover ancient technology, and survive encounters with hostile entities.',
+  description:
+    'A tense exploration of an abandoned space hulk filled with danger and mystery. Navigate through dark corridors, discover ancient technology, and survive encounters with hostile entities.',
   theme_id: 'warhammer40k',
   tags: ['horror', 'exploration', 'combat'],
   game_file_path: '/data/stories/001/game.json',
@@ -123,7 +124,8 @@ export const CyberpunkTheme: Story = {
     story: {
       id: 3,
       title: 'Neon Shadows',
-      description: 'In a dystopian megacity, hack your way through corporate defenses and uncover a conspiracy that threatens the entire grid.',
+      description:
+        'In a dystopian megacity, hack your way through corporate defenses and uncover a conspiracy that threatens the entire grid.',
       theme_id: 'cyberpunk',
       tags: ['hacking', 'stealth', 'investigation'],
       game_file_path: '/data/stories/003/game.json',
@@ -148,7 +150,8 @@ export const LongContent: Story = {
     story: {
       ...mockStoryData,
       title: 'The Chronicles of the Forgotten Space Hulk: A Journey Through Darkness and Despair',
-      description: 'A comprehensive and detailed exploration of an abandoned space hulk that has been drifting through the void for millennia. Navigate through countless dark corridors, discover ancient technology from a bygone era, uncover the mysteries of what happened to the original crew, and survive encounters with hostile entities that have made the hulk their home. This is a long and complex adventure that will test your skills, patience, and courage as you delve deeper into the unknown reaches of space.',
+      description:
+        'A comprehensive and detailed exploration of an abandoned space hulk that has been drifting through the void for millennia. Navigate through countless dark corridors, discover ancient technology from a bygone era, uncover the mysteries of what happened to the original crew, and survive encounters with hostile entities that have made the hulk their home. This is a long and complex adventure that will test your skills, patience, and courage as you delve deeper into the unknown reaches of space.',
     },
   },
 }

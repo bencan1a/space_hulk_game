@@ -39,11 +39,7 @@ export interface StoryPreviewProps {
  * />
  * ```
  */
-export const StoryPreview: React.FC<StoryPreviewProps> = ({
-  story,
-  onPlayNow,
-  onGiveFeedback,
-}) => {
+export const StoryPreview: React.FC<StoryPreviewProps> = ({ story, onPlayNow, onGiveFeedback }) => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
