@@ -25,7 +25,7 @@ def story_with_iterations(db_session, sample_story_data):
             iteration_number=i + 1,
             feedback=f"Iteration {i + 1} feedback with enough characters to be valid",
             changes_requested={"tone": "darker"} if i == 0 else None,
-            game_file_path=f"data/stories/test_001/iterations/iteration_{i+1:03d}/game.json",
+            game_file_path=f"data/stories/test_001/iterations/iteration_{i + 1:03d}/game.json",
             status="pending" if i == 2 else "accepted",
         )
         db_session.add(iteration)
@@ -92,7 +92,7 @@ def test_submit_feedback_enforces_iteration_limit(db_session, sample_story_data)
             story_id=story.id,
             iteration_number=i + 1,
             feedback=f"Iteration {i + 1} feedback",
-            game_file_path=f"data/stories/test_001/iterations/iteration_{i+1:03d}/game.json",
+            game_file_path=f"data/stories/test_001/iterations/iteration_{i + 1:03d}/game.json",
             status="accepted",
         )
         db_session.add(iteration)
@@ -128,9 +128,7 @@ def test_start_iteration_triggers_generation(db_session, story_with_iterations):
     service = IterationService(db_session)
 
     # Mock the generation service's start_generation method
-    with patch.object(
-        service.generation_service, "start_generation"
-    ) as mock_start_generation:
+    with patch.object(service.generation_service, "start_generation") as mock_start_generation:
         mock_start_generation.return_value = "test-session-id-123"
 
         session_id = service.start_iteration(story.id)
@@ -171,9 +169,7 @@ def test_start_iteration_uses_original_template(db_session, sample_story_data):
     service = IterationService(db_session)
 
     # Mock the generation service
-    with patch.object(
-        service.generation_service, "start_generation"
-    ) as mock_start_generation:
+    with patch.object(service.generation_service, "start_generation") as mock_start_generation:
         mock_start_generation.return_value = "test-session-id"
 
         service.start_iteration(story.id)
@@ -220,9 +216,7 @@ def test_start_iteration_uses_most_recent_pending(db_session, story_with_iterati
 
     service = IterationService(db_session)
 
-    with patch.object(
-        service.generation_service, "start_generation"
-    ) as mock_start_generation:
+    with patch.object(service.generation_service, "start_generation") as mock_start_generation:
         mock_start_generation.return_value = "test-session-id"
 
         service.start_iteration(story.id)

@@ -226,13 +226,13 @@ class IterationService:
             "",
             "## Original Story",
             f"Title: {story.title}",
-            f"Theme: {str(story.theme_id)}",
+            f"Theme: {story.theme_id!s}",
             "",
             "## Original Prompt",
-            str(story.prompt),
+            f"{story.prompt!s}",
             "",
             f"## Iteration {iteration.iteration_number} - User Feedback",
-            str(iteration.feedback),
+            f"{iteration.feedback!s}",
         ]
 
         # Add structured feedback if available
