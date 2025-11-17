@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { StoryPreview } from '../components/generation/StoryPreview'
 import { Story } from '../types/story'
