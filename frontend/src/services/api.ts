@@ -7,6 +7,7 @@ import type {
   Story,
   CreateStoryRequest,
   GenerationSession,
+  GenerationStatus,
   GameSession,
   GameCommand,
   GameResponse,
@@ -118,8 +119,8 @@ class ApiClient {
   }
 
   async createStory(data: CreateStoryRequest): Promise<GenerationSession> {
-    const response = await this.client.post<ApiResponse<GenerationSession>>('/api/v1/stories', data)
-    return response.data.data
+    const response = await this.client.post<GenerationSession>('/api/v1/generate', data)
+    return response.data
   }
 
   async deleteStory(id: number): Promise<void> {
@@ -127,11 +128,9 @@ class ApiClient {
   }
 
   // Generation endpoints
-  async getGenerationStatus(sessionId: string): Promise<GenerationSession> {
-    const response = await this.client.get<ApiResponse<GenerationSession>>(
-      `/api/v1/generate/${sessionId}`
-    )
-    return response.data.data
+  async getGenerationStatus(sessionId: string): Promise<GenerationStatus> {
+    const response = await this.client.get<GenerationStatus>(`/api/v1/generate/${sessionId}`)
+    return response.data
   }
 
   // Game endpoints

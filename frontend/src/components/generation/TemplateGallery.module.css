@@ -93,6 +93,38 @@
   font-size: 1.125rem;
 }
 
+.actionSection {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.generateButton {
+  padding: 1rem 3rem;
+  background: var(--color-primary, #8b0000);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.generateButton:hover {
+  background: var(--color-primary-dark, #6b0000);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(139, 0, 0, 0.3);
+}
+
+.generateButton:focus {
+  outline: 2px solid var(--color-primary, #8b0000);
+  outline-offset: 2px;
+}
+
+.generateButton:active {
+  transform: translateY(0);
+}
+
 @media (max-width: 768px) {
   .container {
     padding: 1rem;

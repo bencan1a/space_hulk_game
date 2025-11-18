@@ -56,9 +56,15 @@ export interface IterationRequest {
 
 // Generation types
 export interface GenerationSession {
-  id: string
+  session_id: string
+  status: string
+  message: string
+}
+
+export interface GenerationStatus {
+  session_id: string
   story_id: number | null
-  status: 'creating' | 'iterating' | 'complete' | 'error'
+  status: 'pending' | 'running' | 'completed' | 'failed'
   current_step: string | null
   progress_percent: number
   created_at: string

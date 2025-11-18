@@ -26,12 +26,15 @@ services:
     volumes:
       - ./backend:/app
       - data:/app/data
+      - ./data:/data
     environment:
       - API_HOST=0.0.0.0
       - API_PORT=8000
       - DATABASE_URL=sqlite:///./data/database.db
       - REDIS_URL=redis://redis:6379/0
       - LOG_LEVEL=INFO
+      - TEMPLATES_DIR=/data/templates
+      - THEMES_DIR=/data/themes
     depends_on:
       redis:
         condition: service_healthy

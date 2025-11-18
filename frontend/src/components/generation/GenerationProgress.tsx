@@ -1,5 +1,6 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useEffect, useRef } from 'react'
 import { useWebSocket, WebSocketMessage } from '../../hooks/useWebSocket'
+import { apiClient } from '../../services/api'
 import styles from './GenerationProgress.module.css'
 
 export interface AgentStatus {
@@ -184,6 +185,54 @@ export const GenerationProgress: React.FC<GenerationProgressProps> = ({
     autoReconnect: true,
     maxReconnectAttempts: 5,
   })
+
+  // Track if we've already completed to avoid duplicate callbacks
+  const hasCompleted = useRef(false)
+
+  // Polling fallback for when WebSocket updates aren't working
+  useEffect(() => {
+    if (!sessionId || hasCompleted.current) return
+
+    const pollStatus = async () => {
+      try {
+        const status = await apiClient.getGenerationStatus(sessionId)
+
+        // Update progress from polling
+        if (status.progress_percent !== undefined) {
+          setProgressPercent(status.progress_percent)
+        }
+        if (status.current_step) {
+          setCurrentStep(status.current_step)
+        }
+
+        // Check for completion
+        if (status.status === 'completed' && !hasCompleted.current) {
+          hasCompleted.current = true
+          setProgressPercent(100)
+          setCurrentStep('Generation completed!')
+          setFinalStatus('completed')
+          onComplete?.()
+        } else if (status.status === 'failed' && !hasCompleted.current) {
+          hasCompleted.current = true
+          setFinalStatus('failed')
+          const errMsg = status.error_message || 'Generation failed'
+          setErrorMessage(errMsg)
+          setCurrentStep('Generation failed')
+          onError?.(errMsg)
+        }
+      } catch (err) {
+        console.error('Error polling generation status:', err)
+      }
+    }
+
+    // Poll every 2 seconds
+    const interval = setInterval(pollStatus, 2000)
+
+    // Initial poll
+    pollStatus()
+
+    return () => clearInterval(interval)
+  }, [sessionId, onComplete, onError])
 
   return (
     <div className={styles.container}>

@@ -41,8 +41,11 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({
   const handleTemplateClick = (template: TemplateMetadata) => {
     setSelectedTemplate(template)
     setShowCustom(false)
-    if (onTemplateSelect) {
-      onTemplateSelect(template)
+  }
+
+  const handleGenerateClick = () => {
+    if (selectedTemplate && onTemplateSelect) {
+      onTemplateSelect(selectedTemplate)
     }
   }
 
@@ -104,23 +107,37 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({
       </div>
 
       {!showCustom ? (
-        <div className={styles.gallery} role="list" aria-label="Template gallery">
-          {templates.map((template) => (
-            <div key={template.name} role="listitem">
-              <TemplateCard
-                template={template}
-                selected={selectedTemplate?.name === template.name}
-                onClick={handleTemplateClick}
-              />
-            </div>
-          ))}
+        <>
+          <div className={styles.gallery} role="list" aria-label="Template gallery">
+            {templates.map((template) => (
+              <div key={template.name} role="listitem">
+                <TemplateCard
+                  template={template}
+                  selected={selectedTemplate?.name === template.name}
+                  onClick={handleTemplateClick}
+                />
+              </div>
+            ))}
 
-          {templates.length === 0 && (
-            <div className={styles.emptyState}>
-              <p>No templates available</p>
+            {templates.length === 0 && (
+              <div className={styles.emptyState}>
+                <p>No templates available</p>
+              </div>
+            )}
+          </div>
+
+          {selectedTemplate && (
+            <div className={styles.actionSection}>
+              <button
+                className={styles.generateButton}
+                onClick={handleGenerateClick}
+                aria-label={`Generate story using ${selectedTemplate.title} template`}
+              >
+                Generate Story
+              </button>
             </div>
           )}
-        </div>
+        </>
       ) : (
         <div className={styles.customSection}>
           <CustomPromptForm onSubmit={handleCustomPromptSubmit} />

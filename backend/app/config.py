@@ -57,6 +57,14 @@ class Settings(BaseSettings):
         default="data/stories",
         description="Base directory for storing generated story files",
     )
+    templates_dir: str = Field(
+        default="data/templates",
+        description="Directory containing template YAML files",
+    )
+    themes_dir: str = Field(
+        default="data/themes",
+        description="Directory containing theme configurations",
+    )
 
     @model_validator(mode="after")
     def set_celery_urls(self) -> "Settings":

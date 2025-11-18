@@ -7,6 +7,7 @@ from typing import Any
 from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel, Field
 
+from ...config import settings
 from ...services.template_service import TemplateService
 
 logger = logging.getLogger(__name__)
@@ -50,7 +51,7 @@ def get_template_service() -> TemplateService:
     Returns:
         Cached TemplateService instance (singleton)
     """
-    return TemplateService()
+    return TemplateService(templates_dir=settings.templates_dir)
 
 
 @router.get("", response_model=TemplateListResponse)

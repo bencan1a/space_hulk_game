@@ -7,6 +7,7 @@ from typing import Any
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.responses import FileResponse
 
+from ...config import settings
 from ...services.theme_service import ThemeService
 
 logger = logging.getLogger(__name__)
@@ -21,7 +22,7 @@ def get_theme_service() -> ThemeService:
     Returns:
         ThemeService instance
     """
-    return ThemeService()
+    return ThemeService(themes_dir=settings.themes_dir)
 
 
 @router.get("")
