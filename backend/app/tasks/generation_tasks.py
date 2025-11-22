@@ -12,12 +12,68 @@ from ..api.websocket import broadcast_progress
 from ..celery_app import celery_app
 from ..config import settings
 from ..database import SessionLocal
-from ..integrations.crewai_wrapper import CrewExecutionError, CrewTimeoutError
+from ..integrations.crewai_wrapper import CrewAIWrapper, CrewExecutionError, CrewTimeoutError
 from ..schemas.story import StoryCreate
 from ..services.generation_service import GenerationService
 from ..services.story_service import StoryService
 
+# Import the SpaceHulkGame crew
+from src.space_hulk_game.crew import SpaceHulkGame
+
 logger = logging.getLogger(__name__)
+
+
+def _load_crew_output() -> dict[str, Any]:
+    """
+    Load the crew's output from the playable_game.json file.
+    
+    The crew outputs to game-config/playable_game.json. We load this file
+    directly and return its contents. The backend will use the crew's format
+    as-is, without transformation.
+    
+    Returns:
+        dict: Game data from the crew output file
+        
+    Raises:
+        CrewExecutionError: If the output file cannot be found or parsed
+    """
+    game_config_path = Path("/workspaces/space_hulk_game/game-config/playable_game.json")
+    
+    if not game_config_path.exists():
+        raise CrewExecutionError(
+            f"Crew output file not found: {game_config_path}. "
+            "The crew may have failed to generate the game or the output file was not created."
+        )
+    
+    try:
+        with game_config_path.open() as f:
+            game_data = json.load(f)
+            logger.info(f"Loaded crew output from {game_config_path}")
+            
+            # Validate that we have a game structure
+            if not isinstance(game_data, dict):
+                raise CrewExecutionError(
+                    f"Invalid crew output format: expected dict, got {type(game_data).__name__}"
+                )
+            
+            # The crew outputs {"game": {...}}, return it as-is
+            if "game" not in game_data:
+                raise CrewExecutionError(
+                    "Invalid crew output: missing 'game' key in playable_game.json"
+                )
+            
+            return game_data
+            
+    except json.JSONDecodeError as exc:
+        raise CrewExecutionError(
+            f"Failed to parse crew output file {game_config_path}: {exc}"
+        ) from exc
+    except Exception as exc:
+        if isinstance(exc, CrewExecutionError):
+            raise
+        raise CrewExecutionError(
+            f"Error reading crew output file {game_config_path}: {exc}"
+        ) from exc
 
 
 @celery_app.task(
@@ -156,73 +212,55 @@ def run_generation_crew(
                 logger.warning(f"Error in progress callback: {e}")
 
         # Execute CrewAI generation
-        # TODO: Integrate actual CrewAI crew when available in production
-        # This would involve:
-        #   1. Importing the crew: from src.space_hulk_game.crew import SpaceHulkGame
-        #   2. Creating crew instance: crew_instance = SpaceHulkGame().crew()
-        #   3. Creating wrapper: wrapper = CrewAIWrapper(timeout_seconds=840)
-        #   4. Executing: result = wrapper.execute_generation(crew_instance, prompt, progress_callback)
+        logger.info(f"Starting real CrewAI generation for session {session_id}")
+        
+        gen_service.update_session(
+            session_id=session_id,
+            current_step="Initializing AI crew",
+            progress_percent=10,
+        )
+
+        # Create crew instance
+        try:
+            crew_instance = SpaceHulkGame()
+            crew = crew_instance.crew()
+            logger.info("SpaceHulkGame crew initialized successfully")
+        except Exception as exc:
+            logger.error(f"Failed to initialize crew: {exc}", exc_info=True)
+            raise CrewExecutionError(f"Failed to initialize crew: {exc}") from exc
+
+        # Create wrapper with timeout (14 minutes)
+        wrapper = CrewAIWrapper(timeout_seconds=840)
 
         gen_service.update_session(
             session_id=session_id,
             current_step="Executing AI generation",
-            progress_percent=20,
+            progress_percent=15,
         )
 
-        # Simulate crew execution for MVP
-        logger.info(f"Simulating generation for session {session_id} (TODO: integrate actual crew)")
-
-        # Simulate progress updates
-        progress_callback("started", {"prompt": prompt})
-        progress_callback(
-            "task_started", {"task_index": 0, "task_name": "Story Design", "total_tasks": 3}
-        )
-        progress_callback(
-            "task_completed", {"task_index": 0, "task_name": "Story Design", "total_tasks": 3}
-        )
-        progress_callback(
-            "task_started", {"task_index": 1, "task_name": "Scene Creation", "total_tasks": 3}
-        )
-        progress_callback(
-            "task_completed", {"task_index": 1, "task_name": "Scene Creation", "total_tasks": 3}
-        )
-        progress_callback(
-            "task_started", {"task_index": 2, "task_name": "Game Assembly", "total_tasks": 3}
-        )
-        progress_callback(
-            "task_completed", {"task_index": 2, "task_name": "Game Assembly", "total_tasks": 3}
+        # Execute with progress callback
+        logger.info(f"Executing crew with prompt: {prompt[:100]}...")
+        result = wrapper.execute_generation(
+            crew=crew,
+            prompt=prompt,
+            progress_callback=progress_callback,
         )
 
-        # Create simulated game.json output
-        game_data = {
-            "metadata": {
-                "title": f"Generated Story: {prompt[:50]}...",
-                "description": f"A story generated from: {prompt}",
-                "theme": "warhammer40k",
-                "difficulty": "medium",
-                "estimated_duration": "30-45 minutes",
-            },
-            "scenes": [
-                {
-                    "id": "scene_01",
-                    "name": "Starting Area",
-                    "description": "The beginning of your journey in the dark corridors.",
-                    "exits": {"north": "scene_02"},
-                    "items": ["flashlight"],
-                }
-            ],
-            "items": [
-                {
-                    "id": "flashlight",
-                    "name": "Flashlight",
-                    "description": "A standard issue flashlight",
-                }
-            ],
-            "npcs": [],
-            "puzzles": [],
-        }
+        # Extract output from crew result
+        # The result is a dict with 'status', 'output', and 'metadata'
+        if result.get("status") != "success":
+            error_msg = result.get("error", "Unknown error during crew execution")
+            logger.error(f"Crew execution failed: {error_msg}")
+            raise CrewExecutionError(error_msg)
 
-        progress_callback("completed", {"output": game_data, "status": "success"})
+        logger.info("Crew execution completed successfully")
+
+        # Load crew output from playable_game.json
+        # The crew outputs directly to game-config/playable_game.json
+        # We load this file and save it as-is to game.json
+        game_data = _load_crew_output()
+        
+        logger.info(f"Loaded crew output: {game_data.get('game', {}).get('title', 'Unknown')}")
 
         # Save game.json to filesystem
         gen_service.update_session(
@@ -242,23 +280,50 @@ def run_generation_crew(
         logger.info(f"Saved game.json to {game_file_path}")
 
         # Extract metadata from game.json for Story record
-        metadata = game_data.get("metadata", {})
-        assert isinstance(metadata, dict)  # Ensure type checker knows this is a dict
-        title = str(metadata.get("title", f"Generated Story {session_id[:8]}"))
-        description = str(metadata.get("description", ""))
-        theme_id = str(metadata.get("theme", "warhammer40k"))
-
-        # Count statistics
-        scene_count = len(game_data.get("scenes", []))
-        item_count = len(game_data.get("items", []))
-        npc_count = len(game_data.get("npcs", []))
-        puzzle_count = len(game_data.get("puzzles", []))
+        # The crew outputs {"game": {...}}, so we need to access game_data["game"]
+        game_content = game_data.get("game", {})
+        if not isinstance(game_content, dict):
+            raise CrewExecutionError(
+                f"Invalid game structure: expected dict, got {type(game_content).__name__}"
+            )
+        
+        title = str(game_content.get("title", f"Generated Story {session_id[:8]}"))
+        description = str(game_content.get("description", ""))
+        
+        # Count statistics from the crew's scene structure
+        # The crew outputs scenes as a dict: {"scene_id": {...}, ...}
+        scenes_dict = game_content.get("scenes", {})
+        if not isinstance(scenes_dict, dict):
+            logger.warning(f"Expected scenes to be dict, got {type(scenes_dict).__name__}")
+            scenes_dict = {}
+        
+        scene_count = len(scenes_dict)
+        
+        # Count items and NPCs across all scenes
+        item_count = 0
+        npc_count = 0
+        for scene_data in scenes_dict.values():
+            if isinstance(scene_data, dict):
+                items = scene_data.get("items", [])
+                npcs = scene_data.get("npcs", [])
+                if isinstance(items, list):
+                    item_count += len(items)
+                if isinstance(npcs, list):
+                    npc_count += len(npcs)
+        
+        # Puzzles might be in events
+        puzzle_count = 0
+        for scene_data in scenes_dict.values():
+            if isinstance(scene_data, dict):
+                events = scene_data.get("events", [])
+                if isinstance(events, list):
+                    puzzle_count += sum(1 for e in events if isinstance(e, dict) and e.get("type") == "puzzle")
 
         # Create Story record
         story_create = StoryCreate(
             title=title,
             description=description,
-            theme_id=theme_id,
+            theme_id="warhammer40k",  # Default theme
             prompt=prompt,
             template_id=template_id,
             game_file_path=str(game_file_path),
