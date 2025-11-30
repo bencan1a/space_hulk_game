@@ -9,9 +9,6 @@ from typing import TYPE_CHECKING, Any
 if TYPE_CHECKING:
     from sqlalchemy.orm import Session
 
-# Import the SpaceHulkGame crew
-from src.space_hulk_game.crew import SpaceHulkGame
-
 from ..api.websocket import broadcast_progress
 from ..celery_app import celery_app
 from ..config import settings
@@ -25,9 +22,7 @@ logger = logging.getLogger(__name__)
 
 # Configurable base directory for crew output files
 # Defaults to /workspaces/space_hulk_game/game-config for Docker compatibility
-GAME_CONFIG_DIR = Path(
-    os.environ.get("GAME_CONFIG_DIR", "/workspaces/space_hulk_game/game-config")
-)
+GAME_CONFIG_DIR = Path(os.environ.get("GAME_CONFIG_DIR", "/workspaces/space_hulk_game/game-config"))
 
 
 def _load_crew_output() -> dict[str, Any]:
@@ -83,9 +78,7 @@ def _load_crew_output() -> dict[str, Any]:
         if isinstance(exc, CrewExecutionError):
             raise
         logger.error(f"Error reading crew output file {game_config_path}: {exc}")
-        raise CrewExecutionError(
-            "Error reading crew output file. Check logs for details."
-        ) from exc
+        raise CrewExecutionError("Error reading crew output file. Check logs for details.") from exc
 
 
 @celery_app.task(
@@ -233,7 +226,11 @@ def run_generation_crew(
         )
 
         # Create crew instance
+        # Import SpaceHulkGame here to avoid import errors in non-Docker environments
+        # (e.g., backend-ci tests that don't have access to src.space_hulk_game)
         try:
+            from src.space_hulk_game.crew import SpaceHulkGame  # noqa: PLC0415
+
             crew_instance = SpaceHulkGame()
             crew = crew_instance.crew()
             logger.info("SpaceHulkGame crew initialized successfully")
@@ -327,7 +324,9 @@ def run_generation_crew(
             if isinstance(scene_data, dict):
                 events = scene_data.get("events", [])
                 if isinstance(events, list):
-                    puzzle_count += sum(1 for e in events if isinstance(e, dict) and e.get("type") == "puzzle")
+                    puzzle_count += sum(
+                        1 for e in events if isinstance(e, dict) and e.get("type") == "puzzle"
+                    )
 
         # Create Story record
         story_create = StoryCreate(
