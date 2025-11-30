@@ -8,6 +8,9 @@ from typing import TYPE_CHECKING, Any
 if TYPE_CHECKING:
     from sqlalchemy.orm import Session
 
+# Import the SpaceHulkGame crew
+from src.space_hulk_game.crew import SpaceHulkGame
+
 from ..api.websocket import broadcast_progress
 from ..celery_app import celery_app
 from ..config import settings
@@ -17,53 +20,50 @@ from ..schemas.story import StoryCreate
 from ..services.generation_service import GenerationService
 from ..services.story_service import StoryService
 
-# Import the SpaceHulkGame crew
-from src.space_hulk_game.crew import SpaceHulkGame
-
 logger = logging.getLogger(__name__)
 
 
 def _load_crew_output() -> dict[str, Any]:
     """
     Load the crew's output from the playable_game.json file.
-    
+
     The crew outputs to game-config/playable_game.json. We load this file
     directly and return its contents. The backend will use the crew's format
     as-is, without transformation.
-    
+
     Returns:
         dict: Game data from the crew output file
-        
+
     Raises:
         CrewExecutionError: If the output file cannot be found or parsed
     """
     game_config_path = Path("/workspaces/space_hulk_game/game-config/playable_game.json")
-    
+
     if not game_config_path.exists():
         raise CrewExecutionError(
             f"Crew output file not found: {game_config_path}. "
             "The crew may have failed to generate the game or the output file was not created."
         )
-    
+
     try:
         with game_config_path.open() as f:
             game_data = json.load(f)
             logger.info(f"Loaded crew output from {game_config_path}")
-            
+
             # Validate that we have a game structure
             if not isinstance(game_data, dict):
                 raise CrewExecutionError(
                     f"Invalid crew output format: expected dict, got {type(game_data).__name__}"
                 )
-            
+
             # The crew outputs {"game": {...}}, return it as-is
             if "game" not in game_data:
                 raise CrewExecutionError(
                     "Invalid crew output: missing 'game' key in playable_game.json"
                 )
-            
+
             return game_data
-            
+
     except json.JSONDecodeError as exc:
         raise CrewExecutionError(
             f"Failed to parse crew output file {game_config_path}: {exc}"
@@ -213,7 +213,7 @@ def run_generation_crew(
 
         # Execute CrewAI generation
         logger.info(f"Starting real CrewAI generation for session {session_id}")
-        
+
         gen_service.update_session(
             session_id=session_id,
             current_step="Initializing AI crew",
@@ -259,7 +259,7 @@ def run_generation_crew(
         # The crew outputs directly to game-config/playable_game.json
         # We load this file and save it as-is to game.json
         game_data = _load_crew_output()
-        
+
         logger.info(f"Loaded crew output: {game_data.get('game', {}).get('title', 'Unknown')}")
 
         # Save game.json to filesystem
@@ -286,19 +286,19 @@ def run_generation_crew(
             raise CrewExecutionError(
                 f"Invalid game structure: expected dict, got {type(game_content).__name__}"
             )
-        
+
         title = str(game_content.get("title", f"Generated Story {session_id[:8]}"))
         description = str(game_content.get("description", ""))
-        
+
         # Count statistics from the crew's scene structure
         # The crew outputs scenes as a dict: {"scene_id": {...}, ...}
         scenes_dict = game_content.get("scenes", {})
         if not isinstance(scenes_dict, dict):
             logger.warning(f"Expected scenes to be dict, got {type(scenes_dict).__name__}")
             scenes_dict = {}
-        
+
         scene_count = len(scenes_dict)
-        
+
         # Count items and NPCs across all scenes
         item_count = 0
         npc_count = 0
@@ -310,7 +310,7 @@ def run_generation_crew(
                     item_count += len(items)
                 if isinstance(npcs, list):
                     npc_count += len(npcs)
-        
+
         # Puzzles might be in events
         puzzle_count = 0
         for scene_data in scenes_dict.values():
