@@ -55,11 +55,20 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./backend:/app
+      - ./src:/workspaces/space_hulk_game/src
+      - ./game-config:/workspaces/space_hulk_game/game-config
       - data:/app/data
     environment:
       - DATABASE_URL=sqlite:///./data/database.db
       - REDIS_URL=redis://redis:6379/0
       - LOG_LEVEL=INFO
+      - PYTHONPATH=/app:/workspaces/space_hulk_game
+      # Configurable path for crew game config output
+      - GAME_CONFIG_DIR=/workspaces/space_hulk_game/game-config
+      # LLM API keys - must be set in .env file (see .env.example)
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - OPENAI_MODEL_NAME=${OPENAI_MODEL_NAME}
     depends_on:
       redis:
         condition: service_healthy
