@@ -2,6 +2,7 @@
 
 import json
 import logging
+import os
 from pathlib import Path
 from typing import TYPE_CHECKING, Any
 
@@ -22,6 +23,12 @@ from ..services.story_service import StoryService
 
 logger = logging.getLogger(__name__)
 
+# Configurable base directory for crew output files
+# Defaults to /workspaces/space_hulk_game/game-config for Docker compatibility
+GAME_CONFIG_DIR = Path(
+    os.environ.get("GAME_CONFIG_DIR", "/workspaces/space_hulk_game/game-config")
+)
+
 
 def _load_crew_output() -> dict[str, Any]:
     """
@@ -32,16 +39,19 @@ def _load_crew_output() -> dict[str, Any]:
     as-is, without transformation.
 
     Returns:
-        dict: Game data from the crew output file
+        dict: Dictionary with structure {"game": {...}} where the "game" key
+            contains the full game content including title, description,
+            starting_scene, scenes, etc.
 
     Raises:
         CrewExecutionError: If the output file cannot be found or parsed
     """
-    game_config_path = Path("/workspaces/space_hulk_game/game-config/playable_game.json")
+    game_config_path = GAME_CONFIG_DIR / "playable_game.json"
 
     if not game_config_path.exists():
+        logger.error(f"Crew output file not found at {game_config_path}")
         raise CrewExecutionError(
-            f"Crew output file not found: {game_config_path}. "
+            "Crew output file not found. "
             "The crew may have failed to generate the game or the output file was not created."
         )
 
@@ -65,14 +75,16 @@ def _load_crew_output() -> dict[str, Any]:
             return game_data
 
     except json.JSONDecodeError as exc:
+        logger.error(f"Failed to parse crew output file {game_config_path}: {exc}")
         raise CrewExecutionError(
-            f"Failed to parse crew output file {game_config_path}: {exc}"
+            "Failed to parse crew output file. The file may be corrupted or contain invalid JSON."
         ) from exc
     except Exception as exc:
         if isinstance(exc, CrewExecutionError):
             raise
+        logger.error(f"Error reading crew output file {game_config_path}: {exc}")
         raise CrewExecutionError(
-            f"Error reading crew output file {game_config_path}: {exc}"
+            "Error reading crew output file. Check logs for details."
         ) from exc
 
 
@@ -229,25 +241,23 @@ def run_generation_crew(
             logger.error(f"Failed to initialize crew: {exc}", exc_info=True)
             raise CrewExecutionError(f"Failed to initialize crew: {exc}") from exc
 
-        # Create wrapper with timeout (14 minutes)
-        wrapper = CrewAIWrapper(timeout_seconds=840)
-
         gen_service.update_session(
             session_id=session_id,
             current_step="Executing AI generation",
             progress_percent=15,
         )
 
-        # Execute with progress callback
+        # Execute with progress callback using context manager for proper resource cleanup
         logger.info(f"Executing crew with prompt: {prompt[:100]}...")
-        result = wrapper.execute_generation(
-            crew=crew,
-            prompt=prompt,
-            progress_callback=progress_callback,
-        )
+        with CrewAIWrapper(timeout_seconds=840) as wrapper:
+            result = wrapper.execute_generation(
+                crew=crew,
+                prompt=prompt,
+                progress_callback=progress_callback,
+            )
 
-        # Extract output from crew result
-        # The result is a dict with 'status', 'output', and 'metadata'
+        # Check crew execution result
+        # The wrapper returns status but the actual game data is written to disk by the crew
         if result.get("status") != "success":
             error_msg = result.get("error", "Unknown error during crew execution")
             logger.error(f"Crew execution failed: {error_msg}")
@@ -256,8 +266,8 @@ def run_generation_crew(
         logger.info("Crew execution completed successfully")
 
         # Load crew output from playable_game.json
-        # The crew outputs directly to game-config/playable_game.json
-        # We load this file and save it as-is to game.json
+        # Note: The crew writes output to disk (game-config/playable_game.json),
+        # we load from the file rather than the wrapper's result object
         game_data = _load_crew_output()
 
         logger.info(f"Loaded crew output: {game_data.get('game', {}).get('title', 'Unknown')}")

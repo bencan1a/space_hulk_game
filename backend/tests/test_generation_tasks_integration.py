@@ -76,7 +76,7 @@ class TestLoadCrewOutput:
         mock_exists.return_value = True
         mock_file.return_value.read.return_value = json.dumps(["array", "not", "dict"])
 
-        with pytest.raises(CrewExecutionError, match="expected dict"):
+        with pytest.raises(CrewExecutionError, match="expected dict, got"):
             _load_crew_output()
 
 
