@@ -1,6 +1,6 @@
 # Space Hulk Game - AI Agent Context
 
-Generated: 2025-11-30 03:32:00
+Generated: 2025-12-01 03:35:31
 
 ---
 
@@ -11,17 +11,6 @@ Generated: 2025-11-30 03:32:00
 [![Docker Build](https://github.com/bencan1a/space_hulk_game/actions/workflows/docker-build.yml/badge.svg)](https://github.com/bencan1a/space_hulk_game/actions/workflows/docker-build.yml)
 
 A text-based adventure game set in the Warhammer 40K universe, powered by CrewAI multi-agent system.
-
-## Active Projects
-
-### python-template-adoption
-
-- **Status:** active
-- **Owner:** AI Agent / Development Team
-- **Created:** 2025-11-10
-- **Priority:** high
-- **Location:** `agent-projects/python-template-adoption/plan.md`
-
 
 ## API Documentation
 
