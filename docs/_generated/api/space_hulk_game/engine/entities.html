@@ -39,7 +39,8 @@ el.replaceWith(d);
 <p>Entity Classes Module</p>
 <p>Defines the Item, NPC, and Event classes used in game scenes.
 These represent interactive elements that players can encounter during gameplay.</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import Item, NPC, Event
 &gt;&gt;&gt; item = Item(
 ...     id=&quot;dataslate&quot;,
@@ -233,8 +234,9 @@ class Event:
 <p>Events are scripted occurrences that can happen when the player enters
 a scene, performs an action, or meets certain conditions. They can
 modify game state, trigger dialogue, or cause other effects.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>id</code></strong></dt>
 <dd>Unique identifier for the event.</dd>
 <dt><strong><code>description</code></strong></dt>
@@ -248,8 +250,9 @@ modify game state, trigger dialogue, or cause other effects.</p>
 <dt><strong><code>effects</code></strong></dt>
 <dd>Dictionary of effects applied when event triggers.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
-<p>Create an entry event:</p>
+<p>Examples
+-----=
+Create an entry event:</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; ambush = Event(
 ...     id=&quot;genestealer_ambush&quot;,
 ...     description=&quot;A genestealer drops from the ceiling!&quot;,
@@ -282,13 +285,15 @@ modify game state, trigger dialogue, or cause other effects.</p>
 </code></dt>
 <dd>
 <div class="desc"><p>Create an Event from a dictionary.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>data</code></strong></dt>
 <dd>Dictionary containing event data.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>A new Event instance.</p></div>
+<p>Returns
+-----=
+A new Event instance.</p></div>
 </dd>
 </dl>
 <h3>Instance variables</h3>
@@ -360,14 +365,17 @@ modify game state, trigger dialogue, or cause other effects.</p>
     return True</code></pre>
 </details>
 <div class="desc"><p>Check if the event can trigger given current game flags.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>game_flags</code></strong></dt>
 <dd>Dictionary of current game flags.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>True if the event can trigger, False otherwise.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+True if the event can trigger, False otherwise.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; event = Event(id=&quot;test&quot;, description=&quot;Test event&quot;,
 ...               required_flag=&quot;key_found&quot;, one_time=True)
 &gt;&gt;&gt; event.can_trigger({})
@@ -403,7 +411,8 @@ False
     self.triggered = False</code></pre>
 </details>
 <div class="desc"><p>Reset the event so it can trigger again.</p>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; event = Event(id=&quot;test&quot;, description=&quot;Test&quot;)
 &gt;&gt;&gt; event.trigger()
 &gt;&gt;&gt; event.triggered
@@ -439,8 +448,9 @@ False
     }</code></pre>
 </details>
 <div class="desc"><p>Convert the event to a dictionary for serialization.</p>
-<h2 id="returns">Returns</h2>
-<p>Dictionary representation of the event.</p></div>
+<p>Returns
+-----=
+Dictionary representation of the event.</p></div>
 </dd>
 <dt id="space_hulk_game.engine.entities.Event.trigger"><code class="name flex">
 <span>def <span class="ident">trigger</span></span>(<span>self) ‑> None</span>
@@ -465,7 +475,8 @@ False
     self.triggered = True</code></pre>
 </details>
 <div class="desc"><p>Mark the event as triggered.</p>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; event = Event(id=&quot;test&quot;, description=&quot;Test&quot;, one_time=True)
 &gt;&gt;&gt; event.triggered
 False
@@ -623,8 +634,9 @@ class Item:
 <div class="desc"><p>Represents an interactive item in the game world.</p>
 <p>Items can be picked up, examined, or used to solve puzzles and progress
 the story. They can have associated effects when used.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>id</code></strong></dt>
 <dd>Unique identifier for the item.</dd>
 <dt><strong><code>name</code></strong></dt>
@@ -643,8 +655,9 @@ the story. They can have associated effects when used.</p>
 <dd>Dictionary of effects applied when item is used
 (e.g., {'unlock_door': 'door_id', 'heal': 20}).</dd>
 </dl>
-<h2 id="examples">Examples</h2>
-<p>Create a simple takeable item:</p>
+<p>Examples
+-----=
+Create a simple takeable item:</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; medkit = Item(
 ...     id=&quot;medkit&quot;,
 ...     name=&quot;Medical Kit&quot;,
@@ -683,13 +696,15 @@ the story. They can have associated effects when used.</p>
 </code></dt>
 <dd>
 <div class="desc"><p>Create an Item from a dictionary.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>data</code></strong></dt>
 <dd>Dictionary containing item data.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>A new Item instance.</p></div>
+<p>Returns
+-----=
+A new Item instance.</p></div>
 </dd>
 </dl>
 <h3>Instance variables</h3>
@@ -762,14 +777,17 @@ the story. They can have associated effects when used.</p>
     return True</code></pre>
 </details>
 <div class="desc"><p>Check if the item can be used given current game flags.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>game_flags</code></strong></dt>
 <dd>Dictionary of current game flags.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>True if the item can be used, False otherwise.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+True if the item can be used, False otherwise.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; item = Item(id=&quot;locked_box&quot;, name=&quot;Box&quot;, description=&quot;A locked box.&quot;,
 ...             required_flag=&quot;has_key&quot;)
 &gt;&gt;&gt; item.can_use({})
@@ -805,8 +823,9 @@ True
     }</code></pre>
 </details>
 <div class="desc"><p>Convert the item to a dictionary for serialization.</p>
-<h2 id="returns">Returns</h2>
-<p>Dictionary representation of the item.</p></div>
+<p>Returns
+-----=
+Dictionary representation of the item.</p></div>
 </dd>
 </dl>
 </dd>
@@ -997,8 +1016,9 @@ class NPC:
 <p>NPCs can provide dialogue, quests, information, and interact with the player
 in various ways. They can have multiple dialogue options and react to
 game state.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>id</code></strong></dt>
 <dd>Unique identifier for the NPC.</dd>
 <dt><strong><code>name</code></strong></dt>
@@ -1016,8 +1036,9 @@ game state.</p>
 <dt><strong><code>required_flag</code></strong></dt>
 <dd>Optional game flag required to interact with this NPC.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
-<p>Create a friendly NPC:</p>
+<p>Examples
+-----=
+Create a friendly NPC:</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; trader = NPC(
 ...     id=&quot;merchant&quot;,
 ...     name=&quot;Rogue Trader Jin&quot;,
@@ -1057,13 +1078,15 @@ game state.</p>
 </code></dt>
 <dd>
 <div class="desc"><p>Create an NPC from a dictionary.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>data</code></strong></dt>
 <dd>Dictionary containing NPC data.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>A new NPC instance.</p></div>
+<p>Returns
+-----=
+A new NPC instance.</p></div>
 </dd>
 </dl>
 <h3>Instance variables</h3>
@@ -1134,14 +1157,17 @@ game state.</p>
     return True</code></pre>
 </details>
 <div class="desc"><p>Check if the player can interact with this NPC.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>game_flags</code></strong></dt>
 <dd>Dictionary of current game flags.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>True if interaction is possible, False otherwise.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+True if interaction is possible, False otherwise.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; npc = NPC(id=&quot;guard&quot;, name=&quot;Guard&quot;, description=&quot;A guard.&quot;,
 ...           required_flag=&quot;guard_friendly&quot;)
 &gt;&gt;&gt; npc.can_interact({})
@@ -1180,16 +1206,19 @@ True
     return self.dialogue.get(key, default)</code></pre>
 </details>
 <div class="desc"><p>Get dialogue text for a specific key.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>key</code></strong></dt>
 <dd>The dialogue key to retrieve.</dd>
 <dt><strong><code>default</code></strong></dt>
 <dd>Default text if the key doesn't exist.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>The dialogue text, or None if not found and default is None.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+The dialogue text, or None if not found and default is None.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; npc = NPC(id=&quot;test&quot;, name=&quot;Test&quot;, description=&quot;Test&quot;,
 ...           dialogue={&quot;hello&quot;: &quot;Greetings!&quot;})
 &gt;&gt;&gt; npc.get_dialogue(&quot;hello&quot;)
@@ -1224,9 +1253,11 @@ True
     return self.health &gt; 0</code></pre>
 </details>
 <div class="desc"><p>Check if the NPC is still alive.</p>
-<h2 id="returns">Returns</h2>
-<p>True if health &gt; 0, False otherwise.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+True if health &gt; 0, False otherwise.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; npc = NPC(id=&quot;test&quot;, name=&quot;Test&quot;, description=&quot;Test&quot;, health=50)
 &gt;&gt;&gt; npc.is_alive()
 True
@@ -1262,8 +1293,9 @@ False
     }</code></pre>
 </details>
 <div class="desc"><p>Convert the NPC to a dictionary for serialization.</p>
-<h2 id="returns">Returns</h2>
-<p>Dictionary representation of the NPC.</p></div>
+<p>Returns
+-----=
+Dictionary representation of the NPC.</p></div>
 </dd>
 </dl>
 </dd>

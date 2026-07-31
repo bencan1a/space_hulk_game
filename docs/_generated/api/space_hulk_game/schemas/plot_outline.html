@@ -84,8 +84,9 @@ and overall story structure.</p>
     )</code></pre>
 </details>
 <div class="desc"><p>A character in the narrative.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>name</code></strong></dt>
 <dd>Full name of the character.</dd>
 <dt><strong><code>role</code></strong></dt>
@@ -95,7 +96,8 @@ and overall story structure.</p>
 <dt><strong><code>conflicts</code></strong></dt>
 <dd>Optional list of internal or external conflicts.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; character = Character(
 ...     name=&quot;Brother-Captain Tyberius&quot;,
 ...     role=&quot;Squad Leader, Blood Angels Terminator&quot;,
@@ -161,14 +163,16 @@ validated to form a valid model.</p>
     description: str = Field(..., min_length=50, description=&#34;Detailed description of the conflict&#34;)</code></pre>
 </details>
 <div class="desc"><p>A conflict or tension in the narrative.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>type</code></strong></dt>
 <dd>Type of conflict (e.g., 'Man vs. Xenos', 'Man vs. Self').</dd>
 <dt><strong><code>description</code></strong></dt>
 <dd>Detailed description of the conflict.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; conflict = Conflict(
 ...     type=&quot;Man vs. Xenos&quot;,
 ...     description=&quot;The primary and most immediate conflict...&quot;
@@ -235,8 +239,9 @@ validated to form a valid model.</p>
 <div class="desc"><p>A branching path in the narrative structure.</p>
 <p>This represents a decision point or alternative story path that
 diverges from the main narrative.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>path</code></strong></dt>
 <dd>Identifier for the branch path.</dd>
 <dt><strong><code>description</code></strong></dt>
@@ -244,7 +249,8 @@ diverges from the main narrative.</p>
 <dt><strong><code>decision_point</code></strong></dt>
 <dd>Optional plot point ID where the branch occurs.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; branch = PlotBranch(
 ...     path=&quot;heroic_sacrifice&quot;,
 ...     description=&quot;The squad chooses to destroy the core...&quot;,
@@ -366,8 +372,9 @@ validated to form a valid model.</p>
 <div class="desc"><p>Complete plot outline for a narrative.</p>
 <p>This is the top-level model representing the entire narrative foundation
 including title, setting, themes, plot points, characters, and conflicts.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>title</code></strong></dt>
 <dd>Title of the narrative.</dd>
 <dt><strong><code>setting</code></strong></dt>
@@ -385,7 +392,8 @@ including title, setting, themes, plot points, characters, and conflicts.</p>
 <dt><strong><code>plot_branches</code></strong></dt>
 <dd>Optional list of alternative narrative paths.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; outline = PlotOutline(
 ...     title=&quot;Space Hulk: Echoes of the Void&quot;,
 ...     setting=&quot;The grimdark universe of Warhammer 40,000...&quot;,
@@ -509,8 +517,9 @@ validated to form a valid model.</p>
         return v</code></pre>
 </details>
 <div class="desc"><p>A significant event or milestone in the narrative.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>id</code></strong></dt>
 <dd>Unique identifier for the plot point (e.g., 'pp_01_insertion').</dd>
 <dt><strong><code>name</code></strong></dt>
@@ -518,7 +527,8 @@ validated to form a valid model.</p>
 <dt><strong><code>description</code></strong></dt>
 <dd>Detailed description of what happens in this plot point.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; plot_point = PlotPoint(
 ...     id=&quot;pp_01_insertion&quot;,
 ...     name=&quot;The Drop Pod Descent&quot;,

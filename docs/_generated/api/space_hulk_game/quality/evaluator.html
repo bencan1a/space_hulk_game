@@ -222,15 +222,17 @@ standardized evaluation interface.</p>
 <div class="desc"><p>Abstract base class for all quality evaluators.</p>
 <p>All content-specific evaluators (Plot, Narrative, Puzzle, Scene, Mechanics)
 should inherit from this class and implement the required methods.</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; class PlotEvaluator(QualityEvaluator):
 ...     def evaluate(self, content: str) -&gt; QualityScore:
 ...         # Implementation here
 ...         pass
 </code></pre>
 <p>Initialize the evaluator.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>pass_threshold</code></strong></dt>
 <dd>Minimum score required to pass (0.0-10.0)</dd>
 </dl></div>
@@ -298,15 +300,18 @@ def parse_json(content: str) -&gt; dict[str, Any]:
 <div class="desc"><p>Parse JSON content, handling markdown-wrapped JSON.</p>
 <p>NOTE: JSON sanitization happens in OutputSanitizer (Phase 1).
 This method assumes JSON is already clean. If parsing fails, it's a real error.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>content</code></strong></dt>
 <dd>JSON string, optionally wrapped in markdown code fences</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>Parsed JSON as dictionary</p>
-<h2 id="raises">Raises</h2>
+<p>Returns
+-----=
+Parsed JSON as dictionary</p>
 <dl>
+<dt>Raises</dt>
+<dt>-----=</dt>
 <dt><code>ValueError</code></dt>
 <dd>If JSON cannot be parsed</dd>
 </dl></div>
@@ -339,15 +344,18 @@ def evaluate(self, content: str) -&gt; QualityScore:
     pass</code></pre>
 </details>
 <div class="desc"><p>Evaluate content and return quality score.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>content</code></strong></dt>
 <dd>Content to evaluate (usually JSON string)</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>QualityScore with evaluation results</p>
-<h2 id="raises">Raises</h2>
+<p>Returns
+-----=
+QualityScore with evaluation results</p>
 <dl>
+<dt>Raises</dt>
+<dt>-----=</dt>
 <dt><code>ValueError</code></dt>
 <dd>If content cannot be parsed or evaluated</dd>
 </dl></div>
@@ -374,13 +382,15 @@ def evaluate(self, content: str) -&gt; QualityScore:
     return result.feedback</code></pre>
 </details>
 <div class="desc"><p>Generate feedback message for content (convenience method).</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>content</code></strong></dt>
 <dd>Content to evaluate</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>Human-readable feedback message</p></div>
+<p>Returns
+-----=
+Human-readable feedback message</p></div>
 </dd>
 <dt id="space_hulk_game.quality.evaluator.QualityEvaluator.score"><code class="name flex">
 <span>def <span class="ident">score</span></span>(<span>self, content: str) ‑> float</span>
@@ -404,13 +414,15 @@ def evaluate(self, content: str) -&gt; QualityScore:
     return result.score</code></pre>
 </details>
 <div class="desc"><p>Get numeric score for content (convenience method).</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>content</code></strong></dt>
 <dd>Content to evaluate</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>Numeric score from 0.0 to 10.0</p></div>
+<p>Returns
+-----=
+Numeric score from 0.0 to 10.0</p></div>
 </dd>
 </dl>
 </dd>

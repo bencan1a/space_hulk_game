@@ -354,8 +354,9 @@ class NarrativeMetrics:
         }</code></pre>
 </details>
 <div class="desc"><p>Quality metrics for evaluating narrative map content.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>total_scenes</code></strong></dt>
 <dd>Total number of scenes in the narrative</dd>
 <dt><strong><code>scenes_with_descriptions</code></strong></dt>
@@ -382,26 +383,30 @@ class NarrativeMetrics:
 </code></dt>
 <dd>
 <div class="desc"><p>Create NarrativeMetrics from a dictionary (parsed YAML).</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>data</code></strong></dt>
 <dd>Dictionary containing narrative map data</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>NarrativeMetrics instance with measured values</p></div>
+<p>Returns
+-----=
+NarrativeMetrics instance with measured values</p></div>
 </dd>
 <dt id="space_hulk_game.quality.narrative_metrics.NarrativeMetrics.from_json_content"><code class="name flex">
 <span>def <span class="ident">from_json_content</span></span>(<span>json_content: str) ‑> <a title="space_hulk_game.quality.narrative_metrics.NarrativeMetrics" href="#space_hulk_game.quality.narrative_metrics.NarrativeMetrics">NarrativeMetrics</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Create NarrativeMetrics from JSON content string.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>json_content</code></strong></dt>
 <dd>JSON string containing narrative map data</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>NarrativeMetrics instance with measured values</p></div>
+<p>Returns
+-----=
+NarrativeMetrics instance with measured values</p></div>
 </dd>
 </dl>
 <h3>Instance variables</h3>
@@ -485,8 +490,9 @@ class NarrativeMetrics:
     return failures</code></pre>
 </details>
 <div class="desc"><p>Get list of failed quality checks.</p>
-<h2 id="returns">Returns</h2>
-<p>List of failure messages for metrics that don't meet thresholds</p></div>
+<p>Returns
+-----=
+List of failure messages for metrics that don't meet thresholds</p></div>
 </dd>
 <dt id="space_hulk_game.quality.narrative_metrics.NarrativeMetrics.get_score"><code class="name flex">
 <span>def <span class="ident">get_score</span></span>(<span>self) ‑> float</span>
@@ -530,8 +536,9 @@ class NarrativeMetrics:
     return min(score, 10.0)</code></pre>
 </details>
 <div class="desc"><p>Calculate overall quality score (0.0 to 10.0).</p>
-<h2 id="returns">Returns</h2>
-<p>Quality score based on met criteria</p></div>
+<p>Returns
+-----=
+Quality score based on met criteria</p></div>
 </dd>
 <dt id="space_hulk_game.quality.narrative_metrics.NarrativeMetrics.passes_threshold"><code class="name flex">
 <span>def <span class="ident">passes_threshold</span></span>(<span>self) ‑> bool</span>
@@ -557,8 +564,9 @@ class NarrativeMetrics:
     )</code></pre>
 </details>
 <div class="desc"><p>Check if the narrative metrics pass all quality thresholds.</p>
-<h2 id="returns">Returns</h2>
-<p>True if all thresholds are met, False otherwise</p></div>
+<p>Returns
+-----=
+True if all thresholds are met, False otherwise</p></div>
 </dd>
 <dt id="space_hulk_game.quality.narrative_metrics.NarrativeMetrics.to_dict"><code class="name flex">
 <span>def <span class="ident">to_dict</span></span>(<span>self) ‑> dict[str, typing.Any]</span>
@@ -589,8 +597,9 @@ class NarrativeMetrics:
     }</code></pre>
 </details>
 <div class="desc"><p>Convert metrics to dictionary for serialization.</p>
-<h2 id="returns">Returns</h2>
-<p>Dictionary representation of metrics</p></div>
+<p>Returns
+-----=
+Dictionary representation of metrics</p></div>
 </dd>
 </dl>
 </dd>

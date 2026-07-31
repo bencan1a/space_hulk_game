@@ -104,8 +104,9 @@ puzzles, artifacts, monsters, NPCs, and overall puzzle design structure.</p>
         return v</code></pre>
 </details>
 <div class="desc"><p>An artifact that can be found in the game.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>id</code></strong></dt>
 <dd>Unique identifier for the artifact.</dd>
 <dt><strong><code>name</code></strong></dt>
@@ -119,7 +120,8 @@ puzzles, artifacts, monsters, NPCs, and overall puzzle design structure.</p>
 <dt><strong><code>properties</code></strong></dt>
 <dd>List of artifact properties or effects.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; artifact = Artifact(
 ...     id=&quot;artifact_blood_eagle_pendant&quot;,
 ...     name=&quot;Blood Eagle Pendant&quot;,
@@ -202,12 +204,14 @@ validated to form a valid model.</p>
     property: str = Field(..., min_length=5, description=&#34;Artifact property description&#34;)</code></pre>
 </details>
 <div class="desc"><p>A property of an artifact.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>property</code></strong></dt>
 <dd>Description of the artifact property.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; prop = ArtifactProperty(
 ...     property=&quot;minor moral boost (if worn or kept)&quot;
 ... )
@@ -291,8 +295,9 @@ validated to form a valid model.</p>
         return v</code></pre>
 </details>
 <div class="desc"><p>A monster or enemy in the game.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>id</code></strong></dt>
 <dd>Unique identifier for the monster.</dd>
 <dt><strong><code>name</code></strong></dt>
@@ -306,7 +311,8 @@ validated to form a valid model.</p>
 <dt><strong><code>abilities</code></strong></dt>
 <dd>List of the monster's special abilities.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; monster = Monster(
 ...     id=&quot;monster_feral_genestealer&quot;,
 ...     name=&quot;Feral Genestealer&quot;,
@@ -432,8 +438,9 @@ validated to form a valid model.</p>
         return v</code></pre>
 </details>
 <div class="desc"><p>A non-player character in the game.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>id</code></strong></dt>
 <dd>Unique identifier for the NPC.</dd>
 <dt><strong><code>name</code></strong></dt>
@@ -447,7 +454,8 @@ validated to form a valid model.</p>
 <dt><strong><code>dialogue_themes</code></strong></dt>
 <dd>List of themes or topics the NPC discusses.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; npc = NPC(
 ...     id=&quot;npc_brother_captain_tyberius&quot;,
 ...     name=&quot;Brother-Captain Tyberius&quot;,
@@ -570,8 +578,9 @@ validated to form a valid model.</p>
         return v</code></pre>
 </details>
 <div class="desc"><p>A puzzle in the game.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>id</code></strong></dt>
 <dd>Unique identifier for the puzzle.</dd>
 <dt><strong><code>name</code></strong></dt>
@@ -587,7 +596,8 @@ validated to form a valid model.</p>
 <dt><strong><code>difficulty</code></strong></dt>
 <dd>Difficulty level (e.g., 'easy', 'medium', 'hard').</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; puzzle = Puzzle(
 ...     id=&quot;puzzle_comm_relay_restore&quot;,
 ...     name=&quot;Comm-Relay Restoration&quot;,
@@ -729,8 +739,9 @@ validated to form a valid model.</p>
 <div class="desc"><p>Complete puzzle design for a game.</p>
 <p>This is the top-level model representing all puzzles, artifacts,
 monsters, and NPCs in the game.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>puzzles</code></strong></dt>
 <dd>List of puzzles in the game.</dd>
 <dt><strong><code>artifacts</code></strong></dt>
@@ -740,7 +751,8 @@ monsters, and NPCs in the game.</p>
 <dt><strong><code>npcs</code></strong></dt>
 <dd>List of non-player characters.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; puzzle_design = PuzzleDesign(
 ...     puzzles=[Puzzle(...), ...],
 ...     artifacts=[Artifact(...), ...],
@@ -852,14 +864,16 @@ validated to form a valid model.</p>
         return v</code></pre>
 </details>
 <div class="desc"><p>Solution structure for a puzzle.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>type</code></strong></dt>
 <dd>Type of solution (e.g., 'multi-step', 'observation', 'timed').</dd>
 <dt><strong><code>steps</code></strong></dt>
 <dd>List of steps to solve the puzzle.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; solution = PuzzleSolution(
 ...     type=&quot;multi-step_interaction_and_logic&quot;,
 ...     steps=[PuzzleStep(...), ...]
@@ -927,12 +941,14 @@ validated to form a valid model.</p>
 <div class="desc"><p>A single step in solving a puzzle.</p>
 <p>This model accepts either a plain string or a dict with 'step' key
 to match the YAML format.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>step</code></strong></dt>
 <dd>Description of the step to perform.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; step = PuzzleStep(
 ...     step=&quot;Locate the auxiliary power conduit junction...&quot;
 ... )

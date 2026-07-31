@@ -45,7 +45,8 @@ This is the central data structure that bridges AI-generated content with the ga
 - Puzzles, artifacts, NPCs (from puzzle_design.yaml)
 - Scene descriptions (from scene_texts.yaml)
 - Game mechanics (from prd_document.yaml)</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import GameData, Scene
 &gt;&gt;&gt; game_data = GameData(
 ...     title=&quot;Test Game&quot;,
@@ -313,8 +314,9 @@ class GameData:
 <p>This is the complete game definition, including all scenes, items, NPCs,
 game mechanics, and narrative structure. The TextAdventureEngine uses
 GameData to run the game.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>title</code></strong></dt>
 <dd>The title of the game.</dd>
 <dt><strong><code>description</code></strong></dt>
@@ -338,8 +340,9 @@ GameData to run the game.</p>
 <dt><strong><code>metadata</code></strong></dt>
 <dd>Additional metadata from the YAML files.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
-<p>Create minimal game data:</p>
+<p>Examples
+-----=
+Create minimal game data:</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import Scene
 &gt;&gt;&gt; start_scene = Scene(
 ...     id=&quot;entrance&quot;,
@@ -371,13 +374,15 @@ False
 </code></dt>
 <dd>
 <div class="desc"><p>Create GameData from a dictionary.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>data</code></strong></dt>
 <dd>Dictionary containing game data.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>A new GameData instance.</p></div>
+<p>Returns
+-----=
+A new GameData instance.</p></div>
 </dd>
 </dl>
 <h3>Instance variables</h3>
@@ -465,14 +470,17 @@ False
     return self.global_items.get(item_id)</code></pre>
 </details>
 <div class="desc"><p>Get a global item definition by ID.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>item_id</code></strong></dt>
 <dd>The ID of the item to retrieve.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>The Item object if found, None otherwise.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+The Item object if found, None otherwise.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import Item, Scene
 &gt;&gt;&gt; item = Item(id=&quot;key&quot;, name=&quot;Key&quot;, description=&quot;A key&quot;)
 &gt;&gt;&gt; scene = Scene(id=&quot;start&quot;, name=&quot;Start&quot;, description=&quot;Start scene&quot;)
@@ -524,14 +532,17 @@ False
     return self.global_npcs.get(npc_id)</code></pre>
 </details>
 <div class="desc"><p>Get a global NPC definition by ID.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>npc_id</code></strong></dt>
 <dd>The ID of the NPC to retrieve.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>The NPC object if found, None otherwise.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+The NPC object if found, None otherwise.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import NPC, Scene
 &gt;&gt;&gt; npc = NPC(id=&quot;guard&quot;, name=&quot;Guard&quot;, description=&quot;A guard&quot;)
 &gt;&gt;&gt; scene = Scene(id=&quot;start&quot;, name=&quot;Start&quot;, description=&quot;Start scene&quot;)
@@ -582,14 +593,17 @@ False
     return self.scenes.get(scene_id)</code></pre>
 </details>
 <div class="desc"><p>Get a scene by its ID.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>scene_id</code></strong></dt>
 <dd>The ID of the scene to retrieve.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>The Scene object if found, None otherwise.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+The Scene object if found, None otherwise.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import Scene
 &gt;&gt;&gt; scene = Scene(id=&quot;test&quot;, name=&quot;Test&quot;, description=&quot;Test scene&quot;)
 &gt;&gt;&gt; data = GameData(
@@ -639,14 +653,17 @@ False
     return scene_id in self.scenes</code></pre>
 </details>
 <div class="desc"><p>Check if a scene exists.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>scene_id</code></strong></dt>
 <dd>The ID of the scene to check.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>True if the scene exists, False otherwise.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+True if the scene exists, False otherwise.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import Scene
 &gt;&gt;&gt; scene = Scene(id=&quot;test&quot;, name=&quot;Test&quot;, description=&quot;Test&quot;)
 &gt;&gt;&gt; data = GameData(
@@ -691,8 +708,9 @@ False
     }</code></pre>
 </details>
 <div class="desc"><p>Convert the game data to a dictionary for serialization.</p>
-<h2 id="returns">Returns</h2>
-<p>Dictionary representation of the game data.</p></div>
+<p>Returns
+-----=
+Dictionary representation of the game data.</p></div>
 </dd>
 </dl>
 </dd>

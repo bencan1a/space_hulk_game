@@ -76,14 +76,16 @@ game systems, state management, win/lose conditions, and technical requirements.
     rules: str = Field(..., min_length=20, description=&#34;Description of mechanic rules&#34;)</code></pre>
 </details>
 <div class="desc"><p>A specific combat mechanic or rule.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>name</code></strong></dt>
 <dd>Name of the combat mechanic.</dd>
 <dt><strong><code>rules</code></strong></dt>
 <dd>Description of how the mechanic works.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; mechanic = CombatMechanic(
 ...     name=&quot;Overwatch&quot;,
 ...     rules=&quot;Set a character to fire upon enemies entering their line of sight...&quot;
@@ -147,8 +149,9 @@ validated to form a valid model.</p>
     )</code></pre>
 </details>
 <div class="desc"><p>Combat system configuration.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>description</code></strong></dt>
 <dd>Description of how combat works.</dd>
 <dt><strong><code>mechanics</code></strong></dt>
@@ -156,7 +159,8 @@ validated to form a valid model.</p>
 <dt><strong><code>narrative_purpose</code></strong></dt>
 <dd>Why this system exists narratively.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; combat = CombatSystem(
 ...     description=&quot;Turn-based tactical combat. Features cover systems...&quot;,
 ...     mechanics=[CombatMechanic(...), ...],
@@ -231,8 +235,9 @@ validated to form a valid model.</p>
 <div class="desc"><p>Complete game mechanics and design document.</p>
 <p>This is the top-level model representing the entire game mechanics
 specification including systems, state management, and technical requirements.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>game_title</code></strong></dt>
 <dd>Title of the game.</dd>
 <dt><strong><code>game_systems</code></strong></dt>
@@ -242,7 +247,8 @@ specification including systems, state management, and technical requirements.</
 <dt><strong><code>technical_requirements</code></strong></dt>
 <dd>List of technical requirements.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; mechanics = GameMechanics(
 ...     game_title=&quot;Space Hulk: Echoes of the Void&quot;,
 ...     game_systems=GameSystems(...),
@@ -318,8 +324,9 @@ validated to form a valid model.</p>
     )</code></pre>
 </details>
 <div class="desc"><p>Game state management configuration.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>tracked_variables</code></strong></dt>
 <dd>List of variables being tracked.</dd>
 <dt><strong><code>win_conditions</code></strong></dt>
@@ -327,7 +334,8 @@ validated to form a valid model.</p>
 <dt><strong><code>lose_conditions</code></strong></dt>
 <dd>List of lose conditions.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(
 ...     tracked_variables=[TrackedVariable(...), ...],
 ...     win_conditions=[WinCondition(...), ...],
@@ -453,8 +461,9 @@ validated to form a valid model.</p>
     interaction: InteractionSystem = Field(..., description=&#34;Interaction system&#34;)</code></pre>
 </details>
 <div class="desc"><p>All game systems configuration.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>movement</code></strong></dt>
 <dd>Movement system configuration.</dd>
 <dt><strong><code>inventory</code></strong></dt>
@@ -464,7 +473,8 @@ validated to form a valid model.</p>
 <dt><strong><code>interaction</code></strong></dt>
 <dd>Interaction system configuration.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; systems = GameSystems(
 ...     movement=MovementSystem(...),
 ...     inventory=InventorySystem(...),
@@ -536,8 +546,9 @@ validated to form a valid model.</p>
     )</code></pre>
 </details>
 <div class="desc"><p>Interaction system configuration.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>description</code></strong></dt>
 <dd>Description of how interaction works.</dd>
 <dt><strong><code>commands</code></strong></dt>
@@ -545,7 +556,8 @@ validated to form a valid model.</p>
 <dt><strong><code>narrative_purpose</code></strong></dt>
 <dd>Why this system exists narratively.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; interaction = InteractionSystem(
 ...     description=&quot;Allows players to interact with objects, environments...&quot;,
 ...     commands=[&quot;examine&quot;, &quot;talk&quot;, &quot;use&quot;, &quot;analyze&quot;],
@@ -615,8 +627,9 @@ validated to form a valid model.</p>
     )</code></pre>
 </details>
 <div class="desc"><p>Inventory system configuration.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>description</code></strong></dt>
 <dd>Description of how inventory works.</dd>
 <dt><strong><code>capacity</code></strong></dt>
@@ -626,7 +639,8 @@ validated to form a valid model.</p>
 <dt><strong><code>narrative_purpose</code></strong></dt>
 <dd>Why this system exists narratively.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; inventory = InventorySystem(
 ...     description=&quot;Limited capacity inventory for each Space Marine...&quot;,
 ...     capacity=5,
@@ -690,12 +704,14 @@ validated to form a valid model.</p>
     condition: str = Field(..., min_length=20, description=&#34;Description of the lose condition&#34;)</code></pre>
 </details>
 <div class="desc"><p>A lose condition for the game.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>condition</code></strong></dt>
 <dd>Description of the lose condition.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; lose = LoseCondition(
 ...     condition=&quot;All squad members are incapacitated or killed in combat.&quot;
 ... )
@@ -752,8 +768,9 @@ validated to form a valid model.</p>
     )</code></pre>
 </details>
 <div class="desc"><p>Movement system configuration.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>description</code></strong></dt>
 <dd>Description of how movement works.</dd>
 <dt><strong><code>commands</code></strong></dt>
@@ -761,7 +778,8 @@ validated to form a valid model.</p>
 <dt><strong><code>narrative_purpose</code></strong></dt>
 <dd>Why this system exists narratively.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; movement = MovementSystem(
 ...     description=&quot;Tactical grid-based movement with limited action points...&quot;,
 ...     commands=[&quot;move&quot;, &quot;brace&quot;, &quot;breach&quot;],
@@ -823,14 +841,16 @@ validated to form a valid model.</p>
     justification: str = Field(..., min_length=20, description=&#34;Justification for the requirement&#34;)</code></pre>
 </details>
 <div class="desc"><p>A technical requirement for the game.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>requirement</code></strong></dt>
 <dd>Description of the technical requirement.</dd>
 <dt><strong><code>justification</code></strong></dt>
 <dd>Why this requirement is necessary.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; req = TechnicalRequirement(
 ...     requirement=&quot;Robust AI for diverse enemy types...&quot;,
 ...     justification=&quot;Crucial for making combat challenging and varied...&quot;
@@ -887,14 +907,16 @@ validated to form a valid model.</p>
     purpose: str = Field(..., min_length=20, description=&#34;Purpose and impact of the variable&#34;)</code></pre>
 </details>
 <div class="desc"><p>A tracked game state variable.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>variable</code></strong></dt>
 <dd>Name of the variable being tracked.</dd>
 <dt><strong><code>purpose</code></strong></dt>
 <dd>Description of what the variable tracks and why.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; var = TrackedVariable(
 ...     variable=&quot;squad_morale&quot;,
 ...     purpose=&quot;Tracks the overall mental state of the squad...&quot;
@@ -948,12 +970,14 @@ validated to form a valid model.</p>
     condition: str = Field(..., min_length=20, description=&#34;Description of the win condition&#34;)</code></pre>
 </details>
 <div class="desc"><p>A win condition for the game.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>condition</code></strong></dt>
 <dd>Description of the win condition.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; win = WinCondition(
 ...     condition=&quot;Successfully neutralize the threat posed by 'The Serpent's Coil'...&quot;
 ... )

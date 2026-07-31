@@ -128,17 +128,18 @@ a playable text adventure interface.</p>
         raise PersistenceError(error_msg) from e</code></pre>
 </details>
 <div class="desc"><p>Delete a save file.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>filepath</code></strong></dt>
 <dd>Path to the save file to delete.</dd>
-</dl>
-<h2 id="raises">Raises</h2>
-<dl>
+<dt>Raises</dt>
+<dt>-----=</dt>
 <dt><code><a title="space_hulk_game.engine.PersistenceError" href="#space_hulk_game.engine.PersistenceError">PersistenceError</a></code></dt>
 <dd>If deletion fails.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; delete_save(&quot;mysave.json&quot;)
 </code></pre></div>
 </dd>
@@ -199,19 +200,23 @@ a playable text adventure interface.</p>
 </details>
 <div class="desc"><p>Get metadata from a save file without loading the full game.</p>
 <p>This is useful for displaying save file information in a load menu.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>filepath</code></strong></dt>
 <dd>Path to the save file.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>Dictionary containing save metadata (timestamp, version, etc.).</p>
-<h2 id="raises">Raises</h2>
+<p>Returns
+-----=
+Dictionary containing save metadata (timestamp, version, etc.).</p>
 <dl>
+<dt>Raises</dt>
+<dt>-----=</dt>
 <dt><code><a title="space_hulk_game.engine.PersistenceError" href="#space_hulk_game.engine.PersistenceError">PersistenceError</a></code></dt>
 <dd>If reading metadata fails.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; metadata = get_save_metadata(&quot;mysave.json&quot;)
 &gt;&gt;&gt; print(metadata['timestamp'])
 '2024-01-15T14:30:00'
@@ -262,14 +267,17 @@ a playable text adventure interface.</p>
         return []</code></pre>
 </details>
 <div class="desc"><p>List all save files in a directory.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>save_directory</code></strong></dt>
 <dd>Directory to search for save files.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>List of save file paths.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+List of save file paths.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; saves = list_save_files(&quot;saves&quot;)
 &gt;&gt;&gt; for save in saves:
 ...     print(save)
@@ -362,20 +370,24 @@ saves/mysave.json
 <p>This function deserializes a previously saved game, restoring the
 game state and all scenes. It validates the save file format and
 data integrity.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>filepath</code></strong></dt>
 <dd>Path to the save file to load.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>A tuple of (GameState, scenes_dict).</p>
-<h2 id="raises">Raises</h2>
+<p>Returns
+-----=
+A tuple of (GameState, scenes_dict).</p>
 <dl>
+<dt>Raises</dt>
+<dt>-----=</dt>
 <dt><code><a title="space_hulk_game.engine.PersistenceError" href="#space_hulk_game.engine.PersistenceError">PersistenceError</a></code></dt>
 <dd>If loading fails due to file not found,
 invalid format, or data corruption.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; state, scenes = load_game(&quot;mysave.json&quot;)
 &gt;&gt;&gt; state.current_scene
 'room1'
@@ -458,8 +470,9 @@ invalid format, or data corruption.</dd>
 <p>This function serializes the game state and all scenes to a JSON file,
 allowing the game to be resumed later. It includes metadata about when
 the save was created.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>filepath</code></strong></dt>
 <dd>Path to the save file.</dd>
 <dt><strong><code>game_state</code></strong></dt>
@@ -468,13 +481,13 @@ the save was created.</p>
 <dd>Dictionary of all scenes in the game.</dd>
 <dt><strong><code>metadata</code></strong></dt>
 <dd>Optional additional metadata to save.</dd>
-</dl>
-<h2 id="raises">Raises</h2>
-<dl>
+<dt>Raises</dt>
+<dt>-----=</dt>
 <dt><code><a title="space_hulk_game.engine.PersistenceError" href="#space_hulk_game.engine.PersistenceError">PersistenceError</a></code></dt>
 <dd>If saving fails due to serialization or I/O error.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import GameState, Scene
 &gt;&gt;&gt; state = GameState(current_scene=&quot;room1&quot;)
 &gt;&gt;&gt; scenes = {
@@ -531,13 +544,15 @@ They are immutable and contain all information needed to execute
 the action in the game engine.</p>
 <p>This follows the Command Pattern from Gang of Four design patterns,
 encapsulating requests as objects.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>raw_command</code></strong></dt>
 <dd>The original text command from the player.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
-<p>Actions are typically created by CommandParser, not directly:</p>
+<p>Examples
+-----=
+Actions are typically created by CommandParser, not directly:</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; action = Action(raw_command=&quot;look around&quot;)
 &gt;&gt;&gt; action.raw_command
 'look around'
@@ -1247,15 +1262,17 @@ a simple interface that hides the complexity of synonym matching,
 fuzzy matching, and context-aware parsing.</p>
 <p>The parser is designed to be forgiving and helpful, using fuzzy matching
 for typos and providing suggestions when commands aren't recognized.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>COMMANDS</code></strong></dt>
 <dd>Dictionary mapping action types to lists of synonyms.</dd>
 <dt><strong><code>CUTOFF</code></strong></dt>
 <dd>Minimum similarity score for fuzzy matching (0.0 to 1.0).</dd>
 </dl>
-<h2 id="examples">Examples</h2>
-<p>Basic usage:</p>
+<p>Examples
+-----=
+Basic usage:</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; parser = CommandParser()
 &gt;&gt;&gt; action = parser.parse(&quot;go north&quot;)
 &gt;&gt;&gt; isinstance(action, MoveAction)
@@ -1383,8 +1400,9 @@ True
 3. Argument extraction
 4. Context-aware parsing
 5. Action object creation</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>command</code></strong></dt>
 <dd>The raw text command from the player.</dd>
 <dt><strong><code>game_state</code></strong></dt>
@@ -1392,9 +1410,11 @@ True
 <dt><strong><code>current_scene</code></strong></dt>
 <dd>Optional current scene for context.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>An Action object representing the parsed command.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+An Action object representing the parsed command.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; parser = CommandParser()
 &gt;&gt;&gt; action = parser.parse(&quot;go north&quot;)
 &gt;&gt;&gt; action.direction
@@ -2169,14 +2189,16 @@ True
 <p>The ContentLoader implements a Facade pattern to simplify the complex process
 of loading and merging multiple JSON files. It uses Strategy pattern internally
 for handling different file formats and Builder pattern for constructing GameData.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>strict_mode</code></strong></dt>
 <dd>If True, raises exceptions on validation errors.
 If False, logs warnings and uses defaults.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
-<p>Load a complete game:</p>
+<p>Examples
+-----=
+Load a complete game:</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; loader = ContentLoader()
 &gt;&gt;&gt; game_data = loader.load_game(&quot;game-config/&quot;)
 &gt;&gt;&gt; print(f&quot;Loaded: {game_data.title}&quot;)
@@ -2189,8 +2211,9 @@ If False, logs warnings and uses defaults.</dd>
 <pre><code class="language-python-repl">&gt;&gt;&gt; plot_data = loader.load_json(&quot;game-config/plot_outline.json&quot;)
 </code></pre>
 <p>Initialize the ContentLoader.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>strict_mode</code></strong></dt>
 <dd>If True, raise exceptions on validation errors.
 If False, log warnings and use defaults.</dd>
@@ -2270,19 +2293,23 @@ If False, log warnings and use defaults.</dd>
 for playable_game.json (generated by GameEngineerAgent). If not found, it
 loads the 5 separate JSON files, validates them, converts them to engine
 objects, and merges them into a single GameData structure.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>output_dir</code></strong></dt>
 <dd>Directory containing the generated JSON files.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>GameData object containing all loaded content.</p>
-<h2 id="raises">Raises</h2>
+<p>Returns
+-----=
+GameData object containing all loaded content.</p>
 <dl>
+<dt>Raises</dt>
+<dt>-----=</dt>
 <dt><code><a title="space_hulk_game.engine.LoaderError" href="#space_hulk_game.engine.LoaderError">LoaderError</a></code></dt>
 <dd>If critical files are missing or invalid.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; loader = ContentLoader()
 &gt;&gt;&gt; game_data = loader.load_game(&quot;game-config/&quot;)
 &gt;&gt;&gt; len(game_data.scenes) &gt; 0
@@ -2382,19 +2409,23 @@ True
 - Extra whitespace
 - Missing files
 - Invalid JSON syntax</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>filepath</code></strong></dt>
 <dd>Path to the JSON file to load.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>Parsed JSON content as a dictionary.</p>
-<h2 id="raises">Raises</h2>
+<p>Returns
+-----=
+Parsed JSON content as a dictionary.</p>
 <dl>
+<dt>Raises</dt>
+<dt>-----=</dt>
 <dt><code><a title="space_hulk_game.engine.LoaderError" href="#space_hulk_game.engine.LoaderError">LoaderError</a></code></dt>
 <dd>If file is missing or cannot be parsed.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; loader = ContentLoader()
 &gt;&gt;&gt; data = loader.load_json(&quot;game-config/plot_outline.json&quot;)
 &gt;&gt;&gt; isinstance(data, dict)
@@ -2494,19 +2525,23 @@ True
 - Extra whitespace
 - Missing files
 - Invalid YAML syntax</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>filepath</code></strong></dt>
 <dd>Path to the YAML file to load.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>Parsed YAML content as a dictionary.</p>
-<h2 id="raises">Raises</h2>
+<p>Returns
+-----=
+Parsed YAML content as a dictionary.</p>
 <dl>
+<dt>Raises</dt>
+<dt>-----=</dt>
 <dt><code><a title="space_hulk_game.engine.LoaderError" href="#space_hulk_game.engine.LoaderError">LoaderError</a></code></dt>
 <dd>If file is missing or cannot be parsed.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; loader = ContentLoader()
 &gt;&gt;&gt; data = loader.load_yaml(&quot;game-config/plot_outline.yaml&quot;)
 &gt;&gt;&gt; isinstance(data, dict)
@@ -2600,8 +2635,9 @@ True
 <div class="desc"><p>Merge all loaded JSON data into a GameData object.</p>
 <p>This method implements the core conversion logic, transforming
 the JSON structures into Scene, Item, NPC, and Event objects.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>plot</code></strong></dt>
 <dd>Data from plot_outline.json</dd>
 <dt><strong><code>narrative</code></strong></dt>
@@ -2613,10 +2649,12 @@ the JSON structures into Scene, Item, NPC, and Event objects.</p>
 <dt><strong><code>mechanics</code></strong></dt>
 <dd>Data from prd_document.json</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>Complete GameData object.</p>
-<h2 id="raises">Raises</h2>
+<p>Returns
+-----=
+Complete GameData object.</p>
 <dl>
+<dt>Raises</dt>
+<dt>-----=</dt>
 <dt><code><a title="space_hulk_game.engine.ValidationError" href="#space_hulk_game.engine.ValidationError">ValidationError</a></code></dt>
 <dd>If required data is missing.</dd>
 </dl></div>
@@ -2654,14 +2692,16 @@ class DropAction(Action):
         return f&#34;DropAction(item_id=&#39;{self.item_id}&#39;)&#34;</code></pre>
 </details>
 <div class="desc"><p>Represents dropping an item from inventory.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>item_id</code></strong></dt>
 <dd>The ID or name of the item to drop.</dd>
 <dt><strong><code>raw_command</code></strong></dt>
 <dd>The original text command from the player.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; action = DropAction(item_id=&quot;sword&quot;, raw_command=&quot;drop sword&quot;)
 &gt;&gt;&gt; action.item_id
 'sword'
@@ -2846,8 +2886,9 @@ class Event:
 <p>Events are scripted occurrences that can happen when the player enters
 a scene, performs an action, or meets certain conditions. They can
 modify game state, trigger dialogue, or cause other effects.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>id</code></strong></dt>
 <dd>Unique identifier for the event.</dd>
 <dt><strong><code>description</code></strong></dt>
@@ -2861,8 +2902,9 @@ modify game state, trigger dialogue, or cause other effects.</p>
 <dt><strong><code>effects</code></strong></dt>
 <dd>Dictionary of effects applied when event triggers.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
-<p>Create an entry event:</p>
+<p>Examples
+-----=
+Create an entry event:</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; ambush = Event(
 ...     id=&quot;genestealer_ambush&quot;,
 ...     description=&quot;A genestealer drops from the ceiling!&quot;,
@@ -2895,13 +2937,15 @@ modify game state, trigger dialogue, or cause other effects.</p>
 </code></dt>
 <dd>
 <div class="desc"><p>Create an Event from a dictionary.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>data</code></strong></dt>
 <dd>Dictionary containing event data.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>A new Event instance.</p></div>
+<p>Returns
+-----=
+A new Event instance.</p></div>
 </dd>
 </dl>
 <h3>Instance variables</h3>
@@ -2973,14 +3017,17 @@ modify game state, trigger dialogue, or cause other effects.</p>
     return True</code></pre>
 </details>
 <div class="desc"><p>Check if the event can trigger given current game flags.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>game_flags</code></strong></dt>
 <dd>Dictionary of current game flags.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>True if the event can trigger, False otherwise.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+True if the event can trigger, False otherwise.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; event = Event(id=&quot;test&quot;, description=&quot;Test event&quot;,
 ...               required_flag=&quot;key_found&quot;, one_time=True)
 &gt;&gt;&gt; event.can_trigger({})
@@ -3016,7 +3063,8 @@ False
     self.triggered = False</code></pre>
 </details>
 <div class="desc"><p>Reset the event so it can trigger again.</p>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; event = Event(id=&quot;test&quot;, description=&quot;Test&quot;)
 &gt;&gt;&gt; event.trigger()
 &gt;&gt;&gt; event.triggered
@@ -3052,8 +3100,9 @@ False
     }</code></pre>
 </details>
 <div class="desc"><p>Convert the event to a dictionary for serialization.</p>
-<h2 id="returns">Returns</h2>
-<p>Dictionary representation of the event.</p></div>
+<p>Returns
+-----=
+Dictionary representation of the event.</p></div>
 </dd>
 <dt id="space_hulk_game.engine.Event.trigger"><code class="name flex">
 <span>def <span class="ident">trigger</span></span>(<span>self) ‑> None</span>
@@ -3078,7 +3127,8 @@ False
     self.triggered = True</code></pre>
 </details>
 <div class="desc"><p>Mark the event as triggered.</p>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; event = Event(id=&quot;test&quot;, description=&quot;Test&quot;, one_time=True)
 &gt;&gt;&gt; event.triggered
 False
@@ -3337,8 +3387,9 @@ class GameData:
 <p>This is the complete game definition, including all scenes, items, NPCs,
 game mechanics, and narrative structure. The TextAdventureEngine uses
 GameData to run the game.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>title</code></strong></dt>
 <dd>The title of the game.</dd>
 <dt><strong><code>description</code></strong></dt>
@@ -3362,8 +3413,9 @@ GameData to run the game.</p>
 <dt><strong><code>metadata</code></strong></dt>
 <dd>Additional metadata from the YAML files.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
-<p>Create minimal game data:</p>
+<p>Examples
+-----=
+Create minimal game data:</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import Scene
 &gt;&gt;&gt; start_scene = Scene(
 ...     id=&quot;entrance&quot;,
@@ -3395,13 +3447,15 @@ False
 </code></dt>
 <dd>
 <div class="desc"><p>Create GameData from a dictionary.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>data</code></strong></dt>
 <dd>Dictionary containing game data.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>A new GameData instance.</p></div>
+<p>Returns
+-----=
+A new GameData instance.</p></div>
 </dd>
 </dl>
 <h3>Instance variables</h3>
@@ -3489,14 +3543,17 @@ False
     return self.global_items.get(item_id)</code></pre>
 </details>
 <div class="desc"><p>Get a global item definition by ID.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>item_id</code></strong></dt>
 <dd>The ID of the item to retrieve.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>The Item object if found, None otherwise.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+The Item object if found, None otherwise.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import Item, Scene
 &gt;&gt;&gt; item = Item(id=&quot;key&quot;, name=&quot;Key&quot;, description=&quot;A key&quot;)
 &gt;&gt;&gt; scene = Scene(id=&quot;start&quot;, name=&quot;Start&quot;, description=&quot;Start scene&quot;)
@@ -3548,14 +3605,17 @@ False
     return self.global_npcs.get(npc_id)</code></pre>
 </details>
 <div class="desc"><p>Get a global NPC definition by ID.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>npc_id</code></strong></dt>
 <dd>The ID of the NPC to retrieve.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>The NPC object if found, None otherwise.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+The NPC object if found, None otherwise.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import NPC, Scene
 &gt;&gt;&gt; npc = NPC(id=&quot;guard&quot;, name=&quot;Guard&quot;, description=&quot;A guard&quot;)
 &gt;&gt;&gt; scene = Scene(id=&quot;start&quot;, name=&quot;Start&quot;, description=&quot;Start scene&quot;)
@@ -3606,14 +3666,17 @@ False
     return self.scenes.get(scene_id)</code></pre>
 </details>
 <div class="desc"><p>Get a scene by its ID.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>scene_id</code></strong></dt>
 <dd>The ID of the scene to retrieve.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>The Scene object if found, None otherwise.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+The Scene object if found, None otherwise.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import Scene
 &gt;&gt;&gt; scene = Scene(id=&quot;test&quot;, name=&quot;Test&quot;, description=&quot;Test scene&quot;)
 &gt;&gt;&gt; data = GameData(
@@ -3663,14 +3726,17 @@ False
     return scene_id in self.scenes</code></pre>
 </details>
 <div class="desc"><p>Check if a scene exists.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>scene_id</code></strong></dt>
 <dd>The ID of the scene to check.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>True if the scene exists, False otherwise.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+True if the scene exists, False otherwise.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import Scene
 &gt;&gt;&gt; scene = Scene(id=&quot;test&quot;, name=&quot;Test&quot;, description=&quot;Test&quot;)
 &gt;&gt;&gt; data = GameData(
@@ -3715,8 +3781,9 @@ False
     }</code></pre>
 </details>
 <div class="desc"><p>Convert the game data to a dictionary for serialization.</p>
-<h2 id="returns">Returns</h2>
-<p>Dictionary representation of the game data.</p></div>
+<p>Returns
+-----=
+Dictionary representation of the game data.</p></div>
 </dd>
 </dl>
 </dd>
@@ -4034,8 +4101,9 @@ class GameState:
 <div class="desc"><p>Represents the current state of a game session.</p>
 <p>This class tracks all mutable state during gameplay, including player location,
 inventory, visited areas, game flags for puzzle/story progression, and health.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>current_scene</code></strong></dt>
 <dd>The ID of the scene where the player is currently located.</dd>
 <dt><strong><code>inventory</code></strong></dt>
@@ -4050,8 +4118,9 @@ inventory, visited areas, game flags for puzzle/story progression, and health.</
 <dt><strong><code>max_health</code></strong></dt>
 <dd>Maximum health points the player can have.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
-<p>Create a new game state:</p>
+<p>Examples
+-----=
+Create a new game state:</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(
 ...     current_scene=&quot;cargo_bay&quot;,
 ...     inventory=[&quot;bolt_pistol&quot;],
@@ -4082,14 +4151,17 @@ inventory, visited areas, game flags for puzzle/story progression, and health.</
 </code></dt>
 <dd>
 <div class="desc"><p>Create a GameState from a dictionary.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>data</code></strong></dt>
 <dd>Dictionary containing game state data.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>A new GameState instance.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+A new GameState instance.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; data = {
 ...     'current_scene': 'test',
 ...     'inventory': ['item1'],
@@ -4158,12 +4230,14 @@ inventory, visited areas, game flags for puzzle/story progression, and health.</
         self.inventory.append(item_id)</code></pre>
 </details>
 <div class="desc"><p>Add an item to the player's inventory.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>item_id</code></strong></dt>
 <dd>The ID of the item to add.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;)
 &gt;&gt;&gt; state.add_item(&quot;medkit&quot;)
 &gt;&gt;&gt; &quot;medkit&quot; in state.inventory
@@ -4200,16 +4274,19 @@ True
     return self.game_flags.get(flag_name, default)</code></pre>
 </details>
 <div class="desc"><p>Get the value of a game flag.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>flag_name</code></strong></dt>
 <dd>The name of the flag to retrieve.</dd>
 <dt><strong><code>default</code></strong></dt>
 <dd>The default value if the flag doesn't exist.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>The boolean value of the flag, or the default if not set.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+The boolean value of the flag, or the default if not set.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;)
 &gt;&gt;&gt; state.set_flag(&quot;puzzle_solved&quot;, True)
 &gt;&gt;&gt; state.get_flag(&quot;puzzle_solved&quot;)
@@ -4246,14 +4323,17 @@ False
     return item_id in self.inventory</code></pre>
 </details>
 <div class="desc"><p>Check if the player has a specific item.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>item_id</code></strong></dt>
 <dd>The ID of the item to check.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>True if the player has the item, False otherwise.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+True if the player has the item, False otherwise.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;, inventory=[&quot;sword&quot;])
 &gt;&gt;&gt; state.has_item(&quot;sword&quot;)
 True
@@ -4290,14 +4370,17 @@ False
     return scene_id in self.visited_scenes</code></pre>
 </details>
 <div class="desc"><p>Check if the player has visited a specific scene.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>scene_id</code></strong></dt>
 <dd>The ID of the scene to check.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>True if the scene has been visited, False otherwise.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+True if the scene has been visited, False otherwise.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;)
 &gt;&gt;&gt; state.visited_scenes.add(&quot;old_room&quot;)
 &gt;&gt;&gt; state.has_visited(&quot;old_room&quot;)
@@ -4335,12 +4418,14 @@ False
     self.health = min(self.max_health, self.health + amount)</code></pre>
 </details>
 <div class="desc"><p>Restore player health by the specified amount, up to max_health.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>amount</code></strong></dt>
 <dd>The amount of health to restore (must be non-negative).</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;, health=50, max_health=100)
 &gt;&gt;&gt; state.heal(30)
 &gt;&gt;&gt; state.health
@@ -4376,9 +4461,11 @@ False
     return self.health &gt; 0</code></pre>
 </details>
 <div class="desc"><p>Check if the player is still alive.</p>
-<h2 id="returns">Returns</h2>
-<p>True if health &gt; 0, False otherwise.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+True if health &gt; 0, False otherwise.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;, health=50)
 &gt;&gt;&gt; state.is_alive()
 True
@@ -4418,14 +4505,17 @@ False
     return False</code></pre>
 </details>
 <div class="desc"><p>Remove an item from the player's inventory.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>item_id</code></strong></dt>
 <dd>The ID of the item to remove.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>True if the item was removed, False if it wasn't in inventory.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+True if the item was removed, False if it wasn't in inventory.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;, inventory=[&quot;key&quot;])
 &gt;&gt;&gt; state.remove_item(&quot;key&quot;)
 True
@@ -4458,14 +4548,16 @@ False
     self.game_flags[flag_name] = value</code></pre>
 </details>
 <div class="desc"><p>Set a game flag to track story or puzzle progress.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>flag_name</code></strong></dt>
 <dd>The name of the flag to set.</dd>
 <dt><strong><code>value</code></strong></dt>
 <dd>The boolean value to set (default: True).</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;)
 &gt;&gt;&gt; state.set_flag(&quot;door_opened&quot;)
 &gt;&gt;&gt; state.game_flags[&quot;door_opened&quot;]
@@ -4498,12 +4590,14 @@ True
     self.health = max(0, self.health - amount)</code></pre>
 </details>
 <div class="desc"><p>Reduce player health by the specified amount.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>amount</code></strong></dt>
 <dd>The amount of damage to take (must be non-negative).</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;, health=100)
 &gt;&gt;&gt; state.take_damage(30)
 &gt;&gt;&gt; state.health
@@ -4541,9 +4635,11 @@ True
     }</code></pre>
 </details>
 <div class="desc"><p>Convert the game state to a dictionary for serialization.</p>
-<h2 id="returns">Returns</h2>
-<p>Dictionary representation of the game state.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+Dictionary representation of the game state.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;)
 &gt;&gt;&gt; data = state.to_dict()
 &gt;&gt;&gt; data['current_scene']
@@ -4577,12 +4673,14 @@ True
     self.visited_scenes.add(scene_id)</code></pre>
 </details>
 <div class="desc"><p>Mark a scene as visited and update current location.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>scene_id</code></strong></dt>
 <dd>The ID of the scene to visit.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;start&quot;)
 &gt;&gt;&gt; state.visit_scene(&quot;next_room&quot;)
 &gt;&gt;&gt; state.current_scene
@@ -4986,13 +5084,15 @@ True
 - Required items for puzzles exist in the game
 - NPCs have valid dialogue
 - Puzzle prerequisites are satisfiable</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>strict_mode</code></strong></dt>
 <dd>If True, treats warnings as errors.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
-<p>Validate a game:</p>
+<p>Examples
+-----=
+Validate a game:</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import GameData, Scene
 &gt;&gt;&gt; scene = Scene(id=&quot;start&quot;, name=&quot;Start&quot;, description=&quot;Begin here&quot;,
 ...               exits={&quot;north&quot;: &quot;room2&quot;})
@@ -5013,8 +5113,9 @@ True
 &gt;&gt;&gt; result = validator.validate_game(data)
 </code></pre>
 <p>Initialize the GameValidator.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>strict_mode</code></strong></dt>
 <dd>If True, treats warnings as errors.</dd>
 </dl></div>
@@ -5093,14 +5194,17 @@ True
 <div class="desc"><p>Validate a complete game for playability issues.</p>
 <p>This is the main entry point for validation. It runs all validation
 checks and returns a comprehensive report.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>game_data</code></strong></dt>
 <dd>The GameData object to validate.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>ValidationResult containing all issues, warnings, and suggestions.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+ValidationResult containing all issues, warnings, and suggestions.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import GameData, Scene
 &gt;&gt;&gt; scene = Scene(id=&quot;start&quot;, name=&quot;Start&quot;, description=&quot;Begin&quot;)
 &gt;&gt;&gt; data = GameData(
@@ -5145,12 +5249,14 @@ class HelpAction(Action):
         return &#34;HelpAction()&#34;</code></pre>
 </details>
 <div class="desc"><p>Represents requesting help or available commands.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>raw_command</code></strong></dt>
 <dd>The original text command from the player.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; action = HelpAction(raw_command=&quot;help&quot;)
 &gt;&gt;&gt; str(action)
 'HelpAction()'
@@ -5188,12 +5294,14 @@ class InventoryAction(Action):
         return &#34;InventoryAction()&#34;</code></pre>
 </details>
 <div class="desc"><p>Represents checking the player's inventory.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>raw_command</code></strong></dt>
 <dd>The original text command from the player.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; action = InventoryAction(raw_command=&quot;inventory&quot;)
 &gt;&gt;&gt; str(action)
 'InventoryAction()'
@@ -5350,8 +5458,9 @@ class Item:
 <div class="desc"><p>Represents an interactive item in the game world.</p>
 <p>Items can be picked up, examined, or used to solve puzzles and progress
 the story. They can have associated effects when used.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>id</code></strong></dt>
 <dd>Unique identifier for the item.</dd>
 <dt><strong><code>name</code></strong></dt>
@@ -5370,8 +5479,9 @@ the story. They can have associated effects when used.</p>
 <dd>Dictionary of effects applied when item is used
 (e.g., {'unlock_door': 'door_id', 'heal': 20}).</dd>
 </dl>
-<h2 id="examples">Examples</h2>
-<p>Create a simple takeable item:</p>
+<p>Examples
+-----=
+Create a simple takeable item:</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; medkit = Item(
 ...     id=&quot;medkit&quot;,
 ...     name=&quot;Medical Kit&quot;,
@@ -5410,13 +5520,15 @@ the story. They can have associated effects when used.</p>
 </code></dt>
 <dd>
 <div class="desc"><p>Create an Item from a dictionary.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>data</code></strong></dt>
 <dd>Dictionary containing item data.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>A new Item instance.</p></div>
+<p>Returns
+-----=
+A new Item instance.</p></div>
 </dd>
 </dl>
 <h3>Instance variables</h3>
@@ -5489,14 +5601,17 @@ the story. They can have associated effects when used.</p>
     return True</code></pre>
 </details>
 <div class="desc"><p>Check if the item can be used given current game flags.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>game_flags</code></strong></dt>
 <dd>Dictionary of current game flags.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>True if the item can be used, False otherwise.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+True if the item can be used, False otherwise.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; item = Item(id=&quot;locked_box&quot;, name=&quot;Box&quot;, description=&quot;A locked box.&quot;,
 ...             required_flag=&quot;has_key&quot;)
 &gt;&gt;&gt; item.can_use({})
@@ -5532,8 +5647,9 @@ True
     }</code></pre>
 </details>
 <div class="desc"><p>Convert the item to a dictionary for serialization.</p>
-<h2 id="returns">Returns</h2>
-<p>Dictionary representation of the item.</p></div>
+<p>Returns
+-----=
+Dictionary representation of the item.</p></div>
 </dd>
 </dl>
 </dd>
@@ -5623,14 +5739,16 @@ class LookAction(Action):
         return &#34;LookAction()&#34;</code></pre>
 </details>
 <div class="desc"><p>Represents examining the scene or an object.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>target</code></strong></dt>
 <dd>Optional target to examine (if None, examine current scene).</dd>
 <dt><strong><code>raw_command</code></strong></dt>
 <dd>The original text command from the player.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; action = LookAction(raw_command=&quot;look&quot;)
 &gt;&gt;&gt; action.target is None
 True
@@ -5682,14 +5800,16 @@ class MoveAction(Action):
         return f&#34;MoveAction(direction=&#39;{self.direction}&#39;)&#34;</code></pre>
 </details>
 <div class="desc"><p>Represents a movement action to another scene.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>direction</code></strong></dt>
 <dd>The direction to move (e.g., "north", "south", "door").</dd>
 <dt><strong><code>raw_command</code></strong></dt>
 <dd>The original text command from the player.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; action = MoveAction(direction=&quot;north&quot;, raw_command=&quot;go north&quot;)
 &gt;&gt;&gt; action.direction
 'north'
@@ -5893,8 +6013,9 @@ class NPC:
 <p>NPCs can provide dialogue, quests, information, and interact with the player
 in various ways. They can have multiple dialogue options and react to
 game state.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>id</code></strong></dt>
 <dd>Unique identifier for the NPC.</dd>
 <dt><strong><code>name</code></strong></dt>
@@ -5912,8 +6033,9 @@ game state.</p>
 <dt><strong><code>required_flag</code></strong></dt>
 <dd>Optional game flag required to interact with this NPC.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
-<p>Create a friendly NPC:</p>
+<p>Examples
+-----=
+Create a friendly NPC:</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; trader = NPC(
 ...     id=&quot;merchant&quot;,
 ...     name=&quot;Rogue Trader Jin&quot;,
@@ -5953,13 +6075,15 @@ game state.</p>
 </code></dt>
 <dd>
 <div class="desc"><p>Create an NPC from a dictionary.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>data</code></strong></dt>
 <dd>Dictionary containing NPC data.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>A new NPC instance.</p></div>
+<p>Returns
+-----=
+A new NPC instance.</p></div>
 </dd>
 </dl>
 <h3>Instance variables</h3>
@@ -6030,14 +6154,17 @@ game state.</p>
     return True</code></pre>
 </details>
 <div class="desc"><p>Check if the player can interact with this NPC.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>game_flags</code></strong></dt>
 <dd>Dictionary of current game flags.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>True if interaction is possible, False otherwise.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+True if interaction is possible, False otherwise.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; npc = NPC(id=&quot;guard&quot;, name=&quot;Guard&quot;, description=&quot;A guard.&quot;,
 ...           required_flag=&quot;guard_friendly&quot;)
 &gt;&gt;&gt; npc.can_interact({})
@@ -6076,16 +6203,19 @@ True
     return self.dialogue.get(key, default)</code></pre>
 </details>
 <div class="desc"><p>Get dialogue text for a specific key.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>key</code></strong></dt>
 <dd>The dialogue key to retrieve.</dd>
 <dt><strong><code>default</code></strong></dt>
 <dd>Default text if the key doesn't exist.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>The dialogue text, or None if not found and default is None.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+The dialogue text, or None if not found and default is None.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; npc = NPC(id=&quot;test&quot;, name=&quot;Test&quot;, description=&quot;Test&quot;,
 ...           dialogue={&quot;hello&quot;: &quot;Greetings!&quot;})
 &gt;&gt;&gt; npc.get_dialogue(&quot;hello&quot;)
@@ -6120,9 +6250,11 @@ True
     return self.health &gt; 0</code></pre>
 </details>
 <div class="desc"><p>Check if the NPC is still alive.</p>
-<h2 id="returns">Returns</h2>
-<p>True if health &gt; 0, False otherwise.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+True if health &gt; 0, False otherwise.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; npc = NPC(id=&quot;test&quot;, name=&quot;Test&quot;, description=&quot;Test&quot;, health=50)
 &gt;&gt;&gt; npc.is_alive()
 True
@@ -6158,8 +6290,9 @@ False
     }</code></pre>
 </details>
 <div class="desc"><p>Convert the NPC to a dictionary for serialization.</p>
-<h2 id="returns">Returns</h2>
-<p>Dictionary representation of the NPC.</p></div>
+<p>Returns
+-----=
+Dictionary representation of the NPC.</p></div>
 </dd>
 </dl>
 </dd>
@@ -6373,21 +6506,24 @@ False
 <div class="desc"><p>High-level save/load system with simplified interface.</p>
 <p>This class provides an object-oriented interface to the persistence
 functions, managing save directory and file naming conventions.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>save_dir</code></strong></dt>
 <dd>Directory where save files are stored.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
-<p>Create a save system:</p>
+<p>Examples
+-----=
+Create a save system:</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; save_system = SaveSystem(&quot;saves/&quot;)
 &gt;&gt;&gt; save_system.save(game_state, &quot;mysave&quot;)
 &gt;&gt;&gt; loaded_state = save_system.load(&quot;mysave&quot;)
 &gt;&gt;&gt; saves = save_system.list_saves()
 </code></pre>
 <p>Initialize the save system.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>save_dir</code></strong></dt>
 <dd>Directory for save files (created if it doesn't exist).</dd>
 </dl></div>
@@ -6419,13 +6555,13 @@ functions, managing save directory and file naming conventions.</p>
     delete_save(str(filepath))</code></pre>
 </details>
 <div class="desc"><p>Delete a save file.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>save_name</code></strong></dt>
 <dd>Name of the save to delete (with or without .json).</dd>
-</dl>
-<h2 id="raises">Raises</h2>
-<dl>
+<dt>Raises</dt>
+<dt>-----=</dt>
 <dt><code><a title="space_hulk_game.engine.PersistenceError" href="#space_hulk_game.engine.PersistenceError">PersistenceError</a></code></dt>
 <dd>If deletion fails.</dd>
 </dl></div>
@@ -6459,15 +6595,18 @@ functions, managing save directory and file naming conventions.</p>
     return get_save_metadata(str(filepath))</code></pre>
 </details>
 <div class="desc"><p>Get metadata for a save file.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>save_name</code></strong></dt>
 <dd>Name of the save (with or without .json).</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>Dictionary of metadata.</p>
-<h2 id="raises">Raises</h2>
+<p>Returns
+-----=
+Dictionary of metadata.</p>
 <dl>
+<dt>Raises</dt>
+<dt>-----=</dt>
 <dt><code><a title="space_hulk_game.engine.PersistenceError" href="#space_hulk_game.engine.PersistenceError">PersistenceError</a></code></dt>
 <dd>If reading metadata fails.</dd>
 </dl></div>
@@ -6503,8 +6642,9 @@ functions, managing save directory and file naming conventions.</p>
         return []</code></pre>
 </details>
 <div class="desc"><p>List all available save files.</p>
-<h2 id="returns">Returns</h2>
-<p>List of save names (without .json extension).</p></div>
+<p>Returns
+-----=
+List of save names (without .json extension).</p></div>
 </dd>
 <dt id="space_hulk_game.engine.SaveSystem.load"><code class="name flex">
 <span>def <span class="ident">load</span></span>(<span>self, save_name: str) ‑> <a title="space_hulk_game.engine.game_state.GameState" href="game_state.html#space_hulk_game.engine.game_state.GameState">GameState</a></span>
@@ -6555,15 +6695,18 @@ functions, managing save directory and file naming conventions.</p>
         raise PersistenceError(error_msg) from e</code></pre>
 </details>
 <div class="desc"><p>Load a game state.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>save_name</code></strong></dt>
 <dd>Name of the save to load (with or without .json).</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>Loaded game state.</p>
-<h2 id="raises">Raises</h2>
+<p>Returns
+-----=
+Loaded game state.</p>
 <dl>
+<dt>Raises</dt>
+<dt>-----=</dt>
 <dt><code><a title="space_hulk_game.engine.PersistenceError" href="#space_hulk_game.engine.PersistenceError">PersistenceError</a></code></dt>
 <dd>If load fails.</dd>
 </dl></div>
@@ -6626,8 +6769,9 @@ functions, managing save directory and file naming conventions.</p>
         raise PersistenceError(error_msg) from e</code></pre>
 </details>
 <div class="desc"><p>Save a game state.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>game_state</code></strong></dt>
 <dd>Game state to save.</dd>
 <dt><strong><code>save_name</code></strong></dt>
@@ -6636,9 +6780,8 @@ functions, managing save directory and file naming conventions.</p>
 <dd>Optional scenes dict (not needed for state-only saves).</dd>
 <dt><strong><code>metadata</code></strong></dt>
 <dd>Optional metadata to include.</dd>
-</dl>
-<h2 id="raises">Raises</h2>
-<dl>
+<dt>Raises</dt>
+<dt>-----=</dt>
 <dt><code><a title="space_hulk_game.engine.PersistenceError" href="#space_hulk_game.engine.PersistenceError">PersistenceError</a></code></dt>
 <dd>If save fails.</dd>
 </dl></div>
@@ -7056,8 +7199,9 @@ class Scene:
 <p>Scenes are the primary spatial units in the game. Each scene has a description,
 connections to other scenes (exits), and can contain items, NPCs, and events.
 Players navigate between scenes to progress through the story.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>id</code></strong></dt>
 <dd>Unique identifier for the scene.</dd>
 <dt><strong><code>name</code></strong></dt>
@@ -7081,8 +7225,9 @@ Players navigate between scenes to progress through the story.</p>
 <dd>Dictionary of locked exits requiring items or flags
 (e.g., {"north": "brass_key"}).</dd>
 </dl>
-<h2 id="examples">Examples</h2>
-<p>Create a simple scene:</p>
+<p>Examples
+-----=
+Create a simple scene:</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; entrance = Scene(
 ...     id=&quot;entrance_hall&quot;,
 ...     name=&quot;Entrance Hall&quot;,
@@ -7128,13 +7273,15 @@ Players navigate between scenes to progress through the story.</p>
 </code></dt>
 <dd>
 <div class="desc"><p>Create a Scene from a dictionary.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>data</code></strong></dt>
 <dd>Dictionary containing scene data.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>A new Scene instance.</p></div>
+<p>Returns
+-----=
+A new Scene instance.</p></div>
 </dd>
 </dl>
 <h3>Instance variables</h3>
@@ -7207,12 +7354,14 @@ Players navigate between scenes to progress through the story.</p>
     self.items.append(item)</code></pre>
 </details>
 <div class="desc"><p>Add an item to the scene.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>item</code></strong></dt>
 <dd>The Item object to add.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; item = Item(id=&quot;key&quot;, name=&quot;Key&quot;, description=&quot;A key.&quot;)
 &gt;&gt;&gt; scene = Scene(id=&quot;room&quot;, name=&quot;Room&quot;, description=&quot;A room.&quot;)
 &gt;&gt;&gt; scene.add_item(item)
@@ -7277,8 +7426,9 @@ Players navigate between scenes to progress through the story.</p>
     return True, None</code></pre>
 </details>
 <div class="desc"><p>Check if the player can use a specific exit.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>direction</code></strong></dt>
 <dd>The direction/exit name to check.</dd>
 <dt><strong><code>inventory</code></strong></dt>
@@ -7286,10 +7436,12 @@ Players navigate between scenes to progress through the story.</p>
 <dt><strong><code>game_flags</code></strong></dt>
 <dd>Current game flags.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>A tuple of (can_exit: bool, reason: Optional[str]).
+<p>Returns
+-----=
+A tuple of (can_exit: bool, reason: Optional[str]).
 If can_exit is False, reason contains an explanation.</p>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; scene = Scene(
 ...     id=&quot;room&quot;,
 ...     name=&quot;Room&quot;,
@@ -7346,14 +7498,17 @@ If can_exit is False, reason contains an explanation.</p>
     ]</code></pre>
 </details>
 <div class="desc"><p>Get all events that should trigger when entering this scene.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>game_flags</code></strong></dt>
 <dd>Current game flags.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>List of Event objects that can trigger.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+List of Event objects that can trigger.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; event = Event(
 ...     id=&quot;ambush&quot;,
 ...     description=&quot;An ambush!&quot;,
@@ -7407,9 +7562,11 @@ If can_exit is False, reason contains an explanation.</p>
         return f&#34;There are exits to the {exits_str}.&#34;</code></pre>
 </details>
 <div class="desc"><p>Get a description of available exits.</p>
-<h2 id="returns">Returns</h2>
-<p>A formatted string describing available exits.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+A formatted string describing available exits.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; scene = Scene(
 ...     id=&quot;room&quot;,
 ...     name=&quot;Room&quot;,
@@ -7461,9 +7618,11 @@ True
     return &#34;&#34;.join(parts)</code></pre>
 </details>
 <div class="desc"><p>Get the complete description of the scene, including items and NPCs.</p>
-<h2 id="returns">Returns</h2>
-<p>A formatted string describing the scene and its contents.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+A formatted string describing the scene and its contents.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; item = Item(id=&quot;key&quot;, name=&quot;Brass Key&quot;, description=&quot;A key.&quot;)
 &gt;&gt;&gt; scene = Scene(
 ...     id=&quot;room&quot;,
@@ -7513,14 +7672,17 @@ True
     return None</code></pre>
 </details>
 <div class="desc"><p>Get an item from the scene by ID.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>item_id</code></strong></dt>
 <dd>The ID of the item to retrieve.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>The Item object if found, None otherwise.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+The Item object if found, None otherwise.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; item = Item(id=&quot;key&quot;, name=&quot;Key&quot;, description=&quot;A key.&quot;)
 &gt;&gt;&gt; scene = Scene(
 ...     id=&quot;room&quot;,
@@ -7570,14 +7732,17 @@ True
     return None</code></pre>
 </details>
 <div class="desc"><p>Get an NPC from the scene by ID.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>npc_id</code></strong></dt>
 <dd>The ID of the NPC to retrieve.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>The NPC object if found, None otherwise.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+The NPC object if found, None otherwise.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; npc = NPC(id=&quot;guard&quot;, name=&quot;Guard&quot;, description=&quot;A guard.&quot;)
 &gt;&gt;&gt; scene = Scene(
 ...     id=&quot;room&quot;,
@@ -7630,14 +7795,17 @@ True
     return False</code></pre>
 </details>
 <div class="desc"><p>Remove an item from the scene.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>item_id</code></strong></dt>
 <dd>The ID of the item to remove.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>True if the item was removed, False if not found.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+True if the item was removed, False if not found.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; item = Item(id=&quot;key&quot;, name=&quot;Key&quot;, description=&quot;A key.&quot;)
 &gt;&gt;&gt; scene = Scene(
 ...     id=&quot;room&quot;,
@@ -7682,8 +7850,9 @@ False
     }</code></pre>
 </details>
 <div class="desc"><p>Convert the scene to a dictionary for serialization.</p>
-<h2 id="returns">Returns</h2>
-<p>Dictionary representation of the scene.</p></div>
+<p>Returns
+-----=
+Dictionary representation of the scene.</p></div>
 </dd>
 <dt id="space_hulk_game.engine.Scene.unlock_exit"><code class="name flex">
 <span>def <span class="ident">unlock_exit</span></span>(<span>self, direction: str) ‑> bool</span>
@@ -7722,14 +7891,17 @@ False
     return False</code></pre>
 </details>
 <div class="desc"><p>Unlock an exit, making it passable.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>direction</code></strong></dt>
 <dd>The direction/exit to unlock.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>True if the exit was unlocked, False if it wasn't locked.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+True if the exit was unlocked, False if it wasn't locked.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; scene = Scene(
 ...     id=&quot;room&quot;,
 ...     name=&quot;Room&quot;,
@@ -7776,14 +7948,16 @@ class TakeAction(Action):
         return f&#34;TakeAction(item_id=&#39;{self.item_id}&#39;)&#34;</code></pre>
 </details>
 <div class="desc"><p>Represents taking/picking up an item.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>item_id</code></strong></dt>
 <dd>The ID or name of the item to take.</dd>
 <dt><strong><code>raw_command</code></strong></dt>
 <dd>The original text command from the player.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; action = TakeAction(item_id=&quot;medkit&quot;, raw_command=&quot;take medkit&quot;)
 &gt;&gt;&gt; action.item_id
 'medkit'
@@ -7839,8 +8013,9 @@ class TalkAction(Action):
         return f&#34;TalkAction(npc_id=&#39;{self.npc_id}&#39;)&#34;</code></pre>
 </details>
 <div class="desc"><p>Represents talking to an NPC.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>npc_id</code></strong></dt>
 <dd>The ID or name of the NPC to talk to.</dd>
 <dt><strong><code>topic</code></strong></dt>
@@ -7848,7 +8023,8 @@ class TalkAction(Action):
 <dt><strong><code>raw_command</code></strong></dt>
 <dd>The original text command from the player.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; action = TalkAction(npc_id=&quot;guard&quot;, raw_command=&quot;talk to guard&quot;)
 &gt;&gt;&gt; action.npc_id
 'guard'
@@ -8647,8 +8823,9 @@ Perhaps in another timeline, victory was possible...
 - Victory/defeat condition checking</p>
 <p>The engine follows the Facade pattern, providing a simple interface
 to the complex subsystems of the game (parser, state, scenes, etc.).</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>game_state</code></strong></dt>
 <dd>The current game state (player location, inventory, etc.).</dd>
 <dt><strong><code>scenes</code></strong></dt>
@@ -8666,8 +8843,9 @@ to the complex subsystems of the game (parser, state, scenes, etc.).</p>
 <dt><strong><code>output_func</code></strong></dt>
 <dd>Function for displaying output (for testing).</dd>
 </dl>
-<h2 id="examples">Examples</h2>
-<p>Create and run a basic game:</p>
+<p>Examples
+-----=
+Create and run a basic game:</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import (
 ...     TextAdventureEngine, GameState, Scene, Item
 ... )
@@ -8689,8 +8867,9 @@ to the complex subsystems of the game (parser, state, scenes, etc.).</p>
 &gt;&gt;&gt; # engine.run()  # Start the interactive game loop
 </code></pre>
 <p>Initialize the text adventure engine.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>game_state</code></strong></dt>
 <dd>Initial game state.</dd>
 <dt><strong><code>scenes</code></strong></dt>
@@ -8703,9 +8882,8 @@ to the complex subsystems of the game (parser, state, scenes, etc.).</p>
 <dd>Optional set of flags that trigger victory.</dd>
 <dt><strong><code>defeat_conditions</code></strong></dt>
 <dd>Optional set of flags that trigger defeat.</dd>
-</dl>
-<h2 id="raises">Raises</h2>
-<dl>
+<dt>Raises</dt>
+<dt>-----=</dt>
 <dt><code>ValueError</code></dt>
 <dd>If current scene is not in scenes dict.</dd>
 </dl></div>
@@ -8754,8 +8932,9 @@ to the complex subsystems of the game (parser, state, scenes, etc.).</p>
     logger.info(f&#34;Dropped item: {item_id}&#34;)</code></pre>
 </details>
 <div class="desc"><p>Handle dropping an item from inventory.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>item_id</code></strong></dt>
 <dd>The ID or name of the item to drop.</dd>
 </dl></div>
@@ -8874,8 +9053,9 @@ Tips:
     logger.debug(f&#34;Target not found: {target}&#34;)</code></pre>
 </details>
 <div class="desc"><p>Handle examining the scene or an object.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>target</code></strong></dt>
 <dd>Optional target to examine. If None, examine scene.</dd>
 </dl></div>
@@ -8928,8 +9108,9 @@ Tips:
     self._process_entry_events()</code></pre>
 </details>
 <div class="desc"><p>Handle movement to another scene.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>direction</code></strong></dt>
 <dd>The direction or exit name to move through.</dd>
 </dl></div>
@@ -8977,8 +9158,9 @@ Tips:
     logger.info(f&#34;Took item: {item.id}&#34;)</code></pre>
 </details>
 <div class="desc"><p>Handle taking an item from the current scene.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>item_id</code></strong></dt>
 <dd>The ID or name of the item to take.</dd>
 </dl></div>
@@ -9035,8 +9217,9 @@ Tips:
     logger.debug(f&#34;Talked to NPC: {npc_id}, topic: {topic}&#34;)</code></pre>
 </details>
 <div class="desc"><p>Handle talking to an NPC.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>npc_id</code></strong></dt>
 <dd>The ID or name of the NPC to talk to.</dd>
 <dt><strong><code>topic</code></strong></dt>
@@ -9148,8 +9331,9 @@ Tips:
         logger.debug(f&#34;Used item with no effects: {item_id}&#34;)</code></pre>
 </details>
 <div class="desc"><p>Handle using an item.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>item_id</code></strong></dt>
 <dd>The ID of the item to use.</dd>
 <dt><strong><code>target_id</code></strong></dt>
@@ -9242,7 +9426,8 @@ Tips:
 5. State updates
 6. Victory/defeat checking</p>
 <p>The loop continues until the player quits, wins, or loses.</p>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; engine = TextAdventureEngine(state, scenes)
 &gt;&gt;&gt; # engine.run()  # Starts interactive game
 </code></pre></div>
@@ -9282,14 +9467,16 @@ class UnknownAction(Action):
         return &#34;UnknownAction()&#34;</code></pre>
 </details>
 <div class="desc"><p>Represents an unrecognized command.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>raw_command</code></strong></dt>
 <dd>The original text command from the player.</dd>
 <dt><strong><code>suggestion</code></strong></dt>
 <dd>Optional suggestion for what the player might have meant.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; action = UnknownAction(raw_command=&quot;xyz&quot;, suggestion=&quot;examine&quot;)
 &gt;&gt;&gt; action.suggestion
 'examine'
@@ -9345,8 +9532,9 @@ class UseAction(Action):
         return f&#34;UseAction(item_id=&#39;{self.item_id}&#39;)&#34;</code></pre>
 </details>
 <div class="desc"><p>Represents using an item.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>item_id</code></strong></dt>
 <dd>The ID or name of the item to use.</dd>
 <dt><strong><code>target_id</code></strong></dt>
@@ -9354,7 +9542,8 @@ class UseAction(Action):
 <dt><strong><code>raw_command</code></strong></dt>
 <dd>The original text command from the player.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; action = UseAction(item_id=&quot;medkit&quot;, raw_command=&quot;use medkit&quot;)
 &gt;&gt;&gt; action.item_id
 'medkit'
@@ -9552,8 +9741,9 @@ class ValidationResult:
         return &#34;\n&#34;.join(lines)</code></pre>
 </details>
 <div class="desc"><p>Result of game validation containing issues and suggested fixes.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>issues</code></strong></dt>
 <dd>List of validation issues found.</dd>
 <dt><strong><code>suggestions</code></strong></dt>
@@ -9563,8 +9753,9 @@ class ValidationResult:
 <dt><strong><code>stats</code></strong></dt>
 <dd>Dictionary containing validation statistics.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
-<p>Create a validation result:</p>
+<p>Examples
+-----=
+Create a validation result:</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; result = ValidationResult(
 ...     issues=[&quot;Scene 'vault' is unreachable&quot;],
 ...     suggestions={&quot;entrance&quot;: [&quot;Add exit to 'vault'&quot;]},
@@ -9621,12 +9812,14 @@ False
     logger.warning(f&#34;Validation issue: {issue}&#34;)</code></pre>
 </details>
 <div class="desc"><p>Add a critical issue to the validation result.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>issue</code></strong></dt>
 <dd>Description of the issue.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; result = ValidationResult()
 &gt;&gt;&gt; result.add_issue(&quot;Scene missing&quot;)
 &gt;&gt;&gt; len(result.issues)
@@ -9661,14 +9854,16 @@ False
     logger.debug(f&#34;Suggestion for {scene_id}: {suggestion}&#34;)</code></pre>
 </details>
 <div class="desc"><p>Add a suggested fix for a scene.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>scene_id</code></strong></dt>
 <dd>The scene ID that needs fixing.</dd>
 <dt><strong><code>suggestion</code></strong></dt>
 <dd>Suggested action to fix the issue.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; result = ValidationResult()
 &gt;&gt;&gt; result.add_suggestion(&quot;entrance&quot;, &quot;Add exit to corridor&quot;)
 &gt;&gt;&gt; &quot;entrance&quot; in result.suggestions
@@ -9700,12 +9895,14 @@ True
     logger.info(f&#34;Validation warning: {warning}&#34;)</code></pre>
 </details>
 <div class="desc"><p>Add a non-critical warning to the validation result.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>warning</code></strong></dt>
 <dd>Description of the warning.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; result = ValidationResult()
 &gt;&gt;&gt; result.add_warning(&quot;Minor issue&quot;)
 &gt;&gt;&gt; len(result.warnings)
@@ -9765,9 +9962,11 @@ True
     return &#34;\n&#34;.join(lines)</code></pre>
 </details>
 <div class="desc"><p>Get a human-readable summary of the validation results.</p>
-<h2 id="returns">Returns</h2>
-<p>Formatted string summarizing the validation.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+Formatted string summarizing the validation.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; result = ValidationResult(issues=[&quot;Error 1&quot;], warnings=[&quot;Warning 1&quot;])
 &gt;&gt;&gt; summary = result.get_summary()
 &gt;&gt;&gt; &quot;1 issue&quot; in summary
@@ -9800,9 +9999,11 @@ True
     return len(self.issues) == 0</code></pre>
 </details>
 <div class="desc"><p>Check if the game passed validation (no critical issues).</p>
-<h2 id="returns">Returns</h2>
-<p>True if there are no critical issues, False otherwise.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+True if there are no critical issues, False otherwise.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; result = ValidationResult()
 &gt;&gt;&gt; result.is_valid()
 True

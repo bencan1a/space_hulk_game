@@ -45,7 +45,8 @@ now focuses on:
 3. Pretty-formatting JSON for readability</p>
 <p>This is significantly simpler than the previous YAML pipeline, as JSON mode provides
 guaranteed valid syntax from the LLM.</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; sanitizer = OutputSanitizer()
 &gt;&gt;&gt; raw_output = '{&quot;narrative_foundation&quot;: {&quot;title&quot;: &quot;My Plot&quot;}}'
 &gt;&gt;&gt; clean_json = sanitizer.sanitize(raw_output, 'plot')
@@ -111,13 +112,15 @@ JSON format and _strip_markdown_json_blocks instead.</p>
 <pre><code class="language-yaml">content: here
 </code></pre>
 <p>This function removes those markers to produce clean YAML.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>content</code></strong></dt>
 <dd>Raw content that may contain markdown markers</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>Clean YAML content without markdown markers</p></div>
+<p>Returns
+-----=
+Clean YAML content without markdown markers</p></div>
 </dd>
 </dl>
 </section>
@@ -268,14 +271,14 @@ sanitizer focuses on:
 1. Stripping markdown fences (```json blocks, if present)
 2. Validating JSON syntax
 3. Pretty-formatting JSON for readability</p>
-<h2 id="features">Features</h2>
-<ul>
-<li>Handles all 5 output types (plot, narrative, puzzle, scene, mechanics)</li>
-<li>Graceful error handling - returns best-effort sanitized output</li>
-<li>Comprehensive logging of all sanitization steps</li>
-<li>Much simpler than YAML pipeline (JSON mode eliminates syntax errors)</li>
-</ul>
-<h2 id="example">Example</h2>
+<p>Features
+-----=
+- Handles all 5 output types (plot, narrative, puzzle, scene, mechanics)
+- Graceful error handling - returns best-effort sanitized output
+- Comprehensive logging of all sanitization steps
+- Much simpler than YAML pipeline (JSON mode eliminates syntax errors)</p>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; sanitizer = OutputSanitizer()
 &gt;&gt;&gt; # Raw output from LLM (potentially with markdown fences)
 &gt;&gt;&gt; raw_output = '''```json
@@ -382,20 +385,24 @@ sanitizer focuses on:
 3. Pretty-format JSON with json.dumps()</p>
 <p>The method uses graceful error handling - if parsing fails, it returns
 the markdown-stripped version.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>raw_output</code></strong></dt>
 <dd>Raw JSON string from LLM, potentially with markdown fences.</dd>
 <dt><strong><code>output_type</code></strong></dt>
 <dd>Type of output (plot, narrative, puzzle, scene, mechanics).
 Currently used only for logging.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>Sanitized JSON string, ready to be written to disk. Pretty-formatted
+<p>Returns
+-----=
+Sanitized JSON string, ready to be written to disk. Pretty-formatted
 with 2-space indentation for readability.</p>
-<h2 id="raises">Raises</h2>
-<p>No exceptions are raised - all errors are logged and handled gracefully.</p>
-<h2 id="example">Example</h2>
+<p>Raises
+-----=
+No exceptions are raised - all errors are logged and handled gracefully.</p>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; sanitizer = OutputSanitizer()
 &gt;&gt;&gt; # LLM output with markdown fences
 &gt;&gt;&gt; raw = '''```json

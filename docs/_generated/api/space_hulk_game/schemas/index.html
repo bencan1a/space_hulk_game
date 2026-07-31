@@ -133,8 +133,9 @@ scene texts, and game mechanics.</p>
         return v</code></pre>
 </details>
 <div class="desc"><p>An artifact that can be found in the game.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>id</code></strong></dt>
 <dd>Unique identifier for the artifact.</dd>
 <dt><strong><code>name</code></strong></dt>
@@ -148,7 +149,8 @@ scene texts, and game mechanics.</p>
 <dt><strong><code>properties</code></strong></dt>
 <dd>List of artifact properties or effects.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; artifact = Artifact(
 ...     id=&quot;artifact_blood_eagle_pendant&quot;,
 ...     name=&quot;Blood Eagle Pendant&quot;,
@@ -231,12 +233,14 @@ validated to form a valid model.</p>
     property: str = Field(..., min_length=5, description=&#34;Artifact property description&#34;)</code></pre>
 </details>
 <div class="desc"><p>A property of an artifact.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>property</code></strong></dt>
 <dd>Description of the artifact property.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; prop = ArtifactProperty(
 ...     property=&quot;minor moral boost (if worn or kept)&quot;
 ... )
@@ -295,8 +299,9 @@ validated to form a valid model.</p>
     )</code></pre>
 </details>
 <div class="desc"><p>A character in the narrative.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>name</code></strong></dt>
 <dd>Full name of the character.</dd>
 <dt><strong><code>role</code></strong></dt>
@@ -306,7 +311,8 @@ validated to form a valid model.</p>
 <dt><strong><code>conflicts</code></strong></dt>
 <dd>Optional list of internal or external conflicts.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; character = Character(
 ...     name=&quot;Brother-Captain Tyberius&quot;,
 ...     role=&quot;Squad Leader, Blood Angels Terminator&quot;,
@@ -374,14 +380,16 @@ validated to form a valid model.</p>
     )</code></pre>
 </details>
 <div class="desc"><p>Complete arc for a character across the narrative.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>character</code></strong></dt>
 <dd>Name of the character.</dd>
 <dt><strong><code>arc_stages</code></strong></dt>
 <dd>List of stages in the character's development.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; arc = CharacterArc(
 ...     character=&quot;Brother-Captain Tyberius&quot;,
 ...     arc_stages=[...]
@@ -442,14 +450,16 @@ validated to form a valid model.</p>
     )</code></pre>
 </details>
 <div class="desc"><p>A stage in a character's narrative arc.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>stage</code></strong></dt>
 <dd>Name of the arc stage (e.g., 'Beginning', 'Development', 'Climax/Resolution').</dd>
 <dt><strong><code>description</code></strong></dt>
 <dd>Description of the character's state at this stage.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; stage = CharacterArcStage(
 ...     stage=&quot;Beginning&quot;,
 ...     description=&quot;Jaded but fiercely loyal, carries the burden of command...&quot;
@@ -506,14 +516,16 @@ validated to form a valid model.</p>
     moment: str = Field(..., min_length=20, description=&#34;Description of the character moment&#34;)</code></pre>
 </details>
 <div class="desc"><p>A significant character moment within a scene.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>character</code></strong></dt>
 <dd>Name of the character experiencing the moment.</dd>
 <dt><strong><code>moment</code></strong></dt>
 <dd>Description of what happens to the character in this scene.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; moment = CharacterMoment(
 ...     character=&quot;Brother-Captain Tyberius&quot;,
 ...     moment=&quot;Struggles to re-establish comms and locate his dispersed squad...&quot;
@@ -570,14 +582,16 @@ validated to form a valid model.</p>
     rules: str = Field(..., min_length=20, description=&#34;Description of mechanic rules&#34;)</code></pre>
 </details>
 <div class="desc"><p>A specific combat mechanic or rule.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>name</code></strong></dt>
 <dd>Name of the combat mechanic.</dd>
 <dt><strong><code>rules</code></strong></dt>
 <dd>Description of how the mechanic works.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; mechanic = CombatMechanic(
 ...     name=&quot;Overwatch&quot;,
 ...     rules=&quot;Set a character to fire upon enemies entering their line of sight...&quot;
@@ -641,8 +655,9 @@ validated to form a valid model.</p>
     )</code></pre>
 </details>
 <div class="desc"><p>Combat system configuration.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>description</code></strong></dt>
 <dd>Description of how combat works.</dd>
 <dt><strong><code>mechanics</code></strong></dt>
@@ -650,7 +665,8 @@ validated to form a valid model.</p>
 <dt><strong><code>narrative_purpose</code></strong></dt>
 <dd>Why this system exists narratively.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; combat = CombatSystem(
 ...     description=&quot;Turn-based tactical combat. Features cover systems...&quot;,
 ...     mechanics=[CombatMechanic(...), ...],
@@ -712,14 +728,16 @@ validated to form a valid model.</p>
     description: str = Field(..., min_length=50, description=&#34;Detailed description of the conflict&#34;)</code></pre>
 </details>
 <div class="desc"><p>A conflict or tension in the narrative.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>type</code></strong></dt>
 <dd>Type of conflict (e.g., 'Man vs. Xenos', 'Man vs. Self').</dd>
 <dt><strong><code>description</code></strong></dt>
 <dd>Detailed description of the conflict.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; conflict = Conflict(
 ...     type=&quot;Man vs. Xenos&quot;,
 ...     description=&quot;The primary and most immediate conflict...&quot;
@@ -781,8 +799,9 @@ validated to form a valid model.</p>
     )</code></pre>
 </details>
 <div class="desc"><p>A connection from one scene to another.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>target</code></strong></dt>
 <dd>ID of the target scene.</dd>
 <dt><strong><code>description</code></strong></dt>
@@ -790,7 +809,8 @@ validated to form a valid model.</p>
 <dt><strong><code>condition</code></strong></dt>
 <dd>Optional condition that must be met for this connection.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; conn = Connection(
 ...     target=&quot;scene_whispers_in_the_dark&quot;,
 ...     description=&quot;Proceed deeper into the Hulk...&quot;,
@@ -857,8 +877,9 @@ validated to form a valid model.</p>
     )</code></pre>
 </details>
 <div class="desc"><p>An option in a decision point.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>choice</code></strong></dt>
 <dd>The text of the decision choice.</dd>
 <dt><strong><code>outcome</code></strong></dt>
@@ -866,7 +887,8 @@ validated to form a valid model.</p>
 <dt><strong><code>target_scene</code></strong></dt>
 <dd>The scene ID this choice leads to.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; option = DecisionOption(
 ...     choice=&quot;Initiate self-destruct sequence on the alien core&quot;,
 ...     outcome=&quot;The squad prepares for their final, desperate stand...&quot;,
@@ -945,8 +967,9 @@ validated to form a valid model.</p>
         return v</code></pre>
 </details>
 <div class="desc"><p>A decision point in the narrative.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>id</code></strong></dt>
 <dd>Unique identifier for the decision point.</dd>
 <dt><strong><code>prompt</code></strong></dt>
@@ -954,7 +977,8 @@ validated to form a valid model.</p>
 <dt><strong><code>options</code></strong></dt>
 <dd>List of available choices.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; decision = DecisionPoint(
 ...     id=&quot;decision_hulk_fate&quot;,
 ...     prompt=&quot;The Serpent's Coil must be stopped. How do you attempt to avert this catastrophe?&quot;,
@@ -1038,8 +1062,9 @@ validated to form a valid model.</p>
 <div class="desc"><p>Complete game mechanics and design document.</p>
 <p>This is the top-level model representing the entire game mechanics
 specification including systems, state management, and technical requirements.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>game_title</code></strong></dt>
 <dd>Title of the game.</dd>
 <dt><strong><code>game_systems</code></strong></dt>
@@ -1049,7 +1074,8 @@ specification including systems, state management, and technical requirements.</
 <dt><strong><code>technical_requirements</code></strong></dt>
 <dd>List of technical requirements.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; mechanics = GameMechanics(
 ...     game_title=&quot;Space Hulk: Echoes of the Void&quot;,
 ...     game_systems=GameSystems(...),
@@ -1125,8 +1151,9 @@ validated to form a valid model.</p>
     )</code></pre>
 </details>
 <div class="desc"><p>Game state management configuration.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>tracked_variables</code></strong></dt>
 <dd>List of variables being tracked.</dd>
 <dt><strong><code>win_conditions</code></strong></dt>
@@ -1134,7 +1161,8 @@ validated to form a valid model.</p>
 <dt><strong><code>lose_conditions</code></strong></dt>
 <dd>List of lose conditions.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(
 ...     tracked_variables=[TrackedVariable(...), ...],
 ...     win_conditions=[WinCondition(...), ...],
@@ -1202,8 +1230,9 @@ validated to form a valid model.</p>
     interaction: InteractionSystem = Field(..., description=&#34;Interaction system&#34;)</code></pre>
 </details>
 <div class="desc"><p>All game systems configuration.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>movement</code></strong></dt>
 <dd>Movement system configuration.</dd>
 <dt><strong><code>inventory</code></strong></dt>
@@ -1213,7 +1242,8 @@ validated to form a valid model.</p>
 <dt><strong><code>interaction</code></strong></dt>
 <dd>Interaction system configuration.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; systems = GameSystems(
 ...     movement=MovementSystem(...),
 ...     inventory=InventorySystem(...),
@@ -1285,8 +1315,9 @@ validated to form a valid model.</p>
     )</code></pre>
 </details>
 <div class="desc"><p>Interaction system configuration.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>description</code></strong></dt>
 <dd>Description of how interaction works.</dd>
 <dt><strong><code>commands</code></strong></dt>
@@ -1294,7 +1325,8 @@ validated to form a valid model.</p>
 <dt><strong><code>narrative_purpose</code></strong></dt>
 <dd>Why this system exists narratively.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; interaction = InteractionSystem(
 ...     description=&quot;Allows players to interact with objects, environments...&quot;,
 ...     commands=[&quot;examine&quot;, &quot;talk&quot;, &quot;use&quot;, &quot;analyze&quot;],
@@ -1364,8 +1396,9 @@ validated to form a valid model.</p>
     )</code></pre>
 </details>
 <div class="desc"><p>Inventory system configuration.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>description</code></strong></dt>
 <dd>Description of how inventory works.</dd>
 <dt><strong><code>capacity</code></strong></dt>
@@ -1375,7 +1408,8 @@ validated to form a valid model.</p>
 <dt><strong><code>narrative_purpose</code></strong></dt>
 <dd>Why this system exists narratively.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; inventory = InventorySystem(
 ...     description=&quot;Limited capacity inventory for each Space Marine...&quot;,
 ...     capacity=5,
@@ -1439,12 +1473,14 @@ validated to form a valid model.</p>
     condition: str = Field(..., min_length=20, description=&#34;Description of the lose condition&#34;)</code></pre>
 </details>
 <div class="desc"><p>A lose condition for the game.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>condition</code></strong></dt>
 <dd>Description of the lose condition.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; lose = LoseCondition(
 ...     condition=&quot;All squad members are incapacitated or killed in combat.&quot;
 ... )
@@ -1528,8 +1564,9 @@ validated to form a valid model.</p>
         return v</code></pre>
 </details>
 <div class="desc"><p>A monster or enemy in the game.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>id</code></strong></dt>
 <dd>Unique identifier for the monster.</dd>
 <dt><strong><code>name</code></strong></dt>
@@ -1543,7 +1580,8 @@ validated to form a valid model.</p>
 <dt><strong><code>abilities</code></strong></dt>
 <dd>List of the monster's special abilities.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; monster = Monster(
 ...     id=&quot;monster_feral_genestealer&quot;,
 ...     name=&quot;Feral Genestealer&quot;,
@@ -1640,8 +1678,9 @@ validated to form a valid model.</p>
     )</code></pre>
 </details>
 <div class="desc"><p>Movement system configuration.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>description</code></strong></dt>
 <dd>Description of how movement works.</dd>
 <dt><strong><code>commands</code></strong></dt>
@@ -1649,7 +1688,8 @@ validated to form a valid model.</p>
 <dt><strong><code>narrative_purpose</code></strong></dt>
 <dd>Why this system exists narratively.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; movement = MovementSystem(
 ...     description=&quot;Tactical grid-based movement with limited action points...&quot;,
 ...     commands=[&quot;move&quot;, &quot;brace&quot;, &quot;breach&quot;],
@@ -1745,8 +1785,9 @@ validated to form a valid model.</p>
         return v</code></pre>
 </details>
 <div class="desc"><p>A non-player character in the game.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>id</code></strong></dt>
 <dd>Unique identifier for the NPC.</dd>
 <dt><strong><code>name</code></strong></dt>
@@ -1760,7 +1801,8 @@ validated to form a valid model.</p>
 <dt><strong><code>dialogue_themes</code></strong></dt>
 <dd>List of themes or topics the NPC discusses.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; npc = NPC(
 ...     id=&quot;npc_brother_captain_tyberius&quot;,
 ...     name=&quot;Brother-Captain Tyberius&quot;,
@@ -1917,8 +1959,9 @@ validated to form a valid model.</p>
 <div class="desc"><p>Complete narrative map for a story.</p>
 <p>This is the top-level model representing the entire narrative structure
 including all scenes, connections, and character arcs.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>start_scene</code></strong></dt>
 <dd>ID of the starting scene.</dd>
 <dt><strong><code>scenes</code></strong></dt>
@@ -1926,7 +1969,8 @@ including all scenes, connections, and character arcs.</p>
 <dt><strong><code>character_arcs</code></strong></dt>
 <dd>Optional list of character development arcs.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; narrative_map = NarrativeMap(
 ...     start_scene=&quot;scene_drop_pod_descent&quot;,
 ...     scenes={
@@ -2019,8 +2063,9 @@ should be done via model_validator.</p></div>
 <div class="desc"><p>A branching path in the narrative structure.</p>
 <p>This represents a decision point or alternative story path that
 diverges from the main narrative.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>path</code></strong></dt>
 <dd>Identifier for the branch path.</dd>
 <dt><strong><code>description</code></strong></dt>
@@ -2028,7 +2073,8 @@ diverges from the main narrative.</p>
 <dt><strong><code>decision_point</code></strong></dt>
 <dd>Optional plot point ID where the branch occurs.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; branch = PlotBranch(
 ...     path=&quot;heroic_sacrifice&quot;,
 ...     description=&quot;The squad chooses to destroy the core...&quot;,
@@ -2150,8 +2196,9 @@ validated to form a valid model.</p>
 <div class="desc"><p>Complete plot outline for a narrative.</p>
 <p>This is the top-level model representing the entire narrative foundation
 including title, setting, themes, plot points, characters, and conflicts.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>title</code></strong></dt>
 <dd>Title of the narrative.</dd>
 <dt><strong><code>setting</code></strong></dt>
@@ -2169,7 +2216,8 @@ including title, setting, themes, plot points, characters, and conflicts.</p>
 <dt><strong><code>plot_branches</code></strong></dt>
 <dd>Optional list of alternative narrative paths.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; outline = PlotOutline(
 ...     title=&quot;Space Hulk: Echoes of the Void&quot;,
 ...     setting=&quot;The grimdark universe of Warhammer 40,000...&quot;,
@@ -2293,8 +2341,9 @@ validated to form a valid model.</p>
         return v</code></pre>
 </details>
 <div class="desc"><p>A significant event or milestone in the narrative.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>id</code></strong></dt>
 <dd>Unique identifier for the plot point (e.g., 'pp_01_insertion').</dd>
 <dt><strong><code>name</code></strong></dt>
@@ -2302,7 +2351,8 @@ validated to form a valid model.</p>
 <dt><strong><code>description</code></strong></dt>
 <dd>Detailed description of what happens in this plot point.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; plot_point = PlotPoint(
 ...     id=&quot;pp_01_insertion&quot;,
 ...     name=&quot;The Drop Pod Descent&quot;,
@@ -2404,8 +2454,9 @@ validated to form a valid model.</p>
         return v</code></pre>
 </details>
 <div class="desc"><p>A puzzle in the game.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>id</code></strong></dt>
 <dd>Unique identifier for the puzzle.</dd>
 <dt><strong><code>name</code></strong></dt>
@@ -2421,7 +2472,8 @@ validated to form a valid model.</p>
 <dt><strong><code>difficulty</code></strong></dt>
 <dd>Difficulty level (e.g., 'easy', 'medium', 'hard').</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; puzzle = Puzzle(
 ...     id=&quot;puzzle_comm_relay_restore&quot;,
 ...     name=&quot;Comm-Relay Restoration&quot;,
@@ -2563,8 +2615,9 @@ validated to form a valid model.</p>
 <div class="desc"><p>Complete puzzle design for a game.</p>
 <p>This is the top-level model representing all puzzles, artifacts,
 monsters, and NPCs in the game.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>puzzles</code></strong></dt>
 <dd>List of puzzles in the game.</dd>
 <dt><strong><code>artifacts</code></strong></dt>
@@ -2574,7 +2627,8 @@ monsters, and NPCs in the game.</p>
 <dt><strong><code>npcs</code></strong></dt>
 <dd>List of non-player characters.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; puzzle_design = PuzzleDesign(
 ...     puzzles=[Puzzle(...), ...],
 ...     artifacts=[Artifact(...), ...],
@@ -2686,14 +2740,16 @@ validated to form a valid model.</p>
         return v</code></pre>
 </details>
 <div class="desc"><p>Solution structure for a puzzle.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>type</code></strong></dt>
 <dd>Type of solution (e.g., 'multi-step', 'observation', 'timed').</dd>
 <dt><strong><code>steps</code></strong></dt>
 <dd>List of steps to solve the puzzle.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; solution = PuzzleSolution(
 ...     type=&quot;multi-step_interaction_and_logic&quot;,
 ...     steps=[PuzzleStep(...), ...]
@@ -2761,12 +2817,14 @@ validated to form a valid model.</p>
 <div class="desc"><p>A single step in solving a puzzle.</p>
 <p>This model accepts either a plain string or a dict with 'step' key
 to match the YAML format.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>step</code></strong></dt>
 <dd>Description of the step to perform.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; step = PuzzleStep(
 ...     step=&quot;Locate the auxiliary power conduit junction...&quot;
 ... )
@@ -2832,8 +2890,9 @@ validated to form a valid model.</p>
     )</code></pre>
 </details>
 <div class="desc"><p>A scene in the narrative map.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>name</code></strong></dt>
 <dd>Human-readable scene name.</dd>
 <dt><strong><code>description</code></strong></dt>
@@ -2845,7 +2904,8 @@ validated to form a valid model.</p>
 <dt><strong><code>decision_points</code></strong></dt>
 <dd>Optional list of decision points in this scene.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; scene = Scene(
 ...     name=&quot;The Drop Pod Descent&quot;,
 ...     description=&quot;Deployed from the Battle Barge...&quot;,
@@ -2924,8 +2984,9 @@ validated to form a valid model.</p>
     context: str | None = Field(default=None, description=&#34;Optional context for the dialogue&#34;)</code></pre>
 </details>
 <div class="desc"><p>A dialogue line in a scene.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>speaker</code></strong></dt>
 <dd>Name of the character speaking.</dd>
 <dt><strong><code>text</code></strong></dt>
@@ -2935,7 +2996,8 @@ validated to form a valid model.</p>
 <dt><strong><code>context</code></strong></dt>
 <dd>Optional context for when this dialogue occurs.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; dialogue = SceneDialogue(
 ...     speaker=&quot;Brother-Captain Tyberius&quot;,
 ...     text=&quot;Status report! Comm-link non-responsive...&quot;,
@@ -3041,8 +3103,9 @@ validated to form a valid model.</p>
 <div class="desc"><p>Text content for a single scene.</p>
 <p>This includes all descriptive text, atmosphere, examination texts,
 dialogue, and narrative notes for a scene.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>name</code></strong></dt>
 <dd>Human-readable scene name.</dd>
 <dt><strong><code>description</code></strong></dt>
@@ -3058,7 +3121,8 @@ dialogue, and narrative notes for a scene.</p>
 <dt><strong><code>narrative_notes</code></strong></dt>
 <dd>Optional notes about the scene's narrative purpose.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; scene_text = SceneText(
 ...     name=&quot;The Drop Pod Descent&quot;,
 ...     description=&quot;The void screeches a cacophony of tortured metal...&quot;,
@@ -3190,12 +3254,14 @@ validated to form a valid model.</p>
 <div class="desc"><p>Collection of all scene texts in the game.</p>
 <p>This is the top-level model representing all scene text content
 organized by scene ID.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>scenes</code></strong></dt>
 <dd>Dictionary mapping scene IDs to SceneText objects.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; scene_texts = SceneTexts(
 ...     scenes={
 ...         &quot;scene_drop_pod_descent&quot;: SceneText(...),
@@ -3266,14 +3332,16 @@ validated to form a valid model.</p>
     justification: str = Field(..., min_length=20, description=&#34;Justification for the requirement&#34;)</code></pre>
 </details>
 <div class="desc"><p>A technical requirement for the game.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>requirement</code></strong></dt>
 <dd>Description of the technical requirement.</dd>
 <dt><strong><code>justification</code></strong></dt>
 <dd>Why this requirement is necessary.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; req = TechnicalRequirement(
 ...     requirement=&quot;Robust AI for diverse enemy types...&quot;,
 ...     justification=&quot;Crucial for making combat challenging and varied...&quot;
@@ -3330,14 +3398,16 @@ validated to form a valid model.</p>
     purpose: str = Field(..., min_length=20, description=&#34;Purpose and impact of the variable&#34;)</code></pre>
 </details>
 <div class="desc"><p>A tracked game state variable.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>variable</code></strong></dt>
 <dd>Name of the variable being tracked.</dd>
 <dt><strong><code>purpose</code></strong></dt>
 <dd>Description of what the variable tracks and why.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; var = TrackedVariable(
 ...     variable=&quot;squad_morale&quot;,
 ...     purpose=&quot;Tracks the overall mental state of the squad...&quot;
@@ -3391,12 +3461,14 @@ validated to form a valid model.</p>
     condition: str = Field(..., min_length=20, description=&#34;Description of the win condition&#34;)</code></pre>
 </details>
 <div class="desc"><p>A win condition for the game.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>condition</code></strong></dt>
 <dd>Description of the win condition.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; win = WinCondition(
 ...     condition=&quot;Successfully neutralize the threat posed by 'The Serpent's Coil'...&quot;
 ... )

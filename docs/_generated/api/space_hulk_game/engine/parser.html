@@ -42,7 +42,8 @@ Converts player text input into structured Action objects.</p>
 <p>The parser uses a dictionary of command synonyms and fuzzy matching
 to handle variations and typos in player input. It's context-aware,
 considering available items, NPCs, and exits in the current scene.</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import CommandParser, GameState, Scene
 &gt;&gt;&gt; parser = CommandParser()
 &gt;&gt;&gt; action = parser.parse(&quot;go north&quot;)
@@ -744,15 +745,17 @@ a simple interface that hides the complexity of synonym matching,
 fuzzy matching, and context-aware parsing.</p>
 <p>The parser is designed to be forgiving and helpful, using fuzzy matching
 for typos and providing suggestions when commands aren't recognized.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>COMMANDS</code></strong></dt>
 <dd>Dictionary mapping action types to lists of synonyms.</dd>
 <dt><strong><code>CUTOFF</code></strong></dt>
 <dd>Minimum similarity score for fuzzy matching (0.0 to 1.0).</dd>
 </dl>
-<h2 id="examples">Examples</h2>
-<p>Basic usage:</p>
+<p>Examples
+-----=
+Basic usage:</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; parser = CommandParser()
 &gt;&gt;&gt; action = parser.parse(&quot;go north&quot;)
 &gt;&gt;&gt; isinstance(action, MoveAction)
@@ -880,8 +883,9 @@ True
 3. Argument extraction
 4. Context-aware parsing
 5. Action object creation</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>command</code></strong></dt>
 <dd>The raw text command from the player.</dd>
 <dt><strong><code>game_state</code></strong></dt>
@@ -889,9 +893,11 @@ True
 <dt><strong><code>current_scene</code></strong></dt>
 <dd>Optional current scene for context.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>An Action object representing the parsed command.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+An Action object representing the parsed command.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; parser = CommandParser()
 &gt;&gt;&gt; action = parser.parse(&quot;go north&quot;)
 &gt;&gt;&gt; action.direction

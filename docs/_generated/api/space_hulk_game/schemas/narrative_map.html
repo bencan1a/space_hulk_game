@@ -78,14 +78,16 @@ scenes, connections, character moments, decision points, and character arcs.</p>
     )</code></pre>
 </details>
 <div class="desc"><p>Complete arc for a character across the narrative.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>character</code></strong></dt>
 <dd>Name of the character.</dd>
 <dt><strong><code>arc_stages</code></strong></dt>
 <dd>List of stages in the character's development.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; arc = CharacterArc(
 ...     character=&quot;Brother-Captain Tyberius&quot;,
 ...     arc_stages=[...]
@@ -146,14 +148,16 @@ validated to form a valid model.</p>
     )</code></pre>
 </details>
 <div class="desc"><p>A stage in a character's narrative arc.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>stage</code></strong></dt>
 <dd>Name of the arc stage (e.g., 'Beginning', 'Development', 'Climax/Resolution').</dd>
 <dt><strong><code>description</code></strong></dt>
 <dd>Description of the character's state at this stage.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; stage = CharacterArcStage(
 ...     stage=&quot;Beginning&quot;,
 ...     description=&quot;Jaded but fiercely loyal, carries the burden of command...&quot;
@@ -210,14 +214,16 @@ validated to form a valid model.</p>
     moment: str = Field(..., min_length=20, description=&#34;Description of the character moment&#34;)</code></pre>
 </details>
 <div class="desc"><p>A significant character moment within a scene.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>character</code></strong></dt>
 <dd>Name of the character experiencing the moment.</dd>
 <dt><strong><code>moment</code></strong></dt>
 <dd>Description of what happens to the character in this scene.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; moment = CharacterMoment(
 ...     character=&quot;Brother-Captain Tyberius&quot;,
 ...     moment=&quot;Struggles to re-establish comms and locate his dispersed squad...&quot;
@@ -279,8 +285,9 @@ validated to form a valid model.</p>
     )</code></pre>
 </details>
 <div class="desc"><p>A connection from one scene to another.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>target</code></strong></dt>
 <dd>ID of the target scene.</dd>
 <dt><strong><code>description</code></strong></dt>
@@ -288,7 +295,8 @@ validated to form a valid model.</p>
 <dt><strong><code>condition</code></strong></dt>
 <dd>Optional condition that must be met for this connection.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; conn = Connection(
 ...     target=&quot;scene_whispers_in_the_dark&quot;,
 ...     description=&quot;Proceed deeper into the Hulk...&quot;,
@@ -355,8 +363,9 @@ validated to form a valid model.</p>
     )</code></pre>
 </details>
 <div class="desc"><p>An option in a decision point.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>choice</code></strong></dt>
 <dd>The text of the decision choice.</dd>
 <dt><strong><code>outcome</code></strong></dt>
@@ -364,7 +373,8 @@ validated to form a valid model.</p>
 <dt><strong><code>target_scene</code></strong></dt>
 <dd>The scene ID this choice leads to.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; option = DecisionOption(
 ...     choice=&quot;Initiate self-destruct sequence on the alien core&quot;,
 ...     outcome=&quot;The squad prepares for their final, desperate stand...&quot;,
@@ -443,8 +453,9 @@ validated to form a valid model.</p>
         return v</code></pre>
 </details>
 <div class="desc"><p>A decision point in the narrative.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>id</code></strong></dt>
 <dd>Unique identifier for the decision point.</dd>
 <dt><strong><code>prompt</code></strong></dt>
@@ -452,7 +463,8 @@ validated to form a valid model.</p>
 <dt><strong><code>options</code></strong></dt>
 <dd>List of available choices.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; decision = DecisionPoint(
 ...     id=&quot;decision_hulk_fate&quot;,
 ...     prompt=&quot;The Serpent's Coil must be stopped. How do you attempt to avert this catastrophe?&quot;,
@@ -588,8 +600,9 @@ validated to form a valid model.</p>
 <div class="desc"><p>Complete narrative map for a story.</p>
 <p>This is the top-level model representing the entire narrative structure
 including all scenes, connections, and character arcs.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>start_scene</code></strong></dt>
 <dd>ID of the starting scene.</dd>
 <dt><strong><code>scenes</code></strong></dt>
@@ -597,7 +610,8 @@ including all scenes, connections, and character arcs.</p>
 <dt><strong><code>character_arcs</code></strong></dt>
 <dd>Optional list of character development arcs.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; narrative_map = NarrativeMap(
 ...     start_scene=&quot;scene_drop_pod_descent&quot;,
 ...     scenes={
@@ -694,8 +708,9 @@ should be done via model_validator.</p></div>
     )</code></pre>
 </details>
 <div class="desc"><p>A scene in the narrative map.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>name</code></strong></dt>
 <dd>Human-readable scene name.</dd>
 <dt><strong><code>description</code></strong></dt>
@@ -707,7 +722,8 @@ should be done via model_validator.</p></div>
 <dt><strong><code>decision_points</code></strong></dt>
 <dd>Optional list of decision points in this scene.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; scene = Scene(
 ...     name=&quot;The Drop Pod Descent&quot;,
 ...     description=&quot;Deployed from the Battle Barge...&quot;,

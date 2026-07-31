@@ -39,7 +39,8 @@ el.replaceWith(d);
 <p>Game State Module</p>
 <p>Defines the core GameState class that tracks the current state of a game session.
 This includes player location, inventory, visited scenes, game flags, and health.</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import GameState
 &gt;&gt;&gt; state = GameState(
 ...     current_scene=&quot;entrance&quot;,
@@ -378,8 +379,9 @@ class GameState:
 <div class="desc"><p>Represents the current state of a game session.</p>
 <p>This class tracks all mutable state during gameplay, including player location,
 inventory, visited areas, game flags for puzzle/story progression, and health.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>current_scene</code></strong></dt>
 <dd>The ID of the scene where the player is currently located.</dd>
 <dt><strong><code>inventory</code></strong></dt>
@@ -394,8 +396,9 @@ inventory, visited areas, game flags for puzzle/story progression, and health.</
 <dt><strong><code>max_health</code></strong></dt>
 <dd>Maximum health points the player can have.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
-<p>Create a new game state:</p>
+<p>Examples
+-----=
+Create a new game state:</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(
 ...     current_scene=&quot;cargo_bay&quot;,
 ...     inventory=[&quot;bolt_pistol&quot;],
@@ -426,14 +429,17 @@ inventory, visited areas, game flags for puzzle/story progression, and health.</
 </code></dt>
 <dd>
 <div class="desc"><p>Create a GameState from a dictionary.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>data</code></strong></dt>
 <dd>Dictionary containing game state data.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>A new GameState instance.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+A new GameState instance.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; data = {
 ...     'current_scene': 'test',
 ...     'inventory': ['item1'],
@@ -502,12 +508,14 @@ inventory, visited areas, game flags for puzzle/story progression, and health.</
         self.inventory.append(item_id)</code></pre>
 </details>
 <div class="desc"><p>Add an item to the player's inventory.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>item_id</code></strong></dt>
 <dd>The ID of the item to add.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;)
 &gt;&gt;&gt; state.add_item(&quot;medkit&quot;)
 &gt;&gt;&gt; &quot;medkit&quot; in state.inventory
@@ -544,16 +552,19 @@ True
     return self.game_flags.get(flag_name, default)</code></pre>
 </details>
 <div class="desc"><p>Get the value of a game flag.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>flag_name</code></strong></dt>
 <dd>The name of the flag to retrieve.</dd>
 <dt><strong><code>default</code></strong></dt>
 <dd>The default value if the flag doesn't exist.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>The boolean value of the flag, or the default if not set.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+The boolean value of the flag, or the default if not set.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;)
 &gt;&gt;&gt; state.set_flag(&quot;puzzle_solved&quot;, True)
 &gt;&gt;&gt; state.get_flag(&quot;puzzle_solved&quot;)
@@ -590,14 +601,17 @@ False
     return item_id in self.inventory</code></pre>
 </details>
 <div class="desc"><p>Check if the player has a specific item.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>item_id</code></strong></dt>
 <dd>The ID of the item to check.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>True if the player has the item, False otherwise.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+True if the player has the item, False otherwise.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;, inventory=[&quot;sword&quot;])
 &gt;&gt;&gt; state.has_item(&quot;sword&quot;)
 True
@@ -634,14 +648,17 @@ False
     return scene_id in self.visited_scenes</code></pre>
 </details>
 <div class="desc"><p>Check if the player has visited a specific scene.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>scene_id</code></strong></dt>
 <dd>The ID of the scene to check.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>True if the scene has been visited, False otherwise.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+True if the scene has been visited, False otherwise.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;)
 &gt;&gt;&gt; state.visited_scenes.add(&quot;old_room&quot;)
 &gt;&gt;&gt; state.has_visited(&quot;old_room&quot;)
@@ -679,12 +696,14 @@ False
     self.health = min(self.max_health, self.health + amount)</code></pre>
 </details>
 <div class="desc"><p>Restore player health by the specified amount, up to max_health.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>amount</code></strong></dt>
 <dd>The amount of health to restore (must be non-negative).</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;, health=50, max_health=100)
 &gt;&gt;&gt; state.heal(30)
 &gt;&gt;&gt; state.health
@@ -720,9 +739,11 @@ False
     return self.health &gt; 0</code></pre>
 </details>
 <div class="desc"><p>Check if the player is still alive.</p>
-<h2 id="returns">Returns</h2>
-<p>True if health &gt; 0, False otherwise.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+True if health &gt; 0, False otherwise.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;, health=50)
 &gt;&gt;&gt; state.is_alive()
 True
@@ -762,14 +783,17 @@ False
     return False</code></pre>
 </details>
 <div class="desc"><p>Remove an item from the player's inventory.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>item_id</code></strong></dt>
 <dd>The ID of the item to remove.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>True if the item was removed, False if it wasn't in inventory.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+True if the item was removed, False if it wasn't in inventory.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;, inventory=[&quot;key&quot;])
 &gt;&gt;&gt; state.remove_item(&quot;key&quot;)
 True
@@ -802,14 +826,16 @@ False
     self.game_flags[flag_name] = value</code></pre>
 </details>
 <div class="desc"><p>Set a game flag to track story or puzzle progress.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>flag_name</code></strong></dt>
 <dd>The name of the flag to set.</dd>
 <dt><strong><code>value</code></strong></dt>
 <dd>The boolean value to set (default: True).</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;)
 &gt;&gt;&gt; state.set_flag(&quot;door_opened&quot;)
 &gt;&gt;&gt; state.game_flags[&quot;door_opened&quot;]
@@ -842,12 +868,14 @@ True
     self.health = max(0, self.health - amount)</code></pre>
 </details>
 <div class="desc"><p>Reduce player health by the specified amount.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>amount</code></strong></dt>
 <dd>The amount of damage to take (must be non-negative).</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;, health=100)
 &gt;&gt;&gt; state.take_damage(30)
 &gt;&gt;&gt; state.health
@@ -885,9 +913,11 @@ True
     }</code></pre>
 </details>
 <div class="desc"><p>Convert the game state to a dictionary for serialization.</p>
-<h2 id="returns">Returns</h2>
-<p>Dictionary representation of the game state.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+Dictionary representation of the game state.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;)
 &gt;&gt;&gt; data = state.to_dict()
 &gt;&gt;&gt; data['current_scene']
@@ -921,12 +951,14 @@ True
     self.visited_scenes.add(scene_id)</code></pre>
 </details>
 <div class="desc"><p>Mark a scene as visited and update current location.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>scene_id</code></strong></dt>
 <dd>The ID of the scene to visit.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; state = GameState(current_scene=&quot;start&quot;)
 &gt;&gt;&gt; state.visit_scene(&quot;next_room&quot;)
 &gt;&gt;&gt; state.current_scene

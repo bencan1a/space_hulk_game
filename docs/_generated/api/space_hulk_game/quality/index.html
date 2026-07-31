@@ -154,8 +154,9 @@ game content, including plot outlines, narrative maps, puzzles, scenes, and mech
     }</code></pre>
 </details>
 <div class="desc"><p>Create a quality configuration dictionary for all task types.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>plot_threshold</code></strong></dt>
 <dd>Pass threshold for plot tasks (0.0-10.0)</dd>
 <dt><strong><code>narrative_threshold</code></strong></dt>
@@ -169,9 +170,11 @@ game content, including plot outlines, narrative maps, puzzles, scenes, and mech
 <dt><strong><code>max_retries</code></strong></dt>
 <dd>Maximum retry attempts for all tasks</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>Dictionary mapping task types to their quality configurations</p>
-<h2 id="example">Example</h2>
+<p>Returns
+-----=
+Dictionary mapping task types to their quality configurations</p>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; config = create_quality_config(
 ...     plot_threshold=7.0,
 ...     narrative_threshold=8.0,
@@ -211,8 +214,9 @@ game content, including plot outlines, narrative maps, puzzles, scenes, and mech
 </details>
 <div class="desc"><p>Convenience function to execute task with optional quality checking.</p>
 <p>Uses the default executor singleton.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>task_function</code></strong></dt>
 <dd>Function to execute</dd>
 <dt><strong><code>task_type</code></strong></dt>
@@ -222,8 +226,9 @@ game content, including plot outlines, narrative maps, puzzles, scenes, and mech
 <dt><strong><code>**kwargs</code></strong></dt>
 <dd>Arguments to pass to task function</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>Task output string</p></div>
+<p>Returns
+-----=
+Task output string</p></div>
 </dd>
 <dt id="space_hulk_game.quality.execute_with_quality_check"><code class="name flex">
 <span>def <span class="ident">execute_with_quality_check</span></span>(<span>task_function: Callable[..., str],<br>task_type: <a title="space_hulk_game.quality.retry.TaskType" href="retry.html#space_hulk_game.quality.retry.TaskType">TaskType</a>,<br>task_name: str = 'Task',<br>pass_threshold: float = 6.0,<br>max_retries: int = 3,<br>**kwargs) ‑> tuple[str, <a title="space_hulk_game.quality.score.QualityScore" href="score.html#space_hulk_game.quality.score.QualityScore">QualityScore</a>, int]</span>
@@ -279,8 +284,9 @@ game content, including plot outlines, narrative maps, puzzles, scenes, and mech
 </details>
 <div class="desc"><p>Execute a task with quality checking and retry logic (functional interface).</p>
 <p>This is a convenience function that wraps TaskWithQualityCheck for simpler usage.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>task_function</code></strong></dt>
 <dd>Function to execute (should return output string)</dd>
 <dt><strong><code>task_type</code></strong></dt>
@@ -294,9 +300,11 @@ game content, including plot outlines, narrative maps, puzzles, scenes, and mech
 <dt><strong><code>**kwargs</code></strong></dt>
 <dd>Additional arguments to pass to task_function</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>Tuple of (output, final_quality_score, attempts_made)</p>
-<h2 id="example">Example</h2>
+<p>Returns
+-----=
+Tuple of (output, final_quality_score, attempts_made)</p>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; def generate_plot(**kwargs):
 ...     # Your plot generation logic
 ...     return &quot;title: My Plot\nsetting: Space station&quot;
@@ -332,8 +340,9 @@ game content, including plot outlines, narrative maps, puzzles, scenes, and mech
     return _default_executor</code></pre>
 </details>
 <div class="desc"><p>Get default task executor singleton.</p>
-<h2 id="returns">Returns</h2>
-<p>Default TaskExecutor instance</p></div>
+<p>Returns
+-----=
+Default TaskExecutor instance</p></div>
 </dd>
 <dt id="space_hulk_game.quality.get_task_type_for_crew_task"><code class="name flex">
 <span>def <span class="ident">get_task_type_for_crew_task</span></span>(<span>task_name: str) ‑> <a title="space_hulk_game.quality.retry.TaskType" href="retry.html#space_hulk_game.quality.retry.TaskType">TaskType</a> | None</span>
@@ -356,13 +365,15 @@ game content, including plot outlines, narrative maps, puzzles, scenes, and mech
     return CREW_TASK_MAPPING.get(task_name)</code></pre>
 </details>
 <div class="desc"><p>Get TaskType for a CrewAI task name.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>task_name</code></strong></dt>
 <dd>Name of CrewAI task</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>TaskType if mapping exists, None otherwise</p></div>
+<p>Returns
+-----=
+TaskType if mapping exists, None otherwise</p></div>
 </dd>
 </dl>
 </section>
@@ -532,15 +543,17 @@ game content, including plot outlines, narrative maps, puzzles, scenes, and mech
 <div class="desc"><p>Evaluator for game mechanics content.</p>
 <p>Uses MechanicsMetrics to evaluate game mechanics against quality criteria
 including systems completeness, rules clarity, and balance.</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; evaluator = MechanicsEvaluator()
 &gt;&gt;&gt; score = evaluator.evaluate(mechanics_json_content)
 &gt;&gt;&gt; print(f&quot;Score: {score.score}/10&quot;)
 &gt;&gt;&gt; print(score.feedback)
 </code></pre>
 <p>Initialize the mechanics evaluator.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>pass_threshold</code></strong></dt>
 <dd>Minimum score required to pass (default: 6.0)</dd>
 </dl></div>
@@ -629,15 +642,18 @@ including systems completeness, rules clarity, and balance.</p>
         )</code></pre>
 </details>
 <div class="desc"><p>Evaluate game mechanics content.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>content</code></strong></dt>
 <dd>JSON string containing game mechanics</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>QualityScore with evaluation results</p>
-<h2 id="raises">Raises</h2>
+<p>Returns
+-----=
+QualityScore with evaluation results</p>
 <dl>
+<dt>Raises</dt>
+<dt>-----=</dt>
 <dt><code>ValueError</code></dt>
 <dd>If content cannot be parsed</dd>
 </dl></div>
@@ -709,13 +725,15 @@ including systems completeness, rules clarity, and balance.</p>
     return &#34;\n&#34;.join(lines)</code></pre>
 </details>
 <div class="desc"><p>Generate detailed, actionable feedback for improvement.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>content</code></strong></dt>
 <dd>JSON string containing game mechanics</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>Multi-line feedback with specific suggestions</p></div>
+<p>Returns
+-----=
+Multi-line feedback with specific suggestions</p></div>
 </dd>
 </dl>
 <h3>Inherited members</h3>
@@ -1138,8 +1156,9 @@ class MechanicsMetrics:
         }</code></pre>
 </details>
 <div class="desc"><p>Quality metrics for evaluating game mechanics/PRD content.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>has_combat_system</code></strong></dt>
 <dd>Whether combat mechanics are described</dd>
 <dt><strong><code>has_movement_system</code></strong></dt>
@@ -1168,26 +1187,30 @@ class MechanicsMetrics:
 </code></dt>
 <dd>
 <div class="desc"><p>Create MechanicsMetrics from a dictionary (parsed YAML).</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>data</code></strong></dt>
 <dd>Dictionary containing PRD/mechanics data</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>MechanicsMetrics instance with measured values</p></div>
+<p>Returns
+-----=
+MechanicsMetrics instance with measured values</p></div>
 </dd>
 <dt id="space_hulk_game.quality.MechanicsMetrics.from_json_content"><code class="name flex">
 <span>def <span class="ident">from_json_content</span></span>(<span>json_content: str) ‑> <a title="space_hulk_game.quality.mechanics_metrics.MechanicsMetrics" href="mechanics_metrics.html#space_hulk_game.quality.mechanics_metrics.MechanicsMetrics">MechanicsMetrics</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Create MechanicsMetrics from JSON content string.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>json_content</code></strong></dt>
 <dd>JSON string containing PRD/mechanics data</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>MechanicsMetrics instance with measured values</p></div>
+<p>Returns
+-----=
+MechanicsMetrics instance with measured values</p></div>
 </dd>
 </dl>
 <h3>Instance variables</h3>
@@ -1292,8 +1315,9 @@ class MechanicsMetrics:
     return failures</code></pre>
 </details>
 <div class="desc"><p>Get list of failed quality checks.</p>
-<h2 id="returns">Returns</h2>
-<p>List of failure messages for metrics that don't meet thresholds</p></div>
+<p>Returns
+-----=
+List of failure messages for metrics that don't meet thresholds</p></div>
 </dd>
 <dt id="space_hulk_game.quality.MechanicsMetrics.get_score"><code class="name flex">
 <span>def <span class="ident">get_score</span></span>(<span>self) ‑> float</span>
@@ -1341,8 +1365,9 @@ class MechanicsMetrics:
     return min(score, 10.0)</code></pre>
 </details>
 <div class="desc"><p>Calculate overall quality score (0.0 to 10.0).</p>
-<h2 id="returns">Returns</h2>
-<p>Quality score based on met criteria</p></div>
+<p>Returns
+-----=
+Quality score based on met criteria</p></div>
 </dd>
 <dt id="space_hulk_game.quality.MechanicsMetrics.passes_threshold"><code class="name flex">
 <span>def <span class="ident">passes_threshold</span></span>(<span>self) ‑> bool</span>
@@ -1366,8 +1391,9 @@ class MechanicsMetrics:
     )</code></pre>
 </details>
 <div class="desc"><p>Check if the mechanics metrics pass all quality thresholds.</p>
-<h2 id="returns">Returns</h2>
-<p>True if all thresholds are met, False otherwise</p></div>
+<p>Returns
+-----=
+True if all thresholds are met, False otherwise</p></div>
 </dd>
 <dt id="space_hulk_game.quality.MechanicsMetrics.to_dict"><code class="name flex">
 <span>def <span class="ident">to_dict</span></span>(<span>self) ‑> dict[str, typing.Any]</span>
@@ -1400,8 +1426,9 @@ class MechanicsMetrics:
     }</code></pre>
 </details>
 <div class="desc"><p>Convert metrics to dictionary for serialization.</p>
-<h2 id="returns">Returns</h2>
-<p>Dictionary representation of metrics</p></div>
+<p>Returns
+-----=
+Dictionary representation of metrics</p></div>
 </dd>
 </dl>
 </dd>
@@ -1571,15 +1598,17 @@ class MechanicsMetrics:
 <div class="desc"><p>Evaluator for narrative map content.</p>
 <p>Uses NarrativeMetrics to evaluate narrative maps against quality criteria
 including scene connectivity, completeness, and orphan detection.</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; evaluator = NarrativeMapEvaluator()
 &gt;&gt;&gt; score = evaluator.evaluate(narrative_json_content)
 &gt;&gt;&gt; print(f&quot;Score: {score.score}/10&quot;)
 &gt;&gt;&gt; print(score.feedback)
 </code></pre>
 <p>Initialize the narrative map evaluator.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>pass_threshold</code></strong></dt>
 <dd>Minimum score required to pass (default: 6.0)</dd>
 </dl></div>
@@ -1663,15 +1692,18 @@ including scene connectivity, completeness, and orphan detection.</p>
         )</code></pre>
 </details>
 <div class="desc"><p>Evaluate narrative map content.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>content</code></strong></dt>
 <dd>JSON string containing narrative map</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>QualityScore with evaluation results</p>
-<h2 id="raises">Raises</h2>
+<p>Returns
+-----=
+QualityScore with evaluation results</p>
 <dl>
+<dt>Raises</dt>
+<dt>-----=</dt>
 <dt><code>ValueError</code></dt>
 <dd>If content cannot be parsed</dd>
 </dl></div>
@@ -1751,13 +1783,15 @@ including scene connectivity, completeness, and orphan detection.</p>
     return &#34;\n&#34;.join(lines)</code></pre>
 </details>
 <div class="desc"><p>Generate detailed, actionable feedback for improvement.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>content</code></strong></dt>
 <dd>JSON string containing narrative map</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>Multi-line feedback with specific suggestions</p></div>
+<p>Returns
+-----=
+Multi-line feedback with specific suggestions</p></div>
 </dd>
 </dl>
 <h3>Inherited members</h3>
@@ -2075,8 +2109,9 @@ class NarrativeMetrics:
         }</code></pre>
 </details>
 <div class="desc"><p>Quality metrics for evaluating narrative map content.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>total_scenes</code></strong></dt>
 <dd>Total number of scenes in the narrative</dd>
 <dt><strong><code>scenes_with_descriptions</code></strong></dt>
@@ -2103,26 +2138,30 @@ class NarrativeMetrics:
 </code></dt>
 <dd>
 <div class="desc"><p>Create NarrativeMetrics from a dictionary (parsed YAML).</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>data</code></strong></dt>
 <dd>Dictionary containing narrative map data</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>NarrativeMetrics instance with measured values</p></div>
+<p>Returns
+-----=
+NarrativeMetrics instance with measured values</p></div>
 </dd>
 <dt id="space_hulk_game.quality.NarrativeMetrics.from_json_content"><code class="name flex">
 <span>def <span class="ident">from_json_content</span></span>(<span>json_content: str) ‑> <a title="space_hulk_game.quality.narrative_metrics.NarrativeMetrics" href="narrative_metrics.html#space_hulk_game.quality.narrative_metrics.NarrativeMetrics">NarrativeMetrics</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Create NarrativeMetrics from JSON content string.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>json_content</code></strong></dt>
 <dd>JSON string containing narrative map data</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>NarrativeMetrics instance with measured values</p></div>
+<p>Returns
+-----=
+NarrativeMetrics instance with measured values</p></div>
 </dd>
 </dl>
 <h3>Instance variables</h3>
@@ -2206,8 +2245,9 @@ class NarrativeMetrics:
     return failures</code></pre>
 </details>
 <div class="desc"><p>Get list of failed quality checks.</p>
-<h2 id="returns">Returns</h2>
-<p>List of failure messages for metrics that don't meet thresholds</p></div>
+<p>Returns
+-----=
+List of failure messages for metrics that don't meet thresholds</p></div>
 </dd>
 <dt id="space_hulk_game.quality.NarrativeMetrics.get_score"><code class="name flex">
 <span>def <span class="ident">get_score</span></span>(<span>self) ‑> float</span>
@@ -2251,8 +2291,9 @@ class NarrativeMetrics:
     return min(score, 10.0)</code></pre>
 </details>
 <div class="desc"><p>Calculate overall quality score (0.0 to 10.0).</p>
-<h2 id="returns">Returns</h2>
-<p>Quality score based on met criteria</p></div>
+<p>Returns
+-----=
+Quality score based on met criteria</p></div>
 </dd>
 <dt id="space_hulk_game.quality.NarrativeMetrics.passes_threshold"><code class="name flex">
 <span>def <span class="ident">passes_threshold</span></span>(<span>self) ‑> bool</span>
@@ -2278,8 +2319,9 @@ class NarrativeMetrics:
     )</code></pre>
 </details>
 <div class="desc"><p>Check if the narrative metrics pass all quality thresholds.</p>
-<h2 id="returns">Returns</h2>
-<p>True if all thresholds are met, False otherwise</p></div>
+<p>Returns
+-----=
+True if all thresholds are met, False otherwise</p></div>
 </dd>
 <dt id="space_hulk_game.quality.NarrativeMetrics.to_dict"><code class="name flex">
 <span>def <span class="ident">to_dict</span></span>(<span>self) ‑> dict[str, typing.Any]</span>
@@ -2310,8 +2352,9 @@ class NarrativeMetrics:
     }</code></pre>
 </details>
 <div class="desc"><p>Convert metrics to dictionary for serialization.</p>
-<h2 id="returns">Returns</h2>
-<p>Dictionary representation of metrics</p></div>
+<p>Returns
+-----=
+Dictionary representation of metrics</p></div>
 </dd>
 </dl>
 </dd>
@@ -2471,15 +2514,17 @@ class NarrativeMetrics:
 <div class="desc"><p>Evaluator for plot outline content.</p>
 <p>Uses PlotMetrics to evaluate plot outlines against quality criteria
 including setting clarity, branching paths, endings, themes, and word count.</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; evaluator = PlotEvaluator()
 &gt;&gt;&gt; score = evaluator.evaluate(plot_json_content)
 &gt;&gt;&gt; print(f&quot;Score: {score.score}/10&quot;)
 &gt;&gt;&gt; print(score.feedback)
 </code></pre>
 <p>Initialize the plot evaluator.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>pass_threshold</code></strong></dt>
 <dd>Minimum score required to pass (default: 6.0)</dd>
 </dl></div>
@@ -2565,15 +2610,18 @@ including setting clarity, branching paths, endings, themes, and word count.</p>
         )</code></pre>
 </details>
 <div class="desc"><p>Evaluate plot outline content.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>content</code></strong></dt>
 <dd>JSON string containing plot outline</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>QualityScore with evaluation results</p>
-<h2 id="raises">Raises</h2>
+<p>Returns
+-----=
+QualityScore with evaluation results</p>
 <dl>
+<dt>Raises</dt>
+<dt>-----=</dt>
 <dt><code>ValueError</code></dt>
 <dd>If content cannot be parsed</dd>
 </dl></div>
@@ -2641,13 +2689,15 @@ including setting clarity, branching paths, endings, themes, and word count.</p>
     return &#34;\n&#34;.join(lines)</code></pre>
 </details>
 <div class="desc"><p>Generate detailed, actionable feedback for improvement.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>content</code></strong></dt>
 <dd>JSON string containing plot outline</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>Multi-line feedback with specific suggestions</p></div>
+<p>Returns
+-----=
+Multi-line feedback with specific suggestions</p></div>
 </dd>
 </dl>
 <h3>Inherited members</h3>
@@ -3001,8 +3051,9 @@ class PlotMetrics:
         }</code></pre>
 </details>
 <div class="desc"><p>Quality metrics for evaluating plot outline content.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>has_clear_setting</code></strong></dt>
 <dd>Whether the plot has a clearly defined setting (yes/no)</dd>
 <dt><strong><code>branching_paths_count</code></strong></dt>
@@ -3033,27 +3084,32 @@ class PlotMetrics:
 </code></dt>
 <dd>
 <div class="desc"><p>Create PlotMetrics from a dictionary (parsed YAML).</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>data</code></strong></dt>
 <dd>Dictionary containing plot outline data</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>PlotMetrics instance with measured values</p></div>
+<p>Returns
+-----=
+PlotMetrics instance with measured values</p></div>
 </dd>
 <dt id="space_hulk_game.quality.PlotMetrics.from_json_content"><code class="name flex">
 <span>def <span class="ident">from_json_content</span></span>(<span>json_content: str) ‑> <a title="space_hulk_game.quality.plot_metrics.PlotMetrics" href="plot_metrics.html#space_hulk_game.quality.plot_metrics.PlotMetrics">PlotMetrics</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Create PlotMetrics from JSON content string.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>json_content</code></strong></dt>
 <dd>JSON string containing plot outline data</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>PlotMetrics instance with measured values</p>
-<h2 id="example">Example</h2>
+<p>Returns
+-----=
+PlotMetrics instance with measured values</p>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; metrics = PlotMetrics.from_json_content(json_string)
 &gt;&gt;&gt; print(metrics.passes_threshold())
 </code></pre></div>
@@ -3150,8 +3206,9 @@ class PlotMetrics:
     return failures</code></pre>
 </details>
 <div class="desc"><p>Get list of failed quality checks.</p>
-<h2 id="returns">Returns</h2>
-<p>List of failure messages for metrics that don't meet thresholds</p></div>
+<p>Returns
+-----=
+List of failure messages for metrics that don't meet thresholds</p></div>
 </dd>
 <dt id="space_hulk_game.quality.PlotMetrics.get_score"><code class="name flex">
 <span>def <span class="ident">get_score</span></span>(<span>self) ‑> float</span>
@@ -3185,8 +3242,9 @@ class PlotMetrics:
     return (passed_checks / total_checks) * 10.0</code></pre>
 </details>
 <div class="desc"><p>Calculate overall quality score (0.0 to 10.0).</p>
-<h2 id="returns">Returns</h2>
-<p>Quality score based on met criteria</p></div>
+<p>Returns
+-----=
+Quality score based on met criteria</p></div>
 </dd>
 <dt id="space_hulk_game.quality.PlotMetrics.passes_threshold"><code class="name flex">
 <span>def <span class="ident">passes_threshold</span></span>(<span>self) ‑> bool</span>
@@ -3212,8 +3270,9 @@ class PlotMetrics:
     )</code></pre>
 </details>
 <div class="desc"><p>Check if the plot metrics pass all quality thresholds.</p>
-<h2 id="returns">Returns</h2>
-<p>True if all thresholds are met, False otherwise</p></div>
+<p>Returns
+-----=
+True if all thresholds are met, False otherwise</p></div>
 </dd>
 <dt id="space_hulk_game.quality.PlotMetrics.to_dict"><code class="name flex">
 <span>def <span class="ident">to_dict</span></span>(<span>self) ‑> dict[str, typing.Any]</span>
@@ -3245,8 +3304,9 @@ class PlotMetrics:
     }</code></pre>
 </details>
 <div class="desc"><p>Convert metrics to dictionary for serialization.</p>
-<h2 id="returns">Returns</h2>
-<p>Dictionary representation of metrics</p></div>
+<p>Returns
+-----=
+Dictionary representation of metrics</p></div>
 </dd>
 </dl>
 </dd>
@@ -3416,15 +3476,17 @@ class PlotMetrics:
 <div class="desc"><p>Evaluator for puzzle design content.</p>
 <p>Uses PuzzleMetrics to evaluate puzzle designs against quality criteria
 including clear solutions, narrative ties, and difficulty ratings.</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; evaluator = PuzzleEvaluator()
 &gt;&gt;&gt; score = evaluator.evaluate(puzzle_json_content)
 &gt;&gt;&gt; print(f&quot;Score: {score.score}/10&quot;)
 &gt;&gt;&gt; print(score.feedback)
 </code></pre>
 <p>Initialize the puzzle evaluator.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>pass_threshold</code></strong></dt>
 <dd>Minimum score required to pass (default: 6.0)</dd>
 </dl></div>
@@ -3511,15 +3573,18 @@ including clear solutions, narrative ties, and difficulty ratings.</p>
         )</code></pre>
 </details>
 <div class="desc"><p>Evaluate puzzle design content.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>content</code></strong></dt>
 <dd>JSON string containing puzzle design</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>QualityScore with evaluation results</p>
-<h2 id="raises">Raises</h2>
+<p>Returns
+-----=
+QualityScore with evaluation results</p>
 <dl>
+<dt>Raises</dt>
+<dt>-----=</dt>
 <dt><code>ValueError</code></dt>
 <dd>If content cannot be parsed</dd>
 </dl></div>
@@ -3596,13 +3661,15 @@ including clear solutions, narrative ties, and difficulty ratings.</p>
     return &#34;\n&#34;.join(lines)</code></pre>
 </details>
 <div class="desc"><p>Generate detailed, actionable feedback for improvement.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>content</code></strong></dt>
 <dd>JSON string containing puzzle design</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>Multi-line feedback with specific suggestions</p></div>
+<p>Returns
+-----=
+Multi-line feedback with specific suggestions</p></div>
 </dd>
 </dl>
 <h3>Inherited members</h3>
@@ -3909,8 +3976,9 @@ class PuzzleMetrics:
         }</code></pre>
 </details>
 <div class="desc"><p>Quality metrics for evaluating puzzle and artifact content.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>total_puzzles</code></strong></dt>
 <dd>Total number of puzzles defined</dd>
 <dt><strong><code>puzzles_with_solutions</code></strong></dt>
@@ -3935,26 +4003,30 @@ class PuzzleMetrics:
 </code></dt>
 <dd>
 <div class="desc"><p>Create PuzzleMetrics from a dictionary (parsed YAML).</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>data</code></strong></dt>
 <dd>Dictionary containing puzzle design data</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>PuzzleMetrics instance with measured values</p></div>
+<p>Returns
+-----=
+PuzzleMetrics instance with measured values</p></div>
 </dd>
 <dt id="space_hulk_game.quality.PuzzleMetrics.from_json_content"><code class="name flex">
 <span>def <span class="ident">from_json_content</span></span>(<span>json_content: str) ‑> <a title="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics" href="puzzle_metrics.html#space_hulk_game.quality.puzzle_metrics.PuzzleMetrics">PuzzleMetrics</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Create PuzzleMetrics from JSON content string.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>json_content</code></strong></dt>
 <dd>JSON string containing puzzle design data</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>PuzzleMetrics instance with measured values</p></div>
+<p>Returns
+-----=
+PuzzleMetrics instance with measured values</p></div>
 </dd>
 </dl>
 <h3>Instance variables</h3>
@@ -4040,8 +4112,9 @@ class PuzzleMetrics:
     return failures</code></pre>
 </details>
 <div class="desc"><p>Get list of failed quality checks.</p>
-<h2 id="returns">Returns</h2>
-<p>List of failure messages for metrics that don't meet thresholds</p></div>
+<p>Returns
+-----=
+List of failure messages for metrics that don't meet thresholds</p></div>
 </dd>
 <dt id="space_hulk_game.quality.PuzzleMetrics.get_score"><code class="name flex">
 <span>def <span class="ident">get_score</span></span>(<span>self) ‑> float</span>
@@ -4088,8 +4161,9 @@ class PuzzleMetrics:
     return min(score, 10.0)</code></pre>
 </details>
 <div class="desc"><p>Calculate overall quality score (0.0 to 10.0).</p>
-<h2 id="returns">Returns</h2>
-<p>Quality score based on met criteria</p></div>
+<p>Returns
+-----=
+Quality score based on met criteria</p></div>
 </dd>
 <dt id="space_hulk_game.quality.PuzzleMetrics.passes_threshold"><code class="name flex">
 <span>def <span class="ident">passes_threshold</span></span>(<span>self) ‑> bool</span>
@@ -4116,8 +4190,9 @@ class PuzzleMetrics:
     )</code></pre>
 </details>
 <div class="desc"><p>Check if the puzzle metrics pass all quality thresholds.</p>
-<h2 id="returns">Returns</h2>
-<p>True if all thresholds are met, False otherwise</p></div>
+<p>Returns
+-----=
+True if all thresholds are met, False otherwise</p></div>
 </dd>
 <dt id="space_hulk_game.quality.PuzzleMetrics.to_dict"><code class="name flex">
 <span>def <span class="ident">to_dict</span></span>(<span>self) ‑> dict[str, typing.Any]</span>
@@ -4148,8 +4223,9 @@ class PuzzleMetrics:
     }</code></pre>
 </details>
 <div class="desc"><p>Convert metrics to dictionary for serialization.</p>
-<h2 id="returns">Returns</h2>
-<p>Dictionary representation of metrics</p></div>
+<p>Returns
+-----=
+Dictionary representation of metrics</p></div>
 </dd>
 </dl>
 </dd>
@@ -4316,8 +4392,9 @@ class PuzzleMetrics:
 <div class="desc"><p>Configuration for quality checking system.</p>
 <p>Loads configuration from quality_config.json and environment variables.</p>
 <p>Initialize quality check configuration.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>config_path</code></strong></dt>
 <dd>Path to quality_config.json (optional)</dd>
 </dl></div>
@@ -4346,13 +4423,15 @@ class PuzzleMetrics:
     )</code></pre>
 </details>
 <div class="desc"><p>Get configuration for specific task type.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>task_type</code></strong></dt>
 <dd>Type of task</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>Configuration dictionary for the task</p></div>
+<p>Returns
+-----=
+Configuration dictionary for the task</p></div>
 </dd>
 <dt id="space_hulk_game.quality.QualityCheckConfig.is_enabled"><code class="name flex">
 <span>def <span class="ident">is_enabled</span></span>(<span>self) ‑> bool</span>
@@ -4378,8 +4457,9 @@ class PuzzleMetrics:
     return bool(self.config.get(&#34;global&#34;, {}).get(&#34;enabled&#34;, False))</code></pre>
 </details>
 <div class="desc"><p>Check if quality checking is globally enabled.</p>
-<h2 id="returns">Returns</h2>
-<p>True if quality checking is enabled</p></div>
+<p>Returns
+-----=
+True if quality checking is enabled</p></div>
 </dd>
 </dl>
 </dd>
@@ -4555,15 +4635,17 @@ class PuzzleMetrics:
 <div class="desc"><p>Abstract base class for all quality evaluators.</p>
 <p>All content-specific evaluators (Plot, Narrative, Puzzle, Scene, Mechanics)
 should inherit from this class and implement the required methods.</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; class PlotEvaluator(QualityEvaluator):
 ...     def evaluate(self, content: str) -&gt; QualityScore:
 ...         # Implementation here
 ...         pass
 </code></pre>
 <p>Initialize the evaluator.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>pass_threshold</code></strong></dt>
 <dd>Minimum score required to pass (0.0-10.0)</dd>
 </dl></div>
@@ -4631,15 +4713,18 @@ def parse_json(content: str) -&gt; dict[str, Any]:
 <div class="desc"><p>Parse JSON content, handling markdown-wrapped JSON.</p>
 <p>NOTE: JSON sanitization happens in OutputSanitizer (Phase 1).
 This method assumes JSON is already clean. If parsing fails, it's a real error.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>content</code></strong></dt>
 <dd>JSON string, optionally wrapped in markdown code fences</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>Parsed JSON as dictionary</p>
-<h2 id="raises">Raises</h2>
+<p>Returns
+-----=
+Parsed JSON as dictionary</p>
 <dl>
+<dt>Raises</dt>
+<dt>-----=</dt>
 <dt><code>ValueError</code></dt>
 <dd>If JSON cannot be parsed</dd>
 </dl></div>
@@ -4672,15 +4757,18 @@ def evaluate(self, content: str) -&gt; QualityScore:
     pass</code></pre>
 </details>
 <div class="desc"><p>Evaluate content and return quality score.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>content</code></strong></dt>
 <dd>Content to evaluate (usually JSON string)</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>QualityScore with evaluation results</p>
-<h2 id="raises">Raises</h2>
+<p>Returns
+-----=
+QualityScore with evaluation results</p>
 <dl>
+<dt>Raises</dt>
+<dt>-----=</dt>
 <dt><code>ValueError</code></dt>
 <dd>If content cannot be parsed or evaluated</dd>
 </dl></div>
@@ -4707,13 +4795,15 @@ def evaluate(self, content: str) -&gt; QualityScore:
     return result.feedback</code></pre>
 </details>
 <div class="desc"><p>Generate feedback message for content (convenience method).</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>content</code></strong></dt>
 <dd>Content to evaluate</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>Human-readable feedback message</p></div>
+<p>Returns
+-----=
+Human-readable feedback message</p></div>
 </dd>
 <dt id="space_hulk_game.quality.QualityEvaluator.score"><code class="name flex">
 <span>def <span class="ident">score</span></span>(<span>self, content: str) ‑> float</span>
@@ -4737,13 +4827,15 @@ def evaluate(self, content: str) -&gt; QualityScore:
     return result.score</code></pre>
 </details>
 <div class="desc"><p>Get numeric score for content (convenience method).</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>content</code></strong></dt>
 <dd>Content to evaluate</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>Numeric score from 0.0 to 10.0</p></div>
+<p>Returns
+-----=
+Numeric score from 0.0 to 10.0</p></div>
 </dd>
 </dl>
 </dd>
@@ -4912,8 +5004,9 @@ class QualityScore:
 <div class="desc"><p>Standardized quality score returned by all evaluators.</p>
 <p>NOTE: QualityScore is specialized for quality evaluation.
 For general processing, use ProcessingResult from validation.types</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>score</code></strong></dt>
 <dd>Quality score from 0.0 to 10.0</dd>
 <dt><strong><code>passed</code></strong></dt>
@@ -4923,7 +5016,8 @@ For general processing, use ProcessingResult from validation.types</p>
 <dt><strong><code>details</code></strong></dt>
 <dd>Dictionary with detailed metrics and findings</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; score = QualityScore(
 ...     score=8.5,
 ...     passed=True,
@@ -4940,13 +5034,15 @@ QualityScore(8.5/10, PASS)
 </code></dt>
 <dd>
 <div class="desc"><p>Create QualityScore from dictionary.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>data</code></strong></dt>
 <dd>Dictionary containing score data</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>QualityScore instance</p></div>
+<p>Returns
+-----=
+QualityScore instance</p></div>
 </dd>
 </dl>
 <h3>Instance variables</h3>
@@ -4988,8 +5084,9 @@ QualityScore(8.5/10, PASS)
     return cast(&#34;list[str]&#34;, self.details.get(&#34;failures&#34;, []))</code></pre>
 </details>
 <div class="desc"><p>Extract failure messages from details.</p>
-<h2 id="returns">Returns</h2>
-<p>List of failure messages if present in details</p></div>
+<p>Returns
+-----=
+List of failure messages if present in details</p></div>
 </dd>
 <dt id="space_hulk_game.quality.QualityScore.get_summary"><code class="name flex">
 <span>def <span class="ident">get_summary</span></span>(<span>self) ‑> str</span>
@@ -5027,8 +5124,9 @@ QualityScore(8.5/10, PASS)
     return &#34;\n&#34;.join(lines)</code></pre>
 </details>
 <div class="desc"><p>Get a multi-line summary of the quality score.</p>
-<h2 id="returns">Returns</h2>
-<p>Formatted summary string</p></div>
+<p>Returns
+-----=
+Formatted summary string</p></div>
 </dd>
 <dt id="space_hulk_game.quality.QualityScore.to_dict"><code class="name flex">
 <span>def <span class="ident">to_dict</span></span>(<span>self) ‑> dict[str, typing.Any]</span>
@@ -5053,8 +5151,9 @@ QualityScore(8.5/10, PASS)
     }</code></pre>
 </details>
 <div class="desc"><p>Convert quality score to dictionary for serialization.</p>
-<h2 id="returns">Returns</h2>
-<p>Dictionary representation of the score</p></div>
+<p>Returns
+-----=
+Dictionary representation of the score</p></div>
 </dd>
 <dt id="space_hulk_game.quality.QualityScore.to_json"><code class="name flex">
 <span>def <span class="ident">to_json</span></span>(<span>self) ‑> str</span>
@@ -5074,8 +5173,9 @@ QualityScore(8.5/10, PASS)
     return json.dumps(self.to_dict(), indent=2)</code></pre>
 </details>
 <div class="desc"><p>Convert quality score to JSON string.</p>
-<h2 id="returns">Returns</h2>
-<p>JSON string representation of the score</p></div>
+<p>Returns
+-----=
+JSON string representation of the score</p></div>
 </dd>
 <dt id="space_hulk_game.quality.QualityScore.to_processing_result"><code class="name flex">
 <span>def <span class="ident">to_processing_result</span></span>(<span>self) ‑> ProcessingResult</span>
@@ -5114,9 +5214,11 @@ QualityScore(8.5/10, PASS)
     )</code></pre>
 </details>
 <div class="desc"><p>Convert to unified ProcessingResult type.</p>
-<h2 id="returns">Returns</h2>
-<p>ProcessingResult instance with equivalent data.</p>
-<h2 id="example">Example</h2>
+<p>Returns
+-----=
+ProcessingResult instance with equivalent data.</p>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; score = QualityScore(
 ...     score=8.5,
 ...     passed=True,
@@ -5295,15 +5397,17 @@ QualityScore(8.5/10, PASS)
 <p>Uses SceneMetrics to evaluate scene texts against quality criteria
 including vivid descriptions, dialogue presence, tone consistency,
 and sensory details.</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; evaluator = SceneEvaluator()
 &gt;&gt;&gt; score = evaluator.evaluate(scene_json_content)
 &gt;&gt;&gt; print(f&quot;Score: {score.score}/10&quot;)
 &gt;&gt;&gt; print(score.feedback)
 </code></pre>
 <p>Initialize the scene evaluator.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>pass_threshold</code></strong></dt>
 <dd>Minimum score required to pass (default: 6.0)</dd>
 </dl></div>
@@ -5391,15 +5495,18 @@ and sensory details.</p>
         )</code></pre>
 </details>
 <div class="desc"><p>Evaluate scene text content.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>content</code></strong></dt>
 <dd>JSON string containing scene texts</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>QualityScore with evaluation results</p>
-<h2 id="raises">Raises</h2>
+<p>Returns
+-----=
+QualityScore with evaluation results</p>
 <dl>
+<dt>Raises</dt>
+<dt>-----=</dt>
 <dt><code>ValueError</code></dt>
 <dd>If content cannot be parsed</dd>
 </dl></div>
@@ -5472,13 +5579,15 @@ and sensory details.</p>
     return &#34;\n&#34;.join(lines)</code></pre>
 </details>
 <div class="desc"><p>Generate detailed, actionable feedback for improvement.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>content</code></strong></dt>
 <dd>JSON string containing scene texts</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>Multi-line feedback with specific suggestions</p></div>
+<p>Returns
+-----=
+Multi-line feedback with specific suggestions</p></div>
 </dd>
 </dl>
 <h3>Inherited members</h3>
@@ -5863,8 +5972,9 @@ class SceneMetrics:
         }</code></pre>
 </details>
 <div class="desc"><p>Quality metrics for evaluating scene text content.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>total_scenes</code></strong></dt>
 <dd>Total number of scenes</dd>
 <dt><strong><code>scenes_with_vivid_descriptions</code></strong></dt>
@@ -5889,26 +5999,30 @@ class SceneMetrics:
 </code></dt>
 <dd>
 <div class="desc"><p>Create SceneMetrics from a dictionary (parsed YAML).</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>data</code></strong></dt>
 <dd>Dictionary containing scene texts data</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>SceneMetrics instance with measured values</p></div>
+<p>Returns
+-----=
+SceneMetrics instance with measured values</p></div>
 </dd>
 <dt id="space_hulk_game.quality.SceneMetrics.from_json_content"><code class="name flex">
 <span>def <span class="ident">from_json_content</span></span>(<span>json_content: str) ‑> <a title="space_hulk_game.quality.scene_metrics.SceneMetrics" href="scene_metrics.html#space_hulk_game.quality.scene_metrics.SceneMetrics">SceneMetrics</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Create SceneMetrics from JSON content string.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>json_content</code></strong></dt>
 <dd>JSON string containing scene texts data</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>SceneMetrics instance with measured values</p></div>
+<p>Returns
+-----=
+SceneMetrics instance with measured values</p></div>
 </dd>
 </dl>
 <h3>Instance variables</h3>
@@ -6001,8 +6115,9 @@ class SceneMetrics:
     return failures</code></pre>
 </details>
 <div class="desc"><p>Get list of failed quality checks.</p>
-<h2 id="returns">Returns</h2>
-<p>List of failure messages for metrics that don't meet thresholds</p></div>
+<p>Returns
+-----=
+List of failure messages for metrics that don't meet thresholds</p></div>
 </dd>
 <dt id="space_hulk_game.quality.SceneMetrics.get_score"><code class="name flex">
 <span>def <span class="ident">get_score</span></span>(<span>self) ‑> float</span>
@@ -6053,8 +6168,9 @@ class SceneMetrics:
     return min(score, 10.0)</code></pre>
 </details>
 <div class="desc"><p>Calculate overall quality score (0.0 to 10.0).</p>
-<h2 id="returns">Returns</h2>
-<p>Quality score based on met criteria</p></div>
+<p>Returns
+-----=
+Quality score based on met criteria</p></div>
 </dd>
 <dt id="space_hulk_game.quality.SceneMetrics.passes_threshold"><code class="name flex">
 <span>def <span class="ident">passes_threshold</span></span>(<span>self) ‑> bool</span>
@@ -6082,8 +6198,9 @@ class SceneMetrics:
     )</code></pre>
 </details>
 <div class="desc"><p>Check if the scene metrics pass all quality thresholds.</p>
-<h2 id="returns">Returns</h2>
-<p>True if all thresholds are met, False otherwise</p></div>
+<p>Returns
+-----=
+True if all thresholds are met, False otherwise</p></div>
 </dd>
 <dt id="space_hulk_game.quality.SceneMetrics.to_dict"><code class="name flex">
 <span>def <span class="ident">to_dict</span></span>(<span>self) ‑> dict[str, typing.Any]</span>
@@ -6113,8 +6230,9 @@ class SceneMetrics:
     }</code></pre>
 </details>
 <div class="desc"><p>Convert metrics to dictionary for serialization.</p>
-<h2 id="returns">Returns</h2>
-<p>Dictionary representation of metrics</p></div>
+<p>Returns
+-----=
+Dictionary representation of metrics</p></div>
 </dd>
 </dl>
 </dd>
@@ -6196,8 +6314,9 @@ class SceneMetrics:
 <div class="desc"><p>Task executor with optional quality checking.</p>
 <p>This class wraps task execution to add quality checking when enabled.</p>
 <p>Initialize task executor.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>config</code></strong></dt>
 <dd>Quality check configuration (creates default if None)</dd>
 </dl></div>
@@ -6261,8 +6380,9 @@ class SceneMetrics:
     return output</code></pre>
 </details>
 <div class="desc"><p>Execute task with optional quality checking.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>task_function</code></strong></dt>
 <dd>Function to execute</dd>
 <dt><strong><code>task_type</code></strong></dt>
@@ -6272,8 +6392,9 @@ class SceneMetrics:
 <dt><strong><code>**kwargs</code></strong></dt>
 <dd>Arguments to pass to task function</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>Task output string</p></div>
+<p>Returns
+-----=
+Task output string</p></div>
 </dd>
 </dl>
 </dd>
@@ -6480,7 +6601,8 @@ class SceneMetrics:
 <div class="desc"><p>Wrapper for task execution with quality checking and retry logic.</p>
 <p>This class wraps task execution to add quality evaluation after execution,
 implementing a retry loop that provides feedback for improvement.</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; task_wrapper = TaskWithQualityCheck(
 ...     task_type=TaskType.PLOT,
 ...     pass_threshold=7.0,
@@ -6489,17 +6611,17 @@ implementing a retry loop that provides feedback for improvement.</p>
 &gt;&gt;&gt; result = task_wrapper.execute(task_function, task_name=&quot;Plot Generation&quot;)
 </code></pre>
 <p>Initialize the task wrapper with quality checking.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>task_type</code></strong></dt>
 <dd>Type of task to execute (determines which evaluator to use)</dd>
 <dt><strong><code>pass_threshold</code></strong></dt>
 <dd>Minimum quality score required to pass (0.0-10.0)</dd>
 <dt><strong><code>max_retries</code></strong></dt>
 <dd>Maximum number of retry attempts (default: 3)</dd>
-</dl>
-<h2 id="raises">Raises</h2>
-<dl>
+<dt>Raises</dt>
+<dt>-----=</dt>
 <dt><code>ValueError</code></dt>
 <dd>If parameters are invalid</dd>
 </dl></div>
@@ -6597,8 +6719,9 @@ implementing a retry loop that provides feedback for improvement.</p>
     return output, quality, self.max_retries</code></pre>
 </details>
 <div class="desc"><p>Execute task with quality checking and retry logic.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>task_function</code></strong></dt>
 <dd>Function to execute (should return output string)</dd>
 <dt><strong><code>task_name</code></strong></dt>
@@ -6606,8 +6729,9 @@ implementing a retry loop that provides feedback for improvement.</p>
 <dt><strong><code>**kwargs</code></strong></dt>
 <dd>Additional arguments to pass to task_function</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>Tuple of (output, final_quality_score, attempts_made)</p></div>
+<p>Returns
+-----=
+Tuple of (output, final_quality_score, attempts_made)</p></div>
 </dd>
 </dl>
 </dd>

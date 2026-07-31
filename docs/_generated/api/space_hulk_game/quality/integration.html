@@ -77,8 +77,9 @@ into the CrewAI task execution workflow.</p>
 </details>
 <div class="desc"><p>Convenience function to execute task with optional quality checking.</p>
 <p>Uses the default executor singleton.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>task_function</code></strong></dt>
 <dd>Function to execute</dd>
 <dt><strong><code>task_type</code></strong></dt>
@@ -88,8 +89,9 @@ into the CrewAI task execution workflow.</p>
 <dt><strong><code>**kwargs</code></strong></dt>
 <dd>Arguments to pass to task function</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>Task output string</p></div>
+<p>Returns
+-----=
+Task output string</p></div>
 </dd>
 <dt id="space_hulk_game.quality.integration.get_default_executor"><code class="name flex">
 <span>def <span class="ident">get_default_executor</span></span>(<span>) ‑> <a title="space_hulk_game.quality.integration.TaskExecutor" href="#space_hulk_game.quality.integration.TaskExecutor">TaskExecutor</a></span>
@@ -112,8 +114,9 @@ into the CrewAI task execution workflow.</p>
     return _default_executor</code></pre>
 </details>
 <div class="desc"><p>Get default task executor singleton.</p>
-<h2 id="returns">Returns</h2>
-<p>Default TaskExecutor instance</p></div>
+<p>Returns
+-----=
+Default TaskExecutor instance</p></div>
 </dd>
 <dt id="space_hulk_game.quality.integration.get_task_type_for_crew_task"><code class="name flex">
 <span>def <span class="ident">get_task_type_for_crew_task</span></span>(<span>task_name: str) ‑> <a title="space_hulk_game.quality.retry.TaskType" href="retry.html#space_hulk_game.quality.retry.TaskType">TaskType</a> | None</span>
@@ -136,13 +139,15 @@ into the CrewAI task execution workflow.</p>
     return CREW_TASK_MAPPING.get(task_name)</code></pre>
 </details>
 <div class="desc"><p>Get TaskType for a CrewAI task name.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>task_name</code></strong></dt>
 <dd>Name of CrewAI task</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>TaskType if mapping exists, None otherwise</p></div>
+<p>Returns
+-----=
+TaskType if mapping exists, None otherwise</p></div>
 </dd>
 </dl>
 </section>
@@ -312,8 +317,9 @@ into the CrewAI task execution workflow.</p>
 <div class="desc"><p>Configuration for quality checking system.</p>
 <p>Loads configuration from quality_config.json and environment variables.</p>
 <p>Initialize quality check configuration.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>config_path</code></strong></dt>
 <dd>Path to quality_config.json (optional)</dd>
 </dl></div>
@@ -342,13 +348,15 @@ into the CrewAI task execution workflow.</p>
     )</code></pre>
 </details>
 <div class="desc"><p>Get configuration for specific task type.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>task_type</code></strong></dt>
 <dd>Type of task</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>Configuration dictionary for the task</p></div>
+<p>Returns
+-----=
+Configuration dictionary for the task</p></div>
 </dd>
 <dt id="space_hulk_game.quality.integration.QualityCheckConfig.is_enabled"><code class="name flex">
 <span>def <span class="ident">is_enabled</span></span>(<span>self) ‑> bool</span>
@@ -374,8 +382,9 @@ into the CrewAI task execution workflow.</p>
     return bool(self.config.get(&#34;global&#34;, {}).get(&#34;enabled&#34;, False))</code></pre>
 </details>
 <div class="desc"><p>Check if quality checking is globally enabled.</p>
-<h2 id="returns">Returns</h2>
-<p>True if quality checking is enabled</p></div>
+<p>Returns
+-----=
+True if quality checking is enabled</p></div>
 </dd>
 </dl>
 </dd>
@@ -457,8 +466,9 @@ into the CrewAI task execution workflow.</p>
 <div class="desc"><p>Task executor with optional quality checking.</p>
 <p>This class wraps task execution to add quality checking when enabled.</p>
 <p>Initialize task executor.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>config</code></strong></dt>
 <dd>Quality check configuration (creates default if None)</dd>
 </dl></div>
@@ -522,8 +532,9 @@ into the CrewAI task execution workflow.</p>
     return output</code></pre>
 </details>
 <div class="desc"><p>Execute task with optional quality checking.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>task_function</code></strong></dt>
 <dd>Function to execute</dd>
 <dt><strong><code>task_type</code></strong></dt>
@@ -533,8 +544,9 @@ into the CrewAI task execution workflow.</p>
 <dt><strong><code>**kwargs</code></strong></dt>
 <dd>Arguments to pass to task function</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>Task output string</p></div>
+<p>Returns
+-----=
+Task output string</p></div>
 </dd>
 </dl>
 </dd>

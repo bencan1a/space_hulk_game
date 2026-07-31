@@ -84,8 +84,9 @@ scene descriptions, atmosphere, examination texts, dialogue, and narrative notes
     context: str | None = Field(default=None, description=&#34;Optional context for the dialogue&#34;)</code></pre>
 </details>
 <div class="desc"><p>A dialogue line in a scene.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>speaker</code></strong></dt>
 <dd>Name of the character speaking.</dd>
 <dt><strong><code>text</code></strong></dt>
@@ -95,7 +96,8 @@ scene descriptions, atmosphere, examination texts, dialogue, and narrative notes
 <dt><strong><code>context</code></strong></dt>
 <dd>Optional context for when this dialogue occurs.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; dialogue = SceneDialogue(
 ...     speaker=&quot;Brother-Captain Tyberius&quot;,
 ...     text=&quot;Status report! Comm-link non-responsive...&quot;,
@@ -201,8 +203,9 @@ validated to form a valid model.</p>
 <div class="desc"><p>Text content for a single scene.</p>
 <p>This includes all descriptive text, atmosphere, examination texts,
 dialogue, and narrative notes for a scene.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>name</code></strong></dt>
 <dd>Human-readable scene name.</dd>
 <dt><strong><code>description</code></strong></dt>
@@ -218,7 +221,8 @@ dialogue, and narrative notes for a scene.</p>
 <dt><strong><code>narrative_notes</code></strong></dt>
 <dd>Optional notes about the scene's narrative purpose.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; scene_text = SceneText(
 ...     name=&quot;The Drop Pod Descent&quot;,
 ...     description=&quot;The void screeches a cacophony of tortured metal...&quot;,
@@ -350,12 +354,14 @@ validated to form a valid model.</p>
 <div class="desc"><p>Collection of all scene texts in the game.</p>
 <p>This is the top-level model representing all scene text content
 organized by scene ID.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>scenes</code></strong></dt>
 <dd>Dictionary mapping scene IDs to SceneText objects.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; scene_texts = SceneTexts(
 ...     scenes={
 ...         &quot;scene_drop_pod_descent&quot;: SceneText(...),

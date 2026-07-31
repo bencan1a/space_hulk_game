@@ -39,7 +39,8 @@ el.replaceWith(d);
 <p>Action Classes Module</p>
 <p>Defines the action class hierarchy for representing player commands.
 Actions encapsulate player intent and are created by the CommandParser.</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import MoveAction, TakeAction
 &gt;&gt;&gt; move = MoveAction(direction=&quot;north&quot;)
 &gt;&gt;&gt; take = TakeAction(item_id=&quot;medkit&quot;)
@@ -97,13 +98,15 @@ They are immutable and contain all information needed to execute
 the action in the game engine.</p>
 <p>This follows the Command Pattern from Gang of Four design patterns,
 encapsulating requests as objects.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>raw_command</code></strong></dt>
 <dd>The original text command from the player.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
-<p>Actions are typically created by CommandParser, not directly:</p>
+<p>Examples
+-----=
+Actions are typically created by CommandParser, not directly:</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; action = Action(raw_command=&quot;look around&quot;)
 &gt;&gt;&gt; action.raw_command
 'look around'
@@ -159,14 +162,16 @@ class DropAction(Action):
         return f&#34;DropAction(item_id=&#39;{self.item_id}&#39;)&#34;</code></pre>
 </details>
 <div class="desc"><p>Represents dropping an item from inventory.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>item_id</code></strong></dt>
 <dd>The ID or name of the item to drop.</dd>
 <dt><strong><code>raw_command</code></strong></dt>
 <dd>The original text command from the player.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; action = DropAction(item_id=&quot;sword&quot;, raw_command=&quot;drop sword&quot;)
 &gt;&gt;&gt; action.item_id
 'sword'
@@ -211,12 +216,14 @@ class HelpAction(Action):
         return &#34;HelpAction()&#34;</code></pre>
 </details>
 <div class="desc"><p>Represents requesting help or available commands.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>raw_command</code></strong></dt>
 <dd>The original text command from the player.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; action = HelpAction(raw_command=&quot;help&quot;)
 &gt;&gt;&gt; str(action)
 'HelpAction()'
@@ -254,12 +261,14 @@ class InventoryAction(Action):
         return &#34;InventoryAction()&#34;</code></pre>
 </details>
 <div class="desc"><p>Represents checking the player's inventory.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>raw_command</code></strong></dt>
 <dd>The original text command from the player.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; action = InventoryAction(raw_command=&quot;inventory&quot;)
 &gt;&gt;&gt; str(action)
 'InventoryAction()'
@@ -306,14 +315,16 @@ class LookAction(Action):
         return &#34;LookAction()&#34;</code></pre>
 </details>
 <div class="desc"><p>Represents examining the scene or an object.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>target</code></strong></dt>
 <dd>Optional target to examine (if None, examine current scene).</dd>
 <dt><strong><code>raw_command</code></strong></dt>
 <dd>The original text command from the player.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; action = LookAction(raw_command=&quot;look&quot;)
 &gt;&gt;&gt; action.target is None
 True
@@ -365,14 +376,16 @@ class MoveAction(Action):
         return f&#34;MoveAction(direction=&#39;{self.direction}&#39;)&#34;</code></pre>
 </details>
 <div class="desc"><p>Represents a movement action to another scene.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>direction</code></strong></dt>
 <dd>The direction to move (e.g., "north", "south", "door").</dd>
 <dt><strong><code>raw_command</code></strong></dt>
 <dd>The original text command from the player.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; action = MoveAction(direction=&quot;north&quot;, raw_command=&quot;go north&quot;)
 &gt;&gt;&gt; action.direction
 'north'
@@ -420,14 +433,16 @@ class TakeAction(Action):
         return f&#34;TakeAction(item_id=&#39;{self.item_id}&#39;)&#34;</code></pre>
 </details>
 <div class="desc"><p>Represents taking/picking up an item.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>item_id</code></strong></dt>
 <dd>The ID or name of the item to take.</dd>
 <dt><strong><code>raw_command</code></strong></dt>
 <dd>The original text command from the player.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; action = TakeAction(item_id=&quot;medkit&quot;, raw_command=&quot;take medkit&quot;)
 &gt;&gt;&gt; action.item_id
 'medkit'
@@ -483,8 +498,9 @@ class TalkAction(Action):
         return f&#34;TalkAction(npc_id=&#39;{self.npc_id}&#39;)&#34;</code></pre>
 </details>
 <div class="desc"><p>Represents talking to an NPC.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>npc_id</code></strong></dt>
 <dd>The ID or name of the NPC to talk to.</dd>
 <dt><strong><code>topic</code></strong></dt>
@@ -492,7 +508,8 @@ class TalkAction(Action):
 <dt><strong><code>raw_command</code></strong></dt>
 <dd>The original text command from the player.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; action = TalkAction(npc_id=&quot;guard&quot;, raw_command=&quot;talk to guard&quot;)
 &gt;&gt;&gt; action.npc_id
 'guard'
@@ -550,14 +567,16 @@ class UnknownAction(Action):
         return &#34;UnknownAction()&#34;</code></pre>
 </details>
 <div class="desc"><p>Represents an unrecognized command.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>raw_command</code></strong></dt>
 <dd>The original text command from the player.</dd>
 <dt><strong><code>suggestion</code></strong></dt>
 <dd>Optional suggestion for what the player might have meant.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; action = UnknownAction(raw_command=&quot;xyz&quot;, suggestion=&quot;examine&quot;)
 &gt;&gt;&gt; action.suggestion
 'examine'
@@ -613,8 +632,9 @@ class UseAction(Action):
         return f&#34;UseAction(item_id=&#39;{self.item_id}&#39;)&#34;</code></pre>
 </details>
 <div class="desc"><p>Represents using an item.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>item_id</code></strong></dt>
 <dd>The ID or name of the item to use.</dd>
 <dt><strong><code>target_id</code></strong></dt>
@@ -622,7 +642,8 @@ class UseAction(Action):
 <dt><strong><code>raw_command</code></strong></dt>
 <dd>The original text command from the player.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; action = UseAction(item_id=&quot;medkit&quot;, raw_command=&quot;use medkit&quot;)
 &gt;&gt;&gt; action.item_id
 'medkit'

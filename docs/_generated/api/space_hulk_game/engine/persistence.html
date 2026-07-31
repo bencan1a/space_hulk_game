@@ -39,7 +39,8 @@ el.replaceWith(d);
 <p>Persistence Module</p>
 <p>Handles saving and loading game state to/from JSON files.
 Provides validation and error handling for serialization.</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import GameState, Scene
 &gt;&gt;&gt; from space_hulk_game.engine.persistence import save_game, load_game
 &gt;&gt;&gt; state = GameState(current_scene=&quot;test&quot;)
@@ -90,17 +91,18 @@ Provides validation and error handling for serialization.</p>
         raise PersistenceError(error_msg) from e</code></pre>
 </details>
 <div class="desc"><p>Delete a save file.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>filepath</code></strong></dt>
 <dd>Path to the save file to delete.</dd>
-</dl>
-<h2 id="raises">Raises</h2>
-<dl>
+<dt>Raises</dt>
+<dt>-----=</dt>
 <dt><code><a title="space_hulk_game.engine.persistence.PersistenceError" href="#space_hulk_game.engine.persistence.PersistenceError">PersistenceError</a></code></dt>
 <dd>If deletion fails.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; delete_save(&quot;mysave.json&quot;)
 </code></pre></div>
 </dd>
@@ -161,19 +163,23 @@ Provides validation and error handling for serialization.</p>
 </details>
 <div class="desc"><p>Get metadata from a save file without loading the full game.</p>
 <p>This is useful for displaying save file information in a load menu.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>filepath</code></strong></dt>
 <dd>Path to the save file.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>Dictionary containing save metadata (timestamp, version, etc.).</p>
-<h2 id="raises">Raises</h2>
+<p>Returns
+-----=
+Dictionary containing save metadata (timestamp, version, etc.).</p>
 <dl>
+<dt>Raises</dt>
+<dt>-----=</dt>
 <dt><code><a title="space_hulk_game.engine.persistence.PersistenceError" href="#space_hulk_game.engine.persistence.PersistenceError">PersistenceError</a></code></dt>
 <dd>If reading metadata fails.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; metadata = get_save_metadata(&quot;mysave.json&quot;)
 &gt;&gt;&gt; print(metadata['timestamp'])
 '2024-01-15T14:30:00'
@@ -224,14 +230,17 @@ Provides validation and error handling for serialization.</p>
         return []</code></pre>
 </details>
 <div class="desc"><p>List all save files in a directory.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>save_directory</code></strong></dt>
 <dd>Directory to search for save files.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>List of save file paths.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+List of save file paths.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; saves = list_save_files(&quot;saves&quot;)
 &gt;&gt;&gt; for save in saves:
 ...     print(save)
@@ -324,20 +333,24 @@ saves/mysave.json
 <p>This function deserializes a previously saved game, restoring the
 game state and all scenes. It validates the save file format and
 data integrity.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>filepath</code></strong></dt>
 <dd>Path to the save file to load.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>A tuple of (GameState, scenes_dict).</p>
-<h2 id="raises">Raises</h2>
+<p>Returns
+-----=
+A tuple of (GameState, scenes_dict).</p>
 <dl>
+<dt>Raises</dt>
+<dt>-----=</dt>
 <dt><code><a title="space_hulk_game.engine.persistence.PersistenceError" href="#space_hulk_game.engine.persistence.PersistenceError">PersistenceError</a></code></dt>
 <dd>If loading fails due to file not found,
 invalid format, or data corruption.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; state, scenes = load_game(&quot;mysave.json&quot;)
 &gt;&gt;&gt; state.current_scene
 'room1'
@@ -420,8 +433,9 @@ invalid format, or data corruption.</dd>
 <p>This function serializes the game state and all scenes to a JSON file,
 allowing the game to be resumed later. It includes metadata about when
 the save was created.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>filepath</code></strong></dt>
 <dd>Path to the save file.</dd>
 <dt><strong><code>game_state</code></strong></dt>
@@ -430,13 +444,13 @@ the save was created.</p>
 <dd>Dictionary of all scenes in the game.</dd>
 <dt><strong><code>metadata</code></strong></dt>
 <dd>Optional additional metadata to save.</dd>
-</dl>
-<h2 id="raises">Raises</h2>
-<dl>
+<dt>Raises</dt>
+<dt>-----=</dt>
 <dt><code><a title="space_hulk_game.engine.persistence.PersistenceError" href="#space_hulk_game.engine.persistence.PersistenceError">PersistenceError</a></code></dt>
 <dd>If saving fails due to serialization or I/O error.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import GameState, Scene
 &gt;&gt;&gt; state = GameState(current_scene=&quot;room1&quot;)
 &gt;&gt;&gt; scenes = {
@@ -660,21 +674,24 @@ the save was created.</p>
 <div class="desc"><p>High-level save/load system with simplified interface.</p>
 <p>This class provides an object-oriented interface to the persistence
 functions, managing save directory and file naming conventions.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>save_dir</code></strong></dt>
 <dd>Directory where save files are stored.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
-<p>Create a save system:</p>
+<p>Examples
+-----=
+Create a save system:</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; save_system = SaveSystem(&quot;saves/&quot;)
 &gt;&gt;&gt; save_system.save(game_state, &quot;mysave&quot;)
 &gt;&gt;&gt; loaded_state = save_system.load(&quot;mysave&quot;)
 &gt;&gt;&gt; saves = save_system.list_saves()
 </code></pre>
 <p>Initialize the save system.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>save_dir</code></strong></dt>
 <dd>Directory for save files (created if it doesn't exist).</dd>
 </dl></div>
@@ -706,13 +723,13 @@ functions, managing save directory and file naming conventions.</p>
     delete_save(str(filepath))</code></pre>
 </details>
 <div class="desc"><p>Delete a save file.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>save_name</code></strong></dt>
 <dd>Name of the save to delete (with or without .json).</dd>
-</dl>
-<h2 id="raises">Raises</h2>
-<dl>
+<dt>Raises</dt>
+<dt>-----=</dt>
 <dt><code><a title="space_hulk_game.engine.persistence.PersistenceError" href="#space_hulk_game.engine.persistence.PersistenceError">PersistenceError</a></code></dt>
 <dd>If deletion fails.</dd>
 </dl></div>
@@ -746,15 +763,18 @@ functions, managing save directory and file naming conventions.</p>
     return get_save_metadata(str(filepath))</code></pre>
 </details>
 <div class="desc"><p>Get metadata for a save file.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>save_name</code></strong></dt>
 <dd>Name of the save (with or without .json).</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>Dictionary of metadata.</p>
-<h2 id="raises">Raises</h2>
+<p>Returns
+-----=
+Dictionary of metadata.</p>
 <dl>
+<dt>Raises</dt>
+<dt>-----=</dt>
 <dt><code><a title="space_hulk_game.engine.persistence.PersistenceError" href="#space_hulk_game.engine.persistence.PersistenceError">PersistenceError</a></code></dt>
 <dd>If reading metadata fails.</dd>
 </dl></div>
@@ -790,8 +810,9 @@ functions, managing save directory and file naming conventions.</p>
         return []</code></pre>
 </details>
 <div class="desc"><p>List all available save files.</p>
-<h2 id="returns">Returns</h2>
-<p>List of save names (without .json extension).</p></div>
+<p>Returns
+-----=
+List of save names (without .json extension).</p></div>
 </dd>
 <dt id="space_hulk_game.engine.persistence.SaveSystem.load"><code class="name flex">
 <span>def <span class="ident">load</span></span>(<span>self, save_name: str) ‑> <a title="space_hulk_game.engine.game_state.GameState" href="game_state.html#space_hulk_game.engine.game_state.GameState">GameState</a></span>
@@ -842,15 +863,18 @@ functions, managing save directory and file naming conventions.</p>
         raise PersistenceError(error_msg) from e</code></pre>
 </details>
 <div class="desc"><p>Load a game state.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>save_name</code></strong></dt>
 <dd>Name of the save to load (with or without .json).</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>Loaded game state.</p>
-<h2 id="raises">Raises</h2>
+<p>Returns
+-----=
+Loaded game state.</p>
 <dl>
+<dt>Raises</dt>
+<dt>-----=</dt>
 <dt><code><a title="space_hulk_game.engine.persistence.PersistenceError" href="#space_hulk_game.engine.persistence.PersistenceError">PersistenceError</a></code></dt>
 <dd>If load fails.</dd>
 </dl></div>
@@ -913,8 +937,9 @@ functions, managing save directory and file naming conventions.</p>
         raise PersistenceError(error_msg) from e</code></pre>
 </details>
 <div class="desc"><p>Save a game state.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>game_state</code></strong></dt>
 <dd>Game state to save.</dd>
 <dt><strong><code>save_name</code></strong></dt>
@@ -923,9 +948,8 @@ functions, managing save directory and file naming conventions.</p>
 <dd>Optional scenes dict (not needed for state-only saves).</dd>
 <dt><strong><code>metadata</code></strong></dt>
 <dd>Optional metadata to include.</dd>
-</dl>
-<h2 id="raises">Raises</h2>
-<dl>
+<dt>Raises</dt>
+<dt>-----=</dt>
 <dt><code><a title="space_hulk_game.engine.persistence.PersistenceError" href="#space_hulk_game.engine.persistence.PersistenceError">PersistenceError</a></code></dt>
 <dd>If save fails.</dd>
 </dl></div>

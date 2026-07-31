@@ -39,7 +39,8 @@ el.replaceWith(d);
 <p>Scene Module</p>
 <p>Defines the Scene class that represents a location in the game world.
 Scenes contain descriptions, exits to other scenes, items, NPCs, and events.</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import Scene, Item, NPC, Event
 &gt;&gt;&gt; scene = Scene(
 ...     id=&quot;cargo_bay&quot;,
@@ -472,8 +473,9 @@ class Scene:
 <p>Scenes are the primary spatial units in the game. Each scene has a description,
 connections to other scenes (exits), and can contain items, NPCs, and events.
 Players navigate between scenes to progress through the story.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>id</code></strong></dt>
 <dd>Unique identifier for the scene.</dd>
 <dt><strong><code>name</code></strong></dt>
@@ -497,8 +499,9 @@ Players navigate between scenes to progress through the story.</p>
 <dd>Dictionary of locked exits requiring items or flags
 (e.g., {"north": "brass_key"}).</dd>
 </dl>
-<h2 id="examples">Examples</h2>
-<p>Create a simple scene:</p>
+<p>Examples
+-----=
+Create a simple scene:</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; entrance = Scene(
 ...     id=&quot;entrance_hall&quot;,
 ...     name=&quot;Entrance Hall&quot;,
@@ -544,13 +547,15 @@ Players navigate between scenes to progress through the story.</p>
 </code></dt>
 <dd>
 <div class="desc"><p>Create a Scene from a dictionary.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>data</code></strong></dt>
 <dd>Dictionary containing scene data.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>A new Scene instance.</p></div>
+<p>Returns
+-----=
+A new Scene instance.</p></div>
 </dd>
 </dl>
 <h3>Instance variables</h3>
@@ -623,12 +628,14 @@ Players navigate between scenes to progress through the story.</p>
     self.items.append(item)</code></pre>
 </details>
 <div class="desc"><p>Add an item to the scene.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>item</code></strong></dt>
 <dd>The Item object to add.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; item = Item(id=&quot;key&quot;, name=&quot;Key&quot;, description=&quot;A key.&quot;)
 &gt;&gt;&gt; scene = Scene(id=&quot;room&quot;, name=&quot;Room&quot;, description=&quot;A room.&quot;)
 &gt;&gt;&gt; scene.add_item(item)
@@ -693,8 +700,9 @@ Players navigate between scenes to progress through the story.</p>
     return True, None</code></pre>
 </details>
 <div class="desc"><p>Check if the player can use a specific exit.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>direction</code></strong></dt>
 <dd>The direction/exit name to check.</dd>
 <dt><strong><code>inventory</code></strong></dt>
@@ -702,10 +710,12 @@ Players navigate between scenes to progress through the story.</p>
 <dt><strong><code>game_flags</code></strong></dt>
 <dd>Current game flags.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>A tuple of (can_exit: bool, reason: Optional[str]).
+<p>Returns
+-----=
+A tuple of (can_exit: bool, reason: Optional[str]).
 If can_exit is False, reason contains an explanation.</p>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; scene = Scene(
 ...     id=&quot;room&quot;,
 ...     name=&quot;Room&quot;,
@@ -762,14 +772,17 @@ If can_exit is False, reason contains an explanation.</p>
     ]</code></pre>
 </details>
 <div class="desc"><p>Get all events that should trigger when entering this scene.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>game_flags</code></strong></dt>
 <dd>Current game flags.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>List of Event objects that can trigger.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+List of Event objects that can trigger.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; event = Event(
 ...     id=&quot;ambush&quot;,
 ...     description=&quot;An ambush!&quot;,
@@ -823,9 +836,11 @@ If can_exit is False, reason contains an explanation.</p>
         return f&#34;There are exits to the {exits_str}.&#34;</code></pre>
 </details>
 <div class="desc"><p>Get a description of available exits.</p>
-<h2 id="returns">Returns</h2>
-<p>A formatted string describing available exits.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+A formatted string describing available exits.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; scene = Scene(
 ...     id=&quot;room&quot;,
 ...     name=&quot;Room&quot;,
@@ -877,9 +892,11 @@ True
     return &#34;&#34;.join(parts)</code></pre>
 </details>
 <div class="desc"><p>Get the complete description of the scene, including items and NPCs.</p>
-<h2 id="returns">Returns</h2>
-<p>A formatted string describing the scene and its contents.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+A formatted string describing the scene and its contents.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; item = Item(id=&quot;key&quot;, name=&quot;Brass Key&quot;, description=&quot;A key.&quot;)
 &gt;&gt;&gt; scene = Scene(
 ...     id=&quot;room&quot;,
@@ -929,14 +946,17 @@ True
     return None</code></pre>
 </details>
 <div class="desc"><p>Get an item from the scene by ID.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>item_id</code></strong></dt>
 <dd>The ID of the item to retrieve.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>The Item object if found, None otherwise.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+The Item object if found, None otherwise.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; item = Item(id=&quot;key&quot;, name=&quot;Key&quot;, description=&quot;A key.&quot;)
 &gt;&gt;&gt; scene = Scene(
 ...     id=&quot;room&quot;,
@@ -986,14 +1006,17 @@ True
     return None</code></pre>
 </details>
 <div class="desc"><p>Get an NPC from the scene by ID.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>npc_id</code></strong></dt>
 <dd>The ID of the NPC to retrieve.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>The NPC object if found, None otherwise.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+The NPC object if found, None otherwise.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; npc = NPC(id=&quot;guard&quot;, name=&quot;Guard&quot;, description=&quot;A guard.&quot;)
 &gt;&gt;&gt; scene = Scene(
 ...     id=&quot;room&quot;,
@@ -1046,14 +1069,17 @@ True
     return False</code></pre>
 </details>
 <div class="desc"><p>Remove an item from the scene.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>item_id</code></strong></dt>
 <dd>The ID of the item to remove.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>True if the item was removed, False if not found.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+True if the item was removed, False if not found.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; item = Item(id=&quot;key&quot;, name=&quot;Key&quot;, description=&quot;A key.&quot;)
 &gt;&gt;&gt; scene = Scene(
 ...     id=&quot;room&quot;,
@@ -1098,8 +1124,9 @@ False
     }</code></pre>
 </details>
 <div class="desc"><p>Convert the scene to a dictionary for serialization.</p>
-<h2 id="returns">Returns</h2>
-<p>Dictionary representation of the scene.</p></div>
+<p>Returns
+-----=
+Dictionary representation of the scene.</p></div>
 </dd>
 <dt id="space_hulk_game.engine.scene.Scene.unlock_exit"><code class="name flex">
 <span>def <span class="ident">unlock_exit</span></span>(<span>self, direction: str) ‑> bool</span>
@@ -1138,14 +1165,17 @@ False
     return False</code></pre>
 </details>
 <div class="desc"><p>Unlock an exit, making it passable.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>direction</code></strong></dt>
 <dd>The direction/exit to unlock.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>True if the exit was unlocked, False if it wasn't locked.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+True if the exit was unlocked, False if it wasn't locked.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; scene = Scene(
 ...     id=&quot;room&quot;,
 ...     name=&quot;Room&quot;,

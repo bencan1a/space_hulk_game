@@ -45,7 +45,8 @@ el.replaceWith(d);
 - Broken NPC dialogues
 - Puzzle solvability</p>
 <p>The validator provides actionable feedback to help fix content issues.</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import GameValidator, GameData
 &gt;&gt;&gt; validator = GameValidator()
 &gt;&gt;&gt; result = validator.validate_game(game_data)
@@ -458,13 +459,15 @@ el.replaceWith(d);
 - Required items for puzzles exist in the game
 - NPCs have valid dialogue
 - Puzzle prerequisites are satisfiable</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>strict_mode</code></strong></dt>
 <dd>If True, treats warnings as errors.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
-<p>Validate a game:</p>
+<p>Examples
+-----=
+Validate a game:</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import GameData, Scene
 &gt;&gt;&gt; scene = Scene(id=&quot;start&quot;, name=&quot;Start&quot;, description=&quot;Begin here&quot;,
 ...               exits={&quot;north&quot;: &quot;room2&quot;})
@@ -485,8 +488,9 @@ True
 &gt;&gt;&gt; result = validator.validate_game(data)
 </code></pre>
 <p>Initialize the GameValidator.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>strict_mode</code></strong></dt>
 <dd>If True, treats warnings as errors.</dd>
 </dl></div>
@@ -565,14 +569,17 @@ True
 <div class="desc"><p>Validate a complete game for playability issues.</p>
 <p>This is the main entry point for validation. It runs all validation
 checks and returns a comprehensive report.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>game_data</code></strong></dt>
 <dd>The GameData object to validate.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>ValidationResult containing all issues, warnings, and suggestions.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+ValidationResult containing all issues, warnings, and suggestions.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import GameData, Scene
 &gt;&gt;&gt; scene = Scene(id=&quot;start&quot;, name=&quot;Start&quot;, description=&quot;Begin&quot;)
 &gt;&gt;&gt; data = GameData(
@@ -740,8 +747,9 @@ class ValidationResult:
         return &#34;\n&#34;.join(lines)</code></pre>
 </details>
 <div class="desc"><p>Result of game validation containing issues and suggested fixes.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>issues</code></strong></dt>
 <dd>List of validation issues found.</dd>
 <dt><strong><code>suggestions</code></strong></dt>
@@ -751,8 +759,9 @@ class ValidationResult:
 <dt><strong><code>stats</code></strong></dt>
 <dd>Dictionary containing validation statistics.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
-<p>Create a validation result:</p>
+<p>Examples
+-----=
+Create a validation result:</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; result = ValidationResult(
 ...     issues=[&quot;Scene 'vault' is unreachable&quot;],
 ...     suggestions={&quot;entrance&quot;: [&quot;Add exit to 'vault'&quot;]},
@@ -809,12 +818,14 @@ False
     logger.warning(f&#34;Validation issue: {issue}&#34;)</code></pre>
 </details>
 <div class="desc"><p>Add a critical issue to the validation result.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>issue</code></strong></dt>
 <dd>Description of the issue.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; result = ValidationResult()
 &gt;&gt;&gt; result.add_issue(&quot;Scene missing&quot;)
 &gt;&gt;&gt; len(result.issues)
@@ -849,14 +860,16 @@ False
     logger.debug(f&#34;Suggestion for {scene_id}: {suggestion}&#34;)</code></pre>
 </details>
 <div class="desc"><p>Add a suggested fix for a scene.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>scene_id</code></strong></dt>
 <dd>The scene ID that needs fixing.</dd>
 <dt><strong><code>suggestion</code></strong></dt>
 <dd>Suggested action to fix the issue.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; result = ValidationResult()
 &gt;&gt;&gt; result.add_suggestion(&quot;entrance&quot;, &quot;Add exit to corridor&quot;)
 &gt;&gt;&gt; &quot;entrance&quot; in result.suggestions
@@ -888,12 +901,14 @@ True
     logger.info(f&#34;Validation warning: {warning}&#34;)</code></pre>
 </details>
 <div class="desc"><p>Add a non-critical warning to the validation result.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>warning</code></strong></dt>
 <dd>Description of the warning.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; result = ValidationResult()
 &gt;&gt;&gt; result.add_warning(&quot;Minor issue&quot;)
 &gt;&gt;&gt; len(result.warnings)
@@ -953,9 +968,11 @@ True
     return &#34;\n&#34;.join(lines)</code></pre>
 </details>
 <div class="desc"><p>Get a human-readable summary of the validation results.</p>
-<h2 id="returns">Returns</h2>
-<p>Formatted string summarizing the validation.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+Formatted string summarizing the validation.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; result = ValidationResult(issues=[&quot;Error 1&quot;], warnings=[&quot;Warning 1&quot;])
 &gt;&gt;&gt; summary = result.get_summary()
 &gt;&gt;&gt; &quot;1 issue&quot; in summary
@@ -988,9 +1005,11 @@ True
     return len(self.issues) == 0</code></pre>
 </details>
 <div class="desc"><p>Check if the game passed validation (no critical issues).</p>
-<h2 id="returns">Returns</h2>
-<p>True if there are no critical issues, False otherwise.</p>
-<h2 id="examples">Examples</h2>
+<p>Returns
+-----=
+True if there are no critical issues, False otherwise.</p>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; result = ValidationResult()
 &gt;&gt;&gt; result.is_valid()
 True

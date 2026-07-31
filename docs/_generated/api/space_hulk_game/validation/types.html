@@ -127,8 +127,9 @@ class ProcessingResult:
 <div class="desc"><p>Unified result type for YAML processing operations.</p>
 <p>This replaces ValidationResult, CorrectionResult, and parts of QualityScore
 to provide consistent error/warning/info reporting across all processing layers.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>success</code></strong></dt>
 <dd>Whether the operation succeeded</dd>
 <dt><strong><code>data</code></strong></dt>
@@ -142,7 +143,8 @@ to provide consistent error/warning/info reporting across all processing layers.
 <dt><strong><code>metadata</code></strong></dt>
 <dd>Additional context (e.g., score for quality checks)</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; result = ProcessingResult(
 ...     success=True,
 ...     data={'title': 'Game'},

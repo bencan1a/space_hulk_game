@@ -205,15 +205,17 @@ using PlotMetrics to score and provide feedback on plot quality.</p>
 <div class="desc"><p>Evaluator for plot outline content.</p>
 <p>Uses PlotMetrics to evaluate plot outlines against quality criteria
 including setting clarity, branching paths, endings, themes, and word count.</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; evaluator = PlotEvaluator()
 &gt;&gt;&gt; score = evaluator.evaluate(plot_json_content)
 &gt;&gt;&gt; print(f&quot;Score: {score.score}/10&quot;)
 &gt;&gt;&gt; print(score.feedback)
 </code></pre>
 <p>Initialize the plot evaluator.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>pass_threshold</code></strong></dt>
 <dd>Minimum score required to pass (default: 6.0)</dd>
 </dl></div>
@@ -299,15 +301,18 @@ including setting clarity, branching paths, endings, themes, and word count.</p>
         )</code></pre>
 </details>
 <div class="desc"><p>Evaluate plot outline content.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>content</code></strong></dt>
 <dd>JSON string containing plot outline</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>QualityScore with evaluation results</p>
-<h2 id="raises">Raises</h2>
+<p>Returns
+-----=
+QualityScore with evaluation results</p>
 <dl>
+<dt>Raises</dt>
+<dt>-----=</dt>
 <dt><code>ValueError</code></dt>
 <dd>If content cannot be parsed</dd>
 </dl></div>
@@ -375,13 +380,15 @@ including setting clarity, branching paths, endings, themes, and word count.</p>
     return &#34;\n&#34;.join(lines)</code></pre>
 </details>
 <div class="desc"><p>Generate detailed, actionable feedback for improvement.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>content</code></strong></dt>
 <dd>JSON string containing plot outline</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>Multi-line feedback with specific suggestions</p></div>
+<p>Returns
+-----=
+Multi-line feedback with specific suggestions</p></div>
 </dd>
 </dl>
 <h3>Inherited members</h3>

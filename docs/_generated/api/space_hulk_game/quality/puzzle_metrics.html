@@ -343,8 +343,9 @@ class PuzzleMetrics:
         }</code></pre>
 </details>
 <div class="desc"><p>Quality metrics for evaluating puzzle and artifact content.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>total_puzzles</code></strong></dt>
 <dd>Total number of puzzles defined</dd>
 <dt><strong><code>puzzles_with_solutions</code></strong></dt>
@@ -369,26 +370,30 @@ class PuzzleMetrics:
 </code></dt>
 <dd>
 <div class="desc"><p>Create PuzzleMetrics from a dictionary (parsed YAML).</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>data</code></strong></dt>
 <dd>Dictionary containing puzzle design data</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>PuzzleMetrics instance with measured values</p></div>
+<p>Returns
+-----=
+PuzzleMetrics instance with measured values</p></div>
 </dd>
 <dt id="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.from_json_content"><code class="name flex">
 <span>def <span class="ident">from_json_content</span></span>(<span>json_content: str) ‑> <a title="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics" href="#space_hulk_game.quality.puzzle_metrics.PuzzleMetrics">PuzzleMetrics</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Create PuzzleMetrics from JSON content string.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>json_content</code></strong></dt>
 <dd>JSON string containing puzzle design data</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>PuzzleMetrics instance with measured values</p></div>
+<p>Returns
+-----=
+PuzzleMetrics instance with measured values</p></div>
 </dd>
 </dl>
 <h3>Instance variables</h3>
@@ -474,8 +479,9 @@ class PuzzleMetrics:
     return failures</code></pre>
 </details>
 <div class="desc"><p>Get list of failed quality checks.</p>
-<h2 id="returns">Returns</h2>
-<p>List of failure messages for metrics that don't meet thresholds</p></div>
+<p>Returns
+-----=
+List of failure messages for metrics that don't meet thresholds</p></div>
 </dd>
 <dt id="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.get_score"><code class="name flex">
 <span>def <span class="ident">get_score</span></span>(<span>self) ‑> float</span>
@@ -522,8 +528,9 @@ class PuzzleMetrics:
     return min(score, 10.0)</code></pre>
 </details>
 <div class="desc"><p>Calculate overall quality score (0.0 to 10.0).</p>
-<h2 id="returns">Returns</h2>
-<p>Quality score based on met criteria</p></div>
+<p>Returns
+-----=
+Quality score based on met criteria</p></div>
 </dd>
 <dt id="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.passes_threshold"><code class="name flex">
 <span>def <span class="ident">passes_threshold</span></span>(<span>self) ‑> bool</span>
@@ -550,8 +557,9 @@ class PuzzleMetrics:
     )</code></pre>
 </details>
 <div class="desc"><p>Check if the puzzle metrics pass all quality thresholds.</p>
-<h2 id="returns">Returns</h2>
-<p>True if all thresholds are met, False otherwise</p></div>
+<p>Returns
+-----=
+True if all thresholds are met, False otherwise</p></div>
 </dd>
 <dt id="space_hulk_game.quality.puzzle_metrics.PuzzleMetrics.to_dict"><code class="name flex">
 <span>def <span class="ident">to_dict</span></span>(<span>self) ‑> dict[str, typing.Any]</span>
@@ -582,8 +590,9 @@ class PuzzleMetrics:
     }</code></pre>
 </details>
 <div class="desc"><p>Convert metrics to dictionary for serialization.</p>
-<h2 id="returns">Returns</h2>
-<p>Dictionary representation of metrics</p></div>
+<p>Returns
+-----=
+Dictionary representation of metrics</p></div>
 </dd>
 </dl>
 </dd>

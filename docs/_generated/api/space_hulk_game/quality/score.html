@@ -214,8 +214,9 @@ class QualityScore:
 <div class="desc"><p>Standardized quality score returned by all evaluators.</p>
 <p>NOTE: QualityScore is specialized for quality evaluation.
 For general processing, use ProcessingResult from validation.types</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>score</code></strong></dt>
 <dd>Quality score from 0.0 to 10.0</dd>
 <dt><strong><code>passed</code></strong></dt>
@@ -225,7 +226,8 @@ For general processing, use ProcessingResult from validation.types</p>
 <dt><strong><code>details</code></strong></dt>
 <dd>Dictionary with detailed metrics and findings</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; score = QualityScore(
 ...     score=8.5,
 ...     passed=True,
@@ -242,13 +244,15 @@ QualityScore(8.5/10, PASS)
 </code></dt>
 <dd>
 <div class="desc"><p>Create QualityScore from dictionary.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>data</code></strong></dt>
 <dd>Dictionary containing score data</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>QualityScore instance</p></div>
+<p>Returns
+-----=
+QualityScore instance</p></div>
 </dd>
 </dl>
 <h3>Instance variables</h3>
@@ -290,8 +294,9 @@ QualityScore(8.5/10, PASS)
     return cast(&#34;list[str]&#34;, self.details.get(&#34;failures&#34;, []))</code></pre>
 </details>
 <div class="desc"><p>Extract failure messages from details.</p>
-<h2 id="returns">Returns</h2>
-<p>List of failure messages if present in details</p></div>
+<p>Returns
+-----=
+List of failure messages if present in details</p></div>
 </dd>
 <dt id="space_hulk_game.quality.score.QualityScore.get_summary"><code class="name flex">
 <span>def <span class="ident">get_summary</span></span>(<span>self) ‑> str</span>
@@ -329,8 +334,9 @@ QualityScore(8.5/10, PASS)
     return &#34;\n&#34;.join(lines)</code></pre>
 </details>
 <div class="desc"><p>Get a multi-line summary of the quality score.</p>
-<h2 id="returns">Returns</h2>
-<p>Formatted summary string</p></div>
+<p>Returns
+-----=
+Formatted summary string</p></div>
 </dd>
 <dt id="space_hulk_game.quality.score.QualityScore.to_dict"><code class="name flex">
 <span>def <span class="ident">to_dict</span></span>(<span>self) ‑> dict[str, typing.Any]</span>
@@ -355,8 +361,9 @@ QualityScore(8.5/10, PASS)
     }</code></pre>
 </details>
 <div class="desc"><p>Convert quality score to dictionary for serialization.</p>
-<h2 id="returns">Returns</h2>
-<p>Dictionary representation of the score</p></div>
+<p>Returns
+-----=
+Dictionary representation of the score</p></div>
 </dd>
 <dt id="space_hulk_game.quality.score.QualityScore.to_json"><code class="name flex">
 <span>def <span class="ident">to_json</span></span>(<span>self) ‑> str</span>
@@ -376,8 +383,9 @@ QualityScore(8.5/10, PASS)
     return json.dumps(self.to_dict(), indent=2)</code></pre>
 </details>
 <div class="desc"><p>Convert quality score to JSON string.</p>
-<h2 id="returns">Returns</h2>
-<p>JSON string representation of the score</p></div>
+<p>Returns
+-----=
+JSON string representation of the score</p></div>
 </dd>
 <dt id="space_hulk_game.quality.score.QualityScore.to_processing_result"><code class="name flex">
 <span>def <span class="ident">to_processing_result</span></span>(<span>self) ‑> ProcessingResult</span>
@@ -416,9 +424,11 @@ QualityScore(8.5/10, PASS)
     )</code></pre>
 </details>
 <div class="desc"><p>Convert to unified ProcessingResult type.</p>
-<h2 id="returns">Returns</h2>
-<p>ProcessingResult instance with equivalent data.</p>
-<h2 id="example">Example</h2>
+<p>Returns
+-----=
+ProcessingResult instance with equivalent data.</p>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; score = QualityScore(
 ...     score=8.5,
 ...     passed=True,

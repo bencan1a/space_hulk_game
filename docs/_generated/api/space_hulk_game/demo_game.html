@@ -44,12 +44,14 @@ This module provides:
 - Save/load menu system
 - Help system
 - Complete game loop integration</p>
-<h2 id="usage">Usage</h2>
-<p>python -m space_hulk_game.demo_game</p>
+<p>Usage
+-----=
+python -m space_hulk_game.demo_game</p>
 <h1 id="or-after-install">or after install:</h1>
 <p>demo_game
 play_game</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.demo_game import DemoGameCLI
 &gt;&gt;&gt; cli = DemoGameCLI()
 &gt;&gt;&gt; cli.run()
@@ -137,15 +139,18 @@ For more information, visit: https://github.com/bencan1a/space_hulk_game
     return cli.run()</code></pre>
 </details>
 <div class="desc"><p>Main entry point for the demo game.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>args</code></strong></dt>
 <dd>Command-line arguments (for testing).</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>Exit code.</p>
-<h2 id="examples">Examples</h2>
-<p>Run from command line:
+<p>Returns
+-----=
+Exit code.</p>
+<p>Examples
+-----=
+Run from command line:
 $ python -m space_hulk_game.demo_game</p>
 <p>Run with custom game directory:
 $ python -m space_hulk_game.demo_game &ndash;game-dir path/to/game</p></div>
@@ -873,8 +878,9 @@ def warning(text: str) -&gt; str:
 - Colorized output
 - Help system
 - Integration with TextAdventureEngine</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>game_dir</code></strong></dt>
 <dd>Directory containing game YAML files.</dd>
 <dt><strong><code>save_dir</code></strong></dt>
@@ -890,8 +896,9 @@ def warning(text: str) -&gt; str:
 <dt><strong><code>formatter</code></strong></dt>
 <dd>ColorFormatter for output styling.</dd>
 </dl>
-<h2 id="examples">Examples</h2>
-<p>Run the demo game:</p>
+<p>Examples
+-----=
+Run the demo game:</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; cli = DemoGameCLI()
 &gt;&gt;&gt; cli.run()
 </code></pre>
@@ -900,8 +907,9 @@ def warning(text: str) -&gt; str:
 &gt;&gt;&gt; cli.run()
 </code></pre>
 <p>Initialize the demo game CLI.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>game_dir</code></strong></dt>
 <dd>Directory containing game YAML files.
 Defaults to "tests/fixtures" for demo.</dd>
@@ -983,8 +991,9 @@ Defaults to "saves/" in current directory.</dd>
         return False</code></pre>
 </details>
 <div class="desc"><p>Load game data from YAML files.</p>
-<h2 id="returns">Returns</h2>
-<p>True if successful, False otherwise.</p></div>
+<p>Returns
+-----=
+True if successful, False otherwise.</p></div>
 </dd>
 <dt id="space_hulk_game.demo_game.DemoGameCLI.load_saved_game"><code class="name flex">
 <span>def <span class="ident">load_saved_game</span></span>(<span>self) ‑> bool</span>
@@ -1050,8 +1059,9 @@ Defaults to "saves/" in current directory.</dd>
         return False</code></pre>
 </details>
 <div class="desc"><p>Load a saved game from file.</p>
-<h2 id="returns">Returns</h2>
-<p>True if loaded successfully, False otherwise.</p></div>
+<p>Returns
+-----=
+True if loaded successfully, False otherwise.</p></div>
 </dd>
 <dt id="space_hulk_game.demo_game.DemoGameCLI.print_separator"><code class="name flex">
 <span>def <span class="ident">print_separator</span></span>(<span>self, char: str = '=', length: int = 79) ‑> None</span>
@@ -1147,8 +1157,9 @@ Defaults to "saves/" in current directory.</dd>
 <div class="desc"><p>Run the demo game CLI.</p>
 <p>This is the main entry point for the CLI. It displays the title screen,
 shows the main menu, and handles user choices.</p>
-<h2 id="returns">Returns</h2>
-<p>Exit code (0 for success, 1 for error).</p></div>
+<p>Returns
+-----=
+Exit code (0 for success, 1 for error).</p></div>
 </dd>
 <dt id="space_hulk_game.demo_game.DemoGameCLI.run_game_loop"><code class="name flex">
 <span>def <span class="ident">run_game_loop</span></span>(<span>self) ‑> None</span>
@@ -1342,8 +1353,9 @@ shows the main menu, and handles user choices.</p>
     return None</code></pre>
 </details>
 <div class="desc"><p>Show load game menu and get save slot.</p>
-<h2 id="returns">Returns</h2>
-<p>Save slot name or None if cancelled.</p></div>
+<p>Returns
+-----=
+Save slot name or None if cancelled.</p></div>
 </dd>
 <dt id="space_hulk_game.demo_game.DemoGameCLI.show_main_menu"><code class="name flex">
 <span>def <span class="ident">show_main_menu</span></span>(<span>self) ‑> str</span>
@@ -1373,8 +1385,9 @@ shows the main menu, and handles user choices.</p>
     return choice</code></pre>
 </details>
 <div class="desc"><p>Display the main menu and get user choice.</p>
-<h2 id="returns">Returns</h2>
-<p>User's menu choice as a string.</p></div>
+<p>Returns
+-----=
+User's menu choice as a string.</p></div>
 </dd>
 <dt id="space_hulk_game.demo_game.DemoGameCLI.show_save_menu"><code class="name flex">
 <span>def <span class="ident">show_save_menu</span></span>(<span>self) ‑> str | None</span>
@@ -1412,8 +1425,9 @@ shows the main menu, and handles user choices.</p>
     return save_name</code></pre>
 </details>
 <div class="desc"><p>Show save game menu and get save slot.</p>
-<h2 id="returns">Returns</h2>
-<p>Save slot name or None if cancelled.</p></div>
+<p>Returns
+-----=
+Save slot name or None if cancelled.</p></div>
 </dd>
 <dt id="space_hulk_game.demo_game.DemoGameCLI.start_new_game"><code class="name flex">
 <span>def <span class="ident">start_new_game</span></span>(<span>self) ‑> bool</span>
@@ -1477,8 +1491,9 @@ shows the main menu, and handles user choices.</p>
         return False</code></pre>
 </details>
 <div class="desc"><p>Start a new game.</p>
-<h2 id="returns">Returns</h2>
-<p>True if game started successfully, False otherwise.</p></div>
+<p>Returns
+-----=
+True if game started successfully, False otherwise.</p></div>
 </dd>
 </dl>
 </dd>

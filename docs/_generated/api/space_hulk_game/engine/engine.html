@@ -39,7 +39,8 @@ el.replaceWith(d);
 <p>Text Adventure Engine Module</p>
 <p>Main game engine for the Space Hulk text-based adventure game.
 Handles the game loop, action execution, state transitions, and player I/O.</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import TextAdventureEngine, GameState, Scene
 &gt;&gt;&gt; state = GameState(current_scene=&quot;start&quot;)
 &gt;&gt;&gt; scenes = {&quot;start&quot;: Scene(id=&quot;start&quot;, name=&quot;Start&quot;, description=&quot;Begin.&quot;)}
@@ -830,8 +831,9 @@ Perhaps in another timeline, victory was possible...
 - Victory/defeat condition checking</p>
 <p>The engine follows the Facade pattern, providing a simple interface
 to the complex subsystems of the game (parser, state, scenes, etc.).</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>game_state</code></strong></dt>
 <dd>The current game state (player location, inventory, etc.).</dd>
 <dt><strong><code>scenes</code></strong></dt>
@@ -849,8 +851,9 @@ to the complex subsystems of the game (parser, state, scenes, etc.).</p>
 <dt><strong><code>output_func</code></strong></dt>
 <dd>Function for displaying output (for testing).</dd>
 </dl>
-<h2 id="examples">Examples</h2>
-<p>Create and run a basic game:</p>
+<p>Examples
+-----=
+Create and run a basic game:</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; from space_hulk_game.engine import (
 ...     TextAdventureEngine, GameState, Scene, Item
 ... )
@@ -872,8 +875,9 @@ to the complex subsystems of the game (parser, state, scenes, etc.).</p>
 &gt;&gt;&gt; # engine.run()  # Start the interactive game loop
 </code></pre>
 <p>Initialize the text adventure engine.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>game_state</code></strong></dt>
 <dd>Initial game state.</dd>
 <dt><strong><code>scenes</code></strong></dt>
@@ -886,9 +890,8 @@ to the complex subsystems of the game (parser, state, scenes, etc.).</p>
 <dd>Optional set of flags that trigger victory.</dd>
 <dt><strong><code>defeat_conditions</code></strong></dt>
 <dd>Optional set of flags that trigger defeat.</dd>
-</dl>
-<h2 id="raises">Raises</h2>
-<dl>
+<dt>Raises</dt>
+<dt>-----=</dt>
 <dt><code>ValueError</code></dt>
 <dd>If current scene is not in scenes dict.</dd>
 </dl></div>
@@ -937,8 +940,9 @@ to the complex subsystems of the game (parser, state, scenes, etc.).</p>
     logger.info(f&#34;Dropped item: {item_id}&#34;)</code></pre>
 </details>
 <div class="desc"><p>Handle dropping an item from inventory.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>item_id</code></strong></dt>
 <dd>The ID or name of the item to drop.</dd>
 </dl></div>
@@ -1057,8 +1061,9 @@ Tips:
     logger.debug(f&#34;Target not found: {target}&#34;)</code></pre>
 </details>
 <div class="desc"><p>Handle examining the scene or an object.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>target</code></strong></dt>
 <dd>Optional target to examine. If None, examine scene.</dd>
 </dl></div>
@@ -1111,8 +1116,9 @@ Tips:
     self._process_entry_events()</code></pre>
 </details>
 <div class="desc"><p>Handle movement to another scene.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>direction</code></strong></dt>
 <dd>The direction or exit name to move through.</dd>
 </dl></div>
@@ -1160,8 +1166,9 @@ Tips:
     logger.info(f&#34;Took item: {item.id}&#34;)</code></pre>
 </details>
 <div class="desc"><p>Handle taking an item from the current scene.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>item_id</code></strong></dt>
 <dd>The ID or name of the item to take.</dd>
 </dl></div>
@@ -1218,8 +1225,9 @@ Tips:
     logger.debug(f&#34;Talked to NPC: {npc_id}, topic: {topic}&#34;)</code></pre>
 </details>
 <div class="desc"><p>Handle talking to an NPC.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>npc_id</code></strong></dt>
 <dd>The ID or name of the NPC to talk to.</dd>
 <dt><strong><code>topic</code></strong></dt>
@@ -1331,8 +1339,9 @@ Tips:
         logger.debug(f&#34;Used item with no effects: {item_id}&#34;)</code></pre>
 </details>
 <div class="desc"><p>Handle using an item.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>item_id</code></strong></dt>
 <dd>The ID of the item to use.</dd>
 <dt><strong><code>target_id</code></strong></dt>
@@ -1425,7 +1434,8 @@ Tips:
 5. State updates
 6. Victory/defeat checking</p>
 <p>The loop continues until the player quits, wins, or loses.</p>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; engine = TextAdventureEngine(state, scenes)
 &gt;&gt;&gt; # engine.run()  # Starts interactive game
 </code></pre></div>

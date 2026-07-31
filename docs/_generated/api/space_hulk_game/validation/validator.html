@@ -408,13 +408,13 @@ The engine.validator module provides game playability validation and is still ac
 <div class="desc"><p>Validator for YAML outputs against Pydantic schemas.</p>
 <p>This class provides methods to parse and validate YAML strings
 against specific Pydantic schemas for different game design outputs.</p>
-<h2 id="features">Features</h2>
-<ul>
-<li>Handles markdown-wrapped YAML (common in AI outputs)</li>
-<li>Provides detailed, helpful error messages</li>
-<li>Validates against all schema constraints</li>
-</ul>
-<h2 id="example">Example</h2>
+<p>Features
+-----=
+- Handles markdown-wrapped YAML (common in AI outputs)
+- Provides detailed, helpful error messages
+- Validates against all schema constraints</p>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; validator = OutputValidator()
 &gt;&gt;&gt; result = validator.validate_plot(yaml_string)
 &gt;&gt;&gt; if result.valid:
@@ -487,15 +487,18 @@ against specific Pydantic schemas for different game design outputs.</p>
         return ValidationResult(valid=False, data=None, errors=[error_msg])</code></pre>
 </details>
 <div class="desc"><p>Parse and validate game mechanics YAML against GameMechanics schema.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>raw_output</code></strong></dt>
 <dd>Raw YAML string containing game mechanics data.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>ValidationResult with validation status, parsed data if valid,
+<p>Returns
+-----=
+ValidationResult with validation status, parsed data if valid,
 and error messages if invalid.</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; validator = OutputValidator()
 &gt;&gt;&gt; yaml_str = '''
 ... game_title: &quot;Test Game&quot;
@@ -571,15 +574,18 @@ and error messages if invalid.</p>
         return ValidationResult(valid=False, data=None, errors=[error_msg])</code></pre>
 </details>
 <div class="desc"><p>Parse and validate narrative map YAML against NarrativeMap schema.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>raw_output</code></strong></dt>
 <dd>Raw YAML string containing narrative map data.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>ValidationResult with validation status, parsed data if valid,
+<p>Returns
+-----=
+ValidationResult with validation status, parsed data if valid,
 and error messages if invalid.</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; validator = OutputValidator()
 &gt;&gt;&gt; yaml_str = '''
 ... start_scene: &quot;scene_1&quot;
@@ -654,15 +660,18 @@ and error messages if invalid.</p>
         return ValidationResult(valid=False, data=None, errors=[error_msg])</code></pre>
 </details>
 <div class="desc"><p>Parse and validate plot outline YAML against PlotOutline schema.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>raw_output</code></strong></dt>
 <dd>Raw YAML string containing plot outline data.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>ValidationResult with validation status, parsed data if valid,
+<p>Returns
+-----=
+ValidationResult with validation status, parsed data if valid,
 and error messages if invalid.</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; validator = OutputValidator()
 &gt;&gt;&gt; yaml_str = '''
 ... title: &quot;Test Plot&quot;
@@ -737,15 +746,18 @@ and error messages if invalid.</p>
         return ValidationResult(valid=False, data=None, errors=[error_msg])</code></pre>
 </details>
 <div class="desc"><p>Parse and validate puzzle design YAML against PuzzleDesign schema.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>raw_output</code></strong></dt>
 <dd>Raw YAML string containing puzzle design data.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>ValidationResult with validation status, parsed data if valid,
+<p>Returns
+-----=
+ValidationResult with validation status, parsed data if valid,
 and error messages if invalid.</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; validator = OutputValidator()
 &gt;&gt;&gt; yaml_str = '''
 ... puzzles: [...]
@@ -819,15 +831,18 @@ and error messages if invalid.</p>
         return ValidationResult(valid=False, data=None, errors=[error_msg])</code></pre>
 </details>
 <div class="desc"><p>Parse and validate scene texts YAML against SceneTexts schema.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>raw_output</code></strong></dt>
 <dd>Raw YAML string containing scene texts data.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>ValidationResult with validation status, parsed data if valid,
+<p>Returns
+-----=
+ValidationResult with validation status, parsed data if valid,
 and error messages if invalid.</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; validator = OutputValidator()
 &gt;&gt;&gt; yaml_str = '''
 ... scenes:
@@ -907,8 +922,9 @@ class ValidationResult:
 <div class="desc"><p>Result of validating YAML output against a schema.</p>
 <p>NOTE: ValidationResult is kept for backward compatibility.
 New code should use ProcessingResult from validation.types</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>valid</code></strong></dt>
 <dd>Whether the validation succeeded.</dd>
 <dt><strong><code>data</code></strong></dt>
@@ -918,7 +934,8 @@ New code should use ProcessingResult from validation.types</p>
 <dt><strong><code>warnings</code></strong></dt>
 <dd>List of warning messages (non-critical issues).</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; result = ValidationResult(valid=True, data=plot_outline, errors=[])
 &gt;&gt;&gt; if result.valid:
 ...     print(f&quot;Validation succeeded: {result.data.title}&quot;)
@@ -978,9 +995,11 @@ New code should use ProcessingResult from validation.types</p>
     )</code></pre>
 </details>
 <div class="desc"><p>Convert to unified ProcessingResult type.</p>
-<h2 id="returns">Returns</h2>
-<p>ProcessingResult instance with equivalent data.</p>
-<h2 id="example">Example</h2>
+<p>Returns
+-----=
+ProcessingResult instance with equivalent data.</p>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; result = ValidationResult(valid=True, data=plot, errors=[])
 &gt;&gt;&gt; processing_result = result.to_processing_result()
 &gt;&gt;&gt; processing_result.is_valid

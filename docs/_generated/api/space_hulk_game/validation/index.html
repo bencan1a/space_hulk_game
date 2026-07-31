@@ -42,8 +42,9 @@ and fixing YAML outputs from AI agents against Pydantic schemas.</p>
 <p>DEPRECATED: This module is deprecated as the system has migrated to JSON outputs.
 JSON mode in LLMs guarantees valid syntax, eliminating the need for this validation layer.
 For game playability validation, use space_hulk_game.engine.validator instead.</p>
-<h2 id="exports">Exports</h2>
-<p>ProcessingResult: Unified result type for all processing operations (NEW)
+<p>Exports
+-----=
+ProcessingResult: Unified result type for all processing operations (NEW)
 OutputValidator: Main validator class for all YAML outputs (DEPRECATED)
 ValidationResult: Result dataclass containing validation status and errors (DEPRECATED)
 OutputCorrector: Auto-corrector for fixing common YAML validation errors (DEPRECATED)
@@ -140,8 +141,9 @@ class CorrectionResult:
 <div class="desc"><p>Result of attempting to auto-correct YAML output.</p>
 <p>NOTE: CorrectionResult is kept for backward compatibility.
 New code should use ProcessingResult from validation.types</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>corrected_yaml</code></strong></dt>
 <dd>The corrected YAML string.</dd>
 <dt><strong><code>corrections</code></strong></dt>
@@ -151,7 +153,8 @@ New code should use ProcessingResult from validation.types</p>
 <dt><strong><code>success</code></strong></dt>
 <dd>Whether correction succeeded and output is now valid.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; result = CorrectionResult(
 ...     corrected_yaml=&quot;title: Fixed\n...&quot;,
 ...     corrections=[&quot;Added missing 'plot_points' field&quot;],
@@ -217,9 +220,11 @@ New code should use ProcessingResult from validation.types</p>
     )</code></pre>
 </details>
 <div class="desc"><p>Convert to unified ProcessingResult type.</p>
-<h2 id="returns">Returns</h2>
-<p>ProcessingResult instance with equivalent data.</p>
-<h2 id="example">Example</h2>
+<p>Returns
+-----=
+ProcessingResult instance with equivalent data.</p>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; result = CorrectionResult(
 ...     corrected_yaml=&quot;title: Fixed&quot;,
 ...     corrections=[&quot;Fixed ID&quot;],
@@ -1461,16 +1466,16 @@ True
 <p>This class provides methods to automatically fix common validation errors
 in YAML outputs from AI agents. It attempts to add missing required fields,
 fix syntax errors, normalize field names, and correct ID format violations.</p>
-<h2 id="features">Features</h2>
-<ul>
-<li>Fixes missing required fields with sensible defaults</li>
-<li>Repairs common YAML syntax errors</li>
-<li>Normalizes field names (e.g., camelCase to snake_case)</li>
-<li>Corrects ID format violations (lowercase, underscores, alphanumeric)</li>
-<li>Logs all corrections transparently</li>
-<li>Validates corrected output</li>
-</ul>
-<h2 id="example">Example</h2>
+<p>Features
+-----=
+- Fixes missing required fields with sensible defaults
+- Repairs common YAML syntax errors
+- Normalizes field names (e.g., camelCase to snake_case)
+- Corrects ID format violations (lowercase, underscores, alphanumeric)
+- Logs all corrections transparently
+- Validates corrected output</p>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; corrector = OutputCorrector()
 &gt;&gt;&gt; result = corrector.correct_plot(invalid_yaml_string)
 &gt;&gt;&gt; if result.success:
@@ -1665,21 +1670,23 @@ fix syntax errors, normalize field names, and correct ID format violations.</p>
     )</code></pre>
 </details>
 <div class="desc"><p>Attempt to correct common errors in game mechanics YAML.</p>
-<h2 id="fixes">Fixes</h2>
-<ul>
-<li>Missing required fields (game_systems, game_state, technical_requirements)</li>
-<li>Descriptions too short</li>
-<li>YAML syntax errors</li>
-</ul>
-<h2 id="args">Args</h2>
+<p>Fixes
+-----=
+- Missing required fields (game_systems, game_state, technical_requirements)
+- Descriptions too short
+- YAML syntax errors</p>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>raw_output</code></strong></dt>
 <dd>Raw YAML string containing game mechanics data.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>CorrectionResult with corrected YAML, list of corrections,
+<p>Returns
+-----=
+CorrectionResult with corrected YAML, list of corrections,
 validation result, and success status.</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; corrector = OutputCorrector()
 &gt;&gt;&gt; result = corrector.correct_game_mechanics(invalid_mechanics_yaml)
 &gt;&gt;&gt; if result.success:
@@ -1844,22 +1851,24 @@ validation result, and success status.</p>
     )</code></pre>
 </details>
 <div class="desc"><p>Attempt to correct common errors in narrative map YAML.</p>
-<h2 id="fixes">Fixes</h2>
-<ul>
-<li>Missing required fields (start_scene, scenes)</li>
-<li>Invalid ID formats</li>
-<li>Descriptions too short</li>
-<li>YAML syntax errors</li>
-</ul>
-<h2 id="args">Args</h2>
+<p>Fixes
+-----=
+- Missing required fields (start_scene, scenes)
+- Invalid ID formats
+- Descriptions too short
+- YAML syntax errors</p>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>raw_output</code></strong></dt>
 <dd>Raw YAML string containing narrative map data.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>CorrectionResult with corrected YAML, list of corrections,
+<p>Returns
+-----=
+CorrectionResult with corrected YAML, list of corrections,
 validation result, and success status.</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; corrector = OutputCorrector()
 &gt;&gt;&gt; result = corrector.correct_narrative_map(invalid_map_yaml)
 &gt;&gt;&gt; if result.success:
@@ -2096,22 +2105,24 @@ validation result, and success status.</p>
     )</code></pre>
 </details>
 <div class="desc"><p>Attempt to correct common errors in plot outline YAML.</p>
-<h2 id="fixes">Fixes</h2>
-<ul>
-<li>Missing required fields (plot_points, characters, conflicts)</li>
-<li>Invalid ID formats</li>
-<li>Descriptions too short</li>
-<li>YAML syntax errors</li>
-</ul>
-<h2 id="args">Args</h2>
+<p>Fixes
+-----=
+- Missing required fields (plot_points, characters, conflicts)
+- Invalid ID formats
+- Descriptions too short
+- YAML syntax errors</p>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>raw_output</code></strong></dt>
 <dd>Raw YAML string containing plot outline data.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>CorrectionResult with corrected YAML, list of corrections,
+<p>Returns
+-----=
+CorrectionResult with corrected YAML, list of corrections,
 validation result, and success status.</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; corrector = OutputCorrector()
 &gt;&gt;&gt; result = corrector.correct_plot(invalid_plot_yaml)
 &gt;&gt;&gt; if result.success:
@@ -2322,22 +2333,24 @@ validation result, and success status.</p>
     )</code></pre>
 </details>
 <div class="desc"><p>Attempt to correct common errors in puzzle design YAML.</p>
-<h2 id="fixes">Fixes</h2>
-<ul>
-<li>Missing required fields (puzzles, artifacts, monsters, npcs)</li>
-<li>Invalid ID formats</li>
-<li>Descriptions too short</li>
-<li>YAML syntax errors</li>
-</ul>
-<h2 id="args">Args</h2>
+<p>Fixes
+-----=
+- Missing required fields (puzzles, artifacts, monsters, npcs)
+- Invalid ID formats
+- Descriptions too short
+- YAML syntax errors</p>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>raw_output</code></strong></dt>
 <dd>Raw YAML string containing puzzle design data.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>CorrectionResult with corrected YAML, list of corrections,
+<p>Returns
+-----=
+CorrectionResult with corrected YAML, list of corrections,
 validation result, and success status.</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; corrector = OutputCorrector()
 &gt;&gt;&gt; result = corrector.correct_puzzle_design(invalid_puzzle_yaml)
 &gt;&gt;&gt; if result.success:
@@ -2512,22 +2525,24 @@ validation result, and success status.</p>
     )</code></pre>
 </details>
 <div class="desc"><p>Attempt to correct common errors in scene texts YAML.</p>
-<h2 id="fixes">Fixes</h2>
-<ul>
-<li>Missing required fields (scenes)</li>
-<li>Invalid ID formats</li>
-<li>Descriptions too short</li>
-<li>YAML syntax errors</li>
-</ul>
-<h2 id="args">Args</h2>
+<p>Fixes
+-----=
+- Missing required fields (scenes)
+- Invalid ID formats
+- Descriptions too short
+- YAML syntax errors</p>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>raw_output</code></strong></dt>
 <dd>Raw YAML string containing scene texts data.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>CorrectionResult with corrected YAML, list of corrections,
+<p>Returns
+-----=
+CorrectionResult with corrected YAML, list of corrections,
 validation result, and success status.</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; corrector = OutputCorrector()
 &gt;&gt;&gt; result = corrector.correct_scene_texts(invalid_scene_yaml)
 &gt;&gt;&gt; if result.success:
@@ -2892,13 +2907,13 @@ validation result, and success status.</p>
 <div class="desc"><p>Validator for YAML outputs against Pydantic schemas.</p>
 <p>This class provides methods to parse and validate YAML strings
 against specific Pydantic schemas for different game design outputs.</p>
-<h2 id="features">Features</h2>
-<ul>
-<li>Handles markdown-wrapped YAML (common in AI outputs)</li>
-<li>Provides detailed, helpful error messages</li>
-<li>Validates against all schema constraints</li>
-</ul>
-<h2 id="example">Example</h2>
+<p>Features
+-----=
+- Handles markdown-wrapped YAML (common in AI outputs)
+- Provides detailed, helpful error messages
+- Validates against all schema constraints</p>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; validator = OutputValidator()
 &gt;&gt;&gt; result = validator.validate_plot(yaml_string)
 &gt;&gt;&gt; if result.valid:
@@ -2971,15 +2986,18 @@ against specific Pydantic schemas for different game design outputs.</p>
         return ValidationResult(valid=False, data=None, errors=[error_msg])</code></pre>
 </details>
 <div class="desc"><p>Parse and validate game mechanics YAML against GameMechanics schema.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>raw_output</code></strong></dt>
 <dd>Raw YAML string containing game mechanics data.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>ValidationResult with validation status, parsed data if valid,
+<p>Returns
+-----=
+ValidationResult with validation status, parsed data if valid,
 and error messages if invalid.</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; validator = OutputValidator()
 &gt;&gt;&gt; yaml_str = '''
 ... game_title: &quot;Test Game&quot;
@@ -3055,15 +3073,18 @@ and error messages if invalid.</p>
         return ValidationResult(valid=False, data=None, errors=[error_msg])</code></pre>
 </details>
 <div class="desc"><p>Parse and validate narrative map YAML against NarrativeMap schema.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>raw_output</code></strong></dt>
 <dd>Raw YAML string containing narrative map data.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>ValidationResult with validation status, parsed data if valid,
+<p>Returns
+-----=
+ValidationResult with validation status, parsed data if valid,
 and error messages if invalid.</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; validator = OutputValidator()
 &gt;&gt;&gt; yaml_str = '''
 ... start_scene: &quot;scene_1&quot;
@@ -3138,15 +3159,18 @@ and error messages if invalid.</p>
         return ValidationResult(valid=False, data=None, errors=[error_msg])</code></pre>
 </details>
 <div class="desc"><p>Parse and validate plot outline YAML against PlotOutline schema.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>raw_output</code></strong></dt>
 <dd>Raw YAML string containing plot outline data.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>ValidationResult with validation status, parsed data if valid,
+<p>Returns
+-----=
+ValidationResult with validation status, parsed data if valid,
 and error messages if invalid.</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; validator = OutputValidator()
 &gt;&gt;&gt; yaml_str = '''
 ... title: &quot;Test Plot&quot;
@@ -3221,15 +3245,18 @@ and error messages if invalid.</p>
         return ValidationResult(valid=False, data=None, errors=[error_msg])</code></pre>
 </details>
 <div class="desc"><p>Parse and validate puzzle design YAML against PuzzleDesign schema.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>raw_output</code></strong></dt>
 <dd>Raw YAML string containing puzzle design data.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>ValidationResult with validation status, parsed data if valid,
+<p>Returns
+-----=
+ValidationResult with validation status, parsed data if valid,
 and error messages if invalid.</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; validator = OutputValidator()
 &gt;&gt;&gt; yaml_str = '''
 ... puzzles: [...]
@@ -3303,15 +3330,18 @@ and error messages if invalid.</p>
         return ValidationResult(valid=False, data=None, errors=[error_msg])</code></pre>
 </details>
 <div class="desc"><p>Parse and validate scene texts YAML against SceneTexts schema.</p>
-<h2 id="args">Args</h2>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>raw_output</code></strong></dt>
 <dd>Raw YAML string containing scene texts data.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>ValidationResult with validation status, parsed data if valid,
+<p>Returns
+-----=
+ValidationResult with validation status, parsed data if valid,
 and error messages if invalid.</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; validator = OutputValidator()
 &gt;&gt;&gt; yaml_str = '''
 ... scenes:
@@ -3401,8 +3431,9 @@ class ProcessingResult:
 <div class="desc"><p>Unified result type for YAML processing operations.</p>
 <p>This replaces ValidationResult, CorrectionResult, and parts of QualityScore
 to provide consistent error/warning/info reporting across all processing layers.</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>success</code></strong></dt>
 <dd>Whether the operation succeeded</dd>
 <dt><strong><code>data</code></strong></dt>
@@ -3416,7 +3447,8 @@ to provide consistent error/warning/info reporting across all processing layers.
 <dt><strong><code>metadata</code></strong></dt>
 <dd>Additional context (e.g., score for quality checks)</dd>
 </dl>
-<h2 id="examples">Examples</h2>
+<p>Examples
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; result = ProcessingResult(
 ...     success=True,
 ...     data={'title': 'Game'},
@@ -3543,8 +3575,9 @@ class ValidationResult:
 <div class="desc"><p>Result of validating YAML output against a schema.</p>
 <p>NOTE: ValidationResult is kept for backward compatibility.
 New code should use ProcessingResult from validation.types</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>valid</code></strong></dt>
 <dd>Whether the validation succeeded.</dd>
 <dt><strong><code>data</code></strong></dt>
@@ -3554,7 +3587,8 @@ New code should use ProcessingResult from validation.types</p>
 <dt><strong><code>warnings</code></strong></dt>
 <dd>List of warning messages (non-critical issues).</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; result = ValidationResult(valid=True, data=plot_outline, errors=[])
 &gt;&gt;&gt; if result.valid:
 ...     print(f&quot;Validation succeeded: {result.data.title}&quot;)
@@ -3614,9 +3648,11 @@ New code should use ProcessingResult from validation.types</p>
     )</code></pre>
 </details>
 <div class="desc"><p>Convert to unified ProcessingResult type.</p>
-<h2 id="returns">Returns</h2>
-<p>ProcessingResult instance with equivalent data.</p>
-<h2 id="example">Example</h2>
+<p>Returns
+-----=
+ProcessingResult instance with equivalent data.</p>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; result = ValidationResult(valid=True, data=plot, errors=[])
 &gt;&gt;&gt; processing_result = result.to_processing_result()
 &gt;&gt;&gt; processing_result.is_valid

@@ -120,8 +120,9 @@ class CorrectionResult:
 <div class="desc"><p>Result of attempting to auto-correct YAML output.</p>
 <p>NOTE: CorrectionResult is kept for backward compatibility.
 New code should use ProcessingResult from validation.types</p>
-<h2 id="attributes">Attributes</h2>
 <dl>
+<dt>Attributes</dt>
+<dt>-----=</dt>
 <dt><strong><code>corrected_yaml</code></strong></dt>
 <dd>The corrected YAML string.</dd>
 <dt><strong><code>corrections</code></strong></dt>
@@ -131,7 +132,8 @@ New code should use ProcessingResult from validation.types</p>
 <dt><strong><code>success</code></strong></dt>
 <dd>Whether correction succeeded and output is now valid.</dd>
 </dl>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; result = CorrectionResult(
 ...     corrected_yaml=&quot;title: Fixed\n...&quot;,
 ...     corrections=[&quot;Added missing 'plot_points' field&quot;],
@@ -197,9 +199,11 @@ New code should use ProcessingResult from validation.types</p>
     )</code></pre>
 </details>
 <div class="desc"><p>Convert to unified ProcessingResult type.</p>
-<h2 id="returns">Returns</h2>
-<p>ProcessingResult instance with equivalent data.</p>
-<h2 id="example">Example</h2>
+<p>Returns
+-----=
+ProcessingResult instance with equivalent data.</p>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; result = CorrectionResult(
 ...     corrected_yaml=&quot;title: Fixed&quot;,
 ...     corrections=[&quot;Fixed ID&quot;],
@@ -1441,16 +1445,16 @@ True
 <p>This class provides methods to automatically fix common validation errors
 in YAML outputs from AI agents. It attempts to add missing required fields,
 fix syntax errors, normalize field names, and correct ID format violations.</p>
-<h2 id="features">Features</h2>
-<ul>
-<li>Fixes missing required fields with sensible defaults</li>
-<li>Repairs common YAML syntax errors</li>
-<li>Normalizes field names (e.g., camelCase to snake_case)</li>
-<li>Corrects ID format violations (lowercase, underscores, alphanumeric)</li>
-<li>Logs all corrections transparently</li>
-<li>Validates corrected output</li>
-</ul>
-<h2 id="example">Example</h2>
+<p>Features
+-----=
+- Fixes missing required fields with sensible defaults
+- Repairs common YAML syntax errors
+- Normalizes field names (e.g., camelCase to snake_case)
+- Corrects ID format violations (lowercase, underscores, alphanumeric)
+- Logs all corrections transparently
+- Validates corrected output</p>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; corrector = OutputCorrector()
 &gt;&gt;&gt; result = corrector.correct_plot(invalid_yaml_string)
 &gt;&gt;&gt; if result.success:
@@ -1645,21 +1649,23 @@ fix syntax errors, normalize field names, and correct ID format violations.</p>
     )</code></pre>
 </details>
 <div class="desc"><p>Attempt to correct common errors in game mechanics YAML.</p>
-<h2 id="fixes">Fixes</h2>
-<ul>
-<li>Missing required fields (game_systems, game_state, technical_requirements)</li>
-<li>Descriptions too short</li>
-<li>YAML syntax errors</li>
-</ul>
-<h2 id="args">Args</h2>
+<p>Fixes
+-----=
+- Missing required fields (game_systems, game_state, technical_requirements)
+- Descriptions too short
+- YAML syntax errors</p>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>raw_output</code></strong></dt>
 <dd>Raw YAML string containing game mechanics data.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>CorrectionResult with corrected YAML, list of corrections,
+<p>Returns
+-----=
+CorrectionResult with corrected YAML, list of corrections,
 validation result, and success status.</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; corrector = OutputCorrector()
 &gt;&gt;&gt; result = corrector.correct_game_mechanics(invalid_mechanics_yaml)
 &gt;&gt;&gt; if result.success:
@@ -1824,22 +1830,24 @@ validation result, and success status.</p>
     )</code></pre>
 </details>
 <div class="desc"><p>Attempt to correct common errors in narrative map YAML.</p>
-<h2 id="fixes">Fixes</h2>
-<ul>
-<li>Missing required fields (start_scene, scenes)</li>
-<li>Invalid ID formats</li>
-<li>Descriptions too short</li>
-<li>YAML syntax errors</li>
-</ul>
-<h2 id="args">Args</h2>
+<p>Fixes
+-----=
+- Missing required fields (start_scene, scenes)
+- Invalid ID formats
+- Descriptions too short
+- YAML syntax errors</p>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>raw_output</code></strong></dt>
 <dd>Raw YAML string containing narrative map data.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>CorrectionResult with corrected YAML, list of corrections,
+<p>Returns
+-----=
+CorrectionResult with corrected YAML, list of corrections,
 validation result, and success status.</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; corrector = OutputCorrector()
 &gt;&gt;&gt; result = corrector.correct_narrative_map(invalid_map_yaml)
 &gt;&gt;&gt; if result.success:
@@ -2076,22 +2084,24 @@ validation result, and success status.</p>
     )</code></pre>
 </details>
 <div class="desc"><p>Attempt to correct common errors in plot outline YAML.</p>
-<h2 id="fixes">Fixes</h2>
-<ul>
-<li>Missing required fields (plot_points, characters, conflicts)</li>
-<li>Invalid ID formats</li>
-<li>Descriptions too short</li>
-<li>YAML syntax errors</li>
-</ul>
-<h2 id="args">Args</h2>
+<p>Fixes
+-----=
+- Missing required fields (plot_points, characters, conflicts)
+- Invalid ID formats
+- Descriptions too short
+- YAML syntax errors</p>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>raw_output</code></strong></dt>
 <dd>Raw YAML string containing plot outline data.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>CorrectionResult with corrected YAML, list of corrections,
+<p>Returns
+-----=
+CorrectionResult with corrected YAML, list of corrections,
 validation result, and success status.</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; corrector = OutputCorrector()
 &gt;&gt;&gt; result = corrector.correct_plot(invalid_plot_yaml)
 &gt;&gt;&gt; if result.success:
@@ -2302,22 +2312,24 @@ validation result, and success status.</p>
     )</code></pre>
 </details>
 <div class="desc"><p>Attempt to correct common errors in puzzle design YAML.</p>
-<h2 id="fixes">Fixes</h2>
-<ul>
-<li>Missing required fields (puzzles, artifacts, monsters, npcs)</li>
-<li>Invalid ID formats</li>
-<li>Descriptions too short</li>
-<li>YAML syntax errors</li>
-</ul>
-<h2 id="args">Args</h2>
+<p>Fixes
+-----=
+- Missing required fields (puzzles, artifacts, monsters, npcs)
+- Invalid ID formats
+- Descriptions too short
+- YAML syntax errors</p>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>raw_output</code></strong></dt>
 <dd>Raw YAML string containing puzzle design data.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>CorrectionResult with corrected YAML, list of corrections,
+<p>Returns
+-----=
+CorrectionResult with corrected YAML, list of corrections,
 validation result, and success status.</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; corrector = OutputCorrector()
 &gt;&gt;&gt; result = corrector.correct_puzzle_design(invalid_puzzle_yaml)
 &gt;&gt;&gt; if result.success:
@@ -2492,22 +2504,24 @@ validation result, and success status.</p>
     )</code></pre>
 </details>
 <div class="desc"><p>Attempt to correct common errors in scene texts YAML.</p>
-<h2 id="fixes">Fixes</h2>
-<ul>
-<li>Missing required fields (scenes)</li>
-<li>Invalid ID formats</li>
-<li>Descriptions too short</li>
-<li>YAML syntax errors</li>
-</ul>
-<h2 id="args">Args</h2>
+<p>Fixes
+-----=
+- Missing required fields (scenes)
+- Invalid ID formats
+- Descriptions too short
+- YAML syntax errors</p>
 <dl>
+<dt>Args</dt>
+<dt>-----=</dt>
 <dt><strong><code>raw_output</code></strong></dt>
 <dd>Raw YAML string containing scene texts data.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<p>CorrectionResult with corrected YAML, list of corrections,
+<p>Returns
+-----=
+CorrectionResult with corrected YAML, list of corrections,
 validation result, and success status.</p>
-<h2 id="example">Example</h2>
+<p>Example
+-----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; corrector = OutputCorrector()
 &gt;&gt;&gt; result = corrector.correct_scene_texts(invalid_scene_yaml)
 &gt;&gt;&gt; if result.success:
